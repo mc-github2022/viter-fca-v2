@@ -6,11 +6,9 @@ import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
-import ClientsList from "./ClientsList.jsx";
-import ModalAddClient from "./ModalAddClient.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 
-const Clients = () => {
+const Settings = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
 
@@ -30,20 +28,15 @@ const Clients = () => {
                 <h1 className="leading-none mb-2">Settings</h1>
                 <p>Configure general system options</p>
               </dvi>
-              <button className="btn btn--accent btn--sm" onClick={handleAdd}>
-                <BsPlusCircleFill className="md:hidden" /> Add
-              </button>
             </div>
-            <ClientsList setItemEdit={setItemEdit} />
             <Footer />
           </div>
         </div>
       </main>
-      {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
   );
 };
 
-export default Clients;
+export default Settings;

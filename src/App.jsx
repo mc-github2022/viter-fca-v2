@@ -4,12 +4,10 @@ import { StoreProvider } from "./components/store/StoreContext.jsx";
 import PageNotFound from "./components/partials/PageNotFound.jsx";
 import { devNavUrl } from "./components/helpers/functions-general.jsx";
 import Orders from "./components/pages/developer/orders/Orders.jsx";
-import Services from "./components/pages/developer/settings/services/Services.jsx";
-import Clients from "./components/pages/developer/clients/Clients.jsx";
 import SystemCreatePassword from "./components/pages/access/developer/SystemCreatePassword.jsx";
 import SystemLogin from "./components/pages/access/developer/SystemLogin.jsx";
 import SystemForgotPassword from "./components/pages/access/developer/SystemForgotPassword.jsx";
-import Profile from "./components/pages/developer/clients/profile/Profile.jsx";
+import Settings from "./components/pages/developer/settings/settings.jsx";
 
 function App() {
   const queryClient = new QueryClient();
@@ -20,17 +18,10 @@ function App() {
           <Router>
             <Routes>
               <Route path={`*`} element={<PageNotFound />} />
-              <Route
-                path={`${devNavUrl}/settings/services`}
-                element={<Services />}
-              />
+
               <Route path={`${devNavUrl}/orders`} element={<Orders />} />
 
-              <Route path={`${devNavUrl}/clients`} element={<Clients />} />
-              <Route
-                path={`${devNavUrl}/clients/profile`}
-                element={<Profile />}
-              />
+              <Route path={`${devNavUrl}/settings`} element={<Settings />} />
 
               {/* ACCESS */}
 
@@ -53,7 +44,7 @@ function App() {
         </StoreProvider>
       </QueryClientProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
