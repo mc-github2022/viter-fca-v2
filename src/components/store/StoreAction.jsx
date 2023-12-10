@@ -102,6 +102,12 @@ export const setIsLogout = (val) => {
     payload: val,
   };
 };
+export const setIsSettingsOpen = (val) => {
+  return {
+    type: "IS_SETTINGS_OPEN",
+    payload: val,
+  };
+};
 
 export const setCredentials = (
   settings_account_aid,

@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 :root {
-  --accent: hsl(219, 100%, 28%);
+  --accent: #123a09;
   --accentDark: hsl(219, 100%, 18%);
   --primary: #ffffff;
   --secondary: #f3f3f3;
