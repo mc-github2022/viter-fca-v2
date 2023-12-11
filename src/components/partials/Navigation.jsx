@@ -1,8 +1,10 @@
 import React from "react";
-import { IoFastFood, IoPeopleSharp } from "react-icons/io5";
-import { MdSettings } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { devNavUrl } from "../helpers/functions-general.jsx";
+import {
+  consoleLog,
+  devNavUrl,
+  getUserType,
+} from "../helpers/functions-general.jsx";
 import {
   setIsSearch,
   setIsSettingsOpen,
@@ -13,6 +15,7 @@ import { BsGear } from "react-icons/bs";
 import { PiCaretRight } from "react-icons/pi";
 const Navigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  // const urlRolePath = getUserType();
 
   const handleShow = () => {
     dispatch(setIsShow(!store.isShow));
@@ -60,7 +63,7 @@ const Navigation = ({ menu, submenu }) => {
                 >
                   <Link
                     onClick={() => handleShow()}
-                    to={`${urlRolePath}/settings/users`}
+                    to={`${urlRolePath}/settings/settingsDeparment`}
                     className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                       submenu === "users" ? "active__submenu" : ""
                     }`}

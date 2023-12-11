@@ -13,9 +13,8 @@ const initVal = {
   isAdd: false,
   isSearch: false,
   isDelete: false,
-
   startIndex: 0,
-
+  isSettingsOpen: false,
   isLogin: false,
   isLogout: false,
 
