@@ -5,16 +5,23 @@ import Toast from "@/components/partials/Toast.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { setIsAdd } from "@/components/store/StoreAction.jsx";
+import {
+  setIsAdd,
+  setIsSettingsOpen,
+} from "@/components/store/StoreAction.jsx";
 import { FaSearch } from "react-icons/fa";
 import SearchBar from "@/components/partials/SearchBar";
 import RecordCount from "@/components/partials/RecordCount";
-import UsersTable from "./UsersTable";
-import ModalAddUser from "./ModalAddUser";
+import UsersTable from "./DepartmentTable";
+import ModalAddUser from "./ModalAddDepartment";
 
-const Users = () => {
+const Department = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
+
+  React.useEffect(() => {
+    dispatch(setIsSettingsOpen(true));
+  }, []);
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
@@ -25,13 +32,13 @@ const Users = () => {
       <Header />
       <main className="bg-secondary main__wrapper h-[calc(100vh-48px)]">
         <div className="grid grid-cols-[180px_1fr] gap-10 h-full ">
-          <Navigation menu="settings" />
+          <Navigation menu="settings" submenu="settingsDeparment" />
           <div className="pr-10 pt-5 relative">
             <div className="breadcrumbs"></div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <h1 className="leading-none mb-0">Users</h1>
-                <p className="mb-0">View all system users and their role.</p>
+                <h1 className="leading-none mb-2">Department</h1>
+                <p className="mb-0">Set Department</p>
               </div>
               <button className="btn btn--accent btn--sm" onClick={handleAdd}>
                 Add
@@ -52,4 +59,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Department;

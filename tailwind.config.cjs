@@ -5,6 +5,7 @@ export default {
     extend: {
       textColor: {
         accent: "var(--accent)",
+        accHover: "var(--btnhover)",
         accentDark: "var(--accentDark)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",

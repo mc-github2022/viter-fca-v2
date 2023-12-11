@@ -8,6 +8,7 @@ import SystemCreatePassword from "./components/pages/access/developer/SystemCrea
 import SystemLogin from "./components/pages/access/developer/SystemLogin.jsx";
 import SystemForgotPassword from "./components/pages/access/developer/SystemForgotPassword.jsx";
 import Users from "./components/pages/developer/settings/users/Users.jsx";
+import Department from "./components/pages/developer/settings/Department/Department.jsx";
 
 function App() {
   const queryClient = new QueryClient();
@@ -19,7 +20,12 @@ function App() {
             <Routes>
               <Route path={`*`} element={<PageNotFound />} />
 
-              <Route path={`${devNavUrl}/users`} element={<Users />} />
+              <Route path={`${devNavUrl}/settings/users`} element={<Users />} />
+
+              <Route
+                path={`${devNavUrl}/settings/department`}
+                element={<Department />}
+              />
 
               {/* ACCESS */}
 
