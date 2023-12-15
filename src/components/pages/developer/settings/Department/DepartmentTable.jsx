@@ -10,7 +10,7 @@ const DepartmentTable = () => {
       <div className="table__wrapper relative rounded-md shadow-md overflow-x-auto">
         <table>
           <thead>
-            <tr>
+            <tr className="bg-[#e5e7eb]">
               <th>#</th>
               <th>Name</th>
               <th>Description</th>
