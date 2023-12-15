@@ -11,7 +11,7 @@ class Database
 
         // Localhost
         $host = "localhost";
-        $dbname = "db-tatakmc";
+        $dbname = "fca_enrollment_v2";
         $username = "root";
         $password = "";
 
