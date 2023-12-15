@@ -1,12 +1,12 @@
 <?php
 require '../../../../core/header.php';
 require '../../../../core/functions.php';
-require '../../../../models/developer/settings/notification.php';
+require '../../../../models/developer/settings/requirementRegistrar.php';
 
 $conn = null;
 $conn = checkDbConnection();
 
-$notification = new Notification($conn);
+$requirementRegistrar = new RequirementRegistrar($conn);
 
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -14,15 +14,15 @@ $data = json_decode($body, true);
 
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
-    if (array_key_exists("notificationid", $_GET)) {
+    if (array_key_exists("requirementregistrarid", $_GET)) {
      
         checkPayload($data);
-        $notification->notification_aid = $_GET['notificationid'];
-        $notification->notification_active = trim($data["isActive"]);
-        checkId($notification->notification_aid);
-        $query = checkActive($notification);
+        $requirementRegistrar->requirement_registrar_aid = $_GET['requirementregistrarid'];
+        $requirementRegistrar->requirement_registrar_active = trim($data["isActive"]);
+        checkId($requirementRegistrar->requirement_registrar_aid);
+        $query = checkActive($requirementRegistrar);
         http_response_code(200);
-        returnSuccess($notification, "notification", $query);
+        returnSuccess($requirementRegistrar, "Requirement Registrar", $query);
     }
     checkEndpoint();
 }

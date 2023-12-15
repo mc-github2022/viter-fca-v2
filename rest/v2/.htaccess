@@ -31,6 +31,12 @@ RewriteRule ^dev-notification/active/([0-9]+)$ controllers/developer/settings/no
 
 
 #REQUIREMENT REGISTRAR
+RewriteRule ^dev-requirement-registrar$ controllers/developer/settings/requirement-registrar/requirement-registrar.php [L]
+RewriteRule ^dev-requirement-registrar/([0-9]+)$ controllers/developer/settings/requirement-registrar/requirement-registrar.php?requirementregistrarid=$1 [L]
+RewriteRule ^dev-requirement-registrar/active/([0-9]+)$ controllers/developer/settings/requirement-registrar/active.php?requirementregistrarid=$1 [L]
+
+
+#REQUIREMENT REGISTRAR
 RewriteRule ^dev-requirement-finance$ controllers/developer/settings/requirement-finance/requirement-finance.php [L]
 RewriteRule ^dev-requirement-finance/([0-9]+)$ controllers/developer/settings/requirement-finance/requirement-finance.php?requirementfinanceid=$1 [L]
 RewriteRule ^dev-requirement-finance/active/([0-9]+)$ controllers/developer/settings/requirement-finance/active.php?requirementfinanceid=$1 [L]

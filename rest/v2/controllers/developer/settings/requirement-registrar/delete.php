@@ -1,16 +1,16 @@
 <?php
 $conn = null;
 $conn = checkDbConnection();
-$notification = new Notification($conn);
+$requirementRegistrar = new RequirementRegistrar($conn);
 $error = [];
 $returnData = [];
-if (array_key_exists("notificationid", $_GET)) {
-    $notification->notification_aid = $_GET['notificationid'];
-    checkId($notification->notification_aid);
+if (array_key_exists("requirementregistrarid", $_GET)) {
+    $requirementRegistrar->requirement_registrar_aid = $_GET['requirementregistrarid'];
+    checkId($requirementRegistrar->requirement_registrar_aid);
 
     //isAssociated($notification);
-    $query = checkDelete($notification);
-    returnSuccess($notification, "notification", $query);
+    $query = checkDelete($requirementRegistrar);
+    returnSuccess($requirementRegistrar, "Requirement Registrar", $query);
 }
 
 checkEndpoint();
