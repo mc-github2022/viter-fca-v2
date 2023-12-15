@@ -13,11 +13,18 @@ import { FaSearch } from "react-icons/fa";
 import SearchBar from "@/components/partials/SearchBar";
 import RecordCount from "@/components/partials/RecordCount";
 import UsersTable from "./DepartmentTable";
-import ModalAddUser from "./ModalAddDepartment";
+import ModalAddDepartment from "./ModalAddDepartment";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 
 const Department = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
+
+  const { data: roles } = useQueryData(
+    "/v1/user-system/roles", // endpoint
+    "get", // method
+    "system-role" // key
+  );
 
   React.useEffect(() => {
     dispatch(setIsSettingsOpen(true));
@@ -52,7 +59,7 @@ const Department = () => {
         </div>
       </main>
 
-      {store.isAdd && <ModalAddUser />}
+      {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} roles={roles} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
