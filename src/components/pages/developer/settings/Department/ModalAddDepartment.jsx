@@ -13,12 +13,10 @@ import { queryData } from "../../../../helpers/queryData";
 import * as Yup from "yup";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import { QueryClient } from "react-query";
 
-const ModalAddDepartment = (itemEdit) => {
+const ModalAddDepartment = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
@@ -45,14 +43,18 @@ const ModalAddDepartment = (itemEdit) => {
   });
 
   const initVal = {
-    department_aid: itemEdit ? itemEdit.department_aid : "",
-    department_name: itemEdit ? itemEdit.department_name : "",
-    department_description: itemEdit ? itemEdit.department_description : "",
+    // department_aid: itemEdit ? itemEdit.department_aid : "",
+    // department_name: itemEdit ? itemEdit.department_name : "",
+    // department_description: itemEdit ? itemEdit.department_description : "",
+
+    department_aid: "",
+    department_name: "",
+    department_description: "",
   };
 
   const yupSchema = Yup.object({
-    department_name: Yup.string().required("Required"),
-    department_description: Yup.string().required("Required"),
+    // department_name: Yup.string().required("Required"),
+    // department_description: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -91,6 +93,7 @@ const ModalAddDepartment = (itemEdit) => {
                       label="Department Name"
                       type="text"
                       name="department_name"
+                      disabled={mutation.isLoading}
                     />
                   </div>
                   <div className="relative form__wrap">
