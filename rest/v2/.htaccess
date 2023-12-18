@@ -41,5 +41,15 @@ RewriteRule ^dev-requirement-finance$ controllers/developer/settings/requirement
 RewriteRule ^dev-requirement-finance/([0-9]+)$ controllers/developer/settings/requirement-finance/requirement-finance.php?requirementfinanceid=$1 [L]
 RewriteRule ^dev-requirement-finance/active/([0-9]+)$ controllers/developer/settings/requirement-finance/active.php?requirementfinanceid=$1 [L]
 
+#REQUIREMENT IT
+RewriteRule ^dev-requirement-it$ controllers/developer/settings/requirement-it/requirement-it.php [L]
+RewriteRule ^dev-requirement-it/([0-9]+)$ controllers/developer/settings/requirement-it/requirement-it.php?requirementitid=$1 [L]
+RewriteRule ^dev-requirement-it/active/([0-9]+)$ controllers/developer/settings/requirement-it/active.php?requirementitid=$1 [L]
+
+#TUITION CATEGORY
+RewriteRule ^dev-tuition-category$ controllers/developer/settings/tuition-category/tuition-category.php [L]
+RewriteRule ^dev-tuition-category/([0-9]+)$ controllers/developer/settings/tuition-category/tuition-category.php?tuitioncategoryid=$1 [L]
+RewriteRule ^dev-tuition-category/active/([0-9]+)$ controllers/developer/settings/tuition-category/active.php?tuitioncategoryid=$1 [L]
+
 
 ###### DEV SETTINGS ######
