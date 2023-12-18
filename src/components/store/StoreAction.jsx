@@ -19,13 +19,6 @@ export const setMessage = (val) => {
   };
 };
 
-export const setSuccess = (val) => {
-  return {
-    type: "SUCCESS",
-    payload: val,
-  };
-};
-
 export const setValidate = (val) => {
   return {
     type: "VALIDATE",
@@ -33,9 +26,43 @@ export const setValidate = (val) => {
   };
 };
 
+export const setSuccess = (val) => {
+  return {
+    type: "SUCCESS",
+    payload: val,
+  };
+};
+
 export const setSave = (val) => {
   return {
     type: "SAVE",
+    payload: val,
+  };
+};
+
+export const setIsDelete = (val) => {
+  return {
+    type: "IS_DELETE",
+    payload: val,
+  };
+};
+
+export const setScroll = (val) => {
+  return {
+    type: "SCROLL",
+    payload: val,
+  };
+};
+export const setInputVal = (val) => {
+  return {
+    type: "INPUT_Val",
+    payload: val,
+  };
+};
+
+export const setIsShow = (val) => {
+  return {
+    type: "SHOW",
     payload: val,
   };
 };
@@ -54,9 +81,37 @@ export const setIsRestore = (val) => {
   };
 };
 
+export const setIsEdit = (val) => {
+  return {
+    type: "IS_EDIT",
+    payload: val,
+  };
+};
+
 export const setIsAdd = (val) => {
   return {
     type: "IS_ADD",
+    payload: val,
+  };
+};
+
+export const setIsUploadFile = (val) => {
+  return {
+    type: "IS_UPLOAD_FILE",
+    payload: val,
+  };
+};
+
+export const setIsView = (val) => {
+  return {
+    type: "IS_VIEW",
+    payload: val,
+  };
+};
+
+export const setIsFeedback = (val) => {
+  return {
+    type: "IS_FEEDBACK",
     payload: val,
   };
 };
@@ -68,23 +123,23 @@ export const setIsSearch = (val) => {
   };
 };
 
-export const setIsDelete = (val) => {
-  return {
-    type: "IS_DELETE",
-    payload: val,
-  };
-};
-
-export const setIsShow = (val) => {
-  return {
-    type: "IS_SHOW",
-    payload: val,
-  };
-};
-
 export const setStartIndex = (val) => {
   return {
     type: "START_INDEX",
+    payload: val,
+  };
+};
+
+export const setCreatePassSuccess = (val) => {
+  return {
+    type: "IS_CREATE_PASS_SUCCCESS",
+    payload: val,
+  };
+};
+
+export const setForgotPassSuccess = (val) => {
+  return {
+    type: "IS_FORGOT_PASS_SUCCCESS",
     payload: val,
   };
 };
@@ -102,6 +157,57 @@ export const setIsLogout = (val) => {
     payload: val,
   };
 };
+
+export const setIsAccountUpdated = (val) => {
+  return {
+    type: "IS_ACCOUNT_UPDATED",
+    payload: val,
+  };
+};
+
+export const setCredentials = (data) => {
+  return {
+    type: "CREDENTIALS",
+    payload: {
+      data,
+    },
+  };
+};
+
+export const setPersonalInfo = (data) => {
+  return {
+    type: "PERSONAL_INFO",
+    payload: {
+      data,
+    },
+  };
+};
+
+export const setAcademicInfo = (data) => {
+  return {
+    type: "ACADEMIC_INFO",
+    payload: {
+      data,
+    },
+  };
+};
+
+export const setIsRefresh = (data) => {
+  return {
+    type: "IS_REFRESH",
+    payload: {
+      data,
+    },
+  };
+};
+
+export const setIsToolsOpen = (val) => {
+  return {
+    type: "IS_TOOLS_OPEN",
+    payload: val,
+  };
+};
+
 export const setIsSettingsOpen = (val) => {
   return {
     type: "IS_SETTINGS_OPEN",
@@ -109,43 +215,16 @@ export const setIsSettingsOpen = (val) => {
   };
 };
 
-export const setCredentials = (
-  settings_account_aid,
-  settings_account_email,
-  settings_account_user_id,
-  fname,
-  lname,
-  don_member_address,
-  don_member_city,
-  don_member_state,
-  don_member_zipcode,
-  don_member_cus_id,
-  account_role_aid,
-  account_role_name,
-  account_role_is_admin,
-  account_role_is_member,
-  payment_method,
-  default_source
-) => {
+export const setScrollPosition = (val) => {
   return {
-    type: "CREDENTIALS",
-    payload: {
-      settings_account_aid,
-      settings_account_email,
-      settings_account_user_id,
-      fname,
-      lname,
-      don_member_address,
-      don_member_city,
-      don_member_state,
-      don_member_zipcode,
-      don_member_cus_id,
-      account_role_aid,
-      account_role_name,
-      account_role_is_admin,
-      account_role_is_member,
-      payment_method,
-      default_source,
-    },
+    type: "SCROLL_POSITION",
+    payload: val,
+  };
+};
+
+export const setQuickEditID = (val) => {
+  return {
+    type: "QUICK_EDIT_ID",
+    payload: val,
   };
 };

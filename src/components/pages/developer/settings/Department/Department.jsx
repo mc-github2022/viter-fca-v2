@@ -15,16 +15,17 @@ import RecordCount from "@/components/partials/RecordCount";
 import UsersTable from "./DepartmentTable";
 import ModalAddDepartment from "./ModalAddDepartment";
 import useQueryData from "@/components/custom-hooks/useQueryData";
+import DepartmentTable from "./DepartmentTable";
 
 const Department = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
 
-  const { data: roles } = useQueryData(
-    "/v1/user-system/roles", // endpoint
-    "get", // method
-    "system-role" // key
-  );
+  // const { data: roles } = useQueryData(
+  //   "/v1/user-system/roles", // endpoint
+  //   "get", // method
+  //   "system-role" // key
+  // );
 
   React.useEffect(() => {
     dispatch(setIsSettingsOpen(true));
@@ -52,14 +53,13 @@ const Department = () => {
               </button>
             </div>
             <SearchBar />
-            <RecordCount />
-            <UsersTable />
+            <DepartmentTable setItemEdit={setItemEdit} />
             <Footer />
           </div>
         </div>
       </main>
 
-      {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} roles={roles} />}
+      {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
