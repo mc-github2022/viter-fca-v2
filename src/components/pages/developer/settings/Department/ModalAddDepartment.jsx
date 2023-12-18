@@ -2,7 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
 import ModalWrapper from "@/components/partials/modals/ModalWrapper";
-import { setIsAdd } from "@/components/store/StoreAction";
+import {
+  setIsAdd,
+  setMessage,
+  setSuccess,
+  setValidate,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { queryData } from "../../../../helpers/queryData";
 import * as Yup from "yup";
@@ -10,7 +15,7 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import { QueryClient } from "react-query";
 
-const ModalAddDepartment = (itemEdit, roles) => {
+const ModalAddDepartment = (itemEdit) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -26,15 +31,15 @@ const ModalAddDepartment = (itemEdit, roles) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["settings-department"] });
-
+      if (data.success) {
+        dispatch(setIsAdd(false));
+        dispatch(setSuccess(true));
+        dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
+      }
       // show error box
       if (!data.success) {
         dispatch(setValidate(true));
         dispatch(setMessage(data.error));
-      } else {
-        dispatch(setIsAdd(false));
-        dispatch(setSuccess(true));
-        dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
       }
     },
   });
@@ -70,12 +75,6 @@ const ModalAddDepartment = (itemEdit, roles) => {
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               // mutate data
               mutation.mutate(values);
-              if (
-                itemEdit &&
-                itemEdit.user_system_email !== values.user_system_email
-              ) {
-                setEmailMessage("Please check your email for verification.");
-              }
             }}
           >
             {(props) => {

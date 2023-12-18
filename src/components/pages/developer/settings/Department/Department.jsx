@@ -58,7 +58,7 @@ const Department = () => {
         </div>
       </main>
 
-      {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} roles={roles} />}
+      {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
