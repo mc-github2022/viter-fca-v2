@@ -51,5 +51,16 @@ RewriteRule ^dev-tuition-category$ controllers/developer/settings/tuition-catego
 RewriteRule ^dev-tuition-category/([0-9]+)$ controllers/developer/settings/tuition-category/tuition-category.php?tuitioncategoryid=$1 [L]
 RewriteRule ^dev-tuition-category/active/([0-9]+)$ controllers/developer/settings/tuition-category/active.php?tuitioncategoryid=$1 [L]
 
+#LEARNING TYPE
+RewriteRule ^dev-learning-type$ controllers/developer/settings/learning-type/learning-type.php [L]
+RewriteRule ^dev-learning-type/([0-9]+)$ controllers/developer/settings/learning-type/learning-type.php?learningtypeid=$1 [L]
+RewriteRule ^dev-learning-type/active/([0-9]+)$ controllers/developer/settings/learning-type/active.php?learningtypeid=$1 [L]
+
+
+#SCHEME
+RewriteRule ^dev-scheme$ controllers/developer/settings/scheme/scheme.php [L]
+RewriteRule ^dev-scheme/([0-9]+)$ controllers/developer/settings/scheme/scheme.php?schemeid=$1 [L]
+RewriteRule ^dev-scheme/active/([0-9]+)$ controllers/developer/settings/scheme/active.php?schemeid=$1 [L]
+
 
 ###### DEV SETTINGS ######
