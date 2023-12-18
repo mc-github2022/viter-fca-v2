@@ -1,51 +1,51 @@
 <?php
 class RequirementRegistrar
 {
-    public $requirement_finance_aid ;
-    public $requirement_finance_active;
-    public $requirement_finance_department_id;
+    public $requirement_registrar_aid;
+    public $requirement_registrar_active;
+    public $requirement_registrar_department_id;
     
-    public $requirement_finance_name;
-    public $requirement_finance_created;
-    public $requirement_finance_datetime;
+    public $requirement_registrar_name;
+    public $requirement_registrar_created;
+    public $requirement_registrar_datetime;
 
     public $connection;
     public $lastInsertedId;
-    public $requirement_finance_start;
-    public $requirement_finance_total;
-    public $requirement_finance_search;
+    public $requirement_registrar_start;
+    public $requirement_registrar_total;
+    public $requirement_registrar_search;
 
-    public $tblRequirementFinance;
+    public $tblRequirementRegistrar;
     public $tblDepartment;
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblRequirementFinance = "fca_settings_requirement_finance";
+        $this->tblRequirementRegistrar = "fca_settings_requirement_registrar";
         $this->tblDepartment = "fca_settings_department";
     }
 
     public function create()
     {
         try {
-            $sql = "insert into {$this->tblRequirementFinance} ";
-            $sql .= "( requirement_finance_active, ";
-            $sql .= "requirement_finance_name, ";
-            $sql .= "requirement_finance_department_id, ";
-            $sql .= "requirement_finance_created, ";
-            $sql .= "requirement_finance_datetime ) values ( ";
-            $sql .= ":requirement_finance_active, ";
-            $sql .= ":requirement_finance_name, ";
-            $sql .= ":requirement_finance_department_id, ";
-            $sql .= ":requirement_finance_created, ";
-            $sql .= ":requirement_finance_datetime ) ";
+            $sql = "insert into {$this->tblRequirementRegistrar} ";
+            $sql .= "( requirement_registrar_active, ";
+            $sql .= "requirement_registrar_name, ";
+            $sql .= "requirement_registrar_department_id, ";
+            $sql .= "requirement_registrar_created, ";
+            $sql .= "requirement_registrar_datetime ) values ( ";
+            $sql .= ":requirement_registrar_active, ";
+            $sql .= ":requirement_registrar_name, ";
+            $sql .= ":requirement_registrar_department_id, ";
+            $sql .= ":requirement_registrar_created, ";
+            $sql .= ":requirement_registrar_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_finance_active" => $this->requirement_finance_active,
-                "requirement_finance_name" => $this->requirement_finance_name,
-                "requirement_finance_department_id" => $this->requirement_finance_department_id,                
-                "requirement_finance_created" => $this->requirement_finance_created,
-                "requirement_finance_datetime" => $this->requirement_finance_datetime,
+                "requirement_registrar_active" => $this->requirement_registrar_active,
+                "requirement_registrar_name" => $this->requirement_registrar_name,
+                "requirement_registrar_department_id" => $this->requirement_registrar_department_id,                
+                "requirement_registrar_created" => $this->requirement_registrar_created,
+                "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
             ]);
             $this->lastInsertedId = $this->connection->lastInsertId();
         } catch (PDOException $ex) {
@@ -57,10 +57,10 @@ class RequirementRegistrar
     public function readAll()
     {
         try {
-            $sql = "select * from {$this->tblRequirementFinance} as finance, ";
+            $sql = "select * from {$this->tblRequirementRegistrar} as registrar, ";
             $sql .= "{$this->tblDepartment} as dept ";
-            $sql .= "where finance.requirement_finance_department_id = dept.department_aid ";
-            $sql .= "order by requirement_finance_active desc ";
+            $sql .= "where registrar.requirement_registrar_department_id = dept.department_aid ";
+            $sql .= "order by requirement_registrar_active desc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -71,17 +71,17 @@ class RequirementRegistrar
     public function update()
     {
         try {
-            $sql = "update {$this->tblRequirementFinance} set ";
-            $sql .= "requirement_finance_department_id = :requirement_finance_department_id, ";
-            $sql .= "requirement_finance_name = :requirement_finance_name, ";
-            $sql .= "requirement_finance_datetime = :requirement_finance_datetime ";
-            $sql .= "where requirement_finance_aid = :requirement_finance_aid ";
+            $sql = "update {$this->tblRequirementRegistrar} set ";
+            $sql .= "requirement_registrar_department_id = :requirement_registrar_department_id, ";
+            $sql .= "requirement_registrar_name = :requirement_registrar_name, ";
+            $sql .= "requirement_registrar_datetime = :requirement_registrar_datetime ";
+            $sql .= "where requirement_registrar_aid = :requirement_registrar_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_finance_department_id" => $this->requirement_finance_department_id,
-                "requirement_finance_name" => $this->requirement_finance_name,
-                "requirement_finance_datetime" => $this->requirement_finance_datetime,
-                "requirement_finance_aid" => $this->requirement_finance_aid ,
+                "requirement_registrar_department_id" => $this->requirement_registrar_department_id,
+                "requirement_registrar_name" => $this->requirement_registrar_name,
+                "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid ,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -92,15 +92,15 @@ class RequirementRegistrar
     public function active()
     {
         try {
-            $sql = "update {$this->tblRequirementFinance} set ";
-            $sql .= "requirement_finance_active = :requirement_finance_active, ";
-            $sql .= "requirement_finance_datetime = :requirement_finance_datetime ";
-            $sql .= "where requirement_finance_aid  = :requirement_finance_aid ";
+            $sql = "update {$this->tblRequirementRegistrar} set ";
+            $sql .= "requirement_registrar_active = :requirement_registrar_active, ";
+            $sql .= "requirement_registrar_datetime = :requirement_registrar_datetime ";
+            $sql .= "where requirement_registrar_aid  = :requirement_registrar_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_finance_active" => $this->requirement_finance_active,
-                "requirement_finance_datetime" => $this->requirement_finance_datetime,
-                "requirement_finance_aid" => $this->requirement_finance_aid ,
+                "requirement_registrar_active" => $this->requirement_registrar_active,
+                "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid ,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -111,11 +111,11 @@ class RequirementRegistrar
     public function delete()
     {
         try {
-            $sql = "delete from {$this->tblRequirementFinance} ";
-            $sql .= "where requirement_finance_aid = :requirement_finance_aid ";
+            $sql = "delete from {$this->tblRequirementRegistrar} ";
+            $sql .= "where requirement_registrar_aid = :requirement_registrar_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_finance_aid" => $this->requirement_finance_aid,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -128,11 +128,11 @@ class RequirementRegistrar
     public function checkName()
     {
         try {
-            $sql = "select requirement_finance_name from {$this->tblRequirementFinance} ";
-            $sql .= "where requirement_finance_name = :requirement_finance_name ";
+            $sql = "select requirement_registrar_name from {$this->tblRequirementRegistrar} ";
+            $sql .= "where requirement_registrar_name = :requirement_registrar_name ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_finance_name" => "{$this->requirement_finance_name}",
+                "requirement_registrar_name" => "{$this->requirement_registrar_name}",
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -148,10 +148,10 @@ class RequirementRegistrar
             $sql .= "employee_first_name, ";
             $sql .= "employee_aid ";
             $sql .= "from {$this->tblEmployee} ";
-            $sql .= "where employee_requirement_finance_id = :requirement_finance_aid ";
+            $sql .= "where employee_requirement_registrar_id = :requirement_registrar_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_finance_aid" => $this->requirement_finance_aid,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

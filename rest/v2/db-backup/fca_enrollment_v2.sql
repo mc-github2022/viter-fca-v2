@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 04:59 AM
+-- Generation Time: Dec 18, 2023 at 04:53 AM
 -- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -116,10 +116,10 @@ INSERT INTO `fca_settings_relationship` (`relationship_aid`, `relationship_activ
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fca_settings_requirement_registrar`
+-- Table structure for table `fca_settings_requirement_finance`
 --
 
-CREATE TABLE `fca_settings_requirement_registrar` (
+CREATE TABLE `fca_settings_requirement_finance` (
   `requirement_finance_aid` int(11) NOT NULL,
   `requirement_finance_active` tinyint(1) NOT NULL,
   `requirement_finance_department_id` int(11) NOT NULL,
@@ -127,6 +127,80 @@ CREATE TABLE `fca_settings_requirement_registrar` (
   `requirement_finance_created` varchar(20) NOT NULL,
   `requirement_finance_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_settings_requirement_finance`
+--
+
+INSERT INTO `fca_settings_requirement_finance` (`requirement_finance_aid`, `requirement_finance_active`, `requirement_finance_department_id`, `requirement_finance_name`, `requirement_finance_created`, `requirement_finance_datetime`) VALUES
+(1, 1, 1, 'finance two', '2023-12-15 09:41:17', '2023-12-15 09:41:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fca_settings_requirement_it`
+--
+
+CREATE TABLE `fca_settings_requirement_it` (
+  `requirement_it_aid` int(11) NOT NULL,
+  `requirement_it_active` tinyint(1) NOT NULL,
+  `requirement_it_department_id` int(11) NOT NULL,
+  `requirement_it_name` varchar(50) NOT NULL,
+  `requirement_it_created` varchar(20) NOT NULL,
+  `requirement_it_datetime` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_settings_requirement_it`
+--
+
+INSERT INTO `fca_settings_requirement_it` (`requirement_it_aid`, `requirement_it_active`, `requirement_it_department_id`, `requirement_it_name`, `requirement_it_created`, `requirement_it_datetime`) VALUES
+(1, 0, 1, '33333', '2023-12-15 12:48:44', '2023-12-15 12:50:49'),
+(3, 1, 1, 'xxxxx', '2023-12-15 12:51:02', '2023-12-15 12:51:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fca_settings_requirement_registrar`
+--
+
+CREATE TABLE `fca_settings_requirement_registrar` (
+  `requirement_registrar_aid` int(11) NOT NULL,
+  `requirement_registrar_active` tinyint(1) NOT NULL,
+  `requirement_registrar_department_id` int(11) NOT NULL,
+  `requirement_registrar_name` varchar(50) NOT NULL,
+  `requirement_registrar_created` varchar(20) NOT NULL,
+  `requirement_registrar_datetime` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_settings_requirement_registrar`
+--
+
+INSERT INTO `fca_settings_requirement_registrar` (`requirement_registrar_aid`, `requirement_registrar_active`, `requirement_registrar_department_id`, `requirement_registrar_name`, `requirement_registrar_created`, `requirement_registrar_datetime`) VALUES
+(2, 0, 1, 'registrar two', '2023-12-15 09:22:37', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fca_settings_tuition_category`
+--
+
+CREATE TABLE `fca_settings_tuition_category` (
+  `tuition_category_aid` int(11) NOT NULL,
+  `tuition_category_active` tinyint(1) NOT NULL,
+  `tuition_category_name` varchar(50) NOT NULL,
+  `tuition_category_created` varchar(20) NOT NULL,
+  `tuition_category_datetime` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_settings_tuition_category`
+--
+
+INSERT INTO `fca_settings_tuition_category` (`tuition_category_aid`, `tuition_category_active`, `tuition_category_name`, `tuition_category_created`, `tuition_category_datetime`) VALUES
+(2, 0, 'wwww', '2023-12-15 13:29:11', ''),
+(3, 1, 'wwwxw', '2023-12-15 13:30:32', '2023-12-15 13:30:32');
 
 --
 -- Indexes for dumped tables
@@ -157,10 +231,28 @@ ALTER TABLE `fca_settings_relationship`
   ADD PRIMARY KEY (`relationship_aid`);
 
 --
+-- Indexes for table `fca_settings_requirement_finance`
+--
+ALTER TABLE `fca_settings_requirement_finance`
+  ADD PRIMARY KEY (`requirement_finance_aid`);
+
+--
+-- Indexes for table `fca_settings_requirement_it`
+--
+ALTER TABLE `fca_settings_requirement_it`
+  ADD PRIMARY KEY (`requirement_it_aid`);
+
+--
 -- Indexes for table `fca_settings_requirement_registrar`
 --
 ALTER TABLE `fca_settings_requirement_registrar`
-  ADD PRIMARY KEY (`requirement_finance_aid`);
+  ADD PRIMARY KEY (`requirement_registrar_aid`);
+
+--
+-- Indexes for table `fca_settings_tuition_category`
+--
+ALTER TABLE `fca_settings_tuition_category`
+  ADD PRIMARY KEY (`tuition_category_aid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -191,10 +283,28 @@ ALTER TABLE `fca_settings_relationship`
   MODIFY `relationship_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `fca_settings_requirement_finance`
+--
+ALTER TABLE `fca_settings_requirement_finance`
+  MODIFY `requirement_finance_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `fca_settings_requirement_it`
+--
+ALTER TABLE `fca_settings_requirement_it`
+  MODIFY `requirement_it_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `fca_settings_requirement_registrar`
 --
 ALTER TABLE `fca_settings_requirement_registrar`
-  MODIFY `requirement_finance_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `fca_settings_tuition_category`
+--
+ALTER TABLE `fca_settings_tuition_category`
+  MODIFY `tuition_category_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

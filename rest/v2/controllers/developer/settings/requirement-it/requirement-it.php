@@ -1,7 +1,7 @@
 <?php
 require '../../../../core/header.php';
 require '../../../../core/functions.php';
-require '../../../../models/developer/settings/RequirementRegistrar.php';
+require '../../../../models/developer/settings/RequirementIT.php';
 
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);

@@ -24,16 +24,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fca_settings_requirement_registrar`
+-- Table structure for table `fca_settings_requirement_finance`
 --
 
-CREATE TABLE `fca_settings_requirement_registrar` (
-  `requirement_registrar_aid` int(11) NOT NULL,
-  `requirement_registrar_active` tinyint(1) NOT NULL,
-  `requirement_registrar_department_id` int(11) NOT NULL,
-  `requirement_registrar_name` varchar(50) NOT NULL,
-  `requirement_registrar_created` varchar(20) NOT NULL,
-  `requirement_registrar_datetime` varchar(20) NOT NULL
+CREATE TABLE `fca_settings_requirement_finance` (
+  `requirement_finance_aid` int(11) NOT NULL,
+  `requirement_finance_active` tinyint(1) NOT NULL,
+  `requirement_finance_department_id` int(11) NOT NULL,
+  `requirement_finance_name` varchar(50) NOT NULL,
+  `requirement_finance_created` varchar(20) NOT NULL,
+  `requirement_finance_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -41,20 +41,20 @@ CREATE TABLE `fca_settings_requirement_registrar` (
 --
 
 --
--- Indexes for table `fca_settings_requirement_registrar`
+-- Indexes for table `fca_settings_requirement_finance`
 --
-ALTER TABLE `fca_settings_requirement_registrar`
-  ADD PRIMARY KEY (`requirement_registrar_aid`);
+ALTER TABLE `fca_settings_requirement_finance`
+  ADD PRIMARY KEY (`requirement_finance_aid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `fca_settings_requirement_registrar`
+-- AUTO_INCREMENT for table `fca_settings_requirement_finance`
 --
-ALTER TABLE `fca_settings_requirement_registrar`
-  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `fca_settings_requirement_finance`
+  MODIFY `requirement_finance_aid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 05:00 AM
+-- Generation Time: Dec 13, 2023 at 04:59 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -24,16 +24,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fca_settings_requirement_registrar`
+-- Table structure for table `fca_settings_scheme`
 --
 
-CREATE TABLE `fca_settings_requirement_registrar` (
-  `requirement_registrar_aid` int(11) NOT NULL,
-  `requirement_registrar_active` tinyint(1) NOT NULL,
-  `requirement_registrar_department_id` int(11) NOT NULL,
-  `requirement_registrar_name` varchar(50) NOT NULL,
-  `requirement_registrar_created` varchar(20) NOT NULL,
-  `requirement_registrar_datetime` varchar(20) NOT NULL
+CREATE TABLE `fca_settings_scheme` (
+  `scheme_aid` int(11) NOT NULL,
+  `scheme_active` tinyint(1) NOT NULL,
+  `scheme_name` varchar(50) NOT NULL,
+  `scheme_created` varchar(20) NOT NULL,
+  `scheme_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -41,20 +40,20 @@ CREATE TABLE `fca_settings_requirement_registrar` (
 --
 
 --
--- Indexes for table `fca_settings_requirement_registrar`
+-- Indexes for table `fca_settings_scheme`
 --
-ALTER TABLE `fca_settings_requirement_registrar`
-  ADD PRIMARY KEY (`requirement_registrar_aid`);
+ALTER TABLE `fca_settings_scheme`
+  ADD PRIMARY KEY (`scheme_aid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `fca_settings_requirement_registrar`
+-- AUTO_INCREMENT for table `fca_settings_scheme`
 --
-ALTER TABLE `fca_settings_requirement_registrar`
-  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `fca_settings_scheme`
+  MODIFY `scheme_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

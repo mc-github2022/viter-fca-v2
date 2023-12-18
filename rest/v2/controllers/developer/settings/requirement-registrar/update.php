@@ -1,21 +1,20 @@
 <?php
 $conn = null;
 $conn = checkDbConnection();
-$notification = new Notification($conn);
+$requirementRegistrar = new RequirementRegistrar($conn);
 $error = [];
 $returnData = [];
-if (array_key_exists("notificationid", $_GET)) {
+if (array_key_exists("requirementregistrarid", $_GET)) {
     checkPayload($data);
-    $notification->notification_aid = $_GET['notificationid'];
-    $notification->notification_name = checkIndex($data, "notification_name");
-    $notification->notification_email = checkIndex($data, "notification_email");
-    $notification->notification_department_id = checkIndex($data, "notification_department_id");
-    $notification->notification_datetime = date("Y-m-d H:i:s");
-    checkId($notification->notification_aid);
-    $notification_name_old = checkIndex($data, "notification_name_old");
-    compareName($notification, $notification_name_old, $notification->notification_name);
-    $query = checkUpdate($notification);
-    returnSuccess($notification, "notification", $query);
+    $requirementRegistrar->requirement_registrar_aid = $_GET['requirementregistrarid'];
+    $requirementRegistrar->requirement_registrar_name = checkIndex($data, "requirement_registrar_name");
+    $requirementRegistrar->requirement_registrar_department_id = checkIndex($data, "requirement_registrar_department_id");
+    $requirementRegistrar->requirement_registrar_datetime = date("Y-m-d H:i:s");
+    checkId($requirementRegistrar->requirement_registrar_aid);
+    $requirement_registrar_name_old = checkIndex($data, "requirement_registrar_name_old");
+    compareName($requirementRegistrar, $requirement_registrar_name_old, $requirementRegistrar->requirement_registrar_name);
+    $query = checkUpdate($requirementRegistrar);
+    returnSuccess($requirementRegistrar, "requirement_registrar", $query);
 }
 
 checkEndpoint();
