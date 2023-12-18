@@ -27,13 +27,31 @@ export const StoreReducer = (state, action) => {
     case "VALIDATE":
       return {
         ...state,
-        success: action.payload,
+        validate: action.payload,
       };
 
     case "SAVE":
       return {
         ...state,
         isSave: action.payload,
+      };
+
+    case "SCROLL":
+      return {
+        ...state,
+        isScroll: action.payload,
+      };
+
+    case "INPUT_Val":
+      return {
+        ...state,
+        isInputVal: action.payload,
+      };
+
+    case "SHOW":
+      return {
+        ...state,
+        isShow: action.payload,
       };
 
     case "CONFIRM":
@@ -54,28 +72,52 @@ export const StoreReducer = (state, action) => {
         isAdd: action.payload,
       };
 
+    case "IS_UPLOAD_FILE":
+      return {
+        ...state,
+        isUploadFile: action.payload,
+      };
+
+    case "IS_FEEDBACK":
+      return {
+        ...state,
+        isFeedback: action.payload,
+      };
+
+    case "IS_EDIT":
+      return {
+        ...state,
+        isEdit: action.payload,
+      };
+
+    case "IS_VIEW":
+      return {
+        ...state,
+        isView: action.payload,
+      };
+
     case "IS_SEARCH":
       return {
         ...state,
         isSearch: action.payload,
       };
 
-    case "IS_DELETE":
-      return {
-        ...state,
-        isDelete: action.payload,
-      };
-
-    case "IS_SHOW":
-      return {
-        ...state,
-        isShow: action.payload,
-      };
-
     case "START_INDEX":
       return {
         ...state,
         startIndex: action.payload,
+      };
+
+    case "IS_CREATE_PASS_SUCCCESS":
+      return {
+        ...state,
+        isCreatePassSuccess: action.payload,
+      };
+
+    case "IS_FORGOT_PASS_SUCCCESS":
+      return {
+        ...state,
+        isForgotPassSuccess: action.payload,
       };
 
     case "IS_LOGIN":
@@ -90,16 +132,57 @@ export const StoreReducer = (state, action) => {
         isLogout: action.payload,
       };
 
+    case "IS_ACCOUNT_UPDATED":
+      return {
+        ...state,
+        isAccountUpdated: action.payload,
+      };
+
     case "CREDENTIALS":
       return {
         ...state,
         credentials: action.payload,
       };
 
+    case "PERSONAL_INFO":
+      return {
+        ...state,
+        personalInfo: action.payload,
+      };
+
+    case "ACADEMIC_INFO":
+      return {
+        ...state,
+        academicInfo: action.payload,
+      };
+
+    case "IS_REFRESH":
+      return {
+        ...state,
+        isRefresh: action.payload,
+      };
+
+    case "IS_TOOLS_OPEN":
+      return {
+        ...state,
+        isToolsOpen: action.payload,
+      };
+
     case "IS_SETTINGS_OPEN":
       return {
         ...state,
         isSettingsOpen: action.payload,
+      };
+
+    case "SCROLL_POSITION":
+      return {
+        ...state,
+        scrollPosition: action.payload,
+      };
+    case "QUICK_EDIT_ID":
+      return {
+        ...state,
+        quickEditID: action.payload,
       };
 
     default:

@@ -52,7 +52,6 @@ const Department = () => {
               </button>
             </div>
             <SearchBar />
-            <RecordCount />
             <UsersTable />
             <Footer />
           </div>

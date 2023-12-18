@@ -1,23 +1,54 @@
-import { InputText } from "@/components/helpers/FormInputs";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Formik } from "formik";
+import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
 import ModalWrapper from "@/components/partials/modals/ModalWrapper";
 import { setIsAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import { Formik } from "formik";
+import { queryData } from "../../../../helpers/queryData";
+import * as Yup from "yup";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import { Form } from "react-router-dom";
+import { QueryClient } from "react-query";
 
-const ModalAddDepartment = () => {
-  const { store, dispatch } = React.useContext(StoreContext);
+const ModalAddDepartment = (itemEdit, roles) => {
+  const { dispatch } = React.useContext(StoreContext);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (values) =>
+      queryData(
+        itemEdit
+          ? `/v2/dev-department/${itemEdit.department_aid}`
+          : "/v2/dev-department",
+        itemEdit ? "put" : "post",
+        values
+      ),
+    onSuccess: (data) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["settings-department"] });
+
+      // show error box
+      if (!data.success) {
+        dispatch(setValidate(true));
+        dispatch(setMessage(data.error));
+      } else {
+        dispatch(setIsAdd(false));
+        dispatch(setSuccess(true));
+        dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
+      }
+    },
+  });
 
   const initVal = {
-    user_system_aid: itemEdit ? itemEdit.user_system_aid : "",
-    user_system_fname: itemEdit ? itemEdit.user_system_fname : "",
-    user_system_lname: itemEdit ? itemEdit.user_system_lname : "",
-    user_system_email: itemEdit ? itemEdit.user_system_email : "",
-    user_system_role_id: getDeveloperRole[0].role_aid,
-    user_system_email_old: itemEdit ? itemEdit.user_system_email : "",
+    department_aid: itemEdit ? itemEdit.department_aid : "",
+    department_name: itemEdit ? itemEdit.department_name : "",
+    department_description: itemEdit ? itemEdit.department_description : "",
   };
+
+  const yupSchema = Yup.object({
+    department_name: Yup.string().required("Required"),
+    department_description: Yup.string().required("Required"),
+  });
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
@@ -58,22 +89,39 @@ const ModalAddDepartment = () => {
                   </div>
                   <div className="relative form__wrap">
                     <InputText
-                      label="First name"
+                      label="Department Name"
                       type="text"
                       name="department_name"
                     />
                   </div>
                   <div className="relative form__wrap">
                     <InputTextArea
-                      label="Address"
+                      label="Description"
                       type="text"
                       name="department_description"
                       disabled={mutation.isLoading}
                     />
                   </div>
-                  <div className="modal__action flex justify-end mt-6 gap-2">
-                    <button className="btn btn--primary" type="submit"></button>
-                    <button type="button" className="btn btn--cancel">
+                  <div className="modal__action flex justify-end mt-6 gap-2 ">
+                    <button
+                      className="btn btn--primary"
+                      type="submit"
+                      disabled={mutation.isLoading || !props.dirty}
+                    >
+                      {mutation.isLoading ? (
+                        <ButtonSpinner />
+                      ) : itemEdit ? (
+                        "Save"
+                      ) : (
+                        "Add"
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn--cancel"
+                      disabled={mutation.isLoading}
+                      onClick={handleClose}
+                    >
                       Cancel
                     </button>
                   </div>
