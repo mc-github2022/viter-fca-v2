@@ -75,11 +75,11 @@ class UserSystem
             $sql .= "user.user_system_is_active, ";
             $sql .= "user.user_system_email, ";
             $sql .= "user.user_system_role_id, ";
+            $sql .= "user.user_system_aid, ";
             $sql .= "role.role_aid, ";
             $sql .= "role.role_name, ";
             $sql .= "role.role_is_developer, ";
-            $sql .= "role.role_is_active, ";
-            $sql .= "user.user_system_aid ";
+            $sql .= "role.role_is_active ";
             $sql .= "from {$this->tblUserSystem} as user, ";
             $sql .= "{$this->tblRole} as role ";
             $sql .= "where user.user_system_role_id = role.role_aid ";

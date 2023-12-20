@@ -19,6 +19,10 @@ class Department
     {
         $this->connection = $db;
         $this->tblDepartment = "fca_settings_department";
+        $this->tblNotification = "fca_settings_notification";
+        $this->tblRequirementFinance = "fca_settings_requirement_finance";
+        $this->tblRequirementIT = "fca_settings_requirement_it";
+        $this->tblRequirementRegistrar = "fca_settings_requirement_registrar";
     }
 
     public function create()
@@ -139,14 +143,12 @@ class Department
     }
 
     // validator
-    public function checkAssociation()
+    public function checkAssociationNotification()
     {
         try {
-            $sql = "select employee_last_name, ";
-            $sql .= "employee_first_name, ";
-            $sql .= "employee_aid ";
-            $sql .= "from {$this->tblEmployee} ";
-            $sql .= "where employee_department_id = :department_aid ";
+            $sql = "select * ";
+            $sql .= "from {$this->tblNotification} ";
+            $sql .= "where notification_department_id = :department_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "department_aid" => $this->department_aid,
@@ -156,4 +158,54 @@ class Department
         }
         return $query;
     }
+
+     // validator
+     public function checkAssociationRequirementFinance()
+     {
+         try {
+             $sql = "select * ";
+             $sql .= "from {$this->tblRequirementFinance} ";
+             $sql .= "where requirement_finance_department_id = :department_aid ";
+             $query = $this->connection->prepare($sql);
+             $query->execute([
+                 "department_aid" => $this->department_aid,
+             ]);
+         } catch (PDOException $ex) {
+             $query = false;
+         }
+         return $query;
+     }
+     // validator
+     public function checkAssociationRequirementRegistrar()
+     {
+         try {
+             $sql = "select * ";
+             $sql .= "from {$this->tblRequirementRegistrar} ";
+             $sql .= "where requirement_registrar_department_id = :department_aid ";
+             $query = $this->connection->prepare($sql);
+             $query->execute([
+                 "department_aid" => $this->department_aid,
+             ]);
+         } catch (PDOException $ex) {
+             $query = false;
+         }
+         return $query;
+     }
+
+      // validator
+      public function checkAssociationRequirementIT()
+      {
+          try {
+              $sql = "select * ";
+              $sql .= "from {$this->tblRequirementIT} ";
+              $sql .= "where requirement_it_department_id = :department_aid ";
+              $query = $this->connection->prepare($sql);
+              $query->execute([
+                  "department_aid" => $this->department_aid,
+              ]);
+          } catch (PDOException $ex) {
+              $query = false;
+          }
+          return $query;
+      }
 }

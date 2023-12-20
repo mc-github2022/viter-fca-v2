@@ -14,13 +14,13 @@ class TuitionCategory
     public $tuition_category_search;
 
     public $tblTuitionCategory;
-    public $tblDepartment;
+    public $tblTuitionFee;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblTuitionCategory = "fca_settings_tuition_category";
-        $this->tblDepartment = "fca_settings_department";
+        $this->tblTuitionFee = "fca_settings_tuition_fee";
     }
 
     public function create()
@@ -135,11 +135,9 @@ class TuitionCategory
     public function checkAssociation()
     {
         try {
-            $sql = "select employee_last_name, ";
-            $sql .= "employee_first_name, ";
-            $sql .= "employee_aid ";
-            $sql .= "from {$this->tblEmployee} ";
-            $sql .= "where employee_tuition_category_id = :tuition_category_aid ";
+            $sql = "select * ";
+            $sql .= "from {$this->tblTuitionFee} ";
+            $sql .= "where tuition_fee_category_id = :tuition_category_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "tuition_category_aid" => $this->tuition_category_aid,
