@@ -7,6 +7,7 @@ import Department from "./components/pages/developer/settings/Department/Departm
 import Users from "./components/pages/developer/settings/users/Users.jsx";
 import PageNotFound from "./components/partials/PageNotFound.jsx";
 import { StoreProvider } from "./components/store/StoreContext.jsx";
+import { routesSystem } from "./routes/RoutesSystem.jsx";
 
 function App() {
   const queryClient = new QueryClient();
@@ -21,17 +22,17 @@ function App() {
 
               <Route path={`${devNavUrl}/settings/users`} element={<Users />} />
 
-              <Route
-                path={`${devNavUrl}/settings/department`}
-                element={<Department />}
-              />
-
               {/* ACCESS */}
 
               <Route
                 path={`${devNavUrl}/system/login`}
                 element={<SystemLogin />}
               />
+
+              {/* SYSTEM USER ROUTE */}
+              {routesSystem.map(({ ...routeProps }, key) => {
+                return <Route key={key} {...routeProps} />;
+              })}
             </Routes>
           </Router>
         </StoreProvider>
