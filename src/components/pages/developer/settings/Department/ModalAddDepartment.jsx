@@ -43,18 +43,14 @@ const ModalAddDepartment = ({ itemEdit }) => {
   });
 
   const initVal = {
-    // department_aid: itemEdit ? itemEdit.department_aid : "",
-    // department_name: itemEdit ? itemEdit.department_name : "",
-    // department_description: itemEdit ? itemEdit.department_description : "",
-
-    department_aid: "",
-    department_name: "",
-    department_description: "",
+    department_aid: itemEdit ? itemEdit.department_aid : "",
+    department_name: itemEdit ? itemEdit.department_name : "",
+    department_description: itemEdit ? itemEdit.department_description : "",
   };
 
   const yupSchema = Yup.object({
-    // department_name: Yup.string().required("Required"),
-    // department_description: Yup.string().required("Required"),
+    department_name: Yup.string().required("Required"),
+    department_description: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
