@@ -307,6 +307,9 @@
   .loading-bar::after {
     @apply content-[''] absolute top-0 left-0 w-[180%] h-full  bg-gradient-to-r from-transparent via-[#eeeeee] to-transparent  animate-loading;
   }
+  .active__submenu {
+    @apply !text-white !pl-2;
+  }
 }
 
 @layer utilities {

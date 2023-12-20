@@ -7,6 +7,7 @@ import Department from "./components/pages/developer/settings/Department/Departm
 import Users from "./components/pages/developer/settings/users/Users.jsx";
 import PageNotFound from "./components/partials/PageNotFound.jsx";
 import { StoreProvider } from "./components/store/StoreContext.jsx";
+import Notification from "./components/pages/developer/settings/Notification/Notification.jsx";
 
 function App() {
   const queryClient = new QueryClient();
@@ -24,6 +25,11 @@ function App() {
               <Route
                 path={`${devNavUrl}/settings/department`}
                 element={<Department />}
+              />
+
+              <Route
+                path={`${devNavUrl}/settings/notification`}
+                element={<Notification />}
               />
 
               {/* ACCESS */}

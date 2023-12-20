@@ -6,6 +6,7 @@ import {
   getUserType,
 } from "../helpers/functions-general.jsx";
 import {
+  setInputVal,
   setIsSearch,
   setIsSettingsOpen,
   setIsShow,
@@ -59,7 +60,7 @@ const Navigation = ({ menu, submenu }) => {
                 <li>Users</li>
                 <li
                   className={` ${
-                    submenu === "settingsDeparment"
+                    submenu === "settingsDepartment"
                       ? "bg-[#123a09]/80 rounded-md"
                       : ""
                   }`}
@@ -67,8 +68,8 @@ const Navigation = ({ menu, submenu }) => {
                   <Link
                     onClick={() => handleShow()}
                     to={`/settings/department`}
-                    className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-full inline-block py-1 ${
-                      submenu === "settingsDeparment" ? "active__submenu" : ""
+                    className={`text-[#848484] border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent w-full inline-block py-1 ${
+                      submenu === "settingsDepartment" ? "active__submenu" : ""
                     }`}
 
                     // onClick={() => setIsSettingOpen(false)}
@@ -76,7 +77,27 @@ const Navigation = ({ menu, submenu }) => {
                     Department
                   </Link>
                 </li>
-                <li>Notifications</li>
+                <li
+                  className={` ${
+                    submenu === "settingsNotifications"
+                      ? "bg-[#123a09]/80 rounded-md"
+                      : ""
+                  }`}
+                >
+                  <Link
+                    onClick={() => handleShow()}
+                    to={`/settings/notification`}
+                    className={`text-[#848484] border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent w-full inline-block py-1 ${
+                      submenu === "settingsNotifications"
+                        ? "active__submenu"
+                        : ""
+                    }`}
+
+                    // onClick={() => setIsSettingOpen(false)}
+                  >
+                    Notifications
+                  </Link>
+                </li>
                 <li>Parents Relationship</li>
                 <li>Grade Level</li>
                 <li>Learning Type</li>
