@@ -2,6 +2,7 @@
 require '../../../../core/header.php';
 require '../../../../core/functions.php';
 require '../../../../models/developer/settings/Department.php';
+require 'functions.php';
 
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);

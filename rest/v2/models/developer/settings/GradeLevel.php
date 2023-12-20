@@ -19,6 +19,7 @@ class GradeLevel
     {
         $this->connection = $db;
         $this->tblGradeLevel = "fca_settings_grade_level";
+        $this->tblTuitionFee = "fca_settings_tuition_fee";
     }
 
     public function create()
@@ -142,11 +143,9 @@ class GradeLevel
     public function checkAssociation()
     {
         try {
-            $sql = "select employee_last_name, ";
-            $sql .= "employee_first_name, ";
-            $sql .= "employee_aid ";
-            $sql .= "from {$this->tblEmployee} ";
-            $sql .= "where employee_grade_level_id = :grade_level_aid ";
+            $sql = "select * ";
+            $sql .= "from {$this->tblTuitionFee} ";
+            $sql .= "where tuition_fee_grade_id = :grade_level_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "grade_level_aid" => $this->grade_level_aid,

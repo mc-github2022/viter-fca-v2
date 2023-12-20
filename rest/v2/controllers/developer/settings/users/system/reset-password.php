@@ -5,9 +5,9 @@ require '../../../../../core/Encryption.php';
 // use needed functions
 require '../../../../../core/functions.php';
 // use notification template
-require '../../../../../notification/reset-password.php';
+// require '../../../../../notification/reset-password.php';
 // use needed classes
-require '../../../../../models/developer/settings/user/system/UserSystem.php';
+require '../../../../../models/developer/settings/users/system/UserSystem.php';
 
 
 
@@ -42,11 +42,11 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     if ($query->rowCount() == 0) {
         returnError("Invalid email. Please use a registered one.");
     }
-    $mail = sendEmail(
-        $password_link,
-        $user_system->user_system_email,
-        $user_system->user_system_key
-    );
+    // $mail = sendEmail(
+    //     $password_link,
+    //     $user_system->user_system_email,
+    //     $user_system->user_system_key
+    // );
 
     $query = checkResetPassword($user_system);
     http_response_code(200);
