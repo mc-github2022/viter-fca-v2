@@ -17,6 +17,7 @@ import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 const QuickEditDepartment = ({ endpoint, dataItem, setData, queryKey, id }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (values) => queryData(endpoint, "put", values),
     onSuccess: (data) => {
@@ -41,11 +42,12 @@ const QuickEditDepartment = ({ endpoint, dataItem, setData, queryKey, id }) => {
   const initVal = {
     department_name: dataItem.department_name,
     department_description: dataItem.department_description,
+    department_name_old: dataItem.department_name,
   };
 
   const yupSchema = Yup.object({
     department_name: Yup.string().required("Required"),
-    department_department: Yup.string().required("Required"),
+    department_description: Yup.string().required("Required"),
   });
 
   const closeQuickEdit = () => {
@@ -58,7 +60,7 @@ const QuickEditDepartment = ({ endpoint, dataItem, setData, queryKey, id }) => {
       <div
         className={
           store.quickEditID === id
-            ? "p-2 h-30 overflow-hidden w-full bg-gray-200"
+            ? "p-2 h-30 overflow-hidden w-full bg-gray-100"
             : "h-0 overflow-hidden"
         }
       >
@@ -81,6 +83,8 @@ const QuickEditDepartment = ({ endpoint, dataItem, setData, queryKey, id }) => {
                     className="w-44 h-7"
                     disabled={mutation.isLoading}
                   />
+                </div>
+                <div className="relative form__wrap">
                   <InputTextArea
                     label="Description"
                     type="text"
