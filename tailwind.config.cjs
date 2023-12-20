@@ -61,6 +61,25 @@ export default {
         infoDark: "var(--infoDark)",
       },
 
+      fill: {
+        accent: "var(--accent)",
+        accentDark: "var(--accentDark)",
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        line: "var(--line)",
+        header: "var(--header)",
+        body: "var(--body)",
+        alert: "var(--alert)",
+        disable: "var(--disable)",
+        alertDark: "var(--alertDark)",
+        warning: "var(--warning)",
+        warningDark: "var(--warningDark)",
+        success: "var(--success)",
+        successDark: "var(--successDark)",
+        info: "var(--info)",
+        infoDark: "var(--infoDark)",
+      },
+
       fontFamily: {
         poppins: "Poppins",
       },
