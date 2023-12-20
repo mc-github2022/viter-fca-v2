@@ -67,7 +67,7 @@ const Navigation = ({ menu, submenu }) => {
                 >
                   <Link
                     onClick={() => handleShow()}
-                    to={`/settings/department`}
+                    to={`/system/settings/department`}
                     className={`text-[#848484] border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent w-full inline-block py-1 ${
                       submenu === "settingsDepartment" ? "active__submenu" : ""
                     }`}
@@ -86,7 +86,7 @@ const Navigation = ({ menu, submenu }) => {
                 >
                   <Link
                     onClick={() => handleShow()}
-                    to={`/settings/notification`}
+                    to={`/system/settings/notification`}
                     className={`text-[#848484] border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent w-full inline-block py-1 ${
                       submenu === "settingsNotifications"
                         ? "active__submenu"

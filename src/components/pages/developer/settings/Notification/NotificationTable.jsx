@@ -21,6 +21,7 @@ import Pills from "@/components/partials/Pills";
 import ModalDeleteAndRestore from "@/components/partials/modals/ModalDeleteAndRestore.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import QuickEditDepartment from "./QuickEditNotification.jsx";
+import QuickEditNotification from "./QuickEditNotification.jsx";
 
 const NotificationTable = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -42,28 +43,28 @@ const NotificationTable = () => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.department_aid);
+    setId(item.notification_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.department_aid);
+    setId(item.notification_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.department_aid);
+    setId(item.notification_aid);
     setData(item);
     setDel(true);
   };
 
   const handleQuickEdit = (item) => {
-    dispatch(setQuickEditID(item.department_aid));
-    setId(item.department_aid);
+    dispatch(setQuickEditID(item.notification_aid));
+    setId(item.notification_aid);
     setData(item);
   };
 
@@ -73,21 +74,21 @@ const NotificationTable = () => {
         {isFetching && !isLoading && <TableSpinner />}
 
         <RecordCount
-          record={department?.count}
-          status={getDepartmentCountRecord(department)}
+          record={notification?.count}
+          status={getDepartmentCountRecord(notification)}
         />
         <table>
           <thead>
             <tr className="bg-[#e5e7eb]">
               <th>#</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Satus</th>
+              <th>Full Name</th>
+              <th>Department</th>
+              <th>Email</th>
               <th className="action"></th>
             </tr>
           </thead>
           <tbody>
-            {(isLoading || department?.data.length === 0) && (
+            {(isLoading || notification?.data.length === 0) && (
               <tr className="text-center ">
                 <td colSpan="100%" className="p-2 md:p-10">
                   {isLoading ? (
@@ -106,21 +107,14 @@ const NotificationTable = () => {
                 </td>
               </tr>
             )}
-            {department?.data.map((item, key) => {
+            {notification?.data.map((item, key) => {
               return (
                 <Fragment key={key}>
                   <tr>
                     <td>{counter++}.</td>
+                    <td>{item.notification_name}</td>
                     <td>{item.department_name}</td>
-                    <td>{item.department_description}</td>
-                    <td>
-                      {item.department_active === 1 ? (
-                        <Pills label="Active" textColor="text-success" />
-                      ) : (
-                        <Pills label="Inactive" textColor="text-archive" />
-                      )}
-                    </td>
-
+                    <td>{item.notification_email}</td>
                     <td
                       className="table__action top-4 right-5 "
                       data-ellipsis=". . ."
@@ -177,7 +171,7 @@ const NotificationTable = () => {
                     <td colSpan={4} className="p-0 w-full">
                       {dataItem !== null &&
                         item.department_aid === store.quickEditID && (
-                          <QuickEditDepartment
+                          <QuickEditNotification
                             dataItem={dataItem}
                             setData={setData}
                             endpoint={`/v2/dev-department/${dataItem.department_aid}`}

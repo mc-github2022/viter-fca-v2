@@ -16,6 +16,8 @@ import UsersTable from "./NotificationTable";
 import ModalAddDepartment from "./ModalAddNotification";
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import DepartmentTable from "./NotificationTable";
+import NotificationTable from "./NotificationTable";
+import ModalAddNotification from "./ModalAddNotification";
 
 const Notification = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -47,13 +49,13 @@ const Notification = () => {
               </button>
             </div>
             <SearchBar />
-            <DepartmentTable setItemEdit={setItemEdit} />
+            <NotificationTable setItemEdit={setItemEdit} />
             <Footer />
           </div>
         </div>
       </main>
 
-      {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} />}
+      {store.isAdd && <ModalAddNotification itemEdit={itemEdit} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
