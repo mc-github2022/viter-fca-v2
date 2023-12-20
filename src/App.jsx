@@ -40,11 +40,6 @@ function App() {
                 element={<SystemCreatePassword />}
               />
 
-              <Route
-                path={`${devNavUrl}/system/create-password-success`}
-                element={<CreatePasswordSuccess />}
-              />
-
               {/* SYSTEM USER ROUTE */}
               {routesSystem.map(({ ...routeProps }, key) => {
                 return <Route key={key} {...routeProps} />;
