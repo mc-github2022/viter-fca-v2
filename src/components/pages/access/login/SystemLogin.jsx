@@ -63,11 +63,16 @@ const SystemLogin = () => {
 
   return (
     <>
-      <div className="h-screen w-full flex justify-center items-center">
-        <div className="login w-full max-w-[380px] border border-gray-200 py-8 px-4 rounded-md shadow-sm">
-          <div className="flex flex-col items-center mb-4">
-            <LogoGreen />
-            <h2 className="mb-0 mt-10 text-lg">System Login</h2>
+      <div className="h-screen w-full grid place-items-center">
+        <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm">
+          <div className=" mb-4">
+            <div className="flex justify-center">
+              <LogoGreen />
+            </div>
+            <h1 className="mt-8 font-normal mb-0 text-[27px]">
+              Welcome Developer
+            </h1>
+            <p className="mb-8 ">Sign in to continue</p>
           </div>
 
           <Formik
@@ -81,7 +86,7 @@ const SystemLogin = () => {
             {(props) => {
               return (
                 <Form>
-                  <div className="relative mb-6">
+                  <div className="relative mb-4">
                     <InputText
                       label="Email"
                       type="text"
@@ -89,7 +94,7 @@ const SystemLogin = () => {
                       disabled={mutation.isLoading}
                     />
                   </div>
-                  <div className="relative mb-6">
+                  <div className="relative mb-4">
                     <InputText
                       label="Password"
                       type={passwordShown ? "text" : "password"}
@@ -108,11 +113,18 @@ const SystemLogin = () => {
                       </span>
                     )}
                   </div>
+
+                  <a
+                    className="text-dark text-xs italic block text-right mb-6"
+                    href={`${devNavUrl}/system/forgot-password`}
+                  >
+                    Forgot Password
+                  </a>
                   <div className="flex items-center gap-1 pt-3">
                     <button
                       type="submit"
-                      disabled={mutation.isLoading || !props.dirty}
-                      className="btn-modal-submit relative"
+                      // disabled={mutation.isLoading || !props.dirty}
+                      className="btn btn--accent w-full relative"
                     >
                       {mutation.isLoading ? <ButtonSpinner /> : "Login"}
                     </button>
@@ -121,12 +133,6 @@ const SystemLogin = () => {
               );
             }}
           </Formik>
-          <a
-            className="text-dark text-xs block text-center mt-6"
-            href={`${devNavUrl}/system/forgot-password`}
-          >
-            Forgot Password
-          </a>
         </div>
       </div>
     </>
