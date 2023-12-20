@@ -1,9 +1,9 @@
 import React from "react";
-import { setIsLogin } from "../../store/StoreAction";
-import { StoreContext } from "../../store/StoreContext";
-import { checkLocalStorage } from "../helpers/CheckLocalStorage";
-import { checkRoleToRedirect } from "../helpers/login-functions";
-import { queryData } from "../helpers/queryData";
+import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
+import { checkRoleToRedirect } from "../helpers/login-functions.jsx";
+import { queryData } from "../helpers/queryData.jsx";
+import { setIsLogin } from "../store/StoreAction.jsx";
+import { StoreContext } from "../store/StoreContext.jsx";
 
 const useSystemLogin = (navigate) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -17,7 +17,7 @@ const useSystemLogin = (navigate) => {
       });
 
       if (typeof login === "undefined" || !login.success) {
-        localStorage.removeItem("restoToken");
+        localStorage.removeItem("fcaToken");
         setLoading(false);
       } else {
         setLoading(false);

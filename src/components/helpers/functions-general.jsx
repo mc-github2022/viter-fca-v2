@@ -50,7 +50,7 @@ export const getUrlParam = () => {
 
 // storage after login
 export function setStorageRoute(jwt) {
-  localStorage.setItem("restoToken", JSON.stringify({ token: jwt }));
+  localStorage.setItem("fcaToken", JSON.stringify({ token: jwt }));
 }
 
 // formatting date
