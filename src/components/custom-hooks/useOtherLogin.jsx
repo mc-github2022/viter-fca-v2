@@ -17,7 +17,7 @@ const useOtherLogin = (navigate) => {
       });
 
       if (typeof login === "undefined" || !login.success) {
-        localStorage.removeItem("restoToken");
+        localStorage.removeItem("fcaToken");
         setLoading(false);
       } else {
         setLoading(false);
