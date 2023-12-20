@@ -64,12 +64,12 @@ const SystemLogin = () => {
   return (
     <>
       <div className="h-screen w-full grid place-items-center">
-        <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm">
+        <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm mx-4 -translate-y-14">
           <div className=" mb-4">
             <div className="flex justify-center">
               <LogoGreen />
             </div>
-            <h1 className="mt-8 font-normal mb-0 text-[27px]">
+            <h1 className="mt-8 font-normal mb-1 text-[27px]">
               Welcome Developer
             </h1>
             <p className="mb-8 ">Sign in to continue</p>
@@ -86,7 +86,7 @@ const SystemLogin = () => {
             {(props) => {
               return (
                 <Form>
-                  <div className="relative mb-4">
+                  <div className="form__wrap">
                     <InputText
                       label="Email"
                       type="text"
@@ -94,7 +94,7 @@ const SystemLogin = () => {
                       disabled={mutation.isLoading}
                     />
                   </div>
-                  <div className="relative mb-4">
+                  <div className="form__wrap">
                     <InputText
                       label="Password"
                       type={passwordShown ? "text" : "password"}

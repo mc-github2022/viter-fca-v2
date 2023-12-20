@@ -1,14 +1,13 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { devNavUrl, UrlSystem } from "../../../helpers/functions-general";
+import { queryData } from "../../../helpers/queryData.jsx";
+import TableSpinner from "../../../partials/spinners/TableSpinner";
 import { setCredentials } from "../../../store/StoreAction";
 import { StoreContext } from "../../../store/StoreContext";
-import { devNavUrl } from "../../helpers/functions-general";
-import { queryData } from "../../helpers/queryData.jsx";
-import TableLoading from "../../partials/TableLoading";
-import TableSpinner from "../../partials/spinners/TableSpinner";
 
-const ProtectedRouteOther = ({ children }) => {
-  const { store, dispatch } = React.useContext(StoreContext);
+const ProtectedRouteSystem = ({ children }) => {
+  const { dispatch } = React.useContext(StoreContext);
   const [loading, setLoading] = React.useState(true);
   const [isAuth, setIsAuth] = React.useState("");
   const fbastoken = JSON.parse(localStorage.getItem("fbastoken"));
@@ -29,8 +28,7 @@ const ProtectedRouteOther = ({ children }) => {
         setIsAuth("123");
         setLoading(false);
       }
-
-      delete login.data.user_other_password;
+      delete login.data.user_system_password;
       delete login.data.role_description;
       delete login.data.role_created;
       delete login.data.role_datetime;
@@ -50,10 +48,10 @@ const ProtectedRouteOther = ({ children }) => {
   ) : isAuth === "123" ? (
     children
   ) : isAuth === "456" ? (
-    <Navigate to={`${devNavUrl}/login`} />
+    <Navigate to={`${devNavUrl}/${UrlSystem}/login`} />
   ) : (
     <p>API end point error / Page not found.</p>
   );
 };
 
-export default ProtectedRouteOther;
+export default ProtectedRouteSystem;
