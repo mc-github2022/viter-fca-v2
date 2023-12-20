@@ -63,4 +63,10 @@ RewriteRule ^dev-scheme/([0-9]+)$ controllers/developer/settings/scheme/scheme.p
 RewriteRule ^dev-scheme/active/([0-9]+)$ controllers/developer/settings/scheme/active.php?schemeid=$1 [L]
 
 
+# ROLES
+RewriteRule ^dev-roles$ controllers/developer/settings/users/roles/roles.php [L]
+RewriteRule ^dev-roles/([0-9]+)$ controllers/developer/settings/users/roles/roles.php?roleid=$1 [L]
+RewriteRule ^dev-roles/active/([0-9]+)$ controllers/developer/settings/users/roles/active.php?roleid=$1 [L]
+
+
 ###### DEV SETTINGS ######
