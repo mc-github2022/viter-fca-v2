@@ -17,7 +17,6 @@ import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 const QuickEditDepartment = ({ endpoint, dataItem, setData, queryKey, id }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: (values) => queryData(endpoint, "put", values),
     onSuccess: (data) => {
