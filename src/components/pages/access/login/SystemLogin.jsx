@@ -4,7 +4,7 @@ import { devNavUrl } from "@/components/helpers/functions-general";
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
-import LogoGreen from "@/components/partials/svg/Logo.jsx";
+import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
 import {
   setCredentials,
   setError,
