@@ -1,6 +1,5 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
-import Logo from "../../../public/fcalogo.png";
 import LogoGreen from "./svg/LogoGreen.jsx";
 
 const Header = () => {
