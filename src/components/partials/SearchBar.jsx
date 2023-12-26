@@ -1,24 +1,54 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { StoreContext } from "../store/StoreContext";
-import { setError, setIsSearch, setMessage } from "../store/StoreAction";
 
-const SearchBar = () => {
+const SearchBar = ({ search, dispatch, store, result, isFetching }) => {
+  // const handleChange = (e) => {
+  //   if (e.target.value === "") {
+  //     dispatch(setIsSearch(false));
+  //   }
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   let val = search.current.value;
+
+  //   if (val === " " || val === "") {
+  //     dispatch(setIsSearch(false));
+  //     dispatch(setError(true));
+  //     dispatch(setMessage("Search keyword cannot be space only or blank."));
+  //   } else {
+  //     dispatch(setIsSearch(true));
+  //   }
+  // };
+
   return (
-    <form className="search-box">
-      <div className="pb-2 flex items-center relative">
+    <form
+      onSubmit={(e) => {
+        handleSubmit(e);
+      }}
+      className="search-box mb-2 relative"
+    >
+      <div className="pb-2 flex items-center overflow-hidden">
         <input
           type="search"
           placeholder="Search here..."
-          className="rounded-tr-none rounded-br-none border  text-sm py-2 "
+          className="searchbar rounded-tr-none rounded-br-none border-r-0 py-[0px] h-[40px]"
+          // ref={search}
+          // onChange={(e) => handleChange(e)}
         />
         <button
           type="submit"
-          className="rounded text-[16px] p-2.5 border border-accent rounded-tl-none rounded-bl-none border-l-0 bg-accent text-white hover:bg-accentDark hover:border-accentDark"
+          className="text-[16px] flex justify-center items-center w-[40px] h-[40px] py-[5px] rounded-tl-none rounded-bl-none rounded-tr-md rounded-br-md border-l-0 bg-accent text-white border-primary border hover:bg-accentDark"
+          disabled={isFetching}
         >
-          <FaSearch className="bg-gray" />
+          <FaSearch />
         </button>
       </div>
+      {/* {store.isSearch && ( */}
+      <p className="absolute top-[10px] right-24">
+        Result: {isFetching ? "Searching..." : result?.[0].count}
+      </p>
+      {/* )} */}
     </form>
   );
 };

@@ -2,9 +2,10 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer fixed left-[200px] bottom-0 w-full px-6">
-      <div className="flex justify-center border-gray-200 border-t pt-2 ">
-        <p className="text-xs -translate-x-1/2">Developed by MC Bumagat </p>
+    <footer className="footer fixed bg-gray-100 bottom-0 lg:w-[calc(100vw-250px)]  pb-1 right-0 w-full">
+      <div className=" border-gray-200 text-center border-t pt-1 text-[10px]">
+        <p>Powered by Frontline Business Solution</p>
+        <small>&copy; 2024 | Support</small>
       </div>
     </footer>
   );

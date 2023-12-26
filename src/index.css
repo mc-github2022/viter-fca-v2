@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,7 +10,7 @@
   --secondary: #f3f3f3;
   --line: #efefef;
   --header: #0f0f0f;
-  --body: #848484;
+  --body: #424242;
   --disable: #bebebe;
   --light: #fff;
 
@@ -56,7 +55,7 @@
   }
 
   h1 {
-    @apply text-3xl mb-3;
+    @apply text-3xl mb-1;
   }
 
   h2 {
@@ -71,10 +70,10 @@
     @apply text-base mb-1;
   }
 
-  p,
-  li {
-    @apply mb-2 text-body;
+  html {
+    @apply h-full
   }
+
 
   a {
     @apply text-body no-underline;
@@ -85,7 +84,11 @@
   }
 
   body {
-    @apply leading-relaxed font-poppins text-sm;
+    @apply leading-relaxed text-body font-primary text-sm bg-gray-100 ;
+  }
+
+  body.no--scroll {
+    @apply h-screen overflow-hidden
   }
 
   table {
@@ -94,26 +97,57 @@
 
   table th,
   table td {
-    @apply text-left p-2;
+    @apply p-2 text-left; 
   }
 
   table tr {
-    @apply border-b border-line;
+    @apply border-b border-gray-50 border-line;
+  }
+
+  table tr:last-child {
+    @apply border-none
   }
 
   table tr:hover .table__action ul {
     @apply opacity-100;
   }
 
-  table tbody tr {
-    @apply border-none;
+  table thead {
+    @apply sticky top-0  bg-white border-b border-gray-100; 
   }
+
+  table thead tr th {
+    @apply pt-4
+  }
+
+
+  nav {
+    @apply h-[calc(100vh-75px)] bg-white fixed border z-50 w-[250px] transition-all -left-[110vw] lg:left-0
+  }
+
+  .backdrop {
+    @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden
+  }
+
+  nav.show {
+    @apply left-0
+  }
+
+  nav.show .backdrop {
+    @apply bg-opacity-10
+  }
+  
+
+  nav ul > li {
+    @apply mb-3 
+  }
+
 
   nav ul li svg {
     @apply text-base;
   }
   nav ul li ul {
-    @apply ml-8 border-l border-line pl-3;
+    @apply mt-2 ml-3 pl-5 border-l border-line ;
   }
 
   label {
@@ -148,9 +182,9 @@
     @apply border border-accent outline-0;
   }
 
-  aside {
-    @apply bg-primary py-6 px-2;
-  }
+  
+
+  
 }
 
 @layer components {
@@ -197,9 +231,7 @@
     @apply opacity-50 relative before:content-['/'] before:absolute before:top-0 before:-right-6 last:before:hidden text-sm last:opacity-100;
   }
 
-  .footer ul li {
-    @apply relative text-xs opacity-70 after:absolute after:content-["|"] after:top-0 after:-right-4 last:after:hidden;
-  }
+
 
   .nav-item {
     @apply flex gap-3 items-center hover:bg-secondary mb-2 rounded-md px-2;
@@ -242,8 +274,10 @@
   }
 
   .table__wrapper {
-    @apply bg-primary p-2 rounded-md relative;
+    @apply bg-primary px-2 pb-2 pt-0 rounded-md relative  border-gray-200 border md:px-4 overflow-y-auto ; 
   }
+
+
 
   .table__action {
     @apply relative flex justify-end;
@@ -300,15 +334,22 @@
     @apply fill-green-600;
   }
 
-  .order__summary li {
-    @apply mb-0 leading-none text-black text-sm;
-  }
-
   .loading-bar::after {
     @apply content-[''] absolute top-0 left-0 w-[180%] h-full  bg-gradient-to-r from-transparent via-[#eeeeee] to-transparent  animate-loading;
   }
   .active__submenu {
     @apply !text-white !pl-2;
+  }
+
+
+  /* MAIN WRAPPER - PAGE WITH TABLE */
+
+  .main__table {
+    @apply shadow-sm
+  }
+
+  .main__content {
+    @apply p-4  w-full  lg:pl-6 shadow-sm lg:ml-[250px] 
   }
 }
 

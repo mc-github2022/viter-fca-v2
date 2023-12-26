@@ -81,7 +81,7 @@ export default {
       },
 
       fontFamily: {
-        poppins: "Poppins",
+        primary: "Open Sans",
       },
 
       keyframes: {
