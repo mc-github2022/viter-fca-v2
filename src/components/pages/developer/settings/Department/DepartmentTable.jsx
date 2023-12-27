@@ -73,8 +73,12 @@ const DepartmentTable = () => {
         {isFetching && !isLoading && <TableSpinner />}
 
         <RecordCount
-          record={department?.count}
-          status={getDepartmentCountRecord(department)}
+          record={
+            store.isSearch ? result?.pages[0].count : result?.pages[0].total
+          }
+          status={getDepartmentCountRecord(
+            store.isSearch ? result?.pages[0] : readAllClient
+          )}
         />
         <table>
           <thead>
@@ -123,8 +127,7 @@ const DepartmentTable = () => {
 
                     <td
                       className="table__action top-4 right-5 "
-                      data-ellipsis=". . ."
-                    >
+                      data-ellipsis=". . .">
                       <ul className="flex items-center justify-end gap-2 mr-2">
                         {item.department_active === 1 ? (
                           <>
@@ -132,8 +135,7 @@ const DepartmentTable = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip="Edit"
-                                onClick={() => handleQuickEdit(item)}
-                              >
+                                onClick={() => handleQuickEdit(item)}>
                                 <FiEdit3 />
                               </button>
                             </li>
@@ -141,8 +143,7 @@ const DepartmentTable = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip="Archive"
-                                onClick={() => handleArchive(item)}
-                              >
+                                onClick={() => handleArchive(item)}>
                                 <FiArchive />
                               </button>
                             </li>
@@ -153,8 +154,7 @@ const DepartmentTable = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip="Delete"
-                                onClick={() => handleDelete(item)}
-                              >
+                                onClick={() => handleDelete(item)}>
                                 <RiDeleteBinLine />
                               </button>
                             </li>
@@ -162,8 +162,7 @@ const DepartmentTable = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip="Restore"
-                                onClick={() => handleRestore(item)}
-                              >
+                                onClick={() => handleRestore(item)}>
                                 <MdRestore />
                               </button>
                             </li>
@@ -223,3 +222,12 @@ const DepartmentTable = () => {
 };
 
 export default DepartmentTable;
+
+<iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1031.4283982487677!2d-85.57107235710855!3d30.130275514491235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88937fa8046017c5%3A0x5669bb71a2a6b429!2s163%20Ryder%20Ln%2C%20Panama%20City%2C%20FL%2032404%2C%20USA!5e0!3m2!1sen!2sph!4v1703146426737!5m2!1sen!2sph"
+  width="600"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"></iframe>;
