@@ -1,9 +1,13 @@
 import React from "react";
 
-const Pills = ({ bgColor = "bg-success", label = "label" }) => {
+const Pills = ({
+  bg = "bg-success",
+  color = "text-success",
+  label = "label",
+}) => {
   return (
     <span
-      className={` text-white text-center py-[5px] leading-none px-2 text-[10px] ${bgColor} rounded-2xl min-w-[60px] inline-block`}
+      className={`text-center py-[5px] leading-none px-2 ${color} after:${bg} after:block rounded-2xl min-w-[60px] inline-block relative after:content-[''] after:absolute after:w-[8px] after:h-[8px] after:rounded-full  after:-left-2 after:top-2 `}
     >
       {label}
     </span>

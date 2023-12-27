@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -71,9 +71,8 @@
   }
 
   html {
-    @apply h-full
+    @apply h-full;
   }
-
 
   a {
     @apply text-body no-underline;
@@ -84,11 +83,11 @@
   }
 
   body {
-    @apply leading-relaxed text-body font-primary text-sm bg-gray-100 ;
+    @apply leading-relaxed text-body font-primary text-sm bg-secondary;
   }
 
   body.no--scroll {
-    @apply h-screen overflow-hidden
+    @apply h-screen overflow-hidden;
   }
 
   table {
@@ -97,57 +96,115 @@
 
   table th,
   table td {
-    @apply p-2 text-left; 
+    @apply p-2 py-1 text-left text-xs;
   }
 
   table tr {
-    @apply border-b border-gray-50 border-line;
+    @apply border-b border-gray-50 border-line transition-colors;
+  }
+
+  table tbody tr:hover {
+    @apply bg-slate-50 shadow-sm;
   }
 
   table tr:last-child {
-    @apply border-none
+    @apply border-none;
   }
 
-  table tr:hover .table__action ul {
+  table .table__action {
+    @apply relative w-[40px];
+  }
+
+  table .table__action ul {
+    @apply flex gap-5 lg:bg-slate-50 static top-1 lg:opacity-0 lg:absolute opacity-100 right-[45px];
+  }
+
+  table .table__action ul li button {
+    @apply text-base text-header;
+  }
+  table tr:hover td.table__action ul {
     @apply opacity-100;
   }
 
+  table tr:hover td.table__action span {
+    @apply border-slate-50;
+  }
+
+  .article p {
+    @apply mb-2 text-xs leading-relaxed;
+  }
+
+  .article h5 {
+    @apply mb-5 text-sm;
+  }
+
+  .article h6 {
+    @apply mb-3 text-xs;
+  }
+
+  .article ul,
+  .article ol {
+    @apply mb-4 ml-4;
+  }
+
+  .article li {
+    @apply mb-4 text-xs;
+  }
+
+  .tooltip {
+    @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-nowrap;
+  }
+
+  .tooltip:hover::after,
+  .tooltip:hover::before {
+    @apply opacity-100;
+  }
+
+  .tooltip::after {
+    @apply content-[attr(data-tooltip)] absolute -top-[20px] text-[10px]  left-1/2  -translate-x-1/2  bg-black  bg-opacity-70 py-[4px] px-1.5 text-white  rounded-md opacity-0 leading-none;
+  }
+
+  .tooltip::before {
+    @apply content-[''] absolute w-0 h-0 -top-[2px] left-1/2 -translate-x-1/2 border-t-4 border-r-4 border-l-4 border-solid border-transparent border-t-black/70 opacity-0;
+  }
+
   table thead {
-    @apply sticky top-0  bg-white border-b border-gray-100; 
+    @apply sticky top-0  bg-white border-b border-gray-100;
   }
 
   table thead tr th {
-    @apply pt-4
+    @apply pt-4;
   }
 
-
   nav {
-    @apply h-[calc(100vh-75px)] bg-white fixed border z-50 w-[250px] transition-all -left-[110vw] lg:left-0
+    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border z-50 w-[250px] transition-all -left-[110vw] lg:left-0;
   }
 
   .backdrop {
-    @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden
+    @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden;
   }
 
   nav.show {
-    @apply left-0
+    @apply left-0;
   }
 
   nav.show .backdrop {
-    @apply bg-opacity-10
+    @apply bg-opacity-10;
   }
-  
 
   nav ul > li {
-    @apply mb-3 
+    @apply mb-2;
   }
-
 
   nav ul li svg {
     @apply text-base;
   }
   nav ul li ul {
-    @apply mt-2 ml-3 pl-5 border-l border-line ;
+    @apply ml-3 pl-5 border-l border-line;
+  }
+
+  nav ul li ul li {
+    @apply mb-2;
   }
 
   label {
@@ -181,19 +238,15 @@
   textarea:focus {
     @apply border border-accent outline-0;
   }
-
-  
-
-  
 }
 
 @layer components {
   .btn {
-    @apply h-[42px] p-2.5 rounded-md  transition-ease active:scale-95 min-w-[80px] flex gap-2 items-center justify-center;
+    @apply h-[30px] p-2.5 rounded-md  transition-ease active:scale-95 min-w-[70px] flex gap-2 items-center justify-center text-xs;
   }
 
   .btn--sm {
-    @apply p-1 !min-w-[50px];
+    @apply h-7 px-1;
   }
 
   .btn--cancel {
@@ -219,8 +272,16 @@
     @apply bg-success  text-white hover:bg-successDark;
   }
 
+  .btn--disable {
+    @apply bg-gray-100 hover:text-white text-header hover:bg-successDark;
+  }
+
   .btn-filter {
     @apply w-full h-[150px] bg-gray-200 grid place-content-center transition-ease active:scale-95;
+  }
+
+  .btn:disabled {
+    @apply text-gray-400;
   }
 
   .btn-filter span {
@@ -231,30 +292,31 @@
     @apply opacity-50 relative before:content-['/'] before:absolute before:top-0 before:-right-6 last:before:hidden text-sm last:opacity-100;
   }
 
-
-
-  .nav-item {
-    @apply flex gap-3 items-center hover:bg-secondary mb-2 rounded-md px-2;
+  .nav__link {
+    @apply flex flex-col gap-3 items-center mb-3;
   }
 
-  .nav-item.active,
-  .nav-item.active a {
-    @apply text-[#2c2c2c] bg-secondary;
+  .nav__link.active button {
+    @apply text-white bg-accent;
   }
 
-  .nav-item > svg {
+  .nav__link > svg {
     @apply text-xl;
   }
-  .nav-item a {
-    @apply w-full py-1.5;
+  .nav__link a {
+    @apply w-full py-[2px];
   }
 
-  .nav-item.active-menu {
+  .nav__link.active {
     @apply text-accent;
   }
 
-  .nav-item.active-menu + ul li.active-submenu {
-    @apply bg-secondary;
+  .nav__link.active > ul li {
+    @apply relative before:content-[''] before:absolute before:w-[2px] before:h-[26px] before:top-0 before:-left-5 before:bg-transparent hover:before:bg-accent;
+  }
+
+  .nav__link.active > ul li.active__submenu {
+    @apply text-accent before:bg-accent;
   }
 
   .spinner {
@@ -274,38 +336,7 @@
   }
 
   .table__wrapper {
-    @apply bg-primary px-2 pb-2 pt-0 rounded-md relative  border-gray-200 border md:px-4 overflow-y-auto ; 
-  }
-
-
-
-  .table__action {
-    @apply relative flex justify-end;
-  }
-
-  .table__action ul {
-    @apply absolute flex gap-4 top-[-5px] right-[35px] bg-primary  opacity-0;
-  }
-
-  .table__action ul li button {
-    @apply text-lg text-header;
-  }
-
-  .tooltip {
-    @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-nowrap;
-  }
-
-  .tooltip:hover::after,
-  .tooltip:hover::before {
-    @apply opacity-100;
-  }
-
-  .tooltip::after {
-    @apply content-[attr(data-tooltip)] absolute -top-[20px] text-[10px]  left-1/2  -translate-x-1/2  bg-black  bg-opacity-70 py-[4px] px-1.5 text-white  rounded-md opacity-0 leading-none;
-  }
-
-  .tooltip::before {
-    @apply content-[''] absolute w-0 h-0 -top-[2px] left-1/2 -translate-x-1/2 border-t-4 border-r-4 border-l-4 border-solid border-transparent border-t-black/70 opacity-0;
+    @apply bg-primary px-2 pb-2 pt-0 rounded-md relative  border-gray-200 border  overflow-y-auto lg:overflow-x-visible;
   }
 
   .form__wrap {
@@ -337,19 +368,15 @@
   .loading-bar::after {
     @apply content-[''] absolute top-0 left-0 w-[180%] h-full  bg-gradient-to-r from-transparent via-[#eeeeee] to-transparent  animate-loading;
   }
-  .active__submenu {
-    @apply !text-white !pl-2;
-  }
-
 
   /* MAIN WRAPPER - PAGE WITH TABLE */
 
   .main__table {
-    @apply shadow-sm
+    @apply shadow-sm;
   }
 
   .main__content {
-    @apply p-4  w-full  lg:pl-6 shadow-sm lg:ml-[250px] 
+    @apply py-6 px-2 lg:px-4  w-full  lg:pl-6  lg:ml-[250px];
   }
 }
 
@@ -385,4 +412,29 @@
   100% {
     stroke-dashoffset: -124px;
   }
+}
+
+.custom__scroll::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  @apply w-1;
+}
+.custom__scroll::-webkit-scrollbar:vertical,
+body::-webkit-scrollbar:vertical {
+  @apply w-2;
+}
+.custom__scroll::-webkit-scrollbar:horizontal,
+body::-webkit-scrollbar:horizontal {
+  @apply h-2.5 bg-gray-100;
+}
+.custom__scroll::-webkit-scrollbar-track-piece,
+body::-webkit-scrollbar-track-piece {
+  @apply bg-gray-100;
+}
+.custom__scroll::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+.custom__scroll::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 border-8;
 }
