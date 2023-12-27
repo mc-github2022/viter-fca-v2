@@ -90,25 +90,6 @@ export const consoleLog = (values, param2 = null) => {
   console.log(values, param2);
 };
 
-// get user type
-export const getUserType = () => {
-  const { store } = React.useContext(StoreContext);
-
-  let link = "";
-
-  store.credentials.data.role_is_developer === 1
-    ? (link = "system")
-    : store.credentials.data.role_is_admin === 1
-    ? (link = store.credentials.data.role_name.toLowerCase())
-    : store.credentials.data.role_is_trainer === 1
-    ? (link = store.credentials.data.role_name.toLowerCase())
-    : store.credentials.data.role_is_accounting === 1
-    ? (link = store.credentials.data.role_name.toLowerCase())
-    : (link = store.credentials.data.role_name.toLowerCase());
-
-  return link;
-};
-
 export const closeModal = (setShow, dispatch) => {
   setShow("");
   setTimeout(() => {
@@ -167,3 +148,23 @@ export const getPesoSign = new Intl.NumberFormat("ph-PH", {
   style: "currency",
   currency: "PHP",
 });
+
+// get user type
+export const getUserType = () => {
+  const { store } = React.useContext(StoreContext);
+
+  // let link = `${devNavUrl}/system`;
+  let link = "";
+
+  store.credentials.data.role_is_developer === 1
+    ? (link = `${devNavUrl}/system`)
+    : store.credentials.data.role_is_admin === 1
+    ? (link = `${devNavUrl}/${store.credentials.data.role_name.toLowerCase()}`)
+    : store.credentials.data.role_is_trainer === 1
+    ? (link = `${devNavUrl}/${store.credentials.data.role_name.toLowerCase()}`)
+    : store.credentials.data.role_is_accounting === 1
+    ? (link = `${devNavUrl}/${store.credentials.data.role_name.toLowerCase()}`)
+    : (link = `${devNavUrl}/${store.credentials.data.role_name.toLowerCase()}`);
+
+  return link;
+};

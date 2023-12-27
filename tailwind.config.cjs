@@ -80,8 +80,12 @@ export default {
         infoDark: "var(--infoDark)",
       },
 
+      fontSize: {
+        clampH1: "clamp(20px, 5vw, 26px)",
+      },
+
       fontFamily: {
-        poppins: "Poppins",
+        primary: "Open Sans",
       },
 
       keyframes: {
