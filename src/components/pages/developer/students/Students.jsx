@@ -17,7 +17,7 @@ const Students = () => {
     <>
       <Header />
       <section className="main__wrap flex relative ">
-        <Navigation />
+        <Navigation menu="student" />
 
         <main className="main__content mt-[65px]">
           <div className="main__header flex justify-between items-start lg:items-center">
