@@ -73,8 +73,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               // mutate data
               mutation.mutate(values);
-            }}
-          >
+            }}>
             {(props) => {
               return (
                 <Form>
@@ -104,8 +103,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
                     <button
                       className="btn btn--primary"
                       type="submit"
-                      disabled={mutation.isLoading || !props.dirty}
-                    >
+                      disabled={mutation.isLoading || !props.dirty}>
                       {mutation.isLoading ? (
                         <ButtonSpinner />
                       ) : itemEdit ? (
@@ -118,8 +116,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
                       type="button"
                       className="btn btn--cancel"
                       disabled={mutation.isLoading}
-                      onClick={handleClose}
-                    >
+                      onClick={handleClose}>
                       Cancel
                     </button>
                   </div>

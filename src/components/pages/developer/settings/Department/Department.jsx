@@ -11,8 +11,26 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import DepartmentTable from "./DepartmentTable.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
+import {
+  setIsAdd,
+  setIsSettingsOpen,
+} from "@/components/store/StoreAction.jsx";
+import ModalAddDepartment from "./ModalAddDepartment.jsx";
 
-const Students = () => {
+const Department = () => {
+  const { store, dispatch } = React.useContext(StoreContext);
+  const [itemEdit, setItemEdit] = React.useState(null);
+
+  React.useEffect(() => {
+    dispatch(setIsSettingsOpen(true));
+  }, []);
+
+  const handleAdd = () => {
+    dispatch(setIsAdd(true));
+    setItemEdit(null);
+  };
+
   return (
     <>
       <Header />
@@ -29,13 +47,16 @@ const Students = () => {
               <h1 className="text-clampH1 mb-0">Department</h1>
               <p className="mb-4 text-xs hidden lg:block">Set New Department</p>
             </div>
-            <button className="btn btn--accent btn--sm mt-1">
+            <button
+              className="btn btn--accent btn--sm mt-1"
+              onClick={handleAdd}>
               Add <FaPlus />
             </button>
           </div>
 
           <DepartmentTable />
         </main>
+        {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} />}
 
         <Footer />
       </section>
@@ -43,4 +64,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default Department;
