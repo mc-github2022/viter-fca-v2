@@ -7,6 +7,7 @@ import CodeOfConduct from "@/components/pages/developer/students/profile/code-of
 import ParentCommitment from "@/components/pages/developer/students/profile/parent-commitment/ParentCommitment.jsx";
 import ParentConsent from "@/components/pages/developer/students/profile/parent-consent/ParentConsent.jsx";
 import ParentDeclaration from "@/components/pages/developer/students/profile/parent-declaration/ParentDeclaration.jsx";
+import StudentProfile from "@/components/pages/developer/students/profile/student-profile/StudentProfile.jsx";
 
 export const routesSystem = [
   {
@@ -36,7 +37,7 @@ export const routesSystem = [
   },
 
   {
-    path: `${devNavUrl}/system/student-profile`,
+    path: `${devNavUrl}/system/student-information`,
     element: (
       //   <ProtectedRouteSystem>
       <StudentInfo />
@@ -45,7 +46,16 @@ export const routesSystem = [
   },
 
   {
-    path: `${devNavUrl}/system/student-profile/code-of-conduct`,
+    path: `${devNavUrl}/system/student-information/profile`,
+    element: (
+      //   <ProtectedRouteSystem>
+      <StudentProfile />
+      //   </ProtectedRouteSystem>
+    ),
+  },
+
+  {
+    path: `${devNavUrl}/system/student-information/code-of-conduct`,
     element: (
       //   <ProtectedRouteSystem>
       <CodeOfConduct />
@@ -54,7 +64,7 @@ export const routesSystem = [
   },
 
   {
-    path: `${devNavUrl}/system/student-profile/parent-declaration`,
+    path: `${devNavUrl}/system/student-information/parent-declaration`,
     element: (
       //   <ProtectedRouteSystem>
       <ParentDeclaration />
@@ -63,7 +73,7 @@ export const routesSystem = [
   },
 
   {
-    path: `${devNavUrl}/system/student-profile/parent-consent`,
+    path: `${devNavUrl}/system/student-information/parent-consent`,
     element: (
       //   <ProtectedRouteSystem>
       <ParentConsent />
@@ -72,7 +82,7 @@ export const routesSystem = [
   },
 
   {
-    path: `${devNavUrl}/system/student-profile/parent-commitment`,
+    path: `${devNavUrl}/system/student-information/parent-commitment`,
     element: (
       //   <ProtectedRouteSystem>
       <ParentCommitment />
