@@ -71,15 +71,6 @@ const DepartmentTable = () => {
     <>
       <div className="table__wrapper relative rounded-md shadow-md overflow-x-auto">
         {isFetching && !isLoading && <TableSpinner />}
-
-        <RecordCount
-          record={
-            store.isSearch ? result?.pages[0].count : result?.pages[0].total
-          }
-          status={getDepartmentCountRecord(
-            store.isSearch ? result?.pages[0] : readAllClient
-          )}
-        />
         <table>
           <thead>
             <tr className="bg-[#e5e7eb]">
@@ -222,12 +213,3 @@ const DepartmentTable = () => {
 };
 
 export default DepartmentTable;
-
-<iframe
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1031.4283982487677!2d-85.57107235710855!3d30.130275514491235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88937fa8046017c5%3A0x5669bb71a2a6b429!2s163%20Ryder%20Ln%2C%20Panama%20City%2C%20FL%2032404%2C%20USA!5e0!3m2!1sen!2sph!4v1703146426737!5m2!1sen!2sph"
-  width="600"
-  height="450"
-  style="border:0;"
-  allowfullscreen=""
-  loading="lazy"
-  referrerpolicy="no-referrer-when-downgrade"></iframe>;

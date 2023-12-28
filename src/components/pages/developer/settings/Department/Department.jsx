@@ -1,6 +1,5 @@
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import Navigation from "@/components/partials/Navigation.jsx";
 import Toast from "@/components/partials/Toast.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
@@ -16,6 +15,7 @@ import UsersTable from "./DepartmentTable";
 import ModalAddDepartment from "./ModalAddDepartment";
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import DepartmentTable from "./DepartmentTable";
+import Navigation from "@/components/partials/Navigation";
 
 const Department = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -40,7 +40,8 @@ const Department = () => {
       <Header />
       <main className="bg-secondary main__wrapper h-[calc(100vh-48px)]">
         <div className="grid grid-cols-[180px_1fr] gap-10 h-full ">
-          <Navigation menu="settings" submenu="settingsDepartment" />
+          {/* <Navigation menu="settings" submenu="settingsDepartment" /> */}
+          <Navigation />
           <div className="pr-10 pt-5 relative">
             <div className="breadcrumbs"></div>
             <div className="flex justify-between items-center mb-5">
