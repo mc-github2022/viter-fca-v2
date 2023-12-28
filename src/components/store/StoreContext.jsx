@@ -32,6 +32,7 @@ const initVal = {
   isSettingsOpen: false,
   scrollPosition: 0,
   quickEditID: 0,
+  isShowModal: true,
 };
 
 const StoreContext = React.createContext();

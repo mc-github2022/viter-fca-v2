@@ -228,3 +228,9 @@ export const setQuickEditID = (val) => {
     payload: val,
   };
 };
+export const setIsShowModal = (val) => {
+  return {
+    type: "IS_SHOWMODAL",
+    payload: val,
+  };
+};

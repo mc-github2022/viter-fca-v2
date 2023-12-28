@@ -185,6 +185,12 @@ export const StoreReducer = (state, action) => {
         quickEditID: action.payload,
       };
 
+    case "IS_SHOWMODAL":
+      return {
+        ...state,
+        isShowModal: action.payload,
+      };
+
     default:
       return state;
   }

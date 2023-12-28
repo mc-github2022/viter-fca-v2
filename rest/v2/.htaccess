@@ -69,7 +69,7 @@ RewriteRule ^dev-tuition-fee/([0-9]+)$ controllers/developer/settings/tuition-fe
 RewriteRule ^dev-tuition-fee/active/([0-9]+)$ controllers/developer/settings/tuition-fee/active.php?tuitionfeeid=$1 [L]
 
 # ROLES
-RewriteRule ^dev-roles$ controllers/developer/settings/users/roles/system.php [L]
+RewriteRule ^dev-roles$ controllers/developer/settings/users/roles/roles.php [L]
 RewriteRule ^dev-roles/([0-9]+)$ controllers/developer/settings/users/roles/roles.php?roleid=$1 [L]
 RewriteRule ^dev-roles/active/([0-9]+)$ controllers/developer/settings/users/roles/active.php?roleid=$1 [L]
 

@@ -180,7 +180,7 @@
     @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border z-50 w-[250px] transition-all -left-[110vw] lg:left-0;
   }
 
-  .backdrop {
+  nav .backdrop {
     @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden;
   }
 
@@ -221,14 +221,9 @@
     @apply resize-none min-h-[120px];
   }
 
-  button:disabled {
-    @apply bg-gray-200 cursor-not-allowed text-gray-200 hover:bg-gray-100;
-  }
-
   input:disabled,
   select:disabled,
   textarea:disabled,
-  button:disabled,
   .disabled {
     @apply bg-gray-100 border-gray-200 cursor-not-allowed;
   }
@@ -249,47 +244,39 @@
     @apply px-1 h-[30px];
   }
 
+  .btn:disabled {
+    @apply opacity-60 cursor-not-allowed;
+  }
+
   .btn--cancel {
     @apply bg-gray-100 text-gray-500 border-gray-100 hover:bg-gray-200;
   }
 
-  .btn--accent {
-    @apply bg-accent  text-white hover:bg-accentDark;
+  .btn--accent:not(:disabled) {
+    @apply bg-accent text-white hover:bg-accentDark;
   }
 
   .btn--alert {
-    @apply bg-alert  text-white hover:bg-alertDark;
+    @apply bg-alert  text-alert hover:bg-alertDark;
   }
   .btn--warning {
-    @apply bg-warning  text-white hover:bg-warningDark;
+    @apply bg-warning  text-warning hover:bg-warningDark;
   }
 
   .btn--info {
-    @apply bg-info  text-white hover:bg-infoDark;
+    @apply bg-info  text-info hover:bg-infoDark;
   }
 
   .btn--success {
-    @apply bg-success  text-white hover:bg-successDark;
-  }
-
-  .btn--disable {
-    @apply bg-gray-100 hover:text-white text-header hover:bg-successDark;
+    @apply bg-success  text-success hover:bg-successDark;
   }
 
   .btn-filter {
     @apply w-full h-[150px] bg-gray-200 grid place-content-center transition-ease active:scale-95;
   }
 
-  .btn:disabled {
-    @apply text-gray-400;
-  }
-
   .btn-filter span {
     @apply text-lg;
-  }
-
-  .breadcrumbs li {
-    @apply opacity-50 relative before:content-['/'] before:absolute before:top-0 before:-right-6 last:before:hidden text-sm last:opacity-100;
   }
 
   .nav__link {
@@ -375,6 +362,42 @@
 
   .main__content {
     @apply py-6 px-2 lg:px-4  w-full  lg:pl-6  lg:ml-[250px];
+  }
+
+  /* MODAL */
+
+  .modal__side .modal__header > button {
+    @apply right-4;
+  }
+
+  .modal__side.show .backdrop,
+  .modal__center.show .backdrop {
+    @apply bg-black/10 opacity-100;
+  }
+
+  .modal__side.show .modal__main {
+    @apply translate-x-0 opacity-100;
+  }
+
+  .modal__center.show .modal__main {
+    @apply translate-y-0 opacity-100;
+  }
+
+  .modal__side .modal__action {
+    @apply absolute bottom-[20px] md:bottom-5 right-5;
+  }
+
+  .modal__action.sendinvoice {
+    @apply absolute bottom-[20px] md:bottom-5 right-5;
+  }
+
+  .modal__body {
+    @apply max-h-[70vh] md:max-h-[80vh];
+  }
+  .modal__body {
+    scrollbar-gutter: stable;
+    /* padding-left: 14px; */
+    padding-right: 5px;
   }
 }
 

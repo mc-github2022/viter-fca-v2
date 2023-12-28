@@ -1,6 +1,10 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import Department from "@/components/pages/developer/settings/Department/Department.jsx";
 import Notification from "@/components/pages/developer/settings/Notification/Notification";
+import {
+  default as System,
+  default as Users,
+} from "@/components/pages/developer/settings/users/system/System.jsx";
 import Students from "@/components/pages/developer/students/Students";
 import StudentInfo from "@/components/pages/developer/students/profile/StudentInfo.jsx";
 import CodeOfConduct from "@/components/pages/developer/students/profile/code-of-conduct/CodeOfConduct.jsx";
@@ -10,6 +14,15 @@ import ParentDeclaration from "@/components/pages/developer/students/profile/par
 import StudentProfile from "@/components/pages/developer/students/profile/student-profile/StudentProfile.jsx";
 
 export const routesSystem = [
+  {
+    path: `${devNavUrl}/system/settings/users`,
+    element: (
+      //   <ProtectedRouteSystem>
+      <System />
+      //   </ProtectedRouteSystem>
+    ),
+  },
+
   {
     path: `${devNavUrl}/system/settings/department`,
     element: (
