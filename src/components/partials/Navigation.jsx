@@ -50,7 +50,7 @@ const Navigation = ({ menu, submenu }) => {
                 </div>
               </button>
             </li>
-            <li className="nav__link active">
+            <li className={`nav__link ${menu === "settings" ? "active" : ""}`}>
               <button
                 className={` p-1 w-full ${
                   menu === "settings" ? "bg-[#dfdfdf]" : ""
@@ -77,8 +77,7 @@ const Navigation = ({ menu, submenu }) => {
                   </li>
                   <li className={`active__submenu`}>
                     <Link
-                      onClick={() => handleShow()}
-                      to={`/system/settings/department`}
+                      to={`${devNavUrl}/system/settings/department`}
                       className={`duration-150 border-transparent w-full inline-block py-1  `}
 
                       // onClick={() => setIsSettingOpen(false)}
@@ -93,14 +92,7 @@ const Navigation = ({ menu, submenu }) => {
                         : ""
                     }`}>
                     <Link
-                      onClick={() => handleShow()}
                       to={`/system/settings/notification`}
-                      className={`duration-150 border-transparent w-full inline-block py-1 ${
-                        submenu === "settingsNotifications"
-                          ? "active__submenu"
-                          : ""
-                      }`}
-
                       // onClick={() => setIsSettingOpen(false)}
                     >
                       Notifications
