@@ -42,8 +42,7 @@ const Navigation = ({ menu, submenu }) => {
               <button
                 className={` p-1 w-full ${
                   menu === "settings" ? "bg-[#dfdfdf]" : ""
-                }`}
-              >
+                }`}>
                 <div className="flex justify-between items-center w-full">
                   <div className="flex gap-3 items-center uppercase">
                     <BsGear className="text-lg" /> Student
@@ -56,8 +55,7 @@ const Navigation = ({ menu, submenu }) => {
                 className={` p-1 w-full ${
                   menu === "settings" ? "bg-[#dfdfdf]" : ""
                 }`}
-                onClick={(e) => handleDropDownSetting(e)}
-              >
+                onClick={(e) => handleDropDownSetting(e)}>
                 <div className="flex justify-between items-center w-full">
                   <div className="flex gap-3 items-center uppercase">
                     <BsGear className="text-lg" /> Settings
@@ -93,8 +91,7 @@ const Navigation = ({ menu, submenu }) => {
                       submenu === "settingsNotifications"
                         ? "bg-[#123a09]/80 rounded-md"
                         : ""
-                    }`}
-                  >
+                    }`}>
                     <Link
                       onClick={() => handleShow()}
                       to={`/system/settings/notification`}
@@ -148,8 +145,7 @@ const Navigation = ({ menu, submenu }) => {
                 className={` p-1 w-full ${
                   menu === "settings" ? "bg-[#dfdfdf]" : ""
                 }`}
-                onClick={(e) => handleDropDownSetting(e)}
-              >
+                onClick={(e) => handleDropDownSetting(e)}>
                 <div className="flex justify-between items-center w-full">
                   <div className="flex gap-3 items-center uppercase">
                     <BsGear className="text-lg" /> Settings
@@ -172,8 +168,7 @@ const Navigation = ({ menu, submenu }) => {
                       submenu === "settingsDepartment"
                         ? "bg-[#123a09]/80 rounded-md"
                         : ""
-                    }`}
-                  >
+                    }`}>
                     <Link
                       onClick={() => handleShow()}
                       to={`/system/settings/department`}
@@ -193,8 +188,7 @@ const Navigation = ({ menu, submenu }) => {
                       submenu === "settingsNotifications"
                         ? "bg-[#123a09]/80 rounded-md"
                         : ""
-                    }`}
-                  >
+                    }`}>
                     <Link
                       onClick={() => handleShow()}
                       to={`/system/settings/notification`}
@@ -226,8 +220,7 @@ const Navigation = ({ menu, submenu }) => {
               <button
                 className={` p-1 w-full ${
                   menu === "settings" ? "bg-[#dfdfdf]" : ""
-                }`}
-              >
+                }`}>
                 <div className="flex justify-between items-center w-full">
                   <div className="flex gap-3 items-center uppercase">
                     <BsGear className="text-lg" /> Student
