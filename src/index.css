@@ -256,6 +256,10 @@
     @apply bg-accent text-white hover:bg-accentDark;
   }
 
+  .btn--accent:not(:disabled) {
+    @apply bg-accent text-white hover:bg-accentDark;
+  }
+
   .btn--alert {
     @apply bg-alert  text-alert hover:bg-alertDark;
   }
