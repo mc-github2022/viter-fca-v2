@@ -38,7 +38,7 @@ const NotificationTable = () => {
   } = useQueryData(
     "/v2/dev-notification", // endpoint
     "get", // method
-    "settings-department" // key
+    "settings-notification" // key
   );
 
   const handleArchive = (item) => {
@@ -116,7 +116,7 @@ const NotificationTable = () => {
                     <td>{item.department_name}</td>
                     <td>{item.notification_email}</td>
                     <td
-                      className="table__action top-4 right-5 "
+                      className="table__action top-3 right-5 "
                       data-ellipsis=". . ."
                     >
                       <ul className="flex items-center justify-end gap-2 mr-2">
@@ -131,13 +131,22 @@ const NotificationTable = () => {
                                 <FiEdit3 />
                               </button>
                             </li>
-                            <li>
+                            {/* <li>
                               <button
                                 className="tooltip"
                                 data-tooltip="Archive"
                                 onClick={() => handleArchive(item)}
                               >
                                 <FiArchive />
+                              </button>
+                            </li> */}
+                            <li>
+                              <button
+                                className="tooltip"
+                                data-tooltip="Delete"
+                                onClick={() => handleDelete(item)}
+                              >
+                                <RiDeleteBinLine />
                               </button>
                             </li>
                           </>
@@ -190,10 +199,10 @@ const NotificationTable = () => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/dev-department/active/${id}`}
-          msg={"Are you sure you want to archive this department?"}
+          mysqlApiArchive={`/v2/dev-notification/active/${id}`}
+          msg={"Are you sure you want to archive this notification?"}
           item={dataItem.department_name}
-          queryKey={"settings-department"}
+          queryKey={"settings-notification"}
         />
       )}
 
@@ -201,15 +210,15 @@ const NotificationTable = () => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v2/dev-department/${id}`}
-          mysqlApiRestore={`/v2/dev-department/active/${id}`}
+          mysqlApiDelete={`/v2/dev-notification/${id}`}
+          mysqlApiRestore={`/v2/dev-notification/active/${id}`}
           msg={
             isDel
-              ? "Are you sure you want to delete this department?"
-              : "Are you sure you want to restore this department?"
+              ? "Are you sure you want to delete this notification?"
+              : "Are you sure you want to restore this notification?"
           }
           item={dataItem.department_name}
-          queryKey={"settings-department"}
+          queryKey={"settings-notification"}
         />
       )}
     </>

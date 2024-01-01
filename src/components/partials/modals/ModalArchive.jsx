@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { FaQuestionCircle } from "react-icons/fa";
+import { FaQuestionCircle, FaRegQuestionCircle } from "react-icons/fa";
 
 import {
   setIsConfirm,
@@ -18,7 +18,6 @@ import ButtonSpinner from "../spinners/ButtonSpinner";
 const ModalArchive = ({ mysqlApiArchive, item, queryKey, isActive }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
-
 
   const mutation = useMutation({
     mutationFn: (values) => queryData(mysqlApiArchive, "put", values),
@@ -56,7 +55,7 @@ const ModalArchive = ({ mysqlApiArchive, item, queryKey, isActive }) => {
       <Modal width="max-w-[480px]">
         <div className="modal__header mb-4 ">
           <h3 className="text-warning flex  items-end  gap-2">
-            <FaQuestionCircle className="text-3xl" />
+            <FaRegQuestionCircle className="text-3xl" />
             <span className="text-lg">Confirm</span>
           </h3>
         </div>

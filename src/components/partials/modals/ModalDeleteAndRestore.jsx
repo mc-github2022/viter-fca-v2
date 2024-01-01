@@ -78,7 +78,7 @@ const ModalDeleteAndRestore = ({
 
         <div className="modal__action flex justify-end mt-6 gap-2">
           <button
-            className="btn btn--primary"
+            className="btn btn--primary bg-[#41613a] text-white"
             disabled={mutation.isLoading}
             onClick={handleYes}
             type="submit"

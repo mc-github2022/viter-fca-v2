@@ -101,13 +101,17 @@
     @apply border-b border-line;
   }
 
+  table tbody tr:hover {
+    @apply shadow-md;
+  }
+
   table tr:hover .table__action ul {
     @apply opacity-100;
   }
 
-  table tbody tr {
+  /* table tbody tr {
     @apply border-none;
-  }
+  } */
 
   nav ul li svg {
     @apply text-base;

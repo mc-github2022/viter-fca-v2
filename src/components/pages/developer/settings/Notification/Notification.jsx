@@ -23,6 +23,12 @@ const Notification = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
 
+  const { data: department } = useQueryData(
+    "/v2/dev-department", // endpoint
+    "get", // method
+    "client" // key
+  );
+
   React.useEffect(() => {
     dispatch(setIsSettingsOpen(true));
   }, []);
@@ -55,7 +61,9 @@ const Notification = () => {
         </div>
       </main>
 
-      {store.isAdd && <ModalAddNotification itemEdit={itemEdit} />}
+      {store.isAdd && (
+        <ModalAddNotification itemEdit={itemEdit} department={department} />
+      )}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>

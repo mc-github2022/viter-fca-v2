@@ -82,7 +82,7 @@ const DepartmentTable = () => {
               <th>#</th>
               <th>Name</th>
               <th>Description</th>
-              <th>Satus</th>
+              {/* <th>Satus</th> */}
               <th className="action"></th>
             </tr>
           </thead>
@@ -113,16 +113,16 @@ const DepartmentTable = () => {
                     <td>{counter++}.</td>
                     <td>{item.department_name}</td>
                     <td>{item.department_description}</td>
-                    <td>
+                    {/* <td>
                       {item.department_active === 1 ? (
                         <Pills label="Active" textColor="text-success" />
                       ) : (
                         <Pills label="Inactive" textColor="text-archive" />
                       )}
-                    </td>
+                    </td> */}
 
                     <td
-                      className="table__action top-4 right-5 "
+                      className="table__action top-3 right-5 "
                       data-ellipsis=". . ."
                     >
                       <ul className="flex items-center justify-end gap-2 mr-2">
@@ -137,13 +137,22 @@ const DepartmentTable = () => {
                                 <FiEdit3 />
                               </button>
                             </li>
-                            <li>
+                            {/* <li>
                               <button
                                 className="tooltip"
                                 data-tooltip="Archive"
                                 onClick={() => handleArchive(item)}
                               >
                                 <FiArchive />
+                              </button>
+                            </li> */}
+                            <li>
+                              <button
+                                className="tooltip"
+                                data-tooltip="Delete"
+                                onClick={() => handleDelete(item)}
+                              >
+                                <RiDeleteBinLine />
                               </button>
                             </li>
                           </>
