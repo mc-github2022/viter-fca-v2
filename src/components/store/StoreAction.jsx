@@ -234,3 +234,9 @@ export const setIsShowModal = (val) => {
     payload: val,
   };
 };
+export const setIsMenuExpand = (val) => {
+  return {
+    type: "IS_MENU_EXPAND",
+    payload: val,
+  };
+};

@@ -191,6 +191,12 @@ export const StoreReducer = (state, action) => {
         isShowModal: action.payload,
       };
 
+    case "IS_MENU_EXPAND":
+      return {
+        ...state,
+        isMenuExpand: action.payload,
+      };
+
     default:
       return state;
   }
