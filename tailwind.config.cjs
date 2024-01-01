@@ -88,6 +88,10 @@ export default {
         primary: "Open Sans",
       },
 
+      boxShadow: {
+        left: "0px -5px 5px 5px rgba(0,0,0,0.02)",
+      },
+
       keyframes: {
         shake: {
           "0%": { transform: "translateX(0)" },
@@ -107,6 +111,11 @@ export default {
           "100%": { opacity: 0 },
         },
 
+        zoomIn: {
+          "0%": { scale: 0.95 },
+          "100%": { scale: 1 },
+        },
+
         slideUp: {
           "0%": { transform: "translateY(10px)" },
           "100%": { transform: "translateY(0px)" },
@@ -115,6 +124,16 @@ export default {
         slideDown: {
           "0%": { transform: "translateY(0px)" },
           "100%": { transform: "translateY(10px)" },
+        },
+
+        slideLeft: {
+          "0%": { transform: "translateX(50%)" },
+          "100%": { transform: "translateX(0px)" },
+        },
+
+        slideNav: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(100%)" },
         },
 
         rotate: {
@@ -127,11 +146,19 @@ export default {
         },
       },
 
+      transitionTimingFunction: {
+        "modal-timing": "cubic-bezier(.17,.67,.8,.29)",
+        "timing-nav": "cubic-bezier(.15,.81,.14,.64)",
+      },
+
       animation: {
         shake: "shake .2s ease-in-out",
         slideUp: "slideUp .2s ease-in-out",
         slideDown: "slideDown .2s ease-in-out",
+        slideLeft: "slideLeft .2s ease-in-out",
+        slideRight: "slideRight .2s ease-in-out",
         fadeIn: "fadeIn .2s ease-in-out",
+        zoomIn: "zoomIn .2s ease-in-out",
         fadeOut: "fadeOut .2s ease-in-out",
         rotate: "rotate 2s linear infinite",
         loading: "loading 1.5s ease-in  infinite",
