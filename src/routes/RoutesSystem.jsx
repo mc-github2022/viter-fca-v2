@@ -1,6 +1,7 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
+import Settings from "@/components/pages/developer/settings/Settings";
 import Department from "@/components/pages/developer/settings/department_old/Departmentx.jsx";
-import Notification from "@/components/pages/developer/settings/Notification/Notification";
+import Notification from "@/components/pages/developer/settings/notifications/Notifications";
 import {
   default as System,
   default as Users,
@@ -12,7 +13,6 @@ import ParentCommitment from "@/components/pages/developer/students/profile/pare
 import ParentConsent from "@/components/pages/developer/students/profile/parent-consent/ParentConsent.jsx";
 import ParentDeclaration from "@/components/pages/developer/students/profile/parent-declaration/ParentDeclaration.jsx";
 import StudentProfile from "@/components/pages/developer/students/profile/student-profile/StudentProfile.jsx";
-import Settings from "@/components/pages/developer/settings/Settings";
 
 export const routesSystem = [
   {
@@ -38,14 +38,6 @@ export const routesSystem = [
     element: (
       //   <ProtectedRouteSystem>
       <Department />
-      //   </ProtectedRouteSystem>
-    ),
-  },
-  {
-    path: `${devNavUrl}/system/settings/notification`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <Notification />
       //   </ProtectedRouteSystem>
     ),
   },

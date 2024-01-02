@@ -5,10 +5,298 @@ const DepartmentList = () => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist mt-2 mb-5 max-w-[650px] w-full">
+      <div className="datalist mt-2 max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[350px] lg:max-h-[430px] custom__scroll">
         <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
           <p>Registrar</p>
-          <ul className="datalist__action flex items-center">
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrar</p>
+          <ul className="datalist__action flex items-center gap-1">
+            <li className=" ">
+              <button className="tooltip" data-tooltip="Edit">
+                <FiEdit2 />
+              </button>
+            </li>
+
+            <li>
+              <button className="tooltip" data-tooltip="Delete">
+                <FiTrash />
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
+          <p>Registrarxxxx</p>
+          <ul className="datalist__action flex items-center gap-1">
             <li className=" ">
               <button className="tooltip" data-tooltip="Edit">
                 <FiEdit2 />
