@@ -55,7 +55,7 @@ const Departmentx = () => {
         <Footer />
       </section>
 
-      {store.isAdd && <ModalAddDepartment />}
+      {/* {store.isAdd && <ModalAddDepartment />} */}
     </>
   );
 };

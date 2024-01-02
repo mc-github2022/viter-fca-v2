@@ -2,9 +2,8 @@ import React from "react";
 
 import { MdOutlineError } from "react-icons/md";
 import Modal from "../wrapper/Modal";
-import { StoreContext } from "@/store/StoreContext";
-import { setError } from "@/store/StoreAction";
-
+import { StoreContext } from "@/components/store/StoreContext";
+import { setError } from "@/components/store/StoreAction";
 const ModalError = () => {
   const { store, dispatch } = React.useContext(StoreContext);
 

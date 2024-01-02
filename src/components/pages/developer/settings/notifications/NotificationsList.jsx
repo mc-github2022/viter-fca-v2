@@ -6,7 +6,7 @@ const NotificationsList = () => {
       {/* max-h-[350px] lg:max-h-[430px] custom__scroll */}
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist mt-2 max-w-[650px] w-full overflow-x-hidden overflow-y-auto ">
+      <div className="datalist mt-2 max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[350px] lg:max-h-[580px] custom__scroll">
         <div className="datalist__item text-xs  flex justify-between items-center border-b border-line pb-1">
           <p>asd</p>
           <ul className="datalist__action flex items-center gap-1">
