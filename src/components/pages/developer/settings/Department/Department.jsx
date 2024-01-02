@@ -6,16 +6,22 @@ import { setIsAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import DepartmentFormAddEdit from "./DepartmentFormAddEdit";
 import DepartmentList from "./DepartmentList";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess";
+import ModalError from "@/components/partials/modals/ModalError";
 const Department = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+
+  const [itemEdit, setItemEdit] = React.useState(null);
+
   const handleAdd = () => {
     dispatch(setIsAdd(true));
+    setItemEdit(null);
   };
 
   if (index === 1) {
     return (
       <>
-        <div className="border-l border-line pl-4">
+        <div className=" pl-4">
           <div className="bg-primary">
             <h2 className="mb-3">Department</h2>
             <p className="text-xs mb-5">
@@ -33,8 +39,10 @@ const Department = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && <DepartmentFormAddEdit />}
-          {!store.isAdd && <DepartmentList />}
+          {store.isAdd && <DepartmentFormAddEdit itemEdit={itemEdit} />}
+          {!store.isAdd && <DepartmentList setItemEdit={setItemEdit} />}
+          {store.success && <ModalSuccess />}
+          {store.error && <ModalError />}
         </div>
       </>
     );

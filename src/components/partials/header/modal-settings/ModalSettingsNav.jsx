@@ -5,7 +5,8 @@ import React from "react";
 const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav }) => {
   const { dispatch } = React.useContext(StoreContext);
 
-  const handleChangeSetting = (index) => {
+  const handleChangeSetting = (index, e) => {
+    e.preventDefault();
     setIndex(index);
     dispatch(setIsAdd(false));
     setShowSideNav(false);
@@ -15,14 +16,18 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav }) => {
       <aside
         className={`${
           showSideNav ? "-left-0 lg:-left-[250px]" : "-left-[250px] lg:left-0"
-        } modal__settings__nav z-10  bg-primary top-[40px] h-[calc(100%-40px)] lg:h-full w-[195px] p-4  absolute lg:static `}
+        } modal__settings__nav z-10  bg-primary top-[40px] h-[calc(100%-40px)] lg:h-full w-[195px] p-4  absolute lg:static border-r border-line`}
       >
         <ul className="pb-5 mb-10 overflow-y-auto h-full custom__scroll">
           <li className="mb-4">
-            <button onClick={() => handleChangeSetting(1)}>Department</button>
+            <button onClick={(e) => handleChangeSetting(1, e)}>
+              Department
+            </button>
           </li>
           <li className="mb-4">
-            <button onClick={() => handleChangeSetting(2)}>Notification</button>
+            <button onClick={(e) => handleChangeSetting(2, e)}>
+              Notification
+            </button>
           </li>
 
           <li className="mb-4">
