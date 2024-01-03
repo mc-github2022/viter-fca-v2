@@ -67,6 +67,7 @@ const RequirementFinanceFormAddEdit = ({ itemEdit }) => {
           validationSchema={yupSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             mutation.mutate(values);
+            console.log(values);
           }}
         >
           {(props) => {

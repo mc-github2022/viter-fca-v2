@@ -2,6 +2,7 @@ import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsAdd } from "@/components/store/StoreAction";
@@ -17,7 +18,16 @@ const RequirementRegistrar = ({ index }) => {
     setItemEdit(null);
   };
 
-  console.log(index);
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: department,
+  } = useQueryData(
+    "/v2/dev-department", // endpoint
+    "get", // method
+    "department" // key
+  );
 
   if (index === 6) {
     return (
@@ -41,7 +51,10 @@ const RequirementRegistrar = ({ index }) => {
           )}
 
           {store.isAdd && (
-            <RequirementRegistrarFormAddEdit itemEdit={itemEdit} />
+            <RequirementRegistrarFormAddEdit
+              itemEdit={itemEdit}
+              department={department}
+            />
           )}
           {!store.isAdd && (
             <RequirementRegistrarList setItemEdit={setItemEdit} />
