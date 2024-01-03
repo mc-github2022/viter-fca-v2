@@ -24,12 +24,12 @@ $password_link = "/system/create-password";
 // check email
 isEmailExist($user_system, $user_system->user_system_email);
 // send email notification
-// sendEmail(
-//     $password_link,
-//     $user_system->user_system_fname,
-//     $user_system->user_system_email,
-//     $user_system->user_system_key
-// );
+sendEmail(
+    $password_link,
+    $user_system->user_system_fname,
+    $user_system->user_system_email,
+    $user_system->user_system_key
+);
 // create
 $query = checkCreate($user_system);
 returnSuccess($user_system, "User system", $query);

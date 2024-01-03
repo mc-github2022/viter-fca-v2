@@ -72,6 +72,12 @@ export const StoreReducer = (state, action) => {
         isAdd: action.payload,
       };
 
+    case "IS_DELETE":
+      return {
+        ...state,
+        isDelete: action.payload,
+      };
+
     case "IS_UPLOAD_FILE":
       return {
         ...state,
@@ -183,6 +189,18 @@ export const StoreReducer = (state, action) => {
       return {
         ...state,
         quickEditID: action.payload,
+      };
+
+    case "IS_SHOWMODAL":
+      return {
+        ...state,
+        isShowModal: action.payload,
+      };
+
+    case "IS_MENU_EXPAND":
+      return {
+        ...state,
+        isMenuExpand: action.payload,
       };
 
     default:

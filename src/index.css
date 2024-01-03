@@ -151,23 +151,6 @@
     @apply mb-4 text-xs;
   }
 
-  .tooltip {
-    @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-nowrap;
-  }
-
-  .tooltip:hover::after,
-  .tooltip:hover::before {
-    @apply opacity-100;
-  }
-
-  .tooltip::after {
-    @apply content-[attr(data-tooltip)] absolute -top-[20px] text-[10px]  left-1/2  -translate-x-1/2  bg-black  bg-opacity-70 py-[4px] px-1.5 text-white  rounded-md opacity-0 leading-none;
-  }
-
-  .tooltip::before {
-    @apply content-[''] absolute w-0 h-0 -top-[2px] left-1/2 -translate-x-1/2 border-t-4 border-r-4 border-l-4 border-solid border-transparent border-t-black/70 opacity-0;
-  }
-
   table thead {
     @apply sticky top-0  bg-white border-b border-gray-100;
   }
@@ -177,15 +160,19 @@
   }
 
   nav {
-    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border z-50 w-[250px] transition-all -left-[110vw] lg:left-0;
+    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
   }
 
-  .backdrop {
-    @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden;
+  nav .backdrop {
+    @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden pointer-events-none;
   }
 
-  nav.show {
-    @apply left-0;
+  nav.show.expand {
+    @apply translate-x-0;
+  }
+
+  nav.expand {
+    @apply -translate-x-[100%] lg:translate-x-0;
   }
 
   nav.show .backdrop {
@@ -221,14 +208,9 @@
     @apply resize-none min-h-[120px];
   }
 
-  button:disabled {
-    @apply bg-gray-200 cursor-not-allowed text-gray-200 hover:bg-gray-100;
-  }
-
   input:disabled,
   select:disabled,
   textarea:disabled,
-  button:disabled,
   .disabled {
     @apply bg-gray-100 border-gray-200 cursor-not-allowed;
   }
@@ -242,54 +224,50 @@
 
 @layer components {
   .btn {
-    @apply h-[30px] p-2.5 rounded-md  transition-ease active:scale-95 min-w-[70px] flex gap-2 items-center justify-center text-xs;
+    @apply p-2.5 rounded-md  transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
   }
 
   .btn--sm {
-    @apply h-7 px-1;
+    @apply px-1 h-[30px];
+  }
+
+  .btn:disabled {
+    @apply opacity-60 cursor-not-allowed;
   }
 
   .btn--cancel {
     @apply bg-gray-100 text-gray-500 border-gray-100 hover:bg-gray-200;
   }
 
-  .btn--accent {
-    @apply bg-accent  text-white hover:bg-accentDark;
+  .btn--accent:not(:disabled) {
+    @apply bg-accent text-white hover:bg-accentDark;
+  }
+
+  .btn--accent:not(:disabled) {
+    @apply bg-accent text-white hover:bg-accentDark;
   }
 
   .btn--alert {
-    @apply bg-alert  text-white hover:bg-alertDark;
+    @apply bg-alert  text-alert hover:bg-alertDark;
   }
   .btn--warning {
-    @apply bg-warning  text-white hover:bg-warningDark;
+    @apply bg-warning  text-warning hover:bg-warningDark;
   }
 
   .btn--info {
-    @apply bg-info  text-white hover:bg-infoDark;
+    @apply bg-info  text-info hover:bg-infoDark;
   }
 
   .btn--success {
-    @apply bg-success  text-white hover:bg-successDark;
-  }
-
-  .btn--disable {
-    @apply bg-gray-100 hover:text-white text-header hover:bg-successDark;
+    @apply bg-success  text-success hover:bg-successDark;
   }
 
   .btn-filter {
     @apply w-full h-[150px] bg-gray-200 grid place-content-center transition-ease active:scale-95;
   }
 
-  .btn:disabled {
-    @apply text-gray-400;
-  }
-
   .btn-filter span {
     @apply text-lg;
-  }
-
-  .breadcrumbs li {
-    @apply opacity-50 relative before:content-['/'] before:absolute before:top-0 before:-right-6 last:before:hidden text-sm last:opacity-100;
   }
 
   .nav__link {
@@ -325,14 +303,6 @@
     @apply origin-center animate-rotate;
   }
 
-  .form__group {
-    @apply relative mb-4;
-  }
-
-  .form__group:focus-within label {
-    @apply text-accent;
-  }
-
   .main__wrapper {
     @apply min-h-[calc(100vh_-_68px)];
   }
@@ -345,6 +315,10 @@
     @apply mb-4 relative;
   }
 
+  .form__wrap:focus-within label {
+    @apply text-accent;
+  }
+
   .form__wrap span.error-show {
     @apply absolute top-1 right-1 text-[10px] text-alert italic;
   }
@@ -352,7 +326,7 @@
   .form__wrap:has(.error-show) input,
   .form__wrap:has(.error-show) select,
   .form__wrap:has(.error-show) textarea {
-    @apply border-alert;
+    @apply border-alert animate-shake;
   }
 
   .form__wrap:has(.error-show) label {
@@ -378,7 +352,100 @@
   }
 
   .main__content {
-    @apply py-6 px-2 lg:px-4  w-full  lg:pl-6  lg:ml-[250px];
+    @apply py-6 px-2 lg:px-4  w-full  lg:pl-6  lg:ml-[250px] transition-all ease-timing-nav duration-300;
+  }
+  .main__content.expand {
+    @apply lg:ml-0;
+  }
+
+  /* MODAL */
+
+  .modal {
+    @apply fixed top-0 left-0 z-[999999] w-full h-screen;
+  }
+
+  .modal__backdrop {
+    @apply bg-black/30  absolute top-0 left-0 h-full w-full transition-opacity opacity-30 ease-modal-timing delay-200;
+  }
+
+  .modal.modal--side .modal__main {
+    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-6 ml-2 shadow-left animate-slideLeft opacity-0 ease-modal-timing translate-x-[20%] transition-all;
+  }
+
+  .modal__main .modal__header {
+    @apply relative mb-4;
+  }
+
+  .modal__main .modal__header button {
+    @apply absolute -top-4 right-2 text-xl;
+  }
+
+  .modal__main {
+    @apply flex flex-col;
+  }
+
+  .modal__main .modal__body {
+    @apply grow max-h-[1900px] h-full overflow-y-auto;
+  }
+
+  .modal__main .modal__action {
+    @apply flex  gap-2 justify-end pt-4 pr-4;
+  }
+
+  .modal.modal--side.show .modal__main {
+    @apply opacity-100 translate-x-0;
+  }
+
+  .modal.modal--side.show .modal__backdrop {
+    @apply opacity-100  bg-black/30;
+  }
+
+  .modal.modal--settings.show .modal__main {
+    @apply opacity-100 scale-100;
+  }
+
+  .modal.modal--settings.show .modal__backdrop {
+    @apply opacity-100  bg-black/30;
+  }
+
+  /* TOOLTIP */
+
+  .tooltip {
+    @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-nowrap;
+  }
+
+  .tooltip.tooltip--bottom {
+    @apply translate-y-2 bg-transparent;
+  }
+
+  .tooltip.tooltip--bottom::after {
+    @apply top-[25px] left-[30px];
+  }
+
+  .tooltip.tooltip--bottom::before {
+    @apply rotate-180 top-[22px];
+  }
+
+  .tooltip:hover::after,
+  .tooltip:hover::before {
+    @apply opacity-100;
+  }
+
+  .tooltip::after {
+    @apply content-[attr(data-tooltip)] absolute -top-[20px] text-[10px]  left-1/2  -translate-x-1/2  bg-black  bg-opacity-70 py-[4px] px-1.5 text-white  rounded-md opacity-0 leading-none;
+  }
+
+  .tooltip::before {
+    @apply content-[''] absolute w-0 h-0 -top-[2px] left-1/2 -translate-x-1/2 border-t-4 border-r-4 border-l-4 border-solid border-transparent border-t-black/70 opacity-0;
+  }
+
+  /* HEADER DROPDOWN */
+  .dropdown.active {
+    @apply opacity-100 scale-100 visible ease-in-out duration-200 transition-all;
+  }
+
+  .dropdown.inactive {
+    @apply opacity-0 scale-90 visible ease-in-out duration-200 transition-all pointer-events-none;
   }
 }
 
@@ -414,6 +481,12 @@
   100% {
     stroke-dashoffset: -124px;
   }
+}
+
+.modal__body,
+datalist {
+  scrollbar-gutter: stable;
+  padding-right: 8px;
 }
 
 .custom__scroll::-webkit-scrollbar,

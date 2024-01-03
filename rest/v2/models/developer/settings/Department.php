@@ -4,7 +4,6 @@ class Department
     public $department_aid ;
     public $department_active;
     public $department_name;
-    public $department_description;
     public $department_created;
     public $department_datetime;
 
@@ -31,19 +30,16 @@ class Department
             $sql = "insert into {$this->tblDepartment} ";
             $sql .= "( department_active, ";
             $sql .= "department_name, ";
-            $sql .= "department_description, ";
             $sql .= "department_created, ";
             $sql .= "department_datetime ) values ( ";
             $sql .= ":department_active, ";
             $sql .= ":department_name, ";
-            $sql .= ":department_description, ";
             $sql .= ":department_created, ";
             $sql .= ":department_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "department_active" => $this->department_active,
                 "department_name" => $this->department_name,
-                "department_description" => $this->department_description,
                 "department_created" => $this->department_created,
                 "department_datetime" => $this->department_datetime,
             ]);
@@ -59,8 +55,7 @@ class Department
         try {
             $sql = "select department_aid, ";
             $sql .= "department_active, ";
-            $sql .= "department_name, ";
-            $sql .= "department_description ";
+            $sql .= "department_name ";
             $sql .= "from {$this->tblDepartment} ";
             $sql .= "order by department_active desc ";
             $query = $this->connection->query($sql);
@@ -75,13 +70,11 @@ class Department
         try {
             $sql = "update {$this->tblDepartment} set ";
             $sql .= "department_name = :department_name, ";
-            $sql .= "department_description = :department_description, ";
             $sql .= "department_datetime = :department_datetime ";
             $sql .= "where department_aid  = :department_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "department_name" => $this->department_name,
-                "department_description" => $this->department_description,
                 "department_datetime" => $this->department_datetime,
                 "department_aid" => $this->department_aid ,
             ]);

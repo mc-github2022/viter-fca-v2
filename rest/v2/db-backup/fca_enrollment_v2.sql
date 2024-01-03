@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2023 at 03:24 AM
+-- Generation Time: Jan 03, 2024 at 11:55 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -31,7 +31,6 @@ CREATE TABLE `fca_settings_department` (
   `department_aid` int(11) NOT NULL,
   `department_active` tinyint(1) NOT NULL,
   `department_name` varchar(50) NOT NULL,
-  `department_description` text NOT NULL,
   `department_created` varchar(20) NOT NULL,
   `department_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,11 +39,10 @@ CREATE TABLE `fca_settings_department` (
 -- Dumping data for table `fca_settings_department`
 --
 
-INSERT INTO `fca_settings_department` (`department_aid`, `department_active`, `department_name`, `department_description`, `department_created`, `department_datetime`) VALUES
-(2, 1, '33', '', '2023-12-11 10:33:09', '2023-12-11 10:33:59'),
-(3, 1, 'Finance', 'Finance', '2023-12-20 08:07:41', '2023-12-20 08:07:41'),
-(4, 1, 'IT', 'IT', '2023-12-20 08:07:49', '2023-12-20 08:07:49'),
-(5, 1, 'Registrar', 'Registrar', '2023-12-20 08:08:03', '2023-12-20 08:08:03');
+INSERT INTO `fca_settings_department` (`department_aid`, `department_active`, `department_name`, `department_created`, `department_datetime`) VALUES
+(2, 1, 'Finance', '2024-01-03 12:07:24', '2024-01-03 12:07:24'),
+(3, 1, 'Information Technology', '2024-01-03 12:07:33', '2024-01-03 12:08:35'),
+(5, 1, 'Registrar', '2024-01-03 12:07:17', '2024-01-03 12:07:17');
 
 -- --------------------------------------------------------
 
@@ -66,7 +64,8 @@ CREATE TABLE `fca_settings_grade_level` (
 --
 
 INSERT INTO `fca_settings_grade_level` (`grade_level_aid`, `grade_level_active`, `grade_level_name`, `grade_level_is_pre_school`, `grade_level_created`, `grade_level_datetime`) VALUES
-(1, 1, '44', 1, '2023-12-11 13:58:46', '0000-00-00 00:00:00');
+(1, 1, '44', 1, '2023-12-11 13:58:46', '2024-01-03 14:34:44'),
+(3, 1, 'wwwww', 1, '2024-01-03 14:32:54', '2024-01-03 14:34:56');
 
 -- --------------------------------------------------------
 
@@ -81,6 +80,14 @@ CREATE TABLE `fca_settings_learning_type` (
   `learning_type_created` varchar(20) NOT NULL,
   `learning_type_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_settings_learning_type`
+--
+
+INSERT INTO `fca_settings_learning_type` (`learning_type_aid`, `learning_type_active`, `learning_type_name`, `learning_type_created`, `learning_type_datetime`) VALUES
+(3, 1, 'tesr', '2024-01-03 14:48:27', '2024-01-03 14:48:27'),
+(4, 1, 'sssss', '2024-01-03 14:48:57', '2024-01-03 14:48:57');
 
 -- --------------------------------------------------------
 
@@ -104,7 +111,7 @@ CREATE TABLE `fca_settings_notification` (
 
 INSERT INTO `fca_settings_notification` (`notification_aid`, `notification_active`, `notification_department_id`, `notification_email`, `notification_name`, `notification_created`, `notification_datetime`) VALUES
 (2, 1, 2, 'wwww@wwwww.com', 'tttt', '2023-12-11 15:15:58', '2023-12-11 15:20:52'),
-(3, 1, 2, 'xxxxx@xxxx.com', 'xxxx', '2023-12-11 15:16:14', '2023-12-11 15:16:14');
+(3, 0, 2, 'xxxxx@xxxx.comyyyy', 'xxxx', '2023-12-11 15:16:14', '');
 
 -- --------------------------------------------------------
 
@@ -127,7 +134,7 @@ CREATE TABLE `fca_settings_relationship` (
 
 INSERT INTO `fca_settings_relationship` (`relationship_aid`, `relationship_active`, `relationship_name`, `relationship_is_maiden`, `relationship_created`, `relationship_datetime`) VALUES
 (1, 1, '44', 1, '2023-12-11 13:27:05', '2023-12-11 13:44:02'),
-(3, 1, '44', 1, '2023-12-11 13:37:57', '2023-12-11 13:39:32');
+(3, 1, '4465756', 1, '2023-12-11 13:37:57', '2024-01-03 14:12:24');
 
 -- --------------------------------------------------------
 
@@ -193,7 +200,8 @@ CREATE TABLE `fca_settings_requirement_registrar` (
 --
 
 INSERT INTO `fca_settings_requirement_registrar` (`requirement_registrar_aid`, `requirement_registrar_active`, `requirement_registrar_department_id`, `requirement_registrar_name`, `requirement_registrar_created`, `requirement_registrar_datetime`) VALUES
-(1, 1, 5, 'Requirement Registrar', '2023-12-20 08:14:56', '2023-12-20 08:14:56');
+(1, 1, 5, 'Requirement Registrar', '2023-12-20 08:14:56', '2023-12-20 08:14:56'),
+(2, 1, 2, 'yyy', '2024-01-03 15:51:44', '2024-01-03 15:51:44');
 
 -- --------------------------------------------------------
 
@@ -314,8 +322,7 @@ CREATE TABLE `fca_settings_user_system` (
 
 INSERT INTO `fca_settings_user_system` (`user_system_aid`, `user_system_is_active`, `user_system_fname`, `user_system_lname`, `user_system_email`, `user_system_role_id`, `user_system_key`, `user_system_password`, `user_system_created`, `user_system_datetime`) VALUES
 (1, 1, 'Mark Ryan', 'Merin', 'mark.merin@frontlinebusiness.com.ph', 1, 'c47a62a6f5fc28388226429177c984b80f52b3167a792da2dd70332e745ebf70', '$2y$10$g89vzPcXDXTxXpRFoSCu0ek2Y5Jn1bb2DN/Gm.3BpJH8ekWtM9SUK', '2023-04-19 09:13:08', '2023-12-19 14:54:05'),
-(2, 1, 'Patrick', 'Reyes', 'patrick.reyes@frontlinebusiness.com.ph', 1, '958f0fc7fdacc72cca6bf5d0a5f56f107ca9d019721edfcd9a28f6dae79a5c2a', '$2y$10$g89vzPcXDXTxXpRFoSCu0ek2Y5Jn1bb2DN/Gm.3BpJH8ekWtM9SUK', '2023-04-19 09:13:08', '2023-12-19 14:53:21'),
-(4, 1, 'ssssss', 'qqqqqqq', 'aaa.merin@frontlinebusiness.com.ph', 1, '', '$2y$10$bJorS.W5EP5TKYolMBzRT.nkor6iZhh8riKEpN2ZxuqolZIsbGVC6', '2023-12-19 14:20:50', '2023-12-19 14:58:51');
+(2, 1, 'Patrick', 'Reyes', 'patrick.reyes@frontlinebusiness.com.ph', 1, '958f0fc7fdacc72cca6bf5d0a5f56f107ca9d019721edfcd9a28f6dae79a5c2a', '$2y$10$g89vzPcXDXTxXpRFoSCu0ek2Y5Jn1bb2DN/Gm.3BpJH8ekWtM9SUK', '2023-04-19 09:13:08', '2023-12-19 14:53:21');
 
 --
 -- Indexes for dumped tables
@@ -407,31 +414,31 @@ ALTER TABLE `fca_settings_user_system`
 -- AUTO_INCREMENT for table `fca_settings_department`
 --
 ALTER TABLE `fca_settings_department`
-  MODIFY `department_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `department_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_grade_level`
 --
 ALTER TABLE `fca_settings_grade_level`
-  MODIFY `grade_level_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `grade_level_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_learning_type`
 --
 ALTER TABLE `fca_settings_learning_type`
-  MODIFY `learning_type_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `learning_type_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_notification`
 --
 ALTER TABLE `fca_settings_notification`
-  MODIFY `notification_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `notification_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_relationship`
 --
 ALTER TABLE `fca_settings_relationship`
-  MODIFY `relationship_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `relationship_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_requirement_finance`
@@ -449,7 +456,7 @@ ALTER TABLE `fca_settings_requirement_it`
 -- AUTO_INCREMENT for table `fca_settings_requirement_registrar`
 --
 ALTER TABLE `fca_settings_requirement_registrar`
-  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_role`

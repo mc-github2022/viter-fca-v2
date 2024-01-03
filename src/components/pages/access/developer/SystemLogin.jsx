@@ -3,7 +3,9 @@ import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { devNavUrl } from "@/components/helpers/functions-general";
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
 import {
   setCredentials,
@@ -63,78 +65,84 @@ const SystemLogin = () => {
 
   return (
     <>
-      <div className="h-screen w-full grid place-items-center">
-        <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm mx-4 -translate-y-14">
-          <div className=" mb-4">
-            <div className="flex justify-center">
-              <LogoGreen />
+      {loginLoading ? (
+        <TableSpinner />
+      ) : (
+        <div className="h-screen w-full grid place-items-center">
+          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm mx-4 -translate-y-14 bg-primary">
+            <div className=" mb-4">
+              <div className="flex justify-center">
+                <LogoGreen />
+              </div>
+              <h1 className="mt-8 font-normal mb-1 text-[27px]">
+                Welcome Developer
+              </h1>
+              <p className="mb-8 ">Sign in to continue</p>
             </div>
-            <h1 className="mt-8 font-normal mb-1 text-[27px]">
-              Welcome Developer
-            </h1>
-            <p className="mb-8 ">Sign in to continue</p>
-          </div>
 
-          <Formik
-            initialValues={initVal}
-            validationSchema={yupSchema}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              // mutate data
-              mutation.mutate(values);
-            }}
-          >
-            {(props) => {
-              return (
-                <Form>
-                  <div className="form__wrap">
-                    <InputText
-                      label="Email"
-                      type="text"
-                      name="user_system_email"
-                      disabled={mutation.isLoading}
-                    />
-                  </div>
-                  <div className="form__wrap">
-                    <InputText
-                      label="Password"
-                      type={passwordShown ? "text" : "password"}
-                      name="password"
-                      disabled={
-                        mutation.isLoading ||
-                        props.values.user_system_email === ""
-                      }
-                    />
-                    {props.values.password && (
-                      <span
-                        className="text-base absolute bottom-1/2 right-2 translate-y-1/2 cursor-pointer"
-                        onClick={togglePassword}
-                      >
-                        {passwordShown ? <FaEyeSlash /> : <FaEye />}
-                      </span>
-                    )}
-                  </div>
+            <Formik
+              initialValues={initVal}
+              validationSchema={yupSchema}
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
+                // mutate data
+                mutation.mutate(values);
+              }}
+            >
+              {(props) => {
+                return (
+                  <Form>
+                    <div className="form__wrap">
+                      <InputText
+                        label="Email"
+                        type="text"
+                        name="user_system_email"
+                        disabled={mutation.isLoading}
+                      />
+                    </div>
+                    <div className="form__wrap">
+                      <InputText
+                        label="Password"
+                        type={passwordShown ? "text" : "password"}
+                        name="password"
+                        disabled={
+                          mutation.isLoading ||
+                          props.values.user_system_email === ""
+                        }
+                      />
+                      {props.values.password && (
+                        <span
+                          className="text-base absolute bottom-1/2 right-2 translate-y-1/2 cursor-pointer"
+                          onClick={togglePassword}
+                        >
+                          {passwordShown ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                      )}
+                    </div>
 
-                  <a
-                    className="text-dark text-xs italic block text-right mb-6"
-                    href={`${devNavUrl}/system/forgot-password`}
-                  >
-                    Forgot Password
-                  </a>
-                  <div className="flex items-center gap-1 pt-3">
-                    <button
-                      type="submit"
-                      // disabled={mutation.isLoading || !props.dirty}
-                      className="btn btn--accent w-full relative"
+                    <a
+                      className="text-dark text-xs italic block text-right mb-6"
+                      href={`${devNavUrl}/system/forgot-password`}
                     >
-                      {mutation.isLoading ? <ButtonSpinner /> : "Login"}
-                    </button>
-                  </div>
-                </Form>
-              );
-            }}
-          </Formik>
+                      Forgot Password
+                    </a>
+                    <div className="flex items-center gap-1 pt-3">
+                      <button
+                        type="submit"
+                        // disabled={mutation.isLoading || !props.dirty}
+                        className="btn btn--accent w-full relative"
+                      >
+                        {mutation.isLoading ? <ButtonSpinner /> : "Login"}
+                      </button>
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </div>
         </div>
-      </div>
+      )}
+
+      {store.validate && <ModalValidate />}
     </>
   );
 };

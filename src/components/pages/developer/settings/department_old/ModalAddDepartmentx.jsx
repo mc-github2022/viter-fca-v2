@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 
-const ModalAddNotification = ({ itemEdit }) => {
+const ModalAddDepartment = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -133,4 +133,4 @@ const ModalAddNotification = ({ itemEdit }) => {
   );
 };
 
-export default ModalAddNotification;
+export default ModalAddDepartment;

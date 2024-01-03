@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# API
+rest/v2/notification/PHPMailer
+rest/v2/jwt
+
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

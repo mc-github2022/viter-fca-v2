@@ -228,3 +228,15 @@ export const setQuickEditID = (val) => {
     payload: val,
   };
 };
+export const setIsShowModal = (val) => {
+  return {
+    type: "IS_SHOWMODAL",
+    payload: val,
+  };
+};
+export const setIsMenuExpand = (val) => {
+  return {
+    type: "IS_MENU_EXPAND",
+    payload: val,
+  };
+};
