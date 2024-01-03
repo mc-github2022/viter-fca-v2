@@ -13,7 +13,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const NotificationsFormAddEdit = ({ itemEdit, department }) => {
+const ParentRelationshipFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -25,14 +25,14 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-notification/${itemEdit.notification_aid}`
-          : "/v2/dev-notification",
+          ? `/v2/dev-relationship/${itemEdit.relationship_aid}`
+          : "/v2/dev-relationship",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["notification"] });
+      queryClient.invalidateQueries({ queryKey: ["relationship"] });
 
       // show error box
       if (!data.success) {
@@ -48,26 +48,16 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
     },
   });
 
-  const getActiveDepartment = department?.data.filter(
-    (item) => item.department_active === 1
-  );
-
   const initVal = {
-    notification_aid: itemEdit ? itemEdit.notification_aid : "",
-    notification_name: itemEdit ? itemEdit.notification_name : "",
-    notification_email: itemEdit ? itemEdit.notification_email : "",
-    notification_department_id: itemEdit
-      ? itemEdit.notification_department_id
-      : "",
-    notification_name_old: itemEdit ? itemEdit.notification_name : "",
+    relationship_aid: itemEdit ? itemEdit.relationship_aid : "",
+    relationship_name: itemEdit ? itemEdit.relationship_name : "",
+    relationship_is_maiden: itemEdit ? itemEdit.relationship_is_maiden : "",
+    relationship_name_old: itemEdit ? itemEdit.relationship_name : "",
   };
 
   const yupSchema = Yup.object({
-    notification_name: Yup.string().required("Required"),
-    notification_email: Yup.string()
-      .required("Required")
-      .email("Invalid Email"),
-    notification_department_id: Yup.string().required("Required"),
+    relationship_name: Yup.string().required("Required"),
+    relationship_is_maiden: Yup.string().required("Required"),
   });
   return (
     <>
@@ -84,44 +74,26 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
               <Form>
                 <div className="form__wrap text-xs mb-3">
                   <InputText
-                    label="Fullname"
+                    label="Name"
                     type="text"
-                    name="notification_name"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Email"
-                    type="email"
-                    name="notification_email"
+                    name="relationship_name"
                     disabled={mutation.isLoading}
                   />
                 </div>
 
                 <div className="form__wrap text-xs mb-3">
                   <InputSelect
-                    label="Department"
-                    name="notification_department_id"
+                    label="Select yes if biological mother"
+                    name="relationship_is_maiden"
                     disabled={mutation.isLoading}
                     onChange={(e) => e}
                   >
-                    <optgroup label="Select Department">
-                      <option value="" hidden></option>
-                      {getActiveDepartment?.length > 0 ? (
-                        getActiveDepartment?.map((item, key) => {
-                          return (
-                            <option key={key} value={item.department_aid}>
-                              {item.department_name}
-                            </option>
-                          );
-                        })
-                      ) : (
-                        <option value="" disabled>
-                          No data
-                        </option>
-                      )}
+                    <optgroup label="Select Option">
+                      <option value="" hidden>
+                        --
+                      </option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
                     </optgroup>
                   </InputSelect>
                 </div>
@@ -154,4 +126,4 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
   );
 };
 
-export default NotificationsFormAddEdit;
+export default ParentRelationshipFormAddEdit;

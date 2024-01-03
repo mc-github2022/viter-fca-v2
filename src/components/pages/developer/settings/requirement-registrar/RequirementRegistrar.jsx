@@ -2,16 +2,14 @@ import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import NotificationsFormAddEdit from "./NotificationsFormAddEdit";
-import NotificationsList from "./NotificationsList";
-const Notifications = ({ index }) => {
+import RequirementRegistrarFormAddEdit from "./RequirementRegistrarFormAddEdit";
+import RequirementRegistrarList from "./RequirementRegistrarList";
+const RequirementRegistrar = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-
   const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
@@ -19,26 +17,17 @@ const Notifications = ({ index }) => {
     setItemEdit(null);
   };
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: department,
-  } = useQueryData(
-    "/v2/dev-department", // endpoint
-    "get", // method
-    "department" // key
-  );
+  console.log(index);
 
-  if (index === 2) {
+  if (index === 6) {
     return (
       <>
         <div className="">
           <div className="bg-primary">
-            <h2 className="mb-3">Notifications</h2>
+            <h2 className="mb-3">Requirement Registrar</h2>
             <p className="text-xs mb-5">
-              Set list of notificationss that will be available to the current
-              school year
+              Set list of Requirement Registrars that will be available to the
+              current school year
             </p>
           </div>
 
@@ -52,12 +41,11 @@ const Notifications = ({ index }) => {
           )}
 
           {store.isAdd && (
-            <NotificationsFormAddEdit
-              itemEdit={itemEdit}
-              department={department}
-            />
+            <RequirementRegistrarFormAddEdit itemEdit={itemEdit} />
           )}
-          {!store.isAdd && <NotificationsList setItemEdit={setItemEdit} />}
+          {!store.isAdd && (
+            <RequirementRegistrarList setItemEdit={setItemEdit} />
+          )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>
@@ -66,4 +54,4 @@ const Notifications = ({ index }) => {
   }
 };
 
-export default Notifications;
+export default RequirementRegistrar;

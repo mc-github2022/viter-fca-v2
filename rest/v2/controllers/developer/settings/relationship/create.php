@@ -12,7 +12,7 @@ $relationship->relationship_active = 1;
 $relationship->relationship_created = date("Y-m-d H:i:s");
 $relationship->relationship_datetime = date("Y-m-d H:i:s");
 
-isTuitionFeeExist($relationship, $relationship->relationship_name);
+isNameExist($relationship, $relationship->relationship_name);
 
 $query = checkCreate($relationship);
 returnSuccess($relationship, "Relationship", $query);

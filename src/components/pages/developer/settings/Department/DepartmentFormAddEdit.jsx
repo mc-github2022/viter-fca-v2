@@ -1,3 +1,6 @@
+import { InputText } from "@/components/helpers/FormInputs";
+import { queryData } from "@/components/helpers/queryData";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
   setIsAdd,
@@ -6,12 +9,9 @@ import {
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
 import { Form, Formik } from "formik";
-import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
-import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import React from "react";
 import * as Yup from "yup";
-import { queryData } from "@/components/helpers/queryData";
 
 const DepartmentFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -39,7 +39,7 @@ const DepartmentFormAddEdit = ({ itemEdit }) => {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        dispatch(setIsAdd(itemEdit ? false : true));
+        dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
@@ -51,7 +51,6 @@ const DepartmentFormAddEdit = ({ itemEdit }) => {
   const initVal = {
     department_aid: itemEdit ? itemEdit.department_aid : "",
     department_name: itemEdit ? itemEdit.department_name : "",
-    department_description: itemEdit ? itemEdit.department_description : "",
     department_name_old: itemEdit ? itemEdit.department_name : "",
   };
 
@@ -80,19 +79,7 @@ const DepartmentFormAddEdit = ({ itemEdit }) => {
                   />
                 </div>
 
-                <div className="form__wrap text-xs mb-3 ">
-                  <InputTextArea
-                    label="Name"
-                    name="department_description"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-
-                <div
-                  className={`${
-                    mutation.isLoading || !props.dirty ? "hidden" : ""
-                  } settings__actions flex gap-2`}
-                >
+                <div className={` settings__actions flex gap-2`}>
                   <button className="btn btn--accent" type="submit">
                     {mutation.isLoading ? (
                       <ButtonSpinner />

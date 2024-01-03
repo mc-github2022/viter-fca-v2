@@ -1,5 +1,10 @@
 import Department from "@/components/pages/developer/settings/department/Department";
+import GradeLevel from "@/components/pages/developer/settings/grade-level/GradeLevel.jsx";
+import LearningType from "@/components/pages/developer/settings/learning-type/LearningType.jsx";
 import Notifications from "@/components/pages/developer/settings/notifications/Notifications";
+import ParentRelationship from "@/components/pages/developer/settings/parent-relationship/ParentRelationship.jsx";
+import RequirementFinance from "@/components/pages/developer/settings/requirement-finance/RequirementFinance.jsx";
+import RequirementRegistrar from "@/components/pages/developer/settings/requirement-registrar/RequirementRegistrar.jsx";
 import { setIsShowModal } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
@@ -29,11 +34,15 @@ const ModalSettings = ({ setIsShowSettings }) => {
         className={`modal modal--settings ${store.isShowModal ? "show" : ""} `}
       >
         <div className="modal__backdrop bg-black/30"></div>
-        <div className="modal__main  w-full  h-screen flex justify-center items-center p-5 ">
-          <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-280px)]">
+        <div className="modal__main  w-full  h-screen flex justify-center items-center p-3 lg:p-5 ">
+          <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-280px)] ">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
-                <button className="text-base" onClick={handleShowSideNav}>
+                <button
+                  className="text-base tooltip "
+                  onClick={handleShowSideNav}
+                  data-tooltip="Toggle menu"
+                >
                   <FaBars />
                 </button>
                 <h5 className="mb-0 font-normal">Settings</h5>
@@ -42,15 +51,24 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <LiaTimesSolid />
               </button>
             </div>
-            <div className="wrapper flex gap-2 bg-primary p-5 h-[calc(100vh-120px)] lg:h-[calc(100vh-320px)]   overflow-x-hidden ">
+            <div className="wrapper flex gap-2 bg-primary p-2 lg:p-5 h-[calc(100vh-120px)] lg:h-[calc(100vh-320px)]   overflow-x-hidden ">
               <ModalSettingsNav
                 showSideNav={showSideNav}
                 setIndex={setIndex}
                 setShowSideNav={setShowSideNav}
               />
-              <main className="p-2 lg:p-5 max-w-[600px] w-full">
+              <main
+                className={`${
+                  showSideNav ? "lg:-left-[220px]" : "lg:left-[0px]"
+                } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-in-out`}
+              >
                 <Department index={index} />
                 <Notifications index={index} />
+                <ParentRelationship index={index} />
+                <GradeLevel index={index} />
+                <LearningType index={index} />
+                <RequirementRegistrar index={index} />
+                <RequirementFinance index={index} />
               </main>
             </div>
           </div>

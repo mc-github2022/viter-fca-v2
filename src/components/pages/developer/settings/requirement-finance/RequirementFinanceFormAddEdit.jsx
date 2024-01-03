@@ -1,4 +1,4 @@
-import { InputSelect, InputText } from "@/components/helpers/FormInputs";
+import { InputText } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -13,7 +13,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const NotificationsFormAddEdit = ({ itemEdit, department }) => {
+const RequirementFinanceFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -25,14 +25,14 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-notification/${itemEdit.notification_aid}`
-          : "/v2/dev-notification",
+          ? `/v2/dev-requirement-finance/${itemEdit.requirement_finance_aid}`
+          : "/v2/dev-requirement-finance",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["notification"] });
+      queryClient.invalidateQueries({ queryKey: ["finance"] });
 
       // show error box
       if (!data.success) {
@@ -48,26 +48,16 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
     },
   });
 
-  const getActiveDepartment = department?.data.filter(
-    (item) => item.department_active === 1
-  );
-
   const initVal = {
-    notification_aid: itemEdit ? itemEdit.notification_aid : "",
-    notification_name: itemEdit ? itemEdit.notification_name : "",
-    notification_email: itemEdit ? itemEdit.notification_email : "",
-    notification_department_id: itemEdit
-      ? itemEdit.notification_department_id
+    requirement_finance_aid: itemEdit ? itemEdit.requirement_finance_aid : "",
+    requirement_finance_name: itemEdit ? itemEdit.requirement_finance_name : "",
+    requirement_finance_name_old: itemEdit
+      ? itemEdit.requirement_finance_name
       : "",
-    notification_name_old: itemEdit ? itemEdit.notification_name : "",
   };
 
   const yupSchema = Yup.object({
-    notification_name: Yup.string().required("Required"),
-    notification_email: Yup.string()
-      .required("Required")
-      .email("Invalid Email"),
-    notification_department_id: Yup.string().required("Required"),
+    requirement_finance_name: Yup.string().required("Required"),
   });
   return (
     <>
@@ -84,46 +74,11 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
               <Form>
                 <div className="form__wrap text-xs mb-3">
                   <InputText
-                    label="Fullname"
+                    label="Title"
                     type="text"
-                    name="notification_name"
+                    name="requirement_finance_name"
                     disabled={mutation.isLoading}
                   />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Email"
-                    type="email"
-                    name="notification_email"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputSelect
-                    label="Department"
-                    name="notification_department_id"
-                    disabled={mutation.isLoading}
-                    onChange={(e) => e}
-                  >
-                    <optgroup label="Select Department">
-                      <option value="" hidden></option>
-                      {getActiveDepartment?.length > 0 ? (
-                        getActiveDepartment?.map((item, key) => {
-                          return (
-                            <option key={key} value={item.department_aid}>
-                              {item.department_name}
-                            </option>
-                          );
-                        })
-                      ) : (
-                        <option value="" disabled>
-                          No data
-                        </option>
-                      )}
-                    </optgroup>
-                  </InputSelect>
                 </div>
 
                 <div className={` settings__actions flex gap-2`}>
@@ -154,4 +109,4 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
   );
 };
 
-export default NotificationsFormAddEdit;
+export default RequirementFinanceFormAddEdit;

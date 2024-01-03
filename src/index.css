@@ -151,9 +151,6 @@
     @apply mb-4 text-xs;
   }
 
-  
-
-
   table thead {
     @apply sticky top-0  bg-white border-b border-gray-100;
   }
@@ -171,7 +168,7 @@
   }
 
   nav.show.expand {
-    @apply translate-x-0 ;
+    @apply translate-x-0;
   }
 
   nav.expand {
@@ -196,8 +193,6 @@
   nav ul li ul li {
     @apply mb-2;
   }
-
-
 
   label {
     @apply block mb-1 opacity-80;
@@ -331,7 +326,7 @@
   .form__wrap:has(.error-show) input,
   .form__wrap:has(.error-show) select,
   .form__wrap:has(.error-show) textarea {
-    @apply border-alert;
+    @apply border-alert animate-shake;
   }
 
   .form__wrap:has(.error-show) label {
@@ -360,81 +355,75 @@
     @apply py-6 px-2 lg:px-4  w-full  lg:pl-6  lg:ml-[250px] transition-all ease-timing-nav duration-300;
   }
   .main__content.expand {
-    @apply lg:ml-0
+    @apply lg:ml-0;
   }
-
-
 
   /* MODAL */
 
   .modal {
-    @apply fixed top-0 left-0 z-[999999] w-full h-screen
+    @apply fixed top-0 left-0 z-[999999] w-full h-screen;
   }
 
   .modal__backdrop {
-    @apply bg-black/30  absolute top-0 left-0 h-full w-full transition-opacity opacity-30 ease-modal-timing delay-200
+    @apply bg-black/30  absolute top-0 left-0 h-full w-full transition-opacity opacity-30 ease-modal-timing delay-200;
   }
 
-
   .modal.modal--side .modal__main {
-    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-6 ml-2 shadow-left animate-slideLeft opacity-0 ease-modal-timing translate-x-[20%] transition-all
+    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-6 ml-2 shadow-left animate-slideLeft opacity-0 ease-modal-timing translate-x-[20%] transition-all;
   }
 
   .modal__main .modal__header {
-    @apply relative mb-4
+    @apply relative mb-4;
   }
 
   .modal__main .modal__header button {
-    @apply absolute -top-4 right-2 text-xl
+    @apply absolute -top-4 right-2 text-xl;
   }
 
-  .modal__main  {
-    @apply flex flex-col 
+  .modal__main {
+    @apply flex flex-col;
   }
 
   .modal__main .modal__body {
-    @apply grow max-h-[1900px] h-full overflow-y-auto 
+    @apply grow max-h-[1900px] h-full overflow-y-auto;
   }
 
   .modal__main .modal__action {
-    @apply flex  gap-2 justify-end pt-4 pr-4
+    @apply flex  gap-2 justify-end pt-4 pr-4;
   }
 
-  .modal.modal--side.show .modal__main{
-    @apply opacity-100 translate-x-0
+  .modal.modal--side.show .modal__main {
+    @apply opacity-100 translate-x-0;
   }
 
-  .modal.modal--side.show .modal__backdrop{
-    @apply opacity-100  bg-black/30
+  .modal.modal--side.show .modal__backdrop {
+    @apply opacity-100  bg-black/30;
   }
 
-  .modal.modal--settings.show .modal__main{
-    @apply opacity-100 scale-100
+  .modal.modal--settings.show .modal__main {
+    @apply opacity-100 scale-100;
   }
 
-  .modal.modal--settings.show .modal__backdrop{
-    @apply opacity-100  bg-black/30
+  .modal.modal--settings.show .modal__backdrop {
+    @apply opacity-100  bg-black/30;
   }
-
-
-
 
   /* TOOLTIP */
-  
+
   .tooltip {
     @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-nowrap;
   }
 
   .tooltip.tooltip--bottom {
-    @apply translate-y-2 bg-transparent
+    @apply translate-y-2 bg-transparent;
   }
 
   .tooltip.tooltip--bottom::after {
-    @apply top-[25px] left-[30px] 
+    @apply top-[25px] left-[30px];
   }
 
   .tooltip.tooltip--bottom::before {
-    @apply rotate-180 top-[22px]
+    @apply rotate-180 top-[22px];
   }
 
   .tooltip:hover::after,
@@ -451,14 +440,13 @@
   }
 
   /* HEADER DROPDOWN */
-  .dropdown.active{
-    @apply opacity-100 scale-100 visible ease-in-out duration-200 transition-all
+  .dropdown.active {
+    @apply opacity-100 scale-100 visible ease-in-out duration-200 transition-all;
   }
-  
-  .dropdown.inactive{
-    @apply opacity-0 scale-90 visible ease-in-out duration-200 transition-all pointer-events-none
+
+  .dropdown.inactive {
+    @apply opacity-0 scale-90 visible ease-in-out duration-200 transition-all pointer-events-none;
   }
-  
 }
 
 @layer utilities {
@@ -495,13 +483,11 @@
   }
 }
 
-
-.modal__body, datalist {
+.modal__body,
+datalist {
   scrollbar-gutter: stable;
   padding-right: 8px;
-} 
-
-
+}
 
 .custom__scroll::-webkit-scrollbar,
 body::-webkit-scrollbar {
@@ -527,5 +513,3 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   @apply bg-gray-300 border-8;
 }
-
-

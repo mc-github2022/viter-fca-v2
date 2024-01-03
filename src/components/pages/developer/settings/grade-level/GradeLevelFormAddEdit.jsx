@@ -13,7 +13,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const NotificationsFormAddEdit = ({ itemEdit, department }) => {
+const GradeLevelFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -25,14 +25,14 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-notification/${itemEdit.notification_aid}`
-          : "/v2/dev-notification",
+          ? `/v2/dev-grade-level/${itemEdit.grade_level_aid}`
+          : "/v2/dev-grade-level",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["notification"] });
+      queryClient.invalidateQueries({ queryKey: ["grade-level"] });
 
       // show error box
       if (!data.success) {
@@ -48,26 +48,18 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
     },
   });
 
-  const getActiveDepartment = department?.data.filter(
-    (item) => item.department_active === 1
-  );
-
   const initVal = {
-    notification_aid: itemEdit ? itemEdit.notification_aid : "",
-    notification_name: itemEdit ? itemEdit.notification_name : "",
-    notification_email: itemEdit ? itemEdit.notification_email : "",
-    notification_department_id: itemEdit
-      ? itemEdit.notification_department_id
+    grade_level_aid: itemEdit ? itemEdit.grade_level_aid : "",
+    grade_level_name: itemEdit ? itemEdit.grade_level_name : "",
+    grade_level_is_pre_school: itemEdit
+      ? itemEdit.grade_level_is_pre_school
       : "",
-    notification_name_old: itemEdit ? itemEdit.notification_name : "",
+    grade_level_name_old: itemEdit ? itemEdit.grade_level_name : "",
   };
 
   const yupSchema = Yup.object({
-    notification_name: Yup.string().required("Required"),
-    notification_email: Yup.string()
-      .required("Required")
-      .email("Invalid Email"),
-    notification_department_id: Yup.string().required("Required"),
+    grade_level_name: Yup.string().required("Required"),
+    grade_level_is_pre_school: Yup.string().required("Required"),
   });
   return (
     <>
@@ -84,44 +76,26 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
               <Form>
                 <div className="form__wrap text-xs mb-3">
                   <InputText
-                    label="Fullname"
+                    label="Name"
                     type="text"
-                    name="notification_name"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Email"
-                    type="email"
-                    name="notification_email"
+                    name="grade_level_name"
                     disabled={mutation.isLoading}
                   />
                 </div>
 
                 <div className="form__wrap text-xs mb-3">
                   <InputSelect
-                    label="Department"
-                    name="notification_department_id"
+                    label="Select yes if pre school"
+                    name="grade_level_is_pre_school"
                     disabled={mutation.isLoading}
                     onChange={(e) => e}
                   >
-                    <optgroup label="Select Department">
-                      <option value="" hidden></option>
-                      {getActiveDepartment?.length > 0 ? (
-                        getActiveDepartment?.map((item, key) => {
-                          return (
-                            <option key={key} value={item.department_aid}>
-                              {item.department_name}
-                            </option>
-                          );
-                        })
-                      ) : (
-                        <option value="" disabled>
-                          No data
-                        </option>
-                      )}
+                    <optgroup label="Select Option">
+                      <option value="" hidden>
+                        --
+                      </option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
                     </optgroup>
                   </InputSelect>
                 </div>
@@ -154,4 +128,4 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
   );
 };
 
-export default NotificationsFormAddEdit;
+export default GradeLevelFormAddEdit;

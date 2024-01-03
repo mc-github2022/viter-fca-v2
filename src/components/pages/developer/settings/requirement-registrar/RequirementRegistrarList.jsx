@@ -15,7 +15,7 @@ import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-const NotificationsList = ({ setItemEdit }) => {
+const RequirementRegistrarList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
@@ -25,11 +25,11 @@ const NotificationsList = ({ setItemEdit }) => {
     isLoading,
     isFetching,
     error,
-    data: notification,
+    data: registrar,
   } = useQueryData(
-    "/v2/dev-notification", // endpoint
+    "/v2/dev-requirement-registrar", // endpoint
     "get", // method
-    "notification" // key
+    "registrar" // key
   );
 
   const handleEdit = (item) => {
@@ -39,7 +39,7 @@ const NotificationsList = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.notification_aid);
+    setId(item.requirement_registrar_aid);
     setData(item);
     setIsArchive(0);
     console.log(isArchive);
@@ -47,7 +47,7 @@ const NotificationsList = ({ setItemEdit }) => {
 
   const handleRestore = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.notification_aid);
+    setId(item.requirement_registrar_aid);
     setData(item);
     setIsArchive(1);
     console.log(isArchive);
@@ -55,7 +55,7 @@ const NotificationsList = ({ setItemEdit }) => {
 
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
-    setId(item.notification_aid);
+    setId(item.requirement_registrar_aid);
     setData(item);
   };
 
@@ -66,9 +66,9 @@ const NotificationsList = ({ setItemEdit }) => {
       <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}
 
-        {(isLoading || notification?.data.length === 0) &&
+        {(isLoading || registrar?.data.length === 0) &&
           (isLoading ? <TableLoading count={20} cols={3} /> : <NoData />)}
-        {notification?.data.map((item, key) => (
+        {registrar?.data.map((item, key) => (
           <div
             className={
               "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
@@ -76,19 +76,15 @@ const NotificationsList = ({ setItemEdit }) => {
             key={key}
           >
             <div
-              className={`grow text-left ${
-                item.notification_active ? "opacity-100" : "opacity-40"
+              className={`${
+                item.requirement_registrar_active ? "opacity-100" : "opacity-40"
               } `}
             >
-              <div className="flex flex-col lg:flex-row gap-1 w-[80%] justify-between">
-                <p className="mb-1">{item.notification_name}</p>
-                <p className="mb-1">{item.notification_email}</p>
-                <p className="mb-1">{item.department_name}</p>
-              </div>
+              <p className="mb-1">{item.requirement_registrar_name}</p>
             </div>
 
             <ul className="datalist__action flex items-center gap-1 pr-3 ">
-              {item.notification_active === 1 ? (
+              {item.requirement_registrar_active === 1 ? (
                 <>
                   <li className=" ">
                     <button
@@ -138,26 +134,26 @@ const NotificationsList = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/dev-notification/active/${id}`}
+          mysqlApiArchive={`/v2/dev-requirement-registrar/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={dataItem.notification_name}
-          queryKey={"notification"}
+          item={dataItem.requirement_registrar_name}
+          queryKey={"registrar"}
           isArchive={isArchive}
         />
       )}
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-notification/${id}`}
+          mysqlApiDelete={`/v2/dev-requirement-registrar/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={dataItem.notification_name}
-          queryKey={"notification"}
+          item={dataItem.requirement_registrar_name}
+          queryKey={"registrar"}
         />
       )}
     </>
   );
 };
 
-export default NotificationsList;
+export default RequirementRegistrarList;
