@@ -1,27 +1,28 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
+import NoData from "@/components/partials/NoData";
+import Pills from "@/components/partials/Pills";
 import RecordCount from "@/components/partials/RecordCount";
+import ServerError from "@/components/partials/ServerError";
+import TableLoading from "@/components/partials/TableLoading";
+import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import { StoreContext } from "@/components/store/StoreContext";
 import React, { Fragment } from "react";
+import { FiArchive, FiEdit3 } from "react-icons/fi";
+import { MdOutlinePersonOff, MdRestore } from "react-icons/md";
+import { PiKey } from "react-icons/pi";
+import { RiDeleteBinLine } from "react-icons/ri";
 import {
   setIsAdd,
   setIsConfirm,
   setIsRestore,
   setQuickEditID,
 } from "../../../../store/StoreAction.jsx";
-import { FiArchive, FiEdit3 } from "react-icons/fi";
-import { MdOutlinePersonOff, MdRestore } from "react-icons/md";
-import { PiKey } from "react-icons/pi";
-import { RiDeleteBinLine } from "react-icons/ri";
+import {
+  default as QuickEditDepartment,
+  default as QuickEditNotification,
+} from "./QuickEditNotification.jsx";
 import { getDepartmentCountRecord } from "./functions-notification.jsx";
-import TableLoading from "@/components/partials/TableLoading";
-import NoData from "@/components/partials/NoData";
-import ServerError from "@/components/partials/ServerError";
-import Pills from "@/components/partials/Pills";
-import ModalDeleteAndRestore from "@/components/partials/modals/ModalDeleteAndRestore.jsx";
-import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
-import QuickEditDepartment from "./QuickEditNotification.jsx";
-import QuickEditNotification from "./QuickEditNotification.jsx";
 
 const NotificationTable = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -206,7 +207,7 @@ const NotificationTable = () => {
         />
       )}
 
-      {store.isRestore && (
+      {/* {store.isRestore && (
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
@@ -220,7 +221,7 @@ const NotificationTable = () => {
           item={dataItem.department_name}
           queryKey={"settings-notification"}
         />
-      )}
+      )} */}
     </>
   );
 };
