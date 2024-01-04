@@ -117,7 +117,7 @@ const Settings = () => {
 
                     <div className="settings__actions flex gap-2">
                       <button className="btn btn--accent"> Save</button>
-                      <button className="btn btn--cancel" type="cancel">
+                      <button className="btn btn--cancel" type="button">
                         Discard
                       </button>
                     </div>

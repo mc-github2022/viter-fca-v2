@@ -138,7 +138,7 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
                   </button>
                   <button
                     className="btn btn--cancel"
-                    type="cancel"
+                    type="button"
                     onClick={handleClose}
                     disabled={mutation.isLoading}
                   >

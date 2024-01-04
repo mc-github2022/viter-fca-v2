@@ -248,18 +248,18 @@
   }
 
   .btn--alert {
-    @apply bg-alert  text-alert hover:bg-alertDark;
+    @apply bg-alert text-primary  hover:bg-alertDark;
   }
   .btn--warning {
-    @apply bg-warning  text-warning hover:bg-warningDark;
+    @apply bg-warning text-primary hover:bg-warningDark;
   }
 
   .btn--info {
-    @apply bg-info  text-info hover:bg-infoDark;
+    @apply bg-info  text-primary hover:bg-infoDark;
   }
 
   .btn--success {
-    @apply bg-success  text-success hover:bg-successDark;
+    @apply bg-success  text-primary hover:bg-successDark;
   }
 
   .btn-filter {

@@ -1,4 +1,4 @@
-import { InputSelect, InputText } from "@/components/helpers/FormInputs";
+import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -13,7 +13,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const GradeLevelFormAddEdit = ({ itemEdit }) => {
+const RolesFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -24,15 +24,13 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/v2/dev-grade-level/${itemEdit.grade_level_aid}`
-          : "/v2/dev-grade-level",
+        itemEdit ? `/v2/dev-roles/${itemEdit.role_aid}` : "/v2/dev-roles",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["grade-level"] });
+      queryClient.invalidateQueries({ queryKey: ["roles"] });
 
       // show error box
       if (!data.success) {
@@ -49,17 +47,14 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
   });
 
   const initVal = {
-    grade_level_aid: itemEdit ? itemEdit.grade_level_aid : "",
-    grade_level_name: itemEdit ? itemEdit.grade_level_name : "",
-    grade_level_is_pre_school: itemEdit
-      ? itemEdit.grade_level_is_pre_school
-      : "",
-    grade_level_name_old: itemEdit ? itemEdit.grade_level_name : "",
+    role_aid: itemEdit ? itemEdit.role_aid : "",
+    role_name: itemEdit ? itemEdit.role_name : "",
+    role_description: itemEdit ? itemEdit.role_description : "",
+    role_name_old: itemEdit ? itemEdit.role_name : "",
   };
 
   const yupSchema = Yup.object({
-    grade_level_name: Yup.string().required("Required"),
-    grade_level_is_pre_school: Yup.string().required("Required"),
+    role_name: Yup.string().required("Required"),
   });
   return (
     <>
@@ -74,30 +69,23 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
           {(props) => {
             return (
               <Form>
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Name"
-                    type="text"
-                    name="grade_level_name"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
+                {!itemEdit && (
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="Name"
+                      type="text"
+                      name="role_name"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
+                )}
 
                 <div className="form__wrap text-xs mb-3">
-                  <InputSelect
-                    label="Select yes if pre school"
-                    name="grade_level_is_pre_school"
+                  <InputTextArea
+                    label="Description"
+                    name="role_description"
                     disabled={mutation.isLoading}
-                    onChange={(e) => e}
-                  >
-                    <optgroup label="Select Option">
-                      <option value="" hidden>
-                        --
-                      </option>
-                      <option value="1">Yes</option>
-                      <option value="0">No</option>
-                    </optgroup>
-                  </InputSelect>
+                  />
                 </div>
 
                 <div className={` settings__actions flex gap-2`}>
@@ -128,4 +116,4 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
   );
 };
 
-export default GradeLevelFormAddEdit;
+export default RolesFormAddEdit;

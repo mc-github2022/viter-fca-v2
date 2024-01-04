@@ -6,38 +6,27 @@ import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import RequirementFinanceFormAddEdit from "./RequirementFinanceFormAddEdit";
-import RequirementFinanceList from "./RequirementFinanceList";
-import useQueryData from "@/components/custom-hooks/useQueryData";
-const RequirementFinance = ({ index }) => {
+import RolesFormAddEdit from "./RolesFormAddEdit";
+import RolesList from "./RolesList";
+const Roles = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [itemEdit, setItemEdit] = React.useState(null);
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: department,
-  } = useQueryData(
-    "/v2/dev-department", // endpoint
-    "get", // method
-    "department" // key
-  );
+  const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
     setItemEdit(null);
   };
 
-  if (index === 7) {
+  if (index === 14) {
     return (
       <>
         <div className="">
           <div className="bg-primary">
-            <h2 className="mb-3">Requirement Finance</h2>
+            <h2 className="mb-3">Roles</h2>
             <p className="text-xs mb-5">
-              Set list of Requirement Finance that will be available to the
-              current school year
+              Set list of Roles that will be available to the current school
+              year
             </p>
           </div>
 
@@ -50,13 +39,8 @@ const RequirementFinance = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && (
-            <RequirementFinanceFormAddEdit
-              itemEdit={itemEdit}
-              department={department}
-            />
-          )}
-          {!store.isAdd && <RequirementFinanceList setItemEdit={setItemEdit} />}
+          {store.isAdd && <RolesFormAddEdit itemEdit={itemEdit} />}
+          {!store.isAdd && <RolesList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>
@@ -65,4 +49,4 @@ const RequirementFinance = ({ index }) => {
   }
 };
 
-export default RequirementFinance;
+export default Roles;

@@ -1,4 +1,4 @@
-import { InputSelect, InputText } from "@/components/helpers/FormInputs";
+import { InputText } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -13,7 +13,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const GradeLevelFormAddEdit = ({ itemEdit }) => {
+const UserSystemFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -25,14 +25,14 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-grade-level/${itemEdit.grade_level_aid}`
-          : "/v2/dev-grade-level",
+          ? `/v2/dev-user-system/${itemEdit.user_system_aid}`
+          : "/v2/dev-user-system",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["grade-level"] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
 
       // show error box
       if (!data.success) {
@@ -49,17 +49,17 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
   });
 
   const initVal = {
-    grade_level_aid: itemEdit ? itemEdit.grade_level_aid : "",
-    grade_level_name: itemEdit ? itemEdit.grade_level_name : "",
-    grade_level_is_pre_school: itemEdit
-      ? itemEdit.grade_level_is_pre_school
-      : "",
-    grade_level_name_old: itemEdit ? itemEdit.grade_level_name : "",
+    user_system_aid: itemEdit ? itemEdit.user_system_aid : "",
+    user_system_fname: itemEdit ? itemEdit.user_system_fname : "",
+    user_system_lname: itemEdit ? itemEdit.user_system_lname : "",
+    user_system_email: itemEdit ? itemEdit.user_system_email : "",
+    user_system_email_old: itemEdit ? itemEdit.user_system_email : "",
   };
 
   const yupSchema = Yup.object({
-    grade_level_name: Yup.string().required("Required"),
-    grade_level_is_pre_school: Yup.string().required("Required"),
+    user_system_fname: Yup.string().required("Required"),
+    user_system_lname: Yup.string().required("Required"),
+    user_system_email: Yup.string().required("Required").email("Invalid Email"),
   });
   return (
     <>
@@ -76,31 +76,32 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
               <Form>
                 <div className="form__wrap text-xs mb-3">
                   <InputText
-                    label="Name"
+                    label="First Name"
                     type="text"
-                    name="grade_level_name"
+                    name="user_system_fname"
                     disabled={mutation.isLoading}
                   />
                 </div>
 
                 <div className="form__wrap text-xs mb-3">
-                  <InputSelect
-                    label="Select yes if pre school"
-                    name="grade_level_is_pre_school"
+                  <InputText
+                    label="Last Name"
+                    type="text"
+                    name="user_system_lname"
                     disabled={mutation.isLoading}
-                    onChange={(e) => e}
-                  >
-                    <optgroup label="Select Option">
-                      <option value="" hidden>
-                        --
-                      </option>
-                      <option value="1">Yes</option>
-                      <option value="0">No</option>
-                    </optgroup>
-                  </InputSelect>
+                  />
                 </div>
 
-                <div className={` settings__actions flex gap-2`}>
+                <div className="form__wrap text-xs mb-3">
+                  <InputText
+                    label="Email"
+                    type="email"
+                    name="user_system_email"
+                    disabled={mutation.isLoading}
+                  />
+                </div>
+
+                <div className={`settings__actions flex gap-2`}>
                   <button className="btn btn--accent" type="submit">
                     {mutation.isLoading ? (
                       <ButtonSpinner />
@@ -128,4 +129,4 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
   );
 };
 
-export default GradeLevelFormAddEdit;
+export default UserSystemFormAddEdit;

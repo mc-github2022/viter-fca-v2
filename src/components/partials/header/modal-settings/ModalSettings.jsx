@@ -11,6 +11,9 @@ import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
+import Roles from "@/components/pages/developer/settings/roles/Roles";
+import UserSystem from "@/components/pages/developer/settings/user-system/UserSystem";
+import UserOther from "@/components/pages/developer/settings/user-other/UserOther";
 const ModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
@@ -35,7 +38,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
       >
         <div className="modal__backdrop bg-black/30"></div>
         <div className="modal__main  w-full  h-screen flex justify-center items-center p-3 lg:p-5 ">
-          <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-280px)] ">
+          <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-260px)] custom__scroll overflow-y-auto">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <button
@@ -69,6 +72,11 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <LearningType index={index} />
                 <RequirementRegistrar index={index} />
                 <RequirementFinance index={index} />
+                <UserOther index={index} />
+
+                <UserSystem index={index} />
+
+                <Roles index={index} />
               </main>
             </div>
           </div>

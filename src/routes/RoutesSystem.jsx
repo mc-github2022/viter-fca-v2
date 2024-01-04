@@ -5,7 +5,7 @@ import Notification from "@/components/pages/developer/settings/notifications/No
 import {
   default as System,
   default as Users,
-} from "@/components/pages/developer/settings/users/system/System.jsx";
+} from "@/components/pages/developer/settings/user-system/UserSystem.jsx";
 import Students from "@/components/pages/developer/students/Students";
 import StudentInfo from "@/components/pages/developer/students/profile/StudentInfo.jsx";
 import CodeOfConduct from "@/components/pages/developer/students/profile/code-of-conduct/CodeOfConduct.jsx";

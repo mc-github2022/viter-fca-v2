@@ -6,10 +6,10 @@ import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import RequirementFinanceFormAddEdit from "./RequirementFinanceFormAddEdit";
-import RequirementFinanceList from "./RequirementFinanceList";
+import UserOtherFormAddEdit from "./UserOtherFormAddEdit";
+import UserOtherList from "./UserOtherList";
 import useQueryData from "@/components/custom-hooks/useQueryData";
-const RequirementFinance = ({ index }) => {
+const UserOther = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
 
@@ -17,11 +17,11 @@ const RequirementFinance = ({ index }) => {
     isLoading,
     isFetching,
     error,
-    data: department,
+    data: roles,
   } = useQueryData(
-    "/v2/dev-department", // endpoint
+    "/v2/dev-roles", // endpoint
     "get", // method
-    "department" // key
+    "roles" // key
   );
 
   const handleAdd = () => {
@@ -29,15 +29,15 @@ const RequirementFinance = ({ index }) => {
     setItemEdit(null);
   };
 
-  if (index === 7) {
+  if (index === 12) {
     return (
       <>
         <div className="">
           <div className="bg-primary">
-            <h2 className="mb-3">Requirement Finance</h2>
+            <h2 className="mb-3">Users</h2>
             <p className="text-xs mb-5">
-              Set list of Requirement Finance that will be available to the
-              current school year
+              Set list of users that will be available to the current school
+              year
             </p>
           </div>
 
@@ -51,12 +51,9 @@ const RequirementFinance = ({ index }) => {
           )}
 
           {store.isAdd && (
-            <RequirementFinanceFormAddEdit
-              itemEdit={itemEdit}
-              department={department}
-            />
+            <UserOtherFormAddEdit itemEdit={itemEdit} roles={roles} />
           )}
-          {!store.isAdd && <RequirementFinanceList setItemEdit={setItemEdit} />}
+          {!store.isAdd && <UserOtherList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>
@@ -65,4 +62,4 @@ const RequirementFinance = ({ index }) => {
   }
 };
 
-export default RequirementFinance;
+export default UserOther;

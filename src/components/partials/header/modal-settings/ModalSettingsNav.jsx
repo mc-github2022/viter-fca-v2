@@ -61,39 +61,41 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav }) => {
           </li>
 
           <li className="mb-3">
-            <button onClick={(e) => handleChangeSetting(3)}>
+            <button onClick={(e) => handleChangeSetting(8, e)}>
               Requirement - IT
             </button>
           </li>
 
           <li className="mb-3">
-            <button onClick={(e) => handleChangeSetting(3)}>
+            <button onClick={(e) => handleChangeSetting(9, e)}>
               Tuition Fee Category
             </button>
           </li>
 
           <li className="mb-3">
-            <button onClick={(e) => handleChangeSetting(3)}>
+            <button onClick={(e) => handleChangeSetting(10, e)}>
               Tuition Fee Scheme
             </button>
           </li>
 
           <li className="mb-3">
-            <button onClick={(e) => handleChangeSetting(3)}>
+            <button onClick={(e) => handleChangeSetting(11, e)}>
               Schedule of Fees
             </button>
           </li>
 
           <li className="mb-4">
-            <button onClick={(e) => handleChangeSetting(3)}>Users</button>
+            <button onClick={(e) => handleChangeSetting(12, e)}>Users</button>
           </li>
 
           <li className="mb-4">
-            <button onClick={(e) => handleChangeSetting(3)}>Developer</button>
+            <button onClick={(e) => handleChangeSetting(13, e)}>
+              Developer
+            </button>
           </li>
 
           <li>
-            <button onClick={(e) => handleChangeSetting(3)}>Roles</button>
+            <button onClick={(e) => handleChangeSetting(14, e)}>Roles</button>
           </li>
         </ul>
       </aside>
