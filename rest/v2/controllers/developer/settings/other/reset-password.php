@@ -30,7 +30,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkPayload($data);
     $user_other->user_other_key = $encrypt->doHash(rand());
     $user_other->user_other_datetime = date("Y-m-d H:i:s");
-    $user_other->user_other_email = trim($data["email"]);
+    $user_other->user_other_email = trim($data["item"]);
     $password_link = "/other/create-password";
 
     $query = $user_other->readLogin();

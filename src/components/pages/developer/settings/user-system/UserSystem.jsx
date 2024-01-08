@@ -2,6 +2,7 @@ import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsAdd } from "@/components/store/StoreAction";
@@ -17,6 +18,17 @@ const UserSystem = ({ index }) => {
     dispatch(setIsAdd(true));
     setItemEdit(null);
   };
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: roles,
+  } = useQueryData(
+    "/v2/dev-roles", // endpoint
+    "get", // method
+    "roles" // key
+  );
 
   if (index === 13) {
     return (
@@ -39,7 +51,9 @@ const UserSystem = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && <UserSystemFormAddEdit itemEdit={itemEdit} />}
+          {store.isAdd && (
+            <UserSystemFormAddEdit itemEdit={itemEdit} roles={roles} />
+          )}
           {!store.isAdd && <UserSystemList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

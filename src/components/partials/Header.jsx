@@ -1,21 +1,25 @@
 import React from "react";
 import { FaBars, FaCog, FaEdit, FaUserCircle } from "react-icons/fa";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { RiEdit2Line } from "react-icons/ri";
 import { setIsMenuExpand, setIsShow } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 import LogoTextOnly from "./svg/LogoTextOnly.jsx";
-import { FaRegCircleUser } from "react-icons/fa6";
-import { RiEdit2Line } from "react-icons/ri";
 
 import {
   MdOutlineAdminPanelSettings,
   MdOutlineMailOutline,
 } from "react-icons/md";
 import { PiSignOut } from "react-icons/pi";
+import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
+import { devNavUrl } from "../helpers/functions-general.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
+import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const menuRef = React.useRef();
 
@@ -36,6 +40,21 @@ const Header = () => {
     setIsShowSettings(true);
   };
 
+  const handleLogout = () => {
+    // dispatch(setIsLogout(!store.isLogout));
+    setLoading(true);
+    setTimeout(() => {
+      if (checkLocalStorage() !== null) {
+        localStorage.removeItem("fcatoken");
+        store.credentials.data.role_is_developer === 1
+          ? window.location.replace(`${devNavUrl}/system/login`)
+          : window.location.replace(`${devNavUrl}/login`);
+        return;
+      }
+      setLoading(false);
+    }, 1500);
+  };
+
   React.useEffect(() => {
     let handleShowDropdown = (e) => {
       if (!menuRef.current.contains(e.target)) {
@@ -50,6 +69,7 @@ const Header = () => {
 
   return (
     <>
+      {loading && <FetchingSpinner />}
       <header className=" px-4 fixed  w-full bg-primary shadow-sm  py-1 z-50">
         <div className="flex justify-between items-center">
           <div className="flex justify-center">
@@ -113,7 +133,10 @@ const Header = () => {
                       </p>
                     </li>
                     <li className="">
-                      <button className="flex gap-2 items-center hover:underline">
+                      <button
+                        className="flex gap-2 items-center hover:underline"
+                        onClick={handleLogout}
+                      >
                         <PiSignOut className="text-base" />
                         Logout
                       </button>

@@ -49,8 +49,11 @@ export const getUrlParam = () => {
 };
 
 // storage after login
-export function setStorageRoute(jwt) {
-  localStorage.setItem("fcaToken", JSON.stringify({ token: jwt }));
+export function setStorageRoute(jwt, isDev) {
+  localStorage.setItem(
+    "fcatoken",
+    JSON.stringify({ token: jwt, isDev: isDev })
+  );
 }
 
 // formatting date

@@ -5,6 +5,8 @@ $conn = checkDbConnection();
 $user_system = new UserSystem($conn);
 $encrypt = new Encryption();
 // get should not be present
+require '../../../../notification/verify-account.php';
+
 if (array_key_exists("usersystemid", $_GET)) {
     checkEndpoint();
 }
@@ -19,7 +21,7 @@ $user_system->user_system_role_id = checkIndex($data, "user_system_role_id");
 $user_system->user_system_key = $encrypt->doHash(rand());
 $user_system->user_system_created = date("Y-m-d H:i:s");
 $user_system->user_system_datetime = date("Y-m-d H:i:s");
-$is_developer = trim($data["is_developer"]);
+// $is_developer = trim($data["is_developer"]);
 $password_link = "/system/create-password";
 // check email
 isEmailExist($user_system, $user_system->user_system_email);

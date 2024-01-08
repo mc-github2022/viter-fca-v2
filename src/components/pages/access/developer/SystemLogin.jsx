@@ -1,8 +1,12 @@
 import useSystemLogin from "@/components/custom-hooks/useSystemLogin.jsx";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
-import { devNavUrl } from "@/components/helpers/functions-general";
+import {
+  devNavUrl,
+  setStorageRoute,
+} from "@/components/helpers/functions-general";
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
@@ -29,11 +33,13 @@ const SystemLogin = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (values) => queryData(`/v1/user-system/login`, "post", values),
+    mutationFn: (values) =>
+      queryData(`/v2/dev-user-system/login`, "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["system"] });
       // show error box
+      console.log(data.success);
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
@@ -44,8 +50,8 @@ const SystemLogin = () => {
           delete data.data[0].role_created;
           delete data.data[0].role_datetime;
 
+          setStorageRoute(data.data[1], true);
           dispatch(setCredentials(data.data[0]));
-          setStorageRoute(data.data[1]);
           dispatch(setIsLogin(false));
           checkRoleToRedirect(navigate, data.data[0]);
         }
@@ -62,6 +68,10 @@ const SystemLogin = () => {
     user_system_email: Yup.string().required("Required").email("Invalid email"),
     password: Yup.string().required("Required"),
   });
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
 
   return (
     <>
@@ -96,7 +106,7 @@ const SystemLogin = () => {
                         label="Email"
                         type="text"
                         name="user_system_email"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
@@ -105,13 +115,13 @@ const SystemLogin = () => {
                         type={passwordShown ? "text" : "password"}
                         name="password"
                         disabled={
-                          mutation.isLoading ||
+                          mutation.isPending ||
                           props.values.user_system_email === ""
                         }
                       />
                       {props.values.password && (
                         <span
-                          className="text-base absolute bottom-1/2 right-2 translate-y-1/2 cursor-pointer"
+                          className="text-base absolute top-10 right-2  cursor-pointer"
                           onClick={togglePassword}
                         >
                           {passwordShown ? <FaEyeSlash /> : <FaEye />}
@@ -128,10 +138,14 @@ const SystemLogin = () => {
                     <div className="flex items-center gap-1 pt-3">
                       <button
                         type="submit"
-                        // disabled={mutation.isLoading || !props.dirty}
+                        disabled={mutation.isPending || !props.dirty}
                         className="btn btn--accent w-full relative"
                       >
-                        {mutation.isLoading ? <ButtonSpinner /> : "Login"}
+                        {mutation.isPending ? (
+                          <ButtonSpinner color="fill-white" />
+                        ) : (
+                          "Login"
+                        )}
                       </button>
                     </div>
                   </Form>
@@ -142,7 +156,7 @@ const SystemLogin = () => {
         </div>
       )}
 
-      {store.validate && <ModalValidate />}
+      {store.error && <ModalError />}
     </>
   );
 };

@@ -24,7 +24,7 @@ import { BsCheckCircleFill } from "react-icons/bs/index.js";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import * as Yup from "yup";
 
-const SystemCreatePassword = () => {
+const OtherCreatePassword = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
@@ -40,17 +40,17 @@ const SystemCreatePassword = () => {
   const queryClient = useQueryClient();
 
   const { isPending, data: key } = useQueryData(
-    `/v2/dev-user-system/key/${paramKey}`, // endpoint
+    `/v2/user-other/key/${paramKey}`, // endpoint
     "get", // method
-    "system" // key
+    "other" // key
   );
 
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData("/v2/dev-user-system/password", "post", values),
+      queryData("/v2/user-other/password", "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["system"] });
+      queryClient.invalidateQueries({ queryKey: ["other"] });
 
       // show error box
       if (!data.success) {
@@ -131,7 +131,6 @@ const SystemCreatePassword = () => {
     }
   };
 
-  console.log(validateComplete);
   return (
     <>
       {isSuccess ? (
@@ -151,7 +150,7 @@ const SystemCreatePassword = () => {
 
                 <a
                   className="btn btn--accent text-xs block text-center mt-6"
-                  href={`${devNavUrl}/system/login`}
+                  href={`${devNavUrl}/login`}
                 >
                   Back to Login
                 </a>
@@ -309,4 +308,4 @@ const SystemCreatePassword = () => {
   );
 };
 
-export default SystemCreatePassword;
+export default OtherCreatePassword;

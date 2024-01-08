@@ -5,7 +5,7 @@ const ButtonSpinner = ({ color }) => {
   return (
     <>
       <div className="flex justify-center items-center flex-col text-center rounded-full">
-        <Spinner diameter="w-[20px]" color={color} />
+        <Spinner diameter="w-[12px]" color={color} />
       </div>
     </>
   );

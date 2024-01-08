@@ -4,7 +4,7 @@ function getHtmlResetPassword(
   $password_link,
   $email,
   $key,
-  $code,
+
   $ROOT_DOMAIN,
   $IMAGES_URL
 ) {
@@ -70,10 +70,7 @@ function getHtmlResetPassword(
           border: 1px solid #ddd;
         "
       >
-
-        <p> ' .  $code . ' </p>
         <p style="margin-bottom: 20px">
-          
           It looks like you need to reset your password using
           <strong>' . $email . '</strong> as account email address.
           Please click the button below to reset your password.

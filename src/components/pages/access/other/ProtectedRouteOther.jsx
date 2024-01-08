@@ -15,7 +15,7 @@ const ProtectedRouteOther = ({ children }) => {
 
   React.useEffect(() => {
     const fetchLogin = async () => {
-      const login = await queryData(`/v1/user-system/token`, "post", {
+      const login = await queryData(`/v2/dev-user-system/token`, "post", {
         token: fbastoken.token,
       });
 

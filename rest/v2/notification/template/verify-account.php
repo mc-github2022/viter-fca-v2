@@ -5,7 +5,6 @@ function getHtmlVerifyAccount(
   $name,
   $email,
   $key,
-  $code,
   $ROOT_DOMAIN,
   $IMAGES_URL
 ) {
@@ -72,7 +71,7 @@ function getHtmlVerifyAccount(
         "
       >
         <p>Hi ' . $name . ',</p>
-        <p>'. $code .' </p>
+      
         <p style="margin-bottom: 20px">
           Please confirm that you want to use
           <strong>' . $email . '</strong> as account email address.

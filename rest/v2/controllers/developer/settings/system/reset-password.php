@@ -5,7 +5,7 @@ require '../../../../core/Encryption.php';
 // use needed functions
 require '../../../../core/functions.php';
 // use notification template
-// require '../../../../../notification/reset-password.php';
+require '../../../../notification/reset-password.php';
 // use needed classes
 require '../../../../models/developer/settings/UserSystem.php';
 
@@ -35,18 +35,18 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
     $user_system->user_system_key = $encrypt->doHash(rand());
     $user_system->user_system_datetime = date("Y-m-d H:i:s");
-    $user_system->user_system_email = trim($data["email"]);
+    $user_system->user_system_email = trim($data["item"]);
     $password_link = "/system/create-password";
 
     $query = $user_system->readLogin();
     if ($query->rowCount() == 0) {
         returnError("Invalid email. Please use a registered one.");
     }
-    // $mail = sendEmail(
-    //     $password_link,
-    //     $user_system->user_system_email,
-    //     $user_system->user_system_key
-    // );
+    $mail = sendEmail(
+        $password_link,
+        $user_system->user_system_email,
+        $user_system->user_system_key
+    );
 
     $query = checkResetPassword($user_system);
     http_response_code(200);

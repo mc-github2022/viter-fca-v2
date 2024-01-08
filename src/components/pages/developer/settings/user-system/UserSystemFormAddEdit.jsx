@@ -13,13 +13,17 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const UserSystemFormAddEdit = ({ itemEdit }) => {
+const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
   };
+
+  const getDeveloperRole = roles?.data.filter(
+    (item) => item.role_is_developer === 1 && item.role_is_active === 1
+  );
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -68,7 +72,10 @@ const UserSystemFormAddEdit = ({ itemEdit }) => {
           initialValues={initVal}
           validationSchema={yupSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            mutation.mutate(values);
+            mutation.mutate({
+              ...values,
+              user_system_role_id: getDeveloperRole[0].role_aid,
+            });
           }}
         >
           {(props) => {
@@ -102,7 +109,11 @@ const UserSystemFormAddEdit = ({ itemEdit }) => {
                 </div>
 
                 <div className={`settings__actions flex gap-2`}>
-                  <button className="btn btn--accent" type="submit">
+                  <button
+                    className="btn btn--accent "
+                    type="submit"
+                    disabled={mutation.isLoading}
+                  >
                     {mutation.isLoading ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
