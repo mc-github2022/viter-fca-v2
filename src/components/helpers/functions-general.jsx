@@ -4,12 +4,12 @@ import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
 // // Mac
-const urlPathResto = "http://localhost/viter-fca-v2";
-const imgUrlPathResto = "http://localhost/viter-fca-v2/public/img";
+export const urlPathResto = "http://localhost/viter-fca-v2";
+export const imgUrlPathResto = "http://localhost/viter-fca-v2/public/img";
 
 // // Patrick
-// const urlPathLcss = `https://devapp.fbasapp.com`;
-// const imgUrlPathFbas = `https://devapp.fbasapp.com/img`;
+// export const urlPathLcss = `https://devapp.fbasapp.com`;
+// export const imgUrlPathFbas = `https://devapp.fbasapp.com/img`;
 
 // // Local Dev and Online Dev URL
 export const devApiUrl = `${urlPathResto}/rest`;
