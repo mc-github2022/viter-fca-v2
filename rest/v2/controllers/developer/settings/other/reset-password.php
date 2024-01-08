@@ -13,7 +13,7 @@ require '../../../../models/developer/settings/UserOther.php';
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$user_other = new UserOther($conn);
+$user_other = new UserOther($conn);  
 $response = new Response();
 $encrypt = new Encryption();
 // get payload

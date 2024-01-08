@@ -24,9 +24,7 @@ function App() {
             <Routes>
               <Route path={`*`} element={<PageNotFound />} />
 
-              <Route path={`${devNavUrl}/settings/users`} element={<Users />} />
-
-              {/* ACCESS */}
+              {/* <Route path={`${devNavUrl}/settings/users`} element={<Users />} />
 
               <Route
                 path={`${devNavUrl}/system/login`}
@@ -53,7 +51,7 @@ function App() {
               <Route
                 path={`${devNavUrl}/create-password`}
                 element={<OtherCreatePassword />}
-              />
+              /> */}
 
               {/* SYSTEM USER ROUTE */}
               {routesSystem.map(({ ...routeProps }, key) => {

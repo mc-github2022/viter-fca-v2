@@ -7,7 +7,6 @@ import {
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
-import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
@@ -39,7 +38,7 @@ const SystemLogin = () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["system"] });
       // show error box
-      console.log(data.success);
+
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
