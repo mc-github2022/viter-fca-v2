@@ -1,7 +1,7 @@
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 
-const ModalWrapper = ({ children, width = "max-w-[380px]", handleClose }) => {
+const ModalWrapper = ({ children, width = "max-w-[420px]", handleClose }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   return (
@@ -12,11 +12,11 @@ const ModalWrapper = ({ children, width = "max-w-[380px]", handleClose }) => {
         }`}
       >
         <div
-          className={`backdrop bg-dark/30 w-screen h-screen transition-all animate-fadeIn opacity-0 `}
+          className={`backdrop bg-black bg-opacity-30 w-screen h-screen transition-all animate-fadeIn opacity-100  `}
           onClick={handleClose}
         ></div>
         <div
-          className={`modal__main absolute mx-1.5 transition-all animate-slideUp translate-y-[20px] opacity-0  bg-white border border-gray-200 rounded-md py-8 px-5 ${width} w-full shadow-xl`}
+          className={`modal__main absolute mx-1.5 transition-all animate-slideUp translate-y-[0px] opacity-0  bg-primary border border-gray-200 rounded-md p-5 ${width} w-full shadow-md`}
         >
           {children}
         </div>

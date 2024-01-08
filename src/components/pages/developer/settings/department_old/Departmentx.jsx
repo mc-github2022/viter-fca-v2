@@ -2,6 +2,8 @@ import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
 import Navigation from "@/components/partials/Navigation";
+import { setIsAdd } from "@/components/store/StoreAction.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import {
   FaAngleLeft,
@@ -12,8 +14,6 @@ import {
 import { Link } from "react-router-dom";
 import DepartmentTable from "./DepartmentTable.jsx";
 import ModalAddDepartment from "./ModalAddDepartment.jsx";
-import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { setIsAdd } from "@/components/store/StoreAction.jsx";
 
 const Departmentx = () => {
   const { store, dispatch } = React.useContext(StoreContext);

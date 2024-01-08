@@ -1,6 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import { IoInformationCircle } from "react-icons/io5";
+import { handleEscape } from "@/components/helpers/functions-general.jsx";
+import { queryData } from "@/components/helpers/queryData.jsx";
 import {
   setIsConfirm,
   setMessage,
@@ -8,12 +7,13 @@ import {
   setValidate,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { handleEscape } from "../../helpers/functions-general";
-import { queryData } from "../../helpers/queryData";
-import ButtonSpinner from "../spinners/ButtonSpinner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React from "react";
+import { LiaInfoCircleSolid } from "react-icons/lia";
+import ButtonSpinner from "../spinners/ButtonSpinner.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey }) => {
+const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -38,7 +38,7 @@ const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey }) => {
   const handleYes = async () => {
     // mutate data
     mutation.mutate({
-      isActive: 0,
+      isActive: isArchive,
     });
   };
 
@@ -51,16 +51,20 @@ const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey }) => {
   return (
     <>
       <ModalWrapper>
-        <div className="modal__header flex gap-2">
-          <IoInformationCircle className="fill-primary text-5xl" />
-          <h3 className="mt-3 text-[16px]">Archive </h3>
+        <div className="modal__header flex items-center gap-2">
+          <LiaInfoCircleSolid className="fill-accent text-3xl" />
+          <h3 className="text-[16px] mb-0">
+            {isArchive ? "Restore" : "Archive"} Record
+          </h3>
         </div>
-        <h3 className="mt-3 text-[14px] mb-0 font-normal">{msg}</h3>
-        <p className="text-primary mt-5 uppercase">{item}</p>
+        <h3 className=" text-[14px] mb-0 font-normal">{msg}</h3>
+        <p className="mt-3 ">
+          <span className="font-bold">"{item}"</span>
+        </p>
 
-        <div className="modal__action flex justify-end mt-10 gap-2">
+        <div className="modal__action flex justify-end mt-2 gap-2">
           <button
-            className="btn btn--primary"
+            className="btn btn--accent"
             disabled={mutation.isLoading}
             onClick={handleYes}
             type="submit"

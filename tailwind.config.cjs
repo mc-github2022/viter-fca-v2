@@ -163,6 +163,11 @@ export default {
         rotate: "rotate 2s linear infinite",
         loading: "loading 1.5s ease-in  infinite",
       },
+
+      screens: {
+        xr: { raw: "(min-height: 800px)" },
+        poco: { raw: "(min-height: 800px)" },
+      },
     },
   },
   plugins: [],

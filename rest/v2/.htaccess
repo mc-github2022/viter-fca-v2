@@ -69,17 +69,25 @@ RewriteRule ^dev-tuition-fee/([0-9]+)$ controllers/developer/settings/tuition-fe
 RewriteRule ^dev-tuition-fee/active/([0-9]+)$ controllers/developer/settings/tuition-fee/active.php?tuitionfeeid=$1 [L]
 
 # ROLES
-RewriteRule ^dev-roles$ controllers/developer/settings/users/roles/roles.php [L]
-RewriteRule ^dev-roles/([0-9]+)$ controllers/developer/settings/users/roles/roles.php?roleid=$1 [L]
-RewriteRule ^dev-roles/active/([0-9]+)$ controllers/developer/settings/users/roles/active.php?roleid=$1 [L]
+RewriteRule ^dev-roles$ controllers/developer/settings/roles/roles.php [L]
+RewriteRule ^dev-roles/([0-9]+)$ controllers/developer/settings/roles/roles.php?roleid=$1 [L]
+RewriteRule ^dev-roles/active/([0-9]+)$ controllers/developer/settings/roles/active.php?roleid=$1 [L]
 
 # USER SYSTEM
-RewriteRule ^dev-system-users$ controllers/developer/settings/users/system/system.php [L]
-RewriteRule ^dev-system-users/([0-9]+)$ controllers/developer/settings/users/system/system.php?usersystemid=$1 [L]
-RewriteRule ^dev-system-users/active/([0-9]+)$ controllers/developer/settings/users/system/active.php?usersystemid=$1 [L]
-RewriteRule ^dev-system-users/password controllers/developer/settings/users/system/set-password.php [L]
-RewriteRule ^dev-system-users/reset controllers/developer/settings/users/system/reset-password.php [L]
-RewriteRule ^dev-system-users/login$ controllers/developer/settings/users/system/login.php [L]
+RewriteRule ^dev-user-system$ controllers/developer/settings/system/system.php [L]
+RewriteRule ^dev-user-system/([0-9]+)$ controllers/developer/settings/system/system.php?usersystemid=$1 [L]
+RewriteRule ^dev-user-system/active/([0-9]+)$ controllers/developer/settings/system/active.php?usersystemid=$1 [L]
+RewriteRule ^dev-user-system/password controllers/developer/settings/system/set-password.php [L]
+RewriteRule ^dev-user-system/reset controllers/developer/settings/system/reset-password.php [L]
+RewriteRule ^dev-user-system/login$ controllers/developer/settings/system/login.php [L]
+
+# USER OTHER
+RewriteRule ^dev-user-other$ controllers/developer/settings/other/other.php [L]
+RewriteRule ^dev-user-other/([0-9]+)$ controllers/developer/settings/other/other.php?userotherid=$1 [L]
+RewriteRule ^dev-user-other/active/([0-9]+)$ controllers/developer/settings/other/active.php?userotherid=$1 [L]
+RewriteRule ^dev-user-other/password controllers/developer/settings/other/set-password.php [L]
+RewriteRule ^dev-user-other/reset controllers/developer/settings/other/reset-password.php [L]
+RewriteRule ^dev-user-other/login$ controllers/developer/settings/other/login.php [L]
 
 
 

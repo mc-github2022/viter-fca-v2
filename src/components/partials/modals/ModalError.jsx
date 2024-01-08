@@ -2,9 +2,8 @@ import React from "react";
 
 import { MdOutlineError } from "react-icons/md";
 import Modal from "../wrapper/Modal";
-import { StoreContext } from "@/store/StoreContext";
-import { setError } from "@/store/StoreAction";
-
+import { StoreContext } from "@/components/store/StoreContext";
+import { setError } from "@/components/store/StoreAction";
 const ModalError = () => {
   const { store, dispatch } = React.useContext(StoreContext);
 
@@ -20,10 +19,10 @@ const ModalError = () => {
             <span className="text-xl">Error</span>
           </h3>
         </div>
-        <div className="modal__body text-center">
+        <div className="modal__body__error text-center !pr-0">
           <p>{store.message} </p>
-          <div className="modal__action flex justify-center gap-4 mt-8">
-            <button className="btn btn--alert" onClick={handleClose}>
+          <div className="modal__action flex items-center !justify-center gap-4 !pr-0 mt-4">
+            <button className="btn btn--alert " onClick={handleClose}>
               Close
             </button>
           </div>
