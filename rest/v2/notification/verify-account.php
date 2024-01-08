@@ -11,7 +11,7 @@ require 'PHPMailer/Exception.php';
 include_once("mail-config.php");
 include_once("template/verify-account.php");
 
-function sendEmail($password_link, $name, $email, $key, $code)
+function sendEmail($password_link, $name, $email, $key)
 {
 	$mail = new PHPMailer(true);
 	$mail->isSMTP();
@@ -29,7 +29,6 @@ function sendEmail($password_link, $name, $email, $key, $code)
 		$name,
 		$email,
 		$key,
-		$code,
 		ROOT_DOMAIN,
 		IMAGES_URL
 	);

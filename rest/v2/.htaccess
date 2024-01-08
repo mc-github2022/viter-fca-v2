@@ -80,16 +80,17 @@ RewriteRule ^dev-user-system/active/([0-9]+)$ controllers/developer/settings/sys
 RewriteRule ^dev-user-system/password controllers/developer/settings/system/set-password.php [L]
 RewriteRule ^dev-user-system/reset controllers/developer/settings/system/reset-password.php [L]
 RewriteRule ^dev-user-system/login$ controllers/developer/settings/system/login.php [L]
+RewriteRule ^dev-user-system/key/([A-Za-z0-9-]+)$ controllers/developer/settings/system/key.php?usersystemkey=$1 [L]
+RewriteRule ^dev-user-system/token$ controllers/developer/settings/system/token.php [L]
 
 # USER OTHER
-RewriteRule ^dev-user-other$ controllers/developer/settings/other/other.php [L]
-RewriteRule ^dev-user-other/([0-9]+)$ controllers/developer/settings/other/other.php?userotherid=$1 [L]
-RewriteRule ^dev-user-other/active/([0-9]+)$ controllers/developer/settings/other/active.php?userotherid=$1 [L]
-RewriteRule ^dev-user-other/password controllers/developer/settings/other/set-password.php [L]
-RewriteRule ^dev-user-other/reset controllers/developer/settings/other/reset-password.php [L]
-RewriteRule ^dev-user-other/login$ controllers/developer/settings/other/login.php [L]
-
-
-
+RewriteRule ^user-other$ controllers/developer/settings/other/other.php [L]
+RewriteRule ^user-other/([0-9]+)$ controllers/developer/settings/other/other.php?userotherid=$1 [L]
+RewriteRule ^user-other/active/([0-9]+)$ controllers/developer/settings/other/active.php?userotherid=$1 [L]
+RewriteRule ^user-other/password controllers/developer/settings/other/set-password.php [L]
+RewriteRule ^user-other/reset controllers/developer/settings/other/reset-password.php [L]
+RewriteRule ^user-other/login$ controllers/developer/settings/other/login.php [L]
+RewriteRule ^user-other/key/([A-Za-z0-9-]+)$ controllers/developer/settings/system/key.php?usersystemkey=$1 [L]
+RewriteRule ^user-other/token$ controllers/developer/settings/system/token.php [L]
 
 ###### DEV SETTINGS ######

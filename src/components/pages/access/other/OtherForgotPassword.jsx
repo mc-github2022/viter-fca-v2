@@ -21,7 +21,7 @@ import { MdMarkEmailRead } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
-const SystemForgotPassword = () => {
+const OtherForgotPassword = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isSuccess, setIsSuccess] = React.useState(false);
 
@@ -30,14 +30,13 @@ const SystemForgotPassword = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (values) =>
-      queryData(`/v2/dev-user-system/reset`, "post", values),
+    mutationFn: (values) => queryData(`/v2/user-other/reset`, "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["system"] });
+      queryClient.invalidateQueries({ queryKey: ["other"] });
       // show error box
       if (!data.success) {
-        dispatch(setValidate(true));
+        dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
         setIsSuccess(true);
@@ -71,7 +70,7 @@ const SystemForgotPassword = () => {
 
               <a
                 className="btn btn--accent text-xs block text-center mt-6"
-                href={`${devNavUrl}/system/login`}
+                href={`${devNavUrl}/login`}
               >
                 Back to Login
               </a>
@@ -125,7 +124,7 @@ const SystemForgotPassword = () => {
 
                       <a
                         className="text-dark text-sm text-center block  mt-6"
-                        href={`${devNavUrl}/system/login`}
+                        href={`${devNavUrl}/login`}
                       >
                         Go back to login
                       </a>
@@ -137,9 +136,9 @@ const SystemForgotPassword = () => {
           )}
         </div>
       </div>
-      {store.validate && <ModalError />}
+      {store.error && <ModalError />}
     </>
   );
 };
 
-export default SystemForgotPassword;
+export default OtherForgotPassword;

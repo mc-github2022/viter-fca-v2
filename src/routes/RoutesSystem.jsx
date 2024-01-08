@@ -1,4 +1,9 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
+import ProtectedRouteSystem from "@/components/pages/access/developer/ProtectedRouteSystem.jsx";
+import SystemCreatePassword from "@/components/pages/access/developer/SystemCreatePassword.jsx";
+import SystemForgotPassword from "@/components/pages/access/developer/SystemForgotPassword.jsx";
+import SystemLogin from "@/components/pages/access/developer/SystemLogin.jsx";
+import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEmailSystemUser.jsx";
 import Settings from "@/components/pages/developer/settings/Settings";
 import Department from "@/components/pages/developer/settings/department_old/Departmentx.jsx";
 import Notification from "@/components/pages/developer/settings/notifications/Notifications";
@@ -15,6 +20,26 @@ import ParentDeclaration from "@/components/pages/developer/students/profile/par
 import StudentProfile from "@/components/pages/developer/students/profile/student-profile/StudentProfile.jsx";
 
 export const routesSystem = [
+  {
+    path: `${devNavUrl}/system/verify-email`,
+    element: <VerifyEmailSystemUser />,
+  },
+
+  {
+    path: `/${devNavUrl}/system/login`,
+    element: <SystemLogin />,
+  },
+
+  {
+    path: `/${devNavUrl}/system/forgot-password`,
+    element: <SystemForgotPassword />,
+  },
+
+  {
+    path: `/${devNavUrl}/system/create-password`,
+    element: <SystemCreatePassword />,
+  },
+
   {
     path: `${devNavUrl}/system/settings/users`,
     element: (
@@ -45,9 +70,9 @@ export const routesSystem = [
   {
     path: `${devNavUrl}/system/students`,
     element: (
-      //   <ProtectedRouteSystem>
-      <Students />
-      //   </ProtectedRouteSystem>
+      <ProtectedRouteSystem>
+        <Students />
+      </ProtectedRouteSystem>
     ),
   },
 

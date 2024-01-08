@@ -1,10 +1,10 @@
 export const checkLocalStorage = () => {
-  let fcaToken = null;
+  let fcatoken = null;
   try {
-    fcaToken = JSON.parse(localStorage.getItem("fcaToken"));
+    fcatoken = JSON.parse(localStorage.getItem("fcatoken"));
   } catch (error) {
-    fcaToken = null;
+    fcatoken = null;
   }
 
-  return fcaToken;
+  return fcatoken;
 };

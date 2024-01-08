@@ -239,6 +239,10 @@
     @apply bg-gray-100 text-gray-500 border-gray-100 hover:bg-gray-200;
   }
 
+  .btn--accent:disabled {
+    @apply bg-accent text-white;
+  }
+
   .btn--accent:not(:disabled) {
     @apply bg-accent text-white hover:bg-accentDark;
   }

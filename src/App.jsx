@@ -5,6 +5,9 @@ import { devNavUrl } from "./components/helpers/functions-general.jsx";
 import SystemCreatePassword from "./components/pages/access/developer/SystemCreatePassword.jsx";
 import SystemForgotPassword from "./components/pages/access/developer/SystemForgotPassword.jsx";
 import SystemLogin from "./components/pages/access/developer/SystemLogin.jsx";
+import OtherCreatePassword from "./components/pages/access/other/OtherCreatePassword.jsx";
+import OtherForgotPassword from "./components/pages/access/other/OtherForgotPassword.jsx";
+import OtherLogin from "./components/pages/access/other/OtherLogin.jsx";
 import Users from "./components/pages/developer/settings/user-system/UserSystem.jsx";
 import PageNotFound from "./components/partials/PageNotFound.jsx";
 import { StoreProvider } from "./components/store/StoreContext.jsx";
@@ -30,14 +33,26 @@ function App() {
                 element={<SystemLogin />}
               />
 
+              <Route path={`${devNavUrl}/login`} element={<OtherLogin />} />
+
               <Route
                 path={`${devNavUrl}/system/forgot-password`}
                 element={<SystemForgotPassword />}
               />
 
               <Route
+                path={`${devNavUrl}/forgot-password`}
+                element={<OtherForgotPassword />}
+              />
+
+              <Route
                 path={`${devNavUrl}/system/create-password`}
                 element={<SystemCreatePassword />}
+              />
+
+              <Route
+                path={`${devNavUrl}/create-password`}
+                element={<OtherCreatePassword />}
               />
 
               {/* SYSTEM USER ROUTE */}
