@@ -96,7 +96,11 @@
 
   table th,
   table td {
-    @apply p-2 py-1 text-left text-xs;
+    @apply text-left text-xs py-1;
+  }
+
+  table thead tr th:last-child div {
+    @apply text-right justify-end;
   }
 
   table tr {
@@ -109,25 +113,6 @@
 
   table tr:last-child {
     @apply border-none;
-  }
-
-  table .table__action {
-    @apply relative w-[40px];
-  }
-
-  table .table__action ul {
-    @apply flex gap-5 lg:bg-slate-50 static top-1 lg:opacity-0 lg:absolute opacity-100 right-[45px];
-  }
-
-  table .table__action ul li button {
-    @apply text-base text-header;
-  }
-  table tr:hover td.table__action ul {
-    @apply opacity-100;
-  }
-
-  table tr:hover td.table__action span {
-    @apply border-slate-50;
   }
 
   .article p {
@@ -153,10 +138,6 @@
 
   table thead {
     @apply sticky top-0  bg-white border-b border-gray-100;
-  }
-
-  table thead tr th {
-    @apply pt-4;
   }
 
   nav {
