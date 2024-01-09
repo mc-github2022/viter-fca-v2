@@ -14,6 +14,9 @@ import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
+import RequirementIt from "@/components/pages/developer/settings/requirement-it/RequirementIt";
+import Scheme from "@/components/pages/developer/settings/scheme/Scheme";
+import TuitionCategory from "@/components/pages/developer/settings/tuition-category/TuitionCategory";
 const ModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
@@ -72,10 +75,11 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <LearningType index={index} />
                 <RequirementRegistrar index={index} />
                 <RequirementFinance index={index} />
+                <RequirementIt index={index} />
+                <TuitionCategory index={index} />
+                <Scheme index={index} />
                 <UserOther index={index} />
-
                 <UserSystem index={index} />
-
                 <Roles index={index} />
               </main>
             </div>
