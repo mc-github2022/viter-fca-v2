@@ -5,6 +5,7 @@ import { devNavUrl } from "./components/helpers/functions-general.jsx";
 import SystemCreatePassword from "./components/pages/access/developer/SystemCreatePassword.jsx";
 import SystemForgotPassword from "./components/pages/access/developer/SystemForgotPassword.jsx";
 import SystemLogin from "./components/pages/access/developer/SystemLogin.jsx";
+import OtherCreateAccount from "./components/pages/access/other/OtherCreateAccount.jsx";
 import OtherCreatePassword from "./components/pages/access/other/OtherCreatePassword.jsx";
 import OtherForgotPassword from "./components/pages/access/other/OtherForgotPassword.jsx";
 import OtherLogin from "./components/pages/access/other/OtherLogin.jsx";
@@ -23,37 +24,36 @@ function App() {
           <Router>
             <Routes>
               <Route path={`*`} element={<PageNotFound />} />
-
-              {/* <Route path={`${devNavUrl}/settings/users`} element={<Users />} />
-
+              <Route path={`${devNavUrl}/login`} element={<OtherLogin />} />
+              <Route
+                path={`${devNavUrl}/settings/users`}
+                element={<Users />}
+              />{" "}
               <Route
                 path={`${devNavUrl}/system/login`}
                 element={<SystemLogin />}
               />
-
-              <Route path={`${devNavUrl}/login`} element={<OtherLogin />} />
-
               <Route
                 path={`${devNavUrl}/system/forgot-password`}
                 element={<SystemForgotPassword />}
               />
-
               <Route
                 path={`${devNavUrl}/forgot-password`}
                 element={<OtherForgotPassword />}
               />
-
               <Route
                 path={`${devNavUrl}/system/create-password`}
                 element={<SystemCreatePassword />}
               />
-
               <Route
                 path={`${devNavUrl}/create-password`}
                 element={<OtherCreatePassword />}
-              /> */}
-
-              {/* SYSTEM USER ROUTE */}
+              />
+              <Route
+                path={`${devNavUrl}/create-account`}
+                element={<OtherCreateAccount />}
+              />
+              {/* SYSTEM USER ROUTE  */}
               {routesSystem.map(({ ...routeProps }, key) => {
                 return <Route key={key} {...routeProps} />;
               })}

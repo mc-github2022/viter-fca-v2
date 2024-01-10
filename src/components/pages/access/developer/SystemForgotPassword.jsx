@@ -124,7 +124,7 @@ const SystemForgotPassword = () => {
                       </div>
 
                       <a
-                        className="text-dark text-sm text-center block  mt-6"
+                        className="text-dark text-xs hover:underline text-center block  mt-6"
                         href={`${devNavUrl}/system/login`}
                       >
                         Go back to login

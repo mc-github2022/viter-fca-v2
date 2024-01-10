@@ -66,7 +66,7 @@ const DepartmentList = ({ setItemEdit }) => {
     columnHelper.accessor("", {
       header: "#",
       cell: (row) => {
-        return <div className="w-1">{row.row.index + 1}</div>;
+        return row.row.index + 1;
       },
     }),
 

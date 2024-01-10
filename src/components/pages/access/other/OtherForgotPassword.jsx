@@ -123,7 +123,7 @@ const OtherForgotPassword = () => {
                       </div>
 
                       <a
-                        className="text-dark text-sm text-center block  mt-6"
+                        className="text-dark text-xs hover:underline text-center block  mt-6"
                         href={`${devNavUrl}/login`}
                       >
                         Go back to login
