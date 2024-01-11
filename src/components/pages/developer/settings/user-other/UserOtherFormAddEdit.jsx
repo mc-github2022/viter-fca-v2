@@ -29,8 +29,8 @@ const UserOtherFormAddEdit = ({ itemEdit, roles }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-user-other/${itemEdit.user_other_aid}`
-          : "/v2/dev-user-other",
+          ? `/v2/user-other/${itemEdit.user_other_aid}`
+          : "/v2/user-other",
         itemEdit ? "put" : "post",
         values
       ),
@@ -133,7 +133,7 @@ const UserOtherFormAddEdit = ({ itemEdit, roles }) => {
                   </InputSelect>
                 </div>
 
-                <div className={`settings__actions flex gap-2`}>
+                <div className={`settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
                     {mutation.isLoading ? (
                       <ButtonSpinner />

@@ -27,7 +27,7 @@ const UserOtherList = ({ setItemEdit }) => {
     error,
     data: other,
   } = useQueryData(
-    "/v2/dev-user-other", // endpoint
+    "/v2/user-other", // endpoint
     "get", // method
     "other" // key
   );
@@ -138,7 +138,7 @@ const UserOtherList = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/dev-user-other/active/${id}`}
+          mysqlApiArchive={`/v2/user-other/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
@@ -150,7 +150,7 @@ const UserOtherList = ({ setItemEdit }) => {
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-user-other/${id}`}
+          mysqlApiDelete={`/v2/user-other/${id}`}
           msg={"Are you sure you want to delete this record?"}
           item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
           queryKey={"other"}

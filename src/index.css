@@ -29,7 +29,7 @@
   --accentDark: hsl(23, 99%, 39%);
   --primary: #2e2e2e;
   --secondary: #222222;
-  --line: #5e5e5e;
+  --line: #333333;
   --header: #ffffff;
   --body: #d6d6d6;
   --disable: #bebebe;
@@ -404,6 +404,10 @@
 
   .modal.modal--settings.show .modal__backdrop {
     @apply opacity-100  bg-black/30;
+  }
+
+  .modal__settings__nav ul li.active {
+    @apply bg-accent text-white transition-colors ease-in-out;
   }
 
   /* TOOLTIP */

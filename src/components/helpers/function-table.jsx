@@ -24,6 +24,33 @@ export const IndeterminateCheckbox = ({
   );
 };
 
+export const Filter = ({ column, table }) => {
+  const columnFilterValue = column.getFilterValue();
+
+  const firstValue = table
+    .getPreFilteredRowModel()
+    .flatRows[0]?.getValue(column.id);
+
+  return (
+    <>
+      {/* <datalist id={column.id + "list"}>
+        {sortedUniqueValues.slice(0, 5000).map((value) => (
+          <option value={value} key={value} />
+        ))}
+      </datalist> */}
+      <DebouncedInputFilter
+        type="text"
+        value={columnFilterValue ?? ""}
+        onChange={(value) => column.setFilterValue(value)}
+        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
+        className="w-36 border shadow rounded"
+        list={column.id + "list"}
+      />
+      <div className="h-1" />
+    </>
+  );
+};
+
 // A debounced input react component
 export const DebouncedInput = ({
   value: initialValue,
@@ -46,15 +73,42 @@ export const DebouncedInput = ({
   }, [value]);
 
   return (
-    <div className="relative w-full mb-2">
+    <form>
       <input
         {...props}
         value={value}
-        type="search"
+        name="filter"
         onChange={(e) => setValue(e.target.value)}
-        className="pl-8 w-full  placeholder:text-xs text-xs placeholder:opacity-40"
       />
-      <FaSearch className="absolute top-2.5 left-2 opacity-25" />
-    </div>
+    </form>
+  );
+};
+
+export const DebouncedInputFilter = ({
+  value: initialValue,
+  onChange,
+  debounce = 500,
+  ...props
+}) => {
+  const [value, setValue] = React.useState(initialValue);
+
+  React.useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      onChange(value);
+    }, debounce);
+
+    return () => clearTimeout(timeout);
+  }, [value]);
+
+  return (
+    <input
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
   );
 };

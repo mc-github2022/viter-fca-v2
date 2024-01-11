@@ -20,7 +20,7 @@ import { DebouncedInput, Filter } from "../helpers/function-table.jsx";
 
 const Table = ({ columns, data }) => {
   const [globalFilter, setGlobalFilter] = React.useState("");
-  const [columnFilters, setColumnFilters] = React.useState([]);
+  const [columnFilters, setColumnFilters] = React.useState("");
   const table = useReactTable({
     data,
     columns,
@@ -36,6 +36,22 @@ const Table = ({ columns, data }) => {
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
   });
+
+  const Filter = ({ column, table }) => {
+    const columnFilterValue = column.getFilterValue();
+    return (
+      <>
+        <DebouncedInput
+          type="text"
+          value={columnFilterValue ?? ""}
+          onChange={(value) => column.setFilterValue(value)}
+          className="w-36 border shadow rounded"
+          list={column.id + "list"}
+        />
+        <div className="h-1" />
+      </>
+    );
+  };
 
   return (
     <>
@@ -67,8 +83,7 @@ const Table = ({ columns, data }) => {
                             }[header.column.getIsSorted()] ?? null}
 
                             <div>
-                              {header.column.getCanFilter() &&
-                              header.column.id !== "action" ? (
+                              {header.column.getCanFilter() ? (
                                 <div>
                                   <Filter
                                     column={header.column}
