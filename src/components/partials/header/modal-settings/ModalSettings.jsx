@@ -4,8 +4,11 @@ import LearningType from "@/components/pages/developer/settings/learning-type/Le
 import Notifications from "@/components/pages/developer/settings/notifications/Notifications";
 import ParentRelationship from "@/components/pages/developer/settings/parent-relationship/ParentRelationship.jsx";
 import RequirementFinance from "@/components/pages/developer/settings/requirement-finance/RequirementFinance.jsx";
+import RequirementIt from "@/components/pages/developer/settings/requirement-it/RequirementIt";
 import RequirementRegistrar from "@/components/pages/developer/settings/requirement-registrar/RequirementRegistrar.jsx";
 import Roles from "@/components/pages/developer/settings/roles/Roles";
+import Scheme from "@/components/pages/developer/settings/scheme/Scheme";
+import TuitionCategory from "@/components/pages/developer/settings/tuition-category/TuitionCategory";
 import UserOther from "@/components/pages/developer/settings/user-other/UserOther";
 import UserSystem from "@/components/pages/developer/settings/user-system/UserSystem";
 import { setIsShowModal } from "@/components/store/StoreAction";
@@ -14,9 +17,6 @@ import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
-import RequirementIt from "@/components/pages/developer/settings/requirement-it/RequirementIt";
-import Scheme from "@/components/pages/developer/settings/scheme/Scheme";
-import TuitionCategory from "@/components/pages/developer/settings/tuition-category/TuitionCategory";
 const ModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
@@ -57,16 +57,17 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <LiaTimesSolid />
               </button>
             </div>
-            <div className="wrapper flex gap-2 bg-primary p-2 lg:p-5 h-[calc(100vh-120px)] lg:h-[calc(100vh-320px)]   overflow-x-hidden ">
+            <div className="wrapper flex gap-2 bg-primary p-2 lg:p-5 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-320px)]   overflow-x-hidden ">
               <ModalSettingsNav
                 showSideNav={showSideNav}
                 setIndex={setIndex}
+                index={index}
                 setShowSideNav={setShowSideNav}
               />
               <main
                 className={`${
-                  showSideNav ? "lg:-left-[220px]" : "lg:left-[0px]"
-                } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-in-out`}
+                  showSideNav ? "lg:-left-[210px]" : "lg:left-[0px]"
+                } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-timing-nav `}
               >
                 <Department index={index} />
                 <Notifications index={index} />

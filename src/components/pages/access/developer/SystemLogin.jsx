@@ -120,7 +120,7 @@ const SystemLogin = () => {
                       />
                       {props.values.password && (
                         <span
-                          className="text-base absolute top-10 right-2  cursor-pointer"
+                          className="text-base absolute top-7 right-2  cursor-pointer"
                           onClick={togglePassword}
                         >
                           {passwordShown ? <FaEyeSlash /> : <FaEye />}
@@ -129,7 +129,7 @@ const SystemLogin = () => {
                     </div>
 
                     <a
-                      className="text-dark text-xs italic block text-right mb-6"
+                      className="text-dark text-xs italic block text-right mb-6 hover:underline"
                       href={`${devNavUrl}/system/forgot-password`}
                     >
                       Forgot Password

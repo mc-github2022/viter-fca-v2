@@ -32,6 +32,17 @@ const Header = () => {
     }
   };
 
+  const credentials = () => {
+    if (store.credentials.data) {
+      return {
+        firstname: store.credentials.data.user_system_fname,
+        lastname: store.credentials.data.user_system_lname,
+        email: store.credentials.data.user_system_email,
+        role: store.credentials.data.role_name,
+      };
+    }
+  };
+
   const handleToggleExpandMenu = () => {
     dispatch(setIsMenuExpand(!store.isMenuExpand));
   };
@@ -97,7 +108,8 @@ const Header = () => {
                 className="w-[30px] h-[30px] bg-accent grid place-content-center rounded-full text-white"
                 onClick={() => setShow(!show)}
               >
-                RP
+                {credentials().firstname[0]}
+                {credentials().lastname[0]}
               </button>
 
               <div
@@ -107,7 +119,8 @@ const Header = () => {
               >
                 <div className="p-4 grid lg:grid-cols-[80px_1fr] gap-4 relative">
                   <div className="rounded-full h-[40px] w-[40px] lg:h-[80px] lg:w-[80px] bg-accent flex justify-center items-center text-primary lg:text-3xl justify-self-center">
-                    RP
+                    {credentials().firstname[0]}
+                    {credentials().lastname[0]}
                   </div>
 
                   <button
@@ -120,16 +133,16 @@ const Header = () => {
                   <ul className=" w-full text-xs ">
                     <li className="mb-3 flex gap-2 items-center">
                       <FaRegCircleUser className="text-base" />
-                      Ramon Plaza
+                      {credentials().firstname} {credentials().lastname}
                     </li>
-                    <li className="mb-3 flex gap-2 items-center">
+                    <li className="mb-3 flex gap-2 items-center capitalize">
                       <MdOutlineAdminPanelSettings className="text-base" />
-                      Developer
+                      {credentials().role}
                     </li>
                     <li className="mb-3 items-center flex gap-2">
                       <MdOutlineMailOutline className="text-base" />
-                      <p className="truncate w-[140px] lg:w-[80%]">
-                        ramon.plaza@frontlinebusiness.com.ph
+                      <p className="truncate w-[26ch] ">
+                        {credentials().email}
                       </p>
                     </li>
                     <li className="">

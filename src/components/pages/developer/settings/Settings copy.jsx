@@ -115,7 +115,7 @@ const Settings = () => {
                       <textarea type="text" />
                     </div>
 
-                    <div className="settings__actions flex gap-2">
+                    <div className="settings__actions flex gap-2 mt-4">
                       <button className="btn btn--accent"> Save</button>
                       <button className="btn btn--cancel" type="button">
                         Discard

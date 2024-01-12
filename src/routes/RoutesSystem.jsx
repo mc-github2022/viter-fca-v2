@@ -24,22 +24,18 @@ export const routesSystem = [
     path: `${devNavUrl}/system/verify-email`,
     element: <VerifyEmailSystemUser />,
   },
-
   {
     path: `/${devNavUrl}/system/login`,
     element: <SystemLogin />,
   },
-
   {
     path: `/${devNavUrl}/system/forgot-password`,
     element: <SystemForgotPassword />,
   },
-
   {
     path: `/${devNavUrl}/system/create-password`,
     element: <SystemCreatePassword />,
   },
-
   {
     path: `${devNavUrl}/system/settings/users`,
     element: (
@@ -48,7 +44,6 @@ export const routesSystem = [
       //   </ProtectedRouteSystem>
     ),
   },
-
   {
     path: `${devNavUrl}/system/settings`,
     element: (
@@ -57,7 +52,6 @@ export const routesSystem = [
       //   </ProtectedRouteSystem>
     ),
   },
-
   {
     path: `${devNavUrl}/system/settings/department`,
     element: (
@@ -66,7 +60,6 @@ export const routesSystem = [
       //   </ProtectedRouteSystem>
     ),
   },
-
   {
     path: `${devNavUrl}/system/students`,
     element: (
@@ -75,57 +68,11 @@ export const routesSystem = [
       </ProtectedRouteSystem>
     ),
   },
-
   {
     path: `${devNavUrl}/system/student-information`,
     element: (
       //   <ProtectedRouteSystem>
       <StudentInfo />
-      //   </ProtectedRouteSystem>
-    ),
-  },
-
-  {
-    path: `${devNavUrl}/system/student-information/profile`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <StudentProfile />
-      //   </ProtectedRouteSystem>
-    ),
-  },
-
-  {
-    path: `${devNavUrl}/system/student-information/code-of-conduct`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <CodeOfConduct />
-      //   </ProtectedRouteSystem>
-    ),
-  },
-
-  {
-    path: `${devNavUrl}/system/student-information/parent-declaration`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <ParentDeclaration />
-      //   </ProtectedRouteSystem>
-    ),
-  },
-
-  {
-    path: `${devNavUrl}/system/student-information/parent-consent`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <ParentConsent />
-      //   </ProtectedRouteSystem>
-    ),
-  },
-
-  {
-    path: `${devNavUrl}/system/student-information/parent-commitment`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <ParentCommitment />
       //   </ProtectedRouteSystem>
     ),
   },

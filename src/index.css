@@ -5,7 +5,7 @@
 
 :root {
   --accent: hsl(109, 73%, 13%);
-  --accentDark: hsl(109, 73%, 7%);
+  --accentDark: hsl(109, 73%, 10%);
   --primary: #ffffff;
   --secondary: #f3f3f3;
   --line: #efefef;
@@ -29,7 +29,7 @@
   --accentDark: hsl(23, 99%, 39%);
   --primary: #2e2e2e;
   --secondary: #222222;
-  --line: #5e5e5e;
+  --line: #333333;
   --header: #ffffff;
   --body: #d6d6d6;
   --disable: #bebebe;
@@ -96,7 +96,16 @@
 
   table th,
   table td {
-    @apply p-2 py-1 text-left text-xs;
+    @apply text-left text-xs py-1;
+  }
+
+  table thead tr th:last-child div {
+    @apply text-right justify-end;
+  }
+
+  table thead tr th:first-child,
+  table thead tr td:first-child {
+    @apply w-5;
   }
 
   table tr {
@@ -109,25 +118,6 @@
 
   table tr:last-child {
     @apply border-none;
-  }
-
-  table .table__action {
-    @apply relative w-[40px];
-  }
-
-  table .table__action ul {
-    @apply flex gap-5 lg:bg-slate-50 static top-1 lg:opacity-0 lg:absolute opacity-100 right-[45px];
-  }
-
-  table .table__action ul li button {
-    @apply text-base text-header;
-  }
-  table tr:hover td.table__action ul {
-    @apply opacity-100;
-  }
-
-  table tr:hover td.table__action span {
-    @apply border-slate-50;
   }
 
   .article p {
@@ -153,10 +143,6 @@
 
   table thead {
     @apply sticky top-0  bg-white border-b border-gray-100;
-  }
-
-  table thead tr th {
-    @apply pt-4;
   }
 
   nav {
@@ -201,7 +187,7 @@
   input,
   textarea,
   select {
-    @apply w-full border-line border p-2 rounded-md outline-none;
+    @apply w-full border-line border p-[5px] rounded-md outline-none;
   }
 
   textarea {
@@ -224,7 +210,7 @@
 
 @layer components {
   .btn {
-    @apply p-2.5 rounded-md  transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
+    @apply p-2.5 rounded-md border border-transparent transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
   }
 
   .btn--sm {
@@ -237,6 +223,10 @@
 
   .btn--cancel {
     @apply bg-gray-100 text-gray-500 border-gray-100 hover:bg-gray-200;
+  }
+
+  .btn--outline {
+    @apply bg-transparent text-accent border border-accent hover:bg-accentDark hover:text-white cursor-pointer;
   }
 
   .btn--accent:disabled {
@@ -317,6 +307,10 @@
 
   .form__wrap {
     @apply mb-4 relative;
+  }
+
+  .form__wrap label {
+    @apply text-xs;
   }
 
   .form__wrap:focus-within label {
@@ -410,6 +404,10 @@
 
   .modal.modal--settings.show .modal__backdrop {
     @apply opacity-100  bg-black/30;
+  }
+
+  .modal__settings__nav ul li.active {
+    @apply bg-accent text-white transition-colors ease-in-out;
   }
 
   /* TOOLTIP */

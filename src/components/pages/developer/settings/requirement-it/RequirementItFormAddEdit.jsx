@@ -113,7 +113,7 @@ const RequirementItFormAddEdit = ({ itemEdit, department }) => {
                   </InputSelect>
                 </div>
 
-                <div className={` settings__actions flex gap-2`}>
+                <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
                     {mutation.isLoading ? (
                       <ButtonSpinner />

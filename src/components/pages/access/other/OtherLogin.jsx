@@ -22,7 +22,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 const OtherLogin = () => {
@@ -36,7 +36,7 @@ const OtherLogin = () => {
     mutationFn: (values) => queryData(`/v2/user-other/login`, "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["system"] });
+      queryClient.invalidateQueries({ queryKey: ["other"] });
       // show error box
       console.log(data.success);
       if (!data.success) {
@@ -120,7 +120,7 @@ const OtherLogin = () => {
                       />
                       {props.values.password && (
                         <span
-                          className="text-base absolute top-10 right-2  cursor-pointer"
+                          className="text-base absolute top-8 right-2  cursor-pointer"
                           onClick={togglePassword}
                         >
                           {passwordShown ? <FaEyeSlash /> : <FaEye />}
@@ -129,12 +129,12 @@ const OtherLogin = () => {
                     </div>
 
                     <a
-                      className="text-dark text-xs italic block text-right mb-6"
+                      className="text-dark text-xs italic block text-right mb-6 hover:underline"
                       href={`${devNavUrl}/forgot-password`}
                     >
                       Forgot Password
                     </a>
-                    <div className="flex items-center gap-1 pt-3">
+                    <div className="flex flex-col items-center">
                       <button
                         type="submit"
                         disabled={mutation.isPending || !props.dirty}
@@ -146,6 +146,15 @@ const OtherLogin = () => {
                           "Login"
                         )}
                       </button>
+
+                      <p className="my-1">or</p>
+
+                      <Link
+                        to={`${devNavUrl}/create-account`}
+                        className="btn btn--outline w-full relative"
+                      >
+                        Sign Up
+                      </Link>
                     </div>
                   </Form>
                 );

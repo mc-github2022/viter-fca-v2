@@ -94,3 +94,11 @@ RewriteRule ^user-other/key/([A-Za-z0-9-]+)$ controllers/developer/settings/syst
 RewriteRule ^user-other/token$ controllers/developer/settings/system/token.php [L]
 
 ###### DEV SETTINGS ######
+
+
+
+
+# TESTING LANG TO NNG REACT TABLE
+RewriteRule ^student$ controllers/developer/students/students.php [L]
+RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
+RewriteRule ^student/active/([0-9]+)$ controllers/developer/student/active.php?studentid=$1 [L]

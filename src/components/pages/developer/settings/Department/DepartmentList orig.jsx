@@ -15,7 +15,7 @@ import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-const UserOtherList = ({ setItemEdit }) => {
+const DepartmentList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
@@ -25,14 +25,12 @@ const UserOtherList = ({ setItemEdit }) => {
     isLoading,
     isFetching,
     error,
-    data: other,
+    data: department,
   } = useQueryData(
-    "/v2/user-other", // endpoint
+    "/v2/dev-department", // endpoint
     "get", // method
-    "other" // key
+    "department" // key
   );
-
-  console.log(other);
 
   const handleEdit = (item) => {
     dispatch(setIsAdd(true));
@@ -41,7 +39,7 @@ const UserOtherList = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.user_other_aid);
+    setId(item.department_aid);
     setData(item);
     setIsArchive(0);
     console.log(isArchive);
@@ -49,7 +47,7 @@ const UserOtherList = ({ setItemEdit }) => {
 
   const handleRestore = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.user_other_aid);
+    setId(item.department_aid);
     setData(item);
     setIsArchive(1);
     console.log(isArchive);
@@ -57,7 +55,7 @@ const UserOtherList = ({ setItemEdit }) => {
 
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
-    setId(item.user_other_aid);
+    setId(item.department_aid);
     setData(item);
   };
 
@@ -68,9 +66,9 @@ const UserOtherList = ({ setItemEdit }) => {
       <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}
 
-        {(isLoading || other?.data.length === 0) &&
+        {(isLoading || department?.data.length === 0) &&
           (isLoading ? <TableLoading count={20} cols={3} /> : <NoData />)}
-        {other?.data.map((item, key) => (
+        {department?.data.map((item, key) => (
           <div
             className={
               "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
@@ -79,16 +77,14 @@ const UserOtherList = ({ setItemEdit }) => {
           >
             <div
               className={`${
-                item.user_other_is_active ? "opacity-100" : "opacity-40"
+                item.department_active ? "opacity-100" : "opacity-40"
               } `}
             >
-              <p className="mb-1">
-                {item.user_other_fname} {item.user_other_lname}
-              </p>
+              <p className="mb-1">{item.department_name}</p>
             </div>
 
             <ul className="datalist__action flex items-center gap-1 pr-3 ">
-              {item.user_other_is_active === 1 ? (
+              {item.department_active === 1 ? (
                 <>
                   <li className=" ">
                     <button
@@ -138,26 +134,26 @@ const UserOtherList = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/user-other/active/${id}`}
+          mysqlApiArchive={`/v2/dev-department/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
-          queryKey={"other"}
+          item={dataItem.department_name}
+          queryKey={"department"}
           isArchive={isArchive}
         />
       )}
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/user-other/${id}`}
+          mysqlApiDelete={`/v2/dev-department/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
-          queryKey={"other"}
+          item={dataItem.department_name}
+          queryKey={"department"}
         />
       )}
     </>
   );
 };
 
-export default UserOtherList;
+export default DepartmentList;
