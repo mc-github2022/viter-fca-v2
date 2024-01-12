@@ -90,7 +90,7 @@ const Header = () => {
 
             <button
               className="hidden lg:block text-2xl tooltip tooltip--bottom"
-              data-tooltip="Menu Expand"
+              data-tooltip="Expand"
               onClick={handleToggleExpandMenu}
             >
               <FaBars />

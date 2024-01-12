@@ -38,12 +38,12 @@ export const Filter = ({ column, table }) => {
           <option value={value} key={value} />
         ))}
       </datalist> */}
-      <DebouncedInputFilter
+      <DebouncedColumnFilter
         type="text"
         value={columnFilterValue ?? ""}
         onChange={(value) => column.setFilterValue(value)}
-        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-        className="w-36 border shadow rounded"
+        placeholder={`Search...`}
+        className="w-36 border  rounded placeholder:text-gray-400 placeholder:font-normal"
         list={column.id + "list"}
       />
       <div className="h-1" />
@@ -51,11 +51,10 @@ export const Filter = ({ column, table }) => {
   );
 };
 
-// A debounced input react component
-export const DebouncedInput = ({
+export const DebouncedInputSearch = ({
   value: initialValue,
   onChange,
-  debounce = 500,
+  debounce = 1000,
   ...props
 }) => {
   const [value, setValue] = React.useState(initialValue);
@@ -73,18 +72,20 @@ export const DebouncedInput = ({
   }, [value]);
 
   return (
-    <form>
+    <div className="relative w-full">
       <input
         {...props}
         value={value}
-        name="filter"
+        type="search"
         onChange={(e) => setValue(e.target.value)}
+        className="pl-7 w-full max-w-[380px] text-xs placeholder:opacity-50"
       />
-    </form>
+      <FaSearch className="absolute text-xs top-2 left-2 opacity-25" />
+    </div>
   );
 };
 
-export const DebouncedInputFilter = ({
+export const DebouncedColumnFilter = ({
   value: initialValue,
   onChange,
   debounce = 500,

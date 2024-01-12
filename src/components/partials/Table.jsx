@@ -9,25 +9,38 @@ import {
 } from "@tanstack/react-table";
 import React from "react";
 import { BiCaretDown, BiCaretUp } from "react-icons/bi";
+import { TfiSearch } from "react-icons/tfi";
 
+import { FaFilter, FaSearch } from "react-icons/fa";
+import {
+  LiaSortDownSolid,
+  LiaSortSolid,
+  LiaSortUpSolid,
+} from "react-icons/lia";
 import {
   RxCaretLeft,
   RxCaretRight,
   RxDoubleArrowLeft,
   RxDoubleArrowRight,
 } from "react-icons/rx";
-import { DebouncedInput, Filter } from "../helpers/function-table.jsx";
+import { DebouncedInputSearch, Filter } from "../helpers/function-table.jsx";
 
-const Table = ({ columns, data }) => {
+const Table = ({ columns, data, hasFilter = false }) => {
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [columnFilters, setColumnFilters] = React.useState([]);
+
+  const [showFilter, setShowFilter] = React.useState(false);
+  const [showSearch, setShowSearch] = React.useState(false);
+
   const table = useReactTable({
     data,
     columns,
+
     state: {
       columnFilters,
       globalFilter,
     },
+
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
@@ -37,9 +50,46 @@ const Table = ({ columns, data }) => {
     getFacetedRowModel: getFacetedRowModel(),
   });
 
+  const handleFilter = () => setShowFilter(!showFilter);
+  const handleSearch = () => setShowSearch(!showSearch);
+
   return (
     <>
-      <div className="flex justify-between my-2 bg-white rounded-md shadow-sm">
+      {hasFilter && (
+        <div className="py-2 flex justify-between mr-2">
+          {showSearch ? (
+            <DebouncedInputSearch
+              value={globalFilter ?? ""}
+              onChange={(value) => setGlobalFilter(String(value))}
+              className="text-sm shadow-sm border border-block"
+              placeholder="Type your keyword"
+            />
+          ) : (
+            <span className="h-[34.75px]"></span>
+          )}
+          <ul className="flex gap-2 items-center mb-2 ">
+            <li>
+              <button
+                className="tooltip tooltip--bottom"
+                data-tooltip="Search"
+                onClick={handleSearch}
+              >
+                <TfiSearch />
+              </button>
+            </li>
+            <li>
+              <button
+                className="tooltip tooltip--bottom"
+                data-tooltip="Filter"
+                onClick={handleFilter}
+              >
+                <FaFilter />
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
+      <div className="my-2 px-2 bg-white rounded-md ">
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -52,30 +102,41 @@ const Table = ({ columns, data }) => {
                           <div
                             {...{
                               className: header.column.getCanSort()
-                                ? "cursor-pointer select-none flex items-center mr-6"
+                                ? "cursor-pointer select-none flex flex-col  mr-6"
                                 : "",
-                              onClick: header.column.getToggleSortingHandler(),
+                              onClick:
+                                header.id !== "#" || header.id !== "action"
+                                  ? header.column.getToggleSortingHandler()
+                                  : null,
                             }}
                           >
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                            {{
-                              asc: <BiCaretDown />,
-                              desc: <BiCaretUp />,
-                            }[header.column.getIsSorted()] ?? null}
-
-                            <div>
-                              {header.column.getCanFilter() &&
-                              header.column.id !== "action" ? (
-                                <div>
+                            {header.column.getCanFilter() &&
+                            header.column.id !== "action"
+                              ? showFilter && (
                                   <Filter
                                     column={header.column}
                                     table={table}
                                   />
-                                </div>
-                              ) : null}
+                                )
+                              : null}
+
+                            <div
+                              className={`${
+                                header.id === "#" || header.id === "action"
+                                  ? "noSort"
+                                  : ""
+                              } flex gap-1 items-center`}
+                            >
+                              {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                              {{
+                                asc: <LiaSortDownSolid />,
+                                desc: <LiaSortUpSolid />,
+                              }[header.column.getIsSorted()] ?? (
+                                <LiaSortSolid />
+                              )}
                             </div>
                           </div>
                         </>
