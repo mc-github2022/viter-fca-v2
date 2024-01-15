@@ -410,6 +410,18 @@
     @apply bg-accent text-white transition-colors ease-in-out;
   }
 
+  .subnav ul li {
+    @apply py-1.5 pl-4;
+  }
+
+  .subnav ul li button {
+    @apply flex gap-4 items-center;
+  }
+
+  .subnav ul li.active {
+    @apply bg-accent text-white;
+  }
+
   /* TOOLTIP */
 
   .tooltip {

@@ -23,7 +23,7 @@ const Students = () => {
         <Navigation menu="student" />
 
         <main
-          className={`main__content mt-[65px] ${
+          className={`main__content mt-[35px] ${
             store.isMenuExpand ? "" : "expand"
           }`}
         >

@@ -5,7 +5,6 @@ const Pills = ({
   color = "text-success",
   label = "label",
 }) => {
-  console.log(bg);
   return (
     <p className={`relative ${color}`}>
       <span
