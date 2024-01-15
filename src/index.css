@@ -421,11 +421,11 @@
   }
 
   .tooltip.tooltip--bottom::after {
-    @apply top-[25px] left-[30px];
+    @apply top-[22px] left-[15px];
   }
 
   .tooltip.tooltip--bottom::before {
-    @apply rotate-180 top-[22px];
+    @apply hidden;
   }
 
   .tooltip:hover::after,
@@ -514,4 +514,8 @@ body::-webkit-scrollbar-track {
 .custom__scroll::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
   @apply bg-gray-300 border-8;
+}
+
+.noSort svg {
+  @apply hidden;
 }
