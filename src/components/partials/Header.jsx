@@ -32,6 +32,8 @@ const Header = () => {
     }
   };
 
+  console.log(store.credentials);
+
   const credentials = () => {
     if (store.credentials.data) {
       return {

@@ -76,7 +76,7 @@ const DepartmentTable = () => {
           record={department?.count}
           status={getDepartmentCountRecord(department)}
         />
-        <table>
+        <table className="table__sm">
           <thead>
             <tr className="bg-[#e5e7eb]">
               <th>#</th>

@@ -98,6 +98,33 @@ RewriteRule ^user-other/token$ controllers/developer/settings/system/token.php [
 
 
 
+###### DEV CLIENT ######
+
+RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
+RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?infoparent=$1 [L]
+
+###### DEV CLIENT ######
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # TESTING LANG TO NNG REACT TABLE
 RewriteRule ^student$ controllers/developer/students/students.php [L]
 RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]

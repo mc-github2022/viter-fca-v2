@@ -11,7 +11,7 @@ const DepartmentTable = () => {
     <>
       <div className="main__table">
         <div className="table__wrapper mb-[80px]">
-          <table>
+          <table className="table__sm">
             <thead>
               <tr>
                 <th className="w-[30px]">#</th>
