@@ -4,6 +4,8 @@ import SystemCreatePassword from "@/components/pages/access/developer/SystemCrea
 import SystemForgotPassword from "@/components/pages/access/developer/SystemForgotPassword.jsx";
 import SystemLogin from "@/components/pages/access/developer/SystemLogin.jsx";
 import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEmailSystemUser.jsx";
+import Profile from "@/components/pages/developer/account/Profile.jsx";
+import Client from "@/components/pages/developer/clients/Client.jsx";
 import Settings from "@/components/pages/developer/settings/Settings";
 import Department from "@/components/pages/developer/settings/department_old/Departmentx.jsx";
 import Notification from "@/components/pages/developer/settings/notifications/Notifications";
@@ -36,6 +38,25 @@ export const routesSystem = [
     path: `/${devNavUrl}/system/create-password`,
     element: <SystemCreatePassword />,
   },
+
+  {
+    path: `/${devNavUrl}/system/profile`,
+    element: (
+      <ProtectedRouteSystem>
+        <Profile />
+      </ProtectedRouteSystem>
+    ),
+  },
+
+  {
+    path: `/${devNavUrl}/system/clients`,
+    element: (
+      <ProtectedRouteSystem>
+        <Client />
+      </ProtectedRouteSystem>
+    ),
+  },
+
   {
     path: `${devNavUrl}/system/settings/users`,
     element: (
