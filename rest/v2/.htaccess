@@ -97,6 +97,10 @@ RewriteRule ^user-other/token$ controllers/developer/settings/system/token.php [
 
 
 
+#INFO-CONTACT
+RewriteRule ^dev-info-contact$ controllers/developer/client/info-contact/info-contact.php [L]
+RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?infocontact=$1 [L]
+RewriteRule ^dev-info-contact/active/([0-9]+)$ controllers/developer/client/info-contact/active.php?infocontact=$1 [L]
 
 ###### DEV CLIENT ######
 

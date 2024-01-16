@@ -94,7 +94,6 @@ const SystemForgotPassword = () => {
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                   // mutate data
                   mutation.mutate(values);
-                  console.log(mutation);
                 }}
               >
                 {(props) => {

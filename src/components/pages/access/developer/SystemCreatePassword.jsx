@@ -131,7 +131,6 @@ const SystemCreatePassword = () => {
     }
   };
 
-  console.log(validateComplete);
   return (
     <>
       {isSuccess ? (
