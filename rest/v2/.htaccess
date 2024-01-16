@@ -105,7 +105,8 @@ RewriteRule ^dev-info-contact/active/([0-9]+)$ controllers/developer/client/info
 ###### DEV CLIENT ######
 
 RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
-RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?infoparent=$1 [L]
+RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoid=$1 [L]
+RewriteRule ^dev-info-parent-relationship/([0-9]+)$ controllers/developer/client/info-parent-guardian/update-relationship.php?parentinfoid=$1 [L]
 
 ###### DEV CLIENT ######
 

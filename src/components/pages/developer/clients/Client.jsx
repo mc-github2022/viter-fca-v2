@@ -11,6 +11,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { TfiLock } from "react-icons/tfi";
 import { Link } from "react-router-dom";
+import FormRelationship from "./info-parent/forms/FormRelationship";
 
 const Client = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -44,6 +45,7 @@ const Client = () => {
   const handleDismissParent = () => setIsAddParent(false);
   const handleDismissContact = () => setIsAddContact(false);
   const handleDismissFinancial = () => setIsAddFinancial(false);
+
   return (
     <>
       <Header />
@@ -134,214 +136,24 @@ const Client = () => {
               </aside>
               <div className="w-full">
                 <div className={`${isAddParent ? "hidden" : "block"}`}>
-                  <table className="table__sm">
-                    <thead>
-                      <tr>
-                        <td>#</td>
-                        <td>Name</td>
-                        <td className="hidden md:block">Relationship</td>
-                        <td></td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Nimfa Alimagno</td>
-                        <td className="hidden md:block">Biological Mother</td>
-                        <td>
-                          <ul className="flex ">
-                            <li>
-                              <button
-                                className="tooltip"
-                                data-tooltip="Edit"
-                                onClick={() => handleEdit(item)}
-                              >
-                                <FiEdit2 />
-                              </button>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <h2>table here</h2>
                 </div>
 
                 {isAddParent && (
                   <>
                     {formIndexParent === 1 && (
-                      <div className="form__block max-w-[350px] min-h-[460px]">
-                        <h6 className="mb-4">Relationship</h6>
-                        <div className="form__wrap">
-                          <label htmlFor="">Relationship to Student</label>
-                          <input type="text" />
-                        </div>
-
-                        <div className="form__wrap">
-                          <label htmlFor="">Reside with this individual</label>
-                          <input type="text" />
-                        </div>
-
-                        <ul className="flex gap-2 mt-6">
-                          <li>
-                            <button className="btn btn--accent">Save</button>
-                          </li>
-                          <li>
-                            <button
-                              className="btn btn--cancel"
-                              onClick={handleDismissParent}
-                            >
-                              Dismiss
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
+                      <FormRelationship
+                        handleDismissParent={handleDismissParent}
+                      />
                     )}
 
-                    {formIndexParent === 2 && (
-                      <div className="form__block max-w-[350px] min-h-[460px]">
-                        <h6 className="mb-4">Name</h6>
-                        <div className="form__wrap">
-                          <label htmlFor="">Title</label>
-                          <input type="text" />
-                        </div>
+                    {formIndexParent === 2 && <h3>asdas</h3>}
 
-                        <div className="form__wrap">
-                          <label htmlFor="">First Name</label>
-                          <input type="text" />
-                        </div>
+                    {formIndexParent === 3 && <h2>asdasd</h2>}
 
-                        <div className="form__wrap">
-                          <label htmlFor="">Last Name</label>
-                          <input type="text" />
-                        </div>
+                    {formIndexParent === 4 && <h4>asdasd</h4>}
 
-                        <div className="form__wrap">
-                          <label htmlFor="">Middle Name</label>
-                          <input type="text" />
-                        </div>
-
-                        <div className="form__wrap">
-                          <label htmlFor="">Maiden Last Name</label>
-                          <input type="text" />
-                        </div>
-
-                        <ul className="flex gap-2 mt-6">
-                          <li>
-                            <button className="btn btn--accent">Save</button>
-                          </li>
-                          <li>
-                            <button
-                              className="btn btn--cancel"
-                              onClick={handleDismissParent}
-                            >
-                              Dismiss
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-
-                    {formIndexParent === 3 && (
-                      <div className="form__block max-w-[350px] min-h-[460px]">
-                        <h6 className="mb-4">Contact</h6>
-                        <div className="form__wrap">
-                          <label htmlFor="">Email</label>
-                          <input type="text" />
-                        </div>
-
-                        <div className="form__wrap">
-                          <label htmlFor="">Mobile</label>
-                          <input type="text" />
-                        </div>
-
-                        <div className="form__wrap">
-                          <label htmlFor="">Landline (Optional)</label>
-                          <input type="text" />
-                        </div>
-
-                        <ul className="flex gap-2 mt-6">
-                          <li>
-                            <button className="btn btn--accent">Save</button>
-                          </li>
-                          <li>
-                            <button
-                              className="btn btn--cancel"
-                              onClick={handleDismissParent}
-                            >
-                              Dismiss
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-
-                    {formIndexParent === 4 && (
-                      <div className="form__block max-w-[350px] min-h-[460px]">
-                        <h6 className="mb-4">Address</h6>
-                        <div className="form__wrap">
-                          <label htmlFor="">Address</label>
-                          <textarea className="h-[50px]"></textarea>
-                        </div>
-
-                        <div className="form__wrap">
-                          <label htmlFor="">City</label>
-                          <input type="text" />
-                        </div>
-
-                        <div className="form__wrap">
-                          <label htmlFor="">Provice</label>
-                          <input type="text" />
-                        </div>
-
-                        <div className="form__wrap">
-                          <label htmlFor="">Zipcode</label>
-                          <input type="text" />
-                        </div>
-
-                        <ul className="flex gap-2 mt-6">
-                          <li>
-                            <button className="btn btn--accent">Save</button>
-                          </li>
-                          <li>
-                            <button
-                              className="btn btn--cancel"
-                              onClick={handleDismissParent}
-                            >
-                              Dismiss
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-
-                    {formIndexParent === 5 && (
-                      <div className="form__block max-w-[350px] min-h-[460px]">
-                        <h6 className="mb-4">Other</h6>
-                        <div className="form__wrap">
-                          <label htmlFor="">Religion</label>
-                          <textarea className="h-[50px]"></textarea>
-                        </div>
-
-                        <div className="form__wrap">
-                          <label htmlFor="">Occupation</label>
-                          <input type="text" />
-                        </div>
-
-                        <ul className="flex gap-2 mt-6">
-                          <li>
-                            <button className="btn btn--accent">Save</button>
-                          </li>
-                          <li>
-                            <button
-                              className="btn btn--cancel"
-                              onClick={handleDismissParent}
-                            >
-                              Dismiss
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                    {formIndexParent === 5 && <h3>xxx</h3>}
                   </>
                 )}
               </div>

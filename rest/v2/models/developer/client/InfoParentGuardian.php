@@ -203,6 +203,36 @@ class InfoParentGuardian
         return $query;
     }
 
+
+
+    // UPDATE PARENT INFORMATION
+
+    
+
   
+
+    public function updateRelationship()
+    {
+        try {
+            $sql = "update {$this->tblParentGuardian} set ";
+            $sql .= "parent_guardian_info_user_id = :parent_guardian_info_user_id, ";
+            $sql .= "parent_guardian_info_relationship_id = :parent_guardian_info_relationship_id, ";
+            $sql .= "parent_guardian_info_reside = :parent_guardian_info_reside, ";
+            $sql .= "parent_guardian_info_datetime = :parent_guardian_info_datetime ";
+            $sql .= "where parent_guardian_info_aid  = :parent_guardian_info_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parent_guardian_info_user_id" => $this->parent_guardian_info_user_id,
+                "parent_guardian_info_relationship_id" => $this->parent_guardian_info_relationship_id,
+                "parent_guardian_info_reside" => $this->parent_guardian_info_reside,
+                "parent_guardian_info_datetime" => $this->parent_guardian_info_datetime,
+                "parent_guardian_info_aid" => $this->parent_guardian_info_aid ,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
   
 }

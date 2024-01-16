@@ -1,17 +1,22 @@
 import React from "react";
 
-const FormRelationship = () => {
+const FormContact = () => {
   return (
-    <>
+    <div>
       <div className="form__block max-w-[350px] min-h-[460px]">
-        <h6 className="mb-4">Relationship</h6>
+        <h6 className="mb-4">Contact</h6>
         <div className="form__wrap">
-          <label htmlFor="">Relationship to Student</label>
+          <label htmlFor="">Email</label>
           <input type="text" />
         </div>
 
         <div className="form__wrap">
-          <label htmlFor="">Reside with this individual</label>
+          <label htmlFor="">Mobile</label>
+          <input type="text" />
+        </div>
+
+        <div className="form__wrap">
+          <label htmlFor="">Landline (Optional)</label>
           <input type="text" />
         </div>
 
@@ -26,8 +31,8 @@ const FormRelationship = () => {
           </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
-export default FormRelationship;
+export default FormContact;
