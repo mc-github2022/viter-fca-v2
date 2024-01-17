@@ -102,6 +102,10 @@ RewriteRule ^dev-info-contact$ controllers/developer/client/info-contact/info-co
 RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?infocontact=$1 [L]
 RewriteRule ^dev-info-contact/active/([0-9]+)$ controllers/developer/client/info-contact/active.php?infocontact=$1 [L]
 
+#INFO-FINANCIAL
+RewriteRule ^dev-info-financial$ controllers/developer/client/info-financial/info-financial.php [L]
+RewriteRule ^dev-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?infofinancial=$1 [L]
+RewriteRule ^dev-info-financial/active/([0-9]+)$ controllers/developer/client/info-financial/active.php?infofinancial=$1 [L]
 ###### DEV CLIENT ######
 
 RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]

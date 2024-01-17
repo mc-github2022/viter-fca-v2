@@ -41,7 +41,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
       >
         <div className="modal__backdrop bg-black/30"></div>
         <div className="modal__main  w-full  h-screen flex justify-center items-center p-3 lg:p-5 ">
-          <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-260px)] custom__scroll overflow-y-hidden">
+          <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-180px)] custom__scroll overflow-y-hidden">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <button
@@ -57,7 +57,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <LiaTimesSolid />
               </button>
             </div>
-            <div className="wrapper flex gap-2 bg-primary p-2 lg:p-5 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-320px)]   overflow-x-hidden ">
+            <div className="wrapper flex gap-2 bg-primary p-2 lg:p-5 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-220px)]   overflow-x-hidden ">
               <ModalSettingsNav
                 showSideNav={showSideNav}
                 setIndex={setIndex}
