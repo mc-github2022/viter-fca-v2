@@ -569,7 +569,7 @@ function returnSuccess($object, $name, $query, $data = "")
     $returnData = [];
     $returnData["data"] = [$data];
     $returnData["count"] = $query->rowCount();
-    $returnData["{$name} ID"] = $object->lastInsertedId;
+    $returnData["last_id"] = $object->lastInsertedId;
     $returnData["success"] = true;
     // return $returnData;
     $response->setData($returnData);

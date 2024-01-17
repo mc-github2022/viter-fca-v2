@@ -1,17 +1,22 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import Navigation from "@/components/partials/Navigation.jsx";
-import { setIsAdd } from "@/components/store/StoreAction.jsx";
+import NoData from "@/components/partials/NoData.jsx";
+import ServerError from "@/components/partials/ServerError.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { BsArchive } from "react-icons/bs";
-import { FaAngleLeft, FaBars } from "react-icons/fa";
+
+import { FaAngleLeft } from "react-icons/fa";
 import { FaCircleCheck } from "react-icons/fa6";
 import { FiEdit2 } from "react-icons/fi";
-import { HiOutlineUserCircle } from "react-icons/hi2";
-import { TfiLock } from "react-icons/tfi";
+
 import { Link } from "react-router-dom";
-import FormRelationship from "./info-parent/forms/FormRelationship";
+
+import FormBasic from "./info-parent/forms/FormBasic";
+import FormContact from "./info-parent/forms/FormContact.jsx";
 
 const Client = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -22,6 +27,19 @@ const Client = () => {
   const [isAddContact, setIsAddContact] = React.useState(false);
   const [isAddFinancial, setIsAddFinancial] = React.useState(false);
   const [show, setShow] = React.useState(false);
+  const [itemEdit, setItemEdit] = React.useState(null);
+  const userId = store.credentials.data.user_system_aid;
+  let counter = 1;
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: parent,
+  } = useQueryData(
+    `/v2/dev-info-parent/${userId}`, // endpoint
+    "get", // method
+    "parent" // key
+  );
 
   const handleShowSubMenu = () => {
     setShow(!show);
@@ -30,21 +48,37 @@ const Client = () => {
   const handleAdd = () => {
     setIsAddParent(true);
     setFormIndexParent(1);
+    setItemEdit(null);
   };
 
-  const handleAddContact = () => {
-    setIsAddContact(true);
-    setFormIndexContact(1);
+  // const handleAddContact = () => {
+  //   setIsAddContact(true);
+  //   setFormIndexContact(1);
+  // };
+
+  // const handleAddFinancial = () => {
+  //   setIsAddFinancial(true);
+  //   setFormIndexFinancial(1);
+  // };
+
+  const handleEditBasic = (item) => {
+    setItemEdit(item);
+    setIsAddParent(true);
   };
 
-  const handleAddFinancial = () => {
-    setIsAddFinancial(true);
-    setFormIndexFinancial(1);
+  const handleDismissParent = () => {
+    setIsAddParent(false);
+    setFormIndexParent(1);
   };
 
-  const handleDismissParent = () => setIsAddParent(false);
-  const handleDismissContact = () => setIsAddContact(false);
-  const handleDismissFinancial = () => setIsAddFinancial(false);
+  const handleDismissContact = () => {
+    setIsAddParent(false);
+    setFormIndexParent(1);
+  };
+  const handleDismissFinancial = () => {
+    setIsAddParent(false);
+    setFormIndexParent(1);
+  };
 
   return (
     <>
@@ -93,39 +127,23 @@ const Client = () => {
                       <span>
                         <FaCircleCheck className="text-accent text-base" />
                       </span>
-                      Relationship
+                      Basic
                     </button>
                   </li>
+
                   <li className="md:pl-4 py-2">
                     <button
                       onClick={() => setFormIndexParent(2)}
-                      className="flex items-center gap-4 text-disable"
-                    >
-                      <FaCircleCheck className="text-disable text-base" />
-                      Name
-                    </button>
-                  </li>
-                  <li className="md:pl-4 py-2">
-                    <button
-                      onClick={() => setFormIndexParent(3)}
                       className="flex items-center gap-4  text-disable"
                     >
                       <FaCircleCheck className="text-disable text-base" />
                       Contact
                     </button>
                   </li>
+
                   <li className="md:pl-4 py-2">
                     <button
-                      onClick={() => setFormIndexParent(4)}
-                      className="flex items-center gap-4  text-disable"
-                    >
-                      <FaCircleCheck className="text-disable text-base" />
-                      Address
-                    </button>
-                  </li>
-                  <li className="md:pl-4 py-2">
-                    <button
-                      onClick={() => setFormIndexParent(5)}
+                      onClick={() => setFormIndexParent(3)}
                       className="flex items-center gap-4 text-disable"
                     >
                       <FaCircleCheck className="text-disable text-base" />
@@ -136,31 +154,95 @@ const Client = () => {
               </aside>
               <div className="w-full">
                 <div className={`${isAddParent ? "hidden" : "block"}`}>
-                  <h2>table here</h2>
+                  <table className="table__sm">
+                    <thead>
+                      <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                        <td className="hidden md:block">Relationship</td>
+                        <td></td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(isLoading || parent?.data.length === 0) && (
+                        <tr className="text-center ">
+                          <td colSpan="100%" className="p-2 md:p-10">
+                            {isLoading ? (
+                              <TableLoading count={20} cols={3} />
+                            ) : (
+                              <NoData />
+                            )}
+                          </td>
+                        </tr>
+                      )}
+
+                      {error && (
+                        <tr className="text-center ">
+                          <td colSpan="100%" className="p-10">
+                            <ServerError />
+                          </td>
+                        </tr>
+                      )}
+
+                      {parent?.data.map((item, key) => {
+                        return (
+                          <React.Fragment key={key}>
+                            <tr>
+                              <td>{counter++}</td>
+                              <td>
+                                {item.parent_guardian_info_fname}
+                                {item.parent_guardian_info_lname}
+                              </td>
+                              <td className="hidden md:block">
+                                {item.relationship_name}
+                              </td>
+                              <td>
+                                <ul className="flex ">
+                                  <li>
+                                    <button
+                                      className="tooltip"
+                                      data-tooltip="Edit"
+                                      onClick={() => handleEditBasic(item)}
+                                    >
+                                      <FiEdit2 />
+                                    </button>
+                                  </li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </React.Fragment>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
 
                 {isAddParent && (
                   <>
                     {formIndexParent === 1 && (
-                      <FormRelationship
+                      <FormBasic
                         handleDismissParent={handleDismissParent}
+                        setFormIndexParent={setFormIndexParent}
+                        itemEdit={itemEdit}
                       />
                     )}
 
-                    {formIndexParent === 2 && <h3>asdas</h3>}
+                    {formIndexParent === 2 && (
+                      <FormContact
+                        handleDismissContact={handleDismissContact}
+                        itemEdit={itemEdit}
+                        setFormIndexParent={setFormIndexParent}
+                      />
+                    )}
 
-                    {formIndexParent === 3 && <h2>asdasd</h2>}
-
-                    {formIndexParent === 4 && <h4>asdasd</h4>}
-
-                    {formIndexParent === 5 && <h3>xxx</h3>}
+                    {formIndexParent === 3 && <h4>asdasd</h4>}
                   </>
                 )}
               </div>
             </div>
           </div>
 
-          <button className="text-xs" onClick={() => handleAddContact()}>
+          {/* <button className="text-xs" onClick={() => handleAddContact()}>
             Add Contact
           </button>
 
@@ -395,11 +477,13 @@ const Client = () => {
                 )}
               </div>
             </div>
-          </div>
+          </div> */}
         </main>
 
         <Footer />
       </section>
+
+      {store.success && <ModalSuccess />}
     </>
   );
 };
