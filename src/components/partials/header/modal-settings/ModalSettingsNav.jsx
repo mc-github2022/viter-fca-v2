@@ -16,7 +16,7 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
       <aside
         className={`${
           showSideNav ? "left-0 lg:-left-[250px]" : "-left-[250px] lg:left-0"
-        } modal__settings__nav z-10 ease-timing-nav  bg-primary top-[40px] h-[calc(100%-40px)] lg:h-full w-[195px]  absolute lg:relative lg:top-0 border-r border-line transition-all duration-300`}
+        } modal__settings__nav z-10 ease-timing-nav  bg-[#fafafa] top-[40px] h-[calc(100%-40px)] lg:h-full w-[195px]  absolute lg:relative lg:top-0 border-r border-line transition-all duration-300`}
       >
         <ul className="py-5 lg:pt-0 mb-10 overflow-y-auto h-full custom__scroll ">
           <li className={` ${index === 1 ? "active" : ""}`}>

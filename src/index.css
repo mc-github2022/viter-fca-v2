@@ -418,6 +418,14 @@
     @apply bg-accent text-white transition-colors ease-in-out;
   }
 
+  .modal__settings__nav ul li.active button {
+    @apply bg-accent text-white transition-colors ease-in-out hover:bg-accent;
+  }
+
+  .modal__settings__nav ul li button {
+    @apply w-full block text-left hover:bg-white;
+  }
+
   .subnav ul li {
     @apply py-1.5 pl-4;
   }
