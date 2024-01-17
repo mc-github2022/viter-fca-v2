@@ -90,7 +90,7 @@ const Table = ({ columns, data, hasFilter = false }) => {
         </div>
       )}
       <div className="my-2 px-2 bg-white rounded-md ">
-        <table>
+        <table className="table__sm">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>

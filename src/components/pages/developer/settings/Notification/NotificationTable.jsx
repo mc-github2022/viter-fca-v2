@@ -78,7 +78,7 @@ const NotificationTable = () => {
           record={notification?.count}
           status={getDepartmentCountRecord(notification)}
         />
-        <table>
+        <table className="table__sm">
           <thead>
             <tr className="bg-[#e5e7eb]">
               <th>#</th>

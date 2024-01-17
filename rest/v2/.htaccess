@@ -106,6 +106,33 @@ RewriteRule ^dev-info-contact/active/([0-9]+)$ controllers/developer/client/info
 RewriteRule ^dev-info-financial$ controllers/developer/client/info-financial/info-financial.php [L]
 RewriteRule ^dev-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?infofinancial=$1 [L]
 RewriteRule ^dev-info-financial/active/([0-9]+)$ controllers/developer/client/info-financial/active.php?infofinancial=$1 [L]
+###### DEV CLIENT ######
+
+RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
+RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoid=$1 [L]
+RewriteRule ^dev-info-parent-relationship/([0-9]+)$ controllers/developer/client/info-parent-guardian/update-relationship.php?parentinfoid=$1 [L]
+
+###### DEV CLIENT ######
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # TESTING LANG TO NNG REACT TABLE
 RewriteRule ^student$ controllers/developer/students/students.php [L]

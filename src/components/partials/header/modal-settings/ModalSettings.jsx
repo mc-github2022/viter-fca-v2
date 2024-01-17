@@ -47,7 +47,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <button
                   className="text-base tooltip tooltip--bottom z-50 !-translate-y-0"
                   onClick={handleShowSideNav}
-                  data-tooltip="Toggle menu"
+                  data-tooltip="Menu"
                 >
                   <FaBars />
                 </button>

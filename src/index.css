@@ -153,6 +153,14 @@
     @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden pointer-events-none;
   }
 
+  table.table__sm thead tr td {
+    @apply font-bold;
+  }
+
+  table.table__sm tr td:last-child ul {
+    @apply justify-end;
+  }
+
   nav.show.expand {
     @apply translate-x-0;
   }

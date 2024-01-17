@@ -56,7 +56,7 @@ const Table = ({ columns, data }) => {
   return (
     <>
       <div className="flex justify-between my-2 bg-white rounded-md shadow-sm">
-        <table>
+        <table className="table__sm">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
