@@ -115,6 +115,12 @@ RewriteRule ^dev-info-parent-relationship/([0-9]+)$ controllers/developer/client
 ###### DEV CLIENT ######
 
 
+#PROFILE
+RewriteRule ^dev-profile$ controllers/developer/account/profile.php [L]
+RewriteRule ^dev-profile/([0-9]+)$ controllers/developer/account/profile.php?profileid=$1 [L]
+
+
+
 
 
 
