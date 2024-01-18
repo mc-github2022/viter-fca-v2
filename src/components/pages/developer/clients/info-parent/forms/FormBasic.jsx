@@ -14,7 +14,12 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const FormBasic = ({ handleDismissParent, itemEdit, setFormIndexParent }) => {
+const FormBasic = ({
+  handleDismissParent,
+  itemEdit,
+  setFormIndexParent,
+  setTempData,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -42,7 +47,6 @@ const FormBasic = ({ handleDismissParent, itemEdit, setFormIndexParent }) => {
       // Invalidate and refetch
 
       queryClient.invalidateQueries({ queryKey: ["parent"] });
-
       // show error box
       if (!data.success) {
         dispatch(setError(true));
@@ -96,6 +100,8 @@ const FormBasic = ({ handleDismissParent, itemEdit, setFormIndexParent }) => {
             parent_guardian_info_user_id:
               store.credentials.data.user_system_aid,
           });
+
+          setTempData(values);
         }}
       >
         {(props) => {

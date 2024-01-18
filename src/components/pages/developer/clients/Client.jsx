@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 
 import FormBasic from "./info-parent/forms/FormBasic";
 import FormContact from "./info-parent/forms/FormContact.jsx";
+import FormOther from "./info-parent/forms/FormOther";
 
 const Client = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -26,6 +27,7 @@ const Client = () => {
   const [isAddParent, setIsAddParent] = React.useState(false);
   const [isAddContact, setIsAddContact] = React.useState(false);
   const [isAddFinancial, setIsAddFinancial] = React.useState(false);
+  const [tempData, setTempData] = React.useState({});
   const [show, setShow] = React.useState(false);
   const [itemEdit, setItemEdit] = React.useState(null);
   const userId = store.credentials.data.user_system_aid;
@@ -80,6 +82,14 @@ const Client = () => {
     setFormIndexParent(1);
   };
 
+  const gotoToBasic = () => {
+    setFormIndexParent(1);
+    setTempData({
+      ...tempData,
+      parent_guardian_info_aid: store.lastIdInserted,
+    });
+  };
+  console.log(tempData);
   return (
     <>
       <Header />
@@ -121,7 +131,7 @@ const Client = () => {
                 <ul className={` md:pl-4 ${isAddParent ? "block" : "hidden"}`}>
                   <li className="md:pl-4 py-2">
                     <button
-                      onClick={() => setFormIndexParent(1)}
+                      onClick={() => gotoToBasic()}
                       className="flex items-center gap-3"
                     >
                       <span>
@@ -224,6 +234,7 @@ const Client = () => {
                         handleDismissParent={handleDismissParent}
                         setFormIndexParent={setFormIndexParent}
                         itemEdit={itemEdit}
+                        setTempData={setTempData}
                       />
                     )}
 
@@ -235,7 +246,13 @@ const Client = () => {
                       />
                     )}
 
-                    {formIndexParent === 3 && <h4>asdasd</h4>}
+                    {formIndexParent === 3 && (
+                      <FormOther
+                        handleDismissFinancial={handleDismissFinancial}
+                        itemEdit={itemEdit}
+                        setFormIndexParent={setFormIndexParent}
+                      />
+                    )}
                   </>
                 )}
               </div>
