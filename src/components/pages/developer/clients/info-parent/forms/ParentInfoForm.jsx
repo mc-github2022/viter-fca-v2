@@ -51,13 +51,13 @@ const ParentInfoForm = () => {
   };
 
   const handleGotoOther = (props) => {
-    if (Object.keys(props.errors).length === 0 && props.dirty) {
-      setIndex(2);
-      setIsContactComplete(true);
+    if (Object.keys(props.errors).length === 0) {
+      console.log("leave");
     } else {
-      setIndex(1);
-      setIsContactComplete(false);
+      console.log("stay");
     }
+
+    console.log(props.errors);
   };
 
   const initVal = {
@@ -110,96 +110,101 @@ const ParentInfoForm = () => {
               {(props) => {
                 return (
                   <Form>
-                    {index === 1 && (
-                      <div className="form__basic">
-                        <div className="grid grid-cols-3 gap-2">
-                          <div className="form__wrap">
-                            <InputText
-                              label="Relationship to Student"
-                              type="text"
-                              name="parent_guardian_info_relationship_id"
-                            />
-                          </div>
-
-                          <div className="form__wrap">
-                            <InputText
-                              label="Resided with child"
-                              type="text"
-                              name="parent_guardian_info_reside"
-                            />
-                          </div>
+                    <div
+                      className={`form__basic ${
+                        index === 1 ? "block" : "hidden"
+                      }`}
+                    >
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="form__wrap">
+                          <InputText
+                            label="Relationship to Student"
+                            type="text"
+                            name="parent_guardian_info_relationship_id"
+                          />
                         </div>
 
-                        <div className="flex gap-4 mt-3">
-                          <button
-                            className="btn btn--accent"
-                            onClick={() => handleGotoContact(props)}
-                          >
-                            validate basic
-                          </button>
-                          <button className="btn btn--cancel">Dismiss</button>
+                        <div className="form__wrap">
+                          <InputText
+                            label="Resided with child"
+                            type="text"
+                            name="parent_guardian_info_reside"
+                          />
                         </div>
                       </div>
-                    )}
 
-                    {index === 1 && (
-                      <div className="form__contact">
-                        <div className="grid grid-cols-3 gap-2">
-                          <div className="form__wrap">
-                            <InputText
-                              label="Email "
-                              type="text"
-                              name="parent_guardian_info_email"
-                            />
-                          </div>
+                      <div className="flex gap-4 mt-3">
+                        <button
+                          className="btn btn--accent"
+                          onClick={() => handleGotoContact(props)}
+                        >
+                          validate basic
+                        </button>
+                        <button className="btn btn--cancel">Dismiss</button>
+                      </div>
+                    </div>
 
-                          <div className="form__wrap">
-                            <InputText
-                              label="Mobile "
-                              type="text"
-                              name="parent_guardian_info_mobile"
-                            />
-                          </div>
+                    <div
+                      className={`form__contact ${
+                        index === 2 ? "block" : "hidden"
+                      }`}
+                    >
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="form__wrap">
+                          <InputText
+                            label="Email "
+                            type="text"
+                            name="parent_guardian_info_email"
+                          />
                         </div>
 
-                        <div className="flex gap-4 mt-3">
-                          <button
-                            className="btn btn--accent"
-                            onClick={() => handleGotoOther(props)}
-                          >
-                            Next
-                          </button>
-                          <button className="btn btn--cancel">Dismiss</button>
+                        <div className="form__wrap">
+                          <InputText
+                            label="Mobile "
+                            type="text"
+                            name="parent_guardian_info_mobile"
+                          />
                         </div>
                       </div>
-                    )}
 
-                    {index === 1 && (
-                      <div className="form__contact">
-                        <div className="grid grid-cols-3 gap-2">
-                          <div className="form__wrap">
-                            <InputText
-                              label="other "
-                              type="text"
-                              name="other1"
-                            />
-                          </div>
+                      <div className="flex gap-4 mt-3">
+                        <button
+                          className="btn btn--accent"
+                          onClick={() => handleGotoOther(props)}
+                        >
+                          validate contact
+                        </button>
+                        <button className="btn btn--cancel">Dismiss</button>
+                      </div>
+                    </div>
 
-                          <div className="form__wrap">
-                            <InputText
-                              label="Mobile "
-                              type="text"
-                              name="other2"
-                            />
-                          </div>
+                    <div
+                      className={`form__other ${
+                        index === 2 ? "block" : "hidden"
+                      }`}
+                    >
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="form__wrap">
+                          <InputText label="other " type="text" name="other1" />
                         </div>
 
-                        <div className="flex gap-4 mt-3">
-                          <button className="btn btn--accent">Next</button>
-                          <button className="btn btn--cancel">Dismiss</button>
+                        <div className="form__wrap">
+                          <InputText
+                            label="other2 "
+                            type="text"
+                            name="other2"
+                          />
                         </div>
                       </div>
-                    )}
+
+                      <div className="flex gap-4 mt-3">
+                        <button className="btn btn--accent">
+                          {" "}
+                          validate other
+                        </button>
+                        <button className="btn btn--cancel">Dismiss</button>
+                      </div>
+                    </div>
                   </Form>
                 );
               }}
