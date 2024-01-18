@@ -1,32 +1,27 @@
 import React from "react";
 
-const FormName = () => {
+const FormAddress = () => {
   return (
     <>
       <div className="form__block max-w-[350px] min-h-[460px]">
-        <h6 className="mb-4">Name</h6>
+        <h6 className="mb-4">Address</h6>
         <div className="form__wrap">
-          <label htmlFor="">Title</label>
+          <label htmlFor="">Address</label>
+          <textarea className="h-[50px]"></textarea>
+        </div>
+
+        <div className="form__wrap">
+          <label htmlFor="">City</label>
           <input type="text" />
         </div>
 
         <div className="form__wrap">
-          <label htmlFor="">First Name</label>
+          <label htmlFor="">Provice</label>
           <input type="text" />
         </div>
 
         <div className="form__wrap">
-          <label htmlFor="">Last Name</label>
-          <input type="text" />
-        </div>
-
-        <div className="form__wrap">
-          <label htmlFor="">Middle Name</label>
-          <input type="text" />
-        </div>
-
-        <div className="form__wrap">
-          <label htmlFor="">Maiden Last Name</label>
+          <label htmlFor="">Zipcode</label>
           <input type="text" />
         </div>
 
@@ -45,4 +40,4 @@ const FormName = () => {
   );
 };
 
-export default FormName;
+export default FormAddress;

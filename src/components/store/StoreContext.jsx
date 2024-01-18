@@ -35,6 +35,7 @@ const initVal = {
   quickEditID: 0,
   isShowModal: true,
   isMenuExpand: true,
+  lastIdInserted: null,
 };
 
 const StoreContext = React.createContext();
