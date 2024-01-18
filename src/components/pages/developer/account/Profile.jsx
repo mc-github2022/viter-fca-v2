@@ -1,12 +1,25 @@
+import { InputText } from "@/components/helpers/FormInputs";
+import { queryData } from "@/components/helpers/queryData";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import Navigation from "@/components/partials/Navigation.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
+import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { FaAngleLeft, FaBars } from "react-icons/fa";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { TfiLock } from "react-icons/tfi";
+import { Field, Formik, Form } from "formik";
 import { Link } from "react-router-dom";
+import * as Yup from "yup";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import {
+  setError,
+  setIsAdd,
+  setMessage,
+  setSuccess,
+} from "@/components/store/StoreAction";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 
 const Profile = () => {
   const { store } = React.useContext(StoreContext);
@@ -16,6 +29,48 @@ const Profile = () => {
   const handleShowSubMenu = () => {
     setShow(!show);
   };
+
+  const credentials = () => {
+    if (store.credentials.data) {
+      return {
+        userID: store.credentials.data.user_system_aid,
+        firstname: store.credentials.data.user_system_fname,
+        lastname: store.credentials.data.user_system_lname,
+        email: store.credentials.data.user_system_email,
+        role: store.credentials.data.role_name,
+      };
+    }
+  };
+
+  const mutation = useMutation({
+    mutationFn: (values) =>
+      queryData(`/v2/dev-profile/${credentials().userID}`, "put", values),
+    onSuccess: (data) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["gradelevel"] });
+      // show error box
+      if (!data.success) {
+        dispatch(setError(true));
+        dispatch(setMessage(data.error));
+      } else {
+        dispatch(setSuccess(true));
+        dispatch(setMessage(`Record successfully updated`));
+      }
+    },
+  });
+
+  const initVal = {
+    user_system_fname: credentials().firstname,
+    user_system_lname: credentials().lastname,
+    user_system_email: credentials().email,
+    // grade_level_name_old: itemEdit ? itemEdit.grade_level_name : "",
+  };
+
+  const yupSchema = Yup.object({
+    user_system_fname: Yup.string().required("Required"),
+    user_system_lname: Yup.string().required("Required"),
+    user_system_email: Yup.string().required("Required"),
+  });
 
   return (
     <>
@@ -73,25 +128,63 @@ const Profile = () => {
                 {index === 1 && (
                   <div className="profile__block min-h-[300px] w-full ">
                     <h6 className="mb-5">Update Account Information</h6>
+                    <Formik
+                      initialValues={initVal}
+                      validationSchema={yupSchema}
+                      onSubmit={async (
+                        values,
+                        { setSubmitting, resetForm }
+                      ) => {
+                        mutation.mutate(values);
+                      }}
+                    >
+                      {(props) => {
+                        return (
+                          <Form>
+                            <div className="form__wrap text-xs mb-3">
+                              <InputText
+                                label="First Name"
+                                type="text"
+                                name="user_system_fname"
+                                disabled={mutation.isLoading}
+                              />
+                            </div>
 
-                    <div className="form__wrap">
-                      <label htmlFor="">First Name</label>
-                      <input type="text" />
-                    </div>
+                            <div className="form__wrap text-xs mb-3">
+                              <InputText
+                                label="Last Name"
+                                type="text"
+                                name="user_system_lname"
+                                disabled={mutation.isLoading}
+                              />
+                            </div>
 
-                    <div className="form__wrap">
-                      <label htmlFor="">Last Name</label>
-                      <input type="text" />
-                    </div>
+                            <div className="form__wrap text-xs mb-3">
+                              <InputText
+                                label="Email"
+                                type="email"
+                                name="user_system_email"
+                                disabled={mutation.isLoading}
+                              />
+                            </div>
 
-                    <div className="form__wrap">
-                      <label htmlFor="">Email</label>
-                      <input type="text" />
-                    </div>
-
-                    <div className="flex gap-3 mt-8">
-                      <button className="btn btn--accent">Update</button>
-                    </div>
+                            <div
+                              className={` settings__actions flex gap-2 mt-4`}
+                            >
+                              <button className="btn btn--accent" type="submit">
+                                {mutation.isLoading ? (
+                                  <ButtonSpinner />
+                                ) : credentials().userID ? (
+                                  "update"
+                                ) : (
+                                  "Add"
+                                )}
+                              </button>
+                            </div>
+                          </Form>
+                        );
+                      }}
+                    </Formik>
                   </div>
                 )}
                 {index === 2 && (
