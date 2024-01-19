@@ -4,7 +4,7 @@ import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import Navigation from "@/components/partials/Navigation.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { FaAngleLeft, FaBars } from "react-icons/fa";
 import { HiOutlineUserCircle } from "react-icons/hi2";
@@ -20,18 +20,18 @@ import {
   setSuccess,
 } from "@/components/store/StoreAction";
 import useQueryData from "@/components/custom-hooks/useQueryData";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess";
+import ModalError from "@/components/partials/modals/ModalError";
 
 const Profile = () => {
-  const { store } = React.useContext(StoreContext);
+  const { store, dispatch } = React.useContext(StoreContext);
   const [index, setIndex] = React.useState(1);
   const [show, setShow] = React.useState(false);
-
-  const handleShowSubMenu = () => {
-    setShow(!show);
-  };
+  const queryClient = useQueryClient();
 
   const credentials = () => {
     if (store.credentials.data) {
+      console.log(store.credentials);
       return {
         userID: store.credentials.data.user_system_aid,
         firstname: store.credentials.data.user_system_fname,
@@ -42,12 +42,29 @@ const Profile = () => {
     }
   };
 
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: userProfile,
+  } = useQueryData(
+    `/v2/dev-profile/${credentials().userID}`, // endpoint
+    "get", // method
+    "userProfile" // key
+  );
+
+  console.log(userProfile);
+
+  const handleShowSubMenu = () => {
+    setShow(!show);
+  };
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(`/v2/dev-profile/${credentials().userID}`, "put", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["gradelevel"] });
+      queryClient.invalidateQueries({ queryKey: [""] });
       // show error box
       if (!data.success) {
         dispatch(setError(true));
@@ -55,6 +72,9 @@ const Profile = () => {
       } else {
         dispatch(setSuccess(true));
         dispatch(setMessage(`Record successfully updated`));
+        setInterval(function () {
+          location.reload();
+        }, 1000);
       }
     },
   });
@@ -110,13 +130,23 @@ const Profile = () => {
                 } md:block `}
               >
                 <ul>
-                  <li className={`${index === 1 ? "active" : ""}`}>
-                    <button onClick={() => setIndex(1)} className="text-sm">
+                  <li className={`${index === 1 ? "active" : ""} !p-0`}>
+                    <button
+                      onClick={() => setIndex(1)}
+                      className="text-sm w-full p-2"
+                    >
                       <HiOutlineUserCircle className="md:text-lg" /> Profile
                     </button>
                   </li>
-                  <li className={`${index === 2 ? "active" : ""}`}>
-                    <button onClick={() => setIndex(2)} className="text-sm">
+                  <li
+                    className={`${
+                      index === 2 ? "active" : ""
+                    } !p-0 text-center`}
+                  >
+                    <button
+                      onClick={() => setIndex(2)}
+                      className="text-sm w-full p-2"
+                    >
                       <TfiLock className="md:text-lg" />
                       Password
                     </button>
@@ -171,11 +201,15 @@ const Profile = () => {
                             <div
                               className={` settings__actions flex gap-2 mt-4`}
                             >
-                              <button className="btn btn--accent" type="submit">
+                              <button
+                                className="btn btn--accent"
+                                type="submit"
+                                disabled={mutation.isPending || !props.dirty}
+                              >
                                 {mutation.isLoading ? (
                                   <ButtonSpinner />
                                 ) : credentials().userID ? (
-                                  "update"
+                                  "Update"
                                 ) : (
                                   "Add"
                                 )}
@@ -215,7 +249,8 @@ const Profile = () => {
             </div>
           </div>
         </main>
-
+        {store.success && <ModalSuccess />}
+        {store.error && <ModalError />}
         <Footer />
       </section>
     </>
