@@ -33,7 +33,7 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["grade-level"] });
-
+      console.log(data);
       // show error box
       if (!data.success) {
         dispatch(setError(true));
