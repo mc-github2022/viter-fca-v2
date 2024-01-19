@@ -31,7 +31,6 @@ const Profile = () => {
 
   const credentials = () => {
     if (store.credentials.data) {
-      console.log(store.credentials);
       return {
         userID: store.credentials.data.user_system_aid,
         firstname: store.credentials.data.user_system_fname,
@@ -41,19 +40,6 @@ const Profile = () => {
       };
     }
   };
-
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: userProfile,
-  } = useQueryData(
-    `/v2/dev-profile/${credentials().userID}`, // endpoint
-    "get", // method
-    "userProfile" // key
-  );
-
-  console.log(userProfile);
 
   const handleShowSubMenu = () => {
     setShow(!show);
