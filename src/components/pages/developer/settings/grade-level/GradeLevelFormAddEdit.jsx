@@ -118,6 +118,8 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
                   >
                     Discard
                   </button>
+
+                  <button onClick={() => props.validateForm()}>Validate</button>
                 </div>
               </Form>
             );
