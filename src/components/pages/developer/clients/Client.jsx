@@ -6,15 +6,57 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 
 import { FaAngleLeft } from "react-icons/fa";
-import { FiEdit2 } from "react-icons/fi";
+import { FiEdit2, FiTrash } from "react-icons/fi";
 
 import { Link } from "react-router-dom";
 
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import NoData from "@/components/partials/NoData.jsx";
+import ServerError from "@/components/partials/ServerError.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import { setIsAdd, setIsDelete } from "@/components/store/StoreAction.jsx";
 import ParentInfoForm from "./info-parent/forms/ParentInfoForm.jsx";
 
 const Client = () => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const [itemEdit, setItemEdit] = React.useState(null);
+  const [dataItem, setData] = React.useState(null);
+  const [id, setId] = React.useState(null);
+
+  // SHOW HIDE
+  const [showParentForm, setShowParentForm] = React.useState(false);
+  const credentialUserId = store.credentials.data.user_system_aid;
+
   let counter = 1;
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: parentinfo,
+  } = useQueryData(
+    `/v2/dev-info-parent/${credentialUserId}`, // endpoint
+    "get", // method
+    "parentinfo" // key
+  );
+
+  const handleAdd = () => {
+    setShowParentForm(true);
+    setItemEdit(null);
+  };
+
+  const handleEdit = (item) => {
+    setShowParentForm(true);
+    setItemEdit(item);
+  };
+
+  const handleDelete = (item) => {
+    dispatch(setIsDelete(true));
+    setId(item.parent_guardian_info_aid);
+    setData(item);
+  };
+
   return (
     <>
       <Header />
@@ -41,55 +83,111 @@ const Client = () => {
                 online enrollment system.
               </p>
 
-              <button className="text-xs">Add Parent or Guardian</button>
+              <button className="text-xs" onClick={handleAdd}>
+                Add Parent or Guardian
+              </button>
             </div>
           </div>
+          {!showParentForm && (
+            <div className="my-5 bg-primary rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
+              <div className="gap-8 md:flex">
+                <aside className="md:max-w-[220px] w-full">
+                  <h4 className="md:pl-4 mb-2 font-bold">Parent Information</h4>
+                </aside>
+                <div className="w-full">
+                  <div className={``}>
+                    <table className="table__sm">
+                      <thead>
+                        <tr>
+                          <td>#</td>
+                          <td>Name</td>
+                          <td className="hidden md:block">Relationship</td>
+                          <td></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(isLoading || parentinfo?.data.length === 0) && (
+                          <tr className="text-center ">
+                            <td colSpan="100%" className="p-10">
+                              {isLoading ? (
+                                <TableLoading count={20} cols={3} />
+                              ) : (
+                                <NoData />
+                              )}
+                            </td>
+                          </tr>
+                        )}
 
-          <div className="my-5 bg-primary rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
-            <div className="gap-8 md:flex">
-              <aside className="md:max-w-[220px] w-full">
-                <h4 className="md:pl-4 mb-2 font-bold">Parent Information</h4>
-              </aside>
-              <div className="w-full">
-                <div className={``}>
-                  <table className="table__sm">
-                    <thead>
-                      <tr>
-                        <td>#</td>
-                        <td>Name</td>
-                        <td className="hidden md:block">Relationship</td>
-                        <td></td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{counter++}</td>
-                        <td>asdasd</td>
-                        <td className="hidden md:block">asdasd</td>
-                        <td>
-                          <ul className="flex ">
-                            <li>
-                              <button className="tooltip" data-tooltip="Edit">
-                                <FiEdit2 />
-                              </button>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                        {error && (
+                          <tr className="text-center ">
+                            <td colSpan="100%" className="p-10">
+                              <ServerError />
+                            </td>
+                          </tr>
+                        )}
+
+                        {parentinfo?.data.map((item, key) => (
+                          <tr key={key}>
+                            <td>{counter++}</td>
+                            <td>
+                              {item.parent_guardian_info_fname},
+                              {item.parent_guardian_info_lname}
+                            </td>
+                            <td className="hidden md:block">
+                              {item.relationship_name}
+                            </td>
+                            <td>
+                              <ul className="flex ">
+                                <li>
+                                  <button
+                                    className="tooltip"
+                                    data-tooltip="Edit"
+                                    onClick={() => handleEdit(item)}
+                                  >
+                                    <FiEdit2 />
+                                  </button>
+                                </li>
+
+                                <li>
+                                  <button
+                                    className="tooltip"
+                                    data-tooltip="Delete"
+                                    onClick={() => handleDelete(item)}
+                                  >
+                                    <FiTrash />
+                                  </button>
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <ParentInfoForm />
+          )}
+          {showParentForm && (
+            <ParentInfoForm
+              itemEdit={itemEdit}
+              setShowParentForm={setShowParentForm}
+            />
+          )}
         </main>
 
         <Footer />
       </section>
 
       {store.success && <ModalSuccess />}
+      {store.isDelete && (
+        <ModalDelete
+          mysqlApiDelete={`/v2/dev-info-parent/${id}`}
+          msg={"Are you sure you want to delete this record?"}
+          item={`${dataItem.parent_guardian_info_fname} ${dataItem.parent_guardian_info_lname}`}
+          queryKey={"gradelevel"}
+        />
+      )}
     </>
   );
 };

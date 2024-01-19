@@ -1,37 +1,110 @@
-import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Form, Formik } from "formik";
 import React from "react";
-import { BsConeStriped } from "react-icons/bs";
-import * as Yup from "yup";
 
-const ParentInfoForm = () => {
+import { queryData } from "@/components/helpers/queryData.jsx";
+import {
+  setError,
+  setIsAdd,
+  setMessage,
+  setSuccess,
+} from "@/components/store/StoreAction.jsx";
+import FormBasic from "./FormBasic.jsx";
+import FormContact from "./FormContact.jsx";
+import FormOther from "./FormOther.jsx";
+
+const ParentInfoForm = ({ itemEdit, setShowParentForm }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
-  const [index, setIndex] = React.useState(1);
-  const [isBasicComplete, setIsBasicComplete] = React.useState(false);
-  const [isContactComplete, setIsContactComplete] = React.useState(false);
+  const [currentStep, setCurrentStep] = React.useState(0);
+  const [formData, setFormData] = React.useState({
+    parent_guardian_info_aid: itemEdit ? itemEdit.parent_guardian_info_aid : "",
+    parent_guardian_info_user_id: itemEdit
+      ? itemEdit.parent_guardian_info_user_id
+      : "",
+
+    parent_guardian_info_relationship_id: itemEdit
+      ? itemEdit.parent_guardian_info_relationship_id
+      : "",
+    parent_guardian_info_salutation: itemEdit
+      ? itemEdit.parent_guardian_info_salutation
+      : "",
+    parent_guardian_info_reside: itemEdit
+      ? itemEdit.parent_guardian_info_reside
+      : "",
+
+    parent_guardian_info_fname: itemEdit
+      ? itemEdit.parent_guardian_info_fname
+      : "",
+
+    parent_guardian_info_mname: itemEdit
+      ? itemEdit.parent_guardian_info_mname
+      : "",
+
+    parent_guardian_info_maiden_name: itemEdit
+      ? itemEdit.parent_guardian_info_maiden_name
+      : "",
+
+    parent_guardian_info_lname: itemEdit
+      ? itemEdit.parent_guardian_info_lname
+      : "",
+
+    parent_guardian_info_email: itemEdit
+      ? itemEdit.parent_guardian_info_email
+      : "",
+
+    parent_guardian_info_mobile: itemEdit
+      ? itemEdit.parent_guardian_info_mobile
+      : "",
+
+    parent_guardian_info_landline: itemEdit
+      ? itemEdit.parent_guardian_info_landline
+      : "",
+
+    parent_guardian_info_address: itemEdit
+      ? itemEdit.parent_guardian_info_address
+      : "",
+
+    parent_guardian_info_province: itemEdit
+      ? itemEdit.parent_guardian_info_province
+      : "",
+
+    parent_guardian_info_city: itemEdit
+      ? itemEdit.parent_guardian_info_city
+      : "",
+
+    parent_guardian_info_zipcode: itemEdit
+      ? itemEdit.parent_guardian_info_zipcode
+      : "",
+
+    parent_guardian_info_religion: itemEdit
+      ? itemEdit.parent_guardian_info_religion
+      : "",
+
+    parent_guardian_info_occupation: itemEdit
+      ? itemEdit.parent_guardian_info_occupation
+      : "",
+  });
 
   const mutation = useMutation({
-    mutationFn: (values) =>
+    mutationFn: (newData) =>
       queryData(
         itemEdit
-          ? `/v2/dev-info-parent/${itemEdit.grade_level_aid}`
+          ? `/v2/dev-info-parent/${itemEdit.parent_guardian_info_aid}`
           : "/v2/dev-info-parent",
         itemEdit ? "put" : "post",
-        values
+        newData
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["grade-level"] });
+      queryClient.invalidateQueries({ queryKey: ["parentinfo"] });
 
       // show error box
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        dispatch(setIsAdd(false));
+        setShowParentForm(false);
         dispatch(setSuccess(true));
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
@@ -40,46 +113,39 @@ const ParentInfoForm = () => {
     },
   });
 
-  const handleGotoContact = (props) => {
-    if (Object.keys(props.errors).length === 0 && props.dirty) {
-      setIndex(2);
-      setIsBasicComplete(true);
-    } else {
-      setIndex(1);
-      setIsBasicComplete(false);
+  const handleNextStep = (newData, isLastForm = false) => {
+    setFormData((prev) => ({ ...prev, ...newData }));
+    if (isLastForm) {
+      mutation.mutate(newData);
+      return;
     }
+    setCurrentStep((prev) => prev + 1);
   };
 
-  const handleGotoOther = (props) => {
-    if (Object.keys(props.errors).length === 0) {
-      console.log("leave");
-    } else {
-      console.log("stay");
-    }
-
-    console.log(props.errors);
+  const handlePrevStep = (newData) => {
+    setFormData((prev) => ({ ...prev, ...newData }));
+    setCurrentStep((prev) => prev - 1);
   };
 
-  const initVal = {
-    parent_guardian_info_relationship_id: "",
-    parent_guardian_info_reside: "",
-    parent_guardian_info_email: "",
-    parent_guardian_info_mobile: "",
-  };
-  const yupSchema = Yup.object({
-    parent_guardian_info_relationship_id: Yup.string().required("Required"),
-    parent_guardian_info_reside: Yup.string().required("Required"),
-
-    parent_guardian_info_email: isBasicComplete
-      ? Yup.string().required("Required")
-      : null,
-    parent_guardian_info_mobile: isBasicComplete
-      ? Yup.string().required("Required")
-      : null,
-
-    other1: isContactComplete ? Yup.string().required("Required") : null,
-    other2: isContactComplete ? Yup.string().required("Required") : null,
-  });
+  const steps = [
+    <FormBasic
+      next={handleNextStep}
+      formData={formData}
+      setShowParentForm={setShowParentForm}
+    />,
+    <FormContact
+      next={handleNextStep}
+      prev={handlePrevStep}
+      formData={formData}
+      setShowParentForm={setShowParentForm}
+    />,
+    <FormOther
+      next={handleNextStep}
+      prev={handlePrevStep}
+      formData={formData}
+      setShowParentForm={setShowParentForm}
+    />,
+  ];
 
   return (
     <div>
@@ -89,127 +155,17 @@ const ParentInfoForm = () => {
             <h4>Parent Information</h4>
             <ul>
               <li>
-                <button onClick={() => setIndex(1)}>Basic</button>
+                <button onClick={() => setCurrentStep(0)}>Basic</button>
               </li>
               <li>
-                <button onClick={() => setIndex(2)}>Contact</button>
+                <button onClick={() => setCurrentStep(1)}>Contact</button>
               </li>
               <li>
-                <button>Other</button>
+                <button onClick={() => setCurrentStep(2)}>Other</button>
               </li>
             </ul>
           </aside>
-          <div className="w-full">
-            <Formik
-              initialValues={initVal}
-              validationSchema={yupSchema}
-              onSubmit={async (values, { setSubmitting, resetForm }) => {
-                mutation.mutate(values);
-              }}
-            >
-              {(props) => {
-                return (
-                  <Form>
-                    <div
-                      className={`form__basic ${
-                        index === 1 ? "block" : "hidden"
-                      }`}
-                    >
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="form__wrap">
-                          <InputText
-                            label="Relationship to Student"
-                            type="text"
-                            name="parent_guardian_info_relationship_id"
-                          />
-                        </div>
-
-                        <div className="form__wrap">
-                          <InputText
-                            label="Resided with child"
-                            type="text"
-                            name="parent_guardian_info_reside"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="flex gap-4 mt-3">
-                        <button
-                          className="btn btn--accent"
-                          onClick={() => handleGotoContact(props)}
-                        >
-                          validate basic
-                        </button>
-                        <button className="btn btn--cancel">Dismiss</button>
-                      </div>
-                    </div>
-
-                    <div
-                      className={`form__contact ${
-                        index === 2 ? "block" : "hidden"
-                      }`}
-                    >
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="form__wrap">
-                          <InputText
-                            label="Email "
-                            type="text"
-                            name="parent_guardian_info_email"
-                          />
-                        </div>
-
-                        <div className="form__wrap">
-                          <InputText
-                            label="Mobile "
-                            type="text"
-                            name="parent_guardian_info_mobile"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="flex gap-4 mt-3">
-                        <button
-                          className="btn btn--accent"
-                          onClick={() => handleGotoOther(props)}
-                        >
-                          validate contact
-                        </button>
-                        <button className="btn btn--cancel">Dismiss</button>
-                      </div>
-                    </div>
-
-                    <div
-                      className={`form__other ${
-                        index === 2 ? "block" : "hidden"
-                      }`}
-                    >
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="form__wrap">
-                          <InputText label="other " type="text" name="other1" />
-                        </div>
-
-                        <div className="form__wrap">
-                          <InputText
-                            label="other2 "
-                            type="text"
-                            name="other2"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="flex gap-4 mt-3">
-                        <button className="btn btn--accent">
-                          {" "}
-                          validate other
-                        </button>
-                        <button className="btn btn--cancel">Dismiss</button>
-                      </div>
-                    </div>
-                  </Form>
-                );
-              }}
-            </Formik>
-          </div>
+          <div className="w-full">{steps[currentStep]}</div>
         </div>
       </div>
     </div>

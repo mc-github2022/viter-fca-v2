@@ -44,24 +44,63 @@ class InfoParentGuardian
     {
         try {
             $sql = "insert into {$this->tblParentGuardian} ";
-            $sql .= "( parent_guardian_info_relationship_id, ";
+            $sql .= "( parent_guardian_info_user_id, ";
+            $sql .= "parent_guardian_info_relationship_id, ";
+            $sql .= "parent_guardian_info_salutation, ";
             $sql .= "parent_guardian_info_reside, ";
+            $sql .= "parent_guardian_info_fname, ";
+            $sql .= "parent_guardian_info_mname, ";
+            $sql .= "parent_guardian_info_maiden_name, ";
+            $sql .= "parent_guardian_info_lname, ";
             $sql .= "parent_guardian_info_email, ";
             $sql .= "parent_guardian_info_mobile, ";
+            $sql .= "parent_guardian_info_landline, ";
+            $sql .= "parent_guardian_info_address, ";
+            $sql .= "parent_guardian_info_province, ";
+            $sql .= "parent_guardian_info_city, ";
+            $sql .= "parent_guardian_info_zipcode, ";
+            $sql .= "parent_guardian_info_religion, ";
+            $sql .= "parent_guardian_info_occupation, ";
             $sql .= "parent_guardian_info_created, ";
             $sql .= "parent_guardian_info_datetime ) values ( ";
+            $sql .= ":parent_guardian_info_user_id, ";
             $sql .= ":parent_guardian_info_relationship_id, ";
+            $sql .= ":parent_guardian_info_salutation, ";
             $sql .= ":parent_guardian_info_reside, ";
+            $sql .= ":parent_guardian_info_fname, ";
+            $sql .= ":parent_guardian_info_mname, ";
+            $sql .= ":parent_guardian_info_maiden_name, ";
+            $sql .= ":parent_guardian_info_lname, ";
             $sql .= ":parent_guardian_info_email, ";
             $sql .= ":parent_guardian_info_mobile, ";
+            $sql .= ":parent_guardian_info_landline, ";
+            $sql .= ":parent_guardian_info_address, ";
+            $sql .= ":parent_guardian_info_province, ";
+            $sql .= ":parent_guardian_info_city, ";
+            $sql .= ":parent_guardian_info_zipcode, ";
+            $sql .= ":parent_guardian_info_religion, ";
+            $sql .= ":parent_guardian_info_occupation, ";
             $sql .= ":parent_guardian_info_created, ";
             $sql .= ":parent_guardian_info_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "parent_guardian_info_user_id" => $this->parent_guardian_info_user_id,
                 "parent_guardian_info_relationship_id" => $this->parent_guardian_info_relationship_id,
+                "parent_guardian_info_salutation" => $this->parent_guardian_info_salutation,
                 "parent_guardian_info_reside" => $this->parent_guardian_info_reside,
+                "parent_guardian_info_fname" => $this->parent_guardian_info_fname,
+                "parent_guardian_info_mname" => $this->parent_guardian_info_mname,
+                "parent_guardian_info_maiden_name" => $this->parent_guardian_info_maiden_name,
+                "parent_guardian_info_lname" => $this->parent_guardian_info_lname,
                 "parent_guardian_info_email" => $this->parent_guardian_info_email,
                 "parent_guardian_info_mobile" => $this->parent_guardian_info_mobile,
+                "parent_guardian_info_landline" => $this->parent_guardian_info_landline,
+                "parent_guardian_info_address" => $this->parent_guardian_info_address,
+                "parent_guardian_info_province" => $this->parent_guardian_info_province,
+                "parent_guardian_info_city" => $this->parent_guardian_info_city,
+                "parent_guardian_info_zipcode" => $this->parent_guardian_info_zipcode,
+                "parent_guardian_info_religion" => $this->parent_guardian_info_religion,
+                "parent_guardian_info_occupation" => $this->parent_guardian_info_occupation,
                 "parent_guardian_info_created" => $this->parent_guardian_info_created,
                 "parent_guardian_info_datetime" => $this->parent_guardian_info_datetime,
             ]);
@@ -112,8 +151,8 @@ class InfoParentGuardian
             $sql .= "parent_guardian_info_reside = :parent_guardian_info_reside, ";
             $sql .= "parent_guardian_info_fname = :parent_guardian_info_fname, ";
             $sql .= "parent_guardian_info_mname = :parent_guardian_info_mname, ";
-            $sql .= "parent_guardian_info_lname = :parent_guardian_info_lname, ";
             $sql .= "parent_guardian_info_maiden_name = :parent_guardian_info_maiden_name, ";
+            $sql .= "parent_guardian_info_lname = :parent_guardian_info_lname, ";
             $sql .= "parent_guardian_info_email = :parent_guardian_info_email, ";
             $sql .= "parent_guardian_info_mobile = :parent_guardian_info_mobile, ";
             $sql .= "parent_guardian_info_landline = :parent_guardian_info_landline, ";
@@ -123,18 +162,19 @@ class InfoParentGuardian
             $sql .= "parent_guardian_info_zipcode = :parent_guardian_info_zipcode, ";
             $sql .= "parent_guardian_info_religion = :parent_guardian_info_religion, ";
             $sql .= "parent_guardian_info_occupation = :parent_guardian_info_occupation, ";
-            $sql .= "parent_guardian_info_datetime = :parent_guardian_info_datetime ";
+            $sql .= "parent_guardian_info_datetime = :parent_guardian_info_datetime ";           
             $sql .= "where parent_guardian_info_aid  = :parent_guardian_info_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "parent_guardian_info_aid" => $this->parent_guardian_info_aid,
                 "parent_guardian_info_user_id" => $this->parent_guardian_info_user_id,
                 "parent_guardian_info_relationship_id" => $this->parent_guardian_info_relationship_id,
                 "parent_guardian_info_salutation" => $this->parent_guardian_info_salutation,
                 "parent_guardian_info_reside" => $this->parent_guardian_info_reside,
                 "parent_guardian_info_fname" => $this->parent_guardian_info_fname,
                 "parent_guardian_info_mname" => $this->parent_guardian_info_mname,
-                "parent_guardian_info_lname" => $this->parent_guardian_info_lname,
                 "parent_guardian_info_maiden_name" => $this->parent_guardian_info_maiden_name,
+                "parent_guardian_info_lname" => $this->parent_guardian_info_lname,
                 "parent_guardian_info_email" => $this->parent_guardian_info_email,
                 "parent_guardian_info_mobile" => $this->parent_guardian_info_mobile,
                 "parent_guardian_info_landline" => $this->parent_guardian_info_landline,
@@ -144,8 +184,7 @@ class InfoParentGuardian
                 "parent_guardian_info_zipcode" => $this->parent_guardian_info_zipcode,
                 "parent_guardian_info_religion" => $this->parent_guardian_info_religion,
                 "parent_guardian_info_occupation" => $this->parent_guardian_info_occupation,
-                "parent_guardian_info_datetime" => $this->parent_guardian_info_datetime,
-                "parent_guardian_info_aid" => $this->parent_guardian_info_aid ,
+                "parent_guardian_info_datetime" => $this->parent_guardian_info_datetime,         
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -208,77 +247,9 @@ class InfoParentGuardian
 
 
 
-    // UPDATE PARENT INFORMATION
-
-    
 
   
 
-    public function updateRelationship()
-    {
-        try {
-            $sql = "update {$this->tblParentGuardian} set ";
-            $sql .= "parent_guardian_info_user_id = :parent_guardian_info_user_id, ";
-            $sql .= "parent_guardian_info_relationship_id = :parent_guardian_info_relationship_id, ";
-            $sql .= "parent_guardian_info_reside = :parent_guardian_info_reside, ";
-            $sql .= "parent_guardian_info_salutation = :parent_guardian_info_salutation, ";
-            $sql .= "parent_guardian_info_fname = :parent_guardian_info_fname, ";
-            $sql .= "parent_guardian_info_lname = :parent_guardian_info_lname, ";
-            $sql .= "parent_guardian_info_mname = :parent_guardian_info_mname, ";
-            $sql .= "parent_guardian_info_maiden_name = :parent_guardian_info_maiden_name, ";
-            $sql .= "parent_guardian_info_datetime = :parent_guardian_info_datetime ";
-            $sql .= "where parent_guardian_info_aid  = :parent_guardian_info_aid ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "parent_guardian_info_user_id" => $this->parent_guardian_info_user_id,
-                "parent_guardian_info_relationship_id" => $this->parent_guardian_info_relationship_id,
-                "parent_guardian_info_reside" => $this->parent_guardian_info_reside,
-                "parent_guardian_info_salutation" => $this->parent_guardian_info_salutation,
-                "parent_guardian_info_fname" => $this->parent_guardian_info_fname,
-                "parent_guardian_info_lname" => $this->parent_guardian_info_lname,
-                "parent_guardian_info_mname" => $this->parent_guardian_info_mname,
-                "parent_guardian_info_maiden_name" => $this->parent_guardian_info_maiden_name,
-                "parent_guardian_info_datetime" => $this->parent_guardian_info_datetime,
-                "parent_guardian_info_aid" => $this->parent_guardian_info_aid ,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
-
-    
-
-    
-    public function updateContact()
-    {
-        try {
-            $sql = "update {$this->tblParentGuardian} set ";
-            $sql .= "parent_guardian_info_email = :parent_guardian_info_email, ";
-            $sql .= "parent_guardian_info_mobile = :parent_guardian_info_mobile, ";
-            $sql .= "parent_guardian_info_landline = :parent_guardian_info_landline, ";
-            $sql .= "parent_guardian_info_province = :parent_guardian_info_province, ";
-            $sql .= "parent_guardian_info_city = :parent_guardian_info_city, ";
-            $sql .= "parent_guardian_info_zipcode = :parent_guardian_info_zipcode, ";
-            $sql .= "parent_guardian_info_datetime = :parent_guardian_info_datetime ";
-            $sql .= "where parent_guardian_info_aid  = :parent_guardian_info_aid ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "parent_guardian_info_email" => $this->parent_guardian_info_email,
-                "parent_guardian_info_mobile" => $this->parent_guardian_info_mobile,
-                "parent_guardian_info_landline" => $this->parent_guardian_info_landline,
-                "parent_guardian_info_province" => $this->parent_guardian_info_province,
-                "parent_guardian_info_city" => $this->parent_guardian_info_city,
-                "parent_guardian_info_zipcode" => $this->parent_guardian_info_zipcode,
-                "parent_guardian_info_datetime" => $this->parent_guardian_info_datetime,
-                "parent_guardian_info_aid" => $this->parent_guardian_info_aid ,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
 
 
 
