@@ -109,7 +109,8 @@ RewriteRule ^dev-info-financial/active/([0-9]+)$ controllers/developer/client/in
 ###### DEV CLIENT ######
 
 RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
-RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfouid=$1 [L]
+RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoaid=$1 [L]
+RewriteRule ^dev-read-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfouid=$1 [L]
 
 
 ###### DEV CLIENT ######

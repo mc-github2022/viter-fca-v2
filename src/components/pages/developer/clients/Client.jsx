@@ -36,9 +36,19 @@ const Client = () => {
     error,
     data: parentinfo,
   } = useQueryData(
-    `/v2/dev-info-parent/${credentialUserId}`, // endpoint
+    `/v2/dev-read-info-parent/${credentialUserId}`, // endpoint
     "get", // method
     "parentinfo" // key
+  );
+
+  const { data: relationship } = useQueryData(
+    "/v2/dev-relationship", // endpoint
+    "get", // method
+    "relationship" // key
+  );
+
+  const listRelationship = relationship?.data.filter(
+    (item) => item.relationship_active === 1
   );
 
   const handleAdd = () => {
@@ -83,13 +93,16 @@ const Client = () => {
                 online enrollment system.
               </p>
 
-              <button className="text-xs" onClick={handleAdd}>
+              <button
+                className={`${itemEdit ? "pointer-events-none" : ""} text-xs`}
+                onClick={handleAdd}
+              >
                 Add Parent or Guardian
               </button>
             </div>
           </div>
           {!showParentForm && (
-            <div className="my-5 bg-primary rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
+            <div className="my-5 bg-primary  rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
               <div className="gap-8 md:flex">
                 <aside className="md:max-w-[220px] w-full">
                   <h4 className="md:pl-4 mb-2 font-bold">Parent Information</h4>
@@ -170,8 +183,10 @@ const Client = () => {
           )}
           {showParentForm && (
             <ParentInfoForm
+              setItemEdit={setItemEdit}
               itemEdit={itemEdit}
               setShowParentForm={setShowParentForm}
+              listRelationship={listRelationship}
             />
           )}
         </main>

@@ -1,7 +1,7 @@
 <?php
 
-function checkUpdateRelationship($object) {
-    $query = $object->updateRelationship();
+function checkUpdateBasic($object) {
+    $query = $object->updateBasic();
     checkQuery($query, "There's a problem processing your request. (update relationship)");
     return $query;
 }

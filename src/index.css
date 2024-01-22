@@ -70,6 +70,10 @@
     @apply text-base mb-1;
   }
 
+  h6 {
+    @apply text-[14px] mb-1;
+  }
+
   html {
     @apply h-full;
   }
@@ -476,6 +480,10 @@
 
   .dropdown.inactive {
     @apply opacity-0 scale-90 visible ease-in-out duration-200 transition-all pointer-events-none;
+  }
+
+  .multistep__link.active {
+    @apply bg-accent text-white;
   }
 }
 

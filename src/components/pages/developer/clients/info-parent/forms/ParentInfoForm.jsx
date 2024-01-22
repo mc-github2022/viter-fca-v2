@@ -1,6 +1,7 @@
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
+import { IoIosCheckmark } from "react-icons/io";
 
 import { queryData } from "@/components/helpers/queryData.jsx";
 import {
@@ -13,10 +14,16 @@ import FormBasic from "./FormBasic.jsx";
 import FormContact from "./FormContact.jsx";
 import FormOther from "./FormOther.jsx";
 
-const ParentInfoForm = ({ itemEdit, setShowParentForm }) => {
+const ParentInfoForm = ({
+  setItemEdit,
+  itemEdit,
+  setShowParentForm,
+  listRelationship,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
   const [currentStep, setCurrentStep] = React.useState(0);
+
   const [formData, setFormData] = React.useState({
     parent_guardian_info_aid: itemEdit ? itemEdit.parent_guardian_info_aid : "",
     parent_guardian_info_user_id: itemEdit
@@ -86,6 +93,8 @@ const ParentInfoForm = ({ itemEdit, setShowParentForm }) => {
       : "",
   });
 
+  const getClientId = store.credentials.data?.user_system_aid;
+
   const mutation = useMutation({
     mutationFn: (newData) =>
       queryData(
@@ -106,6 +115,8 @@ const ParentInfoForm = ({ itemEdit, setShowParentForm }) => {
       } else {
         setShowParentForm(false);
         dispatch(setSuccess(true));
+        setItemEdit(null);
+
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
         );
@@ -116,9 +127,13 @@ const ParentInfoForm = ({ itemEdit, setShowParentForm }) => {
   const handleNextStep = (newData, isLastForm = false) => {
     setFormData((prev) => ({ ...prev, ...newData }));
     if (isLastForm) {
-      mutation.mutate(newData);
+      mutation.mutate({
+        ...newData,
+        parent_guardian_info_user_id: getClientId,
+      });
       return;
     }
+
     setCurrentStep((prev) => prev + 1);
   };
 
@@ -132,18 +147,22 @@ const ParentInfoForm = ({ itemEdit, setShowParentForm }) => {
       next={handleNextStep}
       formData={formData}
       setShowParentForm={setShowParentForm}
+      listRelationship={listRelationship}
+      setItemEdit={setItemEdit}
     />,
     <FormContact
       next={handleNextStep}
       prev={handlePrevStep}
       formData={formData}
       setShowParentForm={setShowParentForm}
+      setItemEdit={setItemEdit}
     />,
     <FormOther
       next={handleNextStep}
       prev={handlePrevStep}
       formData={formData}
       setShowParentForm={setShowParentForm}
+      setItemEdit={setItemEdit}
     />,
   ];
 
@@ -154,14 +173,84 @@ const ParentInfoForm = ({ itemEdit, setShowParentForm }) => {
           <aside className="md:max-w-[220px] w-full px-4">
             <h4>Parent Information</h4>
             <ul>
-              <li>
-                <button onClick={() => setCurrentStep(0)}>Basic</button>
+              <li className={`pl-1 py-2 `}>
+                <button
+                  onClick={() => setCurrentStep(0)}
+                  className={`flex justify-between items-center w-full pr-4 ${
+                    !itemEdit ? "pointer-events-none" : ""
+                  }`}
+                >
+                  <p
+                    className={
+                      currentStep >= 1 || itemEdit
+                        ? "opacity-100"
+                        : "opacity-50"
+                    }
+                  >
+                    Basic
+                  </p>
+                  {currentStep >= 1 || itemEdit ? (
+                    <span className="w-[16px] h-[16px] border border-accent bg-accent rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-white" />
+                    </span>
+                  ) : (
+                    <span className="w-[16px] h-[16px] bg-slate-200  rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-disable" />
+                    </span>
+                  )}
+                </button>
               </li>
-              <li>
-                <button onClick={() => setCurrentStep(1)}>Contact</button>
+              <li className={`pl-1 py-2 `}>
+                <button
+                  onClick={() => setCurrentStep(1)}
+                  className={`flex justify-between items-center w-full pr-4 ${
+                    !itemEdit ? "pointer-events-none" : ""
+                  }`}
+                >
+                  <p
+                    className={
+                      currentStep >= 2 || itemEdit
+                        ? "opacity-100"
+                        : "opacity-50"
+                    }
+                  >
+                    Contact
+                  </p>
+                  {currentStep >= 2 || itemEdit ? (
+                    <span className="w-[16px] h-[16px] border border-accent bg-accent rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-white" />
+                    </span>
+                  ) : (
+                    <span className="w-[16px] h-[16px] bg-slate-200  rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-disable" />
+                    </span>
+                  )}
+                </button>
               </li>
-              <li>
-                <button onClick={() => setCurrentStep(2)}>Other</button>
+              <li className={`pl-1 py-2 `}>
+                <button
+                  onClick={() => setCurrentStep(2)}
+                  className={`flex justify-between items-center w-full pr-4 ${
+                    !itemEdit ? "pointer-events-none" : ""
+                  }`}
+                >
+                  <p
+                    className={
+                      currentStep > 2 || itemEdit ? "opacity-100" : "opacity-50"
+                    }
+                  >
+                    Other
+                  </p>
+                  {currentStep > 2 || itemEdit ? (
+                    <span className="w-[16px] h-[16px] border border-accent bg-accent rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-white" />
+                    </span>
+                  ) : (
+                    <span className="w-[16px] h-[16px] bg-slate-200  rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-disable" />
+                    </span>
+                  )}
+                </button>
               </li>
             </ul>
           </aside>

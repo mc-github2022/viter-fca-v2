@@ -5,6 +5,11 @@ import * as Yup from "yup";
 const FormOther = (props) => {
   const handleSubmit = (values) => {
     props.next(values, true);
+    props.setItemEdit(null);
+  };
+
+  const handleClose = () => {
+    props.setShowParentForm(false);
   };
 
   const validationSchemaOther = Yup.object({
@@ -21,7 +26,7 @@ const FormOther = (props) => {
         return (
           <Form>
             <div className={`form__contact block`}>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 <div className="form__wrap">
                   <InputText
                     label="Religion "
@@ -39,15 +44,19 @@ const FormOther = (props) => {
               </div>
 
               <div className="flex gap-4 mt-3">
-                <button className="btn btn--accent" type="submit">
-                  Submit
-                </button>
-                <button
-                  className="btn btn--cancel"
-                  onClick={() => props.prev(values)}
-                >
-                  Back
-                </button>
+                <div className="flex w-full mt-5">
+                  <div className="flex gap-4">
+                    <button className="btn btn--cancel" onClick={props.prev}>
+                      Back
+                    </button>
+                    <button className="btn btn--accent" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                  <button className="btn  ml-auto" onClick={handleClose}>
+                    Return
+                  </button>
+                </div>
               </div>
             </div>
           </Form>
