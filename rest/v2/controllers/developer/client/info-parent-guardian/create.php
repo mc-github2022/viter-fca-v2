@@ -14,20 +14,13 @@ $parent->parent_guardian_info_mname = $data["parent_guardian_info_mname"];
 $parent->parent_guardian_info_maiden_name = $data["parent_guardian_info_maiden_name"];
 $parent->parent_guardian_info_email = checkIndex($data, "parent_guardian_info_email");
 $parent->parent_guardian_info_mobile = checkIndex($data, "parent_guardian_info_mobile");
-
 $parent->parent_guardian_info_landline = $data["parent_guardian_info_landline"] ;
-
 $parent->parent_guardian_info_address = checkIndex($data, "parent_guardian_info_address");
-
 $parent->parent_guardian_info_city = checkIndex($data, "parent_guardian_info_city");
-
 $parent->parent_guardian_info_province = checkIndex($data, "parent_guardian_info_province");
 $parent->parent_guardian_info_zipcode = checkIndex($data, "parent_guardian_info_zipcode");
-
 $parent->parent_guardian_info_religion = checkIndex($data, "parent_guardian_info_religion");
-
 $parent->parent_guardian_info_occupation = checkIndex($data, "parent_guardian_info_occupation");
-
 $parent->parent_guardian_info_created = date("Y-m-d H:i:s");
 $parent->parent_guardian_info_datetime = date("Y-m-d H:i:s");
 

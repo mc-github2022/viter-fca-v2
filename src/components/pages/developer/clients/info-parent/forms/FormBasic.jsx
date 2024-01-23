@@ -42,9 +42,7 @@ const FormBasic = (props) => {
         return (
           <Form>
             <div className={`form__basic block"`}>
-              <h6 className="border-b border-line mb-4 pb-2">
-                Client Relationship
-              </h6>
+              <h6 className="mb-4 pb-2">Client Relationship</h6>
               <div className="grid grid-cols-2 gap-2">
                 <div className="form__wrap mb-0">
                   <InputSelect
@@ -87,9 +85,7 @@ const FormBasic = (props) => {
                 </div>
               </div>
 
-              <h6 className="border-b border-line mt-5 mb-4 pb-2">
-                Basic Parent Details
-              </h6>
+              <h6 className=" mt-5 mb-4 pb-2">Basic Parent Details</h6>
               <div className="grid grid-cols-[100px_1fr_1fr] gap-2 mb-3">
                 <div className="form__wrap mb-0">
                   <InputSelect

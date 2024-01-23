@@ -1,29 +1,49 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import { setIsDelete } from "@/components/store/StoreAction.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 
-const TableParentInfo = (props) => {
+const ContactTable = ({ setItemEdit, setShowContact }) => {
+  const { store, dispatch } = React.useContext(StoreContext);
+  const credentialUserId = store.credentials.data.user_system_aid;
+
+  const [id, setId] = React.useState(null);
+  const [dataItem, setData] = React.useState(null);
+
   let counter = 1;
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: contactInfo,
+  } = useQueryData(
+    `/v2/dev-read-info-contact/${credentialUserId}`, // endpoint
+    "get", // method
+    "contactInfo" // key
+  );
 
   const handleEdit = (item) => {
-    props.setShowParentForm(true);
-    props.setItemEdit(item);
+    setShowContact(true);
+    setItemEdit(item);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
-    props.setId(item.parent_guardian_info_aid);
-    props.setData(item);
+    setId(item.contact_aid);
+    setData(item);
   };
 
   return (
     <>
       <div className="my-5 bg-primary rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
         <div className="gap-8 md:flex">
-          <aside className="md:max-w-[220px] w-full">
-            <h4 className="md:pl-4 mb-2 font-bold">Parent Information</h4>
+          <aside className="md:max-w-[220px] w-full md:pl-4 mb-2">
+            <h4 className=" font-bold">Contact Information</h4>
           </aside>
           <div className="w-full">
             <div className="">
@@ -32,15 +52,15 @@ const TableParentInfo = (props) => {
                   <tr>
                     <td>#</td>
                     <td>Name</td>
-                    <td className="hidden md:block">Relationship</td>
+                    <td className="hidden md:block">Mobile</td>
                     <td></td>
                   </tr>
                 </thead>
                 <tbody>
-                  {(props.isLoading || props.parentinfo?.data.length === 0) && (
+                  {(isLoading || contactInfo?.data.length === 0) && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
-                        {props.isLoading ? (
+                        {isLoading ? (
                           <TableLoading count={20} cols={3} />
                         ) : (
                           <NoData />
@@ -49,7 +69,7 @@ const TableParentInfo = (props) => {
                     </tr>
                   )}
 
-                  {props.error && (
+                  {error && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         <ServerError />
@@ -57,16 +77,11 @@ const TableParentInfo = (props) => {
                     </tr>
                   )}
 
-                  {props.parentinfo?.data.map((item, key) => (
+                  {contactInfo?.data.map((item, key) => (
                     <tr key={key}>
                       <td>{counter++}</td>
-                      <td>
-                        {item.parent_guardian_info_fname},
-                        {item.parent_guardian_info_lname}
-                      </td>
-                      <td className="hidden md:block">
-                        {item.relationship_name}
-                      </td>
+                      <td>{item.contact_name},</td>
+                      <td className="hidden md:block">{item.contact_mobile}</td>
                       <td>
                         <ul className="flex ">
                           <li>
@@ -98,8 +113,17 @@ const TableParentInfo = (props) => {
           </div>
         </div>
       </div>
+
+      {store.isDelete && (
+        <ModalDelete
+          mysqlApiDelete={`/v2/dev-info-contact/${id}`}
+          msg={"Are you sure you want to delete this record?"}
+          item={`${dataItem.contact_name}`}
+          queryKey={"contactinfo"}
+        />
+      )}
     </>
   );
 };
 
-export default TableParentInfo;
+export default ContactTable;

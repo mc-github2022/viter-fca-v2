@@ -94,14 +94,13 @@ const ParentInfoForm = ({
   });
 
   const getClientId = store.credentials.data?.user_system_aid;
-
   const mutation = useMutation({
     mutationFn: (newData) =>
       queryData(
         itemEdit
           ? `/v2/dev-info-parent/${itemEdit.parent_guardian_info_aid}`
           : "/v2/dev-info-parent",
-        itemEdit ? "put" : "post",
+        itemEdit ? "PUT" : "POST",
         newData
       ),
     onSuccess: (data) => {
@@ -113,9 +112,9 @@ const ParentInfoForm = ({
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
+        setItemEdit(null);
         setShowParentForm(false);
         dispatch(setSuccess(true));
-        setItemEdit(null);
 
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
@@ -173,7 +172,7 @@ const ParentInfoForm = ({
           <aside className="md:max-w-[220px] w-full px-4">
             <h4>Parent Information</h4>
             <ul>
-              <li className={`pl-1 py-2 `}>
+              <li className={`pl-1 py-4 `}>
                 <button
                   onClick={() => setCurrentStep(0)}
                   className={`flex justify-between items-center w-full pr-4 ${
@@ -190,17 +189,17 @@ const ParentInfoForm = ({
                     Basic
                   </p>
                   {currentStep >= 1 || itemEdit ? (
-                    <span className="w-[16px] h-[16px] border border-accent bg-accent rounded-full flex justify-center items-center">
-                      <IoIosCheckmark className="text-3xl fill-white" />
+                    <span className="w-[26px] h-[26px] border border-accent  rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-accent" />
                     </span>
                   ) : (
-                    <span className="w-[16px] h-[16px] bg-slate-200  rounded-full flex justify-center items-center">
+                    <span className="w-[26px] h-[26px] bg-slate-200  rounded-full flex justify-center items-center">
                       <IoIosCheckmark className="text-3xl fill-disable" />
                     </span>
                   )}
                 </button>
               </li>
-              <li className={`pl-1 py-2 `}>
+              <li className={`pl-1 py-4 `}>
                 <button
                   onClick={() => setCurrentStep(1)}
                   className={`flex justify-between items-center w-full pr-4 ${
@@ -217,17 +216,17 @@ const ParentInfoForm = ({
                     Contact
                   </p>
                   {currentStep >= 2 || itemEdit ? (
-                    <span className="w-[16px] h-[16px] border border-accent bg-accent rounded-full flex justify-center items-center">
-                      <IoIosCheckmark className="text-3xl fill-white" />
+                    <span className="w-[26px] h-[26px] border border-accent  rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-accent" />
                     </span>
                   ) : (
-                    <span className="w-[16px] h-[16px] bg-slate-200  rounded-full flex justify-center items-center">
+                    <span className="w-[26px] h-[26px] bg-slate-200  rounded-full flex justify-center items-center">
                       <IoIosCheckmark className="text-3xl fill-disable" />
                     </span>
                   )}
                 </button>
               </li>
-              <li className={`pl-1 py-2 `}>
+              <li className={`pl-1 py-4 `}>
                 <button
                   onClick={() => setCurrentStep(2)}
                   className={`flex justify-between items-center w-full pr-4 ${
@@ -242,11 +241,11 @@ const ParentInfoForm = ({
                     Other
                   </p>
                   {currentStep > 2 || itemEdit ? (
-                    <span className="w-[16px] h-[16px] border border-accent bg-accent rounded-full flex justify-center items-center">
-                      <IoIosCheckmark className="text-3xl fill-white" />
+                    <span className="w-[26px] h-[26px] border border-accent  rounded-full flex justify-center items-center">
+                      <IoIosCheckmark className="text-3xl fill-accent" />
                     </span>
                   ) : (
-                    <span className="w-[16px] h-[16px] bg-slate-200  rounded-full flex justify-center items-center">
+                    <span className="w-[26px] h-[26px] bg-slate-200  rounded-full flex justify-center items-center">
                       <IoIosCheckmark className="text-3xl fill-disable" />
                     </span>
                   )}

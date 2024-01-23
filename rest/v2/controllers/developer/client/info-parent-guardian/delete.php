@@ -5,12 +5,12 @@ $parent = new InfoParentGuardian($conn);
 
 $error = [];
 $returnData = [];
-if (array_key_exists("departmentid", $_GET)) {
-    $parent->department_aid = $_GET['departmentid'];
-    checkId($parent->department_aid);
+if (array_key_exists("parentinfoaid", $_GET)) {
+    $parent->parent_guardian_info_aid = $_GET['parentinfoaid'];
+    checkId($parent->parent_guardian_info_aid);
 
-    $query = checkDelete($department);
-    returnSuccess($parent, "Department", $query);
+    $query = checkDelete($parent);
+    returnSuccess($parent, "Parent Info", $query);
 }
 
 checkEndpoint();

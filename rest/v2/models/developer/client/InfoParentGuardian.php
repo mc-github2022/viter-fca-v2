@@ -115,8 +115,9 @@ class InfoParentGuardian
     {
         try {
             $sql = "select * ";
-            $sql .= "from {$this->tblParentGuardian} ";
-            $query = $this->connection->query($sql);
+            $sql .= "from {$this->tblParentGuardian} as parent, ";
+            $sql .= "{$this->tblRelationship} as relationship ";
+            $sql .= " where parent.parent_guardian_info_relationship_id = relationship.relationship_aid ";
         } catch (PDOException $ex) {
             $query = false;
         }

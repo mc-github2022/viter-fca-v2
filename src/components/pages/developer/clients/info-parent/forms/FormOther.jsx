@@ -5,7 +5,6 @@ import * as Yup from "yup";
 const FormOther = (props) => {
   const handleSubmit = (values) => {
     props.next(values, true);
-    props.setItemEdit(null);
   };
 
   const handleClose = () => {

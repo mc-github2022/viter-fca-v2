@@ -32,9 +32,7 @@ const FormContact = (props) => {
         return (
           <Form>
             <div className={`form__contact block`}>
-              <h6 className="border-b border-line mb-4 pb-2">
-                Contact Details
-              </h6>
+              <h6 className=" mb-4 pb-2">Contact Details</h6>
               <div className="grid grid-cols-3 gap-2">
                 <div className="form__wrap mb-0">
                   <InputText
@@ -62,9 +60,7 @@ const FormContact = (props) => {
                 </div>
               </div>
 
-              <h6 className="border-b border-line mt-5 mb-4 pb-2">
-                Address Details
-              </h6>
+              <h6 className=" mt-5 mb-4 pb-2">Address Details</h6>
               <div className="grid grid-cols-1 gap-2 mb-3">
                 <div className="form__wrap mb-0">
                   <InputText
