@@ -5,7 +5,13 @@ import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import ModalDeleteParent from "./ModalDeleteParent.jsx";
 
-const TableParentInfo = () => {
+const TableParentInfo = ({
+  setItemEdit,
+  setShowParent,
+  parentinfo,
+  isLoading,
+  error,
+}) => {
   const [deleteParent, setDeleteParent] = React.useState(false);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
@@ -13,7 +19,7 @@ const TableParentInfo = () => {
   let counter = 1;
 
   const handleEdit = (item) => {
-    setShowParentForm(true);
+    setShowParent(true);
     setItemEdit(item);
   };
 
@@ -42,10 +48,10 @@ const TableParentInfo = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {(props.isLoading || props.parentinfo?.data.length === 0) && (
+                  {(isLoading || parentinfo?.data.length === 0) && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
-                        {props.isLoading ? (
+                        {isLoading ? (
                           <TableLoading count={20} cols={3} />
                         ) : (
                           <NoData />
@@ -54,7 +60,7 @@ const TableParentInfo = () => {
                     </tr>
                   )}
 
-                  {props.error && (
+                  {error && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         <ServerError />
@@ -62,7 +68,7 @@ const TableParentInfo = () => {
                     </tr>
                   )}
 
-                  {props.parentinfo?.data.map((item, key) => (
+                  {parentinfo?.data.map((item, key) => (
                     <tr key={key}>
                       <td>{counter++}</td>
                       <td>

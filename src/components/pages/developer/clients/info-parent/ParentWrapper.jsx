@@ -1,4 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import TableParentInfo from "./TableParentInfo.jsx";
@@ -43,7 +44,7 @@ const ParentWrapper = ({ listRelationship }) => {
           setItemEdit={setItemEdit}
           parentinfo={parentinfo}
           isLoading={isLoading}
-          isFetching={isFetching}
+          error={error}
         />
       )}
       {showParent && (
@@ -54,6 +55,8 @@ const ParentWrapper = ({ listRelationship }) => {
           listRelationship={listRelationship}
         />
       )}
+
+      {store.validate && <ModalValidate />}
     </>
   );
 };
