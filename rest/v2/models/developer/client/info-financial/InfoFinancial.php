@@ -5,10 +5,10 @@ class InfoFinancial
     public $financial_info_user_id;
     public $financial_info_father_income;
     public $financial_info_mother_income;
-    public $financial_info_financer_income;
-    public $financial_info_financer_full_name;
-    public $financial_info_financer_relationship;
-    public $financial_info_financer_occupation;
+    public $financial_info_financier_income;
+    public $financial_info_financier_full_name;
+    public $financial_info_financier_relationship;
+    public $financial_info_financier_occupation;
     public $financial_info_created;
     public $financial_info_datetime;
 
@@ -32,19 +32,19 @@ class InfoFinancial
             $sql .= "( financial_info_user_id, ";
             $sql .= "financial_info_father_income, ";
             $sql .= "financial_info_mother_income, ";
-            $sql .= "financial_info_financer_income, ";
-            $sql .= "financial_info_financer_full_name, ";
-            $sql .= "financial_info_financer_relationship, ";
-            $sql .= "financial_info_financer_occupation, ";
+            $sql .= "financial_info_financier_income, ";
+            $sql .= "financial_info_financier_full_name, ";
+            $sql .= "financial_info_financier_relationship, ";
+            $sql .= "financial_info_financier_occupation, ";
             $sql .= "financial_info_created, ";
             $sql .= "financial_info_datetime ) values ( ";
             $sql .= ":financial_info_user_id, ";
             $sql .= ":financial_info_father_income, ";
             $sql .= ":financial_info_mother_income, ";
-            $sql .= ":financial_info_financer_income, ";
-            $sql .= ":financial_info_financer_full_name, ";
-            $sql .= ":financial_info_financer_relationship, ";
-            $sql .= ":financial_info_financer_occupation, ";
+            $sql .= ":financial_info_financier_income, ";
+            $sql .= ":financial_info_financier_full_name, ";
+            $sql .= ":financial_info_financier_relationship, ";
+            $sql .= ":financial_info_financier_occupation, ";
             $sql .= ":financial_info_created, ";
             $sql .= ":financial_info_datetime ) ";
             $query = $this->connection->prepare($sql);
@@ -52,10 +52,10 @@ class InfoFinancial
                 "financial_info_user_id" => $this->financial_info_user_id,
                 "financial_info_father_income" => $this->financial_info_father_income,
                 "financial_info_mother_income" => $this->financial_info_mother_income,
-                "financial_info_financer_income" => $this->financial_info_financer_income,
-                "financial_info_financer_full_name" => $this->financial_info_financer_full_name,
-                "financial_info_financer_relationship" => $this->financial_info_financer_relationship,
-                "financial_info_financer_occupation" => $this->financial_info_financer_occupation,
+                "financial_info_financier_income" => $this->financial_info_financier_income,
+                "financial_info_financier_full_name" => $this->financial_info_financier_full_name,
+                "financial_info_financier_relationship" => $this->financial_info_financier_relationship,
+                "financial_info_financier_occupation" => $this->financial_info_financier_occupation,
                 "financial_info_created" => $this->financial_info_created,
                 "financial_info_datetime" => $this->financial_info_datetime,
             ]);
@@ -77,6 +77,23 @@ class InfoFinancial
         }
         return $query;
     }
+
+    public function readById()
+    {
+        try {
+            $sql = "select * ";
+            $sql .= "from {$this->tblInfoFinancial} ";
+            $sql .= "where financial_info_user_id  = :financial_info_user_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "financial_info_user_id" => $this->financial_info_user_id,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function update()
     {
         try {
@@ -84,10 +101,10 @@ class InfoFinancial
             $sql .= "financial_info_user_id = :financial_info_user_id, ";
             $sql .= "financial_info_father_income = :financial_info_father_income, ";
             $sql .= "financial_info_mother_income = :financial_info_mother_income, ";
-            $sql .= "financial_info_financer_income = :financial_info_financer_income, ";
-            $sql .= "financial_info_financer_full_name = :financial_info_financer_full_name, ";
-            $sql .= "financial_info_financer_relationship = :financial_info_financer_relationship, ";
-            $sql .= "financial_info_financer_occupation = :financial_info_financer_occupation, ";
+            $sql .= "financial_info_financier_income = :financial_info_financier_income, ";
+            $sql .= "financial_info_financier_full_name = :financial_info_financier_full_name, ";
+            $sql .= "financial_info_financier_relationship = :financial_info_financier_relationship, ";
+            $sql .= "financial_info_financier_occupation = :financial_info_financier_occupation, ";
             $sql .= "financial_info_datetime = :financial_info_datetime ";
             $sql .= "where financial_info_aid = :financial_info_aid ";
             $query = $this->connection->prepare($sql);
@@ -95,10 +112,10 @@ class InfoFinancial
                 "financial_info_user_id" => $this->financial_info_user_id,
                 "financial_info_father_income" => $this->financial_info_father_income,
                 "financial_info_mother_income" => $this->financial_info_mother_income,
-                "financial_info_financer_income" => $this->financial_info_financer_income,
-                "financial_info_financer_full_name" => $this->financial_info_financer_full_name,
-                "financial_info_financer_relationship" => $this->financial_info_financer_relationship,
-                "financial_info_financer_occupation" => $this->financial_info_financer_occupation,
+                "financial_info_financier_income" => $this->financial_info_financier_income,
+                "financial_info_financier_full_name" => $this->financial_info_financier_full_name,
+                "financial_info_financier_relationship" => $this->financial_info_financier_relationship,
+                "financial_info_financier_occupation" => $this->financial_info_financier_occupation,
                 "financial_info_datetime" => $this->financial_info_datetime,
                 "financial_info_aid" => $this->financial_info_aid,
             ]);

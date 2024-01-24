@@ -8,7 +8,7 @@ const FormOther = (props) => {
   };
 
   const handleClose = () => {
-    props.setShowParentForm(false);
+    props.setShowParent(false);
   };
 
   const validationSchemaOther = Yup.object({

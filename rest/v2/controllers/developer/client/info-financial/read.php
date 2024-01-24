@@ -5,10 +5,10 @@ $infoFinancial = new InfoFinancial($conn);
 $error = [];
 $returnData = [];
 
-if (array_key_exists("infofinancial", $_GET)) {
-    $infoContact->contact_aid = $_GET['infofinancial'];
-    checkId($infoContact->contact_aid);
-    $query = checkReadById($infoContact);
+if (array_key_exists("parentuid", $_GET)) {
+    $infoFinancial->financial_info_user_id = $_GET['parentuid'];
+    checkId($infoFinancial->financial_info_user_id);
+    $query = checkReadById($infoFinancial);
     http_response_code(200);
     getQueriedData($query);
 }

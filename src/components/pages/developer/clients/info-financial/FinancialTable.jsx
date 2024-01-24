@@ -1,42 +1,34 @@
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
-import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
-import { setIsDelete } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import ModalDeleteContact from "./ModalDeleteContact.jsx";
+import ModalDeleteFinancial from "./ModalDeleteFinancial.jsx";
 
-const ContactTable = ({ setItemEdit, setShowContact }) => {
+const FinancialTable = ({
+  setItemEdit,
+  setShowFinancial,
+  isLoading,
+  financialInfo,
+  error,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const credentialUserId = store.credentials.data.user_system_aid;
 
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
-  const [deleteContact, setDeleteContact] = React.useState(false);
+  const [deleteFinancial, setDeleteFinancial] = React.useState(false);
 
   let counter = 1;
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: contactInfo,
-  } = useQueryData(
-    `/v2/dev-read-info-contact/${credentialUserId}`, // endpoint
-    "get", // method
-    "contactInfo" // key
-  );
 
   const handleEdit = (item) => {
-    setShowContact(true);
+    setShowFinancial(true);
     setItemEdit(item);
   };
 
   const handleDelete = (item) => {
-    setDeleteContact(true);
-    setId(item.contact_aid);
+    setDeleteFinancial(true);
+    setId(item.financial_info_aid);
     setData(item);
   };
 
@@ -54,12 +46,11 @@ const ContactTable = ({ setItemEdit, setShowContact }) => {
                   <tr>
                     <td>#</td>
                     <td>Name</td>
-                    <td className="hidden md:block">Mobile</td>
                     <td></td>
                   </tr>
                 </thead>
                 <tbody>
-                  {(isLoading || contactInfo?.data.length === 0) && (
+                  {(isLoading || financialInfo?.data.length === 0) && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         {isLoading ? (
@@ -79,11 +70,10 @@ const ContactTable = ({ setItemEdit, setShowContact }) => {
                     </tr>
                   )}
 
-                  {contactInfo?.data.map((item, key) => (
+                  {financialInfo?.data.map((item, key) => (
                     <tr key={key}>
                       <td>{counter++}</td>
-                      <td>{item.contact_name},</td>
-                      <td className="hidden md:block">{item.contact_mobile}</td>
+                      <td>{item.financial_info_financier_full_name},</td>
                       <td>
                         <ul className="flex ">
                           <li>
@@ -116,17 +106,17 @@ const ContactTable = ({ setItemEdit, setShowContact }) => {
         </div>
       </div>
 
-      {deleteContact && (
-        <ModalDeleteContact
-          mysqlApiDelete={`/v2/dev-info-contact/${id}`}
+      {deleteFinancial && (
+        <ModalDeleteFinancial
+          mysqlApiDelete={`/v2/dev-info-financial/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={`${dataItem.contact_name}`}
-          queryKey={"contactinfo"}
-          setDeleteContact={setDeleteContact}
+          item={`${dataItem.financial_info_financier_full_name}`}
+          queryKey={"financialInfo"}
+          setDeleteFinancial={setDeleteFinancial}
         />
       )}
     </>
   );
 };
 
-export default ContactTable;
+export default FinancialTable;

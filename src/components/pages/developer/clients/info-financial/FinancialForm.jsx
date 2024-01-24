@@ -12,7 +12,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const ContactForm = ({ itemEdit, setShowContact }) => {
+const FinancialForm = ({ itemEdit, setShowFinancial }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -22,21 +22,21 @@ const ContactForm = ({ itemEdit, setShowContact }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-info-contact/${itemEdit.contact_aid}`
-          : "/v2/dev-info-contact",
+          ? `/v2/dev-info-financial/${itemEdit.financial_info_aid}`
+          : "/v2/dev-info-financial",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["contactInfo"] });
+      queryClient.invalidateQueries({ queryKey: ["financialInfo"] });
 
       // show error box
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        setShowContact(false);
+        setShowFinancial(false);
         dispatch(setSuccess(true));
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
@@ -46,24 +46,36 @@ const ContactForm = ({ itemEdit, setShowContact }) => {
   });
 
   const handleClose = () => {
-    setShowContact(false);
+    setShowFinancial(false);
     // props.setItemEdit(null);
   };
 
   const initVal = {
-    contact_aid: itemEdit ? itemEdit.contact_aid : "",
-    contact_name: itemEdit ? itemEdit.contact_name : "",
-    contact_email: itemEdit ? itemEdit.contact_email : "",
-    contact_mobile: itemEdit ? itemEdit.contact_mobile : "",
-    contact_landline: itemEdit ? itemEdit.contact_landline : "",
-    contact_level: itemEdit ? itemEdit.contact_level : "",
-    contact_name_old: itemEdit ? itemEdit.contact_name : "",
+    financial_info_aid: itemEdit ? itemEdit.financial_info_aid : "",
+    financial_info_father_income: itemEdit
+      ? itemEdit.financial_info_father_income
+      : "",
+    financial_info_mother_income: itemEdit
+      ? itemEdit.financial_info_mother_income
+      : "",
+    financial_info_financier_income: itemEdit
+      ? itemEdit.financial_info_financier_income
+      : "",
+    financial_info_financier_full_name: itemEdit
+      ? itemEdit.financial_info_financier_full_name
+      : "",
+    financial_info_financier_relationship: itemEdit
+      ? itemEdit.financial_info_financier_relationship
+      : "",
+    financial_info_financier_occupation: itemEdit
+      ? itemEdit.financial_info_financier_occupation
+      : "",
   };
   const yupSchema = Yup.object({
-    contact_name: Yup.string().required("Required"),
-    contact_email: Yup.string().required("Required"),
-    contact_mobile: Yup.string().required("Required"),
-    contact_level: Yup.string().required("Required"),
+    financial_info_financier_income: Yup.string().required("Required"),
+    financial_info_financier_full_name: Yup.string().required("Required"),
+    financial_info_financier_relationship: Yup.string().required("Required"),
+    financial_info_financier_occupation: Yup.string().required("Required"),
   });
 
   return (
@@ -74,7 +86,7 @@ const ContactForm = ({ itemEdit, setShowContact }) => {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           mutation.mutate({
             ...values,
-            contact_user_id: getClientId,
+            financial_info_user_id: getClientId,
           });
         }}
       >
@@ -83,31 +95,24 @@ const ContactForm = ({ itemEdit, setShowContact }) => {
             <div className="my-5 bg-primary rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
               <div className="gap-8 md:flex">
                 <aside className="md:max-w-[220px] w-full px-4">
-                  <h4>Contact Information</h4>
+                  <h4>Financier Information</h4>
                 </aside>
                 <div className="w-full">
                   <Form>
                     <div className={`form__contact block`}>
-                      <div className="form__wrap">
-                        <InputText
-                          label="Fullname"
-                          type="text"
-                          name="contact_name"
-                        />
-                      </div>
                       <div className="grid grid-cols-2 gap-3">
                         <div className="form__wrap">
                           <InputText
-                            label="Email"
+                            label="Father"
                             type="text"
-                            name="contact_email"
+                            name="financial_info_father_income"
                           />
                         </div>
                         <div className="form__wrap">
                           <InputText
-                            label="Mobile"
+                            label="Mother"
                             type="text"
-                            name="contact_mobile"
+                            name="financial_info_mother_income"
                           />
                         </div>
                       </div>
@@ -115,25 +120,33 @@ const ContactForm = ({ itemEdit, setShowContact }) => {
                       <div className="grid grid-cols-2 gap-3">
                         <div className="form__wrap mb-0">
                           <InputText
-                            label="Landline"
+                            label="Fullname"
                             type="text"
-                            name="contact_landline"
+                            name="financial_info_financier_full_name"
                           />
                         </div>
                         <div className="form__wrap mb-0">
-                          <InputSelect
-                            label="Priory Level"
+                          <InputText
+                            label="Relationship"
                             type="text"
-                            name="contact_level"
-                            onChange={(e) => e}
-                          >
-                            <optgroup label="Select">
-                              <option value="">--</option>
-                              <option value="primary">Primary</option>
-                              <option value="secondary">Secondary</option>
-                              <option value="other">Other</option>
-                            </optgroup>
-                          </InputSelect>
+                            name="financial_info_financier_relationship"
+                          />
+                        </div>
+
+                        <div className="form__wrap mb-0">
+                          <InputText
+                            label="Occupation"
+                            type="text"
+                            name="financial_info_financier_occupation"
+                          />
+                        </div>
+
+                        <div className="form__wrap mb-0">
+                          <InputText
+                            label="Financier Income"
+                            type="text"
+                            name="financial_info_financier_income"
+                          />
                         </div>
                       </div>
 
@@ -162,4 +175,4 @@ const ContactForm = ({ itemEdit, setShowContact }) => {
   );
 };
 
-export default ContactForm;
+export default FinancialForm;

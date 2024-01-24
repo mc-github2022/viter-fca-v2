@@ -8,7 +8,7 @@ const FormContact = (props) => {
     props.next(values);
   };
   const handleClose = () => {
-    props.setShowParentForm(false);
+    props.setShowParent(false);
     props.setItemEdit(null);
   };
 

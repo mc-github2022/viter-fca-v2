@@ -24,6 +24,10 @@ $parent->parent_guardian_info_occupation = checkIndex($data, "parent_guardian_in
 $parent->parent_guardian_info_created = date("Y-m-d H:i:s");
 $parent->parent_guardian_info_datetime = date("Y-m-d H:i:s");
 
+$parent->fullname = $parent->parent_guardian_info_fname . " ". $parent->parent_guardian_info_lname;
+
+isNameExist($parent, $parent->parent_guardian_info_fname);  
+
 $query = checkCreate($parent);
 returnSuccess($parent, "", $query);
 

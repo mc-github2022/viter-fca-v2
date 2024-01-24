@@ -1,15 +1,13 @@
+import { queryData } from "@/components/helpers/queryData.jsx";
+import {
+  setError,
+  setMessage,
+  setSuccess,
+} from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { IoIosCheckmark } from "react-icons/io";
-
-import { queryData } from "@/components/helpers/queryData.jsx";
-import {
-  setError,
-  setIsAdd,
-  setMessage,
-  setSuccess,
-} from "@/components/store/StoreAction.jsx";
 import FormBasic from "./FormBasic.jsx";
 import FormContact from "./FormContact.jsx";
 import FormOther from "./FormOther.jsx";
@@ -17,7 +15,7 @@ import FormOther from "./FormOther.jsx";
 const ParentInfoForm = ({
   setItemEdit,
   itemEdit,
-  setShowParentForm,
+  setShowParent,
   listRelationship,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -113,7 +111,7 @@ const ParentInfoForm = ({
         dispatch(setMessage(data.error));
       } else {
         setItemEdit(null);
-        setShowParentForm(false);
+        setShowParent(false);
         dispatch(setSuccess(true));
 
         dispatch(
@@ -145,7 +143,7 @@ const ParentInfoForm = ({
     <FormBasic
       next={handleNextStep}
       formData={formData}
-      setShowParentForm={setShowParentForm}
+      setShowParent={setShowParent}
       listRelationship={listRelationship}
       setItemEdit={setItemEdit}
     />,
@@ -153,14 +151,14 @@ const ParentInfoForm = ({
       next={handleNextStep}
       prev={handlePrevStep}
       formData={formData}
-      setShowParentForm={setShowParentForm}
+      setShowParent={setShowParent}
       setItemEdit={setItemEdit}
     />,
     <FormOther
       next={handleNextStep}
       prev={handlePrevStep}
       formData={formData}
-      setShowParentForm={setShowParentForm}
+      setShowParent={setShowParent}
       setItemEdit={setItemEdit}
     />,
   ];

@@ -3,19 +3,24 @@ import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
+import ModalDeleteParent from "./ModalDeleteParent.jsx";
 
-const TableParentInfo = (props) => {
+const TableParentInfo = () => {
+  const [deleteParent, setDeleteParent] = React.useState(false);
+  const [id, setId] = React.useState(null);
+  const [dataItem, setData] = React.useState(null);
+
   let counter = 1;
 
   const handleEdit = (item) => {
-    props.setShowParentForm(true);
-    props.setItemEdit(item);
+    setShowParentForm(true);
+    setItemEdit(item);
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
-    props.setId(item.parent_guardian_info_aid);
-    props.setData(item);
+    setDeleteParent(true);
+    setId(item.parent_guardian_info_aid);
+    setData(item);
   };
 
   return (
@@ -98,6 +103,16 @@ const TableParentInfo = (props) => {
           </div>
         </div>
       </div>
+
+      {deleteParent && (
+        <ModalDeleteParent
+          mysqlApiDelete={`/v2/dev-info-parent/${id}`}
+          msg={"Are you sure you want to delete this record?"}
+          item={`${dataItem.parent_guardian_info_fname} ${dataItem.parent_guardian_info_lname}`}
+          queryKey={"parentinfo"}
+          setDeleteParent={setDeleteParent}
+        />
+      )}
     </>
   );
 };

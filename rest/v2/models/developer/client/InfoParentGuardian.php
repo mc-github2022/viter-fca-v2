@@ -29,6 +29,8 @@ class InfoParentGuardian
     public $parent_guardian_info_total;
     public $parent_guardian_info_search;
 
+    public $fullname;
+
     public $tblInfoParentGuardian;
     public $tblParentRelationship;
 
