@@ -6,15 +6,40 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 
 import { FaAngleLeft } from "react-icons/fa";
-import { FiEdit2 } from "react-icons/fi";
+import { FiEdit2, FiTrash } from "react-icons/fi";
 
 import { Link } from "react-router-dom";
 
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import NoData from "@/components/partials/NoData.jsx";
+import ServerError from "@/components/partials/ServerError.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import { setIsAdd, setIsDelete } from "@/components/store/StoreAction.jsx";
+import ContactWrapper from "./info-contact/ContactWrapper.jsx";
+import FinancialWrapper from "./info-financial/financialWrapper.jsx";
+import ParentWrapper from "./info-parent/ParentWrapper.jsx";
+import TableParentInfo from "./info-parent/TableParentInfo.jsx";
 import ParentInfoForm from "./info-parent/forms/ParentInfoForm.jsx";
 
 const Client = () => {
   const { store, dispatch } = React.useContext(StoreContext);
-  let counter = 1;
+  const [itemEdit, setItemEdit] = React.useState(null);
+  const [dataItem, setData] = React.useState(null);
+  const [id, setId] = React.useState(null);
+
+  // SHOW HIDE TABLE& FORMS
+
+  const { data: relationship } = useQueryData(
+    "/v2/dev-relationship", // endpoint
+    "get", // method
+    "relationship" // key
+  );
+
+  const listRelationship = relationship?.data.filter(
+    (item) => item.relationship_active === 1
+  );
+
   return (
     <>
       <Header />
@@ -40,50 +65,33 @@ const Client = () => {
                 complete before a student can be enrolled in FCA through the
                 online enrollment system.
               </p>
-
-              <button className="text-xs">Add Parent or Guardian</button>
             </div>
           </div>
 
-          <div className="my-5 bg-primary rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
-            <div className="gap-8 md:flex">
-              <aside className="md:max-w-[220px] w-full">
-                <h4 className="md:pl-4 mb-2 font-bold">Parent Information</h4>
-              </aside>
-              <div className="w-full">
-                <div className={``}>
-                  <table className="table__sm">
-                    <thead>
-                      <tr>
-                        <td>#</td>
-                        <td>Name</td>
-                        <td className="hidden md:block">Relationship</td>
-                        <td></td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{counter++}</td>
-                        <td>asdasd</td>
-                        <td className="hidden md:block">asdasd</td>
-                        <td>
-                          <ul className="flex ">
-                            <li>
-                              <button className="tooltip" data-tooltip="Edit">
-                                <FiEdit2 />
-                              </button>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ParentWrapper listRelationship={listRelationship} />
 
-          <ParentInfoForm />
+          {/* {!showParentForm && (
+            <TableParentInfo
+              setShowParentForm={setShowParentForm}
+              setItemEdit={setItemEdit}
+              setId={setId}
+              setData={setData}
+              isLoading={isLoading}
+              parentinfo={parentinfo}
+              error={error}
+            />
+          )}
+          {showParentForm && (
+            <ParentInfoForm
+              setItemEdit={setItemEdit}
+              itemEdit={itemEdit}
+              setShowParentForm={setShowParentForm}
+              listRelationship={listRelationship}
+            />
+          )} */}
+
+          <ContactWrapper />
+          <FinancialWrapper />
         </main>
 
         <Footer />

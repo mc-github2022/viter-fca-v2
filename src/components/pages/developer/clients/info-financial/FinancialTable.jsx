@@ -1,25 +1,34 @@
 import NoData from "@/components/partials/NoData.jsx";
 import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import ModalDeleteParent from "./ModalDeleteParent.jsx";
+import ModalDeleteFinancial from "./ModalDeleteFinancial.jsx";
 
-const TableParentInfo = () => {
-  const [deleteParent, setDeleteParent] = React.useState(false);
+const FinancialTable = ({
+  setItemEdit,
+  setShowFinancial,
+  isLoading,
+  financialInfo,
+  error,
+}) => {
+  const { store, dispatch } = React.useContext(StoreContext);
+
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
+  const [deleteFinancial, setDeleteFinancial] = React.useState(false);
 
   let counter = 1;
 
   const handleEdit = (item) => {
-    setShowParentForm(true);
+    setShowFinancial(true);
     setItemEdit(item);
   };
 
   const handleDelete = (item) => {
-    setDeleteParent(true);
-    setId(item.parent_guardian_info_aid);
+    setDeleteFinancial(true);
+    setId(item.financial_info_aid);
     setData(item);
   };
 
@@ -27,8 +36,8 @@ const TableParentInfo = () => {
     <>
       <div className="my-5 bg-primary rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
         <div className="gap-8 md:flex">
-          <aside className="md:max-w-[220px] w-full">
-            <h4 className="md:pl-4 mb-2 font-bold">Parent Information</h4>
+          <aside className="md:max-w-[220px] w-full md:pl-4 mb-2">
+            <h4 className=" font-bold">Contact Information</h4>
           </aside>
           <div className="w-full">
             <div className="">
@@ -37,15 +46,14 @@ const TableParentInfo = () => {
                   <tr>
                     <td>#</td>
                     <td>Name</td>
-                    <td className="hidden md:block">Relationship</td>
                     <td></td>
                   </tr>
                 </thead>
                 <tbody>
-                  {(props.isLoading || props.parentinfo?.data.length === 0) && (
+                  {(isLoading || financialInfo?.data.length === 0) && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
-                        {props.isLoading ? (
+                        {isLoading ? (
                           <TableLoading count={20} cols={3} />
                         ) : (
                           <NoData />
@@ -54,7 +62,7 @@ const TableParentInfo = () => {
                     </tr>
                   )}
 
-                  {props.error && (
+                  {error && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         <ServerError />
@@ -62,16 +70,10 @@ const TableParentInfo = () => {
                     </tr>
                   )}
 
-                  {props.parentinfo?.data.map((item, key) => (
+                  {financialInfo?.data.map((item, key) => (
                     <tr key={key}>
                       <td>{counter++}</td>
-                      <td>
-                        {item.parent_guardian_info_fname},
-                        {item.parent_guardian_info_lname}
-                      </td>
-                      <td className="hidden md:block">
-                        {item.relationship_name}
-                      </td>
+                      <td>{item.financial_info_financier_full_name},</td>
                       <td>
                         <ul className="flex ">
                           <li>
@@ -104,17 +106,17 @@ const TableParentInfo = () => {
         </div>
       </div>
 
-      {deleteParent && (
-        <ModalDeleteParent
-          mysqlApiDelete={`/v2/dev-info-parent/${id}`}
+      {deleteFinancial && (
+        <ModalDeleteFinancial
+          mysqlApiDelete={`/v2/dev-info-financial/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={`${dataItem.parent_guardian_info_fname} ${dataItem.parent_guardian_info_lname}`}
-          queryKey={"parentinfo"}
-          setDeleteParent={setDeleteParent}
+          item={`${dataItem.financial_info_financier_full_name}`}
+          queryKey={"financialInfo"}
+          setDeleteFinancial={setDeleteFinancial}
         />
       )}
     </>
   );
 };
 
-export default TableParentInfo;
+export default FinancialTable;
