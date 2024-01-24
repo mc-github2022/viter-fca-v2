@@ -23,14 +23,16 @@ class Profile
     public function readAll()
     {
         try {
-            $sql = "select * ";
-            $sql .= "from {$this->tblUserSystem} ";
+            $sql = "select * from {$this->tblUserSystem} ";
+            $sql .= "order by user_system_is_active desc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
         }
         return $query;
     }
+
+    
     public function update()
     {
         try {
@@ -46,6 +48,22 @@ class Profile
                 "user_system_lname" => $this->user_system_lname,
                 "user_system_email" => $this->user_system_email,
                 "user_system_datetime" => $this->user_system_datetime,
+                "user_system_aid" => $this->user_system_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function readById()
+    {
+        try {
+            $sql = "select user_system_password ";
+            $sql .= "from {$this->tblUserSystem} ";
+            $sql .= "where user_system_aid  = :user_system_aid  ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
                 "user_system_aid" => $this->user_system_aid,
             ]);
         } catch (PDOException $ex) {

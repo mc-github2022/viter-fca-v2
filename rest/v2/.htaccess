@@ -119,9 +119,8 @@ RewriteRule ^dev-info-parent-contact-update/([0-9]+)$ controllers/developer/clie
 
 #PROFILE
 RewriteRule ^dev-profile$ controllers/developer/account/profile.php [L]
+RewriteRule ^dev-profile-acc/([0-9])$ controllers/developer/account/read-profile-byId.php?profileid=$1 [L]
 RewriteRule ^dev-profile/([0-9]+)$ controllers/developer/account/profile.php?profileid=$1 [L]
-
-
 
 
 

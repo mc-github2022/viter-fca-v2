@@ -43,6 +43,7 @@ const Header = () => {
     }
   };
 
+  console.log(store.credentials.data);
   const handleToggleExpandMenu = () => {
     dispatch(setIsMenuExpand(!store.isMenuExpand));
   };
