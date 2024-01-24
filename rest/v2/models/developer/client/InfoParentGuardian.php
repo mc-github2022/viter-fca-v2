@@ -211,15 +211,14 @@ class InfoParentGuardian
         return $query;
     }
 
-    // validatior 
-    // name
     public function checkName()
     {
         try {
-            $sql = "select parent_guardian_info_fname, "; 
-            $sql .= "parent_guardian_info_lname from {$this->tblParentGuardian} ";
+            $sql = "select parent_guardian_info_fname, ";
+            $sql .= "parent_guardian_info_lname ";
+            $sql .= "from {$this->tblParentGuardian} ";
             $sql .= "where parent_guardian_info_fname = :parent_guardian_info_fname ";
-            $sql .= "parent_guardian_info_lname = :parent_guardian_info_lname ";
+            $sql .= "and parent_guardian_info_lname = :parent_guardian_info_lname ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "parent_guardian_info_fname" => "{$this->parent_guardian_info_fname}",
@@ -231,22 +230,7 @@ class InfoParentGuardian
         return $query;
     }
 
-    // validator
-    public function checkAssociationNotification()
-    {
-        try {
-            $sql = "select * ";
-            $sql .= "from {$this->tblNotification} ";
-            $sql .= "where notification_department_id = :department_aid ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "department_aid" => $this->department_aid,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
+   
 
 
 
