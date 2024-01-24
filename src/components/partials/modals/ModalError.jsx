@@ -19,10 +19,10 @@ const ModalError = () => {
             <span className="text-xl">Error</span>
           </h3>
         </div>
-        <div className="modal__body text-center">
+        <div className="modal__body__error text-center !pr-0">
           <p>{store.message} </p>
-          <div className="modal__action flex justify-center gap-4 mt-8">
-            <button className="btn btn--alert" onClick={handleClose}>
+          <div className="modal__action flex items-center !justify-center gap-4 !pr-0 mt-4">
+            <button className="btn btn--alert " onClick={handleClose}>
               Close
             </button>
           </div>

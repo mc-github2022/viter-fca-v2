@@ -3,18 +3,17 @@ import { Link } from "react-router-dom";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
-// // Mac
-const urlPathResto = "http://localhost/viter-fca-v2";
-const imgUrlPathResto = "http://localhost/viter-fca-v2/public/img";
+export const urlPathFca = "http://localhost/viter-fca-v2";
+export const imgUrlPathFca = "http://localhost/viter-fca-v2/public/img";
 
-// // Patrick
-// const urlPathLcss = `https://devapp.fbasapp.com`;
-// const imgUrlPathFbas = `https://devapp.fbasapp.com/img`;
+// // // // Patrick
+// export const urlPathFca = `https://devapp.fbasapp.com`;
+// export const imgUrlPathFca = `https://devapp.fbasapp.com/img`;
 
 // // Local Dev and Online Dev URL
-export const devApiUrl = `${urlPathResto}/rest`;
-export const devBaseUrl = `${urlPathResto}`;
-export const devBaseImgUrl = `${imgUrlPathResto}`;
+export const devApiUrl = `${urlPathFca}/rest`;
+export const devBaseUrl = `${urlPathFca}`;
+export const devBaseImgUrl = `${imgUrlPathFca}`;
 export const devNavUrl = "";
 
 // ONLINE PRODUCTION START HERE //
@@ -49,8 +48,11 @@ export const getUrlParam = () => {
 };
 
 // storage after login
-export function setStorageRoute(jwt) {
-  localStorage.setItem("fcaToken", JSON.stringify({ token: jwt }));
+export function setStorageRoute(jwt, isDev) {
+  localStorage.setItem(
+    "fcatoken",
+    JSON.stringify({ token: jwt, isDev: isDev })
+  );
 }
 
 // formatting date

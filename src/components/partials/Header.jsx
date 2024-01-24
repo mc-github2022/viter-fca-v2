@@ -1,21 +1,25 @@
 import React from "react";
 import { FaBars, FaCog, FaEdit, FaUserCircle } from "react-icons/fa";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { RiEdit2Line } from "react-icons/ri";
 import { setIsMenuExpand, setIsShow } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 import LogoTextOnly from "./svg/LogoTextOnly.jsx";
-import { FaRegCircleUser } from "react-icons/fa6";
-import { RiEdit2Line } from "react-icons/ri";
 
 import {
   MdOutlineAdminPanelSettings,
   MdOutlineMailOutline,
 } from "react-icons/md";
 import { PiSignOut } from "react-icons/pi";
+import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
+import { devNavUrl } from "../helpers/functions-general.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
+import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const menuRef = React.useRef();
 
@@ -28,12 +32,38 @@ const Header = () => {
     }
   };
 
+  const credentials = () => {
+    if (store.credentials.data) {
+      return {
+        firstname: store.credentials.data.user_system_fname,
+        lastname: store.credentials.data.user_system_lname,
+        email: store.credentials.data.user_system_email,
+        role: store.credentials.data.role_name,
+      };
+    }
+  };
+
   const handleToggleExpandMenu = () => {
     dispatch(setIsMenuExpand(!store.isMenuExpand));
   };
 
   const handleShowSettings = () => {
     setIsShowSettings(true);
+  };
+
+  const handleLogout = () => {
+    // dispatch(setIsLogout(!store.isLogout));
+    setLoading(true);
+    setTimeout(() => {
+      if (checkLocalStorage() !== null) {
+        localStorage.removeItem("fcatoken");
+        store.credentials.data.role_is_developer === 1
+          ? window.location.replace(`${devNavUrl}/system/login`)
+          : window.location.replace(`${devNavUrl}/login`);
+        return;
+      }
+      setLoading(false);
+    }, 1500);
   };
 
   React.useEffect(() => {
@@ -50,6 +80,7 @@ const Header = () => {
 
   return (
     <>
+      {loading && <FetchingSpinner />}
       <header className=" px-4 fixed  w-full bg-primary shadow-sm  py-1 z-50">
         <div className="flex justify-between items-center">
           <div className="flex justify-center">
@@ -59,7 +90,7 @@ const Header = () => {
 
             <button
               className="hidden lg:block text-2xl tooltip tooltip--bottom"
-              data-tooltip="Menu Expand"
+              data-tooltip="Expand"
               onClick={handleToggleExpandMenu}
             >
               <FaBars />
@@ -77,7 +108,8 @@ const Header = () => {
                 className="w-[30px] h-[30px] bg-accent grid place-content-center rounded-full text-white"
                 onClick={() => setShow(!show)}
               >
-                RP
+                {credentials().firstname[0]}
+                {credentials().lastname[0]}
               </button>
 
               <div
@@ -87,7 +119,8 @@ const Header = () => {
               >
                 <div className="p-4 grid lg:grid-cols-[80px_1fr] gap-4 relative">
                   <div className="rounded-full h-[40px] w-[40px] lg:h-[80px] lg:w-[80px] bg-accent flex justify-center items-center text-primary lg:text-3xl justify-self-center">
-                    RP
+                    {credentials().firstname[0]}
+                    {credentials().lastname[0]}
                   </div>
 
                   <button
@@ -100,20 +133,23 @@ const Header = () => {
                   <ul className=" w-full text-xs ">
                     <li className="mb-3 flex gap-2 items-center">
                       <FaRegCircleUser className="text-base" />
-                      Ramon Plaza
+                      {credentials().firstname} {credentials().lastname}
                     </li>
-                    <li className="mb-3 flex gap-2 items-center">
+                    <li className="mb-3 flex gap-2 items-center capitalize">
                       <MdOutlineAdminPanelSettings className="text-base" />
-                      Developer
+                      {credentials().role}
                     </li>
                     <li className="mb-3 items-center flex gap-2">
                       <MdOutlineMailOutline className="text-base" />
-                      <p className="truncate w-[140px] lg:w-[80%]">
-                        ramon.plaza@frontlinebusiness.com.ph
+                      <p className="truncate w-[26ch] ">
+                        {credentials().email}
                       </p>
                     </li>
                     <li className="">
-                      <button className="flex gap-2 items-center hover:underline">
+                      <button
+                        className="flex gap-2 items-center hover:underline"
+                        onClick={handleLogout}
+                      >
                         <PiSignOut className="text-base" />
                         Logout
                       </button>

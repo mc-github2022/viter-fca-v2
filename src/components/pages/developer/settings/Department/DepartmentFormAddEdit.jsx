@@ -79,7 +79,7 @@ const DepartmentFormAddEdit = ({ itemEdit }) => {
                   />
                 </div>
 
-                <div className={` settings__actions flex gap-2`}>
+                <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
                     {mutation.isLoading ? (
                       <ButtonSpinner />
@@ -91,7 +91,7 @@ const DepartmentFormAddEdit = ({ itemEdit }) => {
                   </button>
                   <button
                     className="btn btn--cancel"
-                    type="cancel"
+                    type="button"
                     onClick={handleClose}
                     disabled={mutation.isLoading}
                   >

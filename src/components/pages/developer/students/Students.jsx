@@ -2,6 +2,7 @@ import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
 import Navigation from "@/components/partials/Navigation";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import {
   FaAngleLeft,
@@ -13,13 +14,19 @@ import { Link } from "react-router-dom";
 import StudentList from "./StudentList";
 
 const Students = () => {
+  const { store, dispatch } = React.useContext(StoreContext);
+
   return (
     <>
       <Header />
       <section className="main__wrap flex relative ">
         <Navigation menu="student" />
 
-        <main className="main__content mt-[65px]">
+        <main
+          className={`main__content mt-[35px] ${
+            store.isMenuExpand ? "" : "expand"
+          }`}
+        >
           <div className="main__header flex justify-between items-start lg:items-center">
             <div>
               <Link to="/" className="flex gap-1 items-center lg:hidden">

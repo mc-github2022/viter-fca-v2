@@ -12,12 +12,12 @@ const useSystemLogin = (navigate) => {
   React.useEffect(() => {
     setLoading(true);
     const fetchLogin = async () => {
-      const login = await queryData(`/v1/user-systems/token`, "post", {
+      const login = await queryData(`/v2/dev-user-system/token`, "post", {
         token: checkLocalStorage().token,
       });
 
       if (typeof login === "undefined" || !login.success) {
-        localStorage.removeItem("fcaToken");
+        localStorage.removeItem("fcatoken");
         setLoading(false);
       } else {
         setLoading(false);

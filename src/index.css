@@ -5,7 +5,7 @@
 
 :root {
   --accent: hsl(109, 73%, 13%);
-  --accentDark: hsl(109, 73%, 7%);
+  --accentDark: hsl(109, 73%, 10%);
   --primary: #ffffff;
   --secondary: #f3f3f3;
   --line: #efefef;
@@ -29,7 +29,7 @@
   --accentDark: hsl(23, 99%, 39%);
   --primary: #2e2e2e;
   --secondary: #222222;
-  --line: #5e5e5e;
+  --line: #333333;
   --header: #ffffff;
   --body: #d6d6d6;
   --disable: #bebebe;
@@ -70,6 +70,10 @@
     @apply text-base mb-1;
   }
 
+  h6 {
+    @apply text-[14px] mb-1;
+  }
+
   html {
     @apply h-full;
   }
@@ -96,7 +100,16 @@
 
   table th,
   table td {
-    @apply p-2 py-1 text-left text-xs;
+    @apply text-left text-xs py-1;
+  }
+
+  table thead tr th:last-child div {
+    @apply text-right justify-end;
+  }
+
+  table thead tr th:first-child,
+  table thead tr td:first-child {
+    @apply w-5;
   }
 
   table tr {
@@ -109,25 +122,6 @@
 
   table tr:last-child {
     @apply border-none;
-  }
-
-  table .table__action {
-    @apply relative w-[40px];
-  }
-
-  table .table__action ul {
-    @apply flex gap-5 lg:bg-slate-50 static top-1 lg:opacity-0 lg:absolute opacity-100 right-[45px];
-  }
-
-  table .table__action ul li button {
-    @apply text-base text-header;
-  }
-  table tr:hover td.table__action ul {
-    @apply opacity-100;
-  }
-
-  table tr:hover td.table__action span {
-    @apply border-slate-50;
   }
 
   .article p {
@@ -155,16 +149,20 @@
     @apply sticky top-0  bg-white border-b border-gray-100;
   }
 
-  table thead tr th {
-    @apply pt-4;
-  }
-
   nav {
     @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
   }
 
   nav .backdrop {
     @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden pointer-events-none;
+  }
+
+  table.table__sm thead tr td {
+    @apply font-bold;
+  }
+
+  table.table__sm tr td:last-child ul {
+    @apply justify-end;
   }
 
   nav.show.expand {
@@ -201,7 +199,7 @@
   input,
   textarea,
   select {
-    @apply w-full border-line border p-2 rounded-md outline-none;
+    @apply w-full border-line border p-[5px] rounded-md outline-none;
   }
 
   textarea {
@@ -224,7 +222,7 @@
 
 @layer components {
   .btn {
-    @apply p-2.5 rounded-md  transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
+    @apply p-2.5 rounded-md border border-transparent transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
   }
 
   .btn--sm {
@@ -239,6 +237,14 @@
     @apply bg-gray-100 text-gray-500 border-gray-100 hover:bg-gray-200;
   }
 
+  .btn--outline {
+    @apply bg-transparent text-accent border border-accent hover:bg-accentDark hover:text-white cursor-pointer;
+  }
+
+  .btn--accent:disabled {
+    @apply bg-accent text-white;
+  }
+
   .btn--accent:not(:disabled) {
     @apply bg-accent text-white hover:bg-accentDark;
   }
@@ -248,18 +254,18 @@
   }
 
   .btn--alert {
-    @apply bg-alert  text-alert hover:bg-alertDark;
+    @apply bg-alert text-primary  hover:bg-alertDark;
   }
   .btn--warning {
-    @apply bg-warning  text-warning hover:bg-warningDark;
+    @apply bg-warning text-primary hover:bg-warningDark;
   }
 
   .btn--info {
-    @apply bg-info  text-info hover:bg-infoDark;
+    @apply bg-info  text-primary hover:bg-infoDark;
   }
 
   .btn--success {
-    @apply bg-success  text-success hover:bg-successDark;
+    @apply bg-success  text-primary hover:bg-successDark;
   }
 
   .btn-filter {
@@ -313,6 +319,10 @@
 
   .form__wrap {
     @apply mb-4 relative;
+  }
+
+  .form__wrap label {
+    @apply text-xs;
   }
 
   .form__wrap:focus-within label {
@@ -408,6 +418,34 @@
     @apply opacity-100  bg-black/30;
   }
 
+  .modal__center.show .modal__main {
+    @apply opacity-100 scale-100;
+  }
+
+  .modal__settings__nav ul li.active {
+    @apply bg-accent text-white transition-colors ease-in-out;
+  }
+
+  .modal__settings__nav ul li.active button {
+    @apply bg-accent text-white transition-colors ease-in-out hover:bg-accent;
+  }
+
+  .modal__settings__nav ul li button {
+    @apply w-full block text-left hover:bg-white;
+  }
+
+  .subnav ul li {
+    @apply py-1.5 pl-4;
+  }
+
+  .subnav ul li button {
+    @apply flex gap-4 items-center;
+  }
+
+  .subnav ul li.active {
+    @apply bg-accent text-white;
+  }
+
   /* TOOLTIP */
 
   .tooltip {
@@ -419,11 +457,11 @@
   }
 
   .tooltip.tooltip--bottom::after {
-    @apply top-[25px] left-[30px];
+    @apply top-[22px] left-[15px];
   }
 
   .tooltip.tooltip--bottom::before {
-    @apply rotate-180 top-[22px];
+    @apply hidden;
   }
 
   .tooltip:hover::after,
@@ -446,6 +484,10 @@
 
   .dropdown.inactive {
     @apply opacity-0 scale-90 visible ease-in-out duration-200 transition-all pointer-events-none;
+  }
+
+  .multistep__link.active {
+    @apply bg-accent text-white;
   }
 }
 
@@ -512,4 +554,8 @@ body::-webkit-scrollbar-track {
 .custom__scroll::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
   @apply bg-gray-300 border-8;
+}
+
+.noSort svg {
+  @apply hidden;
 }

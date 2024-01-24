@@ -203,6 +203,12 @@ export const StoreReducer = (state, action) => {
         isMenuExpand: action.payload,
       };
 
+    case "LAST_ID_INSERTED":
+      return {
+        ...state,
+        lastIdInserted: action.payload,
+      };
+
     default:
       return state;
   }

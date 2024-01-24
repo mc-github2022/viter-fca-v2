@@ -8,16 +8,26 @@ import { setIsAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import RequirementFinanceFormAddEdit from "./RequirementFinanceFormAddEdit";
 import RequirementFinanceList from "./RequirementFinanceList";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 const RequirementFinance = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: department,
+  } = useQueryData(
+    "/v2/dev-department", // endpoint
+    "get", // method
+    "department" // key
+  );
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
     setItemEdit(null);
   };
-
-  console.log(index);
 
   if (index === 7) {
     return (
@@ -40,7 +50,12 @@ const RequirementFinance = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && <RequirementFinanceFormAddEdit itemEdit={itemEdit} />}
+          {store.isAdd && (
+            <RequirementFinanceFormAddEdit
+              itemEdit={itemEdit}
+              department={department}
+            />
+          )}
           {!store.isAdd && <RequirementFinanceList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

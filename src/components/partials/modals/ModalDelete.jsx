@@ -20,8 +20,9 @@ const ModalDelete = ({ mysqlApiDelete, msg, item, queryKey }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
+  console.log(mysqlApiDelete);
   const mutation = useMutation({
-    mutationFn: (values) => queryData(mysqlApiDelete, "delete", values),
+    mutationFn: (values) => queryData(mysqlApiDelete, "DELETE", values),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [queryKey] });

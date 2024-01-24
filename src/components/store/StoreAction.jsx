@@ -240,3 +240,10 @@ export const setIsMenuExpand = (val) => {
     payload: val,
   };
 };
+
+export const setLastIdInserted = (val) => {
+  return {
+    type: "LAST_ID_INSERTED",
+    payload: val,
+  };
+};

@@ -69,19 +69,82 @@ RewriteRule ^dev-tuition-fee/([0-9]+)$ controllers/developer/settings/tuition-fe
 RewriteRule ^dev-tuition-fee/active/([0-9]+)$ controllers/developer/settings/tuition-fee/active.php?tuitionfeeid=$1 [L]
 
 # ROLES
-RewriteRule ^dev-roles$ controllers/developer/settings/users/roles/roles.php [L]
-RewriteRule ^dev-roles/([0-9]+)$ controllers/developer/settings/users/roles/roles.php?roleid=$1 [L]
-RewriteRule ^dev-roles/active/([0-9]+)$ controllers/developer/settings/users/roles/active.php?roleid=$1 [L]
+RewriteRule ^dev-roles$ controllers/developer/settings/roles/roles.php [L]
+RewriteRule ^dev-roles/([0-9]+)$ controllers/developer/settings/roles/roles.php?roleid=$1 [L]
+RewriteRule ^dev-roles/active/([0-9]+)$ controllers/developer/settings/roles/active.php?roleid=$1 [L]
 
 # USER SYSTEM
-RewriteRule ^dev-system-users$ controllers/developer/settings/users/system/system.php [L]
-RewriteRule ^dev-system-users/([0-9]+)$ controllers/developer/settings/users/system/system.php?usersystemid=$1 [L]
-RewriteRule ^dev-system-users/active/([0-9]+)$ controllers/developer/settings/users/system/active.php?usersystemid=$1 [L]
-RewriteRule ^dev-system-users/password controllers/developer/settings/users/system/set-password.php [L]
-RewriteRule ^dev-system-users/reset controllers/developer/settings/users/system/reset-password.php [L]
-RewriteRule ^dev-system-users/login$ controllers/developer/settings/users/system/login.php [L]
+RewriteRule ^dev-user-system$ controllers/developer/settings/system/system.php [L]
+RewriteRule ^dev-user-system/([0-9]+)$ controllers/developer/settings/system/system.php?usersystemid=$1 [L]
+RewriteRule ^dev-user-system/active/([0-9]+)$ controllers/developer/settings/system/active.php?usersystemid=$1 [L]
+RewriteRule ^dev-user-system/password controllers/developer/settings/system/set-password.php [L]
+RewriteRule ^dev-user-system/reset controllers/developer/settings/system/reset-password.php [L]
+RewriteRule ^dev-user-system/login$ controllers/developer/settings/system/login.php [L]
+RewriteRule ^dev-user-system/key/([A-Za-z0-9-]+)$ controllers/developer/settings/system/key.php?usersystemkey=$1 [L]
+RewriteRule ^dev-user-system/token$ controllers/developer/settings/system/token.php [L]
 
-
-
+# USER OTHER
+RewriteRule ^user-other$ controllers/developer/settings/other/other.php [L]
+RewriteRule ^user-other/([0-9]+)$ controllers/developer/settings/other/other.php?userotherid=$1 [L]
+RewriteRule ^user-other/active/([0-9]+)$ controllers/developer/settings/other/active.php?userotherid=$1 [L]
+RewriteRule ^user-other/password controllers/developer/settings/other/set-password.php [L]
+RewriteRule ^user-other/reset controllers/developer/settings/other/reset-password.php [L]
+RewriteRule ^user-other/login$ controllers/developer/settings/other/login.php [L]
+RewriteRule ^user-other/key/([A-Za-z0-9-]+)$ controllers/developer/settings/system/key.php?usersystemkey=$1 [L]
+RewriteRule ^user-other/token$ controllers/developer/settings/system/token.php [L]
 
 ###### DEV SETTINGS ######
+
+
+
+#INFO-CONTACT
+RewriteRule ^dev-info-contact$ controllers/developer/client/info-contact/info-contact.php [L]
+RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?infocontactid=$1 [L]
+
+RewriteRule ^dev-read-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?parentuid=$1 [L]
+
+#INFO-FINANCIAL
+RewriteRule ^dev-info-financial$ controllers/developer/client/info-financial/info-financial.php [L]
+RewriteRule ^dev-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?infofinancial=$1 [L]
+
+RewriteRule ^dev-read-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?parentuid=$1 [L]
+###### DEV CLIENT ######
+
+RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
+RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoaid=$1 [L]
+
+RewriteRule ^dev-read-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfouid=$1 [L]
+
+
+###### DEV CLIENT ######
+
+
+#PROFILE
+RewriteRule ^dev-profile$ controllers/developer/account/profile.php [L]
+RewriteRule ^dev-profile/([0-9]+)$ controllers/developer/account/profile.php?profileid=$1 [L]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# TESTING LANG TO NNG REACT TABLE
+RewriteRule ^student$ controllers/developer/students/students.php [L]
+RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
+RewriteRule ^student/active/([0-9]+)$ controllers/developer/student/active.php?studentid=$1 [L]

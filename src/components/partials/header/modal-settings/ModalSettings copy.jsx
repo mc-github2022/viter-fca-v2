@@ -1,9 +1,9 @@
 import React from "react";
+import { AiOutlinePlus } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
+import { FiEdit2, FiTrash } from "react-icons/fi";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import { AiOutlinePlus } from "react-icons/ai";
-import { FiEdit2, FiTrash } from "react-icons/fi";
 const ModalSettings = () => {
   const [showSideNav, setShowSideNav] = React.useState(false);
 
@@ -144,7 +144,7 @@ const ModalSettings = () => {
                       <textarea type="text" />
                     </div>
 
-                    <div className="settings__actions flex gap-2">
+                    <div className="settings__actions flex gap-2 mt-4">
                       <button className="btn btn--accent"> Save</button>
                       <button className="btn btn--cancel"> Discard</button>
                     </div>

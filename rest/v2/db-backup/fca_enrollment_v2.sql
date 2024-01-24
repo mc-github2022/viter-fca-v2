@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2024 at 11:55 PM
+-- Generation Time: Jan 09, 2024 at 12:47 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -216,15 +216,17 @@ CREATE TABLE `fca_settings_role` (
   `role_description` text NOT NULL,
   `role_created` varchar(20) NOT NULL,
   `role_datetime` varchar(20) NOT NULL,
-  `role_is_developer` tinyint(1) NOT NULL
+  `role_is_developer` tinyint(1) NOT NULL,
+  `role_is_admin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `fca_settings_role`
 --
 
-INSERT INTO `fca_settings_role` (`role_aid`, `role_is_active`, `role_name`, `role_description`, `role_created`, `role_datetime`, `role_is_developer`) VALUES
-(1, 1, 'developer', 'qqqqqq', '2023-12-19 14:07:05', '2023-12-19 14:07:05', 1);
+INSERT INTO `fca_settings_role` (`role_aid`, `role_is_active`, `role_name`, `role_description`, `role_created`, `role_datetime`, `role_is_developer`, `role_is_admin`) VALUES
+(1, 1, 'developer', 'qqqqqq', '2023-12-19 14:07:05', '2023-12-19 14:07:05', 1, 0),
+(2, 1, 'Admin', 'test', '2024-01-08 14:09:28', '2024-01-08 14:09:28', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -300,6 +302,34 @@ INSERT INTO `fca_settings_tuition_fee` (`tuition_fee_aid`, `tuition_fee_active`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fca_settings_user_other`
+--
+
+CREATE TABLE `fca_settings_user_other` (
+  `user_other_aid` int(11) NOT NULL,
+  `user_other_is_active` tinyint(1) NOT NULL,
+  `user_other_fname` varchar(50) NOT NULL,
+  `user_other_lname` varchar(50) NOT NULL,
+  `user_other_email` varchar(128) NOT NULL,
+  `user_other_new_email` varchar(128) NOT NULL,
+  `user_other_role_id` varchar(20) NOT NULL,
+  `user_other_key` varchar(255) NOT NULL,
+  `user_other_password` varchar(255) NOT NULL,
+  `user_other_created` datetime NOT NULL,
+  `user_other_datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_settings_user_other`
+--
+
+INSERT INTO `fca_settings_user_other` (`user_other_aid`, `user_other_is_active`, `user_other_fname`, `user_other_lname`, `user_other_email`, `user_other_new_email`, `user_other_role_id`, `user_other_key`, `user_other_password`, `user_other_created`, `user_other_datetime`) VALUES
+(1, 1, 'Patrick', 'Reyes', 'merin.ryanmark@gmail.com', '', '2', '', '$2y$10$KokV2UCXZqLbL4.pwFu5auM.wDS2q6pNqSuWQpZlxPDjtzmt6qjSq', '2023-08-14 17:12:34', '0000-00-00 00:00:00'),
+(4, 1, 'monmon', 'monmon', 'monmon.plaza.yt@gmail.com', '', '2', '', '$2y$10$eEL3153FROZ0S2WJjJtHE.PSw6mgGy1nkwOd9zZleukTVPjtxTVma', '2024-01-08 14:17:09', '2024-01-08 15:33:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fca_settings_user_system`
 --
 
@@ -321,8 +351,8 @@ CREATE TABLE `fca_settings_user_system` (
 --
 
 INSERT INTO `fca_settings_user_system` (`user_system_aid`, `user_system_is_active`, `user_system_fname`, `user_system_lname`, `user_system_email`, `user_system_role_id`, `user_system_key`, `user_system_password`, `user_system_created`, `user_system_datetime`) VALUES
-(1, 1, 'Mark Ryan', 'Merin', 'mark.merin@frontlinebusiness.com.ph', 1, 'c47a62a6f5fc28388226429177c984b80f52b3167a792da2dd70332e745ebf70', '$2y$10$g89vzPcXDXTxXpRFoSCu0ek2Y5Jn1bb2DN/Gm.3BpJH8ekWtM9SUK', '2023-04-19 09:13:08', '2023-12-19 14:54:05'),
-(2, 1, 'Patrick', 'Reyes', 'patrick.reyes@frontlinebusiness.com.ph', 1, '958f0fc7fdacc72cca6bf5d0a5f56f107ca9d019721edfcd9a28f6dae79a5c2a', '$2y$10$g89vzPcXDXTxXpRFoSCu0ek2Y5Jn1bb2DN/Gm.3BpJH8ekWtM9SUK', '2023-04-19 09:13:08', '2023-12-19 14:53:21');
+(1, 1, 'Mark Ryan', 'Merin', 'mark.merin@frontlinebusiness.com.ph', 1, 'c47a62a6f5fc28388226429177c984b80f52b3167a792da2dd70332e745ebf70', '', '2023-04-19 09:13:08', '2023-12-19 14:54:05'),
+(17, 1, 'Monmon', 'Plaza', 'ramon.plaza@frontlinebusiness.com.ph', 1, '', '$2y$10$KXu/IEfKf4hytdeRfVYTY.gnzHrNbZytzMQepTtZdifr8Ct3DJ1w2', '2024-01-08 08:26:34', '2024-01-08 12:50:29');
 
 --
 -- Indexes for dumped tables
@@ -401,6 +431,12 @@ ALTER TABLE `fca_settings_tuition_fee`
   ADD PRIMARY KEY (`tuition_fee_aid`);
 
 --
+-- Indexes for table `fca_settings_user_other`
+--
+ALTER TABLE `fca_settings_user_other`
+  ADD PRIMARY KEY (`user_other_aid`);
+
+--
 -- Indexes for table `fca_settings_user_system`
 --
 ALTER TABLE `fca_settings_user_system`
@@ -462,7 +498,7 @@ ALTER TABLE `fca_settings_requirement_registrar`
 -- AUTO_INCREMENT for table `fca_settings_role`
 --
 ALTER TABLE `fca_settings_role`
-  MODIFY `role_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `role_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_scheme`
@@ -483,10 +519,16 @@ ALTER TABLE `fca_settings_tuition_fee`
   MODIFY `tuition_fee_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `fca_settings_user_other`
+--
+ALTER TABLE `fca_settings_user_other`
+  MODIFY `user_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `fca_settings_user_system`
 --
 ALTER TABLE `fca_settings_user_system`
-  MODIFY `user_system_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_system_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,11 +6,12 @@ const Pills = ({
   label = "label",
 }) => {
   return (
-    <span
-      className={`text-center py-[5px] leading-none px-2 ${color} after:${bg} after:block rounded-2xl min-w-[60px] inline-block relative after:content-[''] after:absolute after:w-[8px] after:h-[8px] after:rounded-full  after:-left-2 after:top-2`}
-    >
+    <p className={`relative ${color}`}>
+      <span
+        className={`h-[7px] w-[7px] rounded-full bg-${bg} absolute ${bg} top-1 -left-4`}
+      ></span>
       {label}
-    </span>
+    </p>
   );
 };
 
