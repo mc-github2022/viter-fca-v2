@@ -4,6 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { setIsAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import ParentRelationshipFormAddEdit from "./ParentRelationshipFormAddEdit";
@@ -42,7 +43,7 @@ const ParentRelationship = ({ index }) => {
           {store.isAdd && <ParentRelationshipFormAddEdit itemEdit={itemEdit} />}
           {!store.isAdd && <ParentRelationshipList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
-          {store.error && <ModalError />}
+          {store.validate && <ModalValidate />}
         </div>
       </>
     );

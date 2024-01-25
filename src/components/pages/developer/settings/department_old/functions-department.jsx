@@ -3,7 +3,7 @@ export const getDepartmentCountRecord = (department) => {
   let inactive = 0;
 
   const resultActive = department?.data.filter(
-    (acItem) => acItem.department_is_active === 1
+    (acItem) => acItem.department_active === 1
   );
   active = resultActive?.length;
   const resultInactive = department?.data.filter(

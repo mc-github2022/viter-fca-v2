@@ -6,9 +6,9 @@ import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import DepartmentFormAddEdit from "./DepartmentFormAddEdit";
-import DepartmentList from "./DepartmentList";
-const Department = ({ index }) => {
+import RolesFormAddEdit from "./DiscountFormAddEdit";
+import RolesList from "./DiscountList";
+const Discount = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -18,15 +18,15 @@ const Department = ({ index }) => {
     setItemEdit(null);
   };
 
-  if (index === 1) {
+  if (index === 15) {
     return (
       <>
         <div className="">
           <div className="bg-primary">
-            <h2 className="mb-3">Department</h2>
+            <h2 className="mb-3">Discount</h2>
             <p className="text-xs mb-5">
-              Set list of departments that will be available to the current
-              school year
+              Set list of Discount that will be available to the current school
+              year
             </p>
           </div>
 
@@ -38,8 +38,8 @@ const Department = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && <DepartmentFormAddEdit itemEdit={itemEdit} />}
-          {!store.isAdd && <DepartmentList setItemEdit={setItemEdit} />}
+          {store.isAdd && <RolesFormAddEdit itemEdit={itemEdit} />}
+          {!store.isAdd && <RolesList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>
@@ -48,4 +48,4 @@ const Department = ({ index }) => {
   }
 };
 
-export default Department;
+export default Discount;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2024 at 12:47 AM
+-- Generation Time: Jan 25, 2024 at 12:42 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -24,6 +24,99 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fca_info_contact`
+--
+
+CREATE TABLE `fca_info_contact` (
+  `contact_aid` int(11) NOT NULL,
+  `contact_user_id` varchar(20) NOT NULL,
+  `contact_name` varchar(50) NOT NULL,
+  `contact_email` varchar(50) NOT NULL,
+  `contact_mobile` varchar(20) NOT NULL,
+  `contact_landline` varchar(20) NOT NULL,
+  `contact_level` varchar(20) NOT NULL,
+  `contact_created` varchar(20) NOT NULL,
+  `contact_datetime` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_info_contact`
+--
+
+INSERT INTO `fca_info_contact` (`contact_aid`, `contact_user_id`, `contact_name`, `contact_email`, `contact_mobile`, `contact_landline`, `contact_level`, `contact_created`, `contact_datetime`) VALUES
+(21, '17', '11111', 'hjk', 'fgjhfghjfghj', 'hjk', 'primary', '2024-01-23 14:47:59', '2024-01-23 15:30:19'),
+(22, '17', 'vbmnvbnmvbnv', 'fgsdfg', 'sdfg', 'sdfgsdf', 'secondary', '2024-01-23 14:51:04', '2024-01-23 15:30:32'),
+(23, '1', '1', '2', '1', '1', '1', '2024-01-23 14:53:25', '2024-01-23 14:53:25'),
+(24, '17', 'asdf', 'asdf', 'asdfas', 'dfasd', 'primary', '2024-01-23 14:54:23', '2024-01-23 14:54:23'),
+(26, '1', 'qwerqwer', '2', '1', '1', '1', '2024-01-23 15:01:10', '2024-01-23 15:01:10'),
+(29, '17', 'dfgs', 'dfgsd', 'fgsdfg', 'sdfgs', 'secondary', '2024-01-24 12:56:34', '2024-01-24 12:56:34'),
+(30, '17', 'xcvb', 'xcvb', 'xcvb', 'xcvbx', 'primary', '2024-01-24 13:16:12', '2024-01-24 13:16:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fca_info_financial`
+--
+
+CREATE TABLE `fca_info_financial` (
+  `financial_info_aid` int(11) NOT NULL,
+  `financial_info_user_id` varchar(20) NOT NULL,
+  `financial_info_father_income` varchar(20) NOT NULL,
+  `financial_info_mother_income` varchar(20) NOT NULL,
+  `financial_info_financier_income` varchar(20) NOT NULL,
+  `financial_info_financier_full_name` varchar(50) NOT NULL,
+  `financial_info_financier_relationship` varchar(20) NOT NULL,
+  `financial_info_financier_occupation` varchar(50) NOT NULL,
+  `financial_info_created` varchar(20) NOT NULL,
+  `financial_info_datetime` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_info_financial`
+--
+
+INSERT INTO `fca_info_financial` (`financial_info_aid`, `financial_info_user_id`, `financial_info_father_income`, `financial_info_mother_income`, `financial_info_financier_income`, `financial_info_financier_full_name`, `financial_info_financier_relationship`, `financial_info_financier_occupation`, `financial_info_created`, `financial_info_datetime`) VALUES
+(20, '17', 'fghjfghjf', 'ghjfghj', 'ghjfghf', 'bvmnvbnmvbnmvbnmv', 'fgjh', 'fgjhf', '2024-01-24 13:55:17', '2024-01-24 13:55:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fca_info_parent_guardian`
+--
+
+CREATE TABLE `fca_info_parent_guardian` (
+  `parent_guardian_info_aid` int(11) NOT NULL,
+  `parent_guardian_info_user_id` varchar(20) NOT NULL,
+  `parent_guardian_info_relationship_id` varchar(20) NOT NULL,
+  `parent_guardian_info_salutation` varchar(50) NOT NULL,
+  `parent_guardian_info_reside` varchar(10) NOT NULL,
+  `parent_guardian_info_fname` varchar(100) NOT NULL,
+  `parent_guardian_info_mname` varchar(100) NOT NULL,
+  `parent_guardian_info_maiden_name` varchar(100) NOT NULL,
+  `parent_guardian_info_lname` varchar(100) NOT NULL,
+  `parent_guardian_info_email` varchar(100) NOT NULL,
+  `parent_guardian_info_mobile` varchar(100) NOT NULL,
+  `parent_guardian_info_landline` varchar(50) NOT NULL,
+  `parent_guardian_info_address` varchar(150) NOT NULL,
+  `parent_guardian_info_province` varchar(50) NOT NULL,
+  `parent_guardian_info_city` varchar(50) NOT NULL,
+  `parent_guardian_info_zipcode` varchar(10) NOT NULL,
+  `parent_guardian_info_religion` varchar(20) NOT NULL,
+  `parent_guardian_info_occupation` varchar(50) NOT NULL,
+  `parent_guardian_info_created` varchar(20) NOT NULL,
+  `parent_guardian_info_datetime` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_info_parent_guardian`
+--
+
+INSERT INTO `fca_info_parent_guardian` (`parent_guardian_info_aid`, `parent_guardian_info_user_id`, `parent_guardian_info_relationship_id`, `parent_guardian_info_salutation`, `parent_guardian_info_reside`, `parent_guardian_info_fname`, `parent_guardian_info_mname`, `parent_guardian_info_maiden_name`, `parent_guardian_info_lname`, `parent_guardian_info_email`, `parent_guardian_info_mobile`, `parent_guardian_info_landline`, `parent_guardian_info_address`, `parent_guardian_info_province`, `parent_guardian_info_city`, `parent_guardian_info_zipcode`, `parent_guardian_info_religion`, `parent_guardian_info_occupation`, `parent_guardian_info_created`, `parent_guardian_info_datetime`) VALUES
+(19, '17', '1', 'ms', 'yes', 'asd', 'asd', '', 'asd', 'asd@asd.com', '3123123', 'aasd', 'asd', 'aqsad', 'asd', 'asd', 'asd', 'asd', '2024-01-24 15:28:06', '2024-01-24 15:28:06');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fca_settings_department`
 --
 
@@ -40,9 +133,9 @@ CREATE TABLE `fca_settings_department` (
 --
 
 INSERT INTO `fca_settings_department` (`department_aid`, `department_active`, `department_name`, `department_created`, `department_datetime`) VALUES
-(2, 1, 'Finance', '2024-01-03 12:07:24', '2024-01-03 12:07:24'),
-(3, 1, 'Information Technology', '2024-01-03 12:07:33', '2024-01-03 12:08:35'),
-(5, 1, 'Registrar', '2024-01-03 12:07:17', '2024-01-03 12:07:17');
+(2, 1, 'Finance', '2024-01-03 12:07:24', ''),
+(3, 1, 'Information Technology', '2024-01-03 12:07:33', ''),
+(5, 1, 'Registrar', '2024-01-03 12:07:17', '');
 
 -- --------------------------------------------------------
 
@@ -65,7 +158,7 @@ CREATE TABLE `fca_settings_grade_level` (
 
 INSERT INTO `fca_settings_grade_level` (`grade_level_aid`, `grade_level_active`, `grade_level_name`, `grade_level_is_pre_school`, `grade_level_created`, `grade_level_datetime`) VALUES
 (1, 1, '44', 1, '2023-12-11 13:58:46', '2024-01-03 14:34:44'),
-(3, 1, 'wwwww', 1, '2024-01-03 14:32:54', '2024-01-03 14:34:56');
+(3, 1, 'wwwww444444', 1, '2024-01-03 14:32:54', '2024-01-23 07:53:40');
 
 -- --------------------------------------------------------
 
@@ -110,8 +203,7 @@ CREATE TABLE `fca_settings_notification` (
 --
 
 INSERT INTO `fca_settings_notification` (`notification_aid`, `notification_active`, `notification_department_id`, `notification_email`, `notification_name`, `notification_created`, `notification_datetime`) VALUES
-(2, 1, 2, 'wwww@wwwww.com', 'tttt', '2023-12-11 15:15:58', '2023-12-11 15:20:52'),
-(3, 0, 2, 'xxxxx@xxxx.comyyyy', 'xxxx', '2023-12-11 15:16:14', '');
+(2, 1, 2, 'wwww@wwwww.com', 'tttt', '2023-12-11 15:15:58', '2023-12-11 15:20:52');
 
 -- --------------------------------------------------------
 
@@ -133,8 +225,8 @@ CREATE TABLE `fca_settings_relationship` (
 --
 
 INSERT INTO `fca_settings_relationship` (`relationship_aid`, `relationship_active`, `relationship_name`, `relationship_is_maiden`, `relationship_created`, `relationship_datetime`) VALUES
-(1, 1, '44', 1, '2023-12-11 13:27:05', '2023-12-11 13:44:02'),
-(3, 1, '4465756', 1, '2023-12-11 13:37:57', '2024-01-03 14:12:24');
+(1, 1, 'Biological Father', 1, '2023-12-11 13:27:05', '2023-12-11 13:44:02'),
+(3, 1, 'Biological Mother', 1, '2023-12-11 13:37:57', '2024-01-03 14:12:24');
 
 -- --------------------------------------------------------
 
@@ -217,16 +309,18 @@ CREATE TABLE `fca_settings_role` (
   `role_created` varchar(20) NOT NULL,
   `role_datetime` varchar(20) NOT NULL,
   `role_is_developer` tinyint(1) NOT NULL,
-  `role_is_admin` tinyint(1) NOT NULL
+  `role_is_admin` tinyint(1) NOT NULL,
+  `role_is_client` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `fca_settings_role`
 --
 
-INSERT INTO `fca_settings_role` (`role_aid`, `role_is_active`, `role_name`, `role_description`, `role_created`, `role_datetime`, `role_is_developer`, `role_is_admin`) VALUES
-(1, 1, 'developer', 'qqqqqq', '2023-12-19 14:07:05', '2023-12-19 14:07:05', 1, 0),
-(2, 1, 'Admin', 'test', '2024-01-08 14:09:28', '2024-01-08 14:09:28', 0, 1);
+INSERT INTO `fca_settings_role` (`role_aid`, `role_is_active`, `role_name`, `role_description`, `role_created`, `role_datetime`, `role_is_developer`, `role_is_admin`, `role_is_client`) VALUES
+(1, 1, 'developer', 'qqqqqq', '2023-12-19 14:07:05', '2023-12-19 14:07:05', 1, 0, 0),
+(2, 1, 'Admin', 'test', '2024-01-08 14:09:28', '2024-01-08 14:09:28', 0, 1, 0),
+(3, 1, 'Client', 'Parent or other user', '2024-01-10 09:15:52', '2024-01-10 09:15:52', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -241,6 +335,49 @@ CREATE TABLE `fca_settings_scheme` (
   `scheme_created` varchar(20) NOT NULL,
   `scheme_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_settings_scheme`
+--
+
+INSERT INTO `fca_settings_scheme` (`scheme_aid`, `scheme_active`, `scheme_name`, `scheme_created`, `scheme_datetime`) VALUES
+(3, 1, 'test', '2024-01-11 07:57:09', '2024-01-11 07:57:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fca_settings_student_rt`
+--
+
+CREATE TABLE `fca_settings_student_rt` (
+  `student_aid` int(11) NOT NULL,
+  `student_active` tinyint(1) NOT NULL,
+  `student_name` varchar(126) NOT NULL,
+  `student_gender` varchar(20) NOT NULL,
+  `student_grade_level` varchar(20) NOT NULL,
+  `student_created` varchar(20) NOT NULL,
+  `student_datetime` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_settings_student_rt`
+--
+
+INSERT INTO `fca_settings_student_rt` (`student_aid`, `student_active`, `student_name`, `student_gender`, `student_grade_level`, `student_created`, `student_datetime`) VALUES
+(1, 1, 'Mon', 'Male', 'Grade 1', '2024-01-11 09:27:25', '2024'),
+(2, 1, 'Patrick', 'Male', 'Grade 1', '2024-01-11 09:27:36', '2024'),
+(3, 0, 'JJ', 'Male', 'Grade 1', '2024-01-11 09:27:40', '2024'),
+(4, 1, 'Mac', 'Male', 'Grade 2', '2024-01-11 09:27:49', '2024'),
+(5, 0, 'MC', 'Male', 'Grade 2', '2024-01-11 09:27:57', '2024'),
+(6, 1, 'Rico', 'Male', 'Grade 3', '2024-01-11 09:28:08', '2024'),
+(7, 1, 'Emma', 'Male', 'Grade 5', '2024-01-11 09:28:19', '2024'),
+(8, 0, 'Cyzy', 'Female', 'Grade 2', '2024-01-11 09:28:33', '2024'),
+(9, 1, 'Inyaks', 'Female', 'Grade 1', '2024-01-11 09:28:42', '2024'),
+(10, 1, 'Bell', 'Female', 'Grade 3', '2024-01-11 09:28:48', '2024'),
+(11, 1, 'Kyuri', 'Female', 'Grade 3', '2024-01-11 09:28:56', '2024'),
+(12, 1, 'Kyuri', 'Female', 'Grade 2', '2024-01-11 09:28:56', '2024'),
+(13, 1, 'Kyuri', 'Male', 'Grade 2', '2024-01-11 09:28:56', '2024'),
+(14, 1, 'Kyuri', 'Male', 'Grade 3', '2024-01-11 09:28:56', '2024');
 
 -- --------------------------------------------------------
 
@@ -324,8 +461,7 @@ CREATE TABLE `fca_settings_user_other` (
 --
 
 INSERT INTO `fca_settings_user_other` (`user_other_aid`, `user_other_is_active`, `user_other_fname`, `user_other_lname`, `user_other_email`, `user_other_new_email`, `user_other_role_id`, `user_other_key`, `user_other_password`, `user_other_created`, `user_other_datetime`) VALUES
-(1, 1, 'Patrick', 'Reyes', 'merin.ryanmark@gmail.com', '', '2', '', '$2y$10$KokV2UCXZqLbL4.pwFu5auM.wDS2q6pNqSuWQpZlxPDjtzmt6qjSq', '2023-08-14 17:12:34', '0000-00-00 00:00:00'),
-(4, 1, 'monmon', 'monmon', 'monmon.plaza.yt@gmail.com', '', '2', '', '$2y$10$eEL3153FROZ0S2WJjJtHE.PSw6mgGy1nkwOd9zZleukTVPjtxTVma', '2024-01-08 14:17:09', '2024-01-08 15:33:07');
+(15, 1, 'ramon', 'plazawww', 'ramon.plaza@frontlinebusiness.com.ph', '', '3', '', '$2y$10$1Qa/rBuipSGZhOyDjPs/B.4aw/cBLMNLFklhDvDycm38pyU.MeSU.', '2024-01-10 12:26:22', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -357,6 +493,24 @@ INSERT INTO `fca_settings_user_system` (`user_system_aid`, `user_system_is_activ
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `fca_info_contact`
+--
+ALTER TABLE `fca_info_contact`
+  ADD PRIMARY KEY (`contact_aid`);
+
+--
+-- Indexes for table `fca_info_financial`
+--
+ALTER TABLE `fca_info_financial`
+  ADD PRIMARY KEY (`financial_info_aid`);
+
+--
+-- Indexes for table `fca_info_parent_guardian`
+--
+ALTER TABLE `fca_info_parent_guardian`
+  ADD PRIMARY KEY (`parent_guardian_info_aid`);
 
 --
 -- Indexes for table `fca_settings_department`
@@ -419,6 +573,12 @@ ALTER TABLE `fca_settings_scheme`
   ADD PRIMARY KEY (`scheme_aid`);
 
 --
+-- Indexes for table `fca_settings_student_rt`
+--
+ALTER TABLE `fca_settings_student_rt`
+  ADD PRIMARY KEY (`student_aid`);
+
+--
 -- Indexes for table `fca_settings_tuition_category`
 --
 ALTER TABLE `fca_settings_tuition_category`
@@ -445,6 +605,24 @@ ALTER TABLE `fca_settings_user_system`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `fca_info_contact`
+--
+ALTER TABLE `fca_info_contact`
+  MODIFY `contact_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `fca_info_financial`
+--
+ALTER TABLE `fca_info_financial`
+  MODIFY `financial_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `fca_info_parent_guardian`
+--
+ALTER TABLE `fca_info_parent_guardian`
+  MODIFY `parent_guardian_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_department`
@@ -498,13 +676,19 @@ ALTER TABLE `fca_settings_requirement_registrar`
 -- AUTO_INCREMENT for table `fca_settings_role`
 --
 ALTER TABLE `fca_settings_role`
-  MODIFY `role_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `role_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_scheme`
 --
 ALTER TABLE `fca_settings_scheme`
-  MODIFY `scheme_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `scheme_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `fca_settings_student_rt`
+--
+ALTER TABLE `fca_settings_student_rt`
+  MODIFY `student_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_tuition_category`
@@ -522,7 +706,7 @@ ALTER TABLE `fca_settings_tuition_fee`
 -- AUTO_INCREMENT for table `fca_settings_user_other`
 --
 ALTER TABLE `fca_settings_user_other`
-  MODIFY `user_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_user_system`

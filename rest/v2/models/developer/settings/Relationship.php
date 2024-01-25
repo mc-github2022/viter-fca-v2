@@ -14,12 +14,15 @@ class Relationship
     public $relationship_total;
     public $relationship_search;
     public $tblRelationship;
+    public $tblInfoParentGuardian;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblRelationship = "fca_settings_relationship";
-    }
+        $this->tblInfoParentGuardian = "fca_info_parent_guardian";
+    }   
+
 
     public function create()
     {
@@ -142,18 +145,18 @@ class Relationship
     public function checkAssociation()
     {
         try {
-            $sql = "select employee_last_name, ";
-            $sql .= "employee_first_name, ";
-            $sql .= "employee_aid ";
-            $sql .= "from {$this->tblEmployee} ";
-            $sql .= "where employee_relationship_id = :relationship_aid ";
+            $sql = "select parent_guardian_info_relationship_id ";
+            $sql .= "from {$this->tblInfoParentGuardian} ";
+            $sql .= "where parent_guardian_info_relationship_id = :relationship_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "relationship_aid" => $this->relationship_aid,
+                "relationship_aid" => "{$this->relationship_aid}",
             ]);
         } catch (PDOException $ex) {
             $query = false;
         }
         return $query;
     }
+
+     
 }

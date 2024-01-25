@@ -32,11 +32,17 @@ if (array_key_exists("parentinfoaid", $_GET)) {
     $parent->parent_guardian_info_occupation = checkIndex($data, "parent_guardian_info_occupation");
     $parent->parent_guardian_info_religion = checkIndex($data, "parent_guardian_info_religion");
 
-
     $parent->parent_guardian_info_datetime = date("Y-m-d H:i:s");
-    
+
+    $parent_guardian_info_fname_old = checkIndex($data, "parent_guardian_info_fname_old");
+    $parent_guardian_info_lname_old = checkIndex($data, "parent_guardian_info_lname_old");
+
+    $fullname = "$parent->parent_guardian_info_fname, $parent->parent_guardian_info_lname";
+    $fullname_old = "$parent->parent_guardian_info_fname_old, $parent->parent_guardian_info_lname_old";
+
     checkId($parent->parent_guardian_info_aid );
 
+    compareName($parent, $fullname_old, $fullname);
     $query = checkUpdate($parent);
     returnSuccess($parent, "Parent Information", $query);
 }

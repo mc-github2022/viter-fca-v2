@@ -1,4 +1,7 @@
 import React from "react";
+import { BsGear } from "react-icons/bs";
+import { MdOutlinePunchClock } from "react-icons/md";
+import { PiCaretRight } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import {
   consoleLog,
@@ -12,10 +15,7 @@ import {
   setIsShow,
 } from "../store/StoreAction";
 import { StoreContext } from "../store/StoreContext.jsx";
-import { BsGear } from "react-icons/bs";
-import { PiCaretRight } from "react-icons/pi";
-import { MdOutlinePunchClock } from "react-icons/md";
-const Navigation = ({ menu, submenu }) => {
+const Navigationx = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   // const urlRolePath = getUserType();
 
@@ -116,4 +116,4 @@ const Navigation = ({ menu, submenu }) => {
   );
 };
 
-export default Navigation;
+export default Navigationx;

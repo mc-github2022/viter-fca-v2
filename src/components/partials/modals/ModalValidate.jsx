@@ -16,9 +16,9 @@ const ModalValidate = () => {
             <span className="text-xl">Information</span>
           </h3>
         </div>
-        <div className="modal__body text-center">
+        <div className=" text-center">
           <p>{store.message}</p>
-          <div className="modal__action flex justify-center gap-4 mt-8">
+          <div className=" flex !justify-center  mt-8">
             <button className="btn btn--info" onClick={handleClose}>
               Close
             </button>
