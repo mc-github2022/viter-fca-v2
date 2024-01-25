@@ -5,21 +5,16 @@ import SystemForgotPassword from "@/components/pages/access/developer/SystemForg
 import SystemLogin from "@/components/pages/access/developer/SystemLogin.jsx";
 import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEmailSystemUser.jsx";
 import Profile from "@/components/pages/developer/account/Profile.jsx";
-import Client from "@/components/pages/developer/clients/Client.jsx";
+import Clients from "@/components/pages/developer/clients/Clients.jsx";
 import Settings from "@/components/pages/developer/settings/Settings";
 import Department from "@/components/pages/developer/settings/department_old/Departmentx.jsx";
-import Notification from "@/components/pages/developer/settings/notifications/Notifications";
+
 import {
   default as System,
   default as Users,
 } from "@/components/pages/developer/settings/user-system/UserSystem.jsx";
 import Students from "@/components/pages/developer/students/Students";
 import StudentInfo from "@/components/pages/developer/students/profile/StudentInfo.jsx";
-import CodeOfConduct from "@/components/pages/developer/students/profile/code-of-conduct/CodeOfConduct.jsx";
-import ParentCommitment from "@/components/pages/developer/students/profile/parent-commitment/ParentCommitment.jsx";
-import ParentConsent from "@/components/pages/developer/students/profile/parent-consent/ParentConsent.jsx";
-import ParentDeclaration from "@/components/pages/developer/students/profile/parent-declaration/ParentDeclaration.jsx";
-import StudentProfile from "@/components/pages/developer/students/profile/student-profile/StudentProfile.jsx";
 
 export const routesSystem = [
   {
@@ -52,7 +47,7 @@ export const routesSystem = [
     path: `/${devNavUrl}/system/clients`,
     element: (
       <ProtectedRouteSystem>
-        <Client />
+        <Clients />
       </ProtectedRouteSystem>
     ),
   },

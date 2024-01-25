@@ -17,7 +17,7 @@ if (array_key_exists("infocontactid", $_GET)) {
     checkId($infoContact->contact_aid);
     
     $contact_name_old = checkIndex($data, "contact_name_old");
-     compareName($infoContact, $contact_name_old, $infoContact->contact_name);
+    compareName($infoContact, $contact_name_old, $infoContact->contact_name);
     $query = checkUpdate($infoContact);
     returnSuccess($infoContact, "InfoContact", $query);
 }

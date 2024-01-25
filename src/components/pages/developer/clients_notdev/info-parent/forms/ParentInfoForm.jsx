@@ -90,6 +90,14 @@ const ParentInfoForm = ({
     parent_guardian_info_occupation: itemEdit
       ? itemEdit.parent_guardian_info_occupation
       : "",
+
+    parent_guardian_info_fname_old: itemEdit
+      ? itemEdit.parent_guardian_info_fname
+      : "",
+
+    parent_guardian_info_lname_old: itemEdit
+      ? itemEdit.parent_guardian_info_lname
+      : "",
   });
 
   const getClientId = store.credentials.data?.user_system_aid;

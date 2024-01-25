@@ -55,6 +55,8 @@ const FormContact = (props) => {
                   <InputText
                     label="Landline"
                     type="text"
+                    maxLength="7"
+                    onKeyPress={handleNumOnly}
                     name="parent_guardian_info_landline"
                   />
                 </div>

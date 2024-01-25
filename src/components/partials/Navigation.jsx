@@ -49,6 +49,16 @@ const Navigation = ({ menu, submenu }) => {
                 <BsGear className="text-lg" /> Student
               </Link>
             </li>
+
+            <li className={`nav__link ${menu === "clients" ? "active" : ""}`}>
+              <Link
+                to={`${devNavUrl}/system/clients`}
+                className="flex gap-3 items-center uppercase p-1 w-full"
+              >
+                <BsGear className="text-lg" /> Clients
+              </Link>
+            </li>
+
             <li className={`nav__link ${menu === "settings" ? "active" : ""}`}>
               <button
                 className={` p-1 w-full ${
