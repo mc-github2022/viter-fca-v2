@@ -8,9 +8,9 @@ if (array_key_exists("relationshipid", $_GET)) {
     $relationship->relationship_aid = $_GET['relationshipid'];
     checkId($relationship->relationship_aid);
 
-    //isAssociated($relationship);
-    $query = checkDelete($relationship);
-    returnSuccess($relationship, "Relationship", $query);
+    isAssociated($relationship);
+     $query = checkDelete($relationship);
+    returnSuccess($relationship, "", $query);
 }
 
 checkEndpoint();

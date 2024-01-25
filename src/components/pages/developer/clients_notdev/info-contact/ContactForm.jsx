@@ -5,6 +5,7 @@ import {
   setIsAdd,
   setMessage,
   setSuccess,
+  setValidate,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -33,7 +34,7 @@ const ContactForm = ({ itemEdit, setShowContact }) => {
 
       // show error box
       if (!data.success) {
-        dispatch(setError(true));
+        dispatch(setValidate(true));
         dispatch(setMessage(data.error));
       } else {
         setShowContact(false);

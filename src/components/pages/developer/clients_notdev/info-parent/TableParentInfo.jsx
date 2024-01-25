@@ -1,43 +1,46 @@
 import NoData from "@/components/partials/NoData.jsx";
 import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
-import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { FiEdit2, FiTrash } from "react-icons/fi";
-import ModalDeleteFinancial from "./ModalDeleteFinancial.jsx";
+import { FiEdit2, FiList, FiTrash } from "react-icons/fi";
+import ModalDeleteParent from "./ModalDeleteParent.jsx";
+import ModalSummaryParent from "./ModalSummaryParent.jsx";
 
-const FinancialTable = ({
+const TableParentInfo = ({
   setItemEdit,
-  setShowFinancial,
+  setShowParent,
+  parentinfo,
   isLoading,
-  financialInfo,
   error,
 }) => {
-  const { store, dispatch } = React.useContext(StoreContext);
-
+  const [deleteParent, setDeleteParent] = React.useState(false);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
-  const [deleteFinancial, setDeleteFinancial] = React.useState(false);
-
+  const [showSummary, setShowSummary] = React.useState(false);
   let counter = 1;
 
   const handleEdit = (item) => {
-    setShowFinancial(true);
+    setShowParent(true);
     setItemEdit(item);
   };
 
   const handleDelete = (item) => {
-    setDeleteFinancial(true);
-    setId(item.financial_info_aid);
+    setDeleteParent(true);
+    setId(item.parent_guardian_info_aid);
     setData(item);
+  };
+
+  const handleViewSummary = (item) => {
+    setData(item);
+    setShowSummary(true);
   };
 
   return (
     <>
       <div className="my-5 bg-primary rounded-md max-w-[900px] border-line border shadow-sm relative p-4 md:pl-0">
         <div className="gap-8 md:flex">
-          <aside className="md:max-w-[220px] w-full md:pl-4 mb-2">
-            <h4 className=" font-bold">Contact Information</h4>
+          <aside className="md:max-w-[220px] w-full">
+            <h4 className="md:pl-4 mb-2 font-bold">Parent Information</h4>
           </aside>
           <div className="w-full">
             <div className="">
@@ -46,11 +49,12 @@ const FinancialTable = ({
                   <tr>
                     <td>#</td>
                     <td>Name</td>
+                    <td className="hidden md:block">Relationship</td>
                     <td></td>
                   </tr>
                 </thead>
                 <tbody>
-                  {(isLoading || financialInfo?.data.length === 0) && (
+                  {(isLoading || parentinfo?.data.length === 0) && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         {isLoading ? (
@@ -70,12 +74,28 @@ const FinancialTable = ({
                     </tr>
                   )}
 
-                  {financialInfo?.data.map((item, key) => (
+                  {parentinfo?.data.map((item, key) => (
                     <tr key={key}>
                       <td>{counter++}</td>
-                      <td>{item.financial_info_financier_full_name},</td>
+                      <td>
+                        {item.parent_guardian_info_fname},
+                        {item.parent_guardian_info_lname}
+                      </td>
+                      <td className="hidden md:block">
+                        {item.relationship_name}
+                      </td>
                       <td>
                         <ul className="flex ">
+                          <li>
+                            <button
+                              className="tooltip text-base"
+                              data-tooltip="Summary"
+                              onClick={() => handleViewSummary(item)}
+                            >
+                              <FiList />
+                            </button>
+                          </li>
+
                           <li>
                             <button
                               className="tooltip"
@@ -106,17 +126,23 @@ const FinancialTable = ({
         </div>
       </div>
 
-      {deleteFinancial && (
-        <ModalDeleteFinancial
-          mysqlApiDelete={`/v2/dev-info-financial/${id}`}
+      {deleteParent && (
+        <ModalDeleteParent
+          mysqlApiDelete={`/v2/dev-info-parent/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={`${dataItem.financial_info_financier_full_name}`}
-          queryKey={"financialInfo"}
-          setDeleteFinancial={setDeleteFinancial}
+          item={`${dataItem.parent_guardian_info_fname} ${dataItem.parent_guardian_info_lname}`}
+          queryKey={"parentinfo"}
+          setDeleteParent={setDeleteParent}
+        />
+      )}
+      {showSummary && (
+        <ModalSummaryParent
+          setShowSummary={setShowSummary}
+          dataItem={dataItem}
         />
       )}
     </>
   );
 };
 
-export default FinancialTable;
+export default TableParentInfo;
