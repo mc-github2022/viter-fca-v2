@@ -8,6 +8,7 @@ import Profile from "@/components/pages/developer/account/Profile.jsx";
 import Client from "@/components/pages/developer/clients/Client.jsx";
 import Settings from "@/components/pages/developer/settings/Settings";
 import Department from "@/components/pages/developer/settings/department_old/Departmentx.jsx";
+import Discount from "@/components/pages/developer/settings/discount/Discount";
 import Notification from "@/components/pages/developer/settings/notifications/Notifications";
 import {
   default as System,
@@ -44,6 +45,15 @@ export const routesSystem = [
     element: (
       <ProtectedRouteSystem>
         <Profile />
+      </ProtectedRouteSystem>
+    ),
+  },
+
+  {
+    path: `/${devNavUrl}/system/discount`,
+    element: (
+      <ProtectedRouteSystem>
+        <Discount />
       </ProtectedRouteSystem>
     ),
   },
