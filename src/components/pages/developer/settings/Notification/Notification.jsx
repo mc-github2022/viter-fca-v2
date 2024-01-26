@@ -15,9 +15,6 @@ import RecordCount from "@/components/partials/RecordCount";
 import UsersTable from "./NotificationTable";
 import ModalAddDepartment from "./ModalAddNotification";
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import DepartmentTable from "./NotificationTable";
-import NotificationTable from "./NotificationTable";
-import ModalAddNotification from "./ModalAddNotification";
 
 const Notification = () => {
   const { store, dispatch } = React.useContext(StoreContext);

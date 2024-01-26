@@ -118,8 +118,7 @@ const NotificationTable = () => {
                     <td>{item.notification_email}</td>
                     <td
                       className="table__action top-3 right-5 "
-                      data-ellipsis=". . ."
-                    >
+                      data-ellipsis=". . .">
                       <ul className="flex items-center justify-end gap-2 mr-2">
                         {item.department_active === 1 ? (
                           <>
@@ -127,8 +126,7 @@ const NotificationTable = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip="Edit"
-                                onClick={() => handleQuickEdit(item)}
-                              >
+                                onClick={() => handleQuickEdit(item)}>
                                 <FiEdit3 />
                               </button>
                             </li>
@@ -145,8 +143,7 @@ const NotificationTable = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip="Delete"
-                                onClick={() => handleDelete(item)}
-                              >
+                                onClick={() => handleDelete(item)}>
                                 <RiDeleteBinLine />
                               </button>
                             </li>
@@ -157,8 +154,7 @@ const NotificationTable = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip="Delete"
-                                onClick={() => handleDelete(item)}
-                              >
+                                onClick={() => handleDelete(item)}>
                                 <RiDeleteBinLine />
                               </button>
                             </li>
@@ -166,8 +162,7 @@ const NotificationTable = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip="Restore"
-                                onClick={() => handleRestore(item)}
-                              >
+                                onClick={() => handleRestore(item)}>
                                 <MdRestore />
                               </button>
                             </li>

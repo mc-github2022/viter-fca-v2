@@ -121,10 +121,14 @@ RewriteRule ^dev-read-info-parent/([0-9]+)$ controllers/developer/client/info-pa
 
 #PROFILE
 RewriteRule ^dev-profile$ controllers/developer/account/profile.php [L]
+RewriteRule ^dev-profile-acc/([0-9])$ controllers/developer/account/read-profile-byId.php?profileid=$1 [L]
 RewriteRule ^dev-profile/([0-9]+)$ controllers/developer/account/profile.php?profileid=$1 [L]
 
 
-
+# DISCOUNT
+RewriteRule ^dev-settings-discount$ controllers/developer/settings/discount/discount.php [L]
+RewriteRule ^dev-settings-discount/([0-9]+)$ controllers/developer/settings/discount/discount.php?discountid=$1 [L]
+RewriteRule ^dev-settings-discount/active/([0-9]+)$ controllers/developer/settings/discount/active.php?discountid=$1 [L]
 
 
 

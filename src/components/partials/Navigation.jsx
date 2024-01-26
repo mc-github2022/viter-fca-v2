@@ -44,8 +44,7 @@ const Navigation = ({ menu, submenu }) => {
             <li className={`nav__link ${menu === "student" ? "active" : ""}`}>
               <Link
                 to={`${devNavUrl}/system/students`}
-                className="flex gap-3 items-center uppercase p-1 w-full"
-              >
+                className="flex gap-3 items-center uppercase p-1 w-full">
                 <BsGear className="text-lg" /> Student
               </Link>
             </li>
@@ -64,8 +63,7 @@ const Navigation = ({ menu, submenu }) => {
                 className={` p-1 w-full ${
                   menu === "settings" ? "bg-[#dfdfdf]" : ""
                 }`}
-                onClick={(e) => handleDropDownSetting(e)}
-              >
+                onClick={(e) => handleDropDownSetting(e)}>
                 <div className="flex justify-between items-center w-full">
                   <div className="flex gap-3 items-center uppercase">
                     <BsGear className="text-lg" /> Settings
@@ -88,8 +86,7 @@ const Navigation = ({ menu, submenu }) => {
                   <li
                     className={` ${
                       submenu === "department" ? "active__submenu" : ""
-                    }`}
-                  >
+                    }`}>
                     <Link
                       to={`${devNavUrl}/system/settings/department`}
                       className={`duration-150 border-transparent w-full inline-block py-1  `}
