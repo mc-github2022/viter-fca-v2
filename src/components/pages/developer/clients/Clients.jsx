@@ -1,8 +1,10 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import Navigation from "@/components/partials/Navigation.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -14,6 +16,17 @@ import ModalAddClient from "./ModalAddClient.jsx";
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: roles,
+  } = useQueryData(
+    "/v2/dev-roles", // endpoint
+    "get", // method
+    "roles" // key
+  );
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
@@ -55,9 +68,10 @@ const Clients = () => {
 
         <Footer />
       </section>
-      {store.isAdd && <ModalAddClient />}
+      {store.isAdd && <ModalAddClient itemEdit={itemEdit} roles={roles} />}
 
       {store.success && <ModalSuccess />}
+      {store.validate && <ModalValidate />}
     </div>
   );
 };

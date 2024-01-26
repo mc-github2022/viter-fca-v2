@@ -10,6 +10,11 @@ import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 
 const ClientList = () => {
+  const [columnVisibility, setColumnVisibility] = React.useState({
+    user_other_email: false,
+    user_other_is_active: false,
+  });
+
   const {
     isLoading,
     isFetching,
@@ -18,7 +23,7 @@ const ClientList = () => {
   } = useQueryData(
     "/v2/user-other", // endpoint
     "get", // method
-    "user-other" // key
+    "clients" // key
   );
 
   const columnHelper = createColumnHelper();
@@ -32,7 +37,7 @@ const ClientList = () => {
       sortable: false,
     }),
 
-    columnHelper.accessor("client_name", {
+    columnHelper.accessor("user_other_fname", {
       header: "Name",
       cell: (row) =>
         `${row.row.original.user_other_fname} ${row.row.original.user_other_lname}`,
@@ -115,7 +120,13 @@ const ClientList = () => {
           ) : clients?.data.length === 0 ? (
             <NoData />
           ) : (
-            <Table columns={columns} data={clients.data} hasFilter={true} />
+            <Table
+              columns={columns}
+              data={clients.data}
+              hasFilter={true}
+              setColumnVisibility={setColumnVisibility}
+              columnVisibility={columnVisibility}
+            />
           )}
         </div>
       </div>

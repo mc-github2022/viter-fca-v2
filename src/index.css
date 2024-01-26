@@ -371,7 +371,7 @@
   /* MODAL */
 
   .modal {
-    @apply fixed top-0 left-0 z-[999999] w-full h-screen;
+    @apply fixed top-0 left-0 z-20 w-full h-screen;
   }
 
   .modal__backdrop {
@@ -379,7 +379,7 @@
   }
 
   .modal.modal--side .modal__main {
-    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-6 ml-2 shadow-left animate-slideLeft opacity-0 ease-modal-timing translate-x-[20%] transition-all;
+    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-6 ml-2 shadow-left animate-slideLeft opacity-0 ease-linear translate-x-[20%] transition-all;
   }
 
   .modal__main .modal__header {
