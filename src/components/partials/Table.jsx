@@ -8,10 +8,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import React from "react";
-import { BiCaretDown, BiCaretUp } from "react-icons/bi";
+import { CiFilter } from "react-icons/ci";
 import { TfiSearch } from "react-icons/tfi";
 
-import { FaFilter, FaSearch } from "react-icons/fa";
 import {
   LiaSortDownSolid,
   LiaSortSolid,
@@ -25,7 +24,13 @@ import {
 } from "react-icons/rx";
 import { DebouncedInputSearch, Filter } from "../helpers/function-table.jsx";
 
-const Table = ({ columns, data, hasFilter = false }) => {
+const Table = ({
+  columnVisibility,
+  setColumnVisibility,
+  columns,
+  data,
+  hasFilter = false,
+}) => {
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [columnFilters, setColumnFilters] = React.useState([]);
 
@@ -35,12 +40,19 @@ const Table = ({ columns, data, hasFilter = false }) => {
   const table = useReactTable({
     data,
     columns,
-
+    initialState: {
+      columnVisibility: {},
+      pagination: {
+        pageSize: 30,
+      },
+    },
     state: {
       columnFilters,
       globalFilter,
+      columnVisibility,
     },
 
+    onColumnVisibilityChange: setColumnVisibility,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
@@ -52,6 +64,10 @@ const Table = ({ columns, data, hasFilter = false }) => {
 
   const handleFilter = () => setShowFilter(!showFilter);
   const handleSearch = () => setShowSearch(!showSearch);
+
+  const allColumns = table.getAllLeafColumns().filter((item) => {
+    return item.id !== "action" && item.id !== "#";
+  });
 
   return (
     <>
@@ -83,12 +99,48 @@ const Table = ({ columns, data, hasFilter = false }) => {
                 data-tooltip="Filter"
                 onClick={handleFilter}
               >
-                <FaFilter />
+                <CiFilter className="text-lg" />
               </button>
             </li>
           </ul>
         </div>
       )}
+
+      <div className=" border border-line shadow-sm max-w-[200px] w-full rounded">
+        <div className=" border-b border-line p-2 ">
+          <label className="grid grid-cols-[20px_1fr] gap-2 text-xs mb-0 items-center cursor-pointer ">
+            <input
+              {...{
+                className: "cursor-pointer",
+                type: "checkbox",
+                checked: table.getIsAllColumnsVisible(),
+                onChange: table.getToggleAllColumnsVisibilityHandler(),
+              }}
+            />
+            Toggle All
+          </label>
+        </div>
+        <div className="pb-1 pt-1.5">
+          {allColumns.map((column) => {
+            return (
+              <div key={column.id} className="px-2 ">
+                <label className="grid grid-cols-[20px_1fr] gap-2 text-xs items-center mb-1 hover:cursor-pointer">
+                  <input
+                    {...{
+                      className: "cursor-pointer",
+                      type: "checkbox",
+                      checked: column.getIsVisible(),
+                      onChange: column.getToggleVisibilityHandler(),
+                    }}
+                  />
+                  {column.columnDef.header}
+                </label>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="my-2 px-2 bg-white rounded-md ">
         <table className="table__sm">
           <thead>

@@ -38,7 +38,7 @@ const OtherCreateAccount = () => {
     "roles" // key
   );
 
-  const getClientId = roles?.data.filter((item) => item.role_is_client === 1);
+  const roleId = roles?.data.filter((item) => item.role_is_client === 1);
 
   const initVal = {
     user_other_fname: "",
@@ -110,7 +110,7 @@ const OtherCreateAccount = () => {
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 mutation.mutate({
                   ...values,
-                  user_other_role_id: getClientId[0].role_aid,
+                  user_other_role_id: roleId[0].role_aid,
                 });
               }}
             >
