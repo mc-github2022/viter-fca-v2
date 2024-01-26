@@ -110,15 +110,29 @@ class Discount
     public function update()
     {
         try {
-            $sql = "update {$this->tblRole} set ";
-            $sql .= "role_description = :role_description, ";
-            $sql .= "role_datetime = :role_datetime ";
-            $sql .= "where role_aid  = :role_aid ";
+            $sql = "update {$this->tblDiscount} set ";
+            $sql .= "discount_type = :discount_type, ";
+            $sql .= "discount_tuition_fee = :discount_tuition_fee, ";
+            $sql .= "discount_entrance_fee = :discount_entrance_fee, ";
+            $sql .= "discount_category = :discount_category, ";
+            $sql .= "discount_qualifications = :discount_qualifications, ";
+            $sql .= "discount_duration = :discount_duration, ";
+            $sql .= "discount_maintaining_grade = :discount_maintaining_grade, ";
+            $sql .= "discount_requirement = :discount_requirement, ";
+            $sql .= "discount_datetime = :discount_datetime ";
+            $sql .= "where discount_aid = :discount_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "role_description" => $this->role_description,
-                "role_datetime" => $this->role_datetime,
-                "role_aid" => $this->role_aid,
+                "discount_type" => $this->discount_type,
+                "discount_tuition_fee" => $this->discount_tuition_fee,
+                "discount_entrance_fee" => $this->discount_entrance_fee,
+                "discount_category" => $this->discount_category,
+                "discount_qualifications" => $this->discount_qualifications,
+                "discount_duration" => $this->discount_duration,
+                "discount_maintaining_grade" => $this->discount_maintaining_grade,
+                "discount_requirement" => $this->discount_requirement,
+                "discount_datetime" => $this->discount_datetime,
+                "discount_aid" => $this->discount_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -130,15 +144,15 @@ class Discount
     public function active()
     {
         try {
-            $sql = "update {$this->tblRole} set ";
-            $sql .= "role_is_active = :role_is_active, ";
-            $sql .= "role_datetime = :role_datetime ";
-            $sql .= "where role_aid = :role_aid ";
+            $sql = "update {$this->tblDiscount} set ";
+            $sql .= "discount_is_active = :discount_is_active, ";
+            $sql .= "discount_datetime = :discount_datetime ";
+            $sql .= "where discount_aid = :discount_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "role_is_active" => $this->role_is_active,
-                "role_datetime" => $this->role_datetime,
-                "role_aid" => $this->role_aid,
+                "discount_is_active" => $this->discount_is_active,
+                "discount_datetime" => $this->discount_datetime,
+                "discount_aid" => $this->discount_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -150,11 +164,11 @@ class Discount
     public function delete()
     {
         try {
-            $sql = "delete from {$this->tblRole} ";
-            $sql .= "where role_aid = :role_aid ";
+            $sql = "delete from {$this->tblDiscount} ";
+            $sql .= "where discount_aid = :discount_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "role_aid" => $this->role_aid,
+                "discount_aid" => $this->discount_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -231,11 +245,11 @@ class Discount
     public function checkName()
     {
         try {
-            $sql = "select role_name from {$this->tblRole} ";
-            $sql .= "where role_name = :role_name ";
+            $sql = "select discount_type from {$this->tblDiscount} ";
+            $sql .= "where discount_type = :discount_type ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "role_name" => "{$this->role_name}",
+                "discount_type" => "{$this->discount_type}",
             ]);
         } catch (PDOException $ex) {
             $query = false;

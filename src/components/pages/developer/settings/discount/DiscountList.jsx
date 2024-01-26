@@ -73,11 +73,13 @@ const DiscountList = ({ setItemEdit }) => {
             className={
               "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
             }
-            key={key}>
+            key={key}
+          >
             <div
               className={`${
                 item.discount_is_active ? "opacity-100" : "opacity-40"
-              } `}>
+              } `}
+            >
               <p className="mb-1">{item.discount_type}</p>
             </div>
 
@@ -88,7 +90,8 @@ const DiscountList = ({ setItemEdit }) => {
                     <button
                       className="tooltip"
                       data-tooltip="Edit"
-                      onClick={() => handleEdit(item)}>
+                      onClick={() => handleEdit(item)}
+                    >
                       <FiEdit2 />
                     </button>
                   </li>
@@ -96,7 +99,8 @@ const DiscountList = ({ setItemEdit }) => {
                     <button
                       className="tooltip"
                       data-tooltip="Archive"
-                      onClick={() => handleArchive(item)}>
+                      onClick={() => handleArchive(item)}
+                    >
                       <BsArchive />
                     </button>
                   </li>
@@ -107,7 +111,8 @@ const DiscountList = ({ setItemEdit }) => {
                     <button
                       className="tooltip"
                       data-tooltip="Restore"
-                      onClick={() => handleRestore(item)}>
+                      onClick={() => handleRestore(item)}
+                    >
                       <MdOutlineRestore className="text-base" />
                     </button>
                   </li>
@@ -115,7 +120,8 @@ const DiscountList = ({ setItemEdit }) => {
                     <button
                       className="tooltip"
                       data-tooltip="Delete"
-                      onClick={() => handleDelete(item)}>
+                      onClick={() => handleDelete(item)}
+                    >
                       <FiTrash />
                     </button>
                   </li>
@@ -128,22 +134,22 @@ const DiscountList = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/dev-roles/active/${id}`}
+          mysqlApiArchive={`/v2/dev-settings-discount/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
           item={dataItem.role_name}
-          queryKey={"roles"}
+          queryKey={"discount"}
           isArchive={isArchive}
         />
       )}
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-roles/${id}`}
+          mysqlApiDelete={`/v2/dev-settings-discount/${id}`}
           msg={"Are you sure you want to delete this record?"}
           item={dataItem.role_name}
-          queryKey={"roles"}
+          queryKey={"discount"}
         />
       )}
     </>

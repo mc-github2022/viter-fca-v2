@@ -29,7 +29,7 @@ isNameExist($discount, $discount->discount_type);
 // create
 $query = checkCreate($discount);
 // add column
-checkAddColumn($discount, $column_name);
+// checkAddColumn($discount, $column_name);
 // update column value after adding
-checkUpdateColumnValue($discount, $column_name);
+// checkUpdateColumnValue($discount, $column_name);
 returnSuccess($discount, "Discount", $query);

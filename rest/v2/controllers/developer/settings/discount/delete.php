@@ -3,25 +3,25 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$role = new Role($conn);
+$discount = new Discount($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("roleid", $_GET)) {
+if (array_key_exists("discountid", $_GET)) {
     // get data
-    $role->role_aid = $_GET['roleid'];
-    $column_name = strtolower($data['item']);
-    checkId($role->role_aid);
+    $discount->discount_aid = $_GET['discountid'];
+    // $column_name = strtolower($data['item']);
+    checkId($discount->discount_aid);
     // delete
-    if ($column_name == "developer") {
-        isUserSystemAssociated($role);
-    } else {
-        isUserOtherAssociated($role);
-    }
+    // if ($column_name == "developer") {
+    //     isUserSystemAssociated($discount);
+    // } else {
+    //     isUserOtherAssociated($discount);
+    // }
 
-    $query = checkDelete($role);
-    checkDropColumnName($role, $column_name);
-    returnSuccess($role, "Role", $query);
+    $query = checkDelete($discount);
+    // checkDropColumnName($discount, $column_name);
+    returnSuccess($discount, "Discount", $query);
 }
 
 // return 404 error if endpoint not available
