@@ -131,24 +131,7 @@ RewriteRule ^dev-settings-discount/([0-9]+)$ controllers/developer/settings/disc
 RewriteRule ^dev-settings-discount/active/([0-9]+)$ controllers/developer/settings/discount/active.php?discountid=$1 [L]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# TESTING LANG TO NNG REACT TABLE
+# INFO-STUDENT
 RewriteRule ^student$ controllers/developer/students/students.php [L]
 RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
-RewriteRule ^student/active/([0-9]+)$ controllers/developer/student/active.php?studentid=$1 [L]
+RewriteRule ^student/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]

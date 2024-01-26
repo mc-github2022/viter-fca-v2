@@ -1,7 +1,7 @@
 <?php
 $conn = null;
 $conn = checkDbConnection();
-$student = new Students($conn);
+$student = new StudentInfo($conn);
 $error = [];
 $returnData = [];
 
