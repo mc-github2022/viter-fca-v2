@@ -41,23 +41,27 @@ const ParentInfoForm = () => {
   });
 
   const handleGotoContact = (props) => {
+    props.validateForm();
     if (Object.keys(props.errors).length === 0 && props.dirty) {
       setIndex(2);
-      setIsBasicComplete(true);
+      console.log("leave");
+      // setIsBasicComplete(true);
     } else {
       setIndex(1);
-      setIsBasicComplete(false);
+      console.log("stay");
     }
   };
 
   const handleGotoOther = (props) => {
+    props.validateForm();
+    // setIsBasicComplete(true);
     if (Object.keys(props.errors).length === 0) {
+      setIndex(3);
       console.log("leave");
     } else {
+      setIndex(2);
       console.log("stay");
     }
-
-    console.log(props.errors);
   };
 
   const initVal = {
@@ -65,6 +69,8 @@ const ParentInfoForm = () => {
     parent_guardian_info_reside: "",
     parent_guardian_info_email: "",
     parent_guardian_info_mobile: "",
+    other1: "",
+    other2: "",
   };
   const yupSchema = Yup.object({
     parent_guardian_info_relationship_id: Yup.string().required("Required"),
@@ -136,9 +142,11 @@ const ParentInfoForm = () => {
                       <div className="flex gap-4 mt-3">
                         <button
                           className="btn btn--accent"
+                          type=""
                           onClick={() => handleGotoContact(props)}
+                          // onClick={() => props.validateForm()}
                         >
-                          validate basic
+                          goto contact
                         </button>
                         <button className="btn btn--cancel">Dismiss</button>
                       </div>
@@ -170,9 +178,10 @@ const ParentInfoForm = () => {
                       <div className="flex gap-4 mt-3">
                         <button
                           className="btn btn--accent"
+                          type=""
                           onClick={() => handleGotoOther(props)}
                         >
-                          validate contact
+                          goto other
                         </button>
                         <button className="btn btn--cancel">Dismiss</button>
                       </div>
@@ -180,7 +189,7 @@ const ParentInfoForm = () => {
 
                     <div
                       className={`form__other ${
-                        index === 2 ? "block" : "hidden"
+                        index === 3 ? "block" : "hidden"
                       }`}
                     >
                       <div className="grid grid-cols-3 gap-2">
@@ -198,9 +207,8 @@ const ParentInfoForm = () => {
                       </div>
 
                       <div className="flex gap-4 mt-3">
-                        <button className="btn btn--accent">
-                          {" "}
-                          validate other
+                        <button className="btn btn--accent" type="button">
+                          Tapos na
                         </button>
                         <button className="btn btn--cancel">Dismiss</button>
                       </div>
