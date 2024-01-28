@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd } from "@/components/store/StoreAction";
+import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import RequirementFinanceFormAddEdit from "./RequirementFinanceFormAddEdit";
 import RequirementFinanceList from "./RequirementFinanceList";
@@ -25,7 +25,7 @@ const RequirementFinance = ({ index }) => {
   );
 
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(null);
   };
 
@@ -41,7 +41,7 @@ const RequirementFinance = ({ index }) => {
             </p>
           </div>
 
-          {!store.isAdd && (
+          {!store.isSettingAdd && (
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
@@ -50,13 +50,15 @@ const RequirementFinance = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && (
+          {store.isSettingAdd && (
             <RequirementFinanceFormAddEdit
               itemEdit={itemEdit}
               department={department}
             />
           )}
-          {!store.isAdd && <RequirementFinanceList setItemEdit={setItemEdit} />}
+          {!store.isSettingAdd && (
+            <RequirementFinanceList setItemEdit={setItemEdit} />
+          )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

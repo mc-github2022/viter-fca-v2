@@ -81,7 +81,7 @@ const Header = () => {
   return (
     <>
       {loading && <FetchingSpinner />}
-      <header className=" px-4 fixed  w-full bg-primary shadow-sm  py-1 z-50">
+      <header className=" px-4 fixed  w-full bg-primary shadow-sm  py-1 z-20">
         <div className="flex justify-between items-center">
           <div className="flex justify-center">
             <button className="text-2xl lg:hidden" onClick={handleToggleMenu}>

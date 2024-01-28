@@ -4,6 +4,7 @@ import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
   setIsAdd,
+  setIsSettingAdd,
   setMessage,
   setSuccess,
 } from "@/components/store/StoreAction";
@@ -18,7 +19,7 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
   const queryClient = useQueryClient();
 
   const handleClose = () => {
-    dispatch(setIsAdd(false));
+    dispatch(setIsSettingAdd(false));
   };
 
   const mutation = useMutation({
@@ -33,13 +34,13 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["grade-level"] });
-
+      console.log(data);
       // show error box
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        dispatch(setIsAdd(false));
+        dispatch(setIsSettingAdd(false));
         dispatch(setSuccess(true));
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
@@ -118,8 +119,6 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
                   >
                     Discard
                   </button>
-
-                  <button onClick={() => props.validateForm()}>Validate</button>
                 </div>
               </Form>
             );

@@ -4,6 +4,7 @@ import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
   setIsAdd,
+  setIsSettingAdd,
   setMessage,
   setSuccess,
 } from "@/components/store/StoreAction";
@@ -18,7 +19,7 @@ const DepartmentFormAddEdit = ({ itemEdit }) => {
   const queryClient = useQueryClient();
 
   const handleClose = () => {
-    dispatch(setIsAdd(false));
+    dispatch(setIsSettingAdd(false));
   };
 
   const mutation = useMutation({
@@ -39,7 +40,7 @@ const DepartmentFormAddEdit = ({ itemEdit }) => {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        dispatch(setIsAdd(false));
+        dispatch(setIsSettingAdd(false));
         dispatch(setSuccess(true));
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)

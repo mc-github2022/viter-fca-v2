@@ -6,7 +6,7 @@ const Pills = ({
   label = "label",
 }) => {
   return (
-    <p className={`relative ${color}`}>
+    <p className={`relative ml-4 ${color}`}>
       <span
         className={`h-[7px] w-[7px] rounded-full bg-${bg} absolute ${bg} top-1 -left-4`}
       ></span>

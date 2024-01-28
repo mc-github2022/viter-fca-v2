@@ -3,7 +3,7 @@ import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
-  setIsAdd,
+  setIsSettingAdd,
   setMessage,
   setSuccess,
 } from "@/components/store/StoreAction";
@@ -18,7 +18,7 @@ const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
   const queryClient = useQueryClient();
 
   const handleClose = () => {
-    dispatch(setIsAdd(false));
+    dispatch(setIsSettingAdd(false));
   };
 
   const getDeveloperRole = roles?.data.filter(
@@ -43,7 +43,7 @@ const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        dispatch(setIsAdd(false));
+        dispatch(setIsSettingAdd(false));
         dispatch(setSuccess(true));
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)

@@ -5,7 +5,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd } from "@/components/store/StoreAction";
+import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import SchemeFormAddEdit from "./SchemeFormAddEdit";
 import SchemeList from "./SchemeList";
@@ -14,7 +14,7 @@ const Scheme = ({ index }) => {
   const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(null);
   };
 
@@ -30,7 +30,7 @@ const Scheme = ({ index }) => {
             </p>
           </div>
 
-          {!store.isAdd && (
+          {!store.isSettingAdd && (
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
@@ -39,8 +39,8 @@ const Scheme = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && <SchemeFormAddEdit itemEdit={itemEdit} />}
-          {!store.isAdd && <SchemeList setItemEdit={setItemEdit} />}
+          {store.isSettingAdd && <SchemeFormAddEdit itemEdit={itemEdit} />}
+          {!store.isSettingAdd && <SchemeList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

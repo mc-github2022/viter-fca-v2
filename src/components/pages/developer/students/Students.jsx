@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import StudentList from "./StudentList";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 
 const Students = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -48,6 +49,8 @@ const Students = () => {
 
         <Footer />
       </section>
+
+      {store.success && <ModalSuccess />}
     </>
   );
 };

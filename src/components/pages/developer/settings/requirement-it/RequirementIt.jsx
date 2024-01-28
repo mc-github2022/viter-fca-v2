@@ -5,7 +5,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd } from "@/components/store/StoreAction";
+import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import RequirementRegistrarFormAddEdit from "./RequirementItFormAddEdit";
 import RequirementRegistrarList from "./RequirementItList";
@@ -16,7 +16,7 @@ const RequirementIt = ({ index }) => {
   const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(null);
   };
 
@@ -43,7 +43,7 @@ const RequirementIt = ({ index }) => {
             </p>
           </div>
 
-          {!store.isAdd && (
+          {!store.isSettingAdd && (
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
@@ -52,13 +52,15 @@ const RequirementIt = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && (
+          {store.isSettingAdd && (
             <RequirementItFormAddEdit
               itemEdit={itemEdit}
               department={department}
             />
           )}
-          {!store.isAdd && <RequirementItList setItemEdit={setItemEdit} />}
+          {!store.isSettingAdd && (
+            <RequirementItList setItemEdit={setItemEdit} />
+          )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd } from "@/components/store/StoreAction";
+import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import GradeLevelFormAddEdit from "./GradeLevelFormAddEdit";
 import GradeLevelList from "./GradeLevelList";
@@ -14,8 +14,9 @@ const GradeLevel = ({ index }) => {
   const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(null);
+    console.log(store.isSettingAdd);
   };
 
   if (index === 4) {
@@ -39,8 +40,8 @@ const GradeLevel = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && <GradeLevelFormAddEdit itemEdit={itemEdit} />}
-          {!store.isAdd && <GradeLevelList setItemEdit={setItemEdit} />}
+          {store.isSettingAdd && <GradeLevelFormAddEdit itemEdit={itemEdit} />}
+          {!store.isSettingAdd && <GradeLevelList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

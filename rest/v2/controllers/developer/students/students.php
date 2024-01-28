@@ -1,7 +1,7 @@
 <?php
 require '../../../core/header.php';
 require '../../../core/functions.php';
-require '../../../models/developer/students/Students.php';
+require '../../../models/developer/student-info/StudentInfo.php';
 
 
 $body = file_get_contents("php://input");

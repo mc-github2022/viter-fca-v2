@@ -5,6 +5,11 @@ import Pills from "@/components/partials/Pills.jsx";
 import SearchBar from "@/components/partials/SearchBar";
 import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalConfirm from "@/components/partials/modals/ModalConfirm";
+import ModalDelete from "@/components/partials/modals/ModalDelete";
+import { setIsConfirm, setIsDelete } from "@/components/store/StoreAction";
+import { StoreContext } from "@/components/store/StoreContext";
+import { useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
 import { BsArchive, BsThreeDotsVertical } from "react-icons/bs";
@@ -14,6 +19,12 @@ import { MdArchive, MdOutlineRestore, MdRestore } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 const StudentList = () => {
+  const { store, dispatch } = React.useContext(StoreContext);
+  const [isArchive, setIsArchive] = React.useState(1);
+  const queryClient = useQueryClient();
+  const [dataItem, setData] = React.useState(null);
+  const [id, setId] = React.useState(null);
+
   const {
     isLoading,
     isFetching,
@@ -24,6 +35,27 @@ const StudentList = () => {
     "get", // method
     "student" // key
   );
+
+  const handleArchive = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.student_info_aid);
+    setData(item);
+    setIsArchive(0);
+  };
+
+  const handleRestore = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.student_info_aid);
+    setData(item);
+    setIsArchive(1);
+    console.log(isArchive);
+  };
+
+  const handleDelete = (item) => {
+    dispatch(setIsDelete(true));
+    setId(item.student_info_aid);
+    setData(item);
+  };
 
   const columnHelper = createColumnHelper();
 
@@ -39,13 +71,13 @@ const StudentList = () => {
     columnHelper.accessor("student_name", {
       header: "Name",
       cell: (row) =>
-        `${row.row.original.student_name} ${row.row.original.student_gender}`,
+        `${row.row.original.student_info_fname} ${row.row.original.student_info_mname} ${row.row.original.student_info_lname}`,
     }),
 
     columnHelper.accessor("student_active", {
-      header: "Active",
+      header: "Status",
       cell: (row) => {
-        if (row.row.original.student_active === 1) {
+        if (row.row.original.student_info_is_archive == 1) {
           return (
             <Pills bg="bg-green-500" label="Active" color="text-green-500" />
           );
@@ -57,11 +89,11 @@ const StudentList = () => {
       },
     }),
 
-    columnHelper.accessor("student_gender", {
+    columnHelper.accessor("student_info_gender", {
       header: "Gender",
     }),
 
-    columnHelper.accessor("student_grade_level", {
+    columnHelper.accessor("student_info_grade_id", {
       header: "Grade Level",
     }),
 
@@ -69,8 +101,8 @@ const StudentList = () => {
       header: "Action",
       cell: (row) => (
         <>
-          {row.row.original.student_active === 1 ? (
-            <div className="flex gap-2 justify-end">
+          {row.row.original.student_info_is_archive == 1 ? (
+            <div className="flex gap-2 justify-end pr-4">
               <button
                 type="button"
                 className="tooltip "
@@ -89,7 +121,7 @@ const StudentList = () => {
               </button>
             </div>
           ) : (
-            <div className="flex gap-2 justify-end">
+            <div className="flex gap-2 justify-end pr-4">
               <button
                 type="button"
                 className="tooltip"
@@ -127,6 +159,27 @@ const StudentList = () => {
           )}
         </div>
       </div>
+
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/v2/student/active/${id}`}
+          msg={`Are you sure you want to ${
+            isArchive ? "restore" : "archive"
+          } this record?`}
+          item={dataItem.student_info_fname}
+          queryKey={"student"}
+          isArchive={isArchive}
+        />
+      )}
+
+      {store.isDelete && (
+        <ModalDelete
+          mysqlApiDelete={`/v2/student/${id}`}
+          msg={"Are you sure you want to delete this record?"}
+          item={dataItem.student_info_fname}
+          queryKey={"student"}
+        />
+      )}
     </>
   );
 };

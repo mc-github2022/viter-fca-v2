@@ -70,6 +70,10 @@
     @apply text-base mb-1;
   }
 
+  h6 {
+    @apply text-xs mb-1;
+  }
+
   html {
     @apply h-full;
   }
@@ -367,7 +371,7 @@
   /* MODAL */
 
   .modal {
-    @apply fixed top-0 left-0 z-[999999] w-full h-screen;
+    @apply fixed top-0 left-0 z-20 w-full h-screen;
   }
 
   .modal__backdrop {
@@ -375,7 +379,7 @@
   }
 
   .modal.modal--side .modal__main {
-    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-6 ml-2 shadow-left animate-slideLeft opacity-0 ease-modal-timing translate-x-[20%] transition-all;
+    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-6 ml-2 shadow-left animate-slideLeft opacity-0 ease-linear translate-x-[20%] transition-all;
   }
 
   .modal__main .modal__header {
@@ -412,6 +416,10 @@
 
   .modal.modal--settings.show .modal__backdrop {
     @apply opacity-100  bg-black/30;
+  }
+
+  .modal__center.show .modal__main {
+    @apply opacity-100 scale-100;
   }
 
   .modal__settings__nav ul li.active {
@@ -476,6 +484,10 @@
 
   .dropdown.inactive {
     @apply opacity-0 scale-90 visible ease-in-out duration-200 transition-all pointer-events-none;
+  }
+
+  .multistep__link.active {
+    @apply bg-accent text-white;
   }
 }
 

@@ -42,7 +42,6 @@ const GradeLevelList = ({ setItemEdit }) => {
     setId(item.grade_level_aid);
     setData(item);
     setIsArchive(0);
-    console.log(isArchive);
   };
 
   const handleRestore = (item) => {
@@ -50,7 +49,6 @@ const GradeLevelList = ({ setItemEdit }) => {
     setId(item.grade_level_aid);
     setData(item);
     setIsArchive(1);
-    console.log(isArchive);
   };
 
   const handleDelete = (item) => {

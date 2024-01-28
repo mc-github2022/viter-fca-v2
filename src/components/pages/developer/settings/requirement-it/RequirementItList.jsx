@@ -50,7 +50,6 @@ const RequirementItList = ({ setItemEdit }) => {
     setId(item.requirement_it_aid);
     setData(item);
     setIsArchive(1);
-    console.log(isArchive);
   };
 
   const handleDelete = (item) => {

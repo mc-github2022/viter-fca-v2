@@ -99,50 +99,39 @@ RewriteRule ^user-other/token$ controllers/developer/settings/system/token.php [
 
 #INFO-CONTACT
 RewriteRule ^dev-info-contact$ controllers/developer/client/info-contact/info-contact.php [L]
-RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?infocontact=$1 [L]
-RewriteRule ^dev-info-contact/active/([0-9]+)$ controllers/developer/client/info-contact/active.php?infocontact=$1 [L]
+RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?infocontactid=$1 [L]
+
+RewriteRule ^dev-read-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?parentuid=$1 [L]
 
 #INFO-FINANCIAL
 RewriteRule ^dev-info-financial$ controllers/developer/client/info-financial/info-financial.php [L]
 RewriteRule ^dev-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?infofinancial=$1 [L]
-RewriteRule ^dev-info-financial/active/([0-9]+)$ controllers/developer/client/info-financial/active.php?infofinancial=$1 [L]
+
+RewriteRule ^dev-read-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?parentuid=$1 [L]
 ###### DEV CLIENT ######
 
 RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
-RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfouid=$1 [L]
+RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoaid=$1 [L]
 
-RewriteRule ^dev-info-parent-basic-update/([0-9]+)$ controllers/developer/client/info-parent-guardian/update-basic.php?parentinfoaid=$1 [L]
-RewriteRule ^dev-info-parent-contact-update/([0-9]+)$ controllers/developer/client/info-parent-guardian/update-contact.php?parentinfoaid=$1 [L]
+RewriteRule ^dev-read-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfouid=$1 [L]
+
 
 ###### DEV CLIENT ######
 
 
 #PROFILE
 RewriteRule ^dev-profile$ controllers/developer/account/profile.php [L]
+RewriteRule ^dev-profile-acc/([0-9])$ controllers/developer/account/read-profile-byId.php?profileid=$1 [L]
 RewriteRule ^dev-profile/([0-9]+)$ controllers/developer/account/profile.php?profileid=$1 [L]
 
 
+# DISCOUNT
+RewriteRule ^dev-settings-discount$ controllers/developer/settings/discount/discount.php [L]
+RewriteRule ^dev-settings-discount/([0-9]+)$ controllers/developer/settings/discount/discount.php?discountid=$1 [L]
+RewriteRule ^dev-settings-discount/active/([0-9]+)$ controllers/developer/settings/discount/active.php?discountid=$1 [L]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# TESTING LANG TO NNG REACT TABLE
+# INFO-STUDENT
 RewriteRule ^student$ controllers/developer/students/students.php [L]
 RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
-RewriteRule ^student/active/([0-9]+)$ controllers/developer/student/active.php?studentid=$1 [L]
+RewriteRule ^student/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]

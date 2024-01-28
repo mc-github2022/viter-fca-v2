@@ -5,9 +5,9 @@ $infoContact = new InfoContact($conn);
 $error = [];
 $returnData = [];
 
-if (array_key_exists("infocontact", $_GET)) {
-    $infoContact->contact_aid = $_GET['infocontact'];
-    checkId($infoContact->contact_aid);
+if (array_key_exists("parentuid", $_GET)) {
+    $infoContact->contact_user_id = $_GET['parentuid'];
+    checkId($infoContact->contact_user_id);
     $query = checkReadById($infoContact);
     http_response_code(200);
     getQueriedData($query);

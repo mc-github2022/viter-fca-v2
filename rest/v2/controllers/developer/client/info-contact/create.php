@@ -1,21 +1,20 @@
 <?php
 $conn = null;
 $conn = checkDbConnection();
-$InfoContact = new InfoContact($conn);
-if (array_key_exists("infocontact", $_GET)) {
-    checkEndpoint();
-}
+$contact = new InfoContact($conn);
+
 checkPayload($data);
-$InfoContact->contact_user_id = checkIndex($data, "contact_user_id");
-$InfoContact->contact_name = checkIndex($data, "contact_name");
-$InfoContact->contact_email = checkIndex($data, "contact_email");
-$InfoContact->contact_mobile = checkIndex($data, "contact_mobile");
-$InfoContact->contact_landline = checkIndex($data, "contact_landline");
-$InfoContact->contact_level = checkIndex($data, "contact_level");
-$InfoContact->contact_created = date("Y-m-d H:i:s");
-$InfoContact->contact_datetime = date("Y-m-d H:i:s");
+$contact->contact_user_id = checkIndex($data, "contact_user_id");
+$contact->contact_name = checkIndex($data, "contact_name");
+$contact->contact_email = checkIndex($data, "contact_email");
+$contact->contact_mobile = checkIndex($data, "contact_mobile");
+$contact->contact_landline = $data["contact_landline"];
+$contact->contact_level = checkIndex($data, "contact_level");
+$contact->contact_created = date("Y-m-d H:i:s");
+$contact->contact_datetime = date("Y-m-d H:i:s");
 
-isNameExist($InfoContact, $InfoContact->contact_name);
+isNameExist($contact, $contact->contact_name);
 
-$query = checkCreate($InfoContact);
-returnSuccess($InfoContact, "InfoContact", $query);
+$query = checkCreate($contact);
+returnSuccess($contact, "", $query);
+checkEndpoint();
