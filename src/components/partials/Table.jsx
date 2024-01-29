@@ -8,7 +8,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import React from "react";
-import { CiFilter } from "react-icons/ci";
+import { CiFilter, CiViewTable } from "react-icons/ci";
 import { TfiSearch } from "react-icons/tfi";
 
 import {
@@ -36,6 +36,10 @@ const Table = ({
 
   const [showFilter, setShowFilter] = React.useState(false);
   const [showSearch, setShowSearch] = React.useState(false);
+
+  const [show, setShow] = React.useState(false);
+
+  const dropDownRef = React.useRef();
 
   const table = useReactTable({
     data,
@@ -69,77 +73,92 @@ const Table = ({
     return item.id !== "action" && item.id !== "#";
   });
 
+  React.useEffect(() => {
+    let handleShowDropdown = (e) => {
+      if (!dropDownRef.current.contains(e.target)) {
+        setShow(false);
+      }
+    };
+    document.addEventListener("mousedown", handleShowDropdown);
+    return () => {
+      document.removeEventListener("mousedown", handleShowDropdown);
+    };
+  }, []);
+
   return (
     <>
       {hasFilter && (
-        <div className="py-2 flex justify-between mr-2">
-          {showSearch ? (
-            <DebouncedInputSearch
-              value={globalFilter ?? ""}
-              onChange={(value) => setGlobalFilter(String(value))}
-              className="text-sm shadow-sm border border-block"
-              placeholder="Type your keyword"
-            />
-          ) : (
-            <span className="h-[34.75px]"></span>
-          )}
-          <ul className="flex gap-2 items-center mb-2 ">
+        <div className="py-2 flex justify-between items-center mr-2">
+          <DebouncedInputSearch
+            value={globalFilter ?? ""}
+            onChange={(value) => setGlobalFilter(String(value))}
+            className="text-sm shadow-sm border border-block"
+            placeholder="Type your keyword"
+          />
+
+          <ul className="flex gap-2 items-center pt-5 mr-1 ">
             <li>
               <button
-                className="tooltip tooltip--bottom"
-                data-tooltip="Search"
-                onClick={handleSearch}
-              >
-                <TfiSearch />
-              </button>
-            </li>
-            <li>
-              <button
-                className="tooltip tooltip--bottom"
+                className="tooltip  "
                 data-tooltip="Filter"
                 onClick={handleFilter}
               >
                 <CiFilter className="text-lg" />
               </button>
             </li>
+            <li>
+              <div className="column__checkbox relative" ref={dropDownRef}>
+                <button
+                  className="tooltip  "
+                  data-tooltip="Columns"
+                  onClick={() => setShow(!show)}
+                >
+                  <CiViewTable className="text-lg" />
+                </button>
+                <div
+                  className={`border border-line shadow-sm w-[140px] rounded absolute top-full right-3 z-20 bg-white ${
+                    show ? "" : "hidden"
+                  }`}
+                >
+                  <div className=" border-b border-line p-2 ">
+                    <label className="grid grid-cols-[20px_1fr] gap-2 text-xs mb-0 items-center cursor-pointer ">
+                      <input
+                        {...{
+                          className: "cursor-pointer",
+                          type: "checkbox",
+                          checked: table.getIsAllColumnsVisible(),
+                          onChange:
+                            table.getToggleAllColumnsVisibilityHandler(),
+                        }}
+                      />
+                      Toggle All
+                    </label>
+                  </div>
+                  <div className="pb-1 pt-1.5">
+                    {allColumns.map((column) => {
+                      return (
+                        <div key={column.id} className="px-2 ">
+                          <label className="grid grid-cols-[20px_1fr] gap-2 text-xs items-center mb-1 hover:cursor-pointer">
+                            <input
+                              {...{
+                                className: "cursor-pointer",
+                                type: "checkbox",
+                                checked: column.getIsVisible(),
+                                onChange: column.getToggleVisibilityHandler(),
+                              }}
+                            />
+                            {column.columnDef.header}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
       )}
-
-      <div className=" border border-line shadow-sm max-w-[200px] w-full rounded">
-        <div className=" border-b border-line p-2 ">
-          <label className="grid grid-cols-[20px_1fr] gap-2 text-xs mb-0 items-center cursor-pointer ">
-            <input
-              {...{
-                className: "cursor-pointer",
-                type: "checkbox",
-                checked: table.getIsAllColumnsVisible(),
-                onChange: table.getToggleAllColumnsVisibilityHandler(),
-              }}
-            />
-            Toggle All
-          </label>
-        </div>
-        <div className="pb-1 pt-1.5">
-          {allColumns.map((column) => {
-            return (
-              <div key={column.id} className="px-2 ">
-                <label className="grid grid-cols-[20px_1fr] gap-2 text-xs items-center mb-1 hover:cursor-pointer">
-                  <input
-                    {...{
-                      className: "cursor-pointer",
-                      type: "checkbox",
-                      checked: column.getIsVisible(),
-                      onChange: column.getToggleVisibilityHandler(),
-                    }}
-                  />
-                  {column.columnDef.header}
-                </label>
-              </div>
-            );
-          })}
-        </div>
-      </div>
 
       <div className="my-2 px-2 bg-white rounded-md ">
         <table className="table__sm">
