@@ -95,6 +95,13 @@ export const setIsAdd = (val) => {
   };
 };
 
+export const setIsSettingAdd = (val) => {
+  return {
+    type: "IS_SETTING_ADD",
+    payload: val,
+  };
+};
+
 export const setIsUploadFile = (val) => {
   return {
     type: "IS_UPLOAD_FILE",

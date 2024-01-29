@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd } from "@/components/store/StoreAction";
+import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import UserOtherFormAddEdit from "./UserOtherFormAddEdit";
 import UserOtherList from "./UserOtherList";
@@ -25,7 +25,7 @@ const UserOther = ({ index }) => {
   );
 
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(null);
   };
 
@@ -41,7 +41,7 @@ const UserOther = ({ index }) => {
             </p>
           </div>
 
-          {!store.isAdd && (
+          {!store.isSettingAdd && (
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
@@ -50,10 +50,10 @@ const UserOther = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && (
+          {store.isSettingAdd && (
             <UserOtherFormAddEdit itemEdit={itemEdit} roles={roles} />
           )}
-          {!store.isAdd && <UserOtherList setItemEdit={setItemEdit} />}
+          {!store.isSettingAdd && <UserOtherList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

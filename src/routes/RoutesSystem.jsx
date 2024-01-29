@@ -6,15 +6,11 @@ import SystemLogin from "@/components/pages/access/developer/SystemLogin.jsx";
 import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEmailSystemUser.jsx";
 import Profile from "@/components/pages/developer/account/Profile.jsx";
 import Clients from "@/components/pages/developer/clients/Clients.jsx";
-import Settings from "@/components/pages/developer/settings/Settings";
+import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
 import Department from "@/components/pages/developer/settings/department_old/Departmentx.jsx";
 
 import Discount from "@/components/pages/developer/settings/discount/Discount";
-import Notification from "@/components/pages/developer/settings/notifications/Notifications";
-import {
-  default as System,
-  default as Users,
-} from "@/components/pages/developer/settings/user-system/UserSystem.jsx";
+import { default as System } from "@/components/pages/developer/settings/user-system/UserSystem.jsx";
 import Students from "@/components/pages/developer/students/Students";
 import StudentInfo from "@/components/pages/developer/students/profile/StudentInfo.jsx";
 
@@ -64,6 +60,15 @@ export const routesSystem = [
   },
 
   {
+    path: `/${devNavUrl}/system/clients/information`,
+    element: (
+      <ProtectedRouteSystem>
+        <ClientViewInfo />
+      </ProtectedRouteSystem>
+    ),
+  },
+
+  {
     path: `${devNavUrl}/system/settings/users`,
     element: (
       //   <ProtectedRouteSystem>
@@ -71,14 +76,7 @@ export const routesSystem = [
       //   </ProtectedRouteSystem>
     ),
   },
-  {
-    path: `${devNavUrl}/system/settings`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <Settings />
-      //   </ProtectedRouteSystem>
-    ),
-  },
+
   {
     path: `${devNavUrl}/system/settings/department`,
     element: (

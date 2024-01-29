@@ -5,7 +5,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd } from "@/components/store/StoreAction";
+import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import RequirementRegistrarFormAddEdit from "./TuitionCategoryAddEdit";
 import RequirementRegistrarList from "./TuitionCategoryList";
@@ -18,7 +18,7 @@ const TuitionCategory = ({ index }) => {
   const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(null);
   };
 
@@ -34,7 +34,7 @@ const TuitionCategory = ({ index }) => {
             </p>
           </div>
 
-          {!store.isAdd && (
+          {!store.isSettingAdd && (
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
@@ -43,8 +43,10 @@ const TuitionCategory = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && <TuitionCategoryAddEdit itemEdit={itemEdit} />}
-          {!store.isAdd && <TuitionCategoryList setItemEdit={setItemEdit} />}
+          {store.isSettingAdd && <TuitionCategoryAddEdit itemEdit={itemEdit} />}
+          {!store.isSettingAdd && (
+            <TuitionCategoryList setItemEdit={setItemEdit} />
+          )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

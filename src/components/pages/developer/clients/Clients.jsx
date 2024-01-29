@@ -63,7 +63,7 @@ const Clients = () => {
             </button>
           </div>
 
-          <ClientList />
+          <ClientList setItemEdit={setItemEdit} />
         </main>
 
         <Footer />

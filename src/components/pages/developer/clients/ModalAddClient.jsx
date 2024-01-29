@@ -15,7 +15,7 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 
-const ModalAddClient = ({ itemEdit, roles }) => {
+const ModalAddClient = ({ itemEdit, roles, id }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -32,13 +32,14 @@ const ModalAddClient = ({ itemEdit, roles }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit ? `/v2/user-other/${id}` : "/v2/user-other",
+        itemEdit
+          ? `/v2/user-other/${itemEdit.user_other_aid}`
+          : "/v2/user-other",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      console.log(data);
       queryClient.invalidateQueries({ queryKey: ["clients"] });
       // show error box
       if (data.success) {
@@ -56,6 +57,7 @@ const ModalAddClient = ({ itemEdit, roles }) => {
     user_other_fname: itemEdit ? itemEdit.user_other_fname : "",
     user_other_lname: itemEdit ? itemEdit.user_other_lname : "",
     user_other_email: itemEdit ? itemEdit.user_other_email : "",
+    user_other_email_old: itemEdit ? itemEdit.user_other_email : "",
   };
 
   const yupSchema = Yup.object({

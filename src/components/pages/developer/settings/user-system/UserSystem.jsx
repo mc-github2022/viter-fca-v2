@@ -5,7 +5,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd } from "@/components/store/StoreAction";
+import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import UserSystemFormAddEdit from "./UserSystemFormAddEdit";
 import UserSystemList from "./UserSystemList";
@@ -15,7 +15,7 @@ const UserSystem = ({ index }) => {
   const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(null);
   };
 
@@ -42,7 +42,7 @@ const UserSystem = ({ index }) => {
             </p>
           </div>
 
-          {!store.isAdd && (
+          {!store.isSettingAdd && (
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
@@ -51,10 +51,10 @@ const UserSystem = ({ index }) => {
             </button>
           )}
 
-          {store.isAdd && (
+          {store.isSettingAdd && (
             <UserSystemFormAddEdit itemEdit={itemEdit} roles={roles} />
           )}
-          {!store.isAdd && <UserSystemList setItemEdit={setItemEdit} />}
+          {!store.isSettingAdd && <UserSystemList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

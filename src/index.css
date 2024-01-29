@@ -71,7 +71,7 @@
   }
 
   h6 {
-    @apply text-[14px] mb-1;
+    @apply text-xs mb-1;
   }
 
   html {

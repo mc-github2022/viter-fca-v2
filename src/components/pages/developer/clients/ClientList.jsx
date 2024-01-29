@@ -3,13 +3,26 @@ import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
 import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalConfirm from "@/components/partials/modals/ModalConfirm";
+import ModalDelete from "@/components/partials/modals/ModalDelete";
+import {
+  setIsAdd,
+  setIsConfirm,
+  setIsDelete,
+} from "@/components/store/StoreAction";
+import { StoreContext } from "@/components/store/StoreContext";
 import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 
-const ClientList = () => {
+const ClientList = ({ setItemEdit }) => {
+  const { store, dispatch } = React.useContext(StoreContext);
+  const [id, setId] = React.useState(null);
+  const [dataItem, setData] = React.useState(null);
+  const [isArchive, setIsArchive] = React.useState(1);
+
   const [columnVisibility, setColumnVisibility] = React.useState({
     user_other_email: false,
     user_other_is_active: false,
@@ -26,15 +39,39 @@ const ClientList = () => {
     "clients" // key
   );
 
-  const columnHelper = createColumnHelper();
+  const handleEdit = (item) => {
+    setItemEdit(item);
+    dispatch(setIsAdd(true));
+    setId(item.user_other_aid);
+  };
 
+  const handleArchive = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.user_other_aid);
+    setData(item);
+    setIsArchive(0);
+  };
+
+  const handleRestore = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.user_other_aid);
+    setData(item);
+    setIsArchive(1);
+  };
+
+  const handleDelete = (item) => {
+    dispatch(setIsDelete(true));
+    setId(item.user_other_aid);
+    setData(item);
+  };
+
+  const columnHelper = createColumnHelper();
   const columns = [
     columnHelper.accessor("", {
       header: "#",
       cell: (row) => {
         return row.row.index + 1;
       },
-      sortable: false,
     }),
 
     columnHelper.accessor("user_other_fname", {
@@ -130,6 +167,27 @@ const ClientList = () => {
           )}
         </div>
       </div>
+
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/v2/user-other/active/${id}`}
+          msg={`Are you sure you want to ${
+            isArchive ? "restore" : "archive"
+          } this record?`}
+          item={dataItem.user_other_email}
+          queryKey={"clients"}
+          isArchive={isArchive}
+        />
+      )}
+
+      {store.isDelete && (
+        <ModalDelete
+          mysqlApiDelete={`/v2/user-other/${id}`}
+          msg={"Are you sure you want to delete this record?"}
+          item={dataItem.user_other_email}
+          queryKey={"clients"}
+        />
+      )}
     </div>
   );
 };

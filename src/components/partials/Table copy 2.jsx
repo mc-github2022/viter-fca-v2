@@ -162,6 +162,16 @@ const Table = ({
                                   : null,
                             }}
                           >
+                            {/* {header.column.getCanFilter() &&
+                            header.column.id !== "action"
+                              ? showFilter && (
+                                  <Filter
+                                    column={header.column}
+                                    table={table}
+                                  />
+                                )
+                              : null} */}
+
                             <div
                               className={`${
                                 header.id === "#" || header.id === "action"
@@ -173,20 +183,24 @@ const Table = ({
                                 header.column.columnDef.header,
                                 header.getContext()
                               )}
-                              {{
+                              {/* {{
                                 asc: <LiaSortDownSolid />,
                                 desc: <LiaSortUpSolid />,
                               }[header.column.getIsSorted()] ?? (
                                 <LiaSortSolid />
-                              )}
+                              )} */}
+
+                              <button
+                                onClick={() =>
+                                  header.column.toggleSortBy(
+                                    header.column.isSortedDesc
+                                  )
+                                }
+                              >
+                                asc
+                              </button>
                             </div>
                           </div>
-                          {header.column.getCanFilter() &&
-                          header.column.id !== "action"
-                            ? showFilter && (
-                                <Filter column={header.column} table={table} />
-                              )
-                            : null}
                         </>
                       )}
                     </th>
