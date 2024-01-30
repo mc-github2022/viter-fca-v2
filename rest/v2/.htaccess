@@ -113,7 +113,7 @@ RewriteRule ^dev-read-info-financial/([0-9]+)$ controllers/developer/client/info
 RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
 RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoaid=$1 [L]
 
-RewriteRule ^dev-read-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfouid=$1 [L]
+RewriteRule ^dev-read-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoaid=$1 [L]
 
 
 ###### DEV CLIENT ######

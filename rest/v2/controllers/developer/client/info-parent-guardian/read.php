@@ -5,9 +5,9 @@ $parent = new InfoParentGuardian($conn);
 $error = [];
 $returnData = [];
 
-if (array_key_exists("parentinfouid", $_GET)) {
-    $parent->parent_guardian_info_user_id  = $_GET['parentinfouid'];
-    checkId($parent->parent_guardian_info_user_id );
+if (array_key_exists("parentinfoaid", $_GET)) {
+    $parent->parent_guardian_info_user_id = $_GET['parentinfoaid'];
+    checkId($parent->parent_guardian_info_user_id);
     $query = checkReadById($parent);
     http_response_code(200);
     getQueriedData($query);

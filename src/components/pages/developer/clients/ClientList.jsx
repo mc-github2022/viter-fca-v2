@@ -1,4 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import { devNavUrl } from "@/components/helpers/functions-general";
 import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
 import Table from "@/components/partials/Table.jsx";
@@ -16,6 +17,7 @@ import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const ClientList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -105,14 +107,12 @@ const ClientList = ({ setItemEdit }) => {
         <>
           {row.row.original.user_other_is_active === 1 ? (
             <div className="flex gap-2 justify-end">
-              <button
-                type="button"
-                className="tooltip "
-                data-tooltip="Edit"
-                onClick={() => handleEdit(row.row.original)}
+              <Link
+                to={`${devNavUrl}/system/client/information?id=${row.row.original.user_other_aid}`}
+                className="text-2xl text-black"
               >
                 <FiEdit2 />
-              </button>
+              </Link>
               <button
                 type="button"
                 className="tooltip"
