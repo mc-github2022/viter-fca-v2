@@ -14,10 +14,6 @@ import { PiMapPinLight, PiPhoneThin } from "react-icons/pi";
 import { RiProfileLine } from "react-icons/ri";
 import { SlHome } from "react-icons/sl";
 import { TfiLocationPin } from "react-icons/tfi";
-<<<<<<< HEAD
-import { TiPhoneOutline } from "react-icons/ti";
-import { Link } from "react-router-dom";
-=======
 import { Field, Formik, Form } from "formik"; // <== this correct import
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
@@ -29,7 +25,6 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryData } from "@/components/helpers/queryData";
 import { InputText } from "@/components/helpers/FormInputs";
->>>>>>> d0869864fec17ba3c30c5e0064f256b0fe3f8387
 const ClientViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
