@@ -60,7 +60,7 @@ export const routesSystem = [
   },
 
   {
-    path: `/${devNavUrl}/system/clients/information`,
+    path: `/${devNavUrl}/system/client/information`,
     element: (
       <ProtectedRouteSystem>
         <ClientViewInfo />
