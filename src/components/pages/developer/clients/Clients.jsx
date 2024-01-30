@@ -59,7 +59,7 @@ const Clients = () => {
               className="btn btn--accent btn--sm mt-1"
               onClick={handleAdd}
             >
-              Add <FaPlus />
+              <FaPlus /> Add
             </button>
           </div>
 

@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 :root {
-  --accent: hsl(109, 73%, 13%);
+  --accent: rgb(18, 57, 9);
   --accentDark: hsl(109, 73%, 10%);
   --primary: #ffffff;
   --secondary: #f3f3f3;
@@ -488,6 +488,14 @@
 
   .multistep__link.active {
     @apply bg-accent text-white;
+  }
+
+  .column__toggle input:checked + div {
+    @apply bg-accent;
+  }
+
+  .column__toggle input:checked + div div {
+    @apply translate-x-3;
   }
 }
 

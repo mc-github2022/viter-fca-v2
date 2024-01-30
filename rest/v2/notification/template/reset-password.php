@@ -106,7 +106,7 @@ function getHtmlResetPassword(
                 font-size: 12px;
                 font-family: Helvetica Neue, sans-serif;
                 text-decoration: none;
-                color: #505050;
+                color: #123909;
               "
               >' . $ROOT_DOMAIN . '' . $password_link . '?key=' . $key . '</a
       >

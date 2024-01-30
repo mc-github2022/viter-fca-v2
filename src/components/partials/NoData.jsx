@@ -5,7 +5,7 @@ import IconNoData from "./svg/IconNoData";
 const NoData = () => {
   return (
     <>
-      <div className="flex justify-center items-center flex-col p-2">
+      <div className="flex justify-center items-center flex-col p-10">
         <span className="text-7xl text-gray-400">
           <IconNoData />
         </span>

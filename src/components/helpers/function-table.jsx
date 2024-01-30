@@ -33,17 +33,12 @@ export const Filter = ({ column, table }) => {
 
   return (
     <>
-      {/* <datalist id={column.id + "list"}>
-        {sortedUniqueValues.slice(0, 5000).map((value) => (
-          <option value={value} key={value} />
-        ))}
-      </datalist> */}
       <DebouncedColumnFilter
         type="text"
         value={columnFilterValue ?? ""}
         onChange={(value) => column.setFilterValue(value)}
-        placeholder={`Search...`}
-        className="w-36 border  rounded placeholder:text-gray-400 placeholder:font-normal"
+        placeholder={`Filter...`}
+        className="w-[90%] border  rounded placeholder:text-gray-400 placeholder:font-normal"
         list={column.id + "list"}
       />
       <div className="h-1" />
@@ -78,9 +73,9 @@ export const DebouncedInputSearch = ({
         value={value}
         type="search"
         onChange={(e) => setValue(e.target.value)}
-        className="pl-7 w-full max-w-[380px] text-xs placeholder:opacity-50"
+        className="pl-7 w-full max-w-[380px] text-xs placeholder:text-gray-400 placeholder:font-normal"
       />
-      <FaSearch className="absolute text-xs top-2 left-2 opacity-25" />
+      <FaSearch className="absolute text-xs top-2 left-2 opacity-50" />
     </div>
   );
 };

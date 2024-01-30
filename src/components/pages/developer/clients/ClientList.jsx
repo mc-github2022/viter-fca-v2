@@ -1,10 +1,12 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
 import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
+import ModalReset from "@/components/partials/modals/ModalReset.jsx";
 import {
   setIsAdd,
   setIsConfirm,
@@ -14,18 +16,22 @@ import { StoreContext } from "@/components/store/StoreContext";
 import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
+import { CiViewList } from "react-icons/ci";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
+import { PiPasswordLight } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
 const ClientList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
+  const [reset, setReset] = React.useState(false);
 
   const [columnVisibility, setColumnVisibility] = React.useState({
-    user_other_email: false,
-    user_other_is_active: false,
+    user_other_email: true,
+    user_other_is_active: true,
   });
 
   const {
@@ -62,6 +68,11 @@ const ClientList = ({ setItemEdit }) => {
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
     setId(item.user_other_aid);
+    setData(item);
+  };
+
+  const handleResetPassword = (item) => {
+    setReset(true);
     setData(item);
   };
 
@@ -105,6 +116,14 @@ const ClientList = ({ setItemEdit }) => {
         <>
           {row.row.original.user_other_is_active === 1 ? (
             <div className="flex gap-2 justify-end">
+              <Link
+                to={`${devNavUrl}/system/client/information?cid=${row.row.original.user_other_aid}`}
+                className="tooltip text-base"
+                data-tooltip="View"
+              >
+                <CiViewList />
+              </Link>
+
               <button
                 type="button"
                 className="tooltip "
@@ -112,6 +131,15 @@ const ClientList = ({ setItemEdit }) => {
                 onClick={() => handleEdit(row.row.original)}
               >
                 <FiEdit2 />
+              </button>
+
+              <button
+                type="button"
+                className="tooltip text-lg"
+                data-tooltip="Reset"
+                onClick={() => handleResetPassword(row.row.original)}
+              >
+                <PiPasswordLight />
               </button>
               <button
                 type="button"
@@ -186,6 +214,16 @@ const ClientList = ({ setItemEdit }) => {
           msg={"Are you sure you want to delete this record?"}
           item={dataItem.user_other_email}
           queryKey={"clients"}
+        />
+      )}
+
+      {reset && (
+        <ModalReset
+          setReset={setReset}
+          mysqlApiReset={`/v2/user-other/reset`}
+          msg={"Are you sure you want to reset this client password?"}
+          item={dataItem.user_other_email}
+          queryKey="clients"
         />
       )}
     </div>

@@ -47,7 +47,7 @@ const Table = ({
     initialState: {
       columnVisibility: {},
       pagination: {
-        pageSize: 30,
+        pageSize: 20,
       },
     },
     state: {
@@ -67,7 +67,6 @@ const Table = ({
   });
 
   const handleFilter = () => setShowFilter(!showFilter);
-  const handleSearch = () => setShowSearch(!showSearch);
 
   const allColumns = table.getAllLeafColumns().filter((item) => {
     return item.id !== "action" && item.id !== "#";
@@ -88,7 +87,7 @@ const Table = ({
   return (
     <>
       {hasFilter && (
-        <div className="py-2 flex justify-between items-center mr-2">
+        <div className="pt-5 pb-2 flex justify-between items-center mr-2">
           <DebouncedInputSearch
             value={globalFilter ?? ""}
             onChange={(value) => setGlobalFilter(String(value))}
@@ -96,7 +95,7 @@ const Table = ({
             placeholder="Type your keyword"
           />
 
-          <ul className="flex gap-2 items-center pt-5 mr-1 ">
+          <ul className="flex gap-2 items-center mr-1 ">
             <li>
               <button
                 className="tooltip  "
@@ -120,33 +119,25 @@ const Table = ({
                     show ? "" : "hidden"
                   }`}
                 >
-                  <div className=" border-b border-line p-2 ">
-                    <label className="grid grid-cols-[20px_1fr] gap-2 text-xs mb-0 items-center cursor-pointer ">
-                      <input
-                        {...{
-                          className: "cursor-pointer",
-                          type: "checkbox",
-                          checked: table.getIsAllColumnsVisible(),
-                          onChange:
-                            table.getToggleAllColumnsVisibilityHandler(),
-                        }}
-                      />
-                      Toggle All
-                    </label>
-                  </div>
                   <div className="pb-1 pt-1.5">
+                    <p className="px-2 pb-2 mb-2 border-b border-line text-[12px] font-bold">
+                      Show/Hide Columns
+                    </p>
                     {allColumns.map((column) => {
                       return (
-                        <div key={column.id} className="px-2 ">
-                          <label className="grid grid-cols-[20px_1fr] gap-2 text-xs items-center mb-1 hover:cursor-pointer">
+                        <div key={column.id} className="px-2 mb-4">
+                          <label className="relative text-xs column__toggle">
                             <input
                               {...{
-                                className: "cursor-pointer",
+                                className: "cursor-pointer opacity-0 w-0 h-0",
                                 type: "checkbox",
                                 checked: column.getIsVisible(),
                                 onChange: column.getToggleVisibilityHandler(),
                               }}
                             />
+                            <div className="absolute w-[30px] cursor-pointer h-[19px] border bg-gray-300 top-0 right-0 rounded-2xl">
+                              <div className="absolute w-[13px] h-[13px] top-[2px] left-[1px] bg-white rounded-full transition-all ease-linear "></div>
+                            </div>
                             {column.columnDef.header}
                           </label>
                         </div>

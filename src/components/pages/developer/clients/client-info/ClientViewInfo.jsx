@@ -6,15 +6,16 @@ import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
 import { CiMobile3 } from "react-icons/ci";
 import { FaAngleLeft } from "react-icons/fa";
+import { FiEdit2 } from "react-icons/fi";
 import { HiOutlineEnvelope, HiOutlineUsers } from "react-icons/hi2";
 import { LiaHardHatSolid, LiaMapMarkerAltSolid } from "react-icons/lia";
 import { MdOutlineContactEmergency } from "react-icons/md";
+import { PiMapPinLight, PiPhoneThin } from "react-icons/pi";
 import { RiProfileLine } from "react-icons/ri";
-import { TfiLocationPin } from "react-icons/tfi";
-import { Link } from "react-router-dom";
-import { TiPhoneOutline } from "react-icons/ti";
 import { SlHome } from "react-icons/sl";
-import { FiEdit2 } from "react-icons/fi";
+import { TfiLocationPin } from "react-icons/tfi";
+import { TiPhoneOutline } from "react-icons/ti";
+import { Link } from "react-router-dom";
 const ClientViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   return (
@@ -219,6 +220,81 @@ const ClientViewInfo = () => {
             <div className="client__info__action flex gap-4 mt-5">
               <button className="btn btn--accent ">Save</button>
               <button className="btn btn--cancel">Dismiss</button>
+            </div>
+          </div>
+
+          {/* EDIT MON */}
+          <div className="max-w-[720px] w-full gap-4 mb-5">
+            <div className="card bg-primary border border-line relative p-4">
+              <div className="flex gap-3 items-center">
+                <div className="avatar w-14 h-14 bg-accent text-primary grid place-content-center rounded-full text-2xl">
+                  NA
+                </div>
+                <ul>
+                  <li className="font-bold">Subdivision Guardian</li>
+                  <li className="text-xs opacity-80">Guardian</li>
+                </ul>
+                <button
+                  className="absolute top-5 right-5 tooltip"
+                  data-tooltip="Edit"
+                >
+                  <FiEdit2 />
+                </button>
+              </div>
+              <ul className="text-xs mt-4 flex  gap-10 items-start">
+                <li className="mb-3 flex gap-2">
+                  <PiMapPinLight className="text-sm" />
+                  07 Farconville Subdivision, Phase II-A, St., Purok 1 <br />
+                  Brgy. San Gregorio Laguna San Pablo City 4000
+                </li>
+
+                <li className="mb-3 ">
+                  <p className="flex gap-2 mb-1">
+                    <CiMobile3 className="text-sm" /> 0922 1234 123
+                  </p>
+                  <p className="flex gap-2">
+                    <PiPhoneThin className="text-sm" />
+                    049 552 1234
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="max-w-[720px] w-full gap-4">
+            <div className="card bg-primary border border-line relative p-4">
+              <div className="flex gap-3 items-center">
+                <div className="avatar w-14 h-14 bg-accent text-primary grid place-content-center rounded-full text-2xl">
+                  NA
+                </div>
+                <ul>
+                  <li className="font-bold">Subdivision Guardian</li>
+                  <li className="text-xs opacity-80">Guardian</li>
+                </ul>
+                <button
+                  className="absolute top-5 right-5 tooltip"
+                  data-tooltip="Edit"
+                >
+                  <FiEdit2 />
+                </button>
+              </div>
+              <ul className="text-xs mt-4 flex  gap-10 items-start">
+                <li className="mb-3 flex gap-2">
+                  <PiMapPinLight className="text-sm" />
+                  07 Farconville Subdivision, Phase II-A, St., Purok 1 <br />
+                  Brgy. San Gregorio Laguna San Pablo City 4000
+                </li>
+
+                <li className="mb-3 ">
+                  <p className="flex gap-2 mb-1">
+                    <CiMobile3 className="text-sm" /> 0922 1234 123
+                  </p>
+                  <p className="flex gap-2">
+                    <PiPhoneThin className="text-sm" />
+                    049 552 1234
+                  </p>
+                </li>
+              </ul>
             </div>
           </div>
 
