@@ -3,7 +3,7 @@ import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
 import Navigation from "@/components/partials/Navigation";
 import { StoreContext } from "@/components/store/StoreContext";
-import React from "react";
+import React, { useState } from "react";
 import { CiMobile3 } from "react-icons/ci";
 import { FaAngleLeft } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
@@ -18,17 +18,15 @@ import { Field, Formik, Form } from "formik"; // <== this correct import
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { TiPhoneOutline } from "react-icons/ti";
-import { SlHome } from "react-icons/sl";
-import { FiEdit2 } from "react-icons/fi";
 import { getUrlParam } from "@/components/helpers/functions-general";
-import useQueryData from "@/components/custom-hooks/useQueryData";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryData } from "@/components/helpers/queryData";
 import { InputText } from "@/components/helpers/FormInputs";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 const ClientViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
-  const id = getUrlParam().get("id");
+  const id = getUrlParam().get("cid");
 
   const {
     isLoading,
@@ -40,8 +38,6 @@ const ClientViewInfo = () => {
     "get", // method
     "parentInfo" // key
   );
-
-  console.log(parentInfo);
 
   const mutation = useMutation({
     mutationFn: (values) =>
