@@ -23,7 +23,6 @@ class InfoParentGuardian
     public $parent_guardian_info_lname_old;
     public $parent_guardian_info_fname_old;
 
-
     public $parent_guardian_info_created;
     public $parent_guardian_info_datetime;
 

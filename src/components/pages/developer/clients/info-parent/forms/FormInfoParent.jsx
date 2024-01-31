@@ -4,7 +4,7 @@ import { queryData } from "@/components/helpers/queryData";
 import { setError, setMessage } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Formik, Form } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 const FormInfoParent = () => {
@@ -71,7 +71,7 @@ const FormInfoParent = () => {
                     <InputSelect
                       label="Relationship"
                       name="parent_guardian_info_relationship_id"
-                      // disabled={mutation.isLoading}
+                      disabled={mutation.isLoading}
                       onChange={(e) => e}
                     >
                       <option value="" hidden></option>
