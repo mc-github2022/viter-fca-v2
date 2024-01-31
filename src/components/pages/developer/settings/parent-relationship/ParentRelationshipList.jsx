@@ -5,6 +5,7 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsDelete,
+  setIsSettingAdd,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
@@ -33,7 +34,7 @@ const ParentRelationshipList = ({ setItemEdit }) => {
   );
 
   const handleEdit = (item) => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(item);
   };
 

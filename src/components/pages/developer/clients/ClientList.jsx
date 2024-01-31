@@ -117,7 +117,7 @@ const ClientList = ({ setItemEdit }) => {
           {row.row.original.user_other_is_active === 1 ? (
             <div className="flex gap-2 justify-end">
               <Link
-                to={`${devNavUrl}/system/client/information?cid=${row.row.original.user_other_aid}`}
+                to={`${devNavUrl}/system/clients/information?cid=${row.row.original.user_other_aid}`}
                 className="tooltip text-base"
                 data-tooltip="View"
               >
