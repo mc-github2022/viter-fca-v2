@@ -99,7 +99,7 @@ RewriteRule ^user-other/token$ controllers/developer/settings/system/token.php [
 
 #INFO-CONTACT
 RewriteRule ^dev-info-contact$ controllers/developer/client/info-contact/info-contact.php [L]
-RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?infocontactid=$1 [L]
+RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?parentuid=$1 [L]
 
 RewriteRule ^dev-read-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?parentuid=$1 [L]
 
@@ -108,8 +108,8 @@ RewriteRule ^dev-info-financial$ controllers/developer/client/info-financial/inf
 RewriteRule ^dev-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?infofinancial=$1 [L]
 
 RewriteRule ^dev-read-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?parentuid=$1 [L]
-###### DEV CLIENT ######
 
+###### DEV CLIENT ######
 RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
 RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoaid=$1 [L]
 

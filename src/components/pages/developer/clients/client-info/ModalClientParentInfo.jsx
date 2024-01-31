@@ -46,13 +46,13 @@ const ModalClientParentInfo = ({
   );
 
   const mutation = useMutation({
-    mutationFn: (newData) =>
+    mutationFn: (values) =>
       queryData(
         itemEdit
           ? `/v2/dev-info-parent/${itemEdit.parent_guardian_info_aid}`
           : "/v2/dev-info-parent",
         itemEdit ? "PUT" : "POST",
-        newData
+        values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch

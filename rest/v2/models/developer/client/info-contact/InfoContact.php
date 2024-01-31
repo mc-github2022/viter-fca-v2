@@ -61,33 +61,36 @@ class InfoContact
         }
         return $query;
     }
-
     public function readAll()
     {
         try {
             $sql = "select * ";
             $sql .= "from {$this->tblInfoContact} ";
+            $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
         }
         return $query;
     }
+
 
     public function readById()
     {
         try {
             $sql = "select * ";
             $sql .= "from {$this->tblInfoContact} ";
-            $sql .= "where contact_user_id  = :contact_user_id ";
+            $sql .= "where contact_user_id = :contact_user_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "contact_user_id" => $this->contact_user_id,
+                "contact_user_id" => $this->contact_user_id 
             ]);
         } catch (PDOException $ex) {
             $query = false;
         }
         return $query;
     }
+
+
     public function update()
     {
         try {
