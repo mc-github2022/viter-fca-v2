@@ -5,6 +5,7 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsDelete,
+  setSettingIsConfirm,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
@@ -38,7 +39,7 @@ const DiscountList = ({ setItemEdit }) => {
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.discount_aid);
     setData(item);
     setIsArchive(0);
@@ -46,7 +47,7 @@ const DiscountList = ({ setItemEdit }) => {
   };
 
   const handleRestore = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.discount_aid);
     setData(item);
     setIsArchive(1);
@@ -54,7 +55,7 @@ const DiscountList = ({ setItemEdit }) => {
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
+    dispatch(setSettingIsDelete(true));
     setId(item.discount_aid);
     setData(item);
   };
@@ -132,23 +133,23 @@ const DiscountList = ({ setItemEdit }) => {
         ))}
       </div>
 
-      {store.isConfirm && (
+      {store.isSettingConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/dev-settings-discount/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={dataItem.role_name}
+          item={dataItem.discount_type}
           queryKey={"discount"}
           isArchive={isArchive}
         />
       )}
 
-      {store.isDelete && (
+      {store.isSettingDelete && (
         <ModalDelete
           mysqlApiDelete={`/v2/dev-settings-discount/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={dataItem.role_name}
+          item={dataItem.discount_type}
           queryKey={"discount"}
         />
       )}

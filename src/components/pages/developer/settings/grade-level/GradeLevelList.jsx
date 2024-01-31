@@ -6,6 +6,8 @@ import {
   setIsConfirm,
   setIsDelete,
   setIsSettingAdd,
+  setSettingIsConfirm,
+  setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
@@ -39,21 +41,21 @@ const GradeLevelList = ({ setItemEdit }) => {
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.grade_level_aid);
     setData(item);
     setIsArchive(0);
   };
 
   const handleRestore = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.grade_level_aid);
     setData(item);
     setIsArchive(1);
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
+    dispatch(setSettingIsDelete(true));
     setId(item.grade_level_aid);
     setData(item);
   };
@@ -131,7 +133,7 @@ const GradeLevelList = ({ setItemEdit }) => {
         ))}
       </div>
 
-      {store.isConfirm && (
+      {store.isSettingConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/dev-grade-level/active/${id}`}
           msg={`Are you sure you want to ${
@@ -143,7 +145,7 @@ const GradeLevelList = ({ setItemEdit }) => {
         />
       )}
 
-      {store.isDelete && (
+      {store.isSettingDelete && (
         <ModalDelete
           mysqlApiDelete={`/v2/dev-grade-level/${id}`}
           msg={"Are you sure you want to delete this record?"}

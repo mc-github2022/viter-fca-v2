@@ -3,6 +3,7 @@ import { queryData } from "@/components/helpers/queryData.jsx";
 import {
   setIsConfirm,
   setMessage,
+  setSettingIsConfirm,
   setSuccess,
   setValidate,
 } from "@/components/store/StoreAction.jsx";
@@ -22,7 +23,12 @@ const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [queryKey] });
-      dispatch(setIsConfirm(false));
+
+      if (setSettingIsConfirm(true)) {
+        dispatch(setSettingIsConfirm(false));
+      } else {
+        dispatch(setIsConfirm(false));
+      }
 
       if (data.success) {
         dispatch(setSuccess(true));
@@ -43,7 +49,11 @@ const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
   };
 
   const handleClose = () => {
-    dispatch(setIsConfirm(false));
+    if (setSettingIsConfirm(true)) {
+      dispatch(setSettingIsConfirm(false));
+    } else {
+      dispatch(setIsConfirm(false));
+    }
   };
 
   handleEscape(() => handleClose());

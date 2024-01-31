@@ -60,6 +60,12 @@ export const StoreReducer = (state, action) => {
         isConfirm: action.payload,
       };
 
+    case "SETTING_CONFIRM":
+      return {
+        ...state,
+        isSettingConfirm: action.payload,
+      };
+
     case "RESTORE":
       return {
         ...state,
@@ -81,6 +87,12 @@ export const StoreReducer = (state, action) => {
       return {
         ...state,
         isDelete: action.payload,
+      };
+
+    case "IS_SETTING_DELETE":
+      return {
+        ...state,
+        isSettingDelete: action.payload,
       };
 
     case "IS_UPLOAD_FILE":

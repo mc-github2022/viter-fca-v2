@@ -6,6 +6,7 @@ import { BsTrash } from "react-icons/bs";
 import {
   setIsDelete,
   setMessage,
+  setSettingIsDelete,
   setSuccess,
   setValidate,
 } from "@/components/store/StoreAction.jsx";
@@ -26,7 +27,12 @@ const ModalDelete = ({ mysqlApiDelete, msg, item, queryKey }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [queryKey] });
-      dispatch(setIsDelete(false));
+
+      if (setSettingIsDelete(true)) {
+        dispatch(setSettingIsDelete(false));
+      } else {
+        dispatch(setIsDelete(false));
+      }
 
       if (data.success) {
         dispatch(setSuccess(true));
@@ -40,7 +46,11 @@ const ModalDelete = ({ mysqlApiDelete, msg, item, queryKey }) => {
   });
 
   const handleClose = () => {
-    dispatch(setIsDelete(false));
+    if (setSettingIsDelete(true)) {
+      dispatch(setSettingIsDelete(false));
+    } else {
+      dispatch(setIsDelete(false));
+    }
   };
 
   const handleYes = async () => {

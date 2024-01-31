@@ -5,6 +5,8 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsDelete,
+  setIsSettingAdd,
+  setSettingIsConfirm,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
@@ -33,12 +35,12 @@ const RolesList = ({ setItemEdit }) => {
   );
 
   const handleEdit = (item) => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(item);
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.role_aid);
     setData(item);
     setIsArchive(0);
@@ -46,7 +48,7 @@ const RolesList = ({ setItemEdit }) => {
   };
 
   const handleRestore = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.role_aid);
     setData(item);
     setIsArchive(1);
@@ -54,7 +56,7 @@ const RolesList = ({ setItemEdit }) => {
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
+    dispatch(setSettingIsDelete(true));
     setId(item.role_aid);
     setData(item);
   };
@@ -132,7 +134,7 @@ const RolesList = ({ setItemEdit }) => {
         ))}
       </div>
 
-      {store.isConfirm && (
+      {store.isSettingConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/dev-roles/active/${id}`}
           msg={`Are you sure you want to ${
@@ -144,7 +146,7 @@ const RolesList = ({ setItemEdit }) => {
         />
       )}
 
-      {store.isDelete && (
+      {store.isSettingDelete && (
         <ModalDelete
           mysqlApiDelete={`/v2/dev-roles/${id}`}
           msg={"Are you sure you want to delete this record?"}

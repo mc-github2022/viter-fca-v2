@@ -6,6 +6,8 @@ import {
   setIsConfirm,
   setIsDelete,
   setIsSettingAdd,
+  setSettingIsConfirm,
+  setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
@@ -39,7 +41,7 @@ const NotificationsList = ({ setItemEdit }) => {
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.notification_aid);
     setData(item);
     setIsArchive(0);
@@ -47,7 +49,7 @@ const NotificationsList = ({ setItemEdit }) => {
   };
 
   const handleRestore = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.notification_aid);
     setData(item);
     setIsArchive(1);
@@ -55,7 +57,7 @@ const NotificationsList = ({ setItemEdit }) => {
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
+    dispatch(setSettingIsDelete(true));
     setId(item.notification_aid);
     setData(item);
   };
@@ -137,7 +139,7 @@ const NotificationsList = ({ setItemEdit }) => {
         ))}
       </div>
 
-      {store.isConfirm && (
+      {store.isSettingConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/dev-notification/active/${id}`}
           msg={`Are you sure you want to ${
@@ -149,7 +151,7 @@ const NotificationsList = ({ setItemEdit }) => {
         />
       )}
 
-      {store.isDelete && (
+      {store.isSettingDelete && (
         <ModalDelete
           mysqlApiDelete={`/v2/dev-notification/${id}`}
           msg={"Are you sure you want to delete this record?"}
