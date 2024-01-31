@@ -8,14 +8,10 @@ import Header from "@/components/partials/Header";
 import Navigation from "@/components/partials/Navigation";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik"; // <== this correct import
 import React from "react";
 import { AiOutlineSave } from "react-icons/ai";
->>>>>>> e617e2333e51f40e3dd04944c005db7b043cb086
 import { CiMobile3 } from "react-icons/ci";
 import { FaAngleLeft } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
@@ -30,21 +26,9 @@ import { PiMapPinLight, PiPhoneThin } from "react-icons/pi";
 import { RiProfileLine } from "react-icons/ri";
 import { SlHome } from "react-icons/sl";
 import { TfiLocationPin } from "react-icons/tfi";
-<<<<<<< HEAD
-import { Field, Formik, Form } from "formik"; // <== this correct import
-import { Link } from "react-router-dom";
-import * as Yup from "yup";
-import { TiPhoneOutline } from "react-icons/ti";
-import { getUrlParam } from "@/components/helpers/functions-general";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { queryData } from "@/components/helpers/queryData";
-import { InputText } from "@/components/helpers/FormInputs";
-import useQueryData from "@/components/custom-hooks/useQueryData";
-=======
 import { TiPhoneOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
->>>>>>> e617e2333e51f40e3dd04944c005db7b043cb086
 const ClientViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [showParentForm, setShowParentForm] = React.useState(false);
