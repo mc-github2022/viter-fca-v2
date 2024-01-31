@@ -7,7 +7,11 @@ import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
-import { setIsConfirm, setIsDelete } from "@/components/store/StoreAction";
+import {
+  setIsAdd,
+  setIsConfirm,
+  setIsDelete,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";

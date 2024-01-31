@@ -47,6 +47,13 @@ export const setIsDelete = (val) => {
   };
 };
 
+export const setSettingIsDelete = (val) => {
+  return {
+    type: "IS_SETTING_DELETE",
+    payload: val,
+  };
+};
+
 export const setScroll = (val) => {
   return {
     type: "SCROLL",
@@ -70,6 +77,13 @@ export const setIsShow = (val) => {
 export const setIsConfirm = (val) => {
   return {
     type: "CONFIRM",
+    payload: val,
+  };
+};
+
+export const setSettingIsConfirm = (val) => {
+  return {
+    type: "SETTING_CONFIRM",
     payload: val,
   };
 };

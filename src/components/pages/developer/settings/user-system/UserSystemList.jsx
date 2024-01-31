@@ -5,6 +5,9 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsDelete,
+  setIsSettingAdd,
+  setSettingIsConfirm,
+  setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
@@ -33,12 +36,12 @@ const UserSystemList = ({ setItemEdit }) => {
   );
 
   const handleEdit = (item) => {
-    dispatch(setIsAdd(true));
+    dispatch(setIsSettingAdd(true));
     setItemEdit(item);
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.user_system_aid);
     setData(item);
     setIsArchive(0);
@@ -46,7 +49,7 @@ const UserSystemList = ({ setItemEdit }) => {
   };
 
   const handleRestore = (item) => {
-    dispatch(setIsConfirm(true));
+    dispatch(setSettingIsConfirm(true));
     setId(item.user_system_aid);
     setData(item);
     setIsArchive(1);
@@ -54,7 +57,7 @@ const UserSystemList = ({ setItemEdit }) => {
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
+    dispatch(setSettingIsDelete(true));
     setId(item.user_system_aid);
     setData(item);
   };
@@ -134,7 +137,7 @@ const UserSystemList = ({ setItemEdit }) => {
         ))}
       </div>
 
-      {store.isConfirm && (
+      {store.isSettingConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/dev-user-system/active/${id}`}
           msg={`Are you sure you want to ${
@@ -146,7 +149,7 @@ const UserSystemList = ({ setItemEdit }) => {
         />
       )}
 
-      {store.isDelete && (
+      {store.isSettingDelete && (
         <ModalDelete
           mysqlApiDelete={`/v2/dev-user-system/${id}`}
           msg={"Are you sure you want to delete this record?"}
