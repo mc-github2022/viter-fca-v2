@@ -1,7 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { InputText } from "@/components/helpers/FormInputs";
 import { getUrlParam } from "@/components/helpers/functions-general";
-import { queryData } from "@/components/helpers/queryData";
 import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
@@ -9,30 +7,17 @@ import Navigation from "@/components/partials/Navigation";
 import NoData from "@/components/partials/NoData.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
-import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
-import { setError } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Form, Formik } from "formik"; // <== this correct import
 import React from "react";
-import { AiOutlineSave } from "react-icons/ai";
 import { CiMobile3 } from "react-icons/ci";
 import { FaAngleLeft } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
-import { HiOutlineEnvelope, HiOutlineUsers } from "react-icons/hi2";
-import {
-  LiaHardHatSolid,
-  LiaMapMarkerAltSolid,
-  LiaTimesSolid,
-} from "react-icons/lia";
-import { MdOutlineContactEmergency } from "react-icons/md";
+import { HiOutlineEnvelope } from "react-icons/hi2";
+import { LuDot } from "react-icons/lu";
+
 import { PiMapPinLight, PiPhoneThin } from "react-icons/pi";
-import { RiProfileLine } from "react-icons/ri";
-import { SlHome } from "react-icons/sl";
-import { TfiLocationPin } from "react-icons/tfi";
-import { TiPhoneOutline } from "react-icons/ti";
-import { Link, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+import ModalClientContactInfo from "./ModalClientContactInfo.jsx";
 import ModalClientParentInfo from "./ModalClientParentInfo.jsx";
 const ClientViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -64,9 +49,25 @@ const ClientViewInfo = () => {
     "parentInfo" // key
   );
 
+  const {
+    isLoading: contactIsLoading,
+    isFetching: contactIsFetching,
+    error: contactIsError,
+    data: contactInfo,
+  } = useQueryData(
+    `/v2/dev-info-contact/${id}`, // endpoint
+    "get", // method
+    "contactInfo" // key
+  );
+
   const handleShowParentForm = (item) => {
     setItemEdit(item);
     setShowParentForm(true);
+  };
+
+  const handleShowContactForm = (item) => {
+    setItemEdit(item);
+    setShowContactForm(true);
   };
 
   return (
@@ -113,7 +114,7 @@ const ClientViewInfo = () => {
                   <NoData />
                 ) : (
                   <>
-                    <h3 className="py-3">List of parent/guardian</h3>
+                    <h3 className="py-3">Parent/Guardian</h3>
                     {parentInfo?.data.map((item, key) => (
                       <div
                         className="max-w-[620px] w-full gap-4 mb-5"
@@ -121,10 +122,6 @@ const ClientViewInfo = () => {
                       >
                         <div className="card bg-primary border border-line relative p-4 rounded-md shadow-sm">
                           <div className="flex gap-3 items-center mb-3">
-                            <div className="avatar w-14 h-14 bg-accent text-primary grid place-content-center rounded-full text-3xl uppercase">
-                              {item.parent_guardian_info_fname[0]}
-                              {item.parent_guardian_info_lname[0]}
-                            </div>
                             <ul>
                               <li className="font-bold capitalize">
                                 <span className="pr-2">
@@ -154,26 +151,20 @@ const ClientViewInfo = () => {
                             {item.parent_guardian_info_zipcode}
                           </p>
 
-                          <ul className="text-xs mt-4 flex gap-10 items-center ">
-                            <li className="flex gap-2 text-xs">
-                              <CiMobile3 className="text-base" />{" "}
-                              {item.parent_guardian_info_mobile}
-                            </li>
-
-                            <li className="flex gap-2 text-xs">
-                              <HiOutlineEnvelope className="text-base" />
-                              {item.parent_guardian_info_email}
-                            </li>
-
-                            <li className="flex gap-2 text-xs">
-                              {item.parent_guardian_info_landline && (
-                                <>
-                                  <PiPhoneThin className="text-base" />
-                                  {item.parent_guardian_info_landline}
-                                </>
-                              )}
-                            </li>
-                          </ul>
+                          <p className="text-xs mt-4 flex gap-2 items-center ">
+                            <CiMobile3 className="text-base" />{" "}
+                            {item.parent_guardian_info_mobile}{" "}
+                            <LuDot className="text-xl opacity-50" />
+                            <HiOutlineEnvelope className="text-base" />
+                            {item.parent_guardian_info_email}{" "}
+                            <LuDot className="text-xl opacity-50" />
+                            {item.parent_guardian_info_landline && (
+                              <>
+                                <PiPhoneThin className="text-base" />
+                                {item.parent_guardian_info_landline}
+                              </>
+                            )}
+                          </p>
                         </div>
                       </div>
                     ))}
@@ -181,6 +172,57 @@ const ClientViewInfo = () => {
                 )}
               </>
             )
+          )}
+
+          <h3 className="py-3">Contacts</h3>
+          {contactIsLoading || contactIsFetching ? (
+            <TableLoading />
+          ) : (
+            !showContactForm &&
+            (contactInfo?.data.length === 0 ? (
+              <NoData />
+            ) : (
+              contactInfo?.data.map((item, key) => (
+                <div className="max-w-[620px] w-full gap-4 mb-5" key={key}>
+                  <div className="card bg-primary border border-line p-4 rounded-md shadow-sm relative">
+                    <h5 className="mb-1">
+                      {item.contact_name} -{" "}
+                      <span className="capitalize">{item.contact_level}</span>
+                    </h5>
+                    <p className="flex gap-2 text-xs items-center">
+                      <HiOutlineEnvelope className="text-base" />{" "}
+                      {item.contact_email}{" "}
+                      <LuDot className="text-xl opacity-50" />
+                      <CiMobile3 className="text-base" />
+                      {item.contact_mobile}
+                      {item.contact_landline && (
+                        <>
+                          <LuDot className="text-xl opacity-50" />
+                          <PiPhoneThin className="text-base" />
+                          {item.contact_landline}
+                        </>
+                      )}
+                    </p>
+
+                    <button
+                      className="absolute top-5 right-5 tooltip"
+                      data-tooltip="Edit"
+                      onClick={() => handleShowContactForm(item)}
+                    >
+                      <FiEdit2 />
+                    </button>
+                  </div>
+                </div>
+              ))
+            ))
+          )}
+
+          {showContactForm && (
+            <ModalClientContactInfo
+              itemEdit={itemEdit}
+              setShowContactForm={setShowContactForm}
+              setItemEdit={setItemEdit}
+            />
           )}
 
           {showParentForm && (
