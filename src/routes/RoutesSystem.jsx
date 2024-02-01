@@ -7,7 +7,7 @@ import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEma
 import Profile from "@/components/pages/developer/account/Profile.jsx";
 import Clients from "@/components/pages/developer/clients/Clients.jsx";
 import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
-import Department from "@/components/pages/developer/settings/department_old/Departmentx.jsx";
+import Department from "@/components/pages/developer/settings/Department/Department";
 
 import Discount from "@/components/pages/developer/settings/discount/Discount";
 import { default as System } from "@/components/pages/developer/settings/user-system/UserSystem.jsx";

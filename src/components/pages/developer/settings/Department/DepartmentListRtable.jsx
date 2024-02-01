@@ -13,11 +13,14 @@ import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
 
 import NoData from "@/components/partials/NoData.jsx";
+import Table from "@/components/partials/Table.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
+import { FaEdit, FaHistory, FaTrash } from "react-icons/fa";
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import { MdOutlineRestore } from "react-icons/md";
+import { MdArchive, MdOutlineRestore } from "react-icons/md";
 const DepartmentList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -45,7 +48,6 @@ const DepartmentList = ({ setItemEdit }) => {
     setId(item.department_aid);
     setData(item);
     setIsArchive(0);
-    console.log(isArchive);
   };
 
   const handleRestore = (item) => {
@@ -53,7 +55,6 @@ const DepartmentList = ({ setItemEdit }) => {
     setId(item.department_aid);
     setData(item);
     setIsArchive(1);
-    console.log(isArchive);
   };
 
   const handleDelete = (item) => {
@@ -62,77 +63,78 @@ const DepartmentList = ({ setItemEdit }) => {
     setData(item);
   };
 
+  const columnHelper = createColumnHelper();
+
+  const columns = [
+    columnHelper.accessor("", {
+      header: "#",
+      cell: (row) => {
+        return row.row.index + 1;
+      },
+    }),
+
+    columnHelper.accessor("department_name", {
+      header: "Title",
+    }),
+
+    columnHelper.accessor("action", {
+      header: "Action",
+      cell: (row) => (
+        <>
+          {row.row.original.department_active === 1 ? (
+            <div className="flex gap-2 justify-end">
+              <button
+                type="button"
+                className="tooltip"
+                data-tooltip="Edit"
+                onClick={() => handleEdit(row.row.original)}
+              >
+                <FaEdit />
+              </button>
+              <button
+                type="button"
+                className="tooltip"
+                data-tooltip="Archive"
+                onClick={() => handleArchive(row.row.original)}
+              >
+                <MdArchive />
+              </button>
+            </div>
+          ) : (
+            <div className="flex gap-2 justify-end">
+              <button
+                type="button"
+                className="tooltip"
+                data-tooltip="Restore"
+                onClick={() => handleRestore(row.row.original)}
+              >
+                <FaHistory />
+              </button>
+              <button
+                type="button"
+                className="tooltip"
+                data-tooltip="Delete"
+                onClick={() => handleDelete(row.row.original)}
+              >
+                <FaTrash />
+              </button>
+            </div>
+          )}
+        </>
+      ),
+    }),
+  ];
+
   return (
     <>
-      <h5 className="text-sm">List</h5>
-
       <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
-        {isFetching && !isLoading && <TableSpinner />}
-
-        {(isLoading || department?.data.length === 0) &&
-          (isLoading ? <TableLoading count={20} cols={3} /> : <NoData />)}
-        {department?.data.map((item, key) => (
-          <div
-            className={
-              "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
-            }
-            key={key}
-          >
-            <div
-              className={`${
-                item.department_active ? "opacity-100" : "opacity-40"
-              } `}
-            >
-              <p className="mb-1">{item.department_name}</p>
-            </div>
-
-            <ul className="datalist__action flex items-center gap-1 pr-3 ">
-              {item.department_active === 1 ? (
-                <>
-                  <li className=" ">
-                    <button
-                      className="tooltip"
-                      data-tooltip="Edit"
-                      onClick={() => handleEdit(item)}
-                    >
-                      <FiEdit2 />
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Archive"
-                      onClick={() => handleArchive(item)}
-                    >
-                      <BsArchive />
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className=" ">
-                    <button
-                      className="tooltip"
-                      data-tooltip="Restore"
-                      onClick={() => handleRestore(item)}
-                    >
-                      <MdOutlineRestore className="text-base" />
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Delete"
-                      onClick={() => handleDelete(item)}
-                    >
-                      <FiTrash />
-                    </button>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
-        ))}
+        {isFetching || isLoading ? (
+          <TableLoading count={20} cols={3} />
+        ) : department?.data.length === 0 ? (
+          <NoData />
+        ) : (
+          <Table columns={columns} data={department.data} />
+        )}
       </div>
 
       {store.isSettingConfirm && (
