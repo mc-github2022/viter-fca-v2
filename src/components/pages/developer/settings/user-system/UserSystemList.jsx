@@ -18,6 +18,7 @@ import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 const UserSystemList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -69,72 +70,80 @@ const UserSystemList = ({ setItemEdit }) => {
       <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}
 
-        {(isLoading || system?.data.length === 0) &&
-          (isLoading ? <TableLoading count={20} cols={3} /> : <NoData />)}
-        {system?.data.map((item, key) => (
-          <div
-            className={
-              "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
-            }
-            key={key}
-          >
+        {!isLoading && system.success === false ? (
+          <ModalInvalidRequestError />
+        ) : isLoading ? (
+          <TableLoading count={20} cols={3} />
+        ) : system?.data.length === 0 ? (
+          <NoData />
+        ) : (
+          !isLoading &&
+          system.success === true &&
+          system?.data.map((item, key) => (
             <div
-              className={`${
-                item.user_system_is_active ? "opacity-100" : "opacity-40"
-              } `}
+              className={
+                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+              }
+              key={key}
             >
-              <p className="mb-1">
-                {item.user_system_fname} {item.user_system_lname}
-              </p>
-            </div>
+              <div
+                className={`${
+                  item.user_system_is_active ? "opacity-100" : "opacity-40"
+                } `}
+              >
+                <p className="mb-1">
+                  {item.user_system_fname} {item.user_system_lname}
+                </p>
+              </div>
 
-            <ul className="datalist__action flex items-center gap-1 pr-3 ">
-              {item.user_system_is_active === 1 ? (
-                <>
-                  <li className=" ">
-                    <button
-                      className="tooltip"
-                      data-tooltip="Edit"
-                      onClick={() => handleEdit(item)}
-                    >
-                      <FiEdit2 />
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Archive"
-                      onClick={() => handleArchive(item)}
-                    >
-                      <BsArchive />
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className=" ">
-                    <button
-                      className="tooltip"
-                      data-tooltip="Restore"
-                      onClick={() => handleRestore(item)}
-                    >
-                      <MdOutlineRestore className="text-base" />
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Delete"
-                      onClick={() => handleDelete(item)}
-                    >
-                      <FiTrash />
-                    </button>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
-        ))}
+              <ul className="datalist__action flex items-center gap-1 pr-3 ">
+                {item.user_system_is_active === 1 ? (
+                  <>
+                    <li className=" ">
+                      <button
+                        className="tooltip"
+                        data-tooltip="Edit"
+                        onClick={() => handleEdit(item)}
+                      >
+                        <FiEdit2 />
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="tooltip"
+                        data-tooltip="Archive"
+                        onClick={() => handleArchive(item)}
+                      >
+                        <BsArchive />
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className=" ">
+                      <button
+                        className="tooltip"
+                        data-tooltip="Restore"
+                        onClick={() => handleRestore(item)}
+                      >
+                        <MdOutlineRestore className="text-base" />
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="tooltip"
+                        data-tooltip="Delete"
+                        onClick={() => handleDelete(item)}
+                      >
+                        <FiTrash />
+                      </button>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
+          ))
+        )}
       </div>
 
       {store.isSettingConfirm && (
