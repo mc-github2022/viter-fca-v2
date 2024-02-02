@@ -187,7 +187,7 @@ const ClientList = ({ setItemEdit }) => {
   return (
     <div>
       <div className="main__table">
-        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable">
+        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           {isFetching || isLoading ? (
             <TableLoading count={20} cols={3} />
           ) : clients?.data.length === 0 ? (

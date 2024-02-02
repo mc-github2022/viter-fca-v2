@@ -151,7 +151,7 @@ const Table = ({
         </div>
       )}
 
-      <div className="my-2 px-2 bg-white rounded-md ">
+      <div className="my-2 px-2 bg-white rounded-md min-h-[100px]">
         <table className="table__sm">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
