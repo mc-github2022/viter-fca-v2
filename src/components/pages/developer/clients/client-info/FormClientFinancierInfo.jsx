@@ -1,5 +1,8 @@
 import { InputSelect, InputText } from "@/components/helpers/FormInputs";
-import { getUrlParam } from "@/components/helpers/functions-general.jsx";
+import {
+  getUrlParam,
+  handleNumOnly,
+} from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -146,6 +149,7 @@ const FormClientFinancierInfo = ({
                   <InputText
                     label="Financier's Income"
                     type="text"
+                    onKeyPress={handleNumOnly}
                     name="financial_info_financier_income"
                     disabled={mutation.isLoading}
                   />

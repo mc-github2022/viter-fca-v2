@@ -42,7 +42,13 @@ const CardClientContactInfo = ({
   return (
     <div>
       <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
-        <h3 className="">Contacts</h3>
+        <div>
+          <h3 className="">Contacts</h3>
+          <p className="text-xs opacity-75">
+            List all emergency contact person for the student
+          </p>
+        </div>
+
         <button
           className="tooltip"
           data-tooltip="New"

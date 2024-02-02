@@ -19,7 +19,7 @@ import { BsArchive } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-import { PiPasswordLight } from "react-icons/pi";
+import { PiPasswordLight, PiStudentLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 const ClientList = ({ setItemEdit }) => {
@@ -124,6 +124,14 @@ const ClientList = ({ setItemEdit }) => {
                 <CiViewList />
               </Link>
 
+              <Link
+                to={`${devNavUrl}/system/clients/student-list?cid=${row.row.original.user_other_aid}`}
+                className="tooltip text-base"
+                data-tooltip="Student"
+              >
+                <PiStudentLight />
+              </Link>
+
               <button
                 type="button"
                 className="tooltip "
@@ -179,7 +187,7 @@ const ClientList = ({ setItemEdit }) => {
   return (
     <div>
       <div className="main__table">
-        <div className="table__wrapper mb-[80px]">
+        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable">
           {isFetching || isLoading ? (
             <TableLoading count={20} cols={3} />
           ) : clients?.data.length === 0 ? (

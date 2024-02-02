@@ -15,6 +15,7 @@ import { BsArchive } from "react-icons/bs";
 import NoData from "@/components/partials/NoData.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError.jsx";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
@@ -69,70 +70,78 @@ const DepartmentList = ({ setItemEdit }) => {
       <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}
 
-        {(isLoading || department?.data.length === 0) &&
-          (isLoading ? <TableLoading count={20} cols={3} /> : <NoData />)}
-        {department?.data.map((item, key) => (
-          <div
-            className={
-              "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
-            }
-            key={key}
-          >
+        {!isLoading && department.success === false ? (
+          <ModalInvalidRequestError />
+        ) : isLoading ? (
+          <TableLoading count={20} cols={3} />
+        ) : department?.data.length === 0 ? (
+          <NoData />
+        ) : (
+          !isLoading &&
+          department.success === true &&
+          department?.data.map((item, key) => (
             <div
-              className={`${
-                item.department_active ? "opacity-100" : "opacity-40"
-              } `}
+              className={
+                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+              }
+              key={key}
             >
-              <p className="mb-1">{item.department_name}</p>
-            </div>
+              <div
+                className={`${
+                  item.department_active ? "opacity-100" : "opacity-40"
+                } `}
+              >
+                <p className="mb-1">{item.department_name}</p>
+              </div>
 
-            <ul className="datalist__action flex items-center gap-1 pr-3 ">
-              {item.department_active === 1 ? (
-                <>
-                  <li className=" ">
-                    <button
-                      className="tooltip"
-                      data-tooltip="Edit"
-                      onClick={() => handleEdit(item)}
-                    >
-                      <FiEdit2 />
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Archive"
-                      onClick={() => handleArchive(item)}
-                    >
-                      <BsArchive />
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className=" ">
-                    <button
-                      className="tooltip"
-                      data-tooltip="Restore"
-                      onClick={() => handleRestore(item)}
-                    >
-                      <MdOutlineRestore className="text-base" />
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Delete"
-                      onClick={() => handleDelete(item)}
-                    >
-                      <FiTrash />
-                    </button>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
-        ))}
+              <ul className="datalist__action flex items-center gap-1 pr-3 ">
+                {item.department_active === 1 ? (
+                  <>
+                    <li className=" ">
+                      <button
+                        className="tooltip"
+                        data-tooltip="Edit"
+                        onClick={() => handleEdit(item)}
+                      >
+                        <FiEdit2 />
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="tooltip"
+                        data-tooltip="Archive"
+                        onClick={() => handleArchive(item)}
+                      >
+                        <BsArchive />
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className=" ">
+                      <button
+                        className="tooltip"
+                        data-tooltip="Restore"
+                        onClick={() => handleRestore(item)}
+                      >
+                        <MdOutlineRestore className="text-base" />
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="tooltip"
+                        data-tooltip="Delete"
+                        onClick={() => handleDelete(item)}
+                      >
+                        <FiTrash />
+                      </button>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
+          ))
+        )}
       </div>
 
       {store.isSettingConfirm && (

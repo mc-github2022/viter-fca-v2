@@ -46,7 +46,12 @@ const CardClientParentInfo = ({
       ) : (
         <>
           <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
-            <h3 className="">Parent/Guardian</h3>
+            <div>
+              <h3 className="">Parent - Guardian</h3>
+              <p className="text-xs opacity-75">
+                List all parent and guardian information for the student
+              </p>
+            </div>
             <button
               className="tooltip"
               data-tooltip="New"

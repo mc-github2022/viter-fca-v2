@@ -41,8 +41,12 @@ const CardClientFinancierInfo = ({
   return (
     <div>
       <div className="flex justify-between items-center max-w-[620px] w-full mb-5">
-        <h3 className="">Financier Information</h3>
-
+        <div>
+          <h3 className="">Financier</h3>
+          <p className="text-xs opacity-75">
+            Setup student financier information
+          </p>
+        </div>
         {financierInfo.success === false && financierInfo.count === 0 ? (
           <ModalInvalidRequestError />
         ) : (

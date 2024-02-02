@@ -73,7 +73,7 @@ export const DebouncedInputSearch = ({
         value={value}
         type="search"
         onChange={(e) => setValue(e.target.value)}
-        className="pl-7 w-full max-w-[380px] text-xs placeholder:text-gray-400 placeholder:font-normal"
+        className="pl-7 w-full max-w-[380px] text-xs placeholder:text-gray-400 placeholder:font-normal rounded-md"
       />
       <FaSearch className="absolute text-xs top-2 left-2 opacity-50" />
     </div>

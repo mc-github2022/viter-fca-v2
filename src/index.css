@@ -25,8 +25,8 @@
 }
 
 .theme-dark {
-  --accent: hsl(23, 99%, 49%);
-  --accentDark: hsl(23, 99%, 39%);
+  --accent: rgb(35, 104, 19);
+  --accentDark: hsl(109, 73%, 10%);
   --primary: #2e2e2e;
   --secondary: #222222;
   --line: #333333;
@@ -150,7 +150,7 @@
   }
 
   nav {
-    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
+    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border border-line w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
   }
 
   nav .backdrop {
@@ -379,7 +379,7 @@
   }
 
   .modal.modal--side .modal__main {
-    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-6 ml-2 shadow-left animate-slideLeft opacity-0 ease-linear translate-x-[20%] transition-all;
+    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-3 ml-2 shadow-left animate-slideLeft opacity-0 ease-linear translate-x-[20%] transition-all;
   }
 
   .modal__main .modal__header {
@@ -387,7 +387,7 @@
   }
 
   .modal__main .modal__header button {
-    @apply absolute -top-4 right-2 text-xl;
+    @apply absolute top-1 right-2 text-xl;
   }
 
   .modal__main {
@@ -537,6 +537,10 @@
 datalist {
   scrollbar-gutter: stable;
   padding-right: 8px;
+}
+
+.scroll-gutter-stable {
+  scrollbar-gutter: stable;
 }
 
 .custom__scroll::-webkit-scrollbar,
