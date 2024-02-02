@@ -1,26 +1,22 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import { DebouncedInputSearch } from "@/components/helpers/function-table.jsx";
+import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
-import SearchBar from "@/components/partials/SearchBar";
 import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
-import {
-  setIsAdd,
-  setIsConfirm,
-  setIsDelete,
-} from "@/components/store/StoreAction";
+import { setIsConfirm, setIsDelete } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
-import { BsArchive, BsThreeDotsVertical } from "react-icons/bs";
-import { FaEdit, FaFilter, FaHistory, FaSearch, FaTrash } from "react-icons/fa";
-import { FiArchive, FiEdit2, FiEdit3, FiTrash } from "react-icons/fi";
-import { MdArchive, MdOutlineRestore, MdRestore } from "react-icons/md";
-import { RiDeleteBinLine } from "react-icons/ri";
+import { BsArchive } from "react-icons/bs";
+import { CiViewList } from "react-icons/ci";
+import { FiEdit2, FiTrash } from "react-icons/fi";
+import { MdOutlineRestore } from "react-icons/md";
+import { Link } from "react-router-dom";
+import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
 
 const StudentList = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -52,7 +48,6 @@ const StudentList = () => {
     setId(item.student_info_aid);
     setData(item);
     setIsArchive(1);
-    console.log(isArchive);
   };
 
   const handleDelete = (item) => {
@@ -107,6 +102,14 @@ const StudentList = () => {
         <>
           {row.row.original.student_info_is_archive == 1 ? (
             <div className="flex gap-2 justify-end pr-4">
+              <Link
+                to={`${devNavUrl}/system/students/information?cid=${row.row.original.student_info_user_id}&sid=${row.row.original.student_info_aid}`}
+                className="tooltip text-base"
+                data-tooltip="View"
+              >
+                <CiViewList />
+              </Link>
+
               <button
                 type="button"
                 className="tooltip "
@@ -163,6 +166,8 @@ const StudentList = () => {
           )}
         </div>
       </div>
+
+      {/* <ModalEditStudent /> */}
 
       {store.isConfirm && (
         <ModalConfirm

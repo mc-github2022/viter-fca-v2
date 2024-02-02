@@ -41,10 +41,11 @@ const Navigation = ({ menu, submenu }) => {
         <div className="backdrop" onClick={() => setIsShow(false)}></div>
         <div className="flex flex-col justify-between h-[93%] py-2 pr-0 custom__scroll overflow-y-auto">
           <ul className="mt-3  h-[calc(100vh-48px)] pb-8">
-            <li className={`nav__link ${menu === "student" ? "active" : ""}`}>
+            <li className={`nav__link ${menu === "students" ? "active" : ""}`}>
               <Link
                 to={`${devNavUrl}/system/students`}
-                className="flex gap-3 items-center uppercase p-1 w-full">
+                className="flex gap-3 items-center uppercase p-1 w-full"
+              >
                 <BsGear className="text-lg" /> Student
               </Link>
             </li>
@@ -63,7 +64,8 @@ const Navigation = ({ menu, submenu }) => {
                 className={` p-1 w-full ${
                   menu === "settings" ? "bg-[#dfdfdf]" : ""
                 }`}
-                onClick={(e) => handleDropDownSetting(e)}>
+                onClick={(e) => handleDropDownSetting(e)}
+              >
                 <div className="flex justify-between items-center w-full">
                   <div className="flex gap-3 items-center uppercase">
                     <BsGear className="text-lg" /> Settings
@@ -86,7 +88,8 @@ const Navigation = ({ menu, submenu }) => {
                   <li
                     className={` ${
                       submenu === "department" ? "active__submenu" : ""
-                    }`}>
+                    }`}
+                  >
                     <Link
                       to={`${devNavUrl}/system/settings/department`}
                       className={`duration-150 border-transparent w-full inline-block py-1  `}
