@@ -83,7 +83,7 @@ class InfoFinancial
         try {
             $sql = "select * ";
             $sql .= "from {$this->tblInfoFinancial} ";
-            $sql .= "where financial_info_user_id  = :financial_info_user_id ";
+            $sql .= "where financial_info_user_id = :financial_info_user_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "financial_info_user_id" => $this->financial_info_user_id,

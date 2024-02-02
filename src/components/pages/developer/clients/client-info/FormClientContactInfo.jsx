@@ -1,5 +1,8 @@
 import { InputSelect, InputText } from "@/components/helpers/FormInputs";
-import { getUrlParam } from "@/components/helpers/functions-general.jsx";
+import {
+  getUrlParam,
+  handleNumOnly,
+} from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -16,7 +19,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { MdOutlineContactEmergency } from "react-icons/md";
 import * as Yup from "yup";
 
-const ModalClientContactInfo = ({
+const FormClientContactInfo = ({
   itemEdit,
   setShowContactForm,
   setItemEdit,
@@ -45,7 +48,7 @@ const ModalClientContactInfo = ({
         dispatch(setMessage(data.error));
       } else {
         setItemEdit(null);
-        setShowParentForm(false);
+        setShowContactForm(false);
         dispatch(setSuccess(true));
 
         dispatch(
@@ -62,7 +65,7 @@ const ModalClientContactInfo = ({
     contact_mobile: itemEdit ? itemEdit.contact_mobile : "",
     contact_landline: itemEdit ? itemEdit.contact_landline : "",
     contact_level: itemEdit ? itemEdit.contact_level : "",
-    contact_name_old: temEdit ? itemEdit.contact_name : "",
+    contact_name_old: itemEdit ? itemEdit.contact_name : "",
   };
 
   const yupSchema = Yup.object({
@@ -73,7 +76,8 @@ const ModalClientContactInfo = ({
   });
 
   return (
-    <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-sm max-w-[620px] w-full mb-5 relative">
+    <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-md max-w-[620px] w-full mb-5 relative">
+      <h4 className="mb-5">Emergency Contact</h4>
       <Formik
         initialValues={initVal}
         validationSchema={yupSchema}
@@ -132,6 +136,8 @@ const ModalClientContactInfo = ({
                     label="Mobile"
                     type="text"
                     name="contact_mobile"
+                    maxLength="11"
+                    onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -140,6 +146,8 @@ const ModalClientContactInfo = ({
                     label="Landline"
                     type="text"
                     name="contact_landline"
+                    maxLength="11"
+                    onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -171,4 +179,4 @@ const ModalClientContactInfo = ({
   );
 };
 
-export default ModalClientContactInfo;
+export default FormClientContactInfo;

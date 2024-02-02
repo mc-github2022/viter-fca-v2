@@ -39,6 +39,7 @@ const initVal = {
   isShowModal: true,
   isMenuExpand: true,
   lastIdInserted: null,
+  isInvalidRequest: false,
 };
 
 const StoreContext = React.createContext();

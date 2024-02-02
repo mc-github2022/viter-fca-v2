@@ -4,9 +4,9 @@ $conn = checkDbConnection();
 $infoFinancial = new InfoFinancial($conn);
 $error = [];
 $returnData = [];
-if (array_key_exists("infofinancial", $_GET)) {
+if (array_key_exists("financialinfoaid", $_GET)) {
     checkPayload($data);
-    $infoFinancial->financial_info_aid = $_GET['infofinancial'];
+    $infoFinancial->financial_info_aid = $_GET['financialinfoaid'];
     $infoFinancial->financial_info_user_id = checkIndex($data, "financial_info_user_id");
     $infoFinancial->financial_info_father_income = $data["financial_info_father_income"];
     $infoFinancial->financial_info_mother_income = $data["financial_info_mother_income"];

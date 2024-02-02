@@ -5,8 +5,8 @@ $InfoContact = new InfoContact($conn);
 
 $error = [];
 $returnData = [];
-if (array_key_exists("infocontactid", $_GET)) {
-    $InfoContact->contact_aid = $_GET['infocontactid'];
+if (array_key_exists("contactinfoid", $_GET)) {
+    $InfoContact->contact_aid = $_GET['contactinfoid'];
     checkId($InfoContact->contact_aid);
 
 

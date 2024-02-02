@@ -1,6 +1,9 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { InputSelect, InputText } from "@/components/helpers/FormInputs";
-import { getUrlParam } from "@/components/helpers/functions-general.jsx";
+import {
+  getUrlParam,
+  handleNumOnly,
+} from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -23,11 +26,7 @@ import { RiProfileLine } from "react-icons/ri";
 import { TfiLocationPin } from "react-icons/tfi";
 import * as Yup from "yup";
 
-const ModalClientParentInfo = ({
-  itemEdit,
-  setShowParentForm,
-  setItemEdit,
-}) => {
+const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [getRelationship, setGetRelationship] = React.useState("");
   const id = getUrlParam().get("cid");
@@ -161,14 +160,13 @@ const ModalClientParentInfo = ({
   };
 
   return (
-    <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-sm max-w-[620px] w-full mb-5 relative">
-      <h4>Parent Information</h4>
+    <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-md max-w-[620px] w-full mb-5 relative">
+      <h4 className="mb-5">Parent Information</h4>
 
       <Formik
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          console.log(values);
           mutation.mutate({ ...values, parent_guardian_info_user_id: id });
         }}
       >
@@ -328,6 +326,8 @@ const ModalClientParentInfo = ({
                     label="Mobile"
                     type="text"
                     name="parent_guardian_info_mobile"
+                    maxLength="11"
+                    onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -335,6 +335,8 @@ const ModalClientParentInfo = ({
                   <InputText
                     label="Landline"
                     type="text"
+                    maxLength="11"
+                    onKeyPress={handleNumOnly}
                     name="parent_guardian_info_landline"
                     disabled={mutation.isLoading}
                   />
@@ -374,6 +376,8 @@ const ModalClientParentInfo = ({
                   <InputText
                     label="Zip Code"
                     type="text"
+                    maxLength="4"
+                    onKeyPress={handleNumOnly}
                     name="parent_guardian_info_zipcode"
                     disabled={mutation.isLoading}
                   />
@@ -411,4 +415,4 @@ const ModalClientParentInfo = ({
   );
 };
 
-export default ModalClientParentInfo;
+export default FormClientParentInfo;

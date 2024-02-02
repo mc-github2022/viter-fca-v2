@@ -3,20 +3,24 @@ import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BsTrash } from "react-icons/bs";
 
+import { queryData } from "@/components/helpers/queryData.jsx";
+import ModalWrapper from "@/components/partials/modals/ModalWrapper.jsx";
 import {
   setIsDelete,
   setMessage,
-  setSettingIsDelete,
   setSuccess,
   setValidate,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { BsFillTrashFill } from "react-icons/bs";
-import { queryData } from "../../helpers/queryData";
-import ButtonSpinner from "../spinners/ButtonSpinner";
-import ModalWrapper from "./ModalWrapper.jsx";
 
-const ModalDelete = ({ mysqlApiDelete, msg, item, queryKey }) => {
+const ModalDeleteInfoCard = ({
+  mysqlApiDelete,
+  msg,
+  item,
+  queryKey,
+  setDelete,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -27,11 +31,7 @@ const ModalDelete = ({ mysqlApiDelete, msg, item, queryKey }) => {
       queryClient.invalidateQueries({ queryKey: [queryKey] });
 
       if (data.success) {
-        if (store.isSettingDelete) {
-          dispatch(setSettingIsDelete(false));
-        } else {
-          dispatch(setIsDelete(false));
-        }
+        setDelete(false);
         dispatch(setSuccess(true));
         dispatch(setMessage("Deleted succesfully."));
       }
@@ -43,11 +43,7 @@ const ModalDelete = ({ mysqlApiDelete, msg, item, queryKey }) => {
   });
 
   const handleClose = () => {
-    if (store.isSettingDelete) {
-      dispatch(setSettingIsDelete(false));
-    } else {
-      dispatch(setIsDelete(false));
-    }
+    setDelete(false);
   };
 
   const handleYes = async () => {
@@ -97,4 +93,4 @@ const ModalDelete = ({ mysqlApiDelete, msg, item, queryKey }) => {
   );
 };
 
-export default ModalDelete;
+export default ModalDeleteInfoCard;

@@ -268,3 +268,10 @@ export const setLastIdInserted = (val) => {
     payload: val,
   };
 };
+
+export const setIsInvalidRequest = (val) => {
+  return {
+    type: "IS_INVALID_REQUEST",
+    payload: val,
+  };
+};

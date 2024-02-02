@@ -226,6 +226,12 @@ export const StoreReducer = (state, action) => {
         lastIdInserted: action.payload,
       };
 
+    case "IS_INVALID_REQUEST":
+      return {
+        ...state,
+        isInvalidRequest: action.payload,
+      };
+
     default:
       return state;
   }

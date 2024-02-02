@@ -4,9 +4,9 @@ $conn = checkDbConnection();
 $infoContact = new InfoContact($conn);
 $error = [];
 $returnData = [];
-if (array_key_exists("infocontactid", $_GET)) {
+if (array_key_exists("contactinfoid", $_GET)) {
     checkPayload($data);
-    $infoContact->contact_aid = $_GET['infocontactid'];
+    $infoContact->contact_aid = $_GET['contactinfoid'];
     $infoContact->contact_user_id = checkIndex($data, "contact_user_id");
     $infoContact->contact_name = checkIndex($data, "contact_name");
     $infoContact->contact_email = checkIndex($data, "contact_email");

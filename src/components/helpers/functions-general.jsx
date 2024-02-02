@@ -151,6 +151,24 @@ export const getPesoSign = new Intl.NumberFormat("ph-PH", {
   currency: "PHP",
 });
 
+export const formatMobileNumber = (x) => {
+  let mobile = x.toString();
+  mobile = mobile.replace(/\D+/g, "");
+  mobile = `+63 (${mobile.substr(1, 3)}) ${mobile.substr(4, 3)}-${mobile.substr(
+    7,
+    4
+  )}`;
+  return mobile;
+};
+
+// Format number 5622212 to 562-2212
+export const formatLandlandNumber = (x) => {
+  let tel = x.toString();
+  tel = tel.replace(/\D+/g, "");
+  tel = `${tel.substr(0, 3)}-${tel.substr(4, 4)}`;
+  return tel;
+};
+
 // get user type
 export const getUserType = () => {
   const { store } = React.useContext(StoreContext);
