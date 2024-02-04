@@ -16,7 +16,7 @@ import { CiViewList } from "react-icons/ci";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { Link } from "react-router-dom";
-import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
+import ModalEditStudent from "./StudentEdit/ModalEditStudent";
 
 const StudentList = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -189,6 +189,8 @@ const StudentList = () => {
           queryKey={"student"}
         />
       )}
+
+      <ModalEditStudent />
     </>
   );
 };
