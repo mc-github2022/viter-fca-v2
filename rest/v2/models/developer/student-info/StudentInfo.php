@@ -51,7 +51,7 @@ class StudentInfo
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblStudentInfo = "fca_info_student";
+        $this->tblStudentInfo = "fca_student_info";
         $this->tblGradeLevel = "fca_settings_grade_level";
       
     }
@@ -195,6 +195,24 @@ class StudentInfo
             $sql .= "student.student_info_lname, ";
             $sql .= "student.student_info_fname asc ";
             $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function readById()
+    {
+        try {
+            $sql = "select * ";
+            $sql .= "from {$this->tblStudentInfo} as student, ";
+            $sql .= "{$this->tblGradeLevel} as gradeLevel ";
+            $sql .= "where student.student_info_grade_id = gradeLevel.grade_level_aid ";
+            $sql .= "and student.student_info_aid = :student_info_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "student_info_aid" => $this->student_info_aid,
+            ]);
         } catch (PDOException $ex) {
             $query = false;
         }

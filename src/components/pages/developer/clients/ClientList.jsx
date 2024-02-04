@@ -124,14 +124,6 @@ const ClientList = ({ setItemEdit }) => {
                 <CiViewList />
               </Link>
 
-              <Link
-                to={`${devNavUrl}/system/clients/student-list?cid=${row.row.original.user_other_aid}`}
-                className="tooltip text-base"
-                data-tooltip="Student"
-              >
-                <PiStudentLight />
-              </Link>
-
               <button
                 type="button"
                 className="tooltip "

@@ -12,7 +12,7 @@ import Department from "@/components/pages/developer/settings/Department/Departm
 import Discount from "@/components/pages/developer/settings/discount/Discount";
 import { default as System } from "@/components/pages/developer/settings/user-system/UserSystem.jsx";
 import Students from "@/components/pages/developer/students/Students";
-import StudentInfo from "@/components/pages/developer/students/profile/StudentInfo.jsx";
+import StudentViewInfo from "@/components/pages/developer/students/student-info/StudentViewInfo.jsx";
 
 export const routesSystem = [
   {
@@ -94,11 +94,11 @@ export const routesSystem = [
     ),
   },
   {
-    path: `${devNavUrl}/system/student-information`,
+    path: `${devNavUrl}/system/students/information`,
     element: (
-      //   <ProtectedRouteSystem>
-      <StudentInfo />
-      //   </ProtectedRouteSystem>
+      <ProtectedRouteSystem>
+        <StudentViewInfo />
+      </ProtectedRouteSystem>
     ),
   },
 ];

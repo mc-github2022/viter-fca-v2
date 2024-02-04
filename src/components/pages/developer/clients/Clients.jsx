@@ -8,10 +8,11 @@ import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { FaAngleLeft, FaPlus } from "react-icons/fa";
+import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ClientList from "./ClientList.jsx";
 import ModalAddClient from "./ModalAddClient.jsx";
+import { LiaTimesSolid } from "react-icons/lia";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -68,6 +69,7 @@ const Clients = () => {
 
         <Footer />
       </section>
+
       {store.isAdd && <ModalAddClient itemEdit={itemEdit} roles={roles} />}
 
       {store.success && <ModalSuccess />}

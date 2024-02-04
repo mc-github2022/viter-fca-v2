@@ -15,7 +15,7 @@ import ButtonSpinner from "../spinners/ButtonSpinner.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
 const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
-  const { dispatch } = React.useContext(StoreContext);
+  const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -31,6 +31,11 @@ const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
       }
 
       if (data.success) {
+        if (store.isSettingConfirm) {
+          dispatch(setSettingIsConfirm(false));
+        } else {
+          dispatch(setIsConfirm(false));
+        }
         dispatch(setSuccess(true));
         dispatch(setMessage("Archived succesfully."));
       }
@@ -49,7 +54,7 @@ const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
   };
 
   const handleClose = () => {
-    if (setSettingIsConfirm(true)) {
+    if (store.isSettingConfirm) {
       dispatch(setSettingIsConfirm(false));
     } else {
       dispatch(setIsConfirm(false));
