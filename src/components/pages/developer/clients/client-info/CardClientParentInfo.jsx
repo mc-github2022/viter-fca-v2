@@ -95,7 +95,7 @@ const CardClientParentInfo = ({
                   </div>
                 </div>
 
-                <p className=" flex gap-2 text-xs ">
+                <p className=" flex gap-2 text-xs mb-2">
                   <PiMapPinLight className="text-base" />
                   {item.parent_guardian_info_address},{" "}
                   {item.parent_guardian_info_province}{" "}
@@ -103,19 +103,29 @@ const CardClientParentInfo = ({
                   {item.parent_guardian_info_zipcode}
                 </p>
 
-                <p className="text-xs mt-4 flex gap-2 items-center ">
-                  <HiOutlineEnvelope className="text-base" />
-                  {item.parent_guardian_info_email}{" "}
-                  <LuDot className="text-xl" />
-                  <CiMobile3 className="text-base" />{" "}
-                  {formatMobileNumber(item.parent_guardian_info_mobile)}{" "}
-                  {item.parent_guardian_info_landline && (
-                    <>
-                      <LuDot className="text-xl" />
-                      <PiPhoneThin className="text-base" />
-                      {formatLandlandNumber(item.parent_guardian_info_landline)}
-                    </>
-                  )}
+                <p className="text-xs  md:flex gap-2 items-center ">
+                  <span className="flex mb-2">
+                    <HiOutlineEnvelope className="text-base mr-1.5" />
+                    {item.parent_guardian_info_email}{" "}
+                  </span>
+                  <span className="flex mb-2">
+                    <LuDot className="text-xl hidden md:block" />
+                    <CiMobile3 className="text-base mr-1.5" />{" "}
+                    {formatMobileNumber(item.parent_guardian_info_mobile)}{" "}
+                  </span>
+                  <span className="mb-2">
+                    {item.parent_guardian_info_landline && (
+                      <>
+                        <span className="flex">
+                          <LuDot className="text-xl hidden md:block" />
+                          <PiPhoneThin className="text-base mr-1.5" />
+                          {formatLandlandNumber(
+                            item.parent_guardian_info_landline
+                          )}
+                        </span>
+                      </>
+                    )}
+                  </span>
                 </p>
               </div>
             </div>
