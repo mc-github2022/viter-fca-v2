@@ -367,5 +367,24 @@ class StudentInfo
             return $query;
         }
 
+        public function checkName()
+        {
+            try {
+                $sql = "select student_info_fname, ";
+                $sql .= "student_info_lname ";
+                $sql .= "from {$this->tblStudentInfo} ";
+                $sql .= "where student_info_fname = :student_info_fname ";
+                $sql .= "and student_info_lname = :student_info_lname ";
+                $query = $this->connection->prepare($sql);
+                $query->execute([
+                    "student_info_fname" => "{$this->student_info_fname}",
+                    "student_info_lname" => "{$this->student_info_lname}",
+                ]);
+            } catch (PDOException $ex) {
+                $query = false;
+            }
+            return $query;
+        }
+
 
 }
