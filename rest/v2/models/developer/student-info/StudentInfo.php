@@ -46,6 +46,8 @@ class StudentInfo
     public $student_info_search;
     public $tblStudentInfo;
     public $tblGradeLevel;
+
+    public $fullname;
     
 
     public function __construct($db)

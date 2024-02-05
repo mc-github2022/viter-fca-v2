@@ -42,10 +42,21 @@ if (array_key_exists("studentid", $_GET)) {
     $student->student_info_archive_remark = checkIndex($data, "student_info_archive_remark");
     $student->student_info_datetime = date("Y-m-d H:i:s");
     checkId($student->student_info_aid);
-    $student_name_old = checkIndex($data, "student_name_old");
-    compareName($student, $student_name_old, $student->student_info_fname);
+
+    $student_fname_old = checkIndex($data, "student_info_fname");
+    $student_lname_old = checkIndex($data, "student_info_lname");
+
+    $student->fullname = strtolower($student->student_info_fname) ." ". strtolower($student->student_info_lname);
+
+    $fullname_old = $student_fname_old . " " . $student_lname_old;
+
+    compareName($student, $fullname_old, $student->fullname);
+
     $query = checkUpdate($student);
     returnSuccess($student, "student", $query);
 }
 
 checkEndpoint();
+
+
+
