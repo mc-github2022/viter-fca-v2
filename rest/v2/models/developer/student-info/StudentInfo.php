@@ -47,12 +47,14 @@ class StudentInfo
     public $tblStudentInfo;
     public $tblGradeLevel;
     public $tblParentInfo;
+
+    public $fullname;
     
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblStudentInfo = "fca_student_info";
+        $this->tblStudentInfo = "fca_info_student";
         $this->tblGradeLevel = "fca_settings_grade_level";
         $this->tblParentInfo = "fca_info_parent_guardian";
 
@@ -290,7 +292,6 @@ class StudentInfo
             try {
                 $sql = "update {$this->tblStudentInfo} set ";
                 $sql .= "student_info_user_id = :student_info_user_id, ";
-                $sql .= "student_info_is_archive = :student_info_is_archive, ";
                 $sql .= "student_info_learning_type = :student_info_learning_type, ";
                 $sql .= "student_info_grade_id = :student_info_grade_id, ";
                 $sql .= "student_info_reference_no = :student_info_reference_no, ";
@@ -320,15 +321,14 @@ class StudentInfo
                 $sql .= "student_info_is_enrolled = :student_info_is_enrolled, ";
                 $sql .= "student_info_medical_notes = :student_info_medical_notes, ";
                 $sql .= "student_info_medical_doctor = :student_info_medical_doctor, ";
+                $sql .= "student_info_medical_contact = :student_info_medical_contact, ";
                 $sql .= "student_info_family_circumstances = :student_info_family_circumstances, ";
                 $sql .= "student_info_archive_remark = :student_info_archive_remark, ";
-                $sql .= "student_info_medical_doctor = :student_info_medical_doctor, ";
                 $sql .= "student_info_datetime = :student_info_datetime ";
                 $sql .= "where student_info_aid = :student_info_aid ";
                 $query = $this->connection->prepare($sql);
                 $query->execute([
                     "student_info_user_id" => $this->student_info_user_id,
-                    "student_info_is_archive" => $this->student_info_is_archive,
                     "student_info_learning_type" => $this->student_info_learning_type,
                     "student_info_grade_id" => $this->student_info_grade_id,
                     "student_info_reference_no" => $this->student_info_reference_no,
@@ -363,6 +363,25 @@ class StudentInfo
                     "student_info_archive_remark" => $this->student_info_archive_remark,
                     "student_info_datetime" => $this->student_info_datetime,
                     "student_info_aid" => $this->student_info_aid,
+                ]);
+            } catch (PDOException $ex) {
+                $query = false;
+            }
+            return $query;
+        }
+
+        public function checkName()
+        {
+            try {
+                $sql = "select student_info_fname, ";
+                $sql .= "student_info_lname ";
+                $sql .= "from {$this->tblStudentInfo} ";
+                $sql .= "where student_info_fname = :student_info_fname ";
+                $sql .= "and student_info_lname = :student_info_lname ";
+                $query = $this->connection->prepare($sql);
+                $query->execute([
+                    "student_info_fname" => "{$this->student_info_fname}",
+                    "student_info_lname" => "{$this->student_info_lname}",
                 ]);
             } catch (PDOException $ex) {
                 $query = false;
