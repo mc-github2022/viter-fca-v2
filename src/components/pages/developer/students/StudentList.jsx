@@ -24,6 +24,8 @@ const StudentList = () => {
   const queryClient = useQueryClient();
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
+  const [isViewInfo, setIsViewInfo] = React.useState(false);
+  const [itemEdit, setItemEdit] = React.useState(null);
 
   const {
     isLoading,
@@ -36,11 +38,9 @@ const StudentList = () => {
     "student" // key
   );
 
-  const handleArchive = (item) => {
-    dispatch(setIsConfirm(true));
-    setId(item.student_info_aid);
-    setData(item);
-    setIsArchive(0);
+  const handleViewInfo = (item) => {
+    setIsViewInfo(true);
+    setItemEdit(item);
   };
 
   const handleRestore = (item) => {
@@ -54,6 +54,13 @@ const StudentList = () => {
     dispatch(setIsDelete(true));
     setId(item.student_info_aid);
     setData(item);
+  };
+
+  const handleArchive = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.student_info_aid);
+    setData(item);
+    setIsArchive(0);
   };
 
   const columnHelper = createColumnHelper();
@@ -102,19 +109,20 @@ const StudentList = () => {
         <>
           {row.row.original.student_info_is_archive == 1 ? (
             <div className="flex gap-2 justify-end pr-4">
-              <Link
-                to={`${devNavUrl}/system/students/information?cid=${row.row.original.student_info_user_id}&sid=${row.row.original.student_info_aid}`}
-                className="tooltip text-base"
-                data-tooltip="View"
+              <button
+                type="button"
+                className="tooltip "
+                data-tooltip="Profile"
+                onClick={() => handleViewInfo(row.row.original)}
               >
                 <CiViewList />
-              </Link>
+              </button>
 
               <button
                 type="button"
                 className="tooltip "
                 data-tooltip="Edit"
-                onClick={() => handleEdit(row.row.original)}
+                onClick={() => handleViewInfo(row.row.original)}
               >
                 <FiEdit2 />
               </button>
@@ -167,7 +175,9 @@ const StudentList = () => {
         </div>
       </div>
 
-      {/* <ModalEditStudent /> */}
+      {isViewInfo && (
+        <ModalEditStudent setIsViewInfo={setIsViewInfo} itemEdit={itemEdit} />
+      )}
 
       {store.isConfirm && (
         <ModalConfirm
@@ -190,7 +200,7 @@ const StudentList = () => {
         />
       )}
 
-      <ModalEditStudent />
+      {/* <ModalEditStudent /> */}
     </>
   );
 };

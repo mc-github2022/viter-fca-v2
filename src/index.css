@@ -434,6 +434,12 @@
     @apply w-full block text-left hover:bg-white;
   }
 
+  .modal__article p,
+  .modal__article ul li,
+  .modal__article ol li {
+    @apply leading-loose mb-2;
+  }
+
   .subnav ul li {
     @apply py-1.5 pl-4;
   }

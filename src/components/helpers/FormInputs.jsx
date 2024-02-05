@@ -109,7 +109,7 @@ export const MyRadio = ({ label, ...props }) => {
   );
 };
 
-export const MyCheckbox = ({ label, open, ...props }) => {
+export const InputCheckbox = ({ label, open, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and alse replace ErrorMessage entirely.
   const [field, meta] = useField(props);
@@ -124,7 +124,7 @@ export const MyCheckbox = ({ label, open, ...props }) => {
             : "w-auto h-auto"
         }
       />
-      <label className="label" htmlFor={props.id || props.name}>
+      <label className={props.className} htmlFor={props.id || props.name}>
         {label}
       </label>
       {/* <span htmlFor={props.id || props.name}>{label}</span> */}

@@ -134,3 +134,4 @@ RewriteRule ^dev-settings-discount/active/([0-9]+)$ controllers/developer/settin
 RewriteRule ^student$ controllers/developer/students/students.php [L]
 RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
 RewriteRule ^student/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]
+RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/readParentByStudentId.php?studentid=$1 [L]

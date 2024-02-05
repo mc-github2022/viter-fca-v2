@@ -41,26 +41,26 @@ const CardClientParentInfo = ({
 
   return (
     <div>
+      <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
+        <div>
+          <h3 className="">Parent - Guardian</h3>
+          <p className="text-xs opacity-75">
+            List all parent and guardian information for the student
+          </p>
+        </div>
+        <button
+          className="tooltip"
+          data-tooltip="New"
+          onClick={handleAddParentInfo}
+        >
+          <FaPlus />
+        </button>
+      </div>
+
       {parentInfo?.data.length === 0 ? (
         <NoData />
       ) : (
         <>
-          <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
-            <div>
-              <h3 className="">Parent - Guardian</h3>
-              <p className="text-xs opacity-75">
-                List all parent and guardian information for the student
-              </p>
-            </div>
-            <button
-              className="tooltip"
-              data-tooltip="New"
-              onClick={handleAddParentInfo}
-            >
-              <FaPlus />
-            </button>
-          </div>
-
           {parentInfo?.data.map((item, key) => (
             <div className="max-w-[620px] w-full gap-4 mb-5" key={key}>
               <div className="card bg-primary border border-line relative p-4 rounded-sm">

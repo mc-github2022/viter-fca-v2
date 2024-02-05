@@ -29,3 +29,13 @@ function isAssociatedRequirementIT($object)
     $count = $query->rowCount();
     checkExistence($count, "You cannot delete this item because it is already associated with other module. (Requirement IT)");
 }
+
+
+
+// Create 
+function checkAddressByStudentId($object)
+{
+    $query = $object->readAddressByStudentId();
+    checkQuery($query, "There's a problem processing your request. (Read by student ID)");
+    return $query;
+}

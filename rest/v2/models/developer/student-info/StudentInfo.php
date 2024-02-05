@@ -46,6 +46,7 @@ class StudentInfo
     public $student_info_search;
     public $tblStudentInfo;
     public $tblGradeLevel;
+    public $tblParentInfo;
     
 
     public function __construct($db)
@@ -53,6 +54,8 @@ class StudentInfo
         $this->connection = $db;
         $this->tblStudentInfo = "fca_student_info";
         $this->tblGradeLevel = "fca_settings_grade_level";
+        $this->tblParentInfo = "fca_info_parent_guardian";
+
       
     }
 
@@ -366,6 +369,25 @@ class StudentInfo
             }
             return $query;
         }
+
+
+    public function readAddressByStudentId()
+    {
+        try {
+            $sql = "select * ";
+            $sql .= "from {$this->tblStudentInfo} as student, ";
+            $sql .= "{$this->tblParentInfo} as parent ";
+            $sql .= "where parent.parent_guardian_info_user_id = student.student_info_user_id ";
+            $sql .= "and student.student_info_user_id = :student_info_user_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "student_info_user_id" => $this->student_info_user_id,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 
 
 }
