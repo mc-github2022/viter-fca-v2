@@ -51,7 +51,7 @@ class StudentInfo
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblStudentInfo = "fca_student_info";
+        $this->tblStudentInfo = "fca_info_student";
         $this->tblGradeLevel = "fca_settings_grade_level";
       
     }
@@ -287,7 +287,6 @@ class StudentInfo
             try {
                 $sql = "update {$this->tblStudentInfo} set ";
                 $sql .= "student_info_user_id = :student_info_user_id, ";
-                $sql .= "student_info_is_archive = :student_info_is_archive, ";
                 $sql .= "student_info_learning_type = :student_info_learning_type, ";
                 $sql .= "student_info_grade_id = :student_info_grade_id, ";
                 $sql .= "student_info_reference_no = :student_info_reference_no, ";
@@ -317,15 +316,14 @@ class StudentInfo
                 $sql .= "student_info_is_enrolled = :student_info_is_enrolled, ";
                 $sql .= "student_info_medical_notes = :student_info_medical_notes, ";
                 $sql .= "student_info_medical_doctor = :student_info_medical_doctor, ";
+                $sql .= "student_info_medical_contact = :student_info_medical_contact, ";
                 $sql .= "student_info_family_circumstances = :student_info_family_circumstances, ";
                 $sql .= "student_info_archive_remark = :student_info_archive_remark, ";
-                $sql .= "student_info_medical_doctor = :student_info_medical_doctor, ";
                 $sql .= "student_info_datetime = :student_info_datetime ";
                 $sql .= "where student_info_aid = :student_info_aid ";
                 $query = $this->connection->prepare($sql);
                 $query->execute([
                     "student_info_user_id" => $this->student_info_user_id,
-                    "student_info_is_archive" => $this->student_info_is_archive,
                     "student_info_learning_type" => $this->student_info_learning_type,
                     "student_info_grade_id" => $this->student_info_grade_id,
                     "student_info_reference_no" => $this->student_info_reference_no,
