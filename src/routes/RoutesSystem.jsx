@@ -7,6 +7,7 @@ import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEma
 import Profile from "@/components/pages/developer/account/Profile.jsx";
 import Clients from "@/components/pages/developer/clients/Clients.jsx";
 import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
+import ClientStudentViewInfo from "@/components/pages/developer/clients/student-info/ClientStudentViewInfo.jsx";
 import Department from "@/components/pages/developer/settings/Department/Department";
 
 import Discount from "@/components/pages/developer/settings/discount/Discount";
@@ -64,6 +65,15 @@ export const routesSystem = [
     element: (
       <ProtectedRouteSystem>
         <ClientViewInfo />
+      </ProtectedRouteSystem>
+    ),
+  },
+
+  {
+    path: `/${devNavUrl}/system/clients/student/information`,
+    element: (
+      <ProtectedRouteSystem>
+        <ClientStudentViewInfo />
       </ProtectedRouteSystem>
     ),
   },

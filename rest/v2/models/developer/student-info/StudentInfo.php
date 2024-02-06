@@ -54,7 +54,7 @@ class StudentInfo
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblStudentInfo = "fca_info_student";
+        $this->tblStudentInfo = "fca_student_info";
         $this->tblGradeLevel = "fca_settings_grade_level";
         $this->tblParentInfo = "fca_info_parent_guardian";
 
