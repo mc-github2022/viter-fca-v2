@@ -39,3 +39,11 @@ function checkAddressByStudentId($object)
     checkQuery($query, "There's a problem processing your request. (Read by student ID)");
     return $query;
 }
+
+
+function checkStudentByParentId($object)
+{
+    $query = $object->readStudentByParentId();
+    checkQuery($query, "There's a problem processing your request. (Read by student ID)");
+    return $query;
+}

@@ -45,6 +45,7 @@ const ModalAddClient = ({ itemEdit, roles, id }) => {
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
+        dispatch(setMessage("Record successfully added."));
       }
       if (!data.success) {
         dispatch(setValidate(true));
@@ -73,7 +74,7 @@ const ModalAddClient = ({ itemEdit, roles, id }) => {
 
         <div className="modal__main ">
           <div className="modal__header">
-            <h3>Add Department</h3>
+            <h3>Add Client</h3>
             <button onClick={handleClose}>
               <FaTimes />
             </button>

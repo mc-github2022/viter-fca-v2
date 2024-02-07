@@ -87,7 +87,7 @@ const FormClientFinancierInfo = ({
 
   return (
     <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-md max-w-[620px] w-full mb-5 relative">
-      <h4 className="mb-5">Financier Information</h4>
+      <h4 className="mb-5">Financer Information</h4>
       <Formik
         initialValues={initVal}
         validationSchema={yupSchema}
@@ -139,7 +139,7 @@ const FormClientFinancierInfo = ({
                 </div>
                 <div className="form__wrap">
                   <InputText
-                    label="Financier"
+                    label="Financer"
                     type="text"
                     name="financial_info_financier_full_name"
                     disabled={mutation.isLoading}
@@ -147,7 +147,7 @@ const FormClientFinancierInfo = ({
                 </div>
                 <div className="form__wrap">
                   <InputText
-                    label="Financier's Income"
+                    label="Financer's Income"
                     type="text"
                     onKeyPress={handleNumOnly}
                     name="financial_info_financier_income"

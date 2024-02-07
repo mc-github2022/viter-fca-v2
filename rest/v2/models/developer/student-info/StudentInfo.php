@@ -57,6 +57,9 @@ class StudentInfo
         $this->tblStudentInfo = "fca_student_info";
         $this->tblGradeLevel = "fca_settings_grade_level";
         $this->tblParentInfo = "fca_info_parent_guardian";
+        $this->tblParentInfo = "fca_info_parent_guardian";
+
+        $this->tblUserOther = "fca_settings_user_other";
 
       
     }
@@ -407,6 +410,27 @@ class StudentInfo
         }
         return $query;
     }
+
+    public function readStudentByParentId() {
+        try {
+            $sql = "select * ";
+            $sql .= "from {$this->tblStudentInfo} as student, ";
+            $sql .= "{$this->tblUserOther} as other, ";
+            $sql .= "{$this->tblGradeLevel} as gradeLevel ";
+            $sql .= "where student.student_info_user_id = other.user_other_aid ";
+            $sql .= "and student.student_info_grade_id = gradeLevel.grade_level_aid ";
+            $sql .= "and student.student_info_user_id = :student_info_user_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "student_info_user_id" => $this->student_info_user_id,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    
 
 
 }

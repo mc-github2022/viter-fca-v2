@@ -9,10 +9,10 @@ import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
+import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
 import ClientList from "./ClientList.jsx";
 import ModalAddClient from "./ModalAddClient.jsx";
-import { LiaTimesSolid } from "react-icons/lia";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
