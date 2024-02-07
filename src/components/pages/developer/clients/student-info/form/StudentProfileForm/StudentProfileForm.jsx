@@ -4,6 +4,7 @@ import {
   InputText,
   InputTextArea,
 } from "@/components/helpers/FormInputs.jsx";
+import { getUrlParam } from "@/components/helpers/functions-general";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import {
   setIsAdd,
@@ -19,7 +20,7 @@ import * as Yup from "yup";
 
 const StudentProfileForm = ({ showSideNav, itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-
+  const cid = getUrlParam().get("cid");
   const {
     isLoading: gradeLoading,
     isFetching: gradeFetching,
@@ -40,6 +41,17 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
     "/v2/dev-learning-type", // endpoint
     "get", // method
     "learningtype" // key
+  );
+
+  const {
+    isLoading: addressLoading,
+    isFetching: addressFetching,
+    error: addressError,
+    data: address,
+  } = useQueryData(
+    `/v2/dev-read-info-parent/${cid}`, // endpoint
+    "get", // method
+    "address" // key
   );
 
   const queryClient = useQueryClient();
@@ -297,7 +309,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
                   </div>
 
                   <h5 className="mb-2">Address</h5>
-                  {/* <div className="grid grid-cols-1 gap-x-3">
+                  <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
                       <InputSelect
                         label="Current Address"
@@ -326,7 +338,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
                         )}
                       </InputSelect>
                     </div>
-                  </div> */}
+                  </div>
 
                   <h5 className="mb-2">Last School </h5>
                   <div className="grid grid-cols-[400px_1fr_1fr] gap-x-3">
