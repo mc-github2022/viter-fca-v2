@@ -42,7 +42,7 @@ const CardClientFinancierInfo = ({
     <div>
       <div className="flex justify-between items-center max-w-[620px] w-full mb-5">
         <div>
-          <h3 className="">Financier</h3>
+          <h3 className="">Financer</h3>
           <p className="text-xs opacity-75">
             Setup student financier information
           </p>
@@ -84,7 +84,7 @@ const CardClientFinancierInfo = ({
                   Number(item.financial_info_financier_income).toFixed(2)
                 )}
               </p>
-              <div className="card__action absolute top-5 right-5 flex gap-2">
+              <div className="card__action absolute -bottom-[2rem] left-[50%] -translate-x-[50%] xxs:bottom-[unset] xxs:translate-x-[unset] xxs:left-[unset]  xxs:top-5 xxs:right-0 flex gap-2">
                 <button
                   className=" tooltip"
                   data-tooltip="Edit"

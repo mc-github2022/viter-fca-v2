@@ -172,6 +172,7 @@ export default {
       screens: {
         xr: { raw: "(min-height: 800px)" },
         poco: { raw: "(min-height: 800px)" },
+        xxs: "412px",
       },
     },
   },

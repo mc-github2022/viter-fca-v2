@@ -6,6 +6,7 @@ import SystemLogin from "@/components/pages/access/developer/SystemLogin.jsx";
 import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEmailSystemUser.jsx";
 import Profile from "@/components/pages/developer/account/Profile.jsx";
 import Clients from "@/components/pages/developer/clients/Clients.jsx";
+import StudentView from "@/components/pages/developer/clients/StudentView";
 import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
 import ClientStudentViewInfo from "@/components/pages/developer/clients/student-info/ClientStudentViewInfo.jsx";
 import Department from "@/components/pages/developer/settings/Department/Department";
@@ -74,6 +75,17 @@ export const routesSystem = [
     element: (
       <ProtectedRouteSystem>
         <ClientStudentViewInfo />
+      </ProtectedRouteSystem>
+    ),
+  },
+
+  //student Card
+
+  {
+    path: `/${devNavUrl}/system/clients/view/student-list`,
+    element: (
+      <ProtectedRouteSystem>
+        <StudentView />
       </ProtectedRouteSystem>
     ),
   },
