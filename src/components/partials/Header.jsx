@@ -15,6 +15,7 @@ import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
 import { devNavUrl } from "../helpers/functions-general.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
 import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
+import { Link } from "react-router-dom";
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
@@ -127,7 +128,9 @@ const Header = () => {
                     className="absolute top-2 right-2 tooltip"
                     data-tooltip="Edit Profile"
                   >
-                    <RiEdit2Line />
+                    <Link to={`${devNavUrl}/system/profile`}>
+                      <RiEdit2Line />
+                    </Link>
                   </button>
 
                   <ul className=" w-full text-xs ">
