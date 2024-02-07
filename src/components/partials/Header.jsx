@@ -116,7 +116,7 @@ const Header = () => {
               <div
                 className={`dropdown ${
                   show ? "active" : "inactive"
-                } absolute top-[40px] right-5 max-w-[200px] lg:max-w-[350px] w-full bg-primary rounded-md border border-gray-200 shadow-sm`}
+                } absolute top-[40px] right-5 max-w-[250px] lg:max-w-[350px] w-full bg-primary rounded-md border border-gray-200 shadow-sm`}
               >
                 <div className="p-4 grid lg:grid-cols-[80px_1fr] gap-4 relative">
                   <div className="rounded-full h-[40px] w-[40px] lg:h-[80px] lg:w-[80px] bg-accent flex justify-center items-center text-primary lg:text-3xl justify-self-center">
@@ -133,7 +133,7 @@ const Header = () => {
                     </Link>
                   </button>
 
-                  <ul className=" w-full text-xs ">
+                  <ul className="w-full text-xs ">
                     <li className="mb-3 flex gap-2 items-center">
                       <FaRegCircleUser className="text-base" />
                       {credentials().firstname} {credentials().lastname}
@@ -144,9 +144,7 @@ const Header = () => {
                     </li>
                     <li className="mb-3 items-center flex gap-2">
                       <MdOutlineMailOutline className="text-base" />
-                      <p className="truncate w-[26ch] ">
-                        {credentials().email}
-                      </p>
+                      <p className="truncate w-[26ch]">{credentials().email}</p>
                     </li>
                     <li className="">
                       <button
