@@ -1,9 +1,12 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import {
   formatLandlandNumber,
   formatMobileNumber,
+  getUrlParam,
 } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsDelete } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -13,15 +16,19 @@ import { FiEdit2, FiTrash } from "react-icons/fi";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { LuDot } from "react-icons/lu";
 import { PiMapPinLight, PiPhoneThin } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 
 const CardClientParentInfo = ({
-  parentInfo,
   setItemEdit,
   setShowParentForm,
+  parentInfo,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [cardId, setCardId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
+
+  const id = getUrlParam().get("cid");
+  const navigate = useNavigate();
 
   const handleShowParentForm = (item) => {
     setItemEdit(item);
@@ -109,15 +116,13 @@ const CardClientParentInfo = ({
                     {item.parent_guardian_info_email}{" "}
                   </span>
                   <span className="flex mb-2">
-                    <LuDot className="text-xl hidden md:block" />
                     <CiMobile3 className="text-base mr-1.5" />{" "}
-                    {formatMobileNumber(item.parent_guardian_info_mobile)}{" "}
+                    {formatMobileNumber(item.parent_guardian_info_mobile)}
                   </span>
                   <span className="mb-2">
                     {item.parent_guardian_info_landline && (
                       <>
                         <span className="flex">
-                          <LuDot className="text-xl hidden md:block" />
                           <PiPhoneThin className="text-base mr-1.5" />
                           {formatLandlandNumber(
                             item.parent_guardian_info_landline
@@ -141,6 +146,7 @@ const CardClientParentInfo = ({
           queryKey={"parentInfo"}
         />
       )}
+      {store.success && <ModalSuccess />}
     </div>
   );
 };

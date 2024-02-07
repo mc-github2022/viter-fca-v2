@@ -64,20 +64,28 @@ const CardClientContactInfo = ({
         contactInfo?.data.map((item, key) => (
           <div className="max-w-[620px] w-full gap-4 mb-5" key={key}>
             <div className="card bg-primary border border-line p-4 rounded-sm  relative">
-              <h5 className="mb-1">
-                {item.contact_name} -{" "}
-                <span className="capitalize">{item.contact_level}</span>
-              </h5>
-              <p className="flex gap-2 text-xs items-center">
-                <HiOutlineEnvelope className="text-base" /> {item.contact_email}{" "}
-                <LuDot className="text-xl" />
-                <CiMobile3 className="text-base" />
-                {formatMobileNumber(item.contact_mobile)}
+              <h5 className="">{item.contact_name} </h5>
+              <p>
+                <span className="capitalize text-xs block mb-2">
+                  {item.contact_level}
+                </span>
+              </p>
+              <p className="md:flex gap-2 text-xs items-center">
+                <span className="flex mb-2">
+                  <HiOutlineEnvelope className="text-base mr-1.5" />{" "}
+                  {item.contact_email}
+                </span>
+
+                <span className="flex mb-2">
+                  <CiMobile3 className="text-base mr-1.5" />
+                  {formatMobileNumber(item.contact_mobile)}
+                </span>
                 {item.contact_landline && (
                   <>
-                    <LuDot className="text-xl" />
-                    <PiPhoneThin className="text-base" />
-                    {formatLandlandNumber(item.contact_landline)}
+                    <span className="flex mb-2">
+                      <PiPhoneThin className="text-base mr-1.5" />
+                      {formatLandlandNumber(item.contact_landline)}
+                    </span>
                   </>
                 )}
               </p>
