@@ -89,7 +89,7 @@ const CardClientContactInfo = ({
                   </>
                 )}
               </p>
-              <div className="card__action absolute -bottom-[2rem] left-[50%] -translate-x-[50%] md:-bottom-[unset] md:-translate-x-[unset] md:left-[unset]  md:top-5 md:right-0 flex gap-2">
+              <div className="card__action absolute -bottom-[2rem] left-[50%] -translate-x-[50%] xxs:bottom-[unset] xxs:translate-x-[unset] xxs:left-[unset]  xxs:top-5 xxs:right-0 flex gap-2">
                 <button
                   className=" tooltip"
                   data-tooltip="Edit"
