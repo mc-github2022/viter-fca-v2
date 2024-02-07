@@ -7,6 +7,7 @@ export default {
         accent: "var(--accent)",
         accHover: "var(--btnhover)",
         accentDark: "var(--accentDark)",
+        accentLight: "var(--accentLight)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
         line: "var(--line)",
@@ -26,6 +27,8 @@ export default {
       backgroundColor: {
         accent: "var(--accent)",
         accentDark: "var(--accentDark)",
+        accentLight: "var(--accentLight)",
+
         primary: "var(--primary)",
         secondary: "var(--secondary)",
         line: "var(--line)",
@@ -45,6 +48,7 @@ export default {
       borderColor: {
         accent: "var(--accent)",
         accentDark: "var(--accentDark)",
+        accentLight: "var(--accentLight)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
         line: "var(--line)",
@@ -64,6 +68,7 @@ export default {
       fill: {
         accent: "var(--accent)",
         accentDark: "var(--accentDark)",
+        accentLight: "var(--accentLight)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
         line: "var(--line)",

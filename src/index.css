@@ -6,6 +6,7 @@
 :root {
   --accent: rgb(18, 57, 9);
   --accentDark: hsl(109, 73%, 10%);
+  --accentLight: hsl(109, 91%, 30%);
   --primary: #ffffff;
   --secondary: #f3f3f3;
   --line: #efefef;
@@ -27,6 +28,7 @@
 .theme-dark {
   --accent: rgb(35, 104, 19);
   --accentDark: hsl(109, 73%, 10%);
+  --accentLight: hsl(109, 91%, 30%);
   --primary: #2e2e2e;
   --secondary: #222222;
   --line: #333333;

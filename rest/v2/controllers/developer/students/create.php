@@ -21,7 +21,7 @@ $student->student_info_email = checkIndex($data, "student_info_email");
 $student->student_info_institutional_email = checkIndex($data, "student_info_institutional_email");
 $student->student_info_mobile = checkIndex($data, "student_info_mobile");
 $student->student_info_landline = checkIndex($data, "student_info_landline");
-$student->student_info_address_id = checkIndex($data, "student_info_address_id");
+// $student->student_info_address_id = checkIndex($data, "student_info_address_id");
 $student->student_info_last_school = checkIndex($data, "student_info_last_school");
 $student->student_info_last_gpa = checkIndex($data, "student_info_last_gpa");
 $student->student_info_last_grade = checkIndex($data, "student_info_last_grade");
@@ -39,7 +39,7 @@ $student->student_info_medical_notes = checkIndex($data, "student_info_medical_n
 $student->student_info_medical_doctor = checkIndex($data, "student_info_medical_doctor");
 $student->student_info_medical_contact = checkIndex($data, "student_info_medical_contact");
 $student->student_info_family_circumstances = checkIndex($data, "student_info_family_circumstances");
-$student->student_info_archive_remark = checkIndex($data, "student_info_archive_remark");
+// $student->student_info_archive_remark = checkIndex($data, "student_info_archive_remark");
 $student->student_info_created = date("Y-m-d H:i:s");
 $student->student_info_datetime = date("Y-m-d H:i:s");
 

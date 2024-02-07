@@ -45,6 +45,7 @@ const ModalAddClient = ({ itemEdit, roles, id }) => {
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
+        dispatch(setMessage("Record successfully added."));
       }
       if (!data.success) {
         dispatch(setValidate(true));

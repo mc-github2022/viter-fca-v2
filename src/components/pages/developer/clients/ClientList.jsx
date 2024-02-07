@@ -12,6 +12,7 @@ import {
   setIsConfirm,
   setIsDelete,
 } from "@/components/store/StoreAction";
+
 import { StoreContext } from "@/components/store/StoreContext";
 import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
@@ -117,9 +118,17 @@ const ClientList = ({ setItemEdit }) => {
           {row.row.original.user_other_is_active === 1 ? (
             <div className="flex gap-2 justify-end">
               <Link
+                to={`${devNavUrl}/system/clients/students?cid=${row.row.original.user_other_aid}`}
+                className="tooltip text-base"
+                data-tooltip="Student"
+              >
+                <PiStudentLight />
+              </Link>
+
+              <Link
                 to={`${devNavUrl}/system/clients/information?cid=${row.row.original.user_other_aid}`}
                 className="tooltip text-base"
-                data-tooltip="View"
+                data-tooltip="Info"
               >
                 <CiViewList />
               </Link>

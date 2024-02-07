@@ -1,7 +1,10 @@
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FiEdit, FiEdit2, FiPlus } from "react-icons/fi";
 
 const TableRegistrarRequirement = ({ requirement, setShowRemarks }) => {
+  const { store, dispatch } = React.useContext(StoreContext);
   const { showRequirement, setShowRequirement } = requirement;
 
   const handleShowSelectRequirement = () =>
@@ -12,11 +15,11 @@ const TableRegistrarRequirement = ({ requirement, setShowRemarks }) => {
       <ul className="flex justify-end gap-4">
         <li>
           <button
-            className="flex items-center gap-2 pr-2 mb-2 text-xs"
+            className="flex justify-center items-center gap-2  mb-2 text-xs tooltip"
+            data-tooltip="Edit"
             onClick={handleShowSelectRequirement}
           >
             <FiEdit2 />
-            Edit
           </button>
         </li>
       </ul>
@@ -47,6 +50,8 @@ const TableRegistrarRequirement = ({ requirement, setShowRemarks }) => {
           deleniti qui eligendi?
         </p>
       </div>
+
+      {store.validate && <ModalValidate />}
     </div>
   );
 };

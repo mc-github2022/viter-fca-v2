@@ -4,12 +4,12 @@ import { FiEdit2, FiPlus } from "react-icons/fi";
 import { LiaTimesSolid } from "react-icons/lia";
 import RequirementRegistrar from "./requirement-registrar/RequirementRegistrar.jsx";
 
-const ModalRequirements = ({ setIsViewInfo, itemEdit }) => {
+const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const [index, setIndex] = React.useState(1);
 
   const handleClose = () => {
-    setIsViewInfo(false);
+    setViewRequirements(false);
   };
 
   const handleShowSideNav = () => {
@@ -19,6 +19,7 @@ const ModalRequirements = ({ setIsViewInfo, itemEdit }) => {
   const handleChangeProfile = (index) => {
     setIndex(index);
   };
+
   return (
     <>
       <div className="fixed top-0 left-0 z-20 w-full h-screen">
