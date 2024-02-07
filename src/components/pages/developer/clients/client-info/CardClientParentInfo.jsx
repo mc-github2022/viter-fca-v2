@@ -83,7 +83,7 @@ const CardClientParentInfo = ({
                     <li className="text-xs">{item.relationship_name}</li>
                   </ul>
 
-                  <div className="card__action absolute top-5 right-5 flex gap-2">
+                  <div className="card__action absolute -bottom-[2rem] left-[50%] -translate-x-[50%] md:-bottom-[unset] md:-translate-x-[unset] md:left-[unset]  md:top-5 md:right-0 flex gap-2">
                     <button
                       className=" tooltip"
                       data-tooltip="Edit"
