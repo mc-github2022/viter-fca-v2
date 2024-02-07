@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2024 at 12:42 AM
+-- Generation Time: Feb 07, 2024 at 08:53 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -44,13 +44,7 @@ CREATE TABLE `fca_info_contact` (
 --
 
 INSERT INTO `fca_info_contact` (`contact_aid`, `contact_user_id`, `contact_name`, `contact_email`, `contact_mobile`, `contact_landline`, `contact_level`, `contact_created`, `contact_datetime`) VALUES
-(21, '17', '11111', 'hjk', 'fgjhfghjfghj', 'hjk', 'primary', '2024-01-23 14:47:59', '2024-01-23 15:30:19'),
-(22, '17', 'vbmnvbnmvbnv', 'fgsdfg', 'sdfg', 'sdfgsdf', 'secondary', '2024-01-23 14:51:04', '2024-01-23 15:30:32'),
-(23, '1', '1', '2', '1', '1', '1', '2024-01-23 14:53:25', '2024-01-23 14:53:25'),
-(24, '17', 'asdf', 'asdf', 'asdfas', 'dfasd', 'primary', '2024-01-23 14:54:23', '2024-01-23 14:54:23'),
-(26, '1', 'qwerqwer', '2', '1', '1', '1', '2024-01-23 15:01:10', '2024-01-23 15:01:10'),
-(29, '17', 'dfgs', 'dfgsd', 'fgsdfg', 'sdfgs', 'secondary', '2024-01-24 12:56:34', '2024-01-24 12:56:34'),
-(30, '17', 'xcvb', 'xcvb', 'xcvb', 'xcvbx', 'primary', '2024-01-24 13:16:12', '2024-01-24 13:16:12');
+(26, '1', 'qwerqwer', '2', '1', '1', '1', '2024-01-23 15:01:10', '2024-01-23 15:01:10');
 
 -- --------------------------------------------------------
 
@@ -70,13 +64,6 @@ CREATE TABLE `fca_info_financial` (
   `financial_info_created` varchar(20) NOT NULL,
   `financial_info_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `fca_info_financial`
---
-
-INSERT INTO `fca_info_financial` (`financial_info_aid`, `financial_info_user_id`, `financial_info_father_income`, `financial_info_mother_income`, `financial_info_financier_income`, `financial_info_financier_full_name`, `financial_info_financier_relationship`, `financial_info_financier_occupation`, `financial_info_created`, `financial_info_datetime`) VALUES
-(20, '17', 'fghjfghjf', 'ghjfghj', 'ghjfghf', 'bvmnvbnmvbnmvbnmv', 'fgjh', 'fgjhf', '2024-01-24 13:55:17', '2024-01-24 13:55:22');
 
 -- --------------------------------------------------------
 
@@ -112,7 +99,7 @@ CREATE TABLE `fca_info_parent_guardian` (
 --
 
 INSERT INTO `fca_info_parent_guardian` (`parent_guardian_info_aid`, `parent_guardian_info_user_id`, `parent_guardian_info_relationship_id`, `parent_guardian_info_salutation`, `parent_guardian_info_reside`, `parent_guardian_info_fname`, `parent_guardian_info_mname`, `parent_guardian_info_maiden_name`, `parent_guardian_info_lname`, `parent_guardian_info_email`, `parent_guardian_info_mobile`, `parent_guardian_info_landline`, `parent_guardian_info_address`, `parent_guardian_info_province`, `parent_guardian_info_city`, `parent_guardian_info_zipcode`, `parent_guardian_info_religion`, `parent_guardian_info_occupation`, `parent_guardian_info_created`, `parent_guardian_info_datetime`) VALUES
-(19, '17', '1', 'ms', 'yes', 'asd', 'asd', '', 'asd', 'asd@asd.com', '3123123', 'aasd', 'asd', 'aqsad', 'asd', 'asd', 'asd', 'asd', '2024-01-24 15:28:06', '2024-01-24 15:28:06');
+(26, '31', '3', 'mr', 'yes', 'wer', 'wer', 'wer', 'wer', 'wer@wer.com', '35674567456', '56745674567', '123 brgy testing', 'Laguna', 'San Pablo City', '4000', 'sdf', 'sdf', '2024-02-05 15:30:52', '2024-02-05 15:30:52');
 
 -- --------------------------------------------------------
 
@@ -157,7 +144,7 @@ CREATE TABLE `fca_settings_grade_level` (
 --
 
 INSERT INTO `fca_settings_grade_level` (`grade_level_aid`, `grade_level_active`, `grade_level_name`, `grade_level_is_pre_school`, `grade_level_created`, `grade_level_datetime`) VALUES
-(1, 1, '44', 1, '2023-12-11 13:58:46', '2024-01-03 14:34:44'),
+(1, 1, 'Grade II', 1, '2023-12-11 13:58:46', '2024-01-03 14:34:44'),
 (3, 1, 'wwwww444444', 1, '2024-01-03 14:32:54', '2024-01-23 07:53:40');
 
 -- --------------------------------------------------------
@@ -179,7 +166,7 @@ CREATE TABLE `fca_settings_learning_type` (
 --
 
 INSERT INTO `fca_settings_learning_type` (`learning_type_aid`, `learning_type_active`, `learning_type_name`, `learning_type_created`, `learning_type_datetime`) VALUES
-(3, 1, 'tesr', '2024-01-03 14:48:27', '2024-01-03 14:48:27'),
+(1, 1, 'tesr', '2024-01-03 14:48:27', '2024-01-03 14:48:27'),
 (4, 1, 'sssss', '2024-01-03 14:48:57', '2024-01-03 14:48:57');
 
 -- --------------------------------------------------------
@@ -225,7 +212,7 @@ CREATE TABLE `fca_settings_relationship` (
 --
 
 INSERT INTO `fca_settings_relationship` (`relationship_aid`, `relationship_active`, `relationship_name`, `relationship_is_maiden`, `relationship_created`, `relationship_datetime`) VALUES
-(1, 1, 'Biological Father', 1, '2023-12-11 13:27:05', '2023-12-11 13:44:02'),
+(1, 1, 'Biological Father', 1, '2023-12-11 13:27:05', ''),
 (3, 1, 'Biological Mother', 1, '2023-12-11 13:37:57', '2024-01-03 14:12:24');
 
 -- --------------------------------------------------------
@@ -282,7 +269,7 @@ CREATE TABLE `fca_settings_requirement_registrar` (
   `requirement_registrar_aid` int(11) NOT NULL,
   `requirement_registrar_active` tinyint(1) NOT NULL,
   `requirement_registrar_department_id` int(11) NOT NULL,
-  `requirement_registrar_name` varchar(50) NOT NULL,
+  `requirement_registrar_name` varchar(120) NOT NULL,
   `requirement_registrar_created` varchar(20) NOT NULL,
   `requirement_registrar_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -292,8 +279,12 @@ CREATE TABLE `fca_settings_requirement_registrar` (
 --
 
 INSERT INTO `fca_settings_requirement_registrar` (`requirement_registrar_aid`, `requirement_registrar_active`, `requirement_registrar_department_id`, `requirement_registrar_name`, `requirement_registrar_created`, `requirement_registrar_datetime`) VALUES
-(1, 1, 5, 'Requirement Registrar', '2023-12-20 08:14:56', '2023-12-20 08:14:56'),
-(2, 1, 2, 'yyy', '2024-01-03 15:51:44', '2024-01-03 15:51:44');
+(3, 1, 5, 'Certificate of Clearance (Financial and Property Responsibility)', '2024-02-06 12:55:27', '2024-02-06 12:57:18'),
+(4, 1, 5, 'Form 137/SF10', '2024-02-06 12:55:33', '2024-02-06 12:55:33'),
+(5, 1, 5, 'Good Moral Certificate', '2024-02-06 12:55:41', '2024-02-06 12:55:41'),
+(6, 1, 5, 'LCR / Local Civil Registry Birth Certificate (Temporary Enrollment Only) OR', '2024-02-06 12:55:48', '2024-02-06 12:57:39'),
+(7, 1, 5, 'Passport - Photocopy made at FCA (Temporary Enrollment Only)', '2024-02-06 12:55:56', '2024-02-06 12:57:30'),
+(8, 1, 5, 'PSA / Philippine Statistics Authority Original Bir', '2024-02-06 12:56:04', '2024-02-06 12:56:04');
 
 -- --------------------------------------------------------
 
@@ -461,7 +452,7 @@ CREATE TABLE `fca_settings_user_other` (
 --
 
 INSERT INTO `fca_settings_user_other` (`user_other_aid`, `user_other_is_active`, `user_other_fname`, `user_other_lname`, `user_other_email`, `user_other_new_email`, `user_other_role_id`, `user_other_key`, `user_other_password`, `user_other_created`, `user_other_datetime`) VALUES
-(15, 1, 'ramon', 'plazawww', 'ramon.plaza@frontlinebusiness.com.ph', '', '3', '', '$2y$10$1Qa/rBuipSGZhOyDjPs/B.4aw/cBLMNLFklhDvDycm38pyU.MeSU.', '2024-01-10 12:26:22', '0000-00-00 00:00:00');
+(31, 1, 'Ramon', 'Plaza', 'monmon.plaza.yt@gmail.com', '', '3', '', '$2y$10$ssl./XB9hjruRlk7v1u6HuuntB/3Myo3ELe66cRjoA8rk03MCuli2', '2024-01-30 13:03:19', '2024-01-30 13:14:44');
 
 -- --------------------------------------------------------
 
@@ -489,6 +480,52 @@ CREATE TABLE `fca_settings_user_system` (
 INSERT INTO `fca_settings_user_system` (`user_system_aid`, `user_system_is_active`, `user_system_fname`, `user_system_lname`, `user_system_email`, `user_system_role_id`, `user_system_key`, `user_system_password`, `user_system_created`, `user_system_datetime`) VALUES
 (1, 1, 'Mark Ryan', 'Merin', 'mark.merin@frontlinebusiness.com.ph', 1, 'c47a62a6f5fc28388226429177c984b80f52b3167a792da2dd70332e745ebf70', '', '2023-04-19 09:13:08', '2023-12-19 14:54:05'),
 (17, 1, 'Monmon', 'Plaza', 'ramon.plaza@frontlinebusiness.com.ph', 1, '', '$2y$10$KXu/IEfKf4hytdeRfVYTY.gnzHrNbZytzMQepTtZdifr8Ct3DJ1w2', '2024-01-08 08:26:34', '2024-01-08 12:50:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fca_student_info`
+--
+
+CREATE TABLE `fca_student_info` (
+  `student_info_aid` int(11) NOT NULL,
+  `student_info_user_id` varchar(20) NOT NULL,
+  `student_info_is_archive` varchar(5) NOT NULL,
+  `student_info_learning_type` varchar(100) NOT NULL,
+  `student_info_grade_id` varchar(20) NOT NULL,
+  `student_info_reference_no` varchar(100) NOT NULL,
+  `student_info_fname` varchar(100) NOT NULL,
+  `student_info_lname` varchar(100) NOT NULL,
+  `student_info_mname` varchar(100) NOT NULL,
+  `student_info_gender` varchar(50) NOT NULL,
+  `student_info_bday` varchar(50) NOT NULL,
+  `student_info_birth_place` varchar(200) NOT NULL,
+  `student_info_email` varchar(200) NOT NULL,
+  `student_info_institutional_email` varchar(200) NOT NULL,
+  `student_info_mobile` varchar(100) NOT NULL,
+  `student_info_landline` varchar(100) NOT NULL,
+  `student_info_adress_id` varchar(20) NOT NULL,
+  `student_info_last_school` varchar(200) NOT NULL,
+  `student_info_last_gpa` varchar(100) NOT NULL,
+  `student_info_last_grade` varchar(20) NOT NULL,
+  `student_info_school_address` varchar(100) NOT NULL,
+  `student_info_school_other` text NOT NULL,
+  `student_info_conduct` tinyint(1) NOT NULL,
+  `student_info_declaration` tinyint(1) NOT NULL,
+  `student_info_parent_commitment` tinyint(1) NOT NULL,
+  `student_info_parent_consent` tinyint(1) NOT NULL,
+  `student_info_is_registrar_notify` tinyint(1) NOT NULL,
+  `student_info_is_finance_notify` tinyint(1) NOT NULL,
+  `student_info_is_it_notify` tinyint(1) NOT NULL,
+  `student_info_is_enrolled` tinyint(1) NOT NULL,
+  `student_info_medical_notes` text NOT NULL,
+  `student_info_medical_doctor` varchar(200) NOT NULL,
+  `student_info_medical_contact` varchar(50) NOT NULL,
+  `student_info_family_circumstances` text NOT NULL,
+  `student_info_archive_remark` text NOT NULL,
+  `student_info_created` varchar(20) NOT NULL,
+  `student_info_datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -603,6 +640,12 @@ ALTER TABLE `fca_settings_user_system`
   ADD PRIMARY KEY (`user_system_aid`);
 
 --
+-- Indexes for table `fca_student_info`
+--
+ALTER TABLE `fca_student_info`
+  ADD PRIMARY KEY (`student_info_aid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -610,19 +653,19 @@ ALTER TABLE `fca_settings_user_system`
 -- AUTO_INCREMENT for table `fca_info_contact`
 --
 ALTER TABLE `fca_info_contact`
-  MODIFY `contact_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `contact_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `fca_info_financial`
 --
 ALTER TABLE `fca_info_financial`
-  MODIFY `financial_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `financial_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `fca_info_parent_guardian`
 --
 ALTER TABLE `fca_info_parent_guardian`
-  MODIFY `parent_guardian_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `parent_guardian_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_department`
@@ -670,7 +713,7 @@ ALTER TABLE `fca_settings_requirement_it`
 -- AUTO_INCREMENT for table `fca_settings_requirement_registrar`
 --
 ALTER TABLE `fca_settings_requirement_registrar`
-  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_role`
@@ -706,13 +749,19 @@ ALTER TABLE `fca_settings_tuition_fee`
 -- AUTO_INCREMENT for table `fca_settings_user_other`
 --
 ALTER TABLE `fca_settings_user_other`
-  MODIFY `user_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_user_system`
 --
 ALTER TABLE `fca_settings_user_system`
   MODIFY `user_system_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `fca_student_info`
+--
+ALTER TABLE `fca_student_info`
+  MODIFY `student_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
