@@ -54,7 +54,7 @@ class StudentInfo
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblStudentInfo = "fca_info_student";
+        $this->tblStudentInfo = "fca_student_info";
         $this->tblGradeLevel = "fca_settings_grade_level";
         $this->tblParentInfo = "fca_info_parent_guardian";
 
@@ -194,11 +194,11 @@ class StudentInfo
             $sql .= "from {$this->tblStudentInfo} as student, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.student_info_grade_id = gradeLevel.grade_level_aid ";
-            $sql .= "order by student.student_info_is_enrolled asc, "; 
-            $sql .= "student.student_info_is_registrar_notify desc, "; 
-            $sql .= "student.student_info_created, "; 
-            $sql .= "student.student_info_lname, ";
-            $sql .= "student.student_info_fname asc ";
+            // $sql .= "order by student.student_info_is_enrolled asc, "; 
+            // $sql .= "student.student_info_is_registrar_notify desc, "; 
+            // $sql .= "student.student_info_created, "; 
+            // $sql .= "student.student_info_lname, ";
+            // $sql .= "student.student_info_fname asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
