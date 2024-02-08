@@ -6,6 +6,7 @@ import {
 } from "@/components/helpers/FormInputs.jsx";
 import { getUrlParam } from "@/components/helpers/functions-general";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
 import {
   setIsAdd,
   setMessage,
@@ -18,9 +19,8 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StudentProfileForm = ({ showSideNav, itemEdit }) => {
+const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const cid = getUrlParam().get("cid");
   const {
     isLoading: gradeLoading,
     isFetching: gradeFetching,
@@ -59,7 +59,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit ? `/v2/student/${itemEdit.user_other_aid}` : "/v2/student",
+        itemEdit ? `/v2/student/${itemEdit.student_info_aid}` : "/v2/student",
         itemEdit ? "put" : "post",
         values
       ),
@@ -99,13 +99,18 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
     student_info_gender: itemEdit ? itemEdit.student_info_gender : "",
     student_info_bday: itemEdit ? itemEdit.student_info_bday : "",
     student_info_birth_place: itemEdit ? itemEdit.student_info_birth_place : "",
-    student_info_email: itemEdit ? itemEdit.student_info_email : "",
+    student_info_institutional_email: itemEdit
+      ? itemEdit.student_info_institutional_email
+      : "",
     student_info_mobile: itemEdit ? itemEdit.student_info_mobile : "",
     student_info_landline: itemEdit ? itemEdit.student_info_landline : "",
     student_info_last_school: itemEdit ? itemEdit.student_info_last_school : "",
+    student_info_school_address: itemEdit
+      ? itemEdit.student_info_school_address
+      : "",
     student_info_last_gpa: itemEdit ? itemEdit.student_info_last_gpa : "",
     student_info_last_grade: itemEdit ? itemEdit.student_info_last_grade : "",
-    // student_info_adress_id: itemEdit ? itemEdit.student_info_adress_id : "",
+    student_info_adress_id: itemEdit ? itemEdit.student_info_adress_id : "",
     student_info_school_other: itemEdit
       ? itemEdit.student_info_school_other
       : "",
@@ -121,6 +126,9 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
     student_info_family_circumstances: itemEdit
       ? itemEdit.student_info_family_circumstances
       : "",
+
+    student_info_fname_old: itemEdit ? itemEdit.student_info_fname : "",
+    student_info_lname_old: itemEdit ? itemEdit.student_info_lname : "",
   };
 
   const yupSchema = Yup.object({});
@@ -131,7 +139,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate(values);
+          mutation.mutate({ ...values, student_info_user_id: cid });
         }}
       >
         {(props) => {
@@ -144,15 +152,18 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-3  bg-primary border-t border-line z-20 p-2 w-full shadow-[0_0_30px_-15px_rgba(0,0,0,0.3)]`}
+                    } ${
+                      props.dirty ? "bottom-0 right-0" : "-bottom-12 right-0"
+                    }   absolute  flex items-center justify-end gap-x-3 transition-all bg-primary border-t border-line z-20 p-2 w-full shadow-[0_0_30px_-15px_rgba(0,0,0,0.3)]`}
                   >
                     <button className="btn btn--accent" type="submit">
-                      Save
+                      {mutation.isPending ? <ButtonSpinner /> : "Save"}
                     </button>
                     <button className="btn btn--cancel" onClick={handleClose}>
                       Dismiss
                     </button>{" "}
                   </div>
+
                   <h3 className="mb-3">Student Profile</h3>
                   <h5 className="mb-2">Classification</h5>
                   <div className="grid grid-cols-[120px_1fr_1fr_1fr] gap-x-3">
@@ -286,7 +297,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
                       <InputText
                         label="Email"
                         type="text"
-                        name="student_info_email"
+                        name="student_info_institutional_email"
                         // disabled={mutation.isLoading}
                       />
                     </div>
@@ -360,7 +371,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
                     </div>
                     <div className="form__wrap">
                       <InputText
-                        label="Grade Level Last School Year"
+                        label=" Level Last School Year"
                         type="text"
                         name="student_info_last_grade"
                         // disabled={mutation.isLoading}
@@ -371,7 +382,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit }) => {
                   <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
                       <InputText
-                        label="Select Parent Address"
+                        label="School Address"
                         type="text"
                         name="student_info_school_address"
                         // disabled={mutation.isLoading}

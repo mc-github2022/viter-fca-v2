@@ -1,3 +1,4 @@
+import NoData from "@/components/partials/NoData.jsx";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import { setMessage, setValidate } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
@@ -13,22 +14,22 @@ const SelectRegistrarRequirementList = ({
   const { showRequirement, setShowRequirement } = requirement;
   const handleSelectRequirementClose = () => setShowRequirement(false);
 
-  // const databaseRequirement = [
-  //   {
-  //     requirement_registrar_aid: 5,
-  //     requirement_registrar_name: "Good Moral Certificate",
-  //   },
+  const databaseRequirement = [
+    {
+      requirement_registrar_aid: 5,
+      requirement_registrar_name: "Good Moral Certificate",
+    },
 
-  //   {
-  //     requirement_registrar_aid: 3,
-  //     requirement_registrar_name: "xxxx",
-  //   },
-  // ];
+    {
+      requirement_registrar_aid: 3,
+      requirement_registrar_name: "xxxx",
+    },
+  ];
 
   const [selectedRequirement, setSelectedRequirement] = React.useState([]);
 
   const keys = ["requirement_registrar_aid", "requirement_registrar_name"];
-  const filteredPropertyRequirement = registrar?.data.map((item) => {
+  let filteredPropertyRequirement = registrar?.data.map((item) => {
     const properties = keys.reduce((obj, key) => {
       obj[key] = item[key];
       return obj;
@@ -48,6 +49,15 @@ const SelectRegistrarRequirementList = ({
     }
   };
 
+  const arr1Set = new Set(
+    databaseRequirement.map((obj) => obj.requirement_registrar_aid)
+  );
+  const result = filteredPropertyRequirement.map((obj) =>
+    arr1Set.has(obj.requirement_registrar_aid)
+      ? { ...obj, selected: true }
+      : obj
+  );
+
   return (
     <>
       <div className="requirement__list">
@@ -58,20 +68,23 @@ const SelectRegistrarRequirementList = ({
         {filteredPropertyRequirement.length === 0 ? (
           <NoData />
         ) : (
-          filteredPropertyRequirement.map((item, index) => (
-            <div
-              className="list max-w-[600px] flex justify-between items-center py-2 border-b border-line"
-              key={index}
-            >
-              <p className="text-xs">{item.requirement_registrar_name}</p>
-              <div className="flex gap-4">
-                <input
-                  type="checkbox"
-                  onChange={(e) => handleChange(e, item)}
-                />
+          result.map((item, index) => {
+            return (
+              <div
+                className="list max-w-[600px] flex justify-between items-center py-2 border-b border-line"
+                key={index}
+              >
+                <p className="text-xs">{item.requirement_registrar_name}</p>
+                <div className="flex gap-4">
+                  <input
+                    type="checkbox"
+                    checked={item.selected}
+                    onChange={(e) => handleChange(e, item)}
+                  />
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         )}
 
         <div className="mt-5 form__wrap">

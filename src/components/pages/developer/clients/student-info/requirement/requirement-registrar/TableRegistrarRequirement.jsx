@@ -2,6 +2,7 @@ import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FiEdit, FiEdit2, FiPlus } from "react-icons/fi";
+import { PiMegaphoneLight } from "react-icons/pi";
 
 const TableRegistrarRequirement = ({ requirement, setShowRemarks }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -20,6 +21,16 @@ const TableRegistrarRequirement = ({ requirement, setShowRemarks }) => {
             onClick={handleShowSelectRequirement}
           >
             <FiEdit2 />
+          </button>
+        </li>
+
+        <li>
+          <button
+            className="flex justify-center items-center gap-2  mb-2 text-xs tooltip"
+            data-tooltip="Notify"
+            // onClick={handleShowSelectRequirement}
+          >
+            <PiMegaphoneLight className="text-sm" />
           </button>
         </li>
       </ul>

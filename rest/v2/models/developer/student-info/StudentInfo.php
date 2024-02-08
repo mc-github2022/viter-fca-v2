@@ -17,7 +17,7 @@ class StudentInfo
     public $student_info_institutional_email;
     public $student_info_mobile;
     public $student_info_landline;
-    public $student_info_address_id;
+    public $student_info_adress_id;
     public $student_info_last_school;
     public $student_info_last_gpa;
     public $student_info_last_grade;
@@ -80,11 +80,11 @@ class StudentInfo
             $sql .= "student_info_gender, ";
             $sql .= "student_info_bday, ";
             $sql .= "student_info_birth_place, ";
-            $sql .= "student_info_email, ";
+            // $sql .= "student_info_email, ";
             $sql .= "student_info_institutional_email, ";
             $sql .= "student_info_mobile, ";
             $sql .= "student_info_landline, ";
-            $sql .= "student_info_address_id, ";
+            $sql .= "student_info_adress_id, ";
             $sql .= "student_info_last_school, ";
             $sql .= "student_info_last_gpa, ";
             $sql .= "student_info_last_grade, ";
@@ -102,7 +102,7 @@ class StudentInfo
             $sql .= "student_info_medical_doctor, ";
             $sql .= "student_info_medical_contact, ";
             $sql .= "student_info_family_circumstances, ";
-            $sql .= "student_info_archive_remark, ";
+            // $sql .= "student_info_archive_remark, ";
             $sql .= "student_info_created, ";
             $sql .= "student_info_datetime ) values ( ";
             $sql .= ":student_info_user_id, ";
@@ -116,11 +116,11 @@ class StudentInfo
             $sql .= ":student_info_gender, ";
             $sql .= ":student_info_bday, ";
             $sql .= ":student_info_birth_place, ";
-            $sql .= ":student_info_email, ";
+            // $sql .= ":student_info_email, ";
             $sql .= ":student_info_institutional_email, ";
             $sql .= ":student_info_mobile, ";
             $sql .= ":student_info_landline, ";
-            $sql .= ":student_info_address_id, ";
+            $sql .= ":student_info_adress_id, ";
             $sql .= ":student_info_last_school, ";
             $sql .= ":student_info_last_gpa, ";
             $sql .= ":student_info_last_grade, ";
@@ -138,7 +138,7 @@ class StudentInfo
             $sql .= ":student_info_medical_doctor, ";
             $sql .= ":student_info_medical_contact, ";
             $sql .= ":student_info_family_circumstances, ";
-            $sql .= ":student_info_archive_remark, ";
+            // $sql .= ":student_info_archive_remark, ";
             $sql .= ":student_info_created, ";
             $sql .= ":student_info_datetime ) ";
             $query = $this->connection->prepare($sql);
@@ -154,11 +154,11 @@ class StudentInfo
                 "student_info_gender" => $this->student_info_gender,
                 "student_info_bday" => $this->student_info_bday,
                 "student_info_birth_place" => $this->student_info_birth_place,
-                "student_info_email" => $this->student_info_email,
+                // // "student_info_email" => $this->student_info_email,
                 "student_info_institutional_email" => $this->student_info_institutional_email,
                 "student_info_mobile" => $this->student_info_mobile,
                 "student_info_landline" => $this->student_info_landline,
-                "student_info_address_id" => $this->student_info_address_id,
+                "student_info_adress_id" => $this->student_info_adress_id,
                 "student_info_last_school" => $this->student_info_last_school,
                 "student_info_last_gpa" => $this->student_info_last_gpa,
                 "student_info_last_grade" => $this->student_info_last_grade,
@@ -176,7 +176,7 @@ class StudentInfo
                 "student_info_medical_doctor" => $this->student_info_medical_doctor,
                 "student_info_medical_contact" => $this->student_info_medical_contact,
                 "student_info_family_circumstances" => $this->student_info_family_circumstances,
-                "student_info_archive_remark" => $this->student_info_archive_remark,
+                // "student_info_archive_remark" => $this->student_info_archive_remark,
                 "student_info_created" => $this->student_info_created,
                 "student_info_datetime" => $this->student_info_datetime,
             ]);
@@ -304,29 +304,29 @@ class StudentInfo
                 $sql .= "student_info_gender = :student_info_gender, ";
                 $sql .= "student_info_bday = :student_info_bday, ";
                 $sql .= "student_info_birth_place = :student_info_birth_place, ";
-                $sql .= "student_info_email = :student_info_email, ";
+                // $sql .= "student_info_email = :student_info_email, ";
                 $sql .= "student_info_institutional_email = :student_info_institutional_email, ";
                 $sql .= "student_info_mobile = :student_info_mobile, ";
                 $sql .= "student_info_landline = :student_info_landline, ";
-                $sql .= "student_info_address_id = :student_info_address_id, ";
+                $sql .= "student_info_adress_id = :student_info_adress_id, ";
                 $sql .= "student_info_last_school = :student_info_last_school, ";
                 $sql .= "student_info_last_gpa = :student_info_last_gpa, ";
                 $sql .= "student_info_last_grade = :student_info_last_grade, ";
                 $sql .= "student_info_school_address = :student_info_school_address, ";
                 $sql .= "student_info_school_other = :student_info_school_other, ";
-                $sql .= "student_info_conduct = :student_info_conduct, ";
-                $sql .= "student_info_declaration = :student_info_declaration, ";
-                $sql .= "student_info_parent_commitment = :student_info_parent_commitment, ";
-                $sql .= "student_info_parent_consent = :student_info_parent_consent, ";
-                $sql .= "student_info_is_registrar_notify = :student_info_is_registrar_notify, ";
-                $sql .= "student_info_is_finance_notify = :student_info_is_finance_notify, ";
-                $sql .= "student_info_is_it_notify = :student_info_is_it_notify, ";
-                $sql .= "student_info_is_enrolled = :student_info_is_enrolled, ";
+                // $sql .= "student_info_conduct = :student_info_conduct, ";
+                // $sql .= "student_info_declaration = :student_info_declaration, ";
+                // $sql .= "student_info_parent_commitment = :student_info_parent_commitment, ";
+                // $sql .= "student_info_parent_consent = :student_info_parent_consent, ";
+                // $sql .= "student_info_is_registrar_notify = :student_info_is_registrar_notify, ";
+                // $sql .= "student_info_is_finance_notify = :student_info_is_finance_notify, ";
+                // $sql .= "student_info_is_it_notify = :student_info_is_it_notify, ";
+                // $sql .= "student_info_is_enrolled = :student_info_is_enrolled, ";
                 $sql .= "student_info_medical_notes = :student_info_medical_notes, ";
                 $sql .= "student_info_medical_doctor = :student_info_medical_doctor, ";
                 $sql .= "student_info_medical_contact = :student_info_medical_contact, ";
                 $sql .= "student_info_family_circumstances = :student_info_family_circumstances, ";
-                $sql .= "student_info_archive_remark = :student_info_archive_remark, ";
+                // $sql .= "student_info_archive_remark = :student_info_archive_remark, ";
                 $sql .= "student_info_datetime = :student_info_datetime ";
                 $sql .= "where student_info_aid = :student_info_aid ";
                 $query = $this->connection->prepare($sql);
@@ -341,29 +341,29 @@ class StudentInfo
                     "student_info_gender" => $this->student_info_gender,
                     "student_info_bday" => $this->student_info_bday,
                     "student_info_birth_place" => $this->student_info_birth_place,
-                    "student_info_email" => $this->student_info_email,
+                    // // "student_info_email" => $this->student_info_email,
                     "student_info_institutional_email" => $this->student_info_institutional_email,
                     "student_info_mobile" => $this->student_info_mobile,
                     "student_info_landline" => $this->student_info_landline,
-                    "student_info_address_id" => $this->student_info_address_id,
+                    "student_info_adress_id" => $this->student_info_adress_id,
                     "student_info_last_school" => $this->student_info_last_school,
                     "student_info_last_gpa" => $this->student_info_last_gpa,
                     "student_info_last_grade" => $this->student_info_last_grade,
                     "student_info_school_address" => $this->student_info_school_address,
                     "student_info_school_other" => $this->student_info_school_other,
-                    "student_info_conduct" => $this->student_info_conduct,
-                    "student_info_declaration" => $this->student_info_declaration,
-                    "student_info_parent_commitment" => $this->student_info_parent_commitment,
-                    "student_info_parent_consent" => $this->student_info_parent_consent,
-                    "student_info_is_registrar_notify" => $this->student_info_is_registrar_notify,
-                    "student_info_is_finance_notify" => $this->student_info_is_finance_notify,
-                    "student_info_is_it_notify" => $this->student_info_is_it_notify,
-                    "student_info_is_enrolled" => $this->student_info_is_enrolled,
+                    // "student_info_conduct" => $this->student_info_conduct,
+                    // "student_info_declaration" => $this->student_info_declaration,
+                    // "student_info_parent_commitment" => $this->student_info_parent_commitment,
+                    // "student_info_parent_consent" => $this->student_info_parent_consent,
+                    // "student_info_is_registrar_notify" => $this->student_info_is_registrar_notify,
+                    // "student_info_is_finance_notify" => $this->student_info_is_finance_notify,
+                    // "student_info_is_it_notify" => $this->student_info_is_it_notify,
+                    // "student_info_is_enrolled" => $this->student_info_is_enrolled,
                     "student_info_medical_notes" => $this->student_info_medical_notes,
                     "student_info_medical_doctor" => $this->student_info_medical_doctor,
                     "student_info_medical_contact" => $this->student_info_medical_contact,
                     "student_info_family_circumstances" => $this->student_info_family_circumstances,
-                    "student_info_archive_remark" => $this->student_info_archive_remark,
+                    // "student_info_archive_remark" => $this->student_info_archive_remark,
                     "student_info_datetime" => $this->student_info_datetime,
                     "student_info_aid" => $this->student_info_aid,
                 ]);

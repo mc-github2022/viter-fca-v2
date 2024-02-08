@@ -10,6 +10,8 @@ import Navigation from "@/components/partials/Navigation.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalError from "@/components/partials/modals/ModalError.jsx";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import { setIsAdd, setIsDelete } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -114,7 +116,7 @@ const ClientStudentViewInfo = () => {
             </button>
           </div>
 
-          <div className="max-w-[620px] w-full gap-4 mb-5 bg-primary">
+          <div className="max-w-[620px] w-full gap-4 mb-5 ">
             {isLoading || (isFetching && <TableLoading />)}
             {mystudent?.data.length === 0 ? (
               <NoData />
@@ -122,7 +124,7 @@ const ClientStudentViewInfo = () => {
               mystudent?.data.map((item, key) => {
                 return (
                   <div
-                    className="card  border border-line p-4 rounded-sm relative"
+                    className="card  border border-line p-4 relative mb-2 bg-primary rounded-md"
                     key={key}
                   >
                     <h5>
@@ -187,7 +189,7 @@ const ClientStudentViewInfo = () => {
         <ModalRequirements setViewRequirements={setViewRequirements} />
       )}
 
-      {store.isAdd && <ModalAddStudent itemEdit={itemEdit} />}
+      {store.isAdd && <ModalAddStudent itemEdit={itemEdit} cid={cid} />}
 
       {store.isDelete && (
         <ModalDelete
@@ -197,6 +199,9 @@ const ClientStudentViewInfo = () => {
           queryKey={"mystudent"}
         />
       )}
+
+      {store.success && <ModalSuccess />}
+      {store.error && <ModalError />}
     </>
   );
 };

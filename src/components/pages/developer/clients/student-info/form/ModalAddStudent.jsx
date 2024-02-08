@@ -9,10 +9,9 @@ import StudentParentConsent from "./StudentParentConsent/StudentParentConsent.js
 import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDeclaration.jsx";
 import StudentProfileForm from "./StudentProfileForm/StudentProfileForm.jsx";
 
-const ModalAddStudent = ({ itemEdit }) => {
+const ModalAddStudent = ({ itemEdit, cid }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [showSideNav, setShowSideNav] = React.useState(false);
-
   const [index, setIndex] = React.useState(1);
 
   const handleClose = () => {
@@ -131,6 +130,7 @@ const ModalAddStudent = ({ itemEdit }) => {
                     index={index}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
+                    cid={cid}
                   />
                 )}
                 {index === 2 && (
