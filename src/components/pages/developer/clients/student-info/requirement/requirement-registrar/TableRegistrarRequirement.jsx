@@ -1,12 +1,26 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FiEdit, FiEdit2, FiPlus } from "react-icons/fi";
 import { PiMegaphoneLight } from "react-icons/pi";
 
-const TableRegistrarRequirement = ({ requirement, setShowRemarks }) => {
+const TableRegistrarRequirement = ({ requirement, itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const { showRequirement, setShowRequirement } = requirement;
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: reqRegistrar,
+  } = useQueryData(
+    `/v2/req-registrar/${itemEdit.student_info_aid}`, // endpoint
+    "get", // method
+    "reqRegistrar" // key
+  );
+
+  console.log(itemEdit.student_info_aid);
 
   const handleShowSelectRequirement = () =>
     setShowRequirement(!showRequirement);

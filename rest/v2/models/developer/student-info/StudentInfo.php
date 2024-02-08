@@ -57,7 +57,6 @@ class StudentInfo
         $this->tblStudentInfo = "fca_student_info";
         $this->tblGradeLevel = "fca_settings_grade_level";
         $this->tblParentInfo = "fca_info_parent_guardian";
-        $this->tblParentInfo = "fca_info_parent_guardian";
 
         $this->tblUserOther = "fca_settings_user_other";
 

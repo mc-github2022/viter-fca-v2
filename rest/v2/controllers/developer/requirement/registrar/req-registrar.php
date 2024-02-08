@@ -1,7 +1,8 @@
 <?php
 require '../../../../core/header.php';
 require '../../../../core/functions.php';
-require '../../../../models/developer/settings/GradeLevel.php';
+require '../../../../models/developer/requirements/ReqRegistrar.php';
+require 'functions.php';
 
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);

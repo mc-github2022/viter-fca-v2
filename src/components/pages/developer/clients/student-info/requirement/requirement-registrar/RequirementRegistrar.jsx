@@ -3,7 +3,7 @@ import React from "react";
 import SelectRegistrarRequirementList from "./SelectRegistrarRequirementList.jsx";
 import TableRegistrarRequirement from "./TableRegistrarRequirement.jsx";
 
-const RequirementRegistrar = () => {
+const RequirementRegistrar = ({ itemEdit }) => {
   const [showRequirement, setShowRequirement] = React.useState(false);
 
   const {
@@ -30,6 +30,7 @@ const RequirementRegistrar = () => {
       {!showRequirement && (
         <TableRegistrarRequirement
           requirement={{ showRequirement, setShowRequirement }}
+          itemEdit={itemEdit}
         />
       )}
 

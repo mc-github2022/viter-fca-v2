@@ -14,6 +14,7 @@ class GradeLevel
     public $grade_level_total;
     public $grade_level_search;
     public $tblGradeLevel;
+    public $tblTuitionFee;
 
     public function __construct($db)
     {

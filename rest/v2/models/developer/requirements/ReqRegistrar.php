@@ -3,6 +3,7 @@ class ReqRegistrar
 {
     public $requirement_registrar_user_aid ;
     public $requirement_registrar_user_id;
+    public $requirement_registrar_student_id;
     public $requirement_registrar_submitted;
     public $requirement_registrar_remarks;
     public $requirement_registrar_created;
@@ -14,11 +15,13 @@ class ReqRegistrar
     public $registrar_total;
     public $registrar_search;
     public $tblReqRegistrar;
+    public $tblStudent;
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblReqRegistrar = "fca_settings_registrar";
+        $this->tblStudent = "fca_student_info";
+        $this->tblReqRegistrar = "fca_requirement_registrar";
         
     }
 
@@ -61,6 +64,23 @@ class ReqRegistrar
             $sql .= "from {$this->tblReqRegistrar} ";
             $sql .= "order by requirement_registrar_user_id desc ";
             $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function readByStudentID()
+    {
+        try {
+            $sql = "select * ";
+            $sql .= "from {$this->tblReqStudent} as registar, ";
+            $sql .= "{$this->tblStudent} as student ";
+            $sql .= "where student.student_info_aid = registar.requirement_registrar_student_id ";
+            $query = $this->connection->query($sql);
+            $query->execute([
+                "requirement_registrar_student_id" => $this->requirement_registrar_student_id,
+            ]);
         } catch (PDOException $ex) {
             $query = false;
         }
@@ -114,10 +134,10 @@ class ReqRegistrar
             $sql .= "where requirement_registrar_user_aid = :requirement_registrar_user_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_registrar_user_aid" => $this->requirement_registrar_user_aid,
+                "requirement_registrar_user_aid" => $this->requirement_registrar_user_aid
             ]);
-        } catch (PDOException $ex) {
-            $query = false;
+         } catch (PDOException $ex) {
+                $query = false;
         }
         return $query;
     }

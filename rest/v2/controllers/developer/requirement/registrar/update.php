@@ -20,7 +20,7 @@ if (array_key_exists("reqregistrarid", $_GET)) {
     checkId($registrar->requirement_registrar_user_aid);
 
     $query = checkUpdate($registrar);
-    returnSuccess($registrar, "Grade Level", $query);
+    returnSuccess($registrar, "ReRegistrar", $query);
 }
 
 checkEndpoint();

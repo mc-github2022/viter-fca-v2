@@ -25,7 +25,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
       <div className="fixed top-0 left-0 z-20 w-full h-screen">
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40"></div>
         <div className="relative z-50 flex items-center justify-center w-full h-full ">
-          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-320px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
+          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-120px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
             <div className="z-30 flex justify-between p-2 uppercase border-b modal__settings__header border-line bg-primary">
               <div className="flex gap-4 item-center">
                 <button
@@ -93,7 +93,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
               <main
                 className={` p-5 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all bg-primary`}
               >
-                {index === 1 && <RequirementRegistrar />}
+                {index === 1 && <RequirementRegistrar itemEdit={itemEdit} />}
               </main>
             </div>
           </div>

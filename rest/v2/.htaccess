@@ -135,7 +135,15 @@ RewriteRule ^student$ controllers/developer/students/students.php [L]
 RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
 RewriteRule ^student/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]
 
+# READ ALL PARENT ADDRESS BY STUDENT ID
+RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/readParentAddressByStudentId.php?studentid=$1 [L]
 
-RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/readParentByStudentId.php?studentid=$1 [L]
-
+# READ STUDENT BY PARENT ID
 RewriteRule ^student-parent-id/([0-9]+)$ controllers/developer/students/readStudentByParentId.php?parentid=$1 [L]
+
+# REQUIREMENTS REGISTRAR
+RewriteRule ^req-registrar$ controllers/developer/requirement/registrar/req-registrar.php
+RewriteRule ^req-registrar/([0-9]+)$ controllers/developer/requirement/registrar/req-registrar.php?studentid=$1 [L]
+
+
+

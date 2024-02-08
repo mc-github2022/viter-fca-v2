@@ -17,7 +17,7 @@ class InfoFinancial
     public $financial_info_start;
     public $financial_info_total;
     public $financial_info_search;
-    public $tblInfoContact;
+    public $tblInfoFinancial;
 
     public function __construct($db)
     {

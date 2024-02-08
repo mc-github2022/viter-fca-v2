@@ -31,7 +31,7 @@
   --accentLight: hsl(109, 91%, 30%);
   --primary: #2e2e2e;
   --secondary: #222222;
-  --line: #333333;
+  --line: #4d4d4d;
   --header: #ffffff;
   --body: #d6d6d6;
   --disable: #bebebe;
@@ -115,11 +115,11 @@
   }
 
   table tr {
-    @apply border-b border-gray-50 border-line transition-colors;
+    @apply border-b border-line transition-colors;
   }
 
   table tbody tr:hover {
-    @apply bg-slate-50 shadow-sm;
+    @apply bg-secondary shadow-sm;
   }
 
   table tr:last-child {
@@ -148,7 +148,7 @@
   }
 
   table thead {
-    @apply sticky top-0  bg-white border-b border-gray-100;
+    @apply sticky top-0  bg-primary border-b border-line;
   }
 
   nav {
@@ -156,7 +156,7 @@
   }
 
   nav .backdrop {
-    @apply absolute top-0 left-[59.5vw] bg-white bg-opacity-0 h-full w-[40vw] transition-all delay-100 lg:hidden pointer-events-none;
+    @apply absolute top-0 left-[238px] bg-transparent bg-opacity-0 h-full w-[100vw] transition-all delay-100 lg:hidden pointer-events-none;
   }
 
   table.table__sm thead tr td {
@@ -201,7 +201,7 @@
   input,
   textarea,
   select {
-    @apply w-full border-line border p-[5px] rounded-md outline-none;
+    @apply w-full border-line border p-[5px] rounded-md outline-none bg-primary;
   }
 
   textarea {
@@ -240,7 +240,7 @@
   }
 
   .btn--outline {
-    @apply bg-transparent text-accent border border-accent hover:bg-accentDark hover:text-white cursor-pointer;
+    @apply bg-transparent text-accent border border-accent hover:bg-accentDark hover:text-primary cursor-pointer;
   }
 
   .btn--accent:disabled {
@@ -251,23 +251,19 @@
     @apply bg-accent text-white hover:bg-accentDark;
   }
 
-  .btn--accent:not(:disabled) {
-    @apply bg-accent text-white hover:bg-accentDark;
-  }
-
   .btn--alert {
-    @apply bg-alert text-primary  hover:bg-alertDark;
+    @apply bg-alert text-white  hover:bg-alertDark;
   }
   .btn--warning {
-    @apply bg-warning text-primary hover:bg-warningDark;
+    @apply bg-warning text-white hover:bg-warningDark;
   }
 
   .btn--info {
-    @apply bg-info  text-primary hover:bg-infoDark;
+    @apply bg-info  text-white hover:bg-infoDark;
   }
 
   .btn--success {
-    @apply bg-success  text-primary hover:bg-successDark;
+    @apply bg-success  text-white hover:bg-successDark;
   }
 
   .btn-filter {
@@ -284,7 +280,7 @@
 
   .nav__link.active > button,
   .nav__link.active > a {
-    @apply text-white bg-accent;
+    @apply text-primary bg-accent;
   }
 
   .nav__link > svg {
@@ -316,7 +312,7 @@
   }
 
   .table__wrapper {
-    @apply bg-primary px-2 pb-2 pt-0 rounded-md relative  border-gray-200 border  overflow-y-auto lg:overflow-x-visible;
+    @apply bg-primary px-2 pb-2 pt-0 rounded-md relative  border-line border  overflow-y-auto lg:overflow-x-visible;
   }
 
   .form__wrap {
@@ -381,7 +377,7 @@
   }
 
   .modal.modal--side .modal__main {
-    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-white pl-4 py-3 ml-2 shadow-left animate-slideLeft opacity-0 ease-linear translate-x-[20%] transition-all;
+    @apply absolute top-0 right-0 h-full max-w-[330px] w-full bg-primary pl-4 py-3 ml-2 shadow-left animate-slideLeft opacity-0 ease-linear translate-x-[20%] transition-all;
   }
 
   .modal__main .modal__header {
@@ -425,15 +421,15 @@
   }
 
   .modal__settings__nav ul li.active {
-    @apply bg-accent text-white transition-colors ease-in-out;
+    @apply bg-accent text-primary transition-colors ease-in-out;
   }
 
   .modal__settings__nav ul li.active button {
-    @apply bg-accent text-white transition-colors ease-in-out hover:bg-accent;
+    @apply bg-accent text-primary transition-colors ease-in-out hover:bg-accent;
   }
 
   .modal__settings__nav ul li button {
-    @apply w-full block text-left hover:bg-white;
+    @apply w-full block text-left hover:bg-primary;
   }
 
   .modal__article p,
@@ -451,7 +447,7 @@
   }
 
   .subnav ul li.active {
-    @apply bg-accent text-white;
+    @apply bg-accent text-primary;
   }
 
   /* TOOLTIP */
@@ -478,7 +474,7 @@
   }
 
   .tooltip::after {
-    @apply content-[attr(data-tooltip)] absolute -top-[20px] text-[10px]  left-1/2  -translate-x-1/2  bg-black  bg-opacity-70 py-[4px] px-1.5 text-white  rounded-md hidden leading-none;
+    @apply content-[attr(data-tooltip)] absolute -top-[20px] text-[10px]  left-1/2  -translate-x-1/2  bg-black  bg-opacity-70 py-[4px] px-1.5 text-primary  rounded-md hidden leading-none;
   }
 
   .tooltip::before {
@@ -495,7 +491,7 @@
   }
 
   .multistep__link.active {
-    @apply bg-accent text-white;
+    @apply bg-accent text-primary;
   }
 
   .column__toggle input:checked + div {

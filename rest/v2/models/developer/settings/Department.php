@@ -13,6 +13,10 @@ class Department
     public $department_total;
     public $department_search;
     public $tblDepartment;
+    public $tblNotification;
+    public $tblRequirementFinance;
+    public $tblRequirementIT;
+    public $tblRequirementRegistrar;
 
     public function __construct($db)
     {

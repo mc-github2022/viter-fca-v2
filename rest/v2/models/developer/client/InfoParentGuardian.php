@@ -34,8 +34,8 @@ class InfoParentGuardian
 
     public $fullname;
 
-    public $tblInfoParentGuardian;
-    public $tblParentRelationship;
+    public $tblParentGuardian;
+    public $tblRelationship;
 
     public function __construct($db)
     {

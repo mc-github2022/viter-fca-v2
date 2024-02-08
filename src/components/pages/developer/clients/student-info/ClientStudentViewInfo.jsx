@@ -34,8 +34,6 @@ const ClientStudentViewInfo = () => {
   const cid = getUrlParam().get("cid");
   const navigate = useNavigate();
 
-  const handleViewInfoRequirements = () => setViewRequirements(true);
-
   const handleAddStudent = () => {
     setItemEdit(null);
     dispatch(setIsAdd(true));
@@ -50,6 +48,11 @@ const ClientStudentViewInfo = () => {
     dispatch(setIsDelete(true));
     setId(item.student_info_aid);
     setData(item);
+  };
+
+  const handleViewInfoRequirements = (item) => {
+    setItemEdit(item);
+    setViewRequirements(true);
   };
 
   const {
@@ -153,7 +156,7 @@ const ClientStudentViewInfo = () => {
 
                     <button
                       className="block text-xs mb-2"
-                      onClick={handleViewInfoRequirements}
+                      onClick={() => handleViewInfoRequirements(item)}
                     >
                       View Requirement
                     </button>
@@ -186,7 +189,10 @@ const ClientStudentViewInfo = () => {
       </section>
 
       {viewRequirements && (
-        <ModalRequirements setViewRequirements={setViewRequirements} />
+        <ModalRequirements
+          setViewRequirements={setViewRequirements}
+          itemEdit={itemEdit}
+        />
       )}
 
       {store.isAdd && <ModalAddStudent itemEdit={itemEdit} cid={cid} />}
