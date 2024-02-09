@@ -37,7 +37,11 @@ const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
           dispatch(setIsConfirm(false));
         }
         dispatch(setSuccess(true));
-        dispatch(setMessage("Archived succesfully."));
+        dispatch(
+          setMessage(
+            `Record successfully ${isArchive ? "Restored" : "Archive"}.`
+          )
+        );
       }
       if (!data.success) {
         dispatch(setValidate(true));
