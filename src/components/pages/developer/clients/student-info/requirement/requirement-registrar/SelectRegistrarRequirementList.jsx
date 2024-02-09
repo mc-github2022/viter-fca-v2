@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import {
   InputSelect,
   InputText,
@@ -20,40 +21,30 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import * as Yup from "yup";
 
 const SelectRegistrarRequirementList = ({
-  requirement,
-  registrar,
+  dataRegistrar,
   isLoading,
+  itemEdit,
+  setShowRequirement,
+  parseData,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const { showRequirement, setShowRequirement } = requirement;
   const [selectedRequirement, setSelectedRequirement] = React.useState([]);
 
-  const databaseRequirement = [];
-
-  const handleSelectRequirementClose = () => setShowRequirement(false);
-
-  const keys = ["requirement_registrar_aid", "requirement_registrar_name"];
-  let filteredPropertyRequirement = registrar?.data.map((item) => {
-    const properties = keys.reduce((obj, key) => {
-      obj[key] = item[key];
-      return obj;
-    }, {});
-    return properties;
-  });
-
-  const arr1Set = new Set(
-    databaseRequirement.map((obj) => obj.requirement_registrar_aid)
-  );
-  const result = filteredPropertyRequirement.map((obj) =>
-    arr1Set.has(obj.requirement_registrar_aid)
-      ? { ...obj, selected: true }
-      : obj
+  const {
+    isLoading: registrarloading,
+    error,
+    data: registrar,
+  } = useQueryData(
+    `/v2/dev-requirement-registrar`, // endpoint
+    "get", // method
+    "registrar" // key
   );
 
   const mutation = useMutation({
     mutationFn: (values) => queryData("/v2/req-registrar", "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
+
       queryClient.invalidateQueries({ queryKey: ["clients"] });
       // show error box
       if (data.success) {
@@ -68,6 +59,8 @@ const SelectRegistrarRequirementList = ({
     },
   });
 
+  const handleSelectRequirementClose = () => setShowRequirement(false);
+
   const handleChange = (e, item) => {
     if (e.target.checked) {
       setSelectedRequirement([...selectedRequirement, { ...item }]);
@@ -80,7 +73,30 @@ const SelectRegistrarRequirementList = ({
     }
   };
 
-  const initVal = {};
+  const keys = ["requirement_registrar_aid", "requirement_registrar_name"];
+  let filteredPropertyRequirement = selectedRequirement?.map((item) => {
+    const properties = keys.reduce((obj, key) => {
+      obj[key] = item[key];
+      return obj;
+    }, {});
+    return properties;
+  });
+  let databaseRequirement = [{}];
+
+  console.log(JSON.stringify(selectedRequirement).replace(/\\/g, ""));
+
+  // const arr1Set = new Set(
+  //   databaseRequirement.map((obj) => obj.requirement_registrar_aid)
+  // );
+  // const result = filteredPropertyRequirement.map((obj) =>
+  //   arr1Set.has(obj.requirement_registrar_aid)
+  //     ? { ...obj, selected: true }
+  //     : obj
+  // );
+
+  const initVal = {
+    requirement_registrar_remarks: "",
+  };
 
   const yupSchema = Yup.object({});
 
@@ -90,7 +106,13 @@ const SelectRegistrarRequirementList = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate(values);
+          mutation.mutate({
+            ...values,
+            requirement_registrar_submitted:
+              JSON.stringify(selectedRequirement),
+            requirement_registrar_student_id: itemEdit.student_info_aid,
+            requirement_registrar_user_id: itemEdit.student_info_user_id,
+          });
         }}
       >
         {(props) => {
@@ -99,12 +121,12 @@ const SelectRegistrarRequirementList = ({
               <div className="requirement__list">
                 <h5>Add/Remove Registrar Requirement</h5>
 
-                {isLoading && <TableSpinner />}
-
-                {filteredPropertyRequirement.length === 0 ? (
+                {registrarloading ? (
+                  <TableSpinner />
+                ) : registrar.length === 0 ? (
                   <NoData />
                 ) : (
-                  result.map((item, index) => {
+                  registrar.data.map((item, index) => {
                     return (
                       <div
                         className="list max-w-[600px] flex justify-between items-center py-2 border-b border-line"
@@ -126,19 +148,18 @@ const SelectRegistrarRequirementList = ({
                 )}
 
                 <div className="mt-5 form__wrap">
-                  <label htmlFor="">Remarks</label>
-                  <textarea
-                    name=""
-                    id=""
-                    cols="20"
-                    rows="5"
-                    className="max-w-[400px] w-full"
-                  ></textarea>
+                  <InputTextArea
+                    label="Remarks"
+                    name="requirement_registrar_remarks"
+                  />
                 </div>
 
                 <div className="flex gap-2 py-2 mt-4">
-                  <button className="btn btn--accent">Save</button>
+                  <button className="btn btn--accent" type="submit">
+                    Save
+                  </button>
                   <button
+                    type="button"
                     className="btn btn--cancel"
                     onClick={handleSelectRequirementClose}
                   >

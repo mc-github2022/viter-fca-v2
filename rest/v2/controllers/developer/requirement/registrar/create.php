@@ -15,4 +15,4 @@ $registrar->requirement_registrar_datetime = date("Y-m-d H:i:s");
 $registrar->requirement_registrar_created = date("Y-m-d H:i:s");
 
 $query = checkCreate($registrar);
-returnSuccess($registrar, "Grade Level", $query);
+returnSuccess($registrar, "Student ReqRegistrar", $query);

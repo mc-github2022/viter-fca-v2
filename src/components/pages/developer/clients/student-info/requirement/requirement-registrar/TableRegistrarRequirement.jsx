@@ -1,29 +1,30 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import NoData from "@/components/partials/NoData.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FiEdit, FiEdit2, FiPlus } from "react-icons/fi";
 import { PiMegaphoneLight } from "react-icons/pi";
 
-const TableRegistrarRequirement = ({ requirement, itemEdit }) => {
+const TableRegistrarRequirement = ({
+  setShowRequirement,
+  itemEdit,
+  dataRegistrar,
+  isLoading,
+  parseRequirement,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const { showRequirement, setShowRequirement } = requirement;
+  const { parseData, setParseData } = parseRequirement;
+  React.useEffect(() => {
+    if (dataRegistrar) {
+      setParseData(
+        JSON.parse(dataRegistrar.data[0].requirement_registrar_submitted)
+      );
+    }
+  }, [dataRegistrar]);
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: reqRegistrar,
-  } = useQueryData(
-    `/v2/req-registrar/${itemEdit.student_info_aid}`, // endpoint
-    "get", // method
-    "reqRegistrar" // key
-  );
-
-  console.log(itemEdit.student_info_aid);
-
-  const handleShowSelectRequirement = () =>
-    setShowRequirement(!showRequirement);
+  const handleShowSelectRequirement = () => setShowRequirement(true);
 
   return (
     <div>
@@ -48,33 +49,42 @@ const TableRegistrarRequirement = ({ requirement, itemEdit }) => {
           </button>
         </li>
       </ul>
-      <div className="table__wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th className="w-[30px]">#</th>
-              <th>Item</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="w-[30px]">1</td>
-              <td>
-                Certificate of Clearance (Financial and Property Responsibility){" "}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
 
-      <div className="remarks max-w-[500px] mt-10">
-        <h6>Note:</h6>
-        <p className="text-xs">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam
-          doloremque quas reiciendis consequuntur numquam distinctio nemo atque
-          deleniti qui eligendi?
-        </p>
-      </div>
+      {isLoading ? (
+        <TableLoading count={20} cols={3} />
+      ) : isLoading && dataRegistrar?.data.length === 0 ? (
+        <NoData />
+      ) : (
+        <>
+          <div className="table__wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataRegistrar.data.map((item, key) => {
+                  return (
+                    <tr key={key}>
+                      <td>{item.requirement_registrar_name}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="remarks max-w-[500px] mt-10">
+            <h6>Note:</h6>
+            <p className="text-xs">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Laboriosam doloremque quas reiciendis consequuntur numquam
+              distinctio nemo atque deleniti qui eligendi?
+            </p>
+          </div>
+        </>
+      )}
 
       {store.validate && <ModalValidate />}
     </div>

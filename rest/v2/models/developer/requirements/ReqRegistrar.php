@@ -30,11 +30,13 @@ class ReqRegistrar
         try {
             $sql = "insert into {$this->tblReqRegistrar} ";
             $sql .= "( requirement_registrar_user_id, ";
+            $sql .= "requirement_registrar_student_id, ";
             $sql .= "requirement_registrar_submitted, ";
             $sql .= "requirement_registrar_remarks, ";
             $sql .= "requirement_registrar_created, ";
             $sql .= "requirement_registrar_datetime ) values ( ";
             $sql .= ":requirement_registrar_user_id, ";
+            $sql .= ":requirement_registrar_student_id, ";
             $sql .= ":requirement_registrar_submitted, ";
             $sql .= ":requirement_registrar_remarks, ";
             $sql .= ":requirement_registrar_created, ";
@@ -42,6 +44,7 @@ class ReqRegistrar
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "requirement_registrar_user_id" => $this->requirement_registrar_user_id,
+                "requirement_registrar_student_id" => $this->requirement_registrar_student_id,
                 "requirement_registrar_submitted" => $this->requirement_registrar_submitted,
                 "requirement_registrar_remarks" => $this->requirement_registrar_remarks,
                 "requirement_registrar_created" => $this->requirement_registrar_created,
@@ -74,7 +77,7 @@ class ReqRegistrar
     {
         try {
             $sql = "select * ";
-            $sql .= "from {$this->tblReqStudent} as registar, ";
+            $sql .= "from {$this->tblReqRegistrar} as registar, ";
             $sql .= "{$this->tblStudent} as student ";
             $sql .= "where student.student_info_aid = registar.requirement_registrar_student_id ";
             $query = $this->connection->query($sql);

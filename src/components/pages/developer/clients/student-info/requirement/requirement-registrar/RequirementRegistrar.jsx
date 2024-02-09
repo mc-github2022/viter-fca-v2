@@ -5,16 +5,16 @@ import TableRegistrarRequirement from "./TableRegistrarRequirement.jsx";
 
 const RequirementRegistrar = ({ itemEdit }) => {
   const [showRequirement, setShowRequirement] = React.useState(false);
+  const [parseData, setParseData] = React.useState([]);
 
   const {
     isLoading,
-    isFetching,
     error,
-    data: registrar,
+    data: dataRegistrar,
   } = useQueryData(
-    `/v2/dev-requirement-registrar`, // endpoint
+    `/v2/req-registrar/${itemEdit.student_info_aid}`, // endpoint
     "get", // method
-    "registrar" // key
+    "dataRegistrar" // key
   );
 
   return (
@@ -26,19 +26,23 @@ const RequirementRegistrar = ({ itemEdit }) => {
         listed documents, you will receive through email the tuition fee and
         payment details.
       </p>
-
       {!showRequirement && (
         <TableRegistrarRequirement
-          requirement={{ showRequirement, setShowRequirement }}
+          setShowRequirement={setShowRequirement}
           itemEdit={itemEdit}
+          dataRegistrar={dataRegistrar}
+          isLoading={isLoading}
+          parseRequirement={{ parseData, setParseData }}
         />
       )}
-
       {showRequirement && (
         <SelectRegistrarRequirementList
           requirement={{ showRequirement, setShowRequirement }}
-          registrar={registrar}
+          dataRegistrar={dataRegistrar}
           isLoading={isLoading}
+          itemEdit={itemEdit}
+          setShowRequirement={setShowRequirement}
+          parseData={parseData}
         />
       )}
     </div>
