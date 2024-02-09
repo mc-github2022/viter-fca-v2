@@ -17,7 +17,7 @@ if (array_key_exists("studentid", $_GET)) {
     $student->student_info_gender = checkIndex($data, "student_info_gender");
     $student->student_info_bday = checkIndex($data, "student_info_bday");
     $student->student_info_birth_place = checkIndex($data, "student_info_birth_place");
-    // $student->student_info_email = checkIndex($data, "student_info_email");
+    $student->student_info_email = checkIndex($data, "student_info_email");
     $student->student_info_institutional_email = checkIndex($data, "student_info_institutional_email");
     $student->student_info_mobile = checkIndex($data, "student_info_mobile");
     $student->student_info_landline = checkIndex($data, "student_info_landline");
