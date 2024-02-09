@@ -21,7 +21,7 @@ const Students = () => {
     <>
       <Header />
       <section className="main__wrap flex relative ">
-        <Navigation menu="student" />
+        <Navigation menu="students" />
 
         <main
           className={`main__content mt-[35px] ${
