@@ -66,6 +66,17 @@ const ClientStudentViewInfo = () => {
     "mystudent" // key
   );
 
+  const {
+    isLoading: isClientLoading,
+    isFetching: isClientFetching,
+    error: isClentError,
+    data: clients,
+  } = useQueryData(
+    `/v2/user-other/${cid}`, // endpoint
+    "get", // method
+    "clients" // key
+  );
+
   return (
     <>
       <Header />
@@ -87,17 +98,16 @@ const ClientStudentViewInfo = () => {
               </button>
               <BreadCrumbs />
               <h1 className="text-clampH1 mb-5">
-                Loverboy
-                {/* {userIsLoading || userIsFetching ? (
-                  <p>Loading</p>
+                {isClientLoading || isClientFetching ? (
+                  <p>Loading...</p>
                 ) : (
                   <>
                     <span className="pr-2">
-                      {userAccount?.data[0].user_other_fname}
+                      {clients?.data[0].user_other_fname}
                     </span>
-                    <span>{userAccount?.data[0].user_other_lname}</span>
+                    <span>{clients?.data[0].user_other_lname}</span>
                   </>
-                )} */}
+                )}
               </h1>
             </div>
           </div>
