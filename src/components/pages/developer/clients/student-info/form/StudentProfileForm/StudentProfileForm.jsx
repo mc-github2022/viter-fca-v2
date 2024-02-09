@@ -76,7 +76,9 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
-        dispatch(setMessage("Record successfully added."));
+        dispatch(
+          setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
+        );
       }
       if (!data.success) {
         dispatch(setValidate(true));

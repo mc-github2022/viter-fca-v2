@@ -293,7 +293,7 @@ class StudentInfo
         {
             try {
                 $sql = "update {$this->tblStudentInfo} set ";
-                $sql .= "student_info_user_id = :student_info_user_id, ";
+                // $sql .= "student_info_user_id = :student_info_user_id, ";
                 $sql .= "student_info_learning_type = :student_info_learning_type, ";
                 $sql .= "student_info_grade_id = :student_info_grade_id, ";
                 $sql .= "student_info_reference_no = :student_info_reference_no, ";
@@ -330,7 +330,7 @@ class StudentInfo
                 $sql .= "where student_info_aid = :student_info_aid ";
                 $query = $this->connection->prepare($sql);
                 $query->execute([
-                    "student_info_user_id" => $this->student_info_user_id,
+                    // "student_info_user_id" => $this->student_info_user_id,
                     "student_info_learning_type" => $this->student_info_learning_type,
                     "student_info_grade_id" => $this->student_info_grade_id,
                     "student_info_reference_no" => $this->student_info_reference_no,
