@@ -4,8 +4,14 @@ import {
   InputText,
   InputTextArea,
 } from "@/components/helpers/FormInputs.jsx";
-import { getUrlParam } from "@/components/helpers/functions-general";
+import {
+  getUrlParam,
+  handleNumOnly,
+} from "@/components/helpers/functions-general";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ModalError from "@/components/partials/modals/ModalError";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess";
+import ModalValidate from "@/components/partials/modals/ModalValidate";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
 import {
   setIsAdd,
@@ -70,7 +76,9 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
-        dispatch(setMessage("Record successfully added."));
+        dispatch(
+          setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
+        );
       }
       if (!data.success) {
         dispatch(setValidate(true));
@@ -131,7 +139,28 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
     student_info_lname_old: itemEdit ? itemEdit.student_info_lname : "",
   };
 
-  const yupSchema = Yup.object({});
+  const yupSchema = Yup.object({
+    student_info_learning_type: Yup.string().required("Required"),
+    student_info_grade_id: Yup.string().required("Required"),
+    student_info_lname: Yup.string().required("Required"),
+    student_info_fname: Yup.string().required("Required"),
+    student_info_mname: Yup.string().required("Required"),
+    student_info_gender: Yup.string().required("Required"),
+    student_info_bday: Yup.string().required("Required"),
+    student_info_birth_place: Yup.string().required("Required"),
+    student_info_institutional_email: Yup.string()
+      .required("Required")
+      .email("Invalid email"),
+    student_info_mobile: Yup.string().required("Required"),
+    student_info_adress_id: Yup.string().required("Required"),
+    student_info_last_school: Yup.string().required("Required"),
+    student_info_last_gpa: Yup.string().required("Required"),
+    student_info_last_grade: Yup.string().required("Required"),
+    student_info_school_address: Yup.string().required("Required"),
+    student_info_school_other: Yup.string().required("Required"),
+    student_info_medical_notes: Yup.string().required("Required"),
+    student_info_family_circumstances: Yup.string().required("Required"),
+  });
 
   return (
     <>
@@ -207,7 +236,8 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Learning Reference No."
                         type="text"
                         name="student_info_reference_no"
-                        // disabled={mutation.isLoading}
+                        onKeyPress={handleNumOnly}
+                        disabled={mutation.isLoading}
                       />
                     </div>
 
@@ -216,7 +246,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Grade Level"
                         type="text"
                         name="student_info_grade_id"
-                        //disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                         onChange={(e) => e}
                       >
                         <option value="" hidden></option>
@@ -245,7 +275,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Last Name (Suffix)"
                         type="text"
                         name="student_info_lname"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
 
@@ -254,7 +284,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="First Name"
                         type="text"
                         name="student_info_fname"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
 
@@ -263,7 +293,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Middle Name"
                         type="text"
                         name="student_info_mname"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
 
@@ -272,7 +302,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Gender"
                         type="text"
                         name="student_info_gender"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
 
@@ -281,7 +311,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Birthday"
                         type="text"
                         name="student_info_bday"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
 
@@ -290,7 +320,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Birth Place"
                         type="text"
                         name="student_info_birth_place"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                     <div className="form__wrap">
@@ -298,7 +328,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Email"
                         type="text"
                         name="student_info_institutional_email"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                     <div className="form__wrap">
@@ -306,7 +336,8 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Mobile"
                         type="text"
                         name="student_info_mobile"
-                        // disabled={mutation.isLoading}
+                        onKeyPress={handleNumOnly}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                     <div className="form__wrap">
@@ -314,7 +345,8 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Landline (Optional)"
                         type="text"
                         name="student_info_landline"
-                        // disabled={mutation.isLoading}
+                        onKeyPress={handleNumOnly}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                   </div>
@@ -326,7 +358,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Current Address"
                         type="text"
                         name="student_info_adress_id"
-                        //disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                         onChange={(e) => e}
                       >
                         <option value="" hidden></option>
@@ -358,7 +390,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Last School Name"
                         type="text"
                         name="student_info_last_school"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                     <div className="form__wrap">
@@ -366,7 +398,8 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="GPA Last School Year"
                         type="text"
                         name="student_info_last_gpa"
-                        // disabled={mutation.isLoading}
+                        onKeyPress={handleNumOnly}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                     <div className="form__wrap">
@@ -374,7 +407,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label=" Level Last School Year"
                         type="text"
                         name="student_info_last_grade"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                   </div>
@@ -385,7 +418,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="School Address"
                         type="text"
                         name="student_info_school_address"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                   </div>
@@ -396,7 +429,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Was the student ever submitted to any form of disciplinary action? If so, why?"
                         type="text"
                         name="student_info_school_other"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                   </div>
@@ -408,7 +441,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Pediatrician/Family Doctor: (optional)"
                         type="text"
                         name="student_info_medical_doctor"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                     <div className="form__wrap">
@@ -416,7 +449,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Contact Name: (optional)"
                         type="text"
                         name="student_info_medical_contact"
-                        // disabled={mutation.isLoading}
+                        disabled={mutation.isLoading}
                       />
                     </div>
                   </div>
@@ -425,7 +458,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                       label="Are there any serious medical conditions about which you wish the school to be aware? Please indicate below:"
                       type="text"
                       name="student_info_medical_notes"
-                      // disabled={mutation.isLoading}
+                      disabled={mutation.isLoading}
                     />
                   </div>
 
@@ -434,10 +467,13 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                       label="Are there any family circumstances about which you wish the school to be aware? Please indicate below:"
                       type="text"
                       name="student_info_family_circumstances"
-                      // disabled={mutation.isLoading}
+                      disabled={mutation.isLoading}
                     />
                   </div>
                 </div>
+                {store.success && <ModalSuccess />}
+                {store.error && <ModalError />}
+                {store.validate && <ModalValidate />}
               </Form>
             </>
           );

@@ -64,19 +64,19 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   >
                     <button
                       onClick={() => handleChangeProfile(1)}
-                      className="p-1 pl-4 "
+                      className="p-1 pl-4 w-full text-left "
                     >
                       Profile
                     </button>
                   </li>
                   <li
                     className={` ${
-                      index === 2 ? "bg-accent text-primary" : ""
+                      index === 2 ? "bg-accent text-primary " : ""
                     }`}
                   >
                     <button
                       onClick={() => handleChangeProfile(2)}
-                      className="p-1 pl-4 "
+                      className="p-1 pl-4 w-full text-left "
                     >
                       Code of Conduct
                     </button>
@@ -89,7 +89,7 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   >
                     <button
                       onClick={() => handleChangeProfile(3)}
-                      className="p-1 pl-4 "
+                      className="p-1 pl-4 w-full text-left "
                     >
                       Parent Declaration
                     </button>
@@ -102,7 +102,7 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   >
                     <button
                       onClick={() => handleChangeProfile(4)}
-                      className="p-1 pl-4 "
+                      className="p-1 pl-4 w-full text-left"
                     >
                       Parent Consent
                     </button>
@@ -115,7 +115,7 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   >
                     <button
                       onClick={() => handleChangeProfile(5)}
-                      className="p-1 pl-4 "
+                      className="p-1 pl-4  w-full text-left"
                     >
                       Commitment Form
                     </button>

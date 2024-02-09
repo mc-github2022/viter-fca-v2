@@ -7,10 +7,10 @@ $returnData = [];
 if (array_key_exists("studentid", $_GET)) {
     checkPayload($data);
     $student->student_info_aid = $_GET['studentid'];
-    $student->student_info_user_id = checkIndex($data, "student_info_user_id");
+    // $student->student_info_user_id = checkIndex($data, "student_info_user_id");
     $student->student_info_learning_type = checkIndex($data, "student_info_learning_type");
     $student->student_info_grade_id = checkIndex($data, "student_info_grade_id");
-    $student->student_info_reference_no = checkIndex($data, "student_info_reference_no");
+    $student->student_info_reference_no = $data["student_info_reference_no"];
     $student->student_info_fname = checkIndex($data, "student_info_fname");
     $student->student_info_lname = checkIndex($data, "student_info_lname");
     $student->student_info_mname = checkIndex($data, "student_info_mname");
@@ -37,8 +37,8 @@ if (array_key_exists("studentid", $_GET)) {
     // $student->student_info_is_it_notify = checkIndex($data, "student_info_is_it_notify");
     // $student->student_info_is_enrolled = checkIndex($data, "student_info_is_enrolled");
 
-    $student->student_info_medical_notes = checkIndex($data, "student_info_medical_notes");
-    $student->student_info_medical_doctor = checkIndex($data, "student_info_medical_doctor");
+    $student->student_info_medical_notes = $data["student_info_medical_notes"];
+    $student->student_info_medical_doctor = $data["student_info_medical_doctor"];
     $student->student_info_medical_contact = checkIndex($data, "student_info_medical_contact");
     $student->student_info_family_circumstances = checkIndex($data, "student_info_family_circumstances");
 
