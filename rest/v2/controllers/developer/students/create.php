@@ -27,6 +27,8 @@ $student->student_info_last_gpa = checkIndex($data, "student_info_last_gpa");
 $student->student_info_last_grade = checkIndex($data, "student_info_last_grade");
 $student->student_info_school_address = checkIndex($data, "student_info_school_address");
 $student->student_info_school_other = checkIndex($data, "student_info_school_other");
+
+
 $student->student_info_conduct = 0;
 $student->student_info_declaration = 0;
 $student->student_info_parent_commitment = 0;
@@ -35,6 +37,7 @@ $student->student_info_is_registrar_notify = 0;
 $student->student_info_is_finance_notify = 0;
 $student->student_info_is_it_notify = 0;
 $student->student_info_is_enrolled = 0;
+
 $student->student_info_medical_notes = $data["student_info_medical_notes"];
 $student->student_info_medical_doctor = $data["student_info_medical_doctor"];
 $student->student_info_medical_contact = checkIndex($data, "student_info_medical_contact");

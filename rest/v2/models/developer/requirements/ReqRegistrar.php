@@ -76,13 +76,15 @@ class ReqRegistrar
     public function readByStudentID()
     {
         try {
-            $sql = "select * ";
+            $sql = "select  * ";
             $sql .= "from {$this->tblReqRegistrar} as registar, ";
             $sql .= "{$this->tblStudent} as student ";
             $sql .= "where student.student_info_aid = registar.requirement_registrar_student_id ";
-            $query = $this->connection->query($sql);
+            $sql .= "and registar.requirement_registrar_student_id = :requirement_registrar_student_id ";
+            $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_registrar_student_id" => $this->requirement_registrar_student_id,
+                "requirement_registrar_student_id" => $this->requirement_registrar_student_id
+               
             ]);
         } catch (PDOException $ex) {
             $query = false;
