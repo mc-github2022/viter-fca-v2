@@ -83,7 +83,7 @@ const SelectRegistrarRequirementList = ({
   });
   let databaseRequirement = [{}];
 
-  console.log(JSON.stringify(selectedRequirement).replace(/\\/g, ""));
+  console.log(selectedRequirement);
 
   // const arr1Set = new Set(
   //   databaseRequirement.map((obj) => obj.requirement_registrar_aid)
