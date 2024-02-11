@@ -17,6 +17,7 @@ const RequirementRegistrar = ({ itemEdit }) => {
     "dataRegistrar" // key
   );
 
+
   return (
     <div>
       <h3>Registrar Requirement</h3>

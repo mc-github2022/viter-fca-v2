@@ -63,7 +63,10 @@ const SelectRegistrarRequirementList = ({
 
   const handleChange = (e, item) => {
     if (e.target.checked) {
-      setSelectedRequirement([...selectedRequirement, { ...item }]);
+      setSelectedRequirement([
+        ...selectedRequirement,
+        { ...item, selected: true },
+      ]);
     } else {
       setSelectedRequirement(
         selectedRequirement.filter(
@@ -73,7 +76,7 @@ const SelectRegistrarRequirementList = ({
     }
   };
 
-  const keys = ["requirement_registrar_aid", "requirement_registrar_name"];
+  const keys = ["requirement_registrar_aid, requirement_registrar_name"];
   let filteredPropertyRequirement = selectedRequirement?.map((item) => {
     const properties = keys.reduce((obj, key) => {
       obj[key] = item[key];
@@ -81,9 +84,6 @@ const SelectRegistrarRequirementList = ({
     }, {});
     return properties;
   });
-  let databaseRequirement = [{}];
-
-  console.log(selectedRequirement);
 
   // const arr1Set = new Set(
   //   databaseRequirement.map((obj) => obj.requirement_registrar_aid)
@@ -94,9 +94,19 @@ const SelectRegistrarRequirementList = ({
   //     : obj
   // );
 
-  const initVal = {
-    requirement_registrar_remarks: "",
-  };
+  // const arr1Set = new Set(
+  //   JSON.parse(dataRegistrar.data[0].requirement_registrar_submitted).map(
+  //     (obj) => obj.requirement_registrar_aid
+  //   )
+  // );
+
+  // const result = registrar.data.map((obj) =>
+  //   arr1Set.has(obj.requirement_registrar_aid)
+  //     ? { ...obj, selected: true }
+  //     : obj
+  // );
+
+  const initVal = {};
 
   const yupSchema = Yup.object({});
 
@@ -108,8 +118,7 @@ const SelectRegistrarRequirementList = ({
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           mutation.mutate({
             ...values,
-            requirement_registrar_submitted:
-              JSON.stringify(selectedRequirement),
+            requirement_registrar_submitted: selectedRequirement,
             requirement_registrar_student_id: itemEdit.student_info_aid,
             requirement_registrar_user_id: itemEdit.student_info_user_id,
           });
@@ -123,10 +132,10 @@ const SelectRegistrarRequirementList = ({
 
                 {registrarloading ? (
                   <TableSpinner />
-                ) : registrar.length === 0 ? (
+                ) : dataRegistrar.length === 0 ? (
                   <NoData />
                 ) : (
-                  registrar.data.map((item, index) => {
+                  result.data.map((item, index) => {
                     return (
                       <div
                         className="list max-w-[600px] flex justify-between items-center py-2 border-b border-line"

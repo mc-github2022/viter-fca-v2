@@ -16,15 +16,14 @@ const TableRegistrarRequirement = ({
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const { parseData, setParseData } = parseRequirement;
-  React.useEffect(() => {
-    if (dataRegistrar) {
-      setParseData(
-        JSON.parse(dataRegistrar.data[0].requirement_registrar_submitted)
-      );
-    }
-  }, [dataRegistrar]);
 
   const handleShowSelectRequirement = () => setShowRequirement(true);
+
+  React.useEffect(() => {
+    if (!isLoading) {
+      setParseData(dataRegistrar.data[0].requirement_registrar_submitted);
+    }
+  }, []);
 
   return (
     <div>
@@ -52,7 +51,9 @@ const TableRegistrarRequirement = ({
 
       {isLoading ? (
         <TableLoading count={20} cols={3} />
-      ) : isLoading && dataRegistrar?.data.length === 0 ? (
+      ) : isLoading &&
+        JSON.parse(dataRegistrar.data[0].requirement_registrar_submitted)
+          .length === 0 ? (
         <NoData />
       ) : (
         <>
@@ -64,7 +65,9 @@ const TableRegistrarRequirement = ({
                 </tr>
               </thead>
               <tbody>
-                {dataRegistrar.data.map((item, key) => {
+                {JSON.parse(
+                  dataRegistrar.data[0].requirement_registrar_submitted
+                ).map((item, key) => {
                   return (
                     <tr key={key}>
                       <td>{item.requirement_registrar_name}</td>
@@ -82,6 +85,8 @@ const TableRegistrarRequirement = ({
               Laboriosam doloremque quas reiciendis consequuntur numquam
               distinctio nemo atque deleniti qui eligendi?
             </p>
+
+            <p>{}</p>
           </div>
         </>
       )}
