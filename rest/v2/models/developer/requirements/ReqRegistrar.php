@@ -1,7 +1,7 @@
 <?php
 class ReqRegistrar
 {
-    public $requirement_registrar_user_aid ;
+    public $requirement_registrar_aid ;
     public $requirement_registrar_user_id;
     public $requirement_registrar_student_id;
     public $requirement_registrar_submitted;
@@ -60,7 +60,7 @@ class ReqRegistrar
     public function readAll()
     {
         try {
-            $sql = "select requirement_registrar_user_aid, ";
+            $sql = "select requirement_registrar_aid, ";
             $sql .= "requirement_registrar_user_id, ";
             $sql .= "requirement_registrar_submitted, ";
             $sql .= "requirement_registrar_remarks ";
@@ -98,14 +98,16 @@ class ReqRegistrar
             $sql = "update {$this->tblReqRegistrar} set ";
             $sql .= "requirement_registrar_submitted = :requirement_registrar_submitted, ";
             $sql .= "requirement_registrar_remarks = :requirement_registrar_remarks, ";
+            $sql .= "requirement_registrar_user_id = :requirement_registrar_user_id, ";
             $sql .= "requirement_registrar_datetime = :requirement_registrar_datetime ";
-            $sql .= "where requirement_registrar_user_aid  = :requirement_registrar_user_aid ";
+            $sql .= "where requirement_registrar_user_id = :requirement_registrar_user_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "requirement_registrar_student_id" => $this->requirement_registrar_student_id,
                 "requirement_registrar_submitted" => $this->requirement_registrar_submitted,
                 "requirement_registrar_remarks" => $this->requirement_registrar_remarks,
+                "requirement_registrar_user_id" => $this->requirement_registrar_user_id,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
-                "requirement_registrar_user_aid" => $this->requirement_registrar_user_aid ,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -119,12 +121,12 @@ class ReqRegistrar
             $sql = "update {$this->tblReqRegistrar} set ";
             $sql .= "requirement_registrar_user_id = :requirement_registrar_user_id, ";
             $sql .= "requirement_registrar_datetime = :requirement_registrar_datetime ";
-            $sql .= "where requirement_registrar_user_aid  = :requirement_registrar_user_aid ";
+            $sql .= "where requirement_registrar_aid  = :requirement_registrar_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "requirement_registrar_user_id" => $this->requirement_registrar_user_id,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
-                "requirement_registrar_user_aid" => $this->requirement_registrar_user_aid ,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid ,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -136,10 +138,10 @@ class ReqRegistrar
     {
         try {
             $sql = "delete from {$this->tblReqRegistrar} ";
-            $sql .= "where requirement_registrar_user_aid = :requirement_registrar_user_aid ";
+            $sql .= "where requirement_registrar_aid = :requirement_registrar_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_registrar_user_aid" => $this->requirement_registrar_user_aid
+                "requirement_registrar_aid" => $this->requirement_registrar_aid
             ]);
          } catch (PDOException $ex) {
                 $query = false;
@@ -170,10 +172,10 @@ class ReqRegistrar
         try {
             $sql = "select * ";
             $sql .= "from {$this->tblTuitionFee} ";
-            $sql .= "where tuition_fee_grade_id = :requirement_registrar_user_aid ";
+            $sql .= "where tuition_fee_grade_id = :requirement_registrar_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_registrar_user_aid" => $this->requirement_registrar_user_aid,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

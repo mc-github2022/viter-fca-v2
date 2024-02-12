@@ -4,6 +4,7 @@ class RequirementRegistrar
     public $requirement_registrar_aid;
     public $requirement_registrar_active;
     public $requirement_registrar_department_id;
+    public $requirement_registrar_is_submitted;
     
     public $requirement_registrar_name;
     public $requirement_registrar_created;
@@ -32,11 +33,13 @@ class RequirementRegistrar
             $sql .= "( requirement_registrar_active, ";
             $sql .= "requirement_registrar_name, ";
             $sql .= "requirement_registrar_department_id, ";
+            $sql .= "requirement_registrar_is_submitted, ";
             $sql .= "requirement_registrar_created, ";
             $sql .= "requirement_registrar_datetime ) values ( ";
             $sql .= ":requirement_registrar_active, ";
             $sql .= ":requirement_registrar_name, ";
             $sql .= ":requirement_registrar_department_id, ";
+            $sql .= ":requirement_registrar_is_submitted, ";
             $sql .= ":requirement_registrar_created, ";
             $sql .= ":requirement_registrar_datetime ) ";
             $query = $this->connection->prepare($sql);
@@ -44,6 +47,7 @@ class RequirementRegistrar
                 "requirement_registrar_active" => $this->requirement_registrar_active,
                 "requirement_registrar_name" => $this->requirement_registrar_name,
                 "requirement_registrar_department_id" => $this->requirement_registrar_department_id,                
+                "requirement_registrar_is_submitted" => $this->requirement_registrar_is_submitted,                
                 "requirement_registrar_created" => $this->requirement_registrar_created,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
             ]);
@@ -57,7 +61,9 @@ class RequirementRegistrar
     public function readAll()
     {
         try {
-            $sql = "select * from {$this->tblRequirementRegistrar} as registrar, ";
+            $sql = "select requirement_registrar_name, ";
+            $sql .= "requirement_registrar_is_submitted "; 
+            $sql .= "from {$this->tblRequirementRegistrar} as registrar, ";
             $sql .= "{$this->tblDepartment} as dept ";
             $sql .= "where registrar.requirement_registrar_department_id = dept.department_aid ";
             $sql .= "order by requirement_registrar_active desc ";

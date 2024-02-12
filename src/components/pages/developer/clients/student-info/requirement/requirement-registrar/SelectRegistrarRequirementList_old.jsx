@@ -20,7 +20,7 @@ import React from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import * as Yup from "yup";
 
-const SelectRegistrarRequirementList = ({
+const SelectRegistrarRequirementList_old = ({
   dataRegistrar,
   isLoading,
   itemEdit,
@@ -41,11 +41,16 @@ const SelectRegistrarRequirementList = ({
   );
 
   const mutation = useMutation({
-    mutationFn: (values) => queryData("/v2/req-registrar", "post", values),
+    mutationFn: (values) =>
+      queryData(
+        dataRegistrar.count > 0
+          ? `/v2/req-registrar/${dataRegistrar.data[0].requirement_registrar_student_id}`
+          : "/v2/req-registrar",
+        dataRegistrar.count > 0 ? "put" : "post",
+        values
+      ),
     onSuccess: (data) => {
-      // Invalidate and refetch
-
-      queryClient.invalidateQueries({ queryKey: ["clients"] });
+      queryClient.invalidateQueries({ queryKey: ["dataRegistrar"] });
       // show error box
       if (data.success) {
         dispatch(setIsAdd(false));
@@ -76,37 +81,45 @@ const SelectRegistrarRequirementList = ({
     }
   };
 
-  const keys = ["requirement_registrar_aid, requirement_registrar_name"];
-  let filteredPropertyRequirement = selectedRequirement?.map((item) => {
-    const properties = keys.reduce((obj, key) => {
-      obj[key] = item[key];
-      return obj;
-    }, {});
-    return properties;
-  });
+  const arr1Set = new Set(
+    dataRegistrar.data.length !== 0
+      ? JSON.parse(dataRegistrar.data[0].requirement_registrar_submitted).map(
+          (obj) => obj.requirement_registrar_aid
+        )
+      : dataRegistrar.data.map((obj) => obj.requirement_registrar_aid)
+  );
 
-  // const arr1Set = new Set(
-  //   databaseRequirement.map((obj) => obj.requirement_registrar_aid)
-  // );
-  // const result = filteredPropertyRequirement.map((obj) =>
-  //   arr1Set.has(obj.requirement_registrar_aid)
-  //     ? { ...obj, selected: true }
-  //     : obj
-  // );
+  function filter() {
+    let y;
 
-  // const arr1Set = new Set(
-  //   JSON.parse(dataRegistrar.data[0].requirement_registrar_submitted).map(
-  //     (obj) => obj.requirement_registrar_aid
-  //   )
-  // );
+    if (!registrarloading) {
+      y = registrar.data.map((obj) =>
+        arr1Set.has(obj.requirement_registrar_aid)
+          ? { ...obj, selected: true }
+          : obj
+      );
+    }
 
-  // const result = registrar.data.map((obj) =>
-  //   arr1Set.has(obj.requirement_registrar_aid)
-  //     ? { ...obj, selected: true }
-  //     : obj
-  // );
+    return y;
+  }
+  console.log(dataRegistrar.data[0].requirement_registrar_remarks);
 
-  const initVal = {};
+  const initVal = {
+    requirement_registrar_submitted: dataRegistrar
+      ? dataRegistrar.data[0].requirement_registrar_submitted
+      : "",
+    requirement_registrar_remarks: dataRegistrar
+      ? dataRegistrar.data[0].requirement_registrar_remarks
+      : "",
+
+    requirement_registrar_student_id: dataRegistrar
+      ? dataRegistrar.data[0].requirement_registrar_student_id
+      : "",
+
+    requirement_registrar_user_id: dataRegistrar
+      ? dataRegistrar.data[0].requirement_registrar_user_id
+      : "",
+  };
 
   const yupSchema = Yup.object({});
 
@@ -135,7 +148,7 @@ const SelectRegistrarRequirementList = ({
                 ) : dataRegistrar.length === 0 ? (
                   <NoData />
                 ) : (
-                  result.data.map((item, index) => {
+                  filter().map((item, index) => {
                     return (
                       <div
                         className="list max-w-[600px] flex justify-between items-center py-2 border-b border-line"
@@ -184,4 +197,4 @@ const SelectRegistrarRequirementList = ({
   );
 };
 
-export default SelectRegistrarRequirementList;
+export default SelectRegistrarRequirementList_old;

@@ -7,7 +7,7 @@ import React from "react";
 import { FiEdit, FiEdit2, FiPlus } from "react-icons/fi";
 import { PiMegaphoneLight } from "react-icons/pi";
 
-const TableRegistrarRequirement = ({
+const TableRegistrarRequirement_old = ({
   setShowRequirement,
   itemEdit,
   dataRegistrar,
@@ -15,15 +15,15 @@ const TableRegistrarRequirement = ({
   parseRequirement,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const { parseData, setParseData } = parseRequirement;
 
   const handleShowSelectRequirement = () => setShowRequirement(true);
 
-  React.useEffect(() => {
-    if (!isLoading) {
-      setParseData(dataRegistrar.data[0].requirement_registrar_submitted);
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   if (!isLoading) {
+  //     setParseData();
+  //   }
+  //   console.log(parseData);
+  // }, []);
 
   return (
     <div>
@@ -51,9 +51,7 @@ const TableRegistrarRequirement = ({
 
       {isLoading ? (
         <TableLoading count={20} cols={3} />
-      ) : isLoading &&
-        JSON.parse(dataRegistrar.data[0].requirement_registrar_submitted)
-          .length === 0 ? (
+      ) : !isLoading && dataRegistrar.data.length === 0 ? (
         <NoData />
       ) : (
         <>
@@ -85,8 +83,6 @@ const TableRegistrarRequirement = ({
               Laboriosam doloremque quas reiciendis consequuntur numquam
               distinctio nemo atque deleniti qui eligendi?
             </p>
-
-            <p>{}</p>
           </div>
         </>
       )}
@@ -96,4 +92,4 @@ const TableRegistrarRequirement = ({
   );
 };
 
-export default TableRegistrarRequirement;
+export default TableRegistrarRequirement_old;

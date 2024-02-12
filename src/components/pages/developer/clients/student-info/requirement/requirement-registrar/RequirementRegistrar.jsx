@@ -1,22 +1,26 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import React from "react";
-import SelectRegistrarRequirementList from "./SelectRegistrarRequirementList.jsx";
-import TableRegistrarRequirement from "./TableRegistrarRequirement.jsx";
+import { FiEdit2 } from "react-icons/fi";
+import { PiMegaphoneLight } from "react-icons/pi";
+import RequirementRegistrarEdit from "./RequirementRegistrarEdit.jsx";
+import RequirementRegistrarView from "./RequirementRegistrarView.jsx";
 
 const RequirementRegistrar = ({ itemEdit }) => {
-  const [showRequirement, setShowRequirement] = React.useState(false);
-  const [parseData, setParseData] = React.useState([]);
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [stringify, setStringify] = React.useState("");
 
-  const {
-    isLoading,
-    error,
-    data: dataRegistrar,
-  } = useQueryData(
-    `/v2/req-registrar/${itemEdit.student_info_aid}`, // endpoint
+  const { isLoading: error, data: registrar } = useQueryData(
+    `/v2/dev-requirement-registrar`, // endpoint
     "get", // method
-    "dataRegistrar" // key
+    "registrar" // key
   );
 
+  React.useEffect(() => {
+    function registrarToString(registrar) {
+      setStringify(JSON.stringify(registrar.data));
+    }
+    registrarToString(registrar);
+  }, []);
 
   return (
     <div>
@@ -27,25 +31,11 @@ const RequirementRegistrar = ({ itemEdit }) => {
         listed documents, you will receive through email the tuition fee and
         payment details.
       </p>
-      {!showRequirement && (
-        <TableRegistrarRequirement
-          setShowRequirement={setShowRequirement}
-          itemEdit={itemEdit}
-          dataRegistrar={dataRegistrar}
-          isLoading={isLoading}
-          parseRequirement={{ parseData, setParseData }}
-        />
-      )}
-      {showRequirement && (
-        <SelectRegistrarRequirementList
-          requirement={{ showRequirement, setShowRequirement }}
-          dataRegistrar={dataRegistrar}
-          isLoading={isLoading}
-          itemEdit={itemEdit}
-          setShowRequirement={setShowRequirement}
-          parseData={parseData}
-        />
-      )}
+
+      <button className="flex justify-end w-full">New</button>
+
+      {!isEdit && <RequirementRegistrarView registrar={registrar} />}
+      {isEdit && <RequirementRegistrarEdit registrar={registrar} />}
     </div>
   );
 };
