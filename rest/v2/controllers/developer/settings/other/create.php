@@ -23,12 +23,12 @@ $password_link = "/create-password";
 // check email
 isEmailExist($user_other, $user_other->user_other_email);
 // send email notification
-// sendEmail(
-//     $password_link,
-//     $user_other->user_other_fname,
-//     $user_other->user_other_email,
-//     $user_other->user_other_key
-// );
+sendEmail(
+    $password_link,
+    $user_other->user_other_fname,
+    $user_other->user_other_email,
+    $user_other->user_other_key
+);
 // create
 $query = checkCreate($user_other);
 returnSuccess($user_other, "User Other", $query);

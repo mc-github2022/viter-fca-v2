@@ -38,7 +38,6 @@ const OtherLogin = () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["other"] });
       // show error box
-      console.log(data.success);
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
@@ -164,7 +163,7 @@ const OtherLogin = () => {
         </div>
       )}
 
-      {store.error && <ModalError />}
+      {store.validate && <ModalValidate />}
     </>
   );
 };

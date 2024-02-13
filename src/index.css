@@ -229,7 +229,7 @@
 
 @layer components {
   .btn {
-    @apply p-2.5 rounded-md border border-transparent transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
+    @apply p-2.5 h-[36px] rounded-md border border-transparent transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
   }
 
   .btn--sm {

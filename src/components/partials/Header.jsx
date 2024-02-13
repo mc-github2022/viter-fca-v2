@@ -34,11 +34,18 @@ const Header = () => {
   };
 
   const credentials = () => {
-    if (store.credentials.data) {
+    if (store.credentials.data.role_is_developer === 1) {
       return {
         firstname: store.credentials.data.user_system_fname,
         lastname: store.credentials.data.user_system_lname,
         email: store.credentials.data.user_system_email,
+        role: store.credentials.data.role_name,
+      };
+    } else if (store.credentials.data.role_is_client === 1) {
+      return {
+        firstname: store.credentials.data.user_other_fname,
+        lastname: store.credentials.data.user_other_lname,
+        email: store.credentials.data.user_other_email,
         role: store.credentials.data.role_name,
       };
     }
