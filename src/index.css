@@ -8,8 +8,8 @@
   --accentDark: hsl(109, 73%, 10%);
   --accentLight: hsl(109, 91%, 30%);
   --primary: #ffffff;
-  --secondary: #f3f3f3;
-  --line: #efefef;
+  --secondary: #ffffff;
+  --line: #e2e2e2;
   --header: #0f0f0f;
   --body: #424242;
   --disable: #bebebe;
@@ -30,8 +30,8 @@
   --accentDark: hsl(109, 73%, 10%);
   --accentLight: hsl(109, 91%, 30%);
   --primary: #2e2e2e;
-  --secondary: #222222;
-  --line: #4d4d4d;
+  --secondary: #2e2e2e;
+  --line: #d1d1d1;
   --header: #ffffff;
   --body: #d6d6d6;
   --disable: #bebebe;
@@ -89,7 +89,7 @@
   }
 
   body {
-    @apply leading-relaxed text-body font-primary text-sm bg-secondary;
+    @apply leading-relaxed text-body font-primary text-sm bg-secondary overflow-x-hidden;
   }
 
   body.no--scroll {
@@ -312,7 +312,7 @@
   }
 
   .table__wrapper {
-    @apply bg-primary px-2 pb-2 pt-0 rounded-md relative  border-line border  overflow-y-auto lg:overflow-x-visible;
+    @apply bg-primary px-2 pb-2 pt-0  relative  overflow-y-auto lg:overflow-x-visible;
   }
 
   .form__wrap {
@@ -354,10 +354,6 @@
   }
 
   /* MAIN WRAPPER - PAGE WITH TABLE */
-
-  .main__table {
-    @apply shadow-sm;
-  }
 
   .main__content {
     @apply py-6 px-2 lg:px-4  w-full  lg:pl-6  lg:ml-[250px] transition-all ease-timing-nav duration-300;

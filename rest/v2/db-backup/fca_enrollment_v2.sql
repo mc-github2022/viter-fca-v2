@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2024 at 08:53 AM
+-- Generation Time: Feb 13, 2024 at 05:15 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -44,7 +44,8 @@ CREATE TABLE `fca_info_contact` (
 --
 
 INSERT INTO `fca_info_contact` (`contact_aid`, `contact_user_id`, `contact_name`, `contact_email`, `contact_mobile`, `contact_landline`, `contact_level`, `contact_created`, `contact_datetime`) VALUES
-(26, '1', 'qwerqwer', '2', '1', '1', '1', '2024-01-23 15:01:10', '2024-01-23 15:01:10');
+(26, '1', 'qwerqwer', '2', '1', '1', '1', '2024-01-23 15:01:10', '2024-01-23 15:01:10'),
+(33, '31', 'xx xx xx', 'xx@ccc.com', '1233232132', '213123', 'secondary', '2024-02-08 08:56:08', '2024-02-08 08:56:08');
 
 -- --------------------------------------------------------
 
@@ -64,6 +65,13 @@ CREATE TABLE `fca_info_financial` (
   `financial_info_created` varchar(20) NOT NULL,
   `financial_info_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fca_info_financial`
+--
+
+INSERT INTO `fca_info_financial` (`financial_info_aid`, `financial_info_user_id`, `financial_info_father_income`, `financial_info_mother_income`, `financial_info_financier_income`, `financial_info_financier_full_name`, `financial_info_financier_relationship`, `financial_info_financier_occupation`, `financial_info_created`, `financial_info_datetime`) VALUES
+(24, '31', '', '', '234234', 'sdgds', '234232', '234', '2024-02-08 08:56:20', '2024-02-08 08:56:20');
 
 -- --------------------------------------------------------
 
@@ -99,7 +107,24 @@ CREATE TABLE `fca_info_parent_guardian` (
 --
 
 INSERT INTO `fca_info_parent_guardian` (`parent_guardian_info_aid`, `parent_guardian_info_user_id`, `parent_guardian_info_relationship_id`, `parent_guardian_info_salutation`, `parent_guardian_info_reside`, `parent_guardian_info_fname`, `parent_guardian_info_mname`, `parent_guardian_info_maiden_name`, `parent_guardian_info_lname`, `parent_guardian_info_email`, `parent_guardian_info_mobile`, `parent_guardian_info_landline`, `parent_guardian_info_address`, `parent_guardian_info_province`, `parent_guardian_info_city`, `parent_guardian_info_zipcode`, `parent_guardian_info_religion`, `parent_guardian_info_occupation`, `parent_guardian_info_created`, `parent_guardian_info_datetime`) VALUES
-(26, '31', '3', 'mr', 'yes', 'wer', 'wer', 'wer', 'wer', 'wer@wer.com', '35674567456', '56745674567', '123 brgy testing', 'Laguna', 'San Pablo City', '4000', 'sdf', 'sdf', '2024-02-05 15:30:52', '2024-02-05 15:30:52');
+(27, '31', '3', 'mr', 'yes', 'das', 'asdas', 'dasd', 'asda', 'asd@dasdas.com', '12312312312', '12312123122', 'qqq', 'qq', 'qqq', 'qqqq', 'sdfsdf', 'sdfsdf', '2024-02-13 09:33:34', '2024-02-13 09:56:16'),
+(28, '31', '3', 'mr', 'yes', 'fghj', 'fghj', 'sdasdasd', 'fghj', 'fghj@dasd.com', '12341234123', '23412341234', 'qqq', 'qq', 'qqq', 'qqqq', '123', '1231', '2024-02-13 11:51:09', '2024-02-13 11:51:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fca_requirement_registrar`
+--
+
+CREATE TABLE `fca_requirement_registrar` (
+  `requirement_registrar_aid` int(11) NOT NULL,
+  `requirement_registrar_user_id` varchar(20) NOT NULL,
+  `requirement_registrar_student_id` varchar(20) NOT NULL,
+  `requirement_registrar_submitted` text NOT NULL,
+  `requirement_registrar_remarks` text NOT NULL,
+  `requirement_registrar_datetime` varchar(20) NOT NULL,
+  `requirement_registrar_created` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -528,6 +553,13 @@ CREATE TABLE `fca_student_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `fca_student_info`
+--
+
+INSERT INTO `fca_student_info` (`student_info_aid`, `student_info_user_id`, `student_info_is_archive`, `student_info_learning_type`, `student_info_grade_id`, `student_info_reference_no`, `student_info_fname`, `student_info_lname`, `student_info_mname`, `student_info_gender`, `student_info_bday`, `student_info_birth_place`, `student_info_email`, `student_info_institutional_email`, `student_info_mobile`, `student_info_landline`, `student_info_adress_id`, `student_info_last_school`, `student_info_last_gpa`, `student_info_last_grade`, `student_info_school_address`, `student_info_school_other`, `student_info_conduct`, `student_info_declaration`, `student_info_parent_commitment`, `student_info_parent_consent`, `student_info_is_registrar_notify`, `student_info_is_finance_notify`, `student_info_is_it_notify`, `student_info_is_enrolled`, `student_info_medical_notes`, `student_info_medical_doctor`, `student_info_medical_contact`, `student_info_family_circumstances`, `student_info_archive_remark`, `student_info_created`, `student_info_datetime`) VALUES
+(135, '31', '1', '4', '1', 'ghj', 'hjklhjkl', 'hjkl', 'ghj', 'ghj', 'ghjghj', 'ghj', '', 'ghjgh', 'jghjgh', 'jgh', '26', 'ghjghj', 'ghjghj', 'ghjgh', 'jghj', 'ghj', 0, 0, 0, 0, 0, 0, 0, 0, 'ghjg', 'ghjgh', 'jghj', 'hj', '', '2024-02-09 07:34:23', '2024-02-09 07:34:23');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -548,6 +580,12 @@ ALTER TABLE `fca_info_financial`
 --
 ALTER TABLE `fca_info_parent_guardian`
   ADD PRIMARY KEY (`parent_guardian_info_aid`);
+
+--
+-- Indexes for table `fca_requirement_registrar`
+--
+ALTER TABLE `fca_requirement_registrar`
+  ADD PRIMARY KEY (`requirement_registrar_aid`);
 
 --
 -- Indexes for table `fca_settings_department`
@@ -653,19 +691,25 @@ ALTER TABLE `fca_student_info`
 -- AUTO_INCREMENT for table `fca_info_contact`
 --
 ALTER TABLE `fca_info_contact`
-  MODIFY `contact_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `contact_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `fca_info_financial`
 --
 ALTER TABLE `fca_info_financial`
-  MODIFY `financial_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `financial_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `fca_info_parent_guardian`
 --
 ALTER TABLE `fca_info_parent_guardian`
-  MODIFY `parent_guardian_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `parent_guardian_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `fca_requirement_registrar`
+--
+ALTER TABLE `fca_requirement_registrar`
+  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `fca_settings_department`
@@ -761,7 +805,7 @@ ALTER TABLE `fca_settings_user_system`
 -- AUTO_INCREMENT for table `fca_student_info`
 --
 ALTER TABLE `fca_student_info`
-  MODIFY `student_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `student_info_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

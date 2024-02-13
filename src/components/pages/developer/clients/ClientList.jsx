@@ -181,26 +181,27 @@ const ClientList = ({ setItemEdit }) => {
           )}
         </>
       ),
-      sortable: false,
+      enableSorting: false,
     }),
   ];
 
   return (
     <div>
       <div className="main__table">
-        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
+        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable max-w-[calc(100%-260px)]">
           {isFetching || isLoading ? (
             <TableLoading count={20} cols={3} />
           ) : clients?.data.length === 0 ? (
             <NoData />
           ) : (
-            <Table
-              columns={columns}
-              data={clients.data}
-              hasFilter={true}
-              setColumnVisibility={setColumnVisibility}
-              columnVisibility={columnVisibility}
-            />
+            // <Table
+            //   columns={columns}
+            //   data={clients.data}
+            //   hasFilter={true}
+            //   setColumnVisibility={setColumnVisibility}
+            //   columnVisibility={columnVisibility}
+            // />
+            <h3>asd</h3>
           )}
         </div>
       </div>

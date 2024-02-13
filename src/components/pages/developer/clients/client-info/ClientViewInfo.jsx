@@ -73,125 +73,127 @@ const ClientViewInfo = () => {
   return (
     <div>
       <Header />
-      <section className="main__wrap flex relative ">
-        <Navigation menu="clients" />
-        <main
-          className={`main__content mt-[35px] ${
-            store.isMenuExpand ? "" : "expand"
-          }`}
-        >
-          <div className="main__header flex justify-between items-start lg:items-center">
-            <div>
-              <button
-                type="button"
-                onClick={() => navigate(-1)}
-                className="flex gap-1 items-center lg:hidden"
-              >
-                <FaAngleLeft /> Back
-              </button>
-              <BreadCrumbs />
-              <h1 className="text-clampH1 mb-5">
-                {userIsLoading || userIsFetching ? (
-                  <p>Loading</p>
-                ) : (
-                  <>
-                    <span className="pr-2">
-                      {userAccount?.data[0].user_other_fname}
-                    </span>
-                    <span>{userAccount?.data[0].user_other_lname}</span>
-                  </>
-                )}
-              </h1>
+      <section className="main__wrap flex flex-col relative h-[100vh]">
+        <div className="grow">
+          <Navigation menu="clients" />
+          <main
+            className={`main__content mt-[35px]  ${
+              store.isMenuExpand ? "" : "expand"
+            }`}
+          >
+            <div className="main__header flex justify-between items-start lg:items-center">
+              <div>
+                <button
+                  type="button"
+                  onClick={() => navigate(-1)}
+                  className="flex gap-1 items-center lg:hidden"
+                >
+                  <FaAngleLeft /> Back
+                </button>
+                <BreadCrumbs />
+                <h1 className="text-clampH1 mb-5">
+                  {userIsLoading || userIsFetching ? (
+                    <p>Loading</p>
+                  ) : (
+                    <>
+                      <span className="pr-2">
+                        {userAccount?.data[0].user_other_fname}
+                      </span>
+                      <span>{userAccount?.data[0].user_other_lname}</span>
+                    </>
+                  )}
+                </h1>
+              </div>
             </div>
-          </div>
 
-          {isLoading ? (
-            <TableLoading />
-          ) : (
-            !showParentForm && (
-              <div
-                className={`bg-primary p-4 max-w-[620px] w-full rounded-md shadow-sm relative mb-10 ${
-                  showContactForm || showFinancierForm
-                    ? "pointer-events-none opacity-60"
-                    : ""
-                }`}
-              >
-                <CardClientParentInfo
-                  parentInfo={parentInfo}
-                  itemEdit={itemEdit}
-                  setItemEdit={setItemEdit}
-                  setShowParentForm={setShowParentForm}
-                />
-              </div>
-            )
-          )}
+            {isLoading ? (
+              <TableLoading />
+            ) : (
+              !showParentForm && (
+                <div
+                  className={`bg-primary p-4 max-w-[620px] w-full rounded-md   relative mb-2 ${
+                    showContactForm || showFinancierForm
+                      ? "pointer-events-none opacity-60"
+                      : ""
+                  }`}
+                >
+                  <CardClientParentInfo
+                    parentInfo={parentInfo}
+                    itemEdit={itemEdit}
+                    setItemEdit={setItemEdit}
+                    setShowParentForm={setShowParentForm}
+                  />
+                </div>
+              )
+            )}
 
-          {showParentForm && (
-            <FormClientParentInfo
-              itemEdit={itemEdit}
-              setShowParentForm={setShowParentForm}
-              setItemEdit={setItemEdit}
-            />
-          )}
+            {showParentForm && (
+              <FormClientParentInfo
+                itemEdit={itemEdit}
+                setShowParentForm={setShowParentForm}
+                setItemEdit={setItemEdit}
+              />
+            )}
 
-          {contactIsLoading || contactIsFetching ? (
-            <TableLoading />
-          ) : (
-            !showContactForm && (
-              <div
-                className={`bg-primary p-4 max-w-[620px] w-full rounded-md shadow-sm relative mb-10 ${
-                  showParentForm || showFinancierForm
-                    ? "pointer-events-none opacity-60"
-                    : ""
-                }`}
-              >
-                <CardClientContactInfo
-                  contactInfo={contactInfo}
-                  itemEdit={itemEdit}
-                  setShowContactForm={setShowContactForm}
-                  setItemEdit={setItemEdit}
-                />
-              </div>
-            )
-          )}
+            {contactIsLoading || contactIsFetching ? (
+              <TableLoading />
+            ) : (
+              !showContactForm && (
+                <div
+                  className={`bg-primary p-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
+                    showParentForm || showFinancierForm
+                      ? "pointer-events-none opacity-60"
+                      : ""
+                  }`}
+                >
+                  <CardClientContactInfo
+                    contactInfo={contactInfo}
+                    itemEdit={itemEdit}
+                    setShowContactForm={setShowContactForm}
+                    setItemEdit={setItemEdit}
+                  />
+                </div>
+              )
+            )}
 
-          {showContactForm && (
-            <FormClientContactInfo
-              itemEdit={itemEdit}
-              setShowContactForm={setShowContactForm}
-              setItemEdit={setItemEdit}
-            />
-          )}
+            {showContactForm && (
+              <FormClientContactInfo
+                itemEdit={itemEdit}
+                setShowContactForm={setShowContactForm}
+                setItemEdit={setItemEdit}
+              />
+            )}
 
-          {financierIsLoading || financierIsFetching ? (
-            <TableLoading />
-          ) : (
-            !showFinancierForm && (
-              <div
-                className={`bg-primary p-4 max-w-[620px] w-full rounded-md shadow-sm relative mb-10 ${
-                  showParentForm || showContactForm
-                    ? "pointer-events-none opacity-60"
-                    : ""
-                }`}
-              >
-                <CardClientFinancierInfo
-                  financierInfo={financierInfo}
-                  itemEdit={itemEdit}
-                  setShowFinancierForm={setShowFinancierForm}
-                  setItemEdit={setItemEdit}
-                />
-              </div>
-            )
-          )}
+            {financierIsLoading || financierIsFetching ? (
+              <TableLoading />
+            ) : (
+              !showFinancierForm && (
+                <div
+                  className={`bg-primary p-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
+                    showParentForm || showContactForm
+                      ? "pointer-events-none opacity-60"
+                      : ""
+                  }`}
+                >
+                  <CardClientFinancierInfo
+                    financierInfo={financierInfo}
+                    itemEdit={itemEdit}
+                    setShowFinancierForm={setShowFinancierForm}
+                    setItemEdit={setItemEdit}
+                  />
+                </div>
+              )
+            )}
 
-          {showFinancierForm && (
-            <FormClientFinancierInfo
-              itemEdit={itemEdit}
-              setShowFinancierForm={setShowFinancierForm}
-              setItemEdit={setItemEdit}
-            />
-          )}
-        </main>
+            {showFinancierForm && (
+              <FormClientFinancierInfo
+                itemEdit={itemEdit}
+                setShowFinancierForm={setShowFinancierForm}
+                setItemEdit={setItemEdit}
+              />
+            )}
+          </main>
+        </div>
 
         <Footer />
       </section>

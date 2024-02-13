@@ -40,7 +40,7 @@ const CardClientFinancierInfo = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center max-w-[620px] w-full mb-5">
+      <div className="flex justify-between items-center max-w-[620px] w-full mb-5 relative">
         <div>
           <h3 className="">Financer</h3>
           <p className="text-xs opacity-75">
@@ -67,24 +67,30 @@ const CardClientFinancierInfo = ({
         <NoData />
       ) : (
         financierInfo?.data.map((item, key) => (
-          <div className="max-w-[620px] w-full gap-4 mb-5" key={key}>
-            <div className="card bg-primary border border-line p-4 rounded-sm relative">
+          <div className="max-w-[620px] w-full gap-4 mb-2" key={key}>
+            <div className="card bg-primary rounded-sm ">
               <h5 className="mb-1">
                 {item.financial_info_financier_full_name}
               </h5>
-              <p className="flex gap-2 text-xs items-center">
-                <LiaHardHatSolid className="text-base" />{" "}
-                {item.financial_info_financier_occupation}{" "}
-                <LuDot className="text-xl" />
-                <SlPeople className="text-base" />
-                {item.financial_info_financier_relationship}
-                <LuDot className="text-xl" />
-                <PiCoinsLight className="text-base" />
-                {numberWithCommas(
-                  Number(item.financial_info_financier_income).toFixed(2)
-                )}
+              <p className="md:flex gap-2 text-xs items-center ">
+                <span className="flex gap-2 mb-2 md:mb-0">
+                  <LiaHardHatSolid className="text-base" />{" "}
+                  {item.financial_info_financier_occupation}{" "}
+                </span>
+                <LuDot className="text-xl hidden md:block" />{" "}
+                <span className="flex gap-2 mb-2 md:mb-0">
+                  <SlPeople className="text-base" />
+                  {item.financial_info_financier_relationship}
+                </span>
+                <LuDot className="text-xl hidden md:block" />{" "}
+                <span className="flex gap-2 mb-2 md:mb-0">
+                  <PiCoinsLight className="text-base" />
+                  {numberWithCommas(
+                    Number(item.financial_info_financier_income).toFixed(2)
+                  )}
+                </span>
               </p>
-              <div className="card__action absolute -bottom-[2rem] left-[50%] -translate-x-[50%] xxs:bottom-[unset] xxs:translate-x-[unset] xxs:left-[unset]  xxs:top-5 xxs:right-0 flex gap-2">
+              <div className="card__action absolute bottom-5 right-5  flex gap-2 ">
                 <button
                   className=" tooltip"
                   data-tooltip="Edit"

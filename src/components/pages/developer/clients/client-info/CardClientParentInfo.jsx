@@ -48,7 +48,7 @@ const CardClientParentInfo = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
+      <div className="flex justify-between items-center max-w-[620px] w-full mb-3 ">
         <div>
           <h3 className="">Parent - Guardian</h3>
           <p className="text-xs opacity-75">
@@ -69,8 +69,8 @@ const CardClientParentInfo = ({
       ) : (
         <>
           {parentInfo?.data.map((item, key) => (
-            <div className="max-w-[620px] w-full gap-4 mb-5" key={key}>
-              <div className="card bg-primary border border-line relative p-4 rounded-sm">
+            <div className="max-w-[620px] w-full gap-4 mb-2" key={key}>
+              <div className="card bg-primary border-b border-line rounded-sm mb-2 last:mb-0 relative">
                 <div className="flex gap-3 items-center mb-3">
                   <ul>
                     <li className="font-bold capitalize">
@@ -83,7 +83,7 @@ const CardClientParentInfo = ({
                     <li className="text-xs">{item.relationship_name}</li>
                   </ul>
 
-                  <div className="card__action absolute -bottom-[2rem] left-[50%] -translate-x-[50%] xxs:bottom-[unset] xxs:translate-x-[unset] xxs:left-[unset]  xxs:top-5 xxs:right-0 flex gap-2">
+                  <div className="card__action absolute bottom-5 right-0  flex gap-2 ">
                     <button
                       className=" tooltip"
                       data-tooltip="Edit"
@@ -110,27 +110,27 @@ const CardClientParentInfo = ({
                   {item.parent_guardian_info_zipcode}
                 </p>
 
-                <p className="text-xs  md:flex gap-2 items-center ">
-                  <span className="flex mb-2">
+                <p className="text-xs  md:flex gap-2 items-center mb-2">
+                  <span className="flex  mb-2 md:mb-0">
                     <HiOutlineEnvelope className="text-base mr-1.5" />
                     {item.parent_guardian_info_email}{" "}
                   </span>
-                  <span className="flex mb-2">
+                  <LuDot className="text-xl hidden md:block" />{" "}
+                  <span className="flex  mb-2 md:mb-0">
                     <CiMobile3 className="text-base mr-1.5" />{" "}
                     {formatMobileNumber(item.parent_guardian_info_mobile)}
                   </span>
-                  <span className="mb-2">
-                    {item.parent_guardian_info_landline && (
-                      <>
-                        <span className="flex">
-                          <PiPhoneThin className="text-base mr-1.5" />
-                          {formatLandlandNumber(
-                            item.parent_guardian_info_landline
-                          )}
-                        </span>
-                      </>
-                    )}
-                  </span>
+                  {item.parent_guardian_info_landline && (
+                    <>
+                      <LuDot className="text-xl hidden md:block" />{" "}
+                      <span className="flex  mb-2 md:mb-0">
+                        <PiPhoneThin className="text-base mr-1.5" />
+                        {formatLandlandNumber(
+                          item.parent_guardian_info_landline
+                        )}
+                      </span>
+                    </>
+                  )}
                 </p>
               </div>
             </div>

@@ -55,7 +55,7 @@ const Navigation = ({ menu, submenu }) => {
                 to={`${devNavUrl}/system/clients`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
               >
-                <BsGear className="text-lg" /> Clients
+                <BsGear className="text-lg" /> Parents
               </Link>
             </li>
 

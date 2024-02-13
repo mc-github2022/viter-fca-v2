@@ -1,3 +1,5 @@
+import Department from "@/components/pages/developer/settings/Department/Department";
+import Discount from "@/components/pages/developer/settings/discount/Discount";
 import GradeLevel from "@/components/pages/developer/settings/grade-level/GradeLevel.jsx";
 import LearningType from "@/components/pages/developer/settings/learning-type/LearningType.jsx";
 import Notifications from "@/components/pages/developer/settings/notifications/Notifications";
@@ -16,8 +18,6 @@ import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
-import Discount from "@/components/pages/developer/settings/discount/Discount";
-import Department from "@/components/pages/developer/settings/Department/Department";
 const ModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
@@ -45,14 +45,14 @@ const ModalSettings = ({ setIsShowSettings }) => {
           <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-180px)] custom__scroll overflow-y-hidden">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
-                <button
+                {/* <button
                   className="text-base tooltip tooltip--bottom z-50 !-translate-y-0"
                   onClick={handleShowSideNav}
                   data-tooltip="Menu"
                 >
                   <FaBars />
-                </button>
-                <h5 className="mb-0 font-normal">Settings</h5>
+                </button> */}
+                <h5 className="mb-0 font-normal pl-2">Settings</h5>
               </div>
               <button onClick={handleCloseSettings}>
                 <LiaTimesSolid />

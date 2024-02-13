@@ -62,34 +62,36 @@ const CardClientContactInfo = ({
         <NoData />
       ) : (
         contactInfo?.data.map((item, key) => (
-          <div className="max-w-[620px] w-full gap-4 mb-5" key={key}>
-            <div className="card bg-primary border border-line p-4 rounded-sm  relative">
+          <div className="max-w-[620px] w-full gap-4 mb-2" key={key}>
+            <div className="card bg-primary border-b border-line rounded-sm relative mb-2 last:mb-0 ">
               <h5 className="">{item.contact_name} </h5>
               <p>
                 <span className="capitalize text-xs block mb-2">
                   {item.contact_level}
                 </span>
               </p>
-              <p className="md:flex gap-2 text-xs items-center">
-                <span className="flex mb-2">
+              <p className="md:flex gap-2 text-xs items-center mb-2">
+                <span className="flex mb-2 md:mb-0">
                   <HiOutlineEnvelope className="text-base mr-1.5" />{" "}
                   {item.contact_email}
                 </span>
-
-                <span className="flex mb-2">
+                <LuDot className="text-xl hidden md:block" />
+                <span className="flex mb-2 md:mb-0">
                   <CiMobile3 className="text-base mr-1.5" />
                   {formatMobileNumber(item.contact_mobile)}
                 </span>
                 {item.contact_landline && (
                   <>
-                    <span className="flex mb-2">
+                    {" "}
+                    <LuDot className="text-xl hidden md:block" />{" "}
+                    <span className="flex ">
                       <PiPhoneThin className="text-base mr-1.5" />
                       {formatLandlandNumber(item.contact_landline)}
                     </span>
                   </>
                 )}
               </p>
-              <div className="card__action absolute -bottom-[2rem] left-[50%] -translate-x-[50%] xxs:bottom-[unset] xxs:translate-x-[unset] xxs:left-[unset]  xxs:top-5 xxs:right-0 flex gap-2">
+              <div className="card__action absolute bottom-5 right-0  flex gap-2 ">
                 <button
                   className=" tooltip"
                   data-tooltip="Edit"

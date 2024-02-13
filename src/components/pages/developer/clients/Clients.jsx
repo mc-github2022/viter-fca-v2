@@ -37,36 +37,37 @@ const Clients = () => {
   return (
     <div>
       <Header />
-      <section className="main__wrap flex relative ">
-        <Navigation menu="clients" />
+      <section className="main__wrap flex flex-col relative h-[100vh] ">
+        <div className="grow">
+          <Navigation menu="clients" />
 
-        <main
-          className={`main__content mt-[35px] ${
-            store.isMenuExpand ? "" : "expand"
-          }`}
-        >
-          <div className="main__header flex justify-between items-start lg:items-center">
-            <div>
-              <Link to="/" className="flex gap-1 items-center lg:hidden">
-                <FaAngleLeft /> Back
-              </Link>
-              <BreadCrumbs />
-              <h1 className="text-clampH1 mb-0">Client List</h1>
-              <p className="mb-4 text-xs hidden lg:block">
-                List of clients/parents registered on the system.
-              </p>
+          <main
+            className={`main__content mt-[35px] ${
+              store.isMenuExpand ? "" : "expand"
+            }`}
+          >
+            <div className="main__header flex justify-between items-start lg:items-center">
+              <div>
+                <Link to="/" className="flex gap-1 items-center lg:hidden">
+                  <FaAngleLeft /> Back
+                </Link>
+                <BreadCrumbs />
+                <h1 className="text-clampH1 mb-0">Client List</h1>
+                <p className="mb-4 text-xs hidden lg:block">
+                  List of clients/parents registered on the system.
+                </p>
+              </div>
+              <button
+                className="btn btn--accent btn--sm mt-1"
+                onClick={handleAdd}
+              >
+                <FaPlus /> Add
+              </button>
             </div>
-            <button
-              className="btn btn--accent btn--sm mt-1"
-              onClick={handleAdd}
-            >
-              <FaPlus /> Add
-            </button>
-          </div>
 
-          <ClientList setItemEdit={setItemEdit} />
-        </main>
-
+            <ClientList setItemEdit={setItemEdit} />
+          </main>
+        </div>
         <Footer />
       </section>
 

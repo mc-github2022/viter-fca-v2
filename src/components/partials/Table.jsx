@@ -115,7 +115,7 @@ const Table = ({
                   <CiViewTable className="text-lg" />
                 </button>
                 <div
-                  className={`border border-line shadow-sm w-[140px] rounded absolute top-full right-3 z-20 bg-white ${
+                  className={`border border-line  w-[140px] rounded absolute top-full right-3 z-20 bg-white ${
                     show ? "" : "hidden"
                   }`}
                 >
