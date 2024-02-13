@@ -87,7 +87,6 @@ const ClientList = ({ setItemEdit }) => {
           ) : clients?.data.length === 0 ? (
             <NoData />
           ) : (
-<<<<<<< HEAD
             <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
               <table className="table__sm">
                 <thead>
@@ -350,16 +349,6 @@ const ClientList = ({ setItemEdit }) => {
                 <span></span>
               </div>
             </div>
-=======
-            // <Table
-            //   columns={columns}
-            //   data={clients.data}
-            //   hasFilter={true}
-            //   setColumnVisibility={setColumnVisibility}
-            //   columnVisibility={columnVisibility}
-            // />
-            <h2>asdas</h2>
->>>>>>> 59c521e707a3be98c9b89b2eab1f4e2baea17f9c
           )}
         </div>
       </div>
