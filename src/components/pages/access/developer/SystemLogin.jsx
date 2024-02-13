@@ -77,7 +77,6 @@ const SystemLogin = () => {
       {loginLoading ? (
         <TableSpinner />
       ) : (
-        // <div className="h-screen w-full grid place-items-center">
         <div className="h-screen w-full relative">
           <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
             <div className=" mb-4">
