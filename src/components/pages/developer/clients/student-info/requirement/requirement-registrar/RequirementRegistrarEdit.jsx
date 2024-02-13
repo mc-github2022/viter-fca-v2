@@ -1,6 +1,6 @@
 import React from "react";
 
-const RequirementRegistrarEdit = () => {
+const RequirementRegistrarEdit = ({ setIsEdit }) => {
   return (
     <>
       <div className="mode__edit">

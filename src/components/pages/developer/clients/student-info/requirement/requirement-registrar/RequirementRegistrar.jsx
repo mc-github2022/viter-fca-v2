@@ -7,20 +7,12 @@ import RequirementRegistrarView from "./RequirementRegistrarView.jsx";
 
 const RequirementRegistrar = ({ itemEdit }) => {
   const [isEdit, setIsEdit] = React.useState(false);
-  const [stringify, setStringify] = React.useState("");
 
   const { isLoading: error, data: registrar } = useQueryData(
     `/v2/dev-requirement-registrar`, // endpoint
     "get", // method
     "registrar" // key
   );
-
-  React.useEffect(() => {
-    function registrarToString(registrar) {
-      setStringify(JSON.stringify(registrar.data));
-    }
-    registrarToString(registrar);
-  }, []);
 
   return (
     <div>
@@ -34,8 +26,12 @@ const RequirementRegistrar = ({ itemEdit }) => {
 
       <button className="flex justify-end w-full">New</button>
 
-      {!isEdit && <RequirementRegistrarView registrar={registrar} />}
-      {isEdit && <RequirementRegistrarEdit registrar={registrar} />}
+      {!isEdit && (
+        <RequirementRegistrarView registrar={registrar} setIsEdit={setIsEdit} />
+      )}
+      {isEdit && (
+        <RequirementRegistrarEdit registrar={registrar} setIsEdit={setIsEdit} />
+      )}
     </div>
   );
 };

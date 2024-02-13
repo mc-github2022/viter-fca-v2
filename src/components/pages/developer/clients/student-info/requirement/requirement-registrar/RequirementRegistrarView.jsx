@@ -1,7 +1,13 @@
+import NoData from "@/components/partials/NoData.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
+import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-const RequirementRegistrarView = ({ registrar }) => {
+const RequirementRegistrarView = ({ registrar, setIsEdit }) => {
+  const handleShowSelectRequirement = () => {
+    setIsEdit(false);
+  };
   return (
     <div className="mode__view">
       <ul className="flex justify-end gap-4">
@@ -9,7 +15,7 @@ const RequirementRegistrarView = ({ registrar }) => {
           <button
             className="flex justify-center items-center gap-2  mb-2 text-xs tooltip"
             data-tooltip="Edit"
-            // onClick={handleShowSelectRequirement}
+            onClick={handleShowSelectRequirement}
           >
             <FiEdit2 />
           </button>
@@ -24,6 +30,16 @@ const RequirementRegistrarView = ({ registrar }) => {
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td>
+                <TableLoading />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <NoData />{" "}
+              </td>
+            </tr>
             {registrar?.data.map((item, key) => {
               return (
                 <tr key={key}>
