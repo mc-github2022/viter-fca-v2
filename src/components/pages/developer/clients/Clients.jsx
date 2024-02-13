@@ -38,21 +38,17 @@ const Clients = () => {
     <div>
       <Header />
       <section className="main__wrap flex flex-col relative h-[100vh] ">
-        <div className="grow">
+        <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation menu="clients" />
 
           <main
-            className={`main__content mt-[35px] ${
-              store.isMenuExpand ? "" : "expand"
+            className={`main__content mt-[35px]  ${
+              store.isMenuExpand ? "expand" : ""
             }`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center">
+            <div className="main__header flex justify-between items-start lg:items-center  ">
               <div>
-                <Link to="/" className="flex gap-1 items-center lg:hidden">
-                  <FaAngleLeft /> Back
-                </Link>
-                <BreadCrumbs />
-                <h1 className="text-clampH1 mb-0">Client List</h1>
+                <h1 className="text-clampH1 mb-0">Parent List</h1>
                 <p className="mb-4 text-xs hidden lg:block">
                   List of clients/parents registered on the system.
                 </p>

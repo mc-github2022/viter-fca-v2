@@ -34,7 +34,7 @@ const Navigation = ({ menu, submenu }) => {
   return (
     <>
       <nav
-        className={`mt-[48px] ${store.isShow ? "show" : ""}  ${
+        className={`mt-[50px] ${store.isShow ? "show" : ""}  ${
           store.isMenuExpand ? "expand" : ""
         }`}
       >
@@ -57,88 +57,6 @@ const Navigation = ({ menu, submenu }) => {
               >
                 <BsGear className="text-lg" /> Parents
               </Link>
-            </li>
-
-            <li className={`nav__link ${menu === "settings" ? "active" : ""}`}>
-              <button
-                className={` p-1 w-full ${
-                  menu === "settings" ? "bg-[#dfdfdf]" : ""
-                }`}
-                onClick={(e) => handleDropDownSetting(e)}
-              >
-                <div className="flex justify-between items-center w-full">
-                  <div className="flex gap-3 items-center uppercase">
-                    <BsGear className="text-lg" /> Settings
-                  </div>
-                  <PiCaretRight
-                    className={
-                      !store.isSettingsOpen
-                        ? "rotate-0 duration-200"
-                        : "rotate-90 duration-200"
-                    }
-                  />
-                </div>
-              </button>
-
-              {store.isSettingsOpen && (
-                <ul className=" text-black">
-                  <li>
-                    <Link to="/">Users</Link>{" "}
-                  </li>
-                  <li
-                    className={` ${
-                      submenu === "department" ? "active__submenu" : ""
-                    }`}
-                  >
-                    <Link
-                      to={`${devNavUrl}/system/settings/department`}
-                      className={`duration-150 border-transparent w-full inline-block py-1  `}
-
-                      // onClick={() => setIsSettingOpen(false)}
-                    >
-                      Department
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to={`/system/settings/notification`}
-                      // onClick={() => setIsSettingOpen(false)}
-                    >
-                      Notifications
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/">Parents Relationship</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Grade Level</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Learning Type</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Requirement Registration</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Requirement Finance</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Requirement IT</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Tuition Fee Category</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Scheme</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Schedule of Fees</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Rooms</Link>
-                  </li>
-                </ul>
-              )}
             </li>
           </ul>
         </div>

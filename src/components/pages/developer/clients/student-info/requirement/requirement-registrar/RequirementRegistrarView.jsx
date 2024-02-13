@@ -5,50 +5,40 @@ import React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
 const RequirementRegistrarView = ({ registrar, setIsEdit }) => {
-  const handleShowSelectRequirement = () => {
-    setIsEdit(false);
+  const handleEdit = () => {
+    setIsEdit(true);
   };
+
   return (
     <div className="mode__view">
-      <ul className="flex justify-end gap-4">
-        <li>
-          <button
-            className="flex justify-center items-center gap-2  mb-2 text-xs tooltip"
-            data-tooltip="Edit"
-            onClick={handleShowSelectRequirement}
-          >
-            <FiEdit2 />
-          </button>
-        </li>
-      </ul>
+      <div className="max-w-[600px] flex justify-between mb-2">
+        <h5>Summitted Requirements</h5>
+        <ul className="flex justify-end gap-4">
+          <li>
+            <button
+              className="flex justify-center items-center gap-2  mb-2  tooltip "
+              data-tooltip="Edit"
+              onClick={handleEdit}
+            >
+              <FiEdit2 />
+            </button>
+          </li>
+        </ul>
+      </div>
 
-      <div className="table__wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <TableLoading />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <NoData />{" "}
-              </td>
-            </tr>
-            {registrar?.data.map((item, key) => {
-              return (
-                <tr key={key}>
-                  <td>{item.requirement_registrar_name}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div className="table__wrapper max-w-[600px]">
+        <TableLoading />
+        <NoData />
+        {registrar?.data.map((item, key) => {
+          return (
+            <div
+              key={key}
+              className="list  flex justify-between items-center py-2 border-b border-line"
+            >
+              <p className="text-xs">{item.requirement_registrar_name}</p>
+            </div>
+          );
+        })}
       </div>
 
       <div className="remarks max-w-[500px] mt-10">

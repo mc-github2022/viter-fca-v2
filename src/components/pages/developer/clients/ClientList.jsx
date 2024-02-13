@@ -7,6 +7,7 @@ import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
 import ModalReset from "@/components/partials/modals/ModalReset.jsx";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
 import {
   setIsAdd,
   setIsConfirm,
@@ -77,131 +78,277 @@ const ClientList = ({ setItemEdit }) => {
     setData(item);
   };
 
-  const columnHelper = createColumnHelper();
-  const columns = [
-    columnHelper.accessor("", {
-      header: "#",
-      cell: (row) => {
-        return row.row.index + 1;
-      },
-    }),
-
-    columnHelper.accessor("user_other_fname", {
-      header: "Name",
-      cell: (row) =>
-        `${row.row.original.user_other_fname} ${row.row.original.user_other_lname}`,
-    }),
-
-    columnHelper.accessor("user_other_is_active", {
-      header: "Active",
-      cell: (row) => {
-        if (row.row.original.user_other_is_active === 1) {
-          return (
-            <Pills bg="bg-green-500" label="Active" color="text-green-500" />
-          );
-        } else {
-          return (
-            <Pills bg="bg-gray-200" label="Inactive" color="text-gray-300" />
-          );
-        }
-      },
-    }),
-
-    columnHelper.accessor("user_other_email", {
-      header: "Email",
-    }),
-
-    columnHelper.accessor("action", {
-      header: "Action",
-      cell: (row) => (
-        <>
-          {row.row.original.user_other_is_active === 1 ? (
-            <div className="flex gap-2 justify-end">
-              <Link
-                to={`${devNavUrl}/system/clients/students?cid=${row.row.original.user_other_aid}`}
-                className="tooltip text-base"
-                data-tooltip="Student"
-              >
-                <PiStudentLight />
-              </Link>
-
-              <Link
-                to={`${devNavUrl}/system/clients/information?cid=${row.row.original.user_other_aid}`}
-                className="tooltip text-base"
-                data-tooltip="Info"
-              >
-                <CiViewList />
-              </Link>
-
-              <button
-                type="button"
-                className="tooltip "
-                data-tooltip="Edit"
-                onClick={() => handleEdit(row.row.original)}
-              >
-                <FiEdit2 />
-              </button>
-
-              <button
-                type="button"
-                className="tooltip text-lg"
-                data-tooltip="Reset"
-                onClick={() => handleResetPassword(row.row.original)}
-              >
-                <PiPasswordLight />
-              </button>
-              <button
-                type="button"
-                className="tooltip"
-                data-tooltip="Archive"
-                onClick={() => handleArchive(row.row.original)}
-              >
-                <BsArchive />
-              </button>
-            </div>
-          ) : (
-            <div className="flex gap-2 justify-end">
-              <button
-                type="button"
-                className="tooltip"
-                data-tooltip="Restore"
-                onClick={() => handleRestore(row.row.original)}
-              >
-                <MdOutlineRestore />
-              </button>
-              <button
-                type="button"
-                className="tooltip"
-                data-tooltip="Delete"
-                onClick={() => handleDelete(row.row.original)}
-              >
-                <FiTrash />
-              </button>
-            </div>
-          )}
-        </>
-      ),
-      enableSorting: false,
-    }),
-  ];
-
   return (
-    <div>
+    <>
       <div className="main__table">
-        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable max-w-[calc(100%-260px)]">
+        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           {isFetching || isLoading ? (
             <TableLoading count={20} cols={3} />
           ) : clients?.data.length === 0 ? (
             <NoData />
           ) : (
-            // <Table
-            //   columns={columns}
-            //   data={clients.data}
-            //   hasFilter={true}
-            //   setColumnVisibility={setColumnVisibility}
-            //   columnVisibility={columnVisibility}
-            // />
-            <h3>asd</h3>
+            <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
+              <table className="table__sm">
+                <thead>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th className="text-right pr-2">Action</th>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Ramon Plaza</td>
+                    <td>
+                      <Pills
+                        bg="bg-green-500"
+                        label="Active"
+                        color="text-green-500"
+                      />
+                    </td>
+                    <td>
+                      {1 ? (
+                        <div className="flex gap-2 justify-end">
+                          <Link
+                            to={`${devNavUrl}/system/clients/students?cid=${1}`}
+                            className="tooltip text-base"
+                            data-tooltip="Student"
+                          >
+                            <PiStudentLight />
+                          </Link>
+
+                          <Link
+                            to={`${devNavUrl}/system/clients/information?cid=${1}`}
+                            className="tooltip text-base"
+                            data-tooltip="Info"
+                          >
+                            <CiViewList />
+                          </Link>
+
+                          <button
+                            type="button"
+                            className="tooltip "
+                            data-tooltip="Edit"
+                            // onClick={() => handleEdit(row.row.original)}
+                          >
+                            <FiEdit2 />
+                          </button>
+
+                          <button
+                            type="button"
+                            className="tooltip text-lg"
+                            data-tooltip="Reset"
+                            // onClick={() =>
+                            //   handleResetPassword(row.row.original)
+                            // }
+                          >
+                            <PiPasswordLight />
+                          </button>
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Archive"
+                            // onClick={() => handleArchive(row.row.original)}
+                          >
+                            <BsArchive />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex gap-2 justify-end">
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Restore"
+                            // onClick={() => handleRestore(row.row.original)}
+                          >
+                            <MdOutlineRestore />
+                          </button>
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Delete"
+                            // onClick={() => handleDelete(row.row.original)}
+                          >
+                            <FiTrash />
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>1</td>
+                    <td>Ramon Plaza</td>
+                    <td>
+                      <Pills
+                        bg="bg-green-500"
+                        label="Active"
+                        color="text-green-500"
+                      />
+                    </td>
+                    <td>
+                      {1 ? (
+                        <div className="flex gap-2 justify-end">
+                          <Link
+                            to={`${devNavUrl}/system/clients/students?cid=${1}`}
+                            className="tooltip text-base"
+                            data-tooltip="Student"
+                          >
+                            <PiStudentLight />
+                          </Link>
+
+                          <Link
+                            to={`${devNavUrl}/system/clients/information?cid=${1}`}
+                            className="tooltip text-base"
+                            data-tooltip="Info"
+                          >
+                            <CiViewList />
+                          </Link>
+
+                          <button
+                            type="button"
+                            className="tooltip "
+                            data-tooltip="Edit"
+                            // onClick={() => handleEdit(row.row.original)}
+                          >
+                            <FiEdit2 />
+                          </button>
+
+                          <button
+                            type="button"
+                            className="tooltip text-lg"
+                            data-tooltip="Reset"
+                            // onClick={() =>
+                            //   handleResetPassword(row.row.original)
+                            // }
+                          >
+                            <PiPasswordLight />
+                          </button>
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Archive"
+                            // onClick={() => handleArchive(row.row.original)}
+                          >
+                            <BsArchive />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex gap-2 justify-end">
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Restore"
+                            // onClick={() => handleRestore(row.row.original)}
+                          >
+                            <MdOutlineRestore />
+                          </button>
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Delete"
+                            // onClick={() => handleDelete(row.row.original)}
+                          >
+                            <FiTrash />
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>1</td>
+                    <td>Ramon Plaza</td>
+                    <td>
+                      <Pills
+                        bg="bg-green-500"
+                        label="Active"
+                        color="text-green-500"
+                      />
+                    </td>
+                    <td>
+                      {1 ? (
+                        <div className="flex gap-2 justify-end">
+                          <Link
+                            to={`${devNavUrl}/system/clients/students?cid=${1}`}
+                            className="tooltip text-base"
+                            data-tooltip="Student"
+                          >
+                            <PiStudentLight />
+                          </Link>
+
+                          <Link
+                            to={`${devNavUrl}/system/clients/information?cid=${1}`}
+                            className="tooltip text-base"
+                            data-tooltip="Info"
+                          >
+                            <CiViewList />
+                          </Link>
+
+                          <button
+                            type="button"
+                            className="tooltip "
+                            data-tooltip="Edit"
+                            // onClick={() => handleEdit(row.row.original)}
+                          >
+                            <FiEdit2 />
+                          </button>
+
+                          <button
+                            type="button"
+                            className="tooltip text-lg"
+                            data-tooltip="Reset"
+                            // onClick={() =>
+                            //   handleResetPassword(row.row.original)
+                            // }
+                          >
+                            <PiPasswordLight />
+                          </button>
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Archive"
+                            // onClick={() => handleArchive(row.row.original)}
+                          >
+                            <BsArchive />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex gap-2 justify-end">
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Restore"
+                            // onClick={() => handleRestore(row.row.original)}
+                          >
+                            <MdOutlineRestore />
+                          </button>
+                          <button
+                            type="button"
+                            className="tooltip"
+                            data-tooltip="Delete"
+                            // onClick={() => handleDelete(row.row.original)}
+                          >
+                            <FiTrash />
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div className="flex justify-between mt-10">
+                <h6>
+                  Count: <span>2</span>
+                </h6>
+                <button className="btn text-xs hover:underline">
+                  Load More <ButtonSpinner color={"!stroke-[#123909]"} />
+                </button>
+                <span></span>
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -236,7 +383,7 @@ const ClientList = ({ setItemEdit }) => {
           queryKey="clients"
         />
       )}
-    </div>
+    </>
   );
 };
 

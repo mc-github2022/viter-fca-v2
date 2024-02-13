@@ -11,11 +11,11 @@ import {
   MdOutlineMailOutline,
 } from "react-icons/md";
 import { PiSignOut } from "react-icons/pi";
+import { Link } from "react-router-dom";
 import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
 import { devNavUrl } from "../helpers/functions-general.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
 import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
-import { Link } from "react-router-dom";
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
@@ -82,7 +82,7 @@ const Header = () => {
   return (
     <>
       {loading && <FetchingSpinner />}
-      <header className=" px-4 fixed  w-full bg-primary shadow-sm  py-1 z-20">
+      <header className=" px-4 fixed  w-full bg-primary border-b border  py-1 z-20">
         <div className="flex justify-between items-center">
           <div className="flex justify-center">
             <button className="text-2xl lg:hidden" onClick={handleToggleMenu}>
