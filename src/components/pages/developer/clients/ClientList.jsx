@@ -201,7 +201,7 @@ const ClientList = ({ setItemEdit }) => {
             //   setColumnVisibility={setColumnVisibility}
             //   columnVisibility={columnVisibility}
             // />
-            <h2>asdas</h2>
+            <h3>asd</h3>
           )}
         </div>
       </div>
