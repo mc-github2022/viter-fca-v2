@@ -26,6 +26,7 @@ function App() {
             <Routes>
               <Route path={`*`} element={<PageNotFound />} />
               <Route path={`${devNavUrl}/login`} element={<OtherLogin />} />
+              <Route path={`${devNavUrl}`} element={<OtherLogin />} />
               <Route
                 path={`${devNavUrl}/settings/users`}
                 element={<Users />}

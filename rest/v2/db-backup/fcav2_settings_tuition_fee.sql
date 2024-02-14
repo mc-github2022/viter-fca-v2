@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2022 at 08:54 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: Feb 14, 2024 at 06:55 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,17 +18,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_fca_enrollment`
+-- Database: `fca_v2_app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fca_settings_tuition_fee`
+-- Table structure for table `fcav2_settings_tuition_fee`
 --
 
-CREATE TABLE `fca_settings_tuition_fee` (
+CREATE TABLE `fcav2_settings_tuition_fee` (
   `tuition_fee_aid` int(11) NOT NULL,
+  `tuition_fee_active` tinyint(1) NOT NULL,
   `tuition_fee_category_id` varchar(20) NOT NULL,
   `tuition_fee_grade_id` varchar(20) NOT NULL,
   `tuition_fee_entrance` varchar(20) NOT NULL,
@@ -42,23 +43,13 @@ CREATE TABLE `fca_settings_tuition_fee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `fca_settings_tuition_fee`
---
-
-INSERT INTO `fca_settings_tuition_fee` (`tuition_fee_aid`, `tuition_fee_category_id`, `tuition_fee_grade_id`, `tuition_fee_entrance`, `tuition_fee_miscellaneous`, `tuition_fee_tuition`, `tuition_fee_books`, `tuition_fee_start_date`, `tuition_fee_end_date`, `tuition_fee_created`, `tuition_fee_datetime`) VALUES
-(9, '2', '8', '1', '2', '0', '0', '2022-10-31', '2022-12-11', '2022-10-24', '2022-11-21 09:23:52'),
-(25, '3', '6', '', '', '', '', '', '', '2022-09-20', '2022-09-20 15:28:39'),
-(37, '2', '6', '0', '2', '0', '0', '2021-12-30', '2022-12-01', '2022-10-24', '2022-11-21 09:27:21'),
-(39, '3', '7', '', '', '', '', '', '', '2022-10-24', '2022-10-24 14:19:06');
-
---
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `fca_settings_tuition_fee`
+-- Indexes for table `fcav2_settings_tuition_fee`
 --
-ALTER TABLE `fca_settings_tuition_fee`
+ALTER TABLE `fcav2_settings_tuition_fee`
   ADD PRIMARY KEY (`tuition_fee_aid`);
 
 --
@@ -66,10 +57,10 @@ ALTER TABLE `fca_settings_tuition_fee`
 --
 
 --
--- AUTO_INCREMENT for table `fca_settings_tuition_fee`
+-- AUTO_INCREMENT for table `fcav2_settings_tuition_fee`
 --
-ALTER TABLE `fca_settings_tuition_fee`
-  MODIFY `tuition_fee_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+ALTER TABLE `fcav2_settings_tuition_fee`
+  MODIFY `tuition_fee_aid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

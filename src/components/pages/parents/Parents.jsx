@@ -93,6 +93,7 @@ const Parents = () => {
                       itemEdit={itemEdit}
                       setItemEdit={setItemEdit}
                       setShowParentForm={setShowParentForm}
+                      error={error}
                     />
                   </div>
                 )
