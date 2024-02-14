@@ -13,6 +13,8 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 import { LuDot } from "react-icons/lu";
 import { PiPhoneThin } from "react-icons/pi";
 import ModalDeleteInfoCard from "./ModalDeleteInfoCard.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
+import ServerError from "@/components/partials/ServerError.jsx";
 
 const CardClientContactInfo = ({
   contactInfo,
@@ -58,60 +60,49 @@ const CardClientContactInfo = ({
         </button>
       </div>
 
-      {contactInfo?.data.length === 0 ? (
-        <NoData />
-      ) : (
-        contactInfo?.data.map((item, key) => (
-          <div className="max-w-[620px] w-full gap-4 mb-2" key={key}>
-            <div className="card bg-primary border-b border-line rounded-sm relative mb-2 last:mb-0 ">
-              <h5 className="">{item.contact_name} </h5>
-              <p>
-                <span className="capitalize text-xs block mb-2">
-                  {item.contact_level}
-                </span>
-              </p>
-              <p className="md:flex gap-2 text-xs items-center mb-2">
-                <span className="flex mb-2 md:mb-0">
-                  <HiOutlineEnvelope className="text-base mr-1.5" />{" "}
-                  {item.contact_email}
-                </span>
-                <LuDot className="text-xl hidden md:block" />
-                <span className="flex mb-2 md:mb-0">
-                  <CiMobile3 className="text-base mr-1.5" />
-                  {formatMobileNumber(item.contact_mobile)}
-                </span>
-                {item.contact_landline && (
-                  <>
-                    {" "}
-                    <LuDot className="text-xl hidden md:block" />{" "}
-                    <span className="flex ">
-                      <PiPhoneThin className="text-base mr-1.5" />
-                      {formatLandlandNumber(item.contact_landline)}
-                    </span>
-                  </>
-                )}
-              </p>
-              <div className="card__action absolute bottom-5 right-0  flex gap-2 ">
-                <button
-                  className=" tooltip"
-                  data-tooltip="Edit"
-                  onClick={() => handleShowContactForm(item)}
-                >
-                  <FiEdit2 />
-                </button>
+      <div className="max-w-[620px] w-full gap-4 mb-2">
+        <div className="card bg-primary border-b border-line rounded-sm relative mb-2 last:mb-0 ">
+          <TableLoading count={20} cols={3} />
+          <NoData />
+          <ServerError />
+          <h5 className="">Mr. Beast</h5>
+          <p>
+            <span className="capitalize text-xs block mb-2">Primary</span>
+          </p>
+          <p className="md:flex gap-2 text-xs items-center mb-2">
+            <span className="flex mb-2 md:mb-0">
+              <HiOutlineEnvelope className="text-base mr-1.5" /> juan@gmail.com
+            </span>
+            <LuDot className="text-xl hidden md:block" />
+            <span className="flex mb-2 md:mb-0">
+              <CiMobile3 className="text-base mr-1.5" />
+              09752155213
+            </span>
+            <LuDot className="text-xl hidden md:block" />{" "}
+            <span className="flex ">
+              <PiPhoneThin className="text-base mr-1.5" />
+              +6321 123123
+            </span>
+          </p>
+          <div className="card__action absolute bottom-5 right-0  flex gap-2 ">
+            <button
+              className=" tooltip"
+              data-tooltip="Edit"
+              // onClick={() => handleShowContactForm(item)}
+            >
+              <FiEdit2 />
+            </button>
 
-                <button
-                  className=" tooltip"
-                  data-tooltip="Delete"
-                  onClick={() => handleDeleteContactCard(item)}
-                >
-                  <FiTrash />
-                </button>
-              </div>
-            </div>
+            <button
+              className=" tooltip"
+              data-tooltip="Delete"
+              // onClick={() => handleDeleteContactCard(item)}
+            >
+              <FiTrash />
+            </button>
           </div>
-        ))
-      )}
+        </div>
+      </div>
 
       {deleteContact && (
         <ModalDeleteInfoCard

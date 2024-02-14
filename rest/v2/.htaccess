@@ -6,6 +6,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
 Header set Access-Control-Allow-Origin *
+
+### ACCOUNT CHANGE PASS ### 
+RewriteRule ^dev/profile/update-password$ controllers/developer/account/account-change-password.php [L] 
  
 ###### DEV SETTINGS ######
 
@@ -77,18 +80,19 @@ RewriteRule ^dev-roles/active/([0-9]+)$ controllers/developer/settings/roles/act
 RewriteRule ^dev-user-system$ controllers/developer/settings/system/system.php [L]
 RewriteRule ^dev-user-system/([0-9]+)$ controllers/developer/settings/system/system.php?usersystemid=$1 [L]
 RewriteRule ^dev-user-system/active/([0-9]+)$ controllers/developer/settings/system/active.php?usersystemid=$1 [L]
-RewriteRule ^dev-user-system/password controllers/developer/settings/system/set-password.php [L]
-RewriteRule ^dev-user-system/reset controllers/developer/settings/system/reset-password.php [L]
+RewriteRule ^dev-user-system/password$ controllers/developer/settings/system/set-password.php [L]
+RewriteRule ^dev-user-system/reset$ controllers/developer/settings/system/reset-password.php [L]
 RewriteRule ^dev-user-system/login$ controllers/developer/settings/system/login.php [L]
 RewriteRule ^dev-user-system/key/([A-Za-z0-9-]+)$ controllers/developer/settings/system/key.php?usersystemkey=$1 [L]
 RewriteRule ^dev-user-system/token$ controllers/developer/settings/system/token.php [L]
+RewriteRule ^dev-user-system/verify-email/([A-Za-z0-9-]+)$ controllers/developer/settings/system/update-email.php?usersystemkey=$1 [L]
 
 # USER OTHER
 RewriteRule ^user-other$ controllers/developer/settings/other/other.php [L]
 RewriteRule ^user-other/([0-9]+)$ controllers/developer/settings/other/other.php?userotherid=$1 [L]
 RewriteRule ^user-other/active/([0-9]+)$ controllers/developer/settings/other/active.php?userotherid=$1 [L]
-RewriteRule ^user-other/password controllers/developer/settings/other/set-password.php [L]
-RewriteRule ^user-other/reset controllers/developer/settings/other/reset-password.php [L]
+RewriteRule ^user-other/password$ controllers/developer/settings/other/set-password.php [L]
+RewriteRule ^user-other/reset$ controllers/developer/settings/other/reset-password.php [L]
 RewriteRule ^user-other/login$ controllers/developer/settings/other/login.php [L]
 RewriteRule ^user-other/key/([A-Za-z0-9-]+)$ controllers/developer/settings/other/key.php?userotherkey=$1 [L]
 RewriteRule ^user-other/token$ controllers/developer/settings/other/token.php [L]

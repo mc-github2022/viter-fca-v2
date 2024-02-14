@@ -1,5 +1,6 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import PageNotFound from "@/components/partials/PageNotFound";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import {
   setCredentials,
@@ -16,6 +17,8 @@ const ProtectedRouteSystem = ({ children }) => {
   const [isAuth, setIsAuth] = React.useState("");
   const fcatoken = JSON.parse(localStorage.getItem("fcatoken"));
   const navigate = useNavigate();
+  const currentPath = location.pathname.split("/")[1];
+  const [pageStatus, setPageStatus] = React.useState(false);
 
   React.useEffect(() => {
     const fetchLogin = async () => {
@@ -23,6 +26,8 @@ const ProtectedRouteSystem = ({ children }) => {
         token: fcatoken.token,
         isDev: true,
       });
+
+      console.log(login);
 
       if (typeof login === "undefined" || !login.success || login.count === 0) {
         localStorage.removeItem("fcatoken");
@@ -35,14 +40,20 @@ const ProtectedRouteSystem = ({ children }) => {
         dispatch(setCredentials(login.data));
         setIsAuth("123");
         setLoading(false);
+        delete login.data.user_system_password;
+        delete login.data.role_description;
+        delete login.data.role_created;
+        delete login.data.role_datetime;
       }
 
-      delete login.data.user_system_password;
-      delete login.data.role_description;
-      delete login.data.role_created;
-      delete login.data.role_datetime;
-      delete login.data.access_created;
-      delete login.data.access_datetime;
+      if (
+        !login.success ||
+        (login.data.role_name.toLowerCase() === "developer"
+          ? "system"
+          : login.data.role_name.toLowerCase()) !== currentPath
+      ) {
+        setPageStatus(true);
+      }
     };
 
     if (fcatoken !== null) {
@@ -54,15 +65,23 @@ const ProtectedRouteSystem = ({ children }) => {
     }
   }, [dispatch]);
 
-  return loading ? (
-    <FetchingSpinner />
-  ) : isAuth === "123" ? (
-    children
-  ) : isAuth === "456" ? (
-    <Navigate to={`${devNavUrl}/system/login`} />
-  ) : (
-    <p>API end point error / Page not found.</p>
-  );
+  if (pageStatus) {
+    return <PageNotFound />;
+  } else {
+    return (
+      <>
+        {loading ? (
+          <FetchingSpinner />
+        ) : isAuth === "123" ? (
+          children
+        ) : isAuth === "456" ? (
+          <Navigate to={`${devNavUrl}/system/login`} />
+        ) : (
+          <p>API end point error / Page not found.</p>
+        )}
+      </>
+    );
+  }
 };
 
 export default ProtectedRouteSystem;

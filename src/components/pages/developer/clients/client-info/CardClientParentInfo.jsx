@@ -5,6 +5,8 @@ import {
   getUrlParam,
 } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
+import ServerError from "@/components/partials/ServerError";
+import TableLoading from "@/components/partials/TableLoading";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsDelete } from "@/components/store/StoreAction.jsx";
@@ -64,79 +66,62 @@ const CardClientParentInfo = ({
         </button>
       </div>
 
-      {parentInfo?.data.length === 0 ? (
-        <NoData />
-      ) : (
-        <>
-          {parentInfo?.data.map((item, key) => (
-            <div className="max-w-[620px] w-full gap-4 mb-2" key={key}>
-              <div className="card bg-primary border-b border-line rounded-sm mb-2 last:mb-0 relative">
-                <div className="flex gap-3 items-center mb-3">
-                  <ul>
-                    <li className="font-bold capitalize">
-                      <span className="pr-2">
-                        {item.parent_guardian_info_salutation}.
-                      </span>
-                      {item.parent_guardian_info_fname}{" "}
-                      {item.parent_guardian_info_lname}
-                    </li>
-                    <li className="text-xs">{item.relationship_name}</li>
-                  </ul>
+      <div className="max-w-[620px] w-full gap-4 mb-2">
+        <div className="card bg-primary border-b border-line rounded-sm mb-2 last:mb-0 relative">
+          <TableLoading count={20} cols={3} />
+          <NoData />
+          <ServerError />
 
-                  <div className="card__action absolute bottom-5 right-0  flex gap-2 ">
-                    <button
-                      className=" tooltip"
-                      data-tooltip="Edit"
-                      onClick={() => handleShowParentForm(item)}
-                    >
-                      <FiEdit2 />
-                    </button>
+          <div className="flex gap-3 items-center mb-3">
+            <ul>
+              <li className="font-bold capitalize">
+                <span className="pr-2">Mr.</span>
+                Juan Dele Cruz
+              </li>
+              <li className="text-xs">Bilogical Mother</li>
+            </ul>
 
-                    <button
-                      className=" tooltip"
-                      data-tooltip="Delete"
-                      onClick={() => handleDeleteParentCard(item)}
-                    >
-                      <FiTrash />
-                    </button>
-                  </div>
-                </div>
+            <div className="card__action absolute bottom-5 right-0  flex gap-2 ">
+              <button
+                className=" tooltip"
+                data-tooltip="Edit"
+                // onClick={() => handleShowParentForm(item)}
+              >
+                <FiEdit2 />
+              </button>
 
-                <p className=" flex gap-2 text-xs mb-2">
-                  <PiMapPinLight className="text-base" />
-                  {item.parent_guardian_info_address},{" "}
-                  {item.parent_guardian_info_province}{" "}
-                  {item.parent_guardian_info_city}{" "}
-                  {item.parent_guardian_info_zipcode}
-                </p>
-
-                <p className="text-xs  md:flex gap-2 items-center mb-2">
-                  <span className="flex  mb-2 md:mb-0">
-                    <HiOutlineEnvelope className="text-base mr-1.5" />
-                    {item.parent_guardian_info_email}{" "}
-                  </span>
-                  <LuDot className="text-xl hidden md:block" />{" "}
-                  <span className="flex  mb-2 md:mb-0">
-                    <CiMobile3 className="text-base mr-1.5" />{" "}
-                    {formatMobileNumber(item.parent_guardian_info_mobile)}
-                  </span>
-                  {item.parent_guardian_info_landline && (
-                    <>
-                      <LuDot className="text-xl hidden md:block" />{" "}
-                      <span className="flex  mb-2 md:mb-0">
-                        <PiPhoneThin className="text-base mr-1.5" />
-                        {formatLandlandNumber(
-                          item.parent_guardian_info_landline
-                        )}
-                      </span>
-                    </>
-                  )}
-                </p>
-              </div>
+              <button
+                className=" tooltip"
+                data-tooltip="Delete"
+                // onClick={() => handleDeleteParentCard(item)}
+              >
+                <FiTrash />
+              </button>
             </div>
-          ))}
-        </>
-      )}
+          </div>
+
+          <p className=" flex gap-2 text-xs mb-2">
+            <PiMapPinLight className="text-base" />
+            San Pablo City Laguna
+          </p>
+
+          <p className="text-xs  md:flex gap-2 items-center mb-2">
+            <span className="flex  mb-2 md:mb-0">
+              <HiOutlineEnvelope className="text-base mr-1.5" />
+              juan@gmail.com
+            </span>
+            <LuDot className="text-xl hidden md:block" />{" "}
+            <span className="flex  mb-2 md:mb-0">
+              <CiMobile3 className="text-base mr-1.5" /> +639 75 2155213
+            </span>
+            <LuDot className="text-xl hidden md:block" />{" "}
+            <span className="flex  mb-2 md:mb-0">
+              <PiPhoneThin className="text-base mr-1.5" />
+              567 1332
+            </span>
+          </p>
+        </div>
+      </div>
 
       {store.isDelete && (
         <ModalDelete

@@ -41,7 +41,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
     error: parentError,
     data: parent,
   } = useQueryData(
-    `/v2/student/parent-address/${itemEdit.student_info_user_id}`, // endpoint
+    `/v2/student/parent-address/${31}`, // endpoint
     "get", // method
     "parent" // key
   );

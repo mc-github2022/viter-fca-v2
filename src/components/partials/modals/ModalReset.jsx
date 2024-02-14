@@ -78,7 +78,7 @@ const ModalReset = ({ setReset, mysqlApiReset, msg, item, queryKey }) => {
           </button>
           <button
             className="btn btn--cancel"
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleClose}
             type="button"
           >

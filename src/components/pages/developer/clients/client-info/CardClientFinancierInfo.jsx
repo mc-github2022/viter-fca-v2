@@ -12,6 +12,8 @@ import { LuDot } from "react-icons/lu";
 import { PiCoinsLight } from "react-icons/pi";
 import { SlPeople } from "react-icons/sl";
 import ModalDeleteInfoCard from "./ModalDeleteInfoCard.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
+import ServerError from "@/components/partials/ServerError.jsx";
 
 const CardClientFinancierInfo = ({
   financierInfo,
@@ -47,70 +49,56 @@ const CardClientFinancierInfo = ({
             Setup student financier information
           </p>
         </div>
-        {financierInfo.success === false && financierInfo.count === 0 ? (
-          <ModalInvalidRequestError />
-        ) : (
-          financierInfo?.data.length === 0 && (
-            <button
-              className="tooltip"
-              data-tooltip="New"
-              onClick={handleAddFinancier}
-            >
-              <FaPlus />
-            </button>
-          )
-        )}
-      </div>
-      {financierInfo.success === false && financierInfo.count === 0 ? (
-        <ModalInvalidRequestError />
-      ) : financierInfo?.data.length === 0 ? (
-        <NoData />
-      ) : (
-        financierInfo?.data.map((item, key) => (
-          <div className="max-w-[620px] w-full gap-4 mb-2" key={key}>
-            <div className="card bg-primary rounded-sm ">
-              <h5 className="mb-1">
-                {item.financial_info_financier_full_name}
-              </h5>
-              <p className="md:flex gap-2 text-xs items-center ">
-                <span className="flex gap-2 mb-2 md:mb-0">
-                  <LiaHardHatSolid className="text-base" />{" "}
-                  {item.financial_info_financier_occupation}{" "}
-                </span>
-                <LuDot className="text-xl hidden md:block" />{" "}
-                <span className="flex gap-2 mb-2 md:mb-0">
-                  <SlPeople className="text-base" />
-                  {item.financial_info_financier_relationship}
-                </span>
-                <LuDot className="text-xl hidden md:block" />{" "}
-                <span className="flex gap-2 mb-2 md:mb-0">
-                  <PiCoinsLight className="text-base" />
-                  {numberWithCommas(
-                    Number(item.financial_info_financier_income).toFixed(2)
-                  )}
-                </span>
-              </p>
-              <div className="card__action absolute bottom-5 right-5  flex gap-2 ">
-                <button
-                  className=" tooltip"
-                  data-tooltip="Edit"
-                  onClick={() => handleShowFinancierForm(item)}
-                >
-                  <FiEdit2 />
-                </button>
 
-                <button
-                  className=" tooltip"
-                  data-tooltip="Delete"
-                  onClick={() => handleDeleteFinancierCard(item)}
-                >
-                  <FiTrash />
-                </button>
-              </div>
-            </div>
+        <button
+          className="tooltip"
+          data-tooltip="New"
+          onClick={handleAddFinancier}
+        >
+          <FaPlus />
+        </button>
+      </div>
+
+      <div className="max-w-[620px] w-full gap-4 mb-2">
+        <TableLoading count={20} cols={3} />
+        <NoData />
+        <ServerError />
+        <div className="card bg-primary rounded-sm ">
+          <h5 className="mb-1">Mr Beast</h5>
+          <p className="md:flex gap-2 text-xs items-center ">
+            <span className="flex gap-2 mb-2 md:mb-0">
+              <LiaHardHatSolid className="text-base" /> Vlogger
+            </span>
+            <LuDot className="text-xl hidden md:block" />{" "}
+            <span className="flex gap-2 mb-2 md:mb-0">
+              <SlPeople className="text-base" />
+              Brother
+            </span>
+            <LuDot className="text-xl hidden md:block" />{" "}
+            <span className="flex gap-2 mb-2 md:mb-0">
+              <PiCoinsLight className="text-base" />
+              100,000
+            </span>
+          </p>
+          <div className="card__action absolute bottom-5 right-5  flex gap-2 ">
+            <button
+              className=" tooltip"
+              data-tooltip="Edit"
+              // onClick={() => handleShowFinancierForm(item)}
+            >
+              <FiEdit2 />
+            </button>
+
+            <button
+              className=" tooltip"
+              data-tooltip="Delete"
+              // onClick={() => handleDeleteFinancierCard(item)}
+            >
+              <FiTrash />
+            </button>
           </div>
-        ))
-      )}
+        </div>
+      </div>
 
       {deleteFinancier && (
         <ModalDeleteInfoCard

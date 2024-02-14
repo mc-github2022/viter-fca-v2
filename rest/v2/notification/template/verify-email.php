@@ -43,10 +43,10 @@ function getHtmlVerifyEmail(
   <div style="width: 100%; max-width: 500px; margin: 10px auto">
     <div style="padding: 10px 10px 0px">
       <div style="text-align: left">
-        <img
-          src="' . $IMAGES_URL . '/fbs-lcss-logo-email.png"
-          alt="lcss"
-        />
+      <img
+      src="' . $IMAGES_URL . '/FCALogo.png"
+      alt="fca-logo"
+     />
       </div>
     </div>
     <div style="padding: 0 10px 0px">
@@ -83,7 +83,7 @@ function getHtmlVerifyEmail(
         href="' . $ROOT_DOMAIN . '' . $link . '?key=' . $key . '"
           style="
             padding: 4px 25px;
-            background-color: #3c78d8;
+            background-color: #123909;
             color: #fff;
             display: inline-block;
             text-decoration: none;
