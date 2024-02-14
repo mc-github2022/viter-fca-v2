@@ -6,6 +6,9 @@ import { FaPlus } from "react-icons/fa";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import ParentNavigation from "../ParentNavigation.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
+import NoData from "@/components/partials/NoData.jsx";
+import ServerError from "@/components/partials/ServerError.jsx";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -36,6 +39,11 @@ const Student = () => {
               </button>
             </div>
 
+            <div className="student__card bg-primary  rounded-sm relative mb-2  max-w-[420px] w-full border-b border-line">
+              <TableLoading count={20} cols={2} />
+              <NoData />
+              <ServerError />
+            </div>
             <div className="student__card bg-primary  rounded-sm relative mb-2  max-w-[420px] w-full border-b border-line">
               <h5 className="mb-1.5">Khael Sebastian Acal</h5>
               <ul className="grid grid-cols-[90px_1fr] gap-4 mb-1.5 text-xs ">
