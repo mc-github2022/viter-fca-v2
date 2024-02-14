@@ -35,7 +35,7 @@ const Clients = () => {
   };
 
   return (
-    <div>
+    <>
       <Header />
       <section className="main__wrap flex flex-col relative h-[100vh] ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
@@ -71,7 +71,7 @@ const Clients = () => {
 
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
-    </div>
+    </>
   );
 };
 

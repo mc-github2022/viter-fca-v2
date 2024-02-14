@@ -38,7 +38,7 @@ const OtherCreateAccount = () => {
     "roles" // key
   );
 
-  const roleId = roles?.data.filter((item) => item.role_is_client === 1);
+  const roleId = roles?.data.filter((item) => item.role_is_parent === 1);
 
   const initVal = {
     user_other_fname: "",

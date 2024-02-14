@@ -92,6 +92,9 @@
   button {
     @apply cursor-pointer bg-transparent;
   }
+  p {
+    @apply text-xs mb-1;
+  }
 
   body {
     @apply leading-relaxed text-body  text-sm bg-secondary overflow-x-hidden font-sans;

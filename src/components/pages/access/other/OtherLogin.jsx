@@ -82,10 +82,7 @@ const OtherLogin = () => {
               <div className="flex justify-center">
                 <LogoGreen />
               </div>
-              <h1 className="mt-8 font-normal mb-1 text-[27px]">
-                Enrollment System
-              </h1>
-              <p className="mb-8 ">Sign in to continue</p>
+              <h1 className="mt-8 font-normal mb-1 text-[27px]">Login</h1>
             </div>
 
             <Formik

@@ -9,12 +9,13 @@ import OtherCreateAccount from "./components/pages/access/other/OtherCreateAccou
 import OtherCreatePassword from "./components/pages/access/other/OtherCreatePassword.jsx";
 import OtherForgotPassword from "./components/pages/access/other/OtherForgotPassword.jsx";
 import OtherLogin from "./components/pages/access/other/OtherLogin.jsx";
+import ProtectedRouteOther from "./components/pages/access/other/ProtectedRouteOther.jsx";
 import Users from "./components/pages/developer/settings/user-system/UserSystem.jsx";
+import Header from "./components/partials/Header.jsx";
 import PageNotFound from "./components/partials/PageNotFound.jsx";
 import { StoreProvider } from "./components/store/StoreContext.jsx";
+import { routesParent } from "./routes/RoutesParent.jsx";
 import { routesSystem } from "./routes/RoutesSystem.jsx";
-import Header from "./components/partials/Header.jsx";
-import ProtectedRouteOther from "./components/pages/access/other/ProtectedRouteOther.jsx";
 
 function App() {
   const queryClient = new QueryClient();
@@ -55,17 +56,11 @@ function App() {
                 path={`${devNavUrl}/create-account`}
                 element={<OtherCreateAccount />}
               />
-              {/* DELETE MODIN TO */}
-              <Route
-                path={`${devNavUrl}/client/parent`}
-                element={
-                  <ProtectedRouteOther>
-                    <Header />
-                  </ProtectedRouteOther>
-                }
-              />
               {/* SYSTEM USER ROUTE  */}
               {routesSystem.map(({ ...routeProps }, key) => {
+                return <Route key={key} {...routeProps} />;
+              })}
+              {routesParent.map(({ ...routeProps }, key) => {
                 return <Route key={key} {...routeProps} />;
               })}
             </Routes>

@@ -41,7 +41,7 @@ const Header = () => {
         email: store.credentials.data.user_system_email,
         role: store.credentials.data.role_name,
       };
-    } else if (store.credentials.data.role_is_client === 1) {
+    } else if (store.credentials.data.role_is_parent === 1) {
       return {
         firstname: store.credentials.data.user_other_fname,
         lastname: store.credentials.data.user_other_lname,
@@ -107,9 +107,11 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="text-xl" onClick={handleShowSettings}>
-              <FaCog />
-            </button>
+            {store.credentials.data.role_is_developer === 1 && (
+              <button className="text-xl" onClick={handleShowSettings}>
+                <FaCog />
+              </button>
+            )}
 
             <div className="header__avatar  rounded-lg" ref={menuRef}>
               <button

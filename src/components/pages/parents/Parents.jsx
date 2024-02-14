@@ -1,41 +1,26 @@
-import useQueryData from "@/components/custom-hooks/useQueryData";
-import { getUrlParam } from "@/components/helpers/functions-general";
-import BreadCrumbs from "@/components/partials/BreadCrumbs";
-import Footer from "@/components/partials/Footer";
-import Header from "@/components/partials/Header";
-import Navigation from "@/components/partials/Navigation";
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import Footer from "@/components/partials/Footer.jsx";
+import Header from "@/components/partials/Header.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
-import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
-import { StoreContext } from "@/components/store/StoreContext";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { FaAngleLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import CardClientContactInfo from "./CardClientContactInfo.jsx";
-import CardClientFinancierInfo from "./CardClientFinancierInfo.jsx";
-import CardClientParentInfo from "./CardClientParentInfo.jsx";
-import FormClientContactInfo from "./FormClientContactInfo.jsx";
-import FormClientFinancierInfo from "./FormClientFinancierInfo.jsx";
-import FormClientParentInfo from "./FormClientParentInfo.jsx";
-const ClientViewInfo = () => {
+import CardClientContactInfo from "../developer/clients/client-info/CardClientContactInfo.jsx";
+import CardClientFinancierInfo from "../developer/clients/client-info/CardClientFinancierInfo.jsx";
+import CardClientParentInfo from "../developer/clients/client-info/CardClientParentInfo.jsx";
+import ClientViewInfo from "../developer/clients/client-info/ClientViewInfo.jsx";
+import FormClientContactInfo from "../developer/clients/client-info/FormClientContactInfo.jsx";
+import FormClientFinancierInfo from "../developer/clients/client-info/FormClientFinancierInfo.jsx";
+import FormClientParentInfo from "../developer/clients/client-info/FormClientParentInfo.jsx";
+import ParentNavigation from "./ParentNavigation.jsx";
+
+const Parents = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [showParentForm, setShowParentForm] = React.useState(false);
   const [showContactForm, setShowContactForm] = React.useState(false);
   const [showFinancierForm, setShowFinancierForm] = React.useState(false);
   const [itemEdit, setItemEdit] = React.useState(null);
 
-  const id = getUrlParam().get("cid");
-  const navigate = useNavigate();
-
-  const {
-    isLoading: userIsLoading,
-    isFetching: userIsFetching,
-    error: userError,
-    data: userAccount,
-  } = useQueryData(
-    `/v2/user-other/${id}`, // endpoint
-    "get", // method
-    "userAccount" // key
-  );
+  const id = 31;
 
   const {
     isLoading,
@@ -73,39 +58,24 @@ const ClientViewInfo = () => {
   return (
     <>
       <Header />
-      <section className="main__wrap flex flex-col relative h-[100vh]">
-        <div className="grow">
-          <Navigation menu="clients" />
+      <section className="main__wrap flex flex-col relative h-[100vh] ">
+        <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
+          <ParentNavigation menu="clients" />
+
           <main
             className={`main__content mt-[35px]  ${
               store.isMenuExpand ? "expand" : ""
             }`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center">
+            <div className="main__header flex justify-between items-start lg:items-center  ">
               <div>
-                <button
-                  type="button"
-                  onClick={() => navigate(-1)}
-                  className="flex gap-1 items-center lg:hidden"
-                >
-                  <FaAngleLeft /> Back
-                </button>
-                <BreadCrumbs />
-                <h1 className="text-clampH1 mb-5">
-                  {userIsLoading || userIsFetching ? (
-                    <p>Loading</p>
-                  ) : (
-                    <>
-                      <span className="pr-2">
-                        {userAccount?.data[0].user_other_fname}
-                      </span>
-                      <span>{userAccount?.data[0].user_other_lname}</span>
-                    </>
-                  )}
-                </h1>
+                <h1 className="text-clampH1 mb-0">Information</h1>
+                <p className="mb-4 text-xs hidden lg:block">
+                  View information about your students, parents and emergency
+                  contact list.
+                </p>
               </div>
             </div>
-
             <div className="main__cardlist">
               {isLoading ? (
                 <TableLoading />
@@ -196,14 +166,10 @@ const ClientViewInfo = () => {
             </div>
           </main>
         </div>
-
         <Footer />
       </section>
-
-      {store.validate && <ModalValidate />}
-      {store.error && <ModalError />}
     </>
   );
 };
 
-export default ClientViewInfo;
+export default Parents;

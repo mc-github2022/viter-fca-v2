@@ -1,12 +1,23 @@
+import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ProtectedRouteOther from "@/components/pages/access/other/ProtectedRouteOther";
-import Parent from "@/components/pages/client/Parent";
+import Parents from "@/components/pages/parents/Parents.jsx";
+import Student from "@/components/pages/parents/student/Student.jsx";
 
 export const routesParent = [
   {
-    path: `/${devNavUrl}/client/parent`,
+    path: `/${devNavUrl}/parent/student`,
     element: (
       <ProtectedRouteOther>
-        <Parent />
+        <Student />
+      </ProtectedRouteOther>
+    ),
+  },
+
+  {
+    path: `/${devNavUrl}/parent/information`,
+    element: (
+      <ProtectedRouteOther>
+        <Parents />
       </ProtectedRouteOther>
     ),
   },

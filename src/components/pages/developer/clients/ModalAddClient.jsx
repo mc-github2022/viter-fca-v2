@@ -27,7 +27,7 @@ const ModalAddClient = ({ itemEdit, roles, id }) => {
     }, 200);
   };
 
-  const roleId = roles?.data.filter((item) => item.role_is_client === 1);
+  const roleId = roles?.data.filter((item) => item.role_is_parent === 1);
 
   const mutation = useMutation({
     mutationFn: (values) =>
