@@ -116,14 +116,6 @@ const Profile = () => {
                 } md:block `}
               >
                 <ul>
-                  <li className={`${index === 1 ? "active" : ""} !p-0`}>
-                    <button
-                      onClick={() => setIndex(1)}
-                      className="text-sm w-full p-2"
-                    >
-                      <HiOutlineUserCircle className="md:text-lg" /> Profile
-                    </button>
-                  </li>
                   <li
                     className={`${
                       index === 2 ? "active" : ""
@@ -141,96 +133,28 @@ const Profile = () => {
               </aside>
 
               <div className="px-4 w-full">
-                {index === 1 && (
-                  <div className="profile__block min-h-[300px] w-full ">
-                    <h6 className="mb-5">Update Account Information</h6>
-                    <Formik
-                      initialValues={initVal}
-                      validationSchema={yupSchema}
-                      onSubmit={async (
-                        values,
-                        { setSubmitting, resetForm }
-                      ) => {
-                        mutation.mutate(values);
-                      }}
-                    >
-                      {(props) => {
-                        return (
-                          <Form>
-                            <div className="form__wrap text-xs mb-3">
-                              <InputText
-                                label="First Name"
-                                type="text"
-                                name="user_system_fname"
-                                disabled={mutation.isLoading}
-                              />
-                            </div>
+                <div className="profile__block min-h-[300px] w-full ">
+                  <h6 className="mb-5">Update password</h6>
 
-                            <div className="form__wrap text-xs mb-3">
-                              <InputText
-                                label="Last Name"
-                                type="text"
-                                name="user_system_lname"
-                                disabled={mutation.isLoading}
-                              />
-                            </div>
-
-                            <div className="form__wrap text-xs mb-3">
-                              <InputText
-                                label="Email"
-                                type="email"
-                                name="user_system_email"
-                                disabled={mutation.isLoading}
-                              />
-                            </div>
-
-                            <div
-                              className={` settings__actions flex gap-2 mt-4`}
-                            >
-                              <button
-                                className="btn btn--accent"
-                                type="submit"
-                                disabled={mutation.isPending || !props.dirty}
-                              >
-                                {mutation.isLoading ? (
-                                  <ButtonSpinner />
-                                ) : credentials().userID ? (
-                                  "Update"
-                                ) : (
-                                  "Add"
-                                )}
-                              </button>
-                            </div>
-                          </Form>
-                        );
-                      }}
-                    </Formik>
+                  <div className="form__wrap">
+                    <label htmlFor="">Old Password</label>
+                    <input type="text" />
                   </div>
-                )}
-                {index === 2 && (
-                  <div className="profile__block min-h-[300px] w-full ">
-                    <h6 className="mb-5">Update password</h6>
 
-                    <div className="form__wrap">
-                      <label htmlFor="">Old Password</label>
-                      <input type="text" />
-                    </div>
-
-                    <div className="form__wrap">
-                      <label htmlFor="">New Password</label>
-                      <input type="text" />
-                    </div>
-
-                    <div className="form__wrap">
-                      <label htmlFor="">Confirm Password</label>
-                      <input type="text" />
-                    </div>
-
-                    <div className="flex  gap-3 mt-8">
-                      <button className="btn btn--accent">Update</button>
-                    </div>
+                  <div className="form__wrap">
+                    <label htmlFor="">New Password</label>
+                    <input type="text" />
                   </div>
-                )}
+
+                  <div className="form__wrap">
+                    <label htmlFor="">Confirm Password</label>
+                    <input type="text" />
+                  </div>
+
+                  <div className="flex  gap-3 mt-8">
+                    <button className="btn btn--accent">Update</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
