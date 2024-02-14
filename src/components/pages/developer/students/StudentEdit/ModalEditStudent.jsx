@@ -40,7 +40,7 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                 </button>
                 <h5 className="mb-0 font-normal">
                   Student Information -{" "}
-                  {`${itemEdit.student_info_fname}, ${itemEdit.student_info_lname}`}
+                  {/* {`${itemEdit.student_info_fname}, ${itemEdit.student_info_lname}`} */}
                 </h5>
               </div>
               <button onClick={handleClose}>
