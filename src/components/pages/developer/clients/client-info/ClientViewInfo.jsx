@@ -26,49 +26,49 @@ const ClientViewInfo = () => {
   const id = getUrlParam().get("cid");
   const navigate = useNavigate();
 
-  const {
-    isLoading: userIsLoading,
-    isFetching: userIsFetching,
-    error: userError,
-    data: userAccount,
-  } = useQueryData(
-    `/v2/user-other/${id}`, // endpoint
-    "get", // method
-    "userAccount" // key
-  );
+  // const {
+  //   isLoading: userIsLoading,
+  //   isFetching: userIsFetching,
+  //   error: userError,
+  //   data: userAccount,
+  // } = useQueryData(
+  //   `/v2/user-other/${id}`, // endpoint
+  //   "get", // method
+  //   "userAccount" // key
+  // );
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: parentInfo,
-  } = useQueryData(
-    `/v2/dev-read-info-parent/${id}`, // endpoint
-    "get", // method
-    "parentInfo" // key
-  );
+  // const {
+  //   isLoading,
+  //   isFetching,
+  //   error,
+  //   data: parentInfo,
+  // } = useQueryData(
+  //   `/v2/dev-read-info-pat/${id}`, // endpoint
+  //   "get", // method
+  //   "parentInfo" // key
+  // );
 
-  const {
-    isLoading: contactIsLoading,
-    isFetching: contactIsFetching,
-    error: contactIsError,
-    data: contactInfo,
-  } = useQueryData(
-    `/v2/dev-read-info-contact/${id}`, // endpoint
-    "get", // method
-    "contactInfo" // key
-  );
+  // const {
+  //   isLoading: contactIsLoading,
+  //   isFetching: contactIsFetching,
+  //   error: contactIsError,
+  //   data: contactInfo,
+  // } = useQueryData(
+  //   `/v2/dev-read-info-contact/${id}`, // endpoint
+  //   "get", // method
+  //   "contactInfo" // key
+  // );
 
-  const {
-    isLoading: financierIsLoading,
-    isFetching: financierIsFetching,
-    error: financierIsError,
-    data: financierInfo,
-  } = useQueryData(
-    `/v2/dev-read-info-financial/${id}`, // endpoint
-    "get", // method
-    "financierInfo" // key
-  );
+  // const {
+  //   isLoading: financierIsLoading,
+  //   isFetching: financierIsFetching,
+  //   error: financierIsError,
+  //   data: financierInfo,
+  // } = useQueryData(
+  //   `/v2/dev-read-info-financial/${id}`, // endpoint
+  //   "get", // method
+  //   "financierInfo" // key
+  // );
 
   return (
     <>
@@ -121,6 +121,7 @@ const ClientViewInfo = () => {
                     <CardClientParentInfo
                       parentInfo={parentInfo}
                       itemEdit={itemEdit}
+                      error={error}
                       setItemEdit={setItemEdit}
                       setShowParentForm={setShowParentForm}
                     />
