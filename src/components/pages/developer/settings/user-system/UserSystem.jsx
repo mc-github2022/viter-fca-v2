@@ -1,12 +1,10 @@
-import React from "react";
-
-import { AiOutlinePlus } from "react-icons/ai";
-
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
+import React from "react";
+import { AiOutlinePlus } from "react-icons/ai";
 import UserSystemFormAddEdit from "./UserSystemFormAddEdit";
 import UserSystemList from "./UserSystemList";
 const UserSystem = ({ index }) => {
@@ -51,10 +49,12 @@ const UserSystem = ({ index }) => {
             </button>
           )}
 
+          {!store.isSettingAdd && <UserSystemList setItemEdit={setItemEdit} />}
+
           {store.isSettingAdd && (
             <UserSystemFormAddEdit itemEdit={itemEdit} roles={roles} />
           )}
-          {!store.isSettingAdd && <UserSystemList setItemEdit={setItemEdit} />}
+
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

@@ -1,13 +1,21 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import { getUrlParam } from "@/components/helpers/functions-general.jsx";
+import {
+  devNavUrl,
+  getUrlParam,
+} from "@/components/helpers/functions-general.jsx";
 import PageNotFound from "@/components/partials/PageNotFound.jsx";
-import React from "react";
-import { FaCheck } from "react-icons/fa";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
+import LogoGreen from "@/components/partials/svg/LogoGreen";
+import { AiFillCheckCircle } from "react-icons/ai";
 
 const VerifyEmailSystemUser = () => {
   const key = getUrlParam().get("key");
 
-  const { data: changeEmail, isLoading } = useQueryData(
+  const {
+    data: changeEmail,
+    isLoading,
+    error,
+  } = useQueryData(
     `/v2/dev-user-system/verify-email/${key}`,
     "get", // method
     "change-email" // key
@@ -15,11 +23,11 @@ const VerifyEmailSystemUser = () => {
 
   return (
     <>
-      {changeEmail?.count === 0 || key === null || key === "" ? (
+      {changeEmail?.count === 0 || key === null || key === "" || error ? (
         <>
           {isLoading && (
             <div className="absolute top-0 right-0 bottom-0 left-0 bg-white z-50">
-              {/* <FetchingSpinner /> */}
+              <FetchingSpinner />
             </div>
           )}
           <PageNotFound />
@@ -28,19 +36,30 @@ const VerifyEmailSystemUser = () => {
         <div className="flex justify-center items-center h-screen">
           {isLoading && (
             <div className="absolute top-0 right-0 bottom-0 left-0 bg-white z-50">
-              {/* <FetchingSpinner /> */}
+              <FetchingSpinner />
             </div>
           )}
-          <div className="max-w-[25rem] w-full text-center p-6">
-            <FaCheck className="mx-auto text-6xl mb-5 fill-green-600" />
-            <h1 className="text-2xl uppercase mb-2">All Set</h1>
-            <p className="mb-6">
-              Your email has been successfully changed! You can now login using
-              your new email.
-            </p>
-            <a href={`${devNavUrl}/system/login`} className="btn-primary">
-              Proceed to login
-            </a>
+          <div className="h-screen w-full relative">
+            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+              <div className=" mb-4">
+                <div className="flex justify-center">
+                  <LogoGreen />
+                </div>
+                <AiFillCheckCircle className="text-5xl fill-accent mx-auto mt-10 mb-2" />
+                <h2 className="mb-4 mt-2 text-lg text-center">Success</h2>
+                <p className="text-sm mb-6">
+                  Your email has been successfully changed! You can now login
+                  using your new email.
+                </p>
+
+                <a
+                  className="btn btn--accent text-xs block text-center mt-6"
+                  href={`${devNavUrl}/system/login`}
+                >
+                  Back to Login
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       )}

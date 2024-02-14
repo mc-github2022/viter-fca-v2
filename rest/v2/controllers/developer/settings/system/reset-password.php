@@ -9,8 +9,6 @@ require '../../../../notification/reset-password.php';
 // use needed classes
 require '../../../../models/developer/settings/UserSystem.php';
 
-
-
 // check database connection
 $conn = null;
 $conn = checkDbConnection();

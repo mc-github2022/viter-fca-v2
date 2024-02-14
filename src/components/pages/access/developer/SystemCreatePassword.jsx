@@ -68,7 +68,7 @@ const SystemCreatePassword = () => {
       .min(8, "Password must be at least 8 characters.")
       .matches(/[a-z]/, "At least one lowercase letter.")
       .matches(/[A-Z]/, "At least one uppercase letter.")
-      .matches("(?=.*[@$!%*#?&])", "Atleast 1 special character.")
+      .matches("(?=.*[!@#$%^&*`{;:',<.>/?}_-])", "Atleast 1 special character.")
       .matches("(?=.*[0-9])", "Atleast 1 number."),
     confirm_password: Yup.string()
       .required("Required")
@@ -91,7 +91,7 @@ const SystemCreatePassword = () => {
     const lower = new RegExp("(?=.*[a-z])");
     const upper = new RegExp("(?=.*[A-Z])");
     const number = new RegExp("(?=.*[0-9])");
-    const special = new RegExp("(?=.*[!@#$%^&*-])");
+    const special = new RegExp("(?=.*[!@#$%^&*`{;:',<.>/?}_-])");
     const length = new RegExp("(?=.{8,})");
 
     if (lower.test(value)) {
@@ -158,7 +158,7 @@ const SystemCreatePassword = () => {
             </div>
           </div>
         </>
-      ) : !key?.data.length === 0 || paramKey === null || paramKey === "" ? (
+      ) : key?.count === 0 || paramKey === null || paramKey === "" ? (
         <>
           <div className="absolute top-0 right-0 bottom-0 left-0 bg-white z-50">
             <PageNotFound />
@@ -205,7 +205,7 @@ const SystemCreatePassword = () => {
                         />
                         {props.values.new_password && (
                           <span
-                            className="text-base absolute bottom-5 right-3 translate-y-1/2 cursor-pointer"
+                            className="text-base absolute bottom-1/2 right-3 translate-y-1/2 cursor-pointer"
                             onClick={handlePassword}
                           >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
