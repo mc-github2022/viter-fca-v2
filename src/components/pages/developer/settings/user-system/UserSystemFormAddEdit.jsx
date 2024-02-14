@@ -65,6 +65,7 @@ const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
     user_system_lname: Yup.string().required("Required"),
     user_system_email: Yup.string().required("Required").email("Invalid Email"),
   });
+
   return (
     <>
       <div className="settings__addEdit mb-8 max-w-[350px] w-full">
@@ -86,7 +87,7 @@ const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
                     label="First Name"
                     type="text"
                     name="user_system_fname"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -95,7 +96,7 @@ const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
                     label="Last Name"
                     type="text"
                     name="user_system_lname"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -104,7 +105,7 @@ const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
                     label="Email"
                     type="email"
                     name="user_system_email"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -112,9 +113,9 @@ const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
                   <button
                     className="btn btn--accent "
                     type="submit"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending || !props.dirty}
                   >
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -126,7 +127,7 @@ const UserSystemFormAddEdit = ({ itemEdit, roles }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

@@ -1,18 +1,11 @@
 import useSystemLogin from "@/components/custom-hooks/useSystemLogin.jsx";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { devNavUrl } from "@/components/helpers/functions-general";
-import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
-import {
-  setCredentials,
-  setError,
-  setIsLogin,
-  setMessage,
-  setValidate,
-} from "@/components/store/StoreAction.jsx";
+import { setMessage, setValidate } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
@@ -125,6 +118,7 @@ const SystemForgotPassword = () => {
                       <a
                         className="text-dark text-xs hover:underline text-center block  mt-6"
                         href={`${devNavUrl}/system/login`}
+                        disabled={mutation.isPending}
                       >
                         Go back to login
                       </a>

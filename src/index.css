@@ -4,8 +4,8 @@
 
 @font-face {
   font-family: "openSans-regular";
-  src: url(fonts/OpenSans-Regular.ttf) format("truetype");
-  font-display: swap;
+  src: url(/fonts/OpenSans-Regular.ttf) format("truetype");
+  font-display: fallback;
 }
 
 :root {

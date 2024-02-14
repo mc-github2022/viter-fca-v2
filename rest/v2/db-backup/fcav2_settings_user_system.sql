@@ -1,5 +1,5 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
@@ -33,6 +33,7 @@ CREATE TABLE `fcav2_settings_user_system` (
   `user_system_fname` varchar(128) NOT NULL,
   `user_system_lname` varchar(128) NOT NULL,
   `user_system_email` varchar(255) NOT NULL,
+  `user_system_new_email` varchar(255) NOT NULL,
   `user_system_role_id` int(11) NOT NULL,
   `user_system_key` varchar(255) NOT NULL,
   `user_system_password` varchar(255) NOT NULL,

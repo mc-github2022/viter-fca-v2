@@ -1,3 +1,4 @@
+import { devNavUrl } from "@/components/helpers/functions-general";
 import { setSuccess } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -30,7 +31,7 @@ const ModalSuccess = () => {
   return (
     <>
       <div
-        className={` !bg-white border shadow-[0_3px_10px_rgb(0,0,0,0.2)] border-l-4 border-l-green-800 rounded-md px-4 py-3 fixed top-7 z-50 left-1/2 -translate-x-1/2 animate-fadeIn ${show}`}
+        className={` !bg-white border shadow-[0_3px_10px_rgb(0,0,0,0.2)] border-l-4 border-l-green-800 rounded-md px-4 py-3 fixed top-7 z-[99] left-1/2 -translate-x-1/2 animate-fadeIn ${show}`}
       >
         <p className="flex items-center gap-3 mb-0 animate-slideUp">
           <FaCheck className="fill-green-800 h-4 w-4" /> {store.message}

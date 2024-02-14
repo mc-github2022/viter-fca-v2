@@ -9,9 +9,7 @@ import OtherCreateAccount from "./components/pages/access/other/OtherCreateAccou
 import OtherCreatePassword from "./components/pages/access/other/OtherCreatePassword.jsx";
 import OtherForgotPassword from "./components/pages/access/other/OtherForgotPassword.jsx";
 import OtherLogin from "./components/pages/access/other/OtherLogin.jsx";
-import ProtectedRouteOther from "./components/pages/access/other/ProtectedRouteOther.jsx";
 import Users from "./components/pages/developer/settings/user-system/UserSystem.jsx";
-import Header from "./components/partials/Header.jsx";
 import PageNotFound from "./components/partials/PageNotFound.jsx";
 import { StoreProvider } from "./components/store/StoreContext.jsx";
 import { routesParent } from "./routes/RoutesParent.jsx";

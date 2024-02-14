@@ -15,7 +15,7 @@ function sendEmail($password_link, $email, $key)
 {
 	$mail = new PHPMailer(true);
 	$mail->isSMTP();
-	$mail->Host = 'giow10.siteground.us'; // SiteGround
+	$mail->Host = 'mail.frontlinebusiness.com.ph'; // SiteGround
 	$mail->Port = 465;
 	$mail->SMTPSecure = "ssl";
 	$mail->SMTPAuth = true;
@@ -34,11 +34,11 @@ function sendEmail($password_link, $email, $key)
 	$mail->addAddress($email);
 	$mail->SMTPOptions = array(
 		'ssl' => array(
-		'verify_peer' => false,
-		'verify_peer_name' => false,
-		'allow_self_signed' => true
+			'verify_peer' => false,
+			'verify_peer_name' => false,
+			'allow_self_signed' => true
 		)
-		);
+	);
 
 	if ($mail->Send()) {
 		return "Success sending email.";
