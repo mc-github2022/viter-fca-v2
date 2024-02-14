@@ -93,6 +93,12 @@ RewriteRule ^user-other/login$ controllers/developer/settings/other/login.php [L
 RewriteRule ^user-other/key/([A-Za-z0-9-]+)$ controllers/developer/settings/other/key.php?userotherkey=$1 [L]
 RewriteRule ^user-other/token$ controllers/developer/settings/other/token.php [L]
 
+
+#SYSTEM MODE
+RewriteRule ^dev-system-mode$ controllers/developer/settings/system-mode/system-mode.php [L]
+RewriteRule ^dev-msystem-mode/([0-9]+)$ controllers/developer/settings/system-mode/system-mode.php?systemModeId=$1 [L]
+RewriteRule ^dev-system-mode/active/([0-9]+)$ controllers/developer/settings/system-mode/active.php?systemModeId=$1 [L]
+
 ###### DEV SETTINGS ######
 
 

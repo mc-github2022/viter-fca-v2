@@ -1,10 +1,10 @@
 <?php
 class TuitionFee
 {
-    public $tuition_fee_aid ;
+    public $tuition_fee_aid;
     public $tuition_fee_active;
-    public $tuition_fee_category_id ;
-    public $tuition_fee_grade_id ;
+    public $tuition_fee_category_id;
+    public $tuition_fee_grade_id;
     public $tuition_fee_entrance;
     public $tuition_fee_miscellaneous;
     public $tuition_fee_tuition;
@@ -31,9 +31,9 @@ class TuitionFee
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblGradeLevel = "fca_settings_grade_level";
-        $this->tblTuitionCategory = "fca_settings_tuition_category";
-        $this->tblTuitionFee = "fca_settings_tuition_fee";
+        $this->tblGradeLevel = "fcav2_settings_grade_level";
+        $this->tblTuitionCategory = "fcav2_settings_tuition_category";
+        $this->tblTuitionFee = "fcav2_settings_tuition_fee";
     }
 
     public function create()
@@ -125,7 +125,7 @@ class TuitionFee
                 "tuition_fee_start_date" => $this->tuition_fee_start_date,
                 "tuition_fee_end_date" => $this->tuition_fee_end_date,
                 "tuition_fee_datetime" => $this->tuition_fee_datetime,
-                "tuition_fee_aid" => $this->tuition_fee_aid ,
+                "tuition_fee_aid" => $this->tuition_fee_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -144,7 +144,7 @@ class TuitionFee
             $query->execute([
                 "tuition_fee_active" => $this->tuition_fee_active,
                 "tuition_fee_datetime" => $this->tuition_fee_datetime,
-                "tuition_fee_aid" => $this->tuition_fee_aid ,
+                "tuition_fee_aid" => $this->tuition_fee_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -168,24 +168,24 @@ class TuitionFee
     }
 
 
-public function checkName()
-{
-    try {
-        $sql = "select tuition_fee_category_id, ";
-        $sql .= "tuition_fee_grade_id ";
-        $sql .= "from {$this->tblTuitionFee} ";
-        $sql .= "where tuition_fee_category_id = :tuition_fee_category_id ";
-        $sql .= "and tuition_fee_grade_id = :tuition_fee_grade_id ";
-        $query = $this->connection->prepare($sql);
-        $query->execute([
-            "tuition_fee_category_id" => "{$this->tuition_fee_category_id}",
-            "tuition_fee_grade_id" => "{$this->tuition_fee_grade_id}",
-        ]);
-    } catch (PDOException $ex) {
-        $query = false;
+    public function checkName()
+    {
+        try {
+            $sql = "select tuition_fee_category_id, ";
+            $sql .= "tuition_fee_grade_id ";
+            $sql .= "from {$this->tblTuitionFee} ";
+            $sql .= "where tuition_fee_category_id = :tuition_fee_category_id ";
+            $sql .= "and tuition_fee_grade_id = :tuition_fee_grade_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "tuition_fee_category_id" => "{$this->tuition_fee_category_id}",
+                "tuition_fee_grade_id" => "{$this->tuition_fee_grade_id}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
     }
-    return $query;
-}
 
 
 

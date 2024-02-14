@@ -12,6 +12,7 @@ import ClientStudentViewInfo from "@/components/pages/developer/clients/student-
 import Department from "@/components/pages/developer/settings/Department/Department";
 
 import Discount from "@/components/pages/developer/settings/discount/Discount";
+import Maintenance from "@/components/pages/developer/settings/system-mode/SystemMode";
 import { default as System } from "@/components/pages/developer/settings/user-system/UserSystem.jsx";
 import Students from "@/components/pages/developer/students/Students";
 import StudentViewInfo from "@/components/pages/developer/students/student-info/StudentViewInfo.jsx";
@@ -107,6 +108,7 @@ export const routesSystem = [
       //   </ProtectedRouteSystem>
     ),
   },
+
   {
     path: `${devNavUrl}/system/students`,
     element: (
