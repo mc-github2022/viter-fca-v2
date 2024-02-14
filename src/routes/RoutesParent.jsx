@@ -16,9 +16,9 @@ export const routesParent = [
   {
     path: `/${devNavUrl}/parent/information`,
     element: (
-      <ProtectedRouteOther>
-        <Parents />
-      </ProtectedRouteOther>
+      // <ProtectedRouteOther>
+      <Parents />
+      // </ProtectedRouteOther>
     ),
   },
 ];

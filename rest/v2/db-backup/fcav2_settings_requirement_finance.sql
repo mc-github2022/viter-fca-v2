@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2024 at 09:00 AM
+-- Generation Time: Feb 14, 2024 at 06:54 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -18,23 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fca_enrollment_v2`
+-- Database: `fca_v2_app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fca_requirement_registrar`
+-- Table structure for table `fcav2_settings_requirement_finance`
 --
 
-CREATE TABLE `fca_requirement_registrar` (
-  `requirement_registrar_user_aid` int(11) NOT NULL,
-  `requirement_registrar_user_id` int(11) NOT NULL,
-  `requirement_registrar_student_id` int(11) NOT NULL,
-  `requirement_registrar_submitted` text NOT NULL,
-  `requirement_registrar_remarks` text NOT NULL,
-  `requirement_registrar_datetime` varchar(20) NOT NULL,
-  `requirement_registrar_created` varchar(20) NOT NULL
+CREATE TABLE `fcav2_settings_requirement_finance` (
+  `requirement_finance_aid` int(11) NOT NULL,
+  `requirement_finance_active` tinyint(1) NOT NULL,
+  `requirement_finance_department_id` int(11) NOT NULL,
+  `requirement_finance_name` varchar(50) NOT NULL,
+  `requirement_finance_created` varchar(20) NOT NULL,
+  `requirement_finance_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -42,20 +41,20 @@ CREATE TABLE `fca_requirement_registrar` (
 --
 
 --
--- Indexes for table `fca_requirement_registrar`
+-- Indexes for table `fcav2_settings_requirement_finance`
 --
-ALTER TABLE `fca_requirement_registrar`
-  ADD PRIMARY KEY (`requirement_registrar_user_aid`);
+ALTER TABLE `fcav2_settings_requirement_finance`
+  ADD PRIMARY KEY (`requirement_finance_aid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `fca_requirement_registrar`
+-- AUTO_INCREMENT for table `fcav2_settings_requirement_finance`
 --
-ALTER TABLE `fca_requirement_registrar`
-  MODIFY `requirement_registrar_user_aid` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `fcav2_settings_requirement_finance`
+  MODIFY `requirement_finance_aid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
