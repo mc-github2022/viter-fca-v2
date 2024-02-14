@@ -45,13 +45,13 @@ const ModalSettings = ({ setIsShowSettings }) => {
           <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-180px)] custom__scroll overflow-y-hidden">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
-                {/* <button
-                  className="text-base tooltip tooltip--bottom z-50 !-translate-y-0"
+                <button
+                  className="text-base tooltip tooltip--bottom z-50 !-translate-y-0 md:block"
                   onClick={handleShowSideNav}
                   data-tooltip="Menu"
                 >
                   <FaBars />
-                </button> */}
+                </button>
                 <h5 className="mb-0 font-normal pl-2">Settings</h5>
               </div>
               <button onClick={handleCloseSettings}>

@@ -2,6 +2,9 @@
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ["openSans-regular", "Arial", "sans-serif"],
+    },
     extend: {
       textColor: {
         accent: "var(--accent)",

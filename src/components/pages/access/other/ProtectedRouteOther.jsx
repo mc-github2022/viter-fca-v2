@@ -1,29 +1,38 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { devNavUrl } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData.jsx";
 import TableLoading from "../../../partials/TableLoading";
 import TableSpinner from "../../../partials/spinners/TableSpinner";
-import { setCredentials } from "../../../store/StoreAction";
+import {
+  setCredentials,
+  setMessage,
+  setValidate,
+} from "../../../store/StoreAction";
 import { StoreContext } from "../../../store/StoreContext";
 
 const ProtectedRouteOther = ({ children }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [loading, setLoading] = React.useState(true);
   const [isAuth, setIsAuth] = React.useState("");
-  const fbastoken = JSON.parse(localStorage.getItem("fbastoken"));
+  const fcatoken = JSON.parse(localStorage.getItem("fcatoken"));
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const fetchLogin = async () => {
-      const login = await queryData(`/v2/dev-user-system/token`, "post", {
-        token: fbastoken.token,
+      const login = await queryData(`/v2/user-other/token`, "post", {
+        token: fcatoken.token,
       });
 
       console.log(login);
 
-      if (typeof login === "undefined" || !login.success) {
+      if (typeof login === "undefined" || !login.success || login.count === 0) {
+        localStorage.removeItem("fcatoken");
+        navigate(`${devNavUrl}/login`);
         setLoading(false);
         setIsAuth("456");
+        dispatch(setValidate(true));
+        dispatch(setMessage(login.error));
       } else {
         dispatch(setCredentials(login.data));
         setIsAuth("123");
@@ -36,11 +45,11 @@ const ProtectedRouteOther = ({ children }) => {
       delete login.data.role_datetime;
     };
 
-    if (fbastoken !== null) {
+    if (fcatoken !== null) {
       fetchLogin();
     } else {
       setLoading(false);
-      localStorage.removeItem("fbastoken");
+      localStorage.removeItem("fcatoken");
       setIsAuth("456");
     }
   }, [dispatch]);

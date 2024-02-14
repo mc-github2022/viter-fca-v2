@@ -2,205 +2,276 @@ import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
+import RecordCount from "@/components/partials/RecordCount";
+import SearchBar from "@/components/partials/SearchBar";
+import ServerError from "@/components/partials/ServerError";
 import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
-import { setIsConfirm, setIsDelete } from "@/components/store/StoreAction";
+import ModalReset from "@/components/partials/modals/ModalReset.jsx";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
+import {
+  setIsAdd,
+  setIsConfirm,
+  setIsDelete,
+} from "@/components/store/StoreAction";
+
 import { StoreContext } from "@/components/store/StoreContext";
-import { useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
+import { PiPasswordLight, PiStudentLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import ModalEditStudent from "./StudentEdit/ModalEditStudent";
+import { getStudentCountRecord } from "./functions-student";
 
-const StudentList = () => {
+const StudentList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [isArchive, setIsArchive] = React.useState(1);
-  const queryClient = useQueryClient();
-  const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
-  const [isViewInfo, setIsViewInfo] = React.useState(false);
-  const [itemEdit, setItemEdit] = React.useState(null);
+  const [dataItem, setData] = React.useState(null);
+  const [isArchive, setIsArchive] = React.useState(1);
+  const [reset, setReset] = React.useState(false);
+  const search = React.useRef({ value: "" });
+
+  const [columnVisibility, setColumnVisibility] = React.useState({
+    user_other_email: true,
+    user_other_is_active: true,
+  });
+
+  // const {
+  //   isLoading,
+  //   isFetching,
+  //   error,
+  //   data: student,
+  // } = useQueryData(
+  //   "/v2/student", // endpoint
+  //   "get", // method
+  //   "student" // key
+  // );
 
   const {
-    isLoading,
-    isFetching,
+    data: result,
     error,
-    data: student,
-  } = useQueryData(
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["student", search.current.value, store.isSearch],
+    queryFn: async ({ pageParam = 1 }) =>
+      await queryDataInfinite(
+        `/v2/student/search`, // search endpoint
+        `/v2/student/page/${pageParam}`, // list endpoint
+        store.isSearch, // search boolean
+        "post",
+        { search: search.current.value }
+      ),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total) {
+        return lastPage.page + lastPage.count;
+      }
+      return;
+    },
+    refetchOnWindowFocus: false,
+    // networkMode: "always",
+    // cacheTime: 200,
+  });
+
+  const { data: readAllStudent } = useQueryData(
     "/v2/student", // endpoint
     "get", // method
     "student" // key
   );
 
-  const handleViewInfo = (item) => {
-    setIsViewInfo(true);
+  const handleEdit = (item) => {
     setItemEdit(item);
+    dispatch(setIsAdd(true));
+    setId(item.user_other_aid);
+  };
+
+  const handleArchive = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.user_other_aid);
+    setData(item);
+    setIsArchive(0);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.student_info_aid);
+    setId(item.user_other_aid);
     setData(item);
     setIsArchive(1);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
-    setId(item.student_info_aid);
+    setId(item.user_other_aid);
     setData(item);
   };
 
-  const handleArchive = (item) => {
-    dispatch(setIsConfirm(true));
-    setId(item.student_info_aid);
+  const handleResetPassword = (item) => {
+    setReset(true);
     setData(item);
-    setIsArchive(0);
   };
-
-  const columnHelper = createColumnHelper();
-
-  const columns = [
-    columnHelper.accessor("", {
-      header: "#",
-      cell: (row) => {
-        return row.row.index + 1;
-      },
-      sortable: false,
-    }),
-
-    columnHelper.accessor("student_name", {
-      header: "Name",
-      cell: (row) =>
-        `${row.row.original.student_info_fname} ${row.row.original.student_info_mname} ${row.row.original.student_info_lname}`,
-    }),
-
-    columnHelper.accessor("student_active", {
-      header: "Status",
-      cell: (row) => {
-        if (row.row.original.student_info_is_archive == 1) {
-          return (
-            <Pills bg="bg-green-500" label="Active" color="text-green-500" />
-          );
-        } else {
-          return (
-            <Pills bg="bg-gray-200" label="Inactive" color="text-gray-300" />
-          );
-        }
-      },
-    }),
-
-    columnHelper.accessor("student_info_gender", {
-      header: "Gender",
-    }),
-
-    columnHelper.accessor("student_info_grade_id", {
-      header: "Grade Level",
-    }),
-
-    columnHelper.accessor("action", {
-      header: "Action",
-      cell: (row) => (
-        <>
-          {row.row.original.student_info_is_archive == 1 ? (
-            <div className="flex gap-2 justify-end pr-4">
-              <button
-                type="button"
-                className="tooltip "
-                data-tooltip="Profile"
-                onClick={() => handleViewInfo(row.row.original)}
-              >
-                <CiViewList />
-              </button>
-
-              <button
-                type="button"
-                className="tooltip "
-                data-tooltip="Edit"
-                onClick={() => handleViewInfo(row.row.original)}
-              >
-                <FiEdit2 />
-              </button>
-              <button
-                type="button"
-                className="tooltip"
-                data-tooltip="Archive"
-                onClick={() => handleArchive(row.row.original)}
-              >
-                <BsArchive />
-              </button>
-            </div>
-          ) : (
-            <div className="flex gap-2 justify-end pr-4">
-              <button
-                type="button"
-                className="tooltip"
-                data-tooltip="Restore"
-                onClick={() => handleRestore(row.row.original)}
-              >
-                <MdOutlineRestore />
-              </button>
-              <button
-                type="button"
-                className="tooltip"
-                data-tooltip="Delete"
-                onClick={() => handleDelete(row.row.original)}
-              >
-                <FiTrash />
-              </button>
-            </div>
-          )}
-        </>
-      ),
-      sortable: false,
-    }),
-  ];
 
   return (
     <>
+      <SearchBar />
       <div className="main__table">
-        <div className="table__wrapper mb-[80px]">
-          {isFetching || isLoading ? (
-            <TableLoading count={20} cols={3} />
-          ) : student?.data.length === 0 ? (
-            <NoData />
-          ) : (
-            <Table columns={columns} data={student.data} hasFilter={true} />
-          )}
+        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
+          <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
+            <table className="table__sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th className="text-right pr-2">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Ramon Plaza</td>
+                  <td>
+                    <Pills
+                      bg="bg-green-500"
+                      label="Active"
+                      color="text-green-500"
+                    />
+                  </td>
+                  <td>
+                    <div className="flex gap-2 justify-end">
+                      <Link
+                        to={`${devNavUrl}/system/clients/students?cid=${1}`}
+                        className="tooltip text-base"
+                        data-tooltip="Student"
+                      >
+                        <PiStudentLight />
+                      </Link>
+
+                      <Link
+                        to={`${devNavUrl}/system/clients/information?cid=${1}`}
+                        className="tooltip text-base"
+                        data-tooltip="Info"
+                      >
+                        <CiViewList />
+                      </Link>
+
+                      <button
+                        type="button"
+                        className="tooltip "
+                        data-tooltip="Edit"
+                        // onClick={() => handleEdit(row.row.original)}
+                      >
+                        <FiEdit2 />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="tooltip text-lg"
+                        data-tooltip="Reset"
+                        // onClick={() =>
+                        //   handleResetPassword(row.row.original)
+                        // }
+                      >
+                        <PiPasswordLight />
+                      </button>
+                      <button
+                        type="button"
+                        className="tooltip"
+                        data-tooltip="Archive"
+                        // onClick={() => handleArchive(row.row.original)}
+                      >
+                        <BsArchive />
+                      </button>
+                    </div>
+
+                    <div className="flex gap-2 justify-end">
+                      <button
+                        type="button"
+                        className="tooltip"
+                        data-tooltip="Restore"
+                        // onClick={() => handleRestore(row.row.original)}
+                      >
+                        <MdOutlineRestore />
+                      </button>
+                      <button
+                        type="button"
+                        className="tooltip"
+                        data-tooltip="Delete"
+                        // onClick={() => handleDelete(row.row.original)}
+                      >
+                        <FiTrash />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="text-center ">
+                  <td colSpan="100%" className="p-2 md:p-10">
+                    <TableLoading count={20} cols={3} />
+                    <NoData />
+                  </td>
+                </tr>
+
+                <tr className="text-center ">
+                  <td colSpan="100%" className="p-10">
+                    <ServerError />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="flex justify-between mt-10">
+              <h6>
+                Count: <span>2</span>
+              </h6>
+              <button className="btn text-xs hover:underline">
+                Load More <ButtonSpinner color={"!stroke-[#123909]"} />
+              </button>
+              <span></span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {isViewInfo && (
-        <ModalEditStudent setIsViewInfo={setIsViewInfo} itemEdit={itemEdit} />
-      )}
-
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/student/active/${id}`}
+          mysqlApiArchive={`/v2/user-other/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={dataItem.student_info_fname}
-          queryKey={"student"}
+          item={dataItem.user_other_email}
+          queryKey={"clients"}
           isArchive={isArchive}
         />
       )}
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/student/${id}`}
+          mysqlApiDelete={`/v2/user-other/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={dataItem.student_info_fname}
-          queryKey={"student"}
+          item={dataItem.user_other_email}
+          queryKey={"clients"}
         />
       )}
 
-      {/* <ModalEditStudent /> */}
+      {reset && (
+        <ModalReset
+          setReset={setReset}
+          mysqlApiReset={`/v2/user-other/reset`}
+          msg={"Are you sure you want to reset this client password?"}
+          item={dataItem.user_other_email}
+          queryKey="clients"
+        />
+      )}
     </>
   );
 };

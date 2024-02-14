@@ -24,8 +24,6 @@ const RequirementRegistrar = ({ itemEdit }) => {
         payment details.
       </p>
 
-      <button className="flex justify-end w-full">New</button>
-
       {!isEdit && (
         <RequirementRegistrarView registrar={registrar} setIsEdit={setIsEdit} />
       )}

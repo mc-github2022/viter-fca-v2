@@ -1,10 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "openSans-regular";
+  src: url(fonts/OpenSans-Regular.ttf) format("truetype");
+  font-display: swap;
+}
+
 :root {
-  --accent: rgb(18, 57, 9);
+  --accent: #123909;
   --accentDark: hsl(109, 73%, 10%);
   --accentLight: hsl(109, 91%, 30%);
   --primary: #ffffff;
@@ -89,7 +94,7 @@
   }
 
   body {
-    @apply leading-relaxed text-body font-primary text-sm bg-secondary overflow-x-hidden;
+    @apply leading-relaxed text-body  text-sm bg-secondary overflow-x-hidden font-sans;
   }
 
   body.no--scroll {
@@ -152,7 +157,7 @@
   }
 
   nav {
-    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border border-line w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
+    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border-r border-line w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
   }
 
   nav .backdrop {
@@ -224,7 +229,7 @@
 
 @layer components {
   .btn {
-    @apply p-2.5 rounded-md border border-transparent transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
+    @apply p-2.5 h-[36px] rounded-md border border-transparent transition-ease leading-none  min-w-[70px] flex gap-2 items-center justify-center text-xs;
   }
 
   .btn--sm {
@@ -312,7 +317,7 @@
   }
 
   .table__wrapper {
-    @apply bg-primary px-2 pb-2 pt-0  relative  overflow-y-auto lg:overflow-x-visible;
+    @apply bg-primary pb-2 pt-0  relative  overflow-y-auto lg:overflow-x-visible;
   }
 
   .form__wrap {
@@ -356,10 +361,21 @@
   /* MAIN WRAPPER - PAGE WITH TABLE */
 
   .main__content {
-    @apply py-6 px-2 lg:px-4  w-full  lg:pl-6  lg:ml-[250px] transition-all ease-timing-nav duration-300;
+    @apply py-6 px-2 lg:px-4  w-full lg:pl-4  lg:ml-[240px] transition-all ease-timing-nav duration-300;
   }
-  .main__content.expand {
+  /* .main__content.expand .main__table {
     @apply lg:ml-0;
+  } */
+
+  /* .main__content.expand {
+    @apply lg:ml-[250px];
+  } */
+  .main__content {
+    @apply lg:ml-0;
+  }
+
+  .main__content.expand {
+    @apply lg:max-w-[calc(100%-240px)] lg:ml-[240px];
   }
 
   /* MODAL */

@@ -23,12 +23,10 @@ $returnData = [];
 // validate api key
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
-
-    $token = $data['token'];
-
+    $token = $data['token'];   
     $key = "jwt_admin_ko_ito";
 
-    token($user_other, $token, $key);
+    tokenOther($user_other, $token, $key);
 }
 
 http_response_code(200);

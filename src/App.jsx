@@ -13,6 +13,8 @@ import Users from "./components/pages/developer/settings/user-system/UserSystem.
 import PageNotFound from "./components/partials/PageNotFound.jsx";
 import { StoreProvider } from "./components/store/StoreContext.jsx";
 import { routesSystem } from "./routes/RoutesSystem.jsx";
+import Header from "./components/partials/Header.jsx";
+import ProtectedRouteOther from "./components/pages/access/other/ProtectedRouteOther.jsx";
 
 function App() {
   const queryClient = new QueryClient();
@@ -52,6 +54,15 @@ function App() {
               <Route
                 path={`${devNavUrl}/create-account`}
                 element={<OtherCreateAccount />}
+              />
+              {/* DELETE MODIN TO */}
+              <Route
+                path={`${devNavUrl}/client/parent`}
+                element={
+                  <ProtectedRouteOther>
+                    <Header />
+                  </ProtectedRouteOther>
+                }
               />
               {/* SYSTEM USER ROUTE  */}
               {routesSystem.map(({ ...routeProps }, key) => {

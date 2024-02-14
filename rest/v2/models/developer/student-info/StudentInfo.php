@@ -252,6 +252,30 @@ class StudentInfo
         return $query;
     }
 
+    public function search()
+    {
+        try {
+            $sql = "select student_info_aid, ";
+            $sql .= "student_info_user_id, ";
+            $sql .= "student_info_fname, ";
+            $sql .= "student_info_lname, ";
+            $sql .= "student_info_is_archive ";
+            $sql .= "from {$this->tblStudentInfo} ";
+            $sql .= "where (student_info_fname like :search ";
+            $sql .= "or student_info_aid like :student_info_aid) ";
+            $sql .= "order by student_info_is_archive desc, ";
+            $sql .= "student_info_aid asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "search" => "{$this->student_search}%",
+                // "client_id" => "{$this->client_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function active()
     {
         try {
