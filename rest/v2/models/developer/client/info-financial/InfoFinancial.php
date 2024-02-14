@@ -22,7 +22,7 @@ class InfoFinancial
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblInfoFinancial = "fca_info_financial";
+        $this->tblInfoFinancial = "fcav2_info_financial";
     }
 
     public function create()
@@ -136,7 +136,7 @@ class InfoFinancial
             $query->execute([
                 "student_active" => $this->student_active,
                 "student_datetime" => $this->student_datetime,
-                "student_aid" => $this->student_aid ,
+                "student_aid" => $this->student_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

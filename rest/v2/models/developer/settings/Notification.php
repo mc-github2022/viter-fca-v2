@@ -1,7 +1,7 @@
 <?php
 class Notification
 {
-    public $notification_aid ;
+    public $notification_aid;
     public $notification_active;
     public $notification_department_id;
     public $notification_email;
@@ -21,8 +21,8 @@ class Notification
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblNotification = "fca_settings_notification";
-        $this->tblDepartment = "fca_settings_department";
+        $this->tblNotification = "fcav2_settings_notification";
+        $this->tblDepartment = "fcav2_settings_department";
     }
 
     public function create()
@@ -86,7 +86,7 @@ class Notification
                 "notification_email" => $this->notification_email,
                 "notification_name" => $this->notification_name,
                 "notification_datetime" => $this->notification_datetime,
-                "notification_aid" => $this->notification_aid ,
+                "notification_aid" => $this->notification_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -105,7 +105,7 @@ class Notification
             $query->execute([
                 "notification_active" => $this->notification_active,
                 "notification_datetime" => $this->notification_datetime,
-                "notification_aid" => $this->notification_aid ,
+                "notification_aid" => $this->notification_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

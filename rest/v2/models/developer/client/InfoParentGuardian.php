@@ -40,9 +40,8 @@ class InfoParentGuardian
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblParentGuardian = "fca_info_parent_guardian";
-        $this->tblRelationship = "fca_settings_relationship";
-        
+        $this->tblParentGuardian = "fcav2_info_parent_guardian";
+        $this->tblRelationship = "fcav2_settings_relationship";
     }
 
     public function create()
@@ -169,7 +168,7 @@ class InfoParentGuardian
             $sql .= "parent_guardian_info_zipcode = :parent_guardian_info_zipcode, ";
             $sql .= "parent_guardian_info_religion = :parent_guardian_info_religion, ";
             $sql .= "parent_guardian_info_occupation = :parent_guardian_info_occupation, ";
-            $sql .= "parent_guardian_info_datetime = :parent_guardian_info_datetime ";           
+            $sql .= "parent_guardian_info_datetime = :parent_guardian_info_datetime ";
             $sql .= "where parent_guardian_info_aid = :parent_guardian_info_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
@@ -191,7 +190,7 @@ class InfoParentGuardian
                 "parent_guardian_info_religion" => $this->parent_guardian_info_religion,
                 "parent_guardian_info_occupation" => $this->parent_guardian_info_occupation,
                 "parent_guardian_info_datetime" => $this->parent_guardian_info_datetime,
-                "parent_guardian_info_aid" => $this->parent_guardian_info_aid,         
+                "parent_guardian_info_aid" => $this->parent_guardian_info_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -199,7 +198,7 @@ class InfoParentGuardian
         return $query;
     }
 
-  
+
     public function delete()
     {
         try {
@@ -233,5 +232,4 @@ class InfoParentGuardian
         }
         return $query;
     }
- 
 }

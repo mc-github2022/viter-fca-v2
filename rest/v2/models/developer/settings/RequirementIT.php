@@ -4,7 +4,7 @@ class RequirementIT
     public $requirement_it_aid;
     public $requirement_it_active;
     public $requirement_it_department_id;
-    
+
     public $requirement_it_name;
     public $requirement_it_created;
     public $requirement_it_datetime;
@@ -21,8 +21,8 @@ class RequirementIT
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblRequirementIT = "fca_settings_requirement_it";
-        $this->tblDepartment = "fca_settings_department";
+        $this->tblRequirementIT = "fcav2_settings_requirement_it";
+        $this->tblDepartment = "fcav2_settings_department";
     }
 
     public function create()
@@ -43,7 +43,7 @@ class RequirementIT
             $query->execute([
                 "requirement_it_active" => $this->requirement_it_active,
                 "requirement_it_name" => $this->requirement_it_name,
-                "requirement_it_department_id" => $this->requirement_it_department_id,                
+                "requirement_it_department_id" => $this->requirement_it_department_id,
                 "requirement_it_created" => $this->requirement_it_created,
                 "requirement_it_datetime" => $this->requirement_it_datetime,
             ]);
@@ -81,7 +81,7 @@ class RequirementIT
                 "requirement_it_department_id" => $this->requirement_it_department_id,
                 "requirement_it_name" => $this->requirement_it_name,
                 "requirement_it_datetime" => $this->requirement_it_datetime,
-                "requirement_it_aid" => $this->requirement_it_aid ,
+                "requirement_it_aid" => $this->requirement_it_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -100,7 +100,7 @@ class RequirementIT
             $query->execute([
                 "requirement_it_active" => $this->requirement_it_active,
                 "requirement_it_datetime" => $this->requirement_it_datetime,
-                "requirement_it_aid" => $this->requirement_it_aid ,
+                "requirement_it_aid" => $this->requirement_it_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

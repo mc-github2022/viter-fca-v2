@@ -1,7 +1,7 @@
 <?php
 class Scheme
 {
-    public $scheme_aid ;
+    public $scheme_aid;
     public $scheme_active;
     public $scheme_name;
     public $scheme_created;
@@ -17,7 +17,7 @@ class Scheme
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblScheme = "fca_settings_scheme";
+        $this->tblScheme = "fcav2_settings_scheme";
     }
 
     public function create()
@@ -72,7 +72,7 @@ class Scheme
             $query->execute([
                 "scheme_name" => $this->scheme_name,
                 "scheme_datetime" => $this->scheme_datetime,
-                "scheme_aid" => $this->scheme_aid ,
+                "scheme_aid" => $this->scheme_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -91,7 +91,7 @@ class Scheme
             $query->execute([
                 "scheme_active" => $this->scheme_active,
                 "scheme_datetime" => $this->scheme_datetime,
-                "scheme_aid" => $this->scheme_aid ,
+                "scheme_aid" => $this->scheme_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
