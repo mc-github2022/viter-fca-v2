@@ -94,8 +94,8 @@ const OtherCreateAccount = () => {
           </div>
         </div>
       ) : (
-        <div className="h-screen w-full grid place-items-center">
-          <div className="login w-full bg-primary max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm mx-4 -translate-y-14">
+        <div className="h-screen w-full relative">
+          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
             <div className=" mb-4">
               <div className="flex justify-center">
                 <LogoGreen />
