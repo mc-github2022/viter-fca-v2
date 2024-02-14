@@ -86,7 +86,7 @@ const Profile = () => {
 
         <main
           className={`main__content mt-[35px] ${
-            store.isMenuExpand ? "" : "expand"
+            store.isMenuExpand ? "expand" : ""
           }`}
         >
           <div className="main__header flex justify-between items-start lg:items-center">
@@ -116,11 +116,7 @@ const Profile = () => {
                 } md:block `}
               >
                 <ul>
-                  <li
-                    className={`${
-                      index === 2 ? "active" : ""
-                    } !p-0 text-center`}
-                  >
+                  <li className="text-center">
                     <button
                       onClick={() => setIndex(2)}
                       className="text-sm w-full p-2"
