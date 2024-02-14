@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 04:59 AM
+-- Generation Time: Feb 14, 2024 at 06:54 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -18,16 +18,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fca_enrollment_v2`
+-- Database: `fca_v2_app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fca_settings_notification`
+-- Table structure for table `fcav2_settings_notification`
 --
 
-CREATE TABLE `fca_settings_notification` (
+CREATE TABLE `fcav2_settings_notification` (
   `notification_aid` int(11) NOT NULL,
   `notification_active` tinyint(1) NOT NULL,
   `notification_department_id` int(11) NOT NULL,
@@ -38,21 +38,13 @@ CREATE TABLE `fca_settings_notification` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `fca_settings_notification`
---
-
-INSERT INTO `fca_settings_notification` (`notification_aid`, `notification_active`, `notification_department_id`, `notification_email`, `notification_name`, `notification_created`, `notification_datetime`) VALUES
-(2, 1, 1, 'wwww@wwwww.com', 'tttt', '2023-12-11 15:15:58', '2023-12-11 15:20:52'),
-(3, 1, 1, 'xxxxx@xxxx.com', 'xxxx', '2023-12-11 15:16:14', '2023-12-11 15:16:14');
-
---
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `fca_settings_notification`
+-- Indexes for table `fcav2_settings_notification`
 --
-ALTER TABLE `fca_settings_notification`
+ALTER TABLE `fcav2_settings_notification`
   ADD PRIMARY KEY (`notification_aid`);
 
 --
@@ -60,10 +52,10 @@ ALTER TABLE `fca_settings_notification`
 --
 
 --
--- AUTO_INCREMENT for table `fca_settings_notification`
+-- AUTO_INCREMENT for table `fcav2_settings_notification`
 --
-ALTER TABLE `fca_settings_notification`
-  MODIFY `notification_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `fcav2_settings_notification`
+  MODIFY `notification_aid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

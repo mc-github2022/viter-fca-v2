@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 04:59 AM
+-- Generation Time: Feb 14, 2024 at 06:54 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -18,21 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fca_enrollment_v2`
+-- Database: `fca_v2_app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fca_settings_scheme`
+-- Table structure for table `fcav2_settings_relationship`
 --
 
-CREATE TABLE `fca_settings_scheme` (
-  `scheme_aid` int(11) NOT NULL,
-  `scheme_active` tinyint(1) NOT NULL,
-  `scheme_name` varchar(50) NOT NULL,
-  `scheme_created` varchar(20) NOT NULL,
-  `scheme_datetime` varchar(20) NOT NULL
+CREATE TABLE `fcav2_settings_relationship` (
+  `relationship_aid` int(11) NOT NULL,
+  `relationship_active` tinyint(1) NOT NULL,
+  `relationship_name` varchar(50) NOT NULL,
+  `relationship_is_maiden` tinyint(1) NOT NULL,
+  `relationship_created` varchar(20) NOT NULL,
+  `relationship_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -40,20 +41,20 @@ CREATE TABLE `fca_settings_scheme` (
 --
 
 --
--- Indexes for table `fca_settings_scheme`
+-- Indexes for table `fcav2_settings_relationship`
 --
-ALTER TABLE `fca_settings_scheme`
-  ADD PRIMARY KEY (`scheme_aid`);
+ALTER TABLE `fcav2_settings_relationship`
+  ADD PRIMARY KEY (`relationship_aid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `fca_settings_scheme`
+-- AUTO_INCREMENT for table `fcav2_settings_relationship`
 --
-ALTER TABLE `fca_settings_scheme`
-  MODIFY `scheme_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `fcav2_settings_relationship`
+  MODIFY `relationship_aid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

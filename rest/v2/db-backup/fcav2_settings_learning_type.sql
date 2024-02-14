@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2023 at 07:19 AM
+-- Generation Time: Feb 14, 2024 at 06:53 AM
 -- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.2
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,22 +18,21 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fca_enrollment_v2`
+-- Database: `fca_v2_app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fca_settings_role`
+-- Table structure for table `fcav2_settings_learning_type`
 --
 
-CREATE TABLE `fca_settings_role` (
-  `role_aid` int(11) NOT NULL,
-  `role_is_active` tinyint(1) NOT NULL,
-  `role_name` varchar(50) NOT NULL,
-  `role_description` text NOT NULL,
-  `role_created` varchar(20) NOT NULL,
-  `role_datetime` varchar(20) NOT NULL
+CREATE TABLE `fcav2_settings_learning_type` (
+  `learning_type_aid` int(11) NOT NULL,
+  `learning_type_active` tinyint(1) NOT NULL,
+  `learning_type_name` varchar(50) NOT NULL,
+  `learning_type_created` varchar(20) NOT NULL,
+  `learning_type_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -41,20 +40,20 @@ CREATE TABLE `fca_settings_role` (
 --
 
 --
--- Indexes for table `fca_settings_role`
+-- Indexes for table `fcav2_settings_learning_type`
 --
-ALTER TABLE `fca_settings_role`
-  ADD PRIMARY KEY (`role_aid`);
+ALTER TABLE `fcav2_settings_learning_type`
+  ADD PRIMARY KEY (`learning_type_aid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `fca_settings_role`
+-- AUTO_INCREMENT for table `fcav2_settings_learning_type`
 --
-ALTER TABLE `fca_settings_role`
-  MODIFY `role_aid` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `fcav2_settings_learning_type`
+  MODIFY `learning_type_aid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
