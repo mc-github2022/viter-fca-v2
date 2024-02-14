@@ -134,6 +134,8 @@ RewriteRule ^dev-settings-discount/active/([0-9]+)$ controllers/developer/settin
 RewriteRule ^student$ controllers/developer/students/students.php [L]
 RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
 RewriteRule ^student/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]
+RewriteRule ^student/page/([0-9]+)$ controllers/developer/students/page.php?start=$1 [L]
+RewriteRule ^student/search$ controllers/developer/students/search.php [L]
 
 # READ ALL PARENT ADDRESS BY STUDENT ID
 RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/readParentAddressByStudentId.php?studentid=$1 [L]

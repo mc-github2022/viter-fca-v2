@@ -4,8 +4,8 @@ const IconServerError = () => {
   return (
     <div>
       <svg
-        width="150"
-        height="171"
+        width="80"
+        height="90"
         viewBox="0 0 150 171"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

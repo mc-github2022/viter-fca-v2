@@ -272,8 +272,7 @@ function token(
 function tokenOther(
     $object,
     $token,
-    $key,
-   
+    $key
 ) {
     $response = new Response();
     $error = [];
