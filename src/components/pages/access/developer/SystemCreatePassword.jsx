@@ -198,10 +198,7 @@ const SystemCreatePassword = () => {
                           type={showPassword ? "text" : "password"}
                           name="new_password"
                           onKeyUp={(e) => handleChange(e.target.value)}
-                          disabled={
-                            mutation.isPending ||
-                            props.values.user_system_email === ""
-                          }
+                          disabled={mutation.isPending}
                         />
                         {props.values.new_password && (
                           <span
@@ -218,10 +215,7 @@ const SystemCreatePassword = () => {
                           label="Confirm Password"
                           type={showConfirmPassword ? "text" : "password"}
                           name="confirm_password"
-                          disabled={
-                            mutation.isPending ||
-                            props.values.user_system_email === ""
-                          }
+                          disabled={mutation.isPending}
                         />
                         {props.values.confirm_password && (
                           <span

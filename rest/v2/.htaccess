@@ -96,6 +96,14 @@ RewriteRule ^user-other/reset$ controllers/developer/settings/other/reset-passwo
 RewriteRule ^user-other/login$ controllers/developer/settings/other/login.php [L]
 RewriteRule ^user-other/key/([A-Za-z0-9-]+)$ controllers/developer/settings/other/key.php?userotherkey=$1 [L]
 RewriteRule ^user-other/token$ controllers/developer/settings/other/token.php [L]
+RewriteRule ^user-other/staff$ controllers/developer/settings/other/staff.php [L]
+
+# STAFF
+RewriteRule ^dev-staff$ controllers/developer/settings/staff/staff.php [L]
+RewriteRule ^dev-staff/search$ controllers/developer/settings/staff/search.php [L]
+RewriteRule ^dev-staff/([0-9]+)$ controllers/developer/settings/staff/staff.php?staffid=$1 [L]
+RewriteRule ^dev-staff/active/([0-9]+)$ controllers/developer/settings/staff/active.php?staffid=$1 [L]
+RewriteRule ^dev-staff/page/([0-9]+)$ controllers/developer/settings/staff/page.php?start=$1 [L]
 
 ###### DEV SETTINGS ######
 

@@ -1,7 +1,7 @@
 import { useField } from "formik";
 import React from "react";
 
-export const InputTextArea = ({ label, ...props }) => {
+export const InputTextArea = ({ label, onChange = null, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -17,6 +17,10 @@ export const InputTextArea = ({ label, ...props }) => {
         {...field}
         {...props}
         autoComplete="off"
+        onChange={(e) => {
+          onChange !== null && onChange(e);
+          field.onChange(e);
+        }}
       ></textarea>
       {meta.touched && meta.error ? (
         <span className="error-show">{meta.error}</span>
@@ -25,7 +29,12 @@ export const InputTextArea = ({ label, ...props }) => {
   );
 };
 
-export const InputText = ({ label, ...props }) => {
+export const InputText = ({
+  label,
+  onChange = null,
+  refVal = null,
+  ...props
+}) => {
   const [field, meta] = useField(props);
   return (
     <>
@@ -40,6 +49,11 @@ export const InputText = ({ label, ...props }) => {
         {...props}
         className={meta.touched && meta.error ? "error-show" : null}
         autoComplete="off"
+        onChange={(e) => {
+          onChange !== null && onChange(e);
+          field.onChange(e);
+        }}
+        ref={refVal}
       />
       {meta.touched && meta.error ? (
         <span className="error-show">{meta.error}</span>
@@ -48,7 +62,7 @@ export const InputText = ({ label, ...props }) => {
   );
 };
 
-export const InputSelect = ({ label, onChange, ...props }) => {
+export const InputSelect = ({ label, onChange = null, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -65,7 +79,7 @@ export const InputSelect = ({ label, onChange, ...props }) => {
         {...props}
         className={meta.touched && meta.error ? "error-show" : null}
         onChange={(e) => {
-          onChange(e);
+          onChange !== null && onChange(e);
           field.onChange(e);
         }}
       />

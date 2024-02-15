@@ -1,15 +1,13 @@
-import React from "react";
-
-import { AiOutlinePlus } from "react-icons/ai";
-
-import useQueryData from "@/components/custom-hooks/useQueryData";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import UserOtherFormAddEdit from "./UserOtherFormAddEdit";
-import UserOtherList from "./UserOtherList";
-const UserOther = ({ index }) => {
+import React from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import StaffFormAddEdit from "./StaffFormAddEdit";
+import StaffList from "./StaffList";
+
+const Staff = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
 
@@ -18,14 +16,14 @@ const UserOther = ({ index }) => {
     setItemEdit(null);
   };
 
-  if (index === 12) {
+  if (index === 16) {
     return (
       <>
         <div className="">
           <div className="bg-primary">
-            <h2 className="mb-3">Users</h2>
+            <h2 className="mb-3">Staff</h2>
             <p className="text-xs mb-5">
-              Set list of users that will be available to the current school
+              Set list of staff that will be available to the current school
               year
             </p>
           </div>
@@ -39,8 +37,10 @@ const UserOther = ({ index }) => {
             </button>
           )}
 
-          {store.isSettingAdd && <UserOtherFormAddEdit itemEdit={itemEdit} />}
-          {!store.isSettingAdd && <UserOtherList setItemEdit={setItemEdit} />}
+          {!store.isSettingAdd && <StaffList setItemEdit={setItemEdit} />}
+
+          {store.isSettingAdd && <StaffFormAddEdit itemEdit={itemEdit} />}
+
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>
@@ -49,4 +49,4 @@ const UserOther = ({ index }) => {
   }
 };
 
-export default UserOther;
+export default Staff;

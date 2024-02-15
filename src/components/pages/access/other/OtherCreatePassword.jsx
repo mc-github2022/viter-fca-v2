@@ -68,7 +68,7 @@ const OtherCreatePassword = () => {
       .min(8, "Password must be at least 8 characters.")
       .matches(/[a-z]/, "At least one lowercase letter.")
       .matches(/[A-Z]/, "At least one uppercase letter.")
-      .matches("(?=.*[@$!%*#?&])", "Atleast 1 special character.")
+      .matches("(?=.*[!@#$%^&*`{;:',<.>/?}_-])", "Atleast 1 special character.")
       .matches("(?=.*[0-9])", "Atleast 1 number."),
     confirm_password: Yup.string()
       .required("Required")
@@ -91,7 +91,7 @@ const OtherCreatePassword = () => {
     const lower = new RegExp("(?=.*[a-z])");
     const upper = new RegExp("(?=.*[A-Z])");
     const number = new RegExp("(?=.*[0-9])");
-    const special = new RegExp("(?=.*[!@#$%^&*-])");
+    const special = new RegExp("(?=.*[!@#$%^&*`{;:',<.>/?}_-])");
     const length = new RegExp("(?=.{8,})");
 
     if (lower.test(value)) {
@@ -158,7 +158,7 @@ const OtherCreatePassword = () => {
             </div>
           </div>
         </>
-      ) : !key?.data.length === 0 || paramKey === null || paramKey === "" ? (
+      ) : key?.count === 0 || paramKey === null || paramKey === "" ? (
         <>
           <div className="absolute top-0 right-0 bottom-0 left-0 bg-white z-50">
             <PageNotFound />
@@ -198,10 +198,7 @@ const OtherCreatePassword = () => {
                           type={showPassword ? "text" : "password"}
                           name="new_password"
                           onKeyUp={(e) => handleChange(e.target.value)}
-                          disabled={
-                            mutation.isPending ||
-                            props.values.user_system_email === ""
-                          }
+                          disabled={mutation.isPending}
                         />
                         {props.values.new_password && (
                           <span
@@ -218,10 +215,7 @@ const OtherCreatePassword = () => {
                           label="Confirm Password"
                           type={showConfirmPassword ? "text" : "password"}
                           name="confirm_password"
-                          disabled={
-                            mutation.isPending ||
-                            props.values.user_system_email === ""
-                          }
+                          disabled={mutation.isPending}
                         />
                         {props.values.confirm_password && (
                           <span
