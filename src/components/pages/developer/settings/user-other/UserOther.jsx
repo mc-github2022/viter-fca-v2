@@ -2,27 +2,16 @@ import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import UserOtherFormAddEdit from "./UserOtherFormAddEdit";
 import UserOtherList from "./UserOtherList";
-import useQueryData from "@/components/custom-hooks/useQueryData";
 const UserOther = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
-
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: roles,
-  } = useQueryData(
-    "/v2/dev-roles", // endpoint
-    "get", // method
-    "roles" // key
-  );
 
   const handleAdd = () => {
     dispatch(setIsSettingAdd(true));
@@ -50,9 +39,7 @@ const UserOther = ({ index }) => {
             </button>
           )}
 
-          {store.isSettingAdd && (
-            <UserOtherFormAddEdit itemEdit={itemEdit} roles={roles} />
-          )}
+          {store.isSettingAdd && <UserOtherFormAddEdit itemEdit={itemEdit} />}
           {!store.isSettingAdd && <UserOtherList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

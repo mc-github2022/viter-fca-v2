@@ -71,7 +71,7 @@ const OtherCreateAccount = () => {
     <>
       {isSuccess ? (
         <div className="h-screen w-full relative">
-          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
             <div className=" mb-4">
               <div className="flex justify-center">
                 <LogoGreen />
@@ -86,8 +86,7 @@ const OtherCreateAccount = () => {
 
               <a
                 className="btn btn--accent text-xs block text-center mt-6"
-                href={`${devNavUrl}/login`}
-              >
+                href={`${devNavUrl}/login`}>
                 Back to Login
               </a>
             </div>
@@ -95,7 +94,7 @@ const OtherCreateAccount = () => {
         </div>
       ) : (
         <div className="h-screen w-full relative">
-          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
             <div className=" mb-4">
               <div className="flex justify-center">
                 <LogoGreen />
@@ -112,8 +111,7 @@ const OtherCreateAccount = () => {
                   ...values,
                   user_other_role_id: roleId[0].role_aid,
                 });
-              }}
-            >
+              }}>
               {(props) => {
                 return (
                   <Form>
@@ -145,8 +143,7 @@ const OtherCreateAccount = () => {
                       <button
                         type="submit"
                         disabled={mutation.isPending || !props.dirty}
-                        className="btn btn--accent w-full relative"
-                      >
+                        className="btn btn--accent w-full relative">
                         {mutation.isPending ? (
                           <ButtonSpinner />
                         ) : (
@@ -161,8 +158,7 @@ const OtherCreateAccount = () => {
 
             <Link
               to={`${devNavUrl}/login`}
-              className="block text-center mt-5 text-xs hover:underline"
-            >
+              className="block text-center mt-5 text-xs hover:underline">
               Back to Login
             </Link>
           </div>

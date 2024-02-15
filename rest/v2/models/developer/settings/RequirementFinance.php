@@ -4,7 +4,7 @@ class RequirementFinance
     public $requirement_finance_aid;
     public $requirement_finance_active;
     public $requirement_finance_department_id;
-    
+
     public $requirement_finance_name;
     public $requirement_finance_created;
     public $requirement_finance_datetime;
@@ -21,8 +21,8 @@ class RequirementFinance
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblRequirementFinance = "fca_settings_requirement_finance";
-        $this->tblDepartment = "fca_settings_department";
+        $this->tblRequirementFinance = "fcav2_settings_requirement_finance";
+        $this->tblDepartment = "fcav2_settings_department";
     }
 
     public function create()
@@ -43,7 +43,7 @@ class RequirementFinance
             $query->execute([
                 "requirement_finance_active" => $this->requirement_finance_active,
                 "requirement_finance_name" => $this->requirement_finance_name,
-                "requirement_finance_department_id" => $this->requirement_finance_department_id,                
+                "requirement_finance_department_id" => $this->requirement_finance_department_id,
                 "requirement_finance_created" => $this->requirement_finance_created,
                 "requirement_finance_datetime" => $this->requirement_finance_datetime,
             ]);
@@ -81,7 +81,7 @@ class RequirementFinance
                 "requirement_finance_department_id" => $this->requirement_finance_department_id,
                 "requirement_finance_name" => $this->requirement_finance_name,
                 "requirement_finance_datetime" => $this->requirement_finance_datetime,
-                "requirement_finance_aid" => $this->requirement_finance_aid ,
+                "requirement_finance_aid" => $this->requirement_finance_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -100,7 +100,7 @@ class RequirementFinance
             $query->execute([
                 "requirement_finance_active" => $this->requirement_finance_active,
                 "requirement_finance_datetime" => $this->requirement_finance_datetime,
-                "requirement_finance_aid" => $this->requirement_finance_aid ,
+                "requirement_finance_aid" => $this->requirement_finance_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

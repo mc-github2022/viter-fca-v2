@@ -1,20 +1,13 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import useSystemLogin from "@/components/custom-hooks/useSystemLogin.jsx";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { devNavUrl, getUrlParam } from "@/components/helpers/functions-general";
-import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
-import {
-  setCreatePassSuccess,
-  setError,
-  setMessage,
-  setValidate,
-} from "@/components/store/StoreAction.jsx";
+import { setMessage, setValidate } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
@@ -68,7 +61,7 @@ const OtherCreatePassword = () => {
       .min(8, "Password must be at least 8 characters.")
       .matches(/[a-z]/, "At least one lowercase letter.")
       .matches(/[A-Z]/, "At least one uppercase letter.")
-      .matches("(?=.*[@$!%*#?&])", "Atleast 1 special character.")
+      .matches("(?=.*[!@#$%^&*`{;:',<.>/?}_-])", "Atleast 1 special character.")
       .matches("(?=.*[0-9])", "Atleast 1 number."),
     confirm_password: Yup.string()
       .required("Required")
@@ -91,7 +84,7 @@ const OtherCreatePassword = () => {
     const lower = new RegExp("(?=.*[a-z])");
     const upper = new RegExp("(?=.*[A-Z])");
     const number = new RegExp("(?=.*[0-9])");
-    const special = new RegExp("(?=.*[!@#$%^&*-])");
+    const special = new RegExp("(?=.*[!@#$%^&*`{;:',<.>/?}_-])");
     const length = new RegExp("(?=.{8,})");
 
     if (lower.test(value)) {
@@ -136,7 +129,7 @@ const OtherCreatePassword = () => {
       {isSuccess ? (
         <>
           <div className="h-screen w-full relative">
-            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
               <div className=" mb-4">
                 <div className="flex justify-center">
                   <LogoGreen />
@@ -158,7 +151,7 @@ const OtherCreatePassword = () => {
             </div>
           </div>
         </>
-      ) : !key?.data.length === 0 || paramKey === null || paramKey === "" ? (
+      ) : key?.count === 0 || paramKey === null || paramKey === "" ? (
         <>
           <div className="absolute top-0 right-0 bottom-0 left-0 bg-white z-50">
             <PageNotFound />
@@ -172,7 +165,7 @@ const OtherCreatePassword = () => {
             </div>
           )}
           <div className="h-screen w-full relative">
-            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
               <div className=" mb-4">
                 <div className="flex justify-center">
                   <LogoGreen />
@@ -198,10 +191,7 @@ const OtherCreatePassword = () => {
                           type={showPassword ? "text" : "password"}
                           name="new_password"
                           onKeyUp={(e) => handleChange(e.target.value)}
-                          disabled={
-                            mutation.isPending ||
-                            props.values.user_system_email === ""
-                          }
+                          disabled={mutation.isPending}
                         />
                         {props.values.new_password && (
                           <span
@@ -218,10 +208,7 @@ const OtherCreatePassword = () => {
                           label="Confirm Password"
                           type={showConfirmPassword ? "text" : "password"}
                           name="confirm_password"
-                          disabled={
-                            mutation.isPending ||
-                            props.values.user_system_email === ""
-                          }
+                          disabled={mutation.isPending}
                         />
                         {props.values.confirm_password && (
                           <span

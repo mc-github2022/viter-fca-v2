@@ -1,7 +1,7 @@
 <?php
 class GradeLevel
 {
-    public $grade_level_aid ;
+    public $grade_level_aid;
     public $grade_level_active;
     public $grade_level_name;
     public $grade_level_is_pre_school;
@@ -19,8 +19,8 @@ class GradeLevel
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblGradeLevel = "fca_settings_grade_level";
-        $this->tblTuitionFee = "fca_settings_tuition_fee";
+        $this->tblGradeLevel = "fcav2_settings_grade_level";
+        $this->tblTuitionFee = "fcav2_settings_tuition_fee";
     }
 
     public function create()
@@ -81,7 +81,7 @@ class GradeLevel
                 "grade_level_name" => $this->grade_level_name,
                 "grade_level_is_pre_school" => $this->grade_level_is_pre_school,
                 "grade_level_datetime" => $this->grade_level_datetime,
-                "grade_level_aid" => $this->grade_level_aid ,
+                "grade_level_aid" => $this->grade_level_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -100,7 +100,7 @@ class GradeLevel
             $query->execute([
                 "grade_level_active" => $this->grade_level_active,
                 "grade_level_datetime" => $this->grade_level_datetime,
-                "grade_level_aid" => $this->grade_level_aid ,
+                "grade_level_aid" => $this->grade_level_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

@@ -15,15 +15,17 @@ import { BsArchive } from "react-icons/bs";
 import NoData from "@/components/partials/NoData.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
+import ModalReset from "@/components/partials/modals/ModalReset";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import { MdOutlineRestore } from "react-icons/md";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
+import { MdOutlineRestore, MdPassword } from "react-icons/md";
 const UserOtherList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
+  const [isReset, setReset] = React.useState(false);
 
   const {
     isLoading,
@@ -46,7 +48,6 @@ const UserOtherList = ({ setItemEdit }) => {
     setId(item.user_other_aid);
     setData(item);
     setIsArchive(0);
-    console.log(isArchive);
   };
 
   const handleRestore = (item) => {
@@ -54,12 +55,17 @@ const UserOtherList = ({ setItemEdit }) => {
     setId(item.user_other_aid);
     setData(item);
     setIsArchive(1);
-    console.log(isArchive);
   };
 
   const handleDelete = (item) => {
     dispatch(setSettingIsDelete(true));
     setId(item.user_other_aid);
+    setData(item);
+  };
+
+  const handleReset = (item) => {
+    setId(item.user_other_aid);
+    setReset(true);
     setData(item);
   };
 
@@ -94,6 +100,8 @@ const UserOtherList = ({ setItemEdit }) => {
                 <p className="mb-1">
                   {item.user_other_fname} {item.user_other_lname}
                 </p>
+                <p className="mb-1">{item.user_other_email}</p>
+                <p className="mb-1">{item.role_name}</p>
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">
@@ -106,6 +114,15 @@ const UserOtherList = ({ setItemEdit }) => {
                         onClick={() => handleEdit(item)}
                       >
                         <FiEdit2 />
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="tooltip"
+                        data-tooltip="Reset password"
+                        onClick={() => handleReset(item)}
+                      >
+                        <MdPassword />
                       </button>
                     </li>
                     <li>
@@ -145,6 +162,16 @@ const UserOtherList = ({ setItemEdit }) => {
           ))
         )}
       </div>
+
+      {isReset && (
+        <ModalReset
+          setReset={setReset}
+          mysqlApiReset={`/v2/user-other/reset`}
+          msg={"Are you sure you want to reset the password of this record?"}
+          item={dataItem.user_other_email}
+          queryKey={"other"}
+        />
+      )}
 
       {store.isSettingConfirm && (
         <ModalConfirm

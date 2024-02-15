@@ -2,7 +2,7 @@
 class TuitionCategory
 {
     public $tuition_category_aid;
-    public $tuition_category_active;    
+    public $tuition_category_active;
     public $tuition_category_name;
     public $tuition_category_created;
     public $tuition_category_datetime;
@@ -19,8 +19,8 @@ class TuitionCategory
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblTuitionCategory = "fca_settings_tuition_category";
-        $this->tblTuitionFee = "fca_settings_tuition_fee";
+        $this->tblTuitionCategory = "fcav2_settings_tuition_category";
+        $this->tblTuitionFee = "fcav2_settings_tuition_fee";
     }
 
     public function create()
@@ -72,7 +72,7 @@ class TuitionCategory
             $query->execute([
                 "tuition_category_name" => $this->tuition_category_name,
                 "tuition_category_datetime" => $this->tuition_category_datetime,
-                "tuition_category_aid" => $this->tuition_category_aid ,
+                "tuition_category_aid" => $this->tuition_category_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -91,7 +91,7 @@ class TuitionCategory
             $query->execute([
                 "tuition_category_active" => $this->tuition_category_active,
                 "tuition_category_datetime" => $this->tuition_category_datetime,
-                "tuition_category_aid" => $this->tuition_category_aid ,
+                "tuition_category_aid" => $this->tuition_category_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

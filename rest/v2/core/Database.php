@@ -7,11 +7,11 @@ class Database
     private static $dbConnection;
 
     public static function connectDb()
-    {
+    {   
 
         // Localhost
         $host = "localhost";
-        $dbname = "fca_enrollment_v2";
+        $dbname = "fca_v2_app";
         $username = "root";
         $password = "";
 

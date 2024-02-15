@@ -1,7 +1,7 @@
 <?php
 class LearningType
 {
-    public $learning_type_aid ;
+    public $learning_type_aid;
     public $learning_type_active;
     public $learning_type_name;
     public $learning_type_created;
@@ -17,7 +17,7 @@ class LearningType
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblLearningType = "fca_settings_learning_type";
+        $this->tblLearningType = "fcav2_settings_learning_type";
     }
 
     public function create()
@@ -72,7 +72,7 @@ class LearningType
             $query->execute([
                 "learning_type_name" => $this->learning_type_name,
                 "learning_type_datetime" => $this->learning_type_datetime,
-                "learning_type_aid" => $this->learning_type_aid ,
+                "learning_type_aid" => $this->learning_type_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -91,7 +91,7 @@ class LearningType
             $query->execute([
                 "learning_type_active" => $this->learning_type_active,
                 "learning_type_datetime" => $this->learning_type_datetime,
-                "learning_type_aid" => $this->learning_type_aid ,
+                "learning_type_aid" => $this->learning_type_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

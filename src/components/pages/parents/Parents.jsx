@@ -11,6 +11,8 @@ import ClientViewInfo from "../developer/clients/client-info/ClientViewInfo.jsx"
 import FormClientContactInfo from "../developer/clients/client-info/FormClientContactInfo.jsx";
 import FormClientFinancierInfo from "../developer/clients/client-info/FormClientFinancierInfo.jsx";
 import FormClientParentInfo from "../developer/clients/client-info/FormClientParentInfo.jsx";
+import ModalEditStudent from "../developer/students/StudentEdit/ModalEditStudent.jsx";
+import StudentProfileForm from "../developer/students/StudentEdit/StudentProfile/StudentProfileForm.jsx";
 import ParentNavigation from "./ParentNavigation.jsx";
 
 const Parents = () => {
@@ -57,7 +59,8 @@ const Parents = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
+      {/* <ModalEditStudent /> */}
       <section className="main__wrap flex flex-col relative h-[100vh] ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <ParentNavigation menu="clients" />

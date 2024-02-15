@@ -18,7 +18,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     if (array_key_exists("start", $_GET)) {
         // get data
         $user_other->user_other_start = $_GET['start'];
-        $user_other->user_other_total = 5;
+        $user_other->user_other_total = 10;
         checkLimitId($user_other->user_other_start, $user_other->user_other_total);
         $query = checkReadLimit($user_other);
         $total_result = checkReadAll($user_other);

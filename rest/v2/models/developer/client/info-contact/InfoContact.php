@@ -21,7 +21,7 @@ class InfoContact
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblInfoContact = "fca_info_contact";
+        $this->tblInfoContact = "fcav2_info_contact";
     }
 
     public function create()
@@ -82,7 +82,7 @@ class InfoContact
             $sql .= "where contact_user_id = :contact_user_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "contact_user_id" => $this->contact_user_id 
+                "contact_user_id" => $this->contact_user_id
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -131,7 +131,7 @@ class InfoContact
             $query->execute([
                 "student_active" => $this->student_active,
                 "student_datetime" => $this->student_datetime,
-                "student_aid" => $this->student_aid ,
+                "student_aid" => $this->student_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -199,12 +199,11 @@ class InfoContact
             $sql .= "where contact_user_id = :contact_user_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "contact_user_id" => $this->contact_user_id 
+                "contact_user_id" => $this->contact_user_id
             ]);
         } catch (PDOException $ex) {
             $query = false;
         }
         return $query;
     }
-    
 }
