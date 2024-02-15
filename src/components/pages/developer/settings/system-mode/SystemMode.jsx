@@ -18,7 +18,7 @@ const SystemMode = ({ index }) => {
     setItemEdit(null);
   };
 
-  if (index === 16) {
+  if (index === 17) {
     return (
       <>
         <div className="">
