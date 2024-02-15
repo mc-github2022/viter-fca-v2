@@ -23,8 +23,8 @@ class UserSystem
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblUserSystem = "fca_settings_user_system";
-        $this->tblRole = "fca_settings_role";
+        $this->tblUserSystem = "fcav2_settings_user_system";
+        $this->tblRole = "fcav2_settings_role";
     }
 
     // create

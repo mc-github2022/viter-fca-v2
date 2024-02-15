@@ -17,9 +17,9 @@ class Role
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblRole = "fca_settings_role";
-        $this->tblUserSystem = "fca_settings_user_system";
-        $this->tblUserOther = "fca_settings_user_other";
+        $this->tblRole = "fcav2_settings_role";
+        $this->tblUserSystem = "fcav2_settings_user_system";
+        $this->tblUserOther = "fcav2_settings_user_other";
     }
 
     // create

@@ -78,7 +78,7 @@ const OtherLogin = () => {
         <TableSpinner />
       ) : (
         <div className="h-screen w-full relative">
-          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
             <div className=" mb-4">
               <div className="flex justify-center">
                 <LogoGreen />
@@ -92,8 +92,7 @@ const OtherLogin = () => {
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
                 mutation.mutate(values);
-              }}
-            >
+              }}>
               {(props) => {
                 return (
                   <Form>
@@ -118,8 +117,7 @@ const OtherLogin = () => {
                       {props.values.password && (
                         <span
                           className="text-base absolute top-8 right-2  cursor-pointer"
-                          onClick={togglePassword}
-                        >
+                          onClick={togglePassword}>
                           {passwordShown ? <FaEyeSlash /> : <FaEye />}
                         </span>
                       )}
@@ -127,16 +125,14 @@ const OtherLogin = () => {
 
                     <a
                       className="text-dark text-xs italic block text-right mb-6 hover:underline"
-                      href={`${devNavUrl}/forgot-password`}
-                    >
+                      href={`${devNavUrl}/forgot-password`}>
                       Forgot Password
                     </a>
                     <div className="flex flex-col items-center">
                       <button
                         type="submit"
                         disabled={mutation.isPending || !props.dirty}
-                        className="btn btn--accent w-full relative"
-                      >
+                        className="btn btn--accent w-full relative">
                         {mutation.isPending ? (
                           <ButtonSpinner color="fill-white" />
                         ) : (
@@ -148,8 +144,7 @@ const OtherLogin = () => {
 
                       <Link
                         to={`${devNavUrl}/create-account`}
-                        className="btn btn--outline w-full relative"
-                      >
+                        className="btn btn--outline w-full relative">
                         Sign Up
                       </Link>
                     </div>

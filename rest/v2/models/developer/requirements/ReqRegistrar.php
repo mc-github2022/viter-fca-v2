@@ -1,7 +1,7 @@
 <?php
 class ReqRegistrar
 {
-    public $requirement_registrar_aid ;
+    public $requirement_registrar_aid;
     public $requirement_registrar_user_id;
     public $requirement_registrar_student_id;
     public $requirement_registrar_submitted;
@@ -20,9 +20,8 @@ class ReqRegistrar
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblStudent = "fca_student_info";
-        $this->tblReqRegistrar = "fca_requirement_registrar";
-        
+        $this->tblStudent = "fcav2_student_info";
+        $this->tblReqRegistrar = "fcav2_requirement_registrar";
     }
 
     public function create()
@@ -84,7 +83,7 @@ class ReqRegistrar
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "requirement_registrar_student_id" => $this->requirement_registrar_student_id
-               
+
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -126,7 +125,7 @@ class ReqRegistrar
             $query->execute([
                 "requirement_registrar_user_id" => $this->requirement_registrar_user_id,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
-                "requirement_registrar_aid" => $this->requirement_registrar_aid ,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -143,8 +142,8 @@ class ReqRegistrar
             $query->execute([
                 "requirement_registrar_aid" => $this->requirement_registrar_aid
             ]);
-         } catch (PDOException $ex) {
-                $query = false;
+        } catch (PDOException $ex) {
+            $query = false;
         }
         return $query;
     }

@@ -7,7 +7,7 @@ class Database
     private static $dbConnection;
 
     public static function connectDb()
-    {
+    {   
 
         // Localhost
         $host = "localhost";
