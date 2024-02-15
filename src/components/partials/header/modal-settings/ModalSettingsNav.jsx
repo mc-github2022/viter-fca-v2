@@ -112,6 +112,15 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
               Users
             </button>
           </li>
+
+          <li className={` ${index === 13 ? "active" : ""}`}>
+            <button
+              onClick={(e) => handleChangeSetting(13, e)}
+              className="p-1 pl-4">
+              Developer
+            </button>
+          </li>
+
           <li className={`${index === 14 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(14, e)}

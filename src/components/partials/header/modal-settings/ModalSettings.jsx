@@ -80,6 +80,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <TuitionCategory index={index} />
                 <Scheme index={index} />
                 <UserOther index={index} />
+                <UserSystem index={index} />
                 <Roles index={index} />
                 <Discount index={index} />
                 <Staff index={index} />
