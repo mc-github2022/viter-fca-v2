@@ -24,6 +24,18 @@ if (array_key_exists("userotherid", $_GET)) {
     // check name
     compareEmail($user_other, $user_other_email_old, $user_other->user_other_email);
     // update
+
+    if ($user_other->user_other_email != $user_other_email_old) {
+        checkUpdateUserKeyAndNewEmail($user_other);
+        sendEmailVerify(
+            $link,
+            $user_other->user_other_fname,
+            $user_other_email_old,
+            $user_other->user_other_email,
+            $user_other->user_other_key
+        );
+    }
+
     $query = checkUpdate($user_other);
     returnSuccess($user_other, "User other", $query);
 }
