@@ -19,8 +19,8 @@ import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
-import ModalSettingsNav from "./ModalSettingsNav";
-const ModalSettings = ({ setIsShowSettings }) => {
+import ModalSettingsNav from "./AdminModalSettingsNav";
+const AdminModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
 
@@ -93,4 +93,4 @@ const ModalSettings = ({ setIsShowSettings }) => {
   );
 };
 
-export default ModalSettings;
+export default AdminModalSettings;

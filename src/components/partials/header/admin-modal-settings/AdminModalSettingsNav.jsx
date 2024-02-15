@@ -2,7 +2,12 @@ import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 
-const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
+const AdminModalSettingsNav = ({
+  showSideNav,
+  setIndex,
+  setShowSideNav,
+  index,
+}) => {
   const { dispatch } = React.useContext(StoreContext);
 
   const handleChangeSetting = (index, e) => {
@@ -112,6 +117,7 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
               Users
             </button>
           </li>
+
           <li className={`${index === 14 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(14, e)}
@@ -148,4 +154,4 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
   );
 };
 
-export default ModalSettingsNav;
+export default AdminModalSettingsNav;
