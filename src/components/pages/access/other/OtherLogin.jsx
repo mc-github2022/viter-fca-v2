@@ -6,6 +6,7 @@ import {
 } from "@/components/helpers/functions-general";
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";

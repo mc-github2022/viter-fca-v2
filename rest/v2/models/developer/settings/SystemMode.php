@@ -61,7 +61,6 @@ class SystemMode
         return $query;
     }
 
-
     // add column to database table
     public function addColumn($column_name)
     {
@@ -173,6 +172,24 @@ class SystemMode
             $query->execute([
                 "system_mode_name" => "{$this->system_mode_name}",
             ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+
+    public function readByMaintenance()
+    {
+        try {
+            $sql = "select system_mode_aid, ";
+            $sql .= "system_mode_is_on, ";
+            $sql .= "system_mode_name ";
+            $sql .= "from {$this->tblSystemMode} ";
+            $sql .= "where system_mode_is_maintenance = '1' ";
+            $sql .= "and system_mode_is_on = '1' ";
+            $sql .= "order by system_mode_name asc ";
+            $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
         }

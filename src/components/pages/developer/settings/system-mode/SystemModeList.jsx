@@ -87,26 +87,22 @@ const SystemModeList = ({ setItemEdit }) => {
               key={key}
             >
               <div
-                className={`${
+                className={`grow text-left ${
                   item.system_mode_is_on ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <p className="mb-1">{item.system_mode_name}</p>
+                <div className="flex flex-col lg:flex-row gap-1 w-[80%] justify-between">
+                  <p className="mb-1">{item.system_mode_name}</p>
+                  <p className="mb-1">
+                    {item.system_mode_is_on === 1 ? "ON" : "OFF"}
+                  </p>
+                </div>
               </div>
 
-              <ul className="datalist__action flex items-center gap-1 pr-3 ">
+              <ul className="datalist__action flex items-center gap-2 pr-3 ">
                 {item.system_mode_is_on === 1 ? (
                   <>
-                    <li className=" ">
-                      <button
-                        className="tooltip"
-                        data-tooltip="Edit"
-                        onClick={() => handleEdit(item)}
-                      >
-                        <FiEdit2 />
-                      </button>
-                    </li>
-                    <li>
+                    {/* <li>
                       <button
                         className="tooltip"
                         data-tooltip="Archive"
@@ -114,11 +110,22 @@ const SystemModeList = ({ setItemEdit }) => {
                       >
                         <BsArchive />
                       </button>
+                    </li> */}
+                    <li
+                      className="tooltip hover:!bg-transparent"
+                      data-tooltip="Turn OFF"
+                      onClick={() => handleArchive(item)}
+                    >
+                      <span className="bg-green-50 border border-green-200 rounded-full text-[5px] px-2 absolute cursor-pointer">
+                        <span className="bg-green-200 p-1 rounded-full relative right-[0.44rem] ">
+                          ON
+                        </span>
+                      </span>
                     </li>
                   </>
                 ) : (
                   <>
-                    <li className=" ">
+                    {/* <li className="">
                       <button
                         className="tooltip"
                         data-tooltip="Restore"
@@ -126,10 +133,22 @@ const SystemModeList = ({ setItemEdit }) => {
                       >
                         <MdOutlineRestore className="text-base" />
                       </button>
+                    </li> */}
+                    <li
+                      className="tooltip hover:!bg-transparent"
+                      data-tooltip="Turn ON"
+                      onClick={() => handleRestore(item)}
+                    >
+                      <span className="bg-gray-50 border border-gray-200 rounded-full text-[5px] px-2 absolute cursor-pointer">
+                        <span className="bg-gray-200 p-1 rounded-full relative left-[0.44rem]">
+                          OFF
+                        </span>
+                      </span>
                     </li>
+
                     <li>
                       <button
-                        className="tooltip"
+                        className="tooltip "
                         data-tooltip="Delete"
                         onClick={() => handleDelete(item)}
                       >

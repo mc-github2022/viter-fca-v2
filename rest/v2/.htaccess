@@ -100,13 +100,11 @@ RewriteRule ^user-other/token$ controllers/developer/settings/other/token.php [L
 
 #SYSTEM MODE
 RewriteRule ^dev-system-mode$ controllers/developer/settings/system-mode/system-mode.php [L]
-RewriteRule ^dev-msystem-mode/([0-9]+)$ controllers/developer/settings/system-mode/system-mode.php?systemModeId=$1 [L]
+RewriteRule ^dev-system-mode/([0-9]+)$ controllers/developer/settings/system-mode/system-mode.php?systemModeId=$1 [L]
 RewriteRule ^dev-system-mode/active/([0-9]+)$ controllers/developer/settings/system-mode/active.php?systemModeId=$1 [L]
 
 ###### DEV SETTINGS ######
-
-
-
+ 
 #INFO-CONTACT
 RewriteRule ^dev-info-contact$ controllers/developer/client/info-contact/info-contact.php [L]
 RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?contactinfoid=$1 [L]
