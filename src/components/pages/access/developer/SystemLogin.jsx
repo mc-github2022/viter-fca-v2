@@ -95,7 +95,8 @@ const SystemLogin = () => {
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
                 mutation.mutate(values);
-              }}>
+              }}
+            >
               {(props) => {
                 return (
                   <Form>
@@ -120,7 +121,8 @@ const SystemLogin = () => {
                       {props.values.password && (
                         <span
                           className="text-base absolute top-7 right-2  cursor-pointer"
-                          onClick={togglePassword}>
+                          onClick={togglePassword}
+                        >
                           {passwordShown ? <FaEyeSlash /> : <FaEye />}
                         </span>
                       )}
@@ -128,14 +130,16 @@ const SystemLogin = () => {
 
                     <a
                       className="text-dark text-xs italic block text-right mb-6 hover:underline"
-                      href={`${devNavUrl}/system/forgot-password`}>
+                      href={`${devNavUrl}/system/forgot-password`}
+                    >
                       Forgot Password
                     </a>
                     <div className="flex items-center gap-1 pt-3">
                       <button
                         type="submit"
                         disabled={mutation.isPending || !props.dirty}
-                        className="btn btn--accent w-full relative">
+                        className="btn btn--accent w-full relative"
+                      >
                         {mutation.isPending ? (
                           <ButtonSpinner color="fill-white" />
                         ) : (

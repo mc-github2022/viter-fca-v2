@@ -2,23 +2,18 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import TableLoading from "@/components/partials/TableLoading";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
-  setIsAdd,
-  setIsConfirm,
-  setIsDelete,
   setIsSettingAdd,
   setSettingIsConfirm,
   setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import { BsArchive } from "react-icons/bs";
 
 import NoData from "@/components/partials/NoData.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError.jsx";
 import React from "react";
-import { FiEdit2, FiTrash } from "react-icons/fi";
-import { MdOutlineRestore } from "react-icons/md";
+import { FiTrash } from "react-icons/fi";
 const SystemModeList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -112,7 +107,7 @@ const SystemModeList = ({ setItemEdit }) => {
                       </button>
                     </li> */}
                     <li
-                      className="tooltip hover:!bg-transparent"
+                      className="tooltip hover:!bg-transparent mr-8"
                       data-tooltip="Turn OFF"
                       onClick={() => handleArchive(item)}
                     >

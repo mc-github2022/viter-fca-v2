@@ -64,7 +64,8 @@ const SystemForgotPassword = () => {
 
               <a
                 className="btn btn--accent text-xs block text-center mt-6"
-                href={`${devNavUrl}/system/login`}>
+                href={`${devNavUrl}/system/login`}
+              >
                 Back to Login
               </a>
             </>
@@ -86,7 +87,8 @@ const SystemForgotPassword = () => {
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                   // mutate data
                   mutation.mutate(values);
-                }}>
+                }}
+              >
                 {(props) => {
                   return (
                     <Form>
@@ -103,7 +105,8 @@ const SystemForgotPassword = () => {
                         <button
                           type="submit"
                           disabled={mutation.isPending || !props.dirty}
-                          className="btn btn--accent w-full relative">
+                          className="btn btn--accent w-full relative"
+                        >
                           {mutation.isPending ? (
                             <ButtonSpinner />
                           ) : (
@@ -115,7 +118,8 @@ const SystemForgotPassword = () => {
                       <a
                         className="text-dark text-xs hover:underline text-center block  mt-6"
                         href={`${devNavUrl}/system/login`}
-                        disabled={mutation.isPending}>
+                        disabled={mutation.isPending}
+                      >
                         Go back to login
                       </a>
                     </Form>

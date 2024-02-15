@@ -1,20 +1,13 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import useSystemLogin from "@/components/custom-hooks/useSystemLogin.jsx";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { devNavUrl, getUrlParam } from "@/components/helpers/functions-general";
-import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
-import {
-  setCreatePassSuccess,
-  setError,
-  setMessage,
-  setValidate,
-} from "@/components/store/StoreAction.jsx";
+import { setMessage, setValidate } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
@@ -150,7 +143,8 @@ const SystemCreatePassword = () => {
 
                 <a
                   className="btn btn--accent text-xs block text-center mt-6"
-                  href={`${devNavUrl}/system/login`}>
+                  href={`${devNavUrl}/system/login`}
+                >
                   Back to Login
                 </a>
               </div>
@@ -186,7 +180,8 @@ const SystemCreatePassword = () => {
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                   // mutate data
                   mutation.mutate(values);
-                }}>
+                }}
+              >
                 {(props) => {
                   return (
                     <Form>
@@ -204,7 +199,8 @@ const SystemCreatePassword = () => {
                         {props.values.new_password && (
                           <span
                             className="text-base absolute bottom-1/2 right-3 translate-y-1/2 cursor-pointer"
-                            onClick={handlePassword}>
+                            onClick={handlePassword}
+                          >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
                           </span>
                         )}
@@ -223,7 +219,8 @@ const SystemCreatePassword = () => {
                         {props.values.confirm_password && (
                           <span
                             className="text-base absolute bottom-5 right-3 translate-y-1/2 cursor-pointer"
-                            onClick={handleConfirmPassword}>
+                            onClick={handleConfirmPassword}
+                          >
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                           </span>
                         )}
@@ -281,7 +278,8 @@ const SystemCreatePassword = () => {
                         <button
                           type="submit"
                           disabled={mutation.isPending || !validateComplete}
-                          className="btn btn--accent w-full relative">
+                          className="btn btn--accent w-full relative"
+                        >
                           {mutation.isPending ? (
                             <ButtonSpinner />
                           ) : (

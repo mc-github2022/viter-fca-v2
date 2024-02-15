@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2024 at 09:11 AM
+-- Generation Time: Feb 15, 2024 at 06:59 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -33,17 +33,15 @@ CREATE TABLE `fcav2_settings_system_mode` (
   `system_mode_is_on` tinyint(1) NOT NULL,
   `system_mode_created` datetime NOT NULL,
   `system_mode_updated` datetime NOT NULL,
-  `system_mode_is_maintenance` tinyint(1) NOT NULL,
-  `system_mode_is_test` tinyint(1) NOT NULL
+  `system_mode_is_maintenance` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `fcav2_settings_system_mode`
 --
 
-INSERT INTO `fcav2_settings_system_mode` (`system_mode_aid`, `system_mode_name`, `system_mode_is_on`, `system_mode_created`, `system_mode_updated`, `system_mode_is_maintenance`, `system_mode_is_test`) VALUES
-(1, 'Maintenance', 0, '2024-02-14 15:37:26', '2024-02-14 15:37:26', 1, 0),
-(2, 'test', 0, '2024-02-14 16:09:47', '2024-02-14 16:11:22', 0, 1);
+INSERT INTO `fcav2_settings_system_mode` (`system_mode_aid`, `system_mode_name`, `system_mode_is_on`, `system_mode_created`, `system_mode_updated`, `system_mode_is_maintenance`) VALUES
+(1, 'Maintenance', 0, '2024-02-15 13:53:53', '2024-02-15 13:53:53', 1);
 
 --
 -- Indexes for dumped tables
@@ -63,7 +61,7 @@ ALTER TABLE `fcav2_settings_system_mode`
 -- AUTO_INCREMENT for table `fcav2_settings_system_mode`
 --
 ALTER TABLE `fcav2_settings_system_mode`
-  MODIFY `system_mode_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `system_mode_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

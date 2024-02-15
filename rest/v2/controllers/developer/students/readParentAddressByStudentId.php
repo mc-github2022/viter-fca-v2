@@ -2,8 +2,7 @@
 require '../../../core/header.php';
 require '../../../core/functions.php';
 require '../../../models/developer/student-info/StudentInfo.php';
-require  'functions.php';
-
+require 'functions.php';
 
 $conn = null;
 $conn = checkDbConnection();

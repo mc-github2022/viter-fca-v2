@@ -1,8 +1,9 @@
 <?php
 
-function checkReadByMaintenance($object)
+// Read by maintenance
+function checkReadByMaintenanceOn($object)
 {
-    $query = $object->readByMaintenance();
-    $count = $query->rowCount();
-    checkExistence($count, "Read by maintenance");
+    $query = $object->readByMaintenanceOn();
+    checkQuery($query, "Empty records. (read by maintenance)");
+    return $query;
 }

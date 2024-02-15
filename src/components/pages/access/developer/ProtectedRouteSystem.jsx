@@ -1,4 +1,3 @@
-import useQueryData from "@/components/custom-hooks/useQueryData";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import PageNotFound from "@/components/partials/PageNotFound";
@@ -22,34 +21,15 @@ const ProtectedRouteSystem = ({ children }) => {
   const [pageStatus, setPageStatus] = React.useState(false);
 
   React.useEffect(() => {
-    const {
-      isLoading,
-      isFetching,
-      error,
-      data: maintenanceMode,
-    } = useQueryData(
-      "/v2/dev-system-mode", // endpoint
-      "get", // method
-      "settings_system_mode" // key
-    );
-
-    if (maintenanceMode?.count > 0 || maintenanceMode?.data.length > 0) {
-      setLoading(false);
-      setIsAuth("789");
-      localStorage.removeItem("fcatoken");
-    }
-
     const fetchLogin = async () => {
       const login = await queryData(`/v2/dev-user-system/token`, "post", {
         token: fcatoken.token,
         isDev: true,
       });
 
-      console.log(login);
-
       if (typeof login === "undefined" || !login.success || login.count === 0) {
         localStorage.removeItem("fcatoken");
-        navigate(`${devNavUrl}/login`);
+        navigate(`${devNavUrl}/system/login`);
         setLoading(false);
         setIsAuth("456");
         dispatch(setValidate(true));
@@ -90,8 +70,6 @@ const ProtectedRouteSystem = ({ children }) => {
       <>
         {loading ? (
           <FetchingSpinner />
-        ) : isAuth === "789" ? (
-          <PageNotFound />
         ) : isAuth === "123" ? (
           children
         ) : isAuth === "456" ? (

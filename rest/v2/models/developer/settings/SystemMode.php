@@ -178,8 +178,7 @@ class SystemMode
         return $query;
     }
 
-
-    public function readByMaintenance()
+    public function readByMaintenanceOn()
     {
         try {
             $sql = "select system_mode_aid, ";
