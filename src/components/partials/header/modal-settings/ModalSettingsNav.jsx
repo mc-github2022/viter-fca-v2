@@ -158,7 +158,15 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
               onClick={(e) => handleChangeSetting(16, e)}
               className="p-1 pl-4"
             >
-              Staff
+              System Mode
+            </button>
+          </li>
+          <li className={` ${index === 17 ? "active" : ""}`}>
+            <button
+              onClick={(e) => handleChangeSetting(17, e)}
+              className="p-1 pl-4"
+            >
+              System Mode
             </button>
           </li>
         </ul>

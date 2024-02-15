@@ -4,7 +4,6 @@ import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { devNavUrl } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData.jsx";
-import TableLoading from "../../../partials/TableLoading";
 import TableSpinner from "../../../partials/spinners/TableSpinner";
 import {
   setCredentials,
@@ -23,6 +22,19 @@ const ProtectedRouteOther = ({ children }) => {
   const [pageStatus, setPageStatus] = React.useState(false);
 
   React.useEffect(() => {
+    const fetchIsMaintenance = async () => {
+      const isMaintenance = await queryData(
+        `/v2/dev-system-mode/maintenance-mode` // endpoint
+      );
+
+      if (isMaintenance?.count > 0) {
+        localStorage.removeItem("fcatoken");
+        navigate(`${devNavUrl}/login`);
+        setLoading(false);
+        setIsAuth("456");
+      }
+    };
+
     const fetchLogin = async () => {
       const login = await queryData(`/v2/user-other/token`, "post", {
         token: fcatoken.token,
@@ -59,6 +71,7 @@ const ProtectedRouteOther = ({ children }) => {
 
     if (fcatoken !== null) {
       fetchLogin();
+      fetchIsMaintenance();
     } else {
       setLoading(false);
       localStorage.removeItem("fcatoken");

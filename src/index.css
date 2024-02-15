@@ -590,3 +590,7 @@ body::-webkit-scrollbar-thumb {
 .noSort svg {
   @apply hidden;
 }
+
+.moveTop {
+  top: clamp(2rem, 12vw, 8rem);
+}

@@ -10,6 +10,7 @@ import RequirementRegistrar from "@/components/pages/developer/settings/requirem
 import Roles from "@/components/pages/developer/settings/roles/Roles";
 import Scheme from "@/components/pages/developer/settings/scheme/Scheme";
 import Staff from "@/components/pages/developer/settings/staff/Staff";
+import SystemMode from "@/components/pages/developer/settings/system-mode/SystemMode";
 import TuitionCategory from "@/components/pages/developer/settings/tuition-category/TuitionCategory";
 import UserOther from "@/components/pages/developer/settings/user-other/UserOther";
 import UserSystem from "@/components/pages/developer/settings/user-system/UserSystem";
@@ -86,6 +87,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <Roles index={index} />
                 <Discount index={index} />
                 <Staff index={index} />
+                <SystemMode index={index} />
               </main>
             </div>
           </div>

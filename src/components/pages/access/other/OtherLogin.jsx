@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import useSystemLogin from "@/components/custom-hooks/useSystemLogin.jsx";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import {
@@ -6,6 +7,8 @@ import {
 } from "@/components/helpers/functions-general";
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import PageUnderMaintenance from "@/components/partials/PageUnderMaintenance";
+import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
@@ -71,13 +74,21 @@ const OtherLogin = () => {
     setPasswordShown(!passwordShown);
   };
 
+  const { isLoading, data: maintenanceMode } = useQueryData(
+    "/v2/dev-system-mode/maintenance-mode", // endpoint
+    "get", // method
+    "maintenance-mode" // key
+  );
+
   return (
     <>
-      {loginLoading ? (
+      {loginLoading || isLoading ? (
         <TableSpinner />
+      ) : maintenanceMode?.count > 0 ? (
+        <PageUnderMaintenance />
       ) : (
         <div className="h-screen w-full relative">
-          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+          <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
             <div className=" mb-4">
               <div className="flex justify-center">
                 <LogoGreen />
