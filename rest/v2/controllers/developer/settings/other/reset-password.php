@@ -13,7 +13,7 @@ require '../../../../models/developer/settings/UserOther.php';
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$user_other = new UserOther($conn);  
+$user_other = new UserOther($conn);
 $response = new Response();
 $encrypt = new Encryption();
 // get payload
@@ -31,7 +31,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     $user_other->user_other_key = $encrypt->doHash(rand());
     $user_other->user_other_datetime = date("Y-m-d H:i:s");
     $user_other->user_other_email = trim($data["item"]);
-    $password_link = "/other/create-password";
+    $password_link = "/create-password";
 
     $query = $user_other->readLogin();
 

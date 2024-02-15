@@ -2,15 +2,15 @@ import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
-import useQueryData from "@/components/custom-hooks/useQueryData";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import UserOtherFormAddEdit from "./UserOtherFormAddEdit";
-import UserOtherList from "./UserOtherList";
-const UserOther = ({ index }) => {
+import SystemModeFormAddEdit from "./SystemModeFormAddEdit";
+import SystemModeList from "./SystemModeList";
+const SystemMode = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+
   const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
@@ -18,16 +18,13 @@ const UserOther = ({ index }) => {
     setItemEdit(null);
   };
 
-  if (index === 12) {
+  if (index === 17) {
     return (
       <>
         <div className="">
           <div className="bg-primary">
-            <h2 className="mb-3">Users</h2>
-            <p className="text-xs mb-5">
-              Set list of users that will be available to the current school
-              year
-            </p>
+            <h2 className="mb-3">System Mode</h2>
+            <p className="text-xs mb-5">Set list of System Modes</p>
           </div>
 
           {!store.isSettingAdd && (
@@ -39,8 +36,8 @@ const UserOther = ({ index }) => {
             </button>
           )}
 
-          {store.isSettingAdd && <UserOtherFormAddEdit itemEdit={itemEdit} />}
-          {!store.isSettingAdd && <UserOtherList setItemEdit={setItemEdit} />}
+          {store.isSettingAdd && <SystemModeFormAddEdit itemEdit={itemEdit} />}
+          {!store.isSettingAdd && <SystemModeList setItemEdit={setItemEdit} />}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>
@@ -49,4 +46,4 @@ const UserOther = ({ index }) => {
   }
 };
 
-export default UserOther;
+export default SystemMode;
