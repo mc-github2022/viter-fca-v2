@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
+// // Mac
+// const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
+// const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
+
+// Mon // MC
 export const urlPathFca = "http://localhost/viter-fca-v2";
 export const imgUrlPathFca = "http://localhost/viter-fca-v2/public/img";
 

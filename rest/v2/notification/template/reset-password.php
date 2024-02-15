@@ -43,9 +43,9 @@ function getHtmlResetPassword(
     <div style="padding: 10px 10px 0px">
       <div style="text-align: left">
         <img
-          src="' . $IMAGES_URL . '/fbs-lcss-logo-email.png"
-          alt="lcss"
-        />
+        src="' . $IMAGES_URL . '/FCALogo.png"
+        alt="fca-logo"
+      />
       </div>
     </div>
     <div style="padding: 0 10px 0px">
@@ -80,7 +80,7 @@ function getHtmlResetPassword(
         href="' . $ROOT_DOMAIN . '' . $password_link . '?key=' . $key . '"
           style="
             padding: 4px 25px;
-            background-color: #3c78d8;
+            background-color: #123909;
             color: #fff;
             display: inline-block;
             text-decoration: none;

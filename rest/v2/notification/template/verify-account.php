@@ -43,8 +43,8 @@ function getHtmlVerifyAccount(
     <div style="padding: 10px 10px 0px">
     <div style="text-align: left">
     <img
-     src="' . $IMAGES_URL . '/tm-logo-png.png"
-     alt="lcss"
+     src="' . $IMAGES_URL . '/FCALogo.png"
+     alt="fca-logo"
     />
   </div>
     </div>
@@ -76,14 +76,14 @@ function getHtmlVerifyAccount(
           Please confirm that you want to use
           <strong>' . $email . '</strong> as account email address.
           Click the button below to set your password
-          and start using the Two Miles System.
+          and start using the FCA Enrollment System.
         </p>
 
         <a
           href="' . $ROOT_DOMAIN . '' . $password_link . '?key=' . $key . '"
           style="
             padding: 4px 25px;
-            background-color: #6ec0c1;
+            background-color: #123909;
             color: #fff;
             display: inline-block;
             text-decoration: none;
