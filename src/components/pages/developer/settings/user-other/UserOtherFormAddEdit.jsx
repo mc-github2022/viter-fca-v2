@@ -216,7 +216,7 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
                       type="text"
                       name="search"
                       disabled={mutation.isPending}
-                      placeholder="Search trainer here"
+                      placeholder="Search staff here"
                       onChange={(e) => handleSearchTrainer(e)}
                       onFocus={() => {
                         setOnFocusTrainer(true);
