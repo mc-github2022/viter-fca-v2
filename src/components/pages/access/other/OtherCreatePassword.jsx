@@ -136,7 +136,7 @@ const OtherCreatePassword = () => {
       {isSuccess ? (
         <>
           <div className="h-screen w-full relative">
-            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
               <div className=" mb-4">
                 <div className="flex justify-center">
                   <LogoGreen />
@@ -150,8 +150,7 @@ const OtherCreatePassword = () => {
 
                 <a
                   className="btn btn--accent text-xs block text-center mt-6"
-                  href={`${devNavUrl}/login`}
-                >
+                  href={`${devNavUrl}/login`}>
                   Back to Login
                 </a>
               </div>
@@ -172,7 +171,7 @@ const OtherCreatePassword = () => {
             </div>
           )}
           <div className="h-screen w-full relative">
-            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+            <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
               <div className=" mb-4">
                 <div className="flex justify-center">
                   <LogoGreen />
@@ -187,8 +186,7 @@ const OtherCreatePassword = () => {
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                   // mutate data
                   mutation.mutate(values);
-                }}
-              >
+                }}>
                 {(props) => {
                   return (
                     <Form>
@@ -206,8 +204,7 @@ const OtherCreatePassword = () => {
                         {props.values.new_password && (
                           <span
                             className="text-base absolute bottom-5 right-3 translate-y-1/2 cursor-pointer"
-                            onClick={handlePassword}
-                          >
+                            onClick={handlePassword}>
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
                           </span>
                         )}
@@ -226,8 +223,7 @@ const OtherCreatePassword = () => {
                         {props.values.confirm_password && (
                           <span
                             className="text-base absolute bottom-5 right-3 translate-y-1/2 cursor-pointer"
-                            onClick={handleConfirmPassword}
-                          >
+                            onClick={handleConfirmPassword}>
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                           </span>
                         )}
@@ -285,8 +281,7 @@ const OtherCreatePassword = () => {
                         <button
                           type="submit"
                           disabled={mutation.isPending || !validateComplete}
-                          className="btn btn--accent w-full relative"
-                        >
+                          className="btn btn--accent w-full relative">
                           {mutation.isPending ? (
                             <ButtonSpinner />
                           ) : (

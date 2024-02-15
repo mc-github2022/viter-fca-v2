@@ -49,7 +49,7 @@ const SystemForgotPassword = () => {
   return (
     <>
       <div className="h-screen w-full relative">
-        <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8  rounded-md shadow-sm absolute top-28 left-[50%] translate-x-[-50%] bg-primary">
+        <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
           {isSuccess ? (
             <>
               <MdMarkEmailRead className="text-5xl fill-accent mx-auto mt-10 mb-2" />
@@ -64,8 +64,7 @@ const SystemForgotPassword = () => {
 
               <a
                 className="btn btn--accent text-xs block text-center mt-6"
-                href={`${devNavUrl}/system/login`}
-              >
+                href={`${devNavUrl}/system/login`}>
                 Back to Login
               </a>
             </>
@@ -87,8 +86,7 @@ const SystemForgotPassword = () => {
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                   // mutate data
                   mutation.mutate(values);
-                }}
-              >
+                }}>
                 {(props) => {
                   return (
                     <Form>
@@ -105,8 +103,7 @@ const SystemForgotPassword = () => {
                         <button
                           type="submit"
                           disabled={mutation.isPending || !props.dirty}
-                          className="btn btn--accent w-full relative"
-                        >
+                          className="btn btn--accent w-full relative">
                           {mutation.isPending ? (
                             <ButtonSpinner />
                           ) : (
@@ -118,8 +115,7 @@ const SystemForgotPassword = () => {
                       <a
                         className="text-dark text-xs hover:underline text-center block  mt-6"
                         href={`${devNavUrl}/system/login`}
-                        disabled={mutation.isPending}
-                      >
+                        disabled={mutation.isPending}>
                         Go back to login
                       </a>
                     </Form>
