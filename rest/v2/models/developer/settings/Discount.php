@@ -21,7 +21,7 @@ class Discount
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblDiscount = "fca_settings_discount";
+        $this->tblDiscount = "fcav2_settings_discount";
     }
 
     // create

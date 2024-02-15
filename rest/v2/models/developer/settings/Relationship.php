@@ -1,7 +1,7 @@
 <?php
 class Relationship
 {
-    public $relationship_aid ;
+    public $relationship_aid;
     public $relationship_active;
     public $relationship_name;
     public $relationship_is_maiden;
@@ -19,9 +19,9 @@ class Relationship
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblRelationship = "fca_settings_relationship";
-        $this->tblInfoParentGuardian = "fca_info_parent_guardian";
-    }   
+        $this->tblRelationship = "fcav2_settings_relationship";
+        $this->tblInfoParentGuardian = "fcav2_info_parent_guardian";
+    }
 
 
     public function create()
@@ -82,7 +82,7 @@ class Relationship
                 "relationship_name" => $this->relationship_name,
                 "relationship_is_maiden" => $this->relationship_is_maiden,
                 "relationship_datetime" => $this->relationship_datetime,
-                "relationship_aid" => $this->relationship_aid ,
+                "relationship_aid" => $this->relationship_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -101,7 +101,7 @@ class Relationship
             $query->execute([
                 "relationship_active" => $this->relationship_active,
                 "relationship_datetime" => $this->relationship_datetime,
-                "relationship_aid" => $this->relationship_aid ,
+                "relationship_aid" => $this->relationship_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -157,6 +157,4 @@ class Relationship
         }
         return $query;
     }
-
-     
 }

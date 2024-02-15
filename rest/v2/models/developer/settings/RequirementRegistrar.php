@@ -4,7 +4,7 @@ class RequirementRegistrar
     public $requirement_registrar_aid;
     public $requirement_registrar_active;
     public $requirement_registrar_department_id;
-    
+
     public $requirement_registrar_name;
     public $requirement_registrar_created;
     public $requirement_registrar_datetime;
@@ -21,8 +21,8 @@ class RequirementRegistrar
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblRequirementRegistrar = "fca_settings_requirement_registrar";
-        $this->tblDepartment = "fca_settings_department";
+        $this->tblRequirementRegistrar = "fcav2_settings_requirement_registrar";
+        $this->tblDepartment = "fcav2_settings_department";
     }
 
     public function create()
@@ -43,7 +43,7 @@ class RequirementRegistrar
             $query->execute([
                 "requirement_registrar_active" => $this->requirement_registrar_active,
                 "requirement_registrar_name" => $this->requirement_registrar_name,
-                "requirement_registrar_department_id" => $this->requirement_registrar_department_id,                
+                "requirement_registrar_department_id" => $this->requirement_registrar_department_id,
                 "requirement_registrar_created" => $this->requirement_registrar_created,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
             ]);
@@ -83,7 +83,7 @@ class RequirementRegistrar
                 "requirement_registrar_department_id" => $this->requirement_registrar_department_id,
                 "requirement_registrar_name" => $this->requirement_registrar_name,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
-                "requirement_registrar_aid" => $this->requirement_registrar_aid ,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -102,7 +102,7 @@ class RequirementRegistrar
             $query->execute([
                 "requirement_registrar_active" => $this->requirement_registrar_active,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
-                "requirement_registrar_aid" => $this->requirement_registrar_aid ,
+                "requirement_registrar_aid" => $this->requirement_registrar_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

@@ -23,8 +23,8 @@ class UserOther
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblUserOther = "fca_settings_user_other";
-        $this->tblRole = "fca_settings_role";
+        $this->tblUserOther = "fcav2_settings_user_other";
+        $this->tblRole = "fcav2_settings_role";
     }
 
     // create
