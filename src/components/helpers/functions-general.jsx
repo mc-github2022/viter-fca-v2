@@ -10,7 +10,7 @@ import { StoreContext } from "../store/StoreContext.jsx";
 export const urlPathFca = "http://localhost/viter-fca-v2";
 export const imgUrlPathFca = "http://localhost/viter-fca-v2/public/img";
 
-// cycy
+// // cycy
 // export const urlPathFca = "http://localhost/projects/viter-fca-v2";
 // export const imgUrlPathFca =
 //   "http://localhost/projects/viter-fca-v2/public/img";
