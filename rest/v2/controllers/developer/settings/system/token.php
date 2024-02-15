@@ -28,7 +28,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
     $key = "jwt_admin_ko_ito";
 
-    token($user_system, $token, $key);
+    tokenSystem($user_system, $token, $key);
 }
 
 http_response_code(200);
