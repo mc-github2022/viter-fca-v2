@@ -10,11 +10,11 @@ import React from "react";
 import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import StudentList from "./StudentList.jsx";
-import ModalAddStudent from "./ModalAddStudent.jsx";
 import Navigation from "../Navigation.jsx";
+import ClientList from "../../developer/clients/ClientList.jsx";
+import ModalAddClient from "../../developer/clients/ModalAddClient.jsx";
 
-const Students = () => {
+const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
 
@@ -35,11 +35,11 @@ const Students = () => {
   };
 
   return (
-    <div>
+    <>
       <Header />
       <section className="main__wrap flex flex-col relative h-[100vh] ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
-          <Navigation menu="students" />
+          <Navigation menu="clients" />
 
           <main
             className={`main__content mt-[35px]  ${
@@ -48,9 +48,9 @@ const Students = () => {
           >
             <div className="main__header flex justify-between items-start lg:items-center  ">
               <div>
-                <h1 className="text-clampH1 mb-0">Student List</h1>
+                <h1 className="text-clampH1 mb-0">Parent List</h1>
                 <p className="mb-4 text-xs hidden lg:block">
-                  List of students registered on the system.
+                  List of clients/parents registered on the system.
                 </p>
               </div>
               <button
@@ -61,16 +61,18 @@ const Students = () => {
               </button>
             </div>
 
-            <StudentList setItemEdit={setItemEdit} />
+            <ClientList setItemEdit={setItemEdit} />
           </main>
         </div>
         <Footer />
       </section>
-      {store.isAdd && <ModalAddStudent itemEdit={itemEdit} roles={roles} />}
+
+      {store.isAdd && <ModalAddClient itemEdit={itemEdit} roles={roles} />}
+
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
-    </div>
+    </>
   );
 };
 
-export default Students;
+export default Clients;

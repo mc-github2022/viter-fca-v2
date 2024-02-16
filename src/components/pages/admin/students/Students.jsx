@@ -2,7 +2,6 @@ import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import Navigation from "@/components/partials/Navigation.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
@@ -11,8 +10,9 @@ import React from "react";
 import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import StudentList from "./StudentList.jsx";
 import ModalAddStudent from "./ModalAddStudent.jsx";
+import Navigation from "../Navigation.jsx";
+import StudentList from "../../developer/students/StudentList.jsx";
 
 const Students = () => {
   const { store, dispatch } = React.useContext(StoreContext);
