@@ -10,9 +10,9 @@ import React from "react";
 import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import ModalAddStudent from "./ModalAddStudent.jsx";
 import Navigation from "../Navigation.jsx";
 import StudentList from "../../developer/students/StudentList.jsx";
+import ModalAddStudent from "../../developer/students/ModalAddStudent.jsx";
 
 const Students = () => {
   const { store, dispatch } = React.useContext(StoreContext);
