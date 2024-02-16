@@ -231,37 +231,12 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
                     <InputSelect
                       label="Select user"
                       name="select_user"
-                      disabled={
-                        mutation.isPending ||
-                        isLoadingRole ||
-                        isFetchingRole ||
-                        isLoadingStaff ||
-                        isFetchingStaff ||
-                        isLoadingParents ||
-                        isFetchingParents
-                      }
+                      disabled={mutation.isPending}
                       onChange={(e) => handleSelectUser(e, props)}
                     >
-                      {isLoadingRole ||
-                      isFetchingRole ||
-                      isLoadingStaff ||
-                      isFetchingStaff ||
-                      isLoadingParents ||
-                      isFetchingParents ? (
-                        <option disabled value="">
-                          Loading...
-                        </option>
-                      ) : errorRole || errorStaff || errorParents ? (
-                        <option disabled value="">
-                          API / Network Error
-                        </option>
-                      ) : (
-                        <>
-                          <option value="" hidden></option>
-                          <option value="staff">Staff</option>
-                          <option value="parent">Parent</option>
-                        </>
-                      )}
+                      <option value="" hidden></option>
+                      <option value="staff">Staff</option>
+                      <option value="parent">Parent</option>
                     </InputSelect>
                   </div>
                 )}
