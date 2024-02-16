@@ -15,6 +15,7 @@ import {
 } from "@/components/store/StoreAction";
 
 import { StoreContext } from "@/components/store/StoreContext";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
@@ -31,21 +32,35 @@ const ClientList = ({ setItemEdit }) => {
   const [isArchive, setIsArchive] = React.useState(1);
   const [reset, setReset] = React.useState(false);
 
-  const [columnVisibility, setColumnVisibility] = React.useState({
-    user_other_email: true,
-    user_other_is_active: true,
-  });
-
   const {
-    isLoading,
-    isFetching,
+    data: result,
     error,
-    data: clients,
-  } = useQueryData(
-    "/v2/user-other", // endpoint
-    "get", // method
-    "clients" // key
-  );
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["parents", search.current.value, store.isSearch],
+    queryFn: async ({ pageParam = 1 }) =>
+      await queryDataInfinite(
+        `/v2/parents/search`, // search endpoint
+        `/v2/parents/page/${pageParam}`, // list endpoint
+        store.isSearch, // search boolean
+        "post",
+        { search: search.current.value }
+      ),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total) {
+        return lastPage.page + lastPage.count;
+      }
+      return;
+    },
+    refetchOnWindowFocus: false,
+    // networkMode: "always",
+    // cacheTime: 200,
+  });
 
   const handleEdit = (item) => {
     setItemEdit(item);

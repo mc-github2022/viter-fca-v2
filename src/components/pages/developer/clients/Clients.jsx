@@ -1,5 +1,3 @@
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import Navigation from "@/components/partials/Navigation.jsx";
@@ -8,26 +6,13 @@ import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
-import { LiaTimesSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
 import ClientList from "./ClientList.jsx";
 import ModalAddClient from "./ModalAddClient.jsx";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
-
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: roles,
-  } = useQueryData(
-    "/v2/dev-roles", // endpoint
-    "get", // method
-    "roles" // key
-  );
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
@@ -61,13 +46,13 @@ const Clients = () => {
               </button>
             </div>
 
-            <ClientList setItemEdit={setItemEdit} />
+            {/* <ClientList setItemEdit={setItemEdit} /> */}
           </main>
         </div>
         <Footer />
       </section>
 
-      {store.isAdd && <ModalAddClient itemEdit={itemEdit} roles={roles} />}
+      {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}
 
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}

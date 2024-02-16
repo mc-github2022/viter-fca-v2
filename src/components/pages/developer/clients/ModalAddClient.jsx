@@ -15,7 +15,7 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 
-const ModalAddClient = ({ itemEdit, roles, id }) => {
+const ModalAddClient = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -26,8 +26,6 @@ const ModalAddClient = ({ itemEdit, roles, id }) => {
       dispatch(setIsShowModal(true));
     }, 200);
   };
-
-  const roleId = roles?.data.filter((item) => item.role_is_parent === 1);
 
   const mutation = useMutation({
     mutationFn: (values) =>
