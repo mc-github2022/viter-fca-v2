@@ -40,7 +40,8 @@ const ModalSettings = ({ setIsShowSettings }) => {
   return (
     <>
       <div
-        className={`modal modal--settings ${store.isShowModal ? "show" : ""} `}>
+        className={`modal modal--settings ${store.isShowModal ? "show" : ""} `}
+      >
         <div className="modal__backdrop bg-black/30"></div>
         <div className="modal__main  w-full  h-screen flex justify-center items-center p-3 lg:p-5 ">
           <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-180px)] custom__scroll overflow-y-hidden">
@@ -49,7 +50,8 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <button
                   className="text-base tooltip tooltip--bottom z-50 !-translate-y-0 md:block"
                   onClick={handleShowSideNav}
-                  data-tooltip="Menu">
+                  data-tooltip="Menu"
+                >
                   <FaBars />
                 </button>
                 <h5 className="mb-0 font-normal pl-2">Settings</h5>
@@ -68,7 +70,8 @@ const ModalSettings = ({ setIsShowSettings }) => {
               <main
                 className={`${
                   showSideNav ? "lg:-left-[210px]" : "lg:left-[0px]"
-                } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-timing-nav `}>
+                } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-timing-nav `}
+              >
                 <Department index={index} />
                 <Notifications index={index} />
                 <ParentRelationship index={index} />

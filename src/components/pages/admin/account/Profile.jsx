@@ -1,16 +1,15 @@
 import { InputText } from "@/components/helpers/FormInputs";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import Navigation from "@/components/partials/Navigation.jsx";
+import Navigation from "@/components/partials/Navigation-old.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setError, setMessage } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { Form, Formik } from "formik";
 import React from "react";
-import { FaAngleLeft, FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
 import { TfiLock } from "react-icons/tfi";
-import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
 

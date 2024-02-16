@@ -1,6 +1,6 @@
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import Navigation from "@/components/partials/Navigation.jsx";
+import Navigation from "@/components/partials/Navigation-old.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";

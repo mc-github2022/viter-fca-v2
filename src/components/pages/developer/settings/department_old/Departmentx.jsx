@@ -1,7 +1,7 @@
 import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
-import Navigation from "@/components/partials/Navigation";
+import Navigation from "@/components/partials/Navigation-old.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";

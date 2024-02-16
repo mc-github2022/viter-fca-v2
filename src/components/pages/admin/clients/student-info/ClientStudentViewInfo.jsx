@@ -3,7 +3,6 @@ import { getUrlParam } from "@/components/helpers/functions-general.jsx";
 import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import Navigation from "@/components/partials/Navigation.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
@@ -18,6 +17,7 @@ import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import ModalAddStudent from "./form/ModalAddStudent.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
+import Navigation from "../../Navigation.jsx";
 
 const ClientStudentViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);

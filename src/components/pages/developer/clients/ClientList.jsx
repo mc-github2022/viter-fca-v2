@@ -31,6 +31,10 @@ const ClientList = ({ setItemEdit }) => {
   const [dataItem, setData] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
   const [reset, setReset] = React.useState(false);
+  let link =
+    store.credentials.data.role_name.toLowerCase() === "developer"
+      ? "system"
+      : store.credentials.data.role_name.toLowerCase();
 
   const {
     data: result,
@@ -126,7 +130,7 @@ const ClientList = ({ setItemEdit }) => {
                       {1 ? (
                         <div className="flex gap-2 justify-end">
                           <Link
-                            to={`${devNavUrl}/system/clients/students?cid=${1}`}
+                            to={`${devNavUrl}/${link}/clients/students?cid=${1}`}
                             className="tooltip text-base"
                             data-tooltip="Student"
                           >
@@ -134,7 +138,7 @@ const ClientList = ({ setItemEdit }) => {
                           </Link>
 
                           <Link
-                            to={`${devNavUrl}/system/clients/information?cid=${1}`}
+                            to={`${devNavUrl}/${link}/clients/information?cid=${1}`}
                             className="tooltip text-base"
                             data-tooltip="Info"
                           >

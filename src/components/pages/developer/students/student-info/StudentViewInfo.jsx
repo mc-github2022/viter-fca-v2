@@ -2,10 +2,10 @@ import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { getUrlParam } from "@/components/helpers/functions-general.jsx";
 import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Header from "@/components/partials/Header.jsx";
-import Navigation from "@/components/partials/Navigation.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FaAngleLeft } from "react-icons/fa";
+import Navigation from "../../Navigation";
 
 const StudentViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);

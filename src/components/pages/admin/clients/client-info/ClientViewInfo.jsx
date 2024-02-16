@@ -3,7 +3,7 @@ import { getUrlParam } from "@/components/helpers/functions-general";
 import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
-import Navigation from "@/components/partials/Navigation";
+import Navigation from "@/components/partials/Navigation-old.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext";

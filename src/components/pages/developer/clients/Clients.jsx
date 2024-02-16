@@ -1,6 +1,5 @@
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import Navigation from "@/components/partials/Navigation.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
@@ -9,6 +8,7 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import ClientList from "./ClientList.jsx";
 import ModalAddClient from "./ModalAddClient.jsx";
+import Navigation from "../Navigation.jsx";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
