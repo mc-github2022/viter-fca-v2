@@ -91,8 +91,8 @@ const ClientList = ({ setItemEdit }) => {
               <table className="table__sm">
                 <thead>
                   <th>#</th>
+                  <th className="">Status</th>
                   <th>Name</th>
-                  <th>Status</th>
                   <th className="text-right pr-2">Action</th>
                 </thead>
 
