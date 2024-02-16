@@ -100,7 +100,7 @@ const ModalAddClient = () => {
                       />
                     </div>
 
-                    <div className="form__wrap">
+                    <div className="form__wrap mb-[5rem]">
                       <InputText
                         label="Email"
                         type="email"
