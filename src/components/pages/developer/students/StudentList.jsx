@@ -29,6 +29,7 @@ import { MdOutlineRestore } from "react-icons/md";
 import { PiPasswordLight, PiStudentLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { getStudentCountRecord } from "./functions-student";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 
 const StudentList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -131,8 +132,8 @@ const StudentList = ({ setItemEdit }) => {
               <thead>
                 <tr>
                   <th>#</th>
+                  <th className="w-20">Status</th>
                   <th>Name</th>
-                  <th>Status</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
               </thead>
@@ -140,7 +141,6 @@ const StudentList = ({ setItemEdit }) => {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Ramon Plaza</td>
                   <td>
                     <Pills
                       bg="bg-green-500"
@@ -148,6 +148,8 @@ const StudentList = ({ setItemEdit }) => {
                       color="text-green-500"
                     />
                   </td>
+                  <td>Ramon Plaza</td>
+
                   <td>
                     <div className="flex gap-2 justify-end">
                       <Link
@@ -215,6 +217,13 @@ const StudentList = ({ setItemEdit }) => {
                     </div>
                   </td>
                 </tr>
+
+                <tr className="text-center relative">
+                  <td colSpan="100%" className="p-2 md:p-10">
+                    <FetchingSpinner />
+                  </td>
+                </tr>
+
                 <tr className="text-center ">
                   <td colSpan="100%" className="p-2 md:p-10">
                     <TableLoading count={20} cols={3} />
