@@ -132,7 +132,7 @@ const StudentList = ({ setItemEdit }) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Status</th>
+                  <th className="w-20">Status</th>
                   <th>Name</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
