@@ -2,19 +2,9 @@ import React from "react";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
-<<<<<<< HEAD
 // Mac & Mc
 const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
 const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
-=======
-// // Mac
-const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
-const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
-
-// Mon // MC
-// export const urlPathFca = "http://localhost/viter-fca-v2";
-// export const imgUrlPathFca = "http://localhost/viter-fca-v2/public/img";
->>>>>>> 50577f64770e30d938a9a719c112c434c4650935
 
 // // cycy
 // export const urlPathFca = "http://localhost/projects/viter-fca-v2";
