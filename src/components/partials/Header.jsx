@@ -92,7 +92,7 @@ const Header = () => {
   return (
     <>
       {loading && <FetchingSpinner />}
-      <header className=" px-4 fixed  w-full bg-primary border-b border  py-1 z-20">
+      <header className=" pr-4 pl-[15px] fixed  w-full bg-primary border-b border  py-1 z-20">
         <div className="flex justify-between items-center">
           <div className="flex justify-center">
             <button className="text-2xl lg:hidden" onClick={handleToggleMenu}>

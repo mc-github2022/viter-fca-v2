@@ -38,7 +38,7 @@ const Navigation = ({ menu, submenu }) => {
             <li>
               <Link
                 // to={`${devNavUrl}/admin/students`}
-                className="flex gap-3 items-center uppercase p-1 w-full"
+                className="flex gap-3 items-center uppercase w-full"
               >
                 <BsCalendar2Week className="text-lg ml-4" /> S.Y 2023-2024
               </Link>
@@ -46,7 +46,7 @@ const Navigation = ({ menu, submenu }) => {
             <li className={`nav__link ${menu === "students" ? "active" : ""}`}>
               <Link
                 to={`${devNavUrl}/system/students`}
-                className="flex gap-3 items-center uppercase p-1 w-full"
+                className="flex gap-3 items-center uppercase  w-full"
               >
                 <BsPeople className="text-lg ml-4" /> Students
               </Link>
@@ -55,7 +55,7 @@ const Navigation = ({ menu, submenu }) => {
             <li className={`nav__link ${menu === "clients" ? "active" : ""}`}>
               <Link
                 to={`${devNavUrl}/system/clients`}
-                className="flex gap-3 items-center uppercase p-1 w-full"
+                className="flex gap-3 items-center uppercase  w-full"
               >
                 <BsGear className="text-lg ml-4" /> Parents
               </Link>
