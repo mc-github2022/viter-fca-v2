@@ -3,10 +3,10 @@ import React from "react";
 const FetchingSpinner = () => {
   return (
     <>
-      <div className="fixed top-0 right-0 bottom-0 left-0 z-50 justify-center flex items-center flex-col text-center bg-white/50">
+      <div className="absolute top-0 right-0 bottom-0 left-0 z-50 justify-center flex items-center flex-col text-center bg-white/50">
         <svg
           aria-hidden="true"
-          className="w-8 h-8 text-accent animate-spin fill-accent"
+          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-300 fill-accent"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,6 @@ const FetchingSpinner = () => {
             fill="currentFill"
           />
         </svg>
-
         <span className="mt-1 text-gray-500">Loading...</span>
       </div>
     </>
