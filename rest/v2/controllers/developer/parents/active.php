@@ -1,7 +1,7 @@
 <?php
 require '../../../core/header.php';
 require '../../../core/functions.php';
-require '../../../models/developer/Parent.php';
+require '../../../models/developer/parent/Parents.php';
 
 $conn = null;
 $conn = checkDbConnection();
