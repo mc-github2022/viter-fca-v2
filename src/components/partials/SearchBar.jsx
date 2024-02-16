@@ -50,7 +50,7 @@ const SearchBar = ({
         />
         <button
           type="submit"
-          className="text-[16px] flex justify-center items-center w-[40px] h-[35px] py-[5px] rounded-tl-none rounded-bl-none rounded-tr-md rounded-br-md border-l-0 bg-accent text-white border-primary border hover:bg-accentDark"
+          className="text-[16px] flex justify-center items-center w-[40px] h-[37px] py-[5px] rounded-tl-none rounded-bl-none rounded-tr-md rounded-br-md border-l-0 bg-accent text-white border-primary border hover:bg-accentDark"
           disabled={isFetching}
         >
           <FaSearch />
