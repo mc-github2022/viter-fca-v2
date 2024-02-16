@@ -1,13 +1,13 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ProtectedRouteOther from "@/components/pages/access/other/ProtectedRouteOther.jsx";
 import Profile from "@/components/pages/admin/account/Profile.jsx";
-import Clients from "@/components/pages/admin/clients/Clients.jsx";
-import StudentView from "@/components/pages/admin/clients/StudentView";
-import ClientViewInfo from "@/components/pages/admin/clients/client-info/ClientViewInfo";
-import ClientStudentViewInfo from "@/components/pages/admin/clients/student-info/ClientStudentViewInfo.jsx";
 import Discount from "@/components/pages/admin/settings/discount/Discount";
 import Students from "@/components/pages/admin/students/Students";
 import StudentViewInfo from "@/components/pages/admin/students/student-info/StudentViewInfo.jsx";
+import Clients from "@/components/pages/developer/clients/Clients.jsx";
+import StudentView from "@/components/pages/developer/clients/StudentView";
+import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
+import ClientStudentViewInfo from "@/components/pages/developer/clients/student-info/ClientStudentViewInfo.jsx";
 
 export const routesAdmin = [
   {
