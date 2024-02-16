@@ -109,7 +109,7 @@ const ModalAddClient = () => {
                       />
                     </div>
                   </div>
-                  <div className="modal__action">
+                  <div className="modal__action btnActionAbsolute">
                     <button
                       className="btn btn--accent"
                       type="submit"

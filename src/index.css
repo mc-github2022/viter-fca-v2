@@ -412,7 +412,11 @@
   }
 
   .modal__main .modal__action {
-    @apply flex  gap-2 absolute bottom-3 right-3;
+    @apply flex  gap-2 justify-end pt-4 pr-4;
+  }
+
+  .modal__main .modal__action.btnActionAbsolute {
+    @apply !flex  !gap-2 !absolute !bottom-3 !right-3;
   }
 
   .modal.modal--side.show .modal__main {
