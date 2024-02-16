@@ -31,3 +31,11 @@ function checkReadStaff($object)
     checkQuery($query, "Empty records. (staff)");
     return $query;
 }
+
+// parents
+function checkReadParents($object)
+{
+    $query = $object->readParents();
+    checkQuery($query, "Empty records. (parents)");
+    return $query;
+}

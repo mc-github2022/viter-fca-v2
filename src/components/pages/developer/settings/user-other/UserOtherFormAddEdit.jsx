@@ -50,6 +50,17 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
     "user-other-staff" // key
   );
 
+  const {
+    isLoading: isLoadingParents,
+    isFetching: isFetchingParents,
+    error: errorParents,
+    data: parents,
+  } = useQueryData(
+    "/v2/user-other/parents", // endpoint
+    "get", // method
+    "user-other-parents" // key
+  );
+
   const getNonDeveloperRole = roles?.data.filter(
     (item) => item.role_is_active === 1 && item.role_is_developer !== 1
   );
@@ -147,18 +158,6 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
           initialValues={initVal}
           validationSchema={yupSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            // console.log({
-            //   ...values,
-            //   user_other_fname: itemEdit
-            //     ? values.user_other_fname
-            //     : dataSelected.settings_staff_fname,
-            //   user_other_lname: itemEdit
-            //     ? values.user_other_lname
-            //     : dataSelected.settings_staff_lname,
-            //   user_other_email: itemEdit
-            //     ? values.user_other_email
-            //     : dataSelected.settings_staff_email,
-            // });
             mutation.mutate({
               ...values,
               user_other_fname: itemEdit
@@ -329,24 +328,6 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
                     </InputSelect>
                   </div>
                 )}
-
-                {/* <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Last Name"
-                    type="text"
-                    name="user_other_lname"
-                    disabled={mutation.isPending}
-                  />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Email"
-                    type="email"
-                    name="user_other_email"
-                    disabled={mutation.isPending}
-                  />
-                </div> */}
 
                 <div className={`settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">

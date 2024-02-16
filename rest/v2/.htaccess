@@ -101,6 +101,7 @@ RewriteRule ^user-other/key/([A-Za-z0-9-]+)$ controllers/developer/settings/othe
 RewriteRule ^user-other/token$ controllers/developer/settings/other/token.php [L]
 RewriteRule ^user-other/staff$ controllers/developer/settings/other/staff.php [L]
 RewriteRule ^user-other/verify-email/([A-Za-z0-9-]+)$ controllers/developer/settings/other/update-email.php?userotherkey=$1 [L]
+RewriteRule ^user-other/parents$ controllers/developer/settings/other/parents.php [L]
 
 # STAFF
 RewriteRule ^dev-staff$ controllers/developer/settings/staff/staff.php [L]

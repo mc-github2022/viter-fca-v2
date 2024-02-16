@@ -22,6 +22,7 @@ class UserOther
     public $tblUserOther;
     public $tblStaff;
     public $tblRole;
+    public $tblParents;
 
     public function __construct($db)
     {
@@ -29,6 +30,7 @@ class UserOther
         $this->tblUserOther = "fcav2_settings_user_other";
         $this->tblRole = "fcav2_settings_role";
         $this->tblStaff = "fcav2_settings_staff";
+        $this->tblParents = "fcav2_parents";
     }
 
     // create
@@ -265,6 +267,27 @@ class UserOther
             $sql .= "where settings_staff_is_active = 1 ";
             $sql .= "order by settings_staff_fname, ";
             $sql .= "settings_staff_lname ";
+            $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read parents
+    public function readParents()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "parents_aid, ";
+            $sql .= "parents_fname, ";
+            $sql .= "parents_lname, ";
+            $sql .= "parents_email, ";
+            $sql .= "concat(parents_fname, ' ', parents_lname) as fullname ";
+            $sql .= "from {$this->tblParents} ";
+            $sql .= "where parents_is_active = 1 ";
+            $sql .= "order by parents_fname, ";
+            $sql .= "parents_lname ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
