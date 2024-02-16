@@ -4,14 +4,13 @@ $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
 $user_other = new UserOther($conn);
-// get $_GET data
-// check if userid is in the url e.g. /userid/1
-$error = [];
-$returnData = [];
+$encrypt = new Encryption();
+// use notification template
+require '../../../../notification/verify-email.php';
+
 if (array_key_exists("userotherid", $_GET)) {
     // check data
     checkPayload($data);
-
     // get userid from query string
     $user_other->user_other_aid = $_GET['userotherid'];
     $user_other->user_other_fname = checkIndex($data, "user_other_fname");
@@ -20,6 +19,8 @@ if (array_key_exists("userotherid", $_GET)) {
     $user_other->user_other_role_id = checkIndex($data, "user_other_role_id");
     $user_other->user_other_datetime = date("Y-m-d H:i:s");
     $user_other_email_old = strtolower($data["user_other_email_old"]);
+    $user_other->user_other_key = $encrypt->doHash(rand());
+    $link = "/verify-email";
     checkId($user_other->user_other_aid);
     // check name
     compareEmail($user_other, $user_other_email_old, $user_other->user_other_email);

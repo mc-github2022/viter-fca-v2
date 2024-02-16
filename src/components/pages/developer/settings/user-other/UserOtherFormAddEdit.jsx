@@ -149,20 +149,26 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             // console.log({
             //   ...values,
-            //   user_other_fname: dataSelected.settings_staff_fname,
-            //   user_other_lname: dataSelected.settings_staff_lname,
-            //   user_other_email: dataSelected.settings_staff_email,
+            //   user_other_fname: itemEdit
+            //     ? values.user_other_fname
+            //     : dataSelected.settings_staff_fname,
+            //   user_other_lname: itemEdit
+            //     ? values.user_other_lname
+            //     : dataSelected.settings_staff_lname,
+            //   user_other_email: itemEdit
+            //     ? values.user_other_email
+            //     : dataSelected.settings_staff_email,
             // });
             mutation.mutate({
               ...values,
               user_other_fname: itemEdit
-                ? itemEdit.user_other_fname
+                ? values.user_other_fname
                 : dataSelected.settings_staff_fname,
               user_other_lname: itemEdit
-                ? itemEdit.user_other_lname
+                ? values.user_other_lname
                 : dataSelected.settings_staff_lname,
               user_other_email: itemEdit
-                ? itemEdit.user_other_email
+                ? values.user_other_email
                 : dataSelected.settings_staff_email,
             });
           }}

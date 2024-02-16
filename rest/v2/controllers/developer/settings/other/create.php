@@ -4,6 +4,8 @@ $conn = checkDbConnection();
 // make instance of classes
 $user_other = new UserOther($conn);
 $encrypt = new Encryption();
+// use notification template
+require '../../../../notification/verify-account.php';
 // get should not be present
 if (array_key_exists("userotherid", $_GET)) {
     checkEndpoint();

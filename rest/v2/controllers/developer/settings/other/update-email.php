@@ -17,10 +17,10 @@ $returnData = [];
 // validate api key
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
-    if (array_key_exists("usersystemkey", $_GET)) {
+    if (array_key_exists("userotherkey", $_GET)) {
         // get data
         // get userotherid from query string  
-        $user_other->user_other_key = $_GET['usersystemkey'];
+        $user_other->user_other_key = $_GET['userotherkey'];
         $user_other->user_other_datetime = date("Y-m-d H:i:s");
 
         // check email is exist

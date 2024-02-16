@@ -9,11 +9,7 @@ import Clients from "@/components/pages/developer/clients/Clients.jsx";
 import StudentView from "@/components/pages/developer/clients/StudentView";
 import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
 import ClientStudentViewInfo from "@/components/pages/developer/clients/student-info/ClientStudentViewInfo.jsx";
-import Department from "@/components/pages/developer/settings/department/Department";
-
 import Discount from "@/components/pages/developer/settings/discount/Discount";
-import Maintenance from "@/components/pages/developer/settings/system-mode/SystemMode";
-import { default as System } from "@/components/pages/developer/settings/user-system/UserSystem.jsx";
 import Students from "@/components/pages/developer/students/Students";
 import StudentViewInfo from "@/components/pages/developer/students/student-info/StudentViewInfo.jsx";
 
@@ -34,7 +30,6 @@ export const routesSystem = [
     path: `/${devNavUrl}/system/create-password`,
     element: <SystemCreatePassword />,
   },
-
   {
     path: `/${devNavUrl}/system/profile`,
     element: (
@@ -43,7 +38,6 @@ export const routesSystem = [
       </ProtectedRouteSystem>
     ),
   },
-
   {
     path: `/${devNavUrl}/system/discount`,
     element: (
@@ -52,7 +46,6 @@ export const routesSystem = [
       </ProtectedRouteSystem>
     ),
   },
-
   {
     path: `/${devNavUrl}/system/clients`,
     element: (
@@ -61,7 +54,6 @@ export const routesSystem = [
       </ProtectedRouteSystem>
     ),
   },
-
   {
     path: `/${devNavUrl}/system/clients/information`,
     element: (
@@ -70,7 +62,6 @@ export const routesSystem = [
       </ProtectedRouteSystem>
     ),
   },
-
   {
     path: `/${devNavUrl}/system/clients/students`,
     element: (
@@ -90,25 +81,6 @@ export const routesSystem = [
       </ProtectedRouteSystem>
     ),
   },
-
-  {
-    path: `${devNavUrl}/system/settings/users`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <System />
-      //   </ProtectedRouteSystem>
-    ),
-  },
-
-  {
-    path: `${devNavUrl}/system/settings/department`,
-    element: (
-      //   <ProtectedRouteSystem>
-      <Department />
-      //   </ProtectedRouteSystem>
-    ),
-  },
-
   {
     path: `${devNavUrl}/system/students`,
     element: (
