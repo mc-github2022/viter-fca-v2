@@ -5,12 +5,14 @@ import Loadmore from "@/components/partials/Loadmore";
 import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
 import SearchBar from "@/components/partials/SearchBar";
+import ServerError from "@/components/partials/ServerError";
 import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
 import ModalReset from "@/components/partials/modals/ModalReset.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import {
   setIsAdd,
   setIsConfirm,
@@ -116,124 +118,147 @@ const ClientList = ({ setItemEdit }) => {
         setOnSearch={setOnSearch}
         onSearch={onSearch}
       />
-      <div className="main__table">
+      <div className="main__table relative">
+        {isFetching && !isFetchingNextPage && status !== "loading" && (
+          <FetchingSpinner />
+        )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
-          {isFetching || isLoading ? (
-            <TableLoading count={20} cols={3} />
-          ) : result?.pages[0].data.length !== 0 ? (
-            <NoData />
-          ) : (
-            <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
-              <table className="table__sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th className="">Status</th>
-                    <th>Name</th>
-                    <th className="text-right pr-2">Action</th>
-                  </tr>
-                </thead>
+          <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
+            <table className="table__sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th className="">Status</th>
+                  <th>Name</th>
+                  <th className="text-right pr-2">Action</th>
+                </tr>
+              </thead>
 
-                <tbody>
-                  <tr>
-                    <td>{counter++}.</td>
-                    <td>Ramon Plaza</td>
-                    <td>
-                      <Pills
-                        bg="bg-green-500"
-                        label="Active"
-                        color="text-green-500"
-                      />
-                    </td>
-                    <td>
-                      {1 ? (
-                        <div className="flex gap-2 justify-end">
-                          <Link
-                            to={`${devNavUrl}/system/clients/students?cid=${1}`}
-                            className="tooltip text-base"
-                            data-tooltip="Student"
-                          >
-                            <PiStudentLight />
-                          </Link>
-
-                          <Link
-                            to={`${devNavUrl}/system/clients/information?cid=${1}`}
-                            className="tooltip text-base"
-                            data-tooltip="Info"
-                          >
-                            <CiViewList />
-                          </Link>
-
-                          <button
-                            type="button"
-                            className="tooltip "
-                            data-tooltip="Edit"
-                            // onClick={() => handleEdit(row.row.original)}
-                          >
-                            <FiEdit2 />
-                          </button>
-
-                          <button
-                            type="button"
-                            className="tooltip text-lg"
-                            data-tooltip="Reset"
-                            // onClick={() =>
-                            //   handleResetPassword(row.row.original)
-                            // }
-                          >
-                            <PiPasswordLight />
-                          </button>
-                          <button
-                            type="button"
-                            className="tooltip"
-                            data-tooltip="Archive"
-                            // onClick={() => handleArchive(row.row.original)}
-                          >
-                            <BsArchive />
-                          </button>
-                        </div>
+              <tbody>
+                {(status === "loading" ||
+                  result?.pages[0].data.length === 0) && (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      {status === "loading" ? (
+                        <TableLoading count={20} cols={3} />
                       ) : (
-                        <div className="flex gap-2 justify-end">
-                          <button
-                            type="button"
-                            className="tooltip"
-                            data-tooltip="Restore"
-                            // onClick={() => handleRestore(row.row.original)}
-                          >
-                            <MdOutlineRestore />
-                          </button>
-                          <button
-                            type="button"
-                            className="tooltip"
-                            data-tooltip="Delete"
-                            // onClick={() => handleDelete(row.row.original)}
-                          >
-                            <FiTrash />
-                          </button>
-                        </div>
+                        <NoData />
                       )}
                     </td>
                   </tr>
-                </tbody>
-              </table>
+                )}
 
-              <div className="flex justify-between mt-10">
-                <h6>
-                  Count: <span>2</span>
-                </h6>
-                <Loadmore
-                  fetchNextPage={fetchNextPage}
-                  isFetchingNextPage={isFetchingNextPage}
-                  hasNextPage={hasNextPage}
-                  result={result?.pages[0]}
-                  setPage={setPage}
-                  page={page}
-                  refView={ref}
-                />
-                <span></span>
-              </div>
+                {error && (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      <ServerError />
+                    </td>
+                  </tr>
+                )}
+                {result?.pages.map((page, key) => (
+                  <React.Fragment key={key}>
+                    {page.data.map((item, key) => (
+                      <tr key={key}>
+                        <td>{counter++}.</td>
+                        <td>{item.parents_fullname}</td>
+                        <td>
+                          <Pills
+                            bg="bg-green-500"
+                            label="Active"
+                            color="text-green-500"
+                          />
+                        </td>
+                        <td>
+                          {item.parents_is_active === 1 ? (
+                            <div className="flex gap-2 justify-end">
+                              <Link
+                                to={`${devNavUrl}/system/clients/students?cid=${1}`}
+                                className="tooltip text-base"
+                                data-tooltip="Student"
+                              >
+                                <PiStudentLight />
+                              </Link>
+
+                              <Link
+                                to={`${devNavUrl}/system/clients/information?cid=${1}`}
+                                className="tooltip text-base"
+                                data-tooltip="Info"
+                              >
+                                <CiViewList />
+                              </Link>
+
+                              <button
+                                type="button"
+                                className="tooltip "
+                                data-tooltip="Edit"
+                                // onClick={() => handleEdit(row.row.original)}
+                              >
+                                <FiEdit2 />
+                              </button>
+
+                              <button
+                                type="button"
+                                className="tooltip text-lg"
+                                data-tooltip="Reset"
+                                // onClick={() =>
+                                //   handleResetPassword(row.row.original)
+                                // }
+                              >
+                                <PiPasswordLight />
+                              </button>
+                              <button
+                                type="button"
+                                className="tooltip"
+                                data-tooltip="Archive"
+                                // onClick={() => handleArchive(row.row.original)}
+                              >
+                                <BsArchive />
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="flex gap-2 justify-end">
+                              <button
+                                type="button"
+                                className="tooltip"
+                                data-tooltip="Restore"
+                                // onClick={() => handleRestore(row.row.original)}
+                              >
+                                <MdOutlineRestore />
+                              </button>
+                              <button
+                                type="button"
+                                className="tooltip"
+                                data-tooltip="Delete"
+                                // onClick={() => handleDelete(row.row.original)}
+                              >
+                                <FiTrash />
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="flex justify-between mt-10">
+              <h6>
+                Count: <span>{result?.pages[0].data.length}</span>
+              </h6>
+              <Loadmore
+                fetchNextPage={fetchNextPage}
+                isFetchingNextPage={isFetchingNextPage}
+                hasNextPage={hasNextPage}
+                result={result?.pages[0]}
+                setPage={setPage}
+                page={page}
+                refView={ref}
+              />
+              <span></span>
             </div>
-          )}
+          </div>
         </div>
       </div>
 

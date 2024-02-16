@@ -62,8 +62,7 @@ class Parents
             $sql = "select ";
             $sql .= "parents_aid, ";
             $sql .= "parents_is_active, ";
-            $sql .= "parents_fname, ";
-            $sql .= "parents_lname, ";
+            $sql .= "CONCAT(parents_fname, ' ', parents_lname) as parents_fullname, ";
             $sql .= "parents_email ";
             $sql .= "from {$this->tblStaff} ";
             $sql .= "order by parents_is_active desc, ";
@@ -82,8 +81,7 @@ class Parents
             $sql = "select ";
             $sql .= "parents_aid, ";
             $sql .= "parents_is_active, ";
-            $sql .= "parents_fname, ";
-            $sql .= "parents_lname, ";
+            $sql .= "CONCAT(parents_fname, ' ', parents_lname) as parents_fullname, ";
             $sql .= "parents_email ";
             $sql .= "from {$this->tblStaff} ";
             $sql .= "order by parents_is_active desc, ";
@@ -108,8 +106,7 @@ class Parents
             $sql = "select ";
             $sql .= "parents_aid, ";
             $sql .= "parents_is_active, ";
-            $sql .= "parents_fname, ";
-            $sql .= "parents_lname, ";
+            $sql .= "CONCAT(parents_fname, ' ', parents_lname) as parents_fullname, ";
             $sql .= "parents_email ";
             $sql .= "from {$this->tblStaff} ";
             $sql .= "where ( ";
