@@ -44,6 +44,11 @@ const ClientList = ({ setItemEdit }) => {
   const { ref, inView } = useInView();
   let counter = 1;
 
+  let link =
+    store.credentials.data.role_name.toLowerCase() === "developer"
+      ? "system"
+      : store.credentials.data.role_name.toLowerCase();
+
   const {
     data: result,
     error,
@@ -172,7 +177,7 @@ const ClientList = ({ setItemEdit }) => {
                           {item.parents_is_active === 1 ? (
                             <div className="flex gap-2 justify-end">
                               <Link
-                                to={`${devNavUrl}/system/clients/students?cid=${1}`}
+                                to={`${devNavUrl}/${link}/clients/students?cid=${1}`}
                                 className="tooltip text-base"
                                 data-tooltip="Student"
                               >
@@ -180,7 +185,7 @@ const ClientList = ({ setItemEdit }) => {
                               </Link>
 
                               <Link
-                                to={`${devNavUrl}/system/clients/information?cid=${1}`}
+                                to={`${devNavUrl}/${link}/clients/information?cid=${1}`}
                                 className="tooltip text-base"
                                 data-tooltip="Info"
                               >

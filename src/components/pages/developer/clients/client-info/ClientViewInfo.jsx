@@ -3,7 +3,6 @@ import { getUrlParam } from "@/components/helpers/functions-general";
 import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
-import Navigation from "@/components/partials/Navigation";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
@@ -16,6 +15,7 @@ import CardClientParentInfo from "./CardClientParentInfo.jsx";
 import FormClientContactInfo from "./FormClientContactInfo.jsx";
 import FormClientFinancierInfo from "./FormClientFinancierInfo.jsx";
 import FormClientParentInfo from "./FormClientParentInfo.jsx";
+import Navigation from "../../Navigation.jsx";
 const ClientViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [showParentForm, setShowParentForm] = React.useState(false);

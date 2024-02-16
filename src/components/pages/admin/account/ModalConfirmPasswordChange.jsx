@@ -18,13 +18,7 @@ const ModalConfirmPasswordChange = ({ initVal, setChangePassword }) => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData(
-        store.credentials.role_is_developer === 1
-          ? `/v2/dev/profile/update-password`
-          : `/v2/other/profile/update-password`,
-        "put",
-        values
-      ),
+      queryData(`/v2/dev/profile/update-password`, "put", values),
     onSuccess: (data, values) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["account-password"] });

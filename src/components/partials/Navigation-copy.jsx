@@ -13,7 +13,7 @@ import {
   setIsSearch,
   setIsSettingsOpen,
   setIsShow,
-} from "../store/StoreAction";
+} from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 const Navigationx = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);

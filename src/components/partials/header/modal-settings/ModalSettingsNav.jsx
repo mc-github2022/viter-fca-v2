@@ -3,7 +3,8 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 
 const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
-  const { dispatch } = React.useContext(StoreContext);
+  const { store, dispatch } = React.useContext(StoreContext);
+  let userRole = store.credentials.data.role_name.toLowerCase();
 
   const handleChangeSetting = (index, e) => {
     e.preventDefault;
@@ -126,7 +127,11 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
             </button>
           </li>
 
-          <li className={` ${index === 13 ? "active" : ""}`}>
+          <li
+            className={` ${index === 13 ? "active" : ""} ${
+              userRole === "developer" ? "" : "hidden"
+            }`}
+          >
             <button
               onClick={(e) => handleChangeSetting(13, e)}
               className="p-1 pl-4"
