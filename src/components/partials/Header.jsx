@@ -41,14 +41,13 @@ const Header = () => {
         email: store.credentials.data.user_system_email,
         role: store.credentials.data.role_name,
       };
-    } else if (store.credentials.data.role_is_parent === 1) {
+    } else
       return {
         firstname: store.credentials.data.user_other_fname,
         lastname: store.credentials.data.user_other_lname,
         email: store.credentials.data.user_other_email,
         role: store.credentials.data.role_name,
       };
-    }
   };
 
   const handleToggleExpandMenu = () => {
@@ -99,7 +98,8 @@ const Header = () => {
             <button
               className="hidden lg:block text-2xl tooltip tooltip--bottom"
               data-tooltip="Expand"
-              onClick={handleToggleExpandMenu}>
+              onClick={handleToggleExpandMenu}
+            >
               <FaBars />
             </button>
             <LogoTextOnly />
@@ -115,7 +115,8 @@ const Header = () => {
             <div className="header__avatar  rounded-lg" ref={menuRef}>
               <button
                 className="w-[30px] h-[30px] bg-accent grid place-content-center rounded-full text-white"
-                onClick={() => setShow(!show)}>
+                onClick={() => setShow(!show)}
+              >
                 {credentials().firstname[0]}
                 {credentials().lastname[0]}
               </button>
@@ -123,7 +124,8 @@ const Header = () => {
               <div
                 className={`dropdown ${
                   show ? "active" : "inactive"
-                } absolute top-[40px] right-5 max-w-[250px] lg:max-w-[350px] w-full bg-primary rounded-md border border-gray-200 shadow-sm`}>
+                } absolute top-[40px] right-5 max-w-[250px] lg:max-w-[350px] w-full bg-primary rounded-md border border-gray-200 shadow-sm`}
+              >
                 <div className="p-4 grid lg:grid-cols-[80px_1fr] gap-4 relative">
                   <div className="rounded-full h-[40px] w-[40px] lg:h-[80px] lg:w-[80px] bg-accent flex justify-center items-center text-primary lg:text-3xl justify-self-center">
                     {credentials().firstname[0]}
@@ -132,7 +134,8 @@ const Header = () => {
 
                   <button
                     className="absolute top-2 right-2 tooltip"
-                    data-tooltip="Edit Profile">
+                    data-tooltip="Edit Profile"
+                  >
                     <Link to={`${devNavUrl}/system/profile`}>
                       <RiEdit2Line />
                     </Link>
@@ -154,7 +157,8 @@ const Header = () => {
                     <li className="">
                       <button
                         className="flex gap-2 items-center hover:underline"
-                        onClick={handleLogout}>
+                        onClick={handleLogout}
+                      >
                         <PiSignOut className="text-base" />
                         Logout
                       </button>
