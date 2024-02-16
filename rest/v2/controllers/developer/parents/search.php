@@ -20,7 +20,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkPayload($data);
 
     // get data
-    $parents->parents_search = $data["searchValue"];
+    $parents->parents_search = $data["search"];
 
     // value must not be empty
     checkKeyword($parents->parents_search);

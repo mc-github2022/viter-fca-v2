@@ -6,17 +6,15 @@ import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
+import Navigation from "../Navigation.jsx";
 import ClientList from "./ClientList.jsx";
 import ModalAddClient from "./ModalAddClient.jsx";
-import Navigation from "../Navigation.jsx";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
-    setItemEdit(null);
   };
 
   return (
@@ -46,13 +44,13 @@ const Clients = () => {
               </button>
             </div>
 
-            <ClientList setItemEdit={setItemEdit} />
+            <ClientList />
           </main>
         </div>
         <Footer />
       </section>
 
-      {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}
+      {store.isAdd && <ModalAddClient />}
 
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}

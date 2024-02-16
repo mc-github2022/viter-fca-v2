@@ -1,5 +1,6 @@
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
   setIsAdd,
@@ -15,7 +16,7 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 
-const ModalAddClient = ({ itemEdit }) => {
+const ModalAddClient = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -28,17 +29,10 @@ const ModalAddClient = ({ itemEdit }) => {
   };
 
   const mutation = useMutation({
-    mutationFn: (values) =>
-      queryData(
-        itemEdit
-          ? `/v2/user-other/${itemEdit.user_other_aid}`
-          : "/v2/user-other",
-        itemEdit ? "put" : "post",
-        values
-      ),
+    mutationFn: (values) => queryData("/v2/dev-parents", "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["clients"] });
+      queryClient.invalidateQueries({ queryKey: ["parents"] });
       // show error box
       if (data.success) {
         dispatch(setIsAdd(false));
@@ -53,16 +47,15 @@ const ModalAddClient = ({ itemEdit }) => {
   });
 
   const initVal = {
-    user_other_fname: itemEdit ? itemEdit.user_other_fname : "",
-    user_other_lname: itemEdit ? itemEdit.user_other_lname : "",
-    user_other_email: itemEdit ? itemEdit.user_other_email : "",
-    user_other_email_old: itemEdit ? itemEdit.user_other_email : "",
+    parents_fname: "",
+    parents_lname: "",
+    parents_email: "",
   };
 
   const yupSchema = Yup.object({
-    user_other_fname: Yup.string().required("Required"),
-    user_other_lname: Yup.string().required("Required"),
-    user_other_email: Yup.string().required("Required").email("Invalid email"),
+    parents_fname: Yup.string().required("Required"),
+    parents_lname: Yup.string().required("Required"),
+    parents_email: Yup.string().required("Required").email("Invalid email"),
   });
 
   return (
@@ -82,10 +75,7 @@ const ModalAddClient = ({ itemEdit }) => {
             initialValues={initVal}
             validationSchema={yupSchema}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              mutation.mutate({
-                ...values,
-                user_other_role_id: roleId[0].role_aid,
-              });
+              mutation.mutate(values);
             }}
           >
             {(props) => {
@@ -96,7 +86,8 @@ const ModalAddClient = ({ itemEdit }) => {
                       <InputText
                         label="First Name"
                         type="text"
-                        name="user_other_fname"
+                        name="parents_fname"
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -104,7 +95,8 @@ const ModalAddClient = ({ itemEdit }) => {
                       <InputText
                         label="Last Name"
                         type="text"
-                        name="user_other_lname"
+                        name="parents_lname"
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -112,18 +104,24 @@ const ModalAddClient = ({ itemEdit }) => {
                       <InputText
                         label="Email"
                         type="email"
-                        name="user_other_email"
+                        name="parents_email"
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
                   <div className="modal__action">
-                    <button className="btn btn--accent" type="submit">
-                      {itemEdit ? "Update" : "Save"}
+                    <button
+                      className="btn btn--accent"
+                      type="submit"
+                      disabled={mutation.isPending || !props.dirty}
+                    >
+                      {mutation.isPending ? <ButtonSpinner /> : "Save"}
                     </button>
                     <button
                       className="btn btn--cancel"
                       type="button"
                       onClick={handleClose}
+                      disabled={mutation.isPending}
                     >
                       Discard
                     </button>

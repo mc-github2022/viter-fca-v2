@@ -1,4 +1,3 @@
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite";
 import Loadmore from "@/components/partials/Loadmore";
@@ -6,39 +5,32 @@ import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
 import SearchBar from "@/components/partials/SearchBar";
 import ServerError from "@/components/partials/ServerError";
-import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
-import ModalReset from "@/components/partials/modals/ModalReset.jsx";
-import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import {
-  setIsAdd,
-  setIsConfirm,
-  setIsDelete,
+  setSettingIsConfirm,
+  setSettingIsDelete,
 } from "@/components/store/StoreAction";
 
 import { StoreContext } from "@/components/store/StoreContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-import { PiPasswordLight, PiStudentLight } from "react-icons/pi";
+import { PiStudentLight } from "react-icons/pi";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 
-const ClientList = ({ setItemEdit }) => {
+const ClientList = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
-  const [reset, setReset] = React.useState(false);
   const search = React.useRef({ value: "" });
-  const [isDel, setDel] = React.useState(false);
   const [onSearch, setOnSearch] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
@@ -76,31 +68,24 @@ const ClientList = ({ setItemEdit }) => {
     refetchOnWindowFocus: false,
   });
 
-  const handleEdit = (item) => {
-    setItemEdit(item);
-    dispatch(setIsAdd(true));
-    setId(item.user_other_aid);
-  };
-
   const handleArchive = (item) => {
-    dispatch(setIsArchive(true));
-    setId(item.trainee_aid);
+    dispatch(setSettingIsConfirm(true));
+    setId(item.parents_aid);
     setData(item);
-    setDel(null);
+    setIsArchive(0);
   };
 
   const handleRestore = (item) => {
-    dispatch(setIsRestore(true));
-    setId(item.trainee_aid);
+    dispatch(setSettingIsConfirm(true));
+    setId(item.parents_aid);
     setData(item);
-    setDel(null);
+    setIsArchive(1);
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsRestore(true));
-    setId(item.trainee_aid);
+    dispatch(setSettingIsDelete(true));
+    setId(item.parents_aid);
     setData(item);
-    setDel(true);
   };
 
   console.log(result);
@@ -133,7 +118,7 @@ const ClientList = ({ setItemEdit }) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th className="">Status</th>
+                  <th className="w-20">Status</th>
                   <th>Name</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
@@ -165,14 +150,23 @@ const ClientList = ({ setItemEdit }) => {
                     {page.data.map((item, key) => (
                       <tr key={key}>
                         <td>{counter++}.</td>
-                        <td>{item.parents_fullname}</td>
+
                         <td>
                           <Pills
-                            bg="bg-green-500"
-                            label="Active"
-                            color="text-green-500"
+                            bg="bg-gray-200"
+                            label={
+                              item.parents_is_active === 1
+                                ? "Active"
+                                : "Inactive"
+                            }
+                            color={
+                              item.parents_is_active === 1
+                                ? "text-green-500"
+                                : "text-gray-500"
+                            }
                           />
                         </td>
+                        <td>{item.parents_fullname}</td>
                         <td>
                           {item.parents_is_active === 1 ? (
                             <div className="flex gap-2 justify-end">
@@ -203,19 +197,9 @@ const ClientList = ({ setItemEdit }) => {
 
                               <button
                                 type="button"
-                                className="tooltip text-lg"
-                                data-tooltip="Reset"
-                                // onClick={() =>
-                                //   handleResetPassword(row.row.original)
-                                // }
-                              >
-                                <PiPasswordLight />
-                              </button>
-                              <button
-                                type="button"
                                 className="tooltip"
                                 data-tooltip="Archive"
-                                // onClick={() => handleArchive(row.row.original)}
+                                onClick={() => handleArchive(item)}
                               >
                                 <BsArchive />
                               </button>
@@ -226,7 +210,7 @@ const ClientList = ({ setItemEdit }) => {
                                 type="button"
                                 className="tooltip"
                                 data-tooltip="Restore"
-                                // onClick={() => handleRestore(row.row.original)}
+                                onClick={() => handleRestore(item)}
                               >
                                 <MdOutlineRestore />
                               </button>
@@ -234,7 +218,7 @@ const ClientList = ({ setItemEdit }) => {
                                 type="button"
                                 className="tooltip"
                                 data-tooltip="Delete"
-                                // onClick={() => handleDelete(row.row.original)}
+                                onClick={() => handleDelete(item)}
                               >
                                 <FiTrash />
                               </button>
@@ -267,34 +251,24 @@ const ClientList = ({ setItemEdit }) => {
         </div>
       </div>
 
-      {store.isConfirm && (
+      {store.isSettingConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/user-other/active/${id}`}
+          mysqlApiArchive={`/v2/dev-parents/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={dataItem.user_other_email}
-          queryKey={"clients"}
+          item={dataItem.parents_email}
+          queryKey={"parents"}
           isArchive={isArchive}
         />
       )}
 
-      {store.isDelete && (
+      {store.isSettingDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/user-other/${id}`}
+          mysqlApiDelete={`/v2/dev-parents/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={dataItem.user_other_email}
-          queryKey={"clients"}
-        />
-      )}
-
-      {reset && (
-        <ModalReset
-          setReset={setReset}
-          mysqlApiReset={`/v2/user-other/reset`}
-          msg={"Are you sure you want to reset this client password?"}
-          item={dataItem.user_other_email}
-          queryKey="clients"
+          item={dataItem.parents_email}
+          queryKey={"parents"}
         />
       )}
     </>

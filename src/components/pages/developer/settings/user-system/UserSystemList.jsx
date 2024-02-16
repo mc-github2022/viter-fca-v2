@@ -2,9 +2,6 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import TableLoading from "@/components/partials/TableLoading";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
-  setIsAdd,
-  setIsConfirm,
-  setIsDelete,
   setIsSettingAdd,
   setSettingIsConfirm,
   setSettingIsDelete,
@@ -19,7 +16,8 @@ import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidR
 import ModalReset from "@/components/partials/modals/ModalReset";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import { MdOutlineRestore, MdPassword } from "react-icons/md";
+import { MdOutlineRestore } from "react-icons/md";
+import { PiPasswordLight } from "react-icons/pi";
 const UserSystemList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -125,7 +123,7 @@ const UserSystemList = ({ setItemEdit }) => {
                         data-tooltip="Reset password"
                         onClick={() => handleReset(item)}
                       >
-                        <MdPassword />
+                        <PiPasswordLight />
                       </button>
                     </li>
                     <li>
