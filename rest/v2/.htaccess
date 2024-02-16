@@ -109,6 +109,12 @@ RewriteRule ^dev-staff/([0-9]+)$ controllers/developer/settings/staff/staff.php?
 RewriteRule ^dev-staff/active/([0-9]+)$ controllers/developer/settings/staff/active.php?staffid=$1 [L]
 RewriteRule ^dev-staff/page/([0-9]+)$ controllers/developer/settings/staff/page.php?start=$1 [L]
 
+# PARENTS
+RewriteRule ^dev-parents$ controllers/developer/parents/parents.php [L]
+RewriteRule ^dev-parents/search$ controllers/developer/parents/search.php [L]
+RewriteRule ^dev-parents/([0-9]+)$ controllers/developer/parents/parents.php?parentsid=$1 [L]
+RewriteRule ^dev-parents/active/([0-9]+)$ controllers/developer/parents/active.php?parentsid=$1 [L]
+RewriteRule ^dev-parents/page/([0-9]+)$ controllers/developer/parents/page.php?start=$1 [L]
 
 #SYSTEM MODE
 RewriteRule ^dev-system-mode$ controllers/developer/settings/system-mode/system-mode.php [L]
