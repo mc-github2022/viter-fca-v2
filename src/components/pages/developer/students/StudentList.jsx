@@ -18,6 +18,7 @@ import {
   setIsDelete,
 } from "@/components/store/StoreAction";
 
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
@@ -29,7 +30,6 @@ import { MdOutlineRestore } from "react-icons/md";
 import { PiPasswordLight, PiStudentLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { getStudentCountRecord } from "./functions-student";
-import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 
 const StudentList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -220,7 +220,7 @@ const StudentList = ({ setItemEdit }) => {
 
                 <tr className="text-center relative">
                   <td colSpan="100%" className="p-2 md:p-10">
-                    <FetchingSpinner />
+                    {/* <FetchingSpinner /> */}
                   </td>
                 </tr>
 
