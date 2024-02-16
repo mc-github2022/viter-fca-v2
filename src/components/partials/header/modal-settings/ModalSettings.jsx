@@ -1,4 +1,3 @@
-import Department from "@/components/pages/developer/settings/department/Department";
 import Discount from "@/components/pages/developer/settings/discount/Discount";
 import GradeLevel from "@/components/pages/developer/settings/grade-level/GradeLevel.jsx";
 import LearningType from "@/components/pages/developer/settings/learning-type/LearningType.jsx";
@@ -20,6 +19,7 @@ import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
+import Department from "@/components/pages/developer/settings/Department/Department";
 const ModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);

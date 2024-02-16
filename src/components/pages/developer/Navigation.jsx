@@ -1,5 +1,5 @@
 import React from "react";
-import { BsGear } from "react-icons/bs";
+import { BsCalendar2Week, BsGear } from "react-icons/bs";
 import { MdOutlinePunchClock } from "react-icons/md";
 import { PiCaretRight } from "react-icons/pi";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ import {
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
+import { FaCalendarAlt, FaUserGraduate } from "react-icons/fa";
 const Navigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   // const urlRolePath = getUserType();
@@ -42,12 +43,20 @@ const Navigation = ({ menu, submenu }) => {
         <div className="backdrop" onClick={() => setIsShow(false)}></div>
         <div className="flex flex-col justify-between h-[93%] py-2 pr-0 custom__scroll overflow-y-auto">
           <ul className="mt-3  h-[calc(100vh-48px)] pb-8">
+            <li>
+              <Link
+                // to={`${devNavUrl}/admin/students`}
+                className="flex gap-3 items-center uppercase p-1 w-full"
+              >
+                <BsCalendar2Week className="text-lg" /> S.Y 2023-2024
+              </Link>
+            </li>
             <li className={`nav__link ${menu === "students" ? "active" : ""}`}>
               <Link
                 to={`${devNavUrl}/system/students`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
               >
-                <BsGear className="text-lg" /> Student
+                <FaUserGraduate className="text-lg" /> Students
               </Link>
             </li>
 
