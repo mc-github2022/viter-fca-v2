@@ -19,6 +19,7 @@ import {
   setError,
   setIsLogin,
   setMessage,
+  setValidate,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -42,7 +43,7 @@ const OtherLogin = () => {
       queryClient.invalidateQueries({ queryKey: ["other"] });
       // show error box
       if (!data.success) {
-        dispatch(setError(true));
+        dispatch(setValidate(true));
         dispatch(setMessage(data.error));
       } else {
         if (store.isLogin) {

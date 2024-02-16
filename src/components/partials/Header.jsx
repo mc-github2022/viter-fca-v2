@@ -21,6 +21,10 @@ const Header = () => {
   const [show, setShow] = React.useState(false);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  let link =
+    store.credentials.data.role_name.toLowerCase() === "developer"
+      ? "system"
+      : store.credentials.data.role_name.toLowerCase();
 
   const menuRef = React.useRef();
 
@@ -136,7 +140,7 @@ const Header = () => {
                     className="absolute top-2 right-2 tooltip"
                     data-tooltip="Edit Profile"
                   >
-                    <Link to={`${devNavUrl}/system/profile`}>
+                    <Link to={`${devNavUrl}/${link}/profile`}>
                       <RiEdit2Line />
                     </Link>
                   </button>

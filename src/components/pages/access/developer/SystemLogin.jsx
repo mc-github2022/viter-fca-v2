@@ -7,6 +7,7 @@ import {
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
+import ModalValidate from "@/components/partials/modals/ModalValidate";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
@@ -15,6 +16,7 @@ import {
   setError,
   setIsLogin,
   setMessage,
+  setValidate,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -40,7 +42,7 @@ const SystemLogin = () => {
       // show error box
 
       if (!data.success) {
-        dispatch(setError(true));
+        dispatch(setValidate(true));
         dispatch(setMessage(data.error));
       } else {
         if (store.isLogin) {
@@ -155,7 +157,7 @@ const SystemLogin = () => {
         </div>
       )}
 
-      {store.error && <ModalError />}
+      {store.validate && <ModalValidate />}
     </>
   );
 };

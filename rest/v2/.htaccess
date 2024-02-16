@@ -9,6 +9,9 @@ Header set Access-Control-Allow-Origin *
 
 ### ACCOUNT CHANGE PASS ### 
 RewriteRule ^dev/profile/update-password$ controllers/developer/account/account-change-password.php [L] 
+
+### ACCOUNT CHANGE PASS ### 
+RewriteRule ^other/profile/update-password$ controllers/admin/account/account-change-password.php [L] 
  
 ###### DEV SETTINGS ######
 
