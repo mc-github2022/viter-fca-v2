@@ -110,12 +110,12 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            {store.credentials.data.role_is_developer === 1 ||
-              (store.credentials.data.role_is_admin === 1 && (
-                <button className="text-xl" onClick={handleShowSettings}>
-                  <FaCog />
-                </button>
-              ))}
+            {(store.credentials.data.role_is_developer === 1 ||
+              store.credentials.data.role_is_admin === 1) && (
+              <button className="text-xl" onClick={handleShowSettings}>
+                <FaCog />
+              </button>
+            )}
 
             <div className="header__avatar  rounded-lg" ref={menuRef}>
               <button
