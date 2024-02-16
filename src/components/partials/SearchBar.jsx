@@ -1,25 +1,37 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import { setError, setIsSearch, setMessage } from "../store/StoreAction";
 
-const SearchBar = ({ search, dispatch, store, result, isFetching }) => {
-  // const handleChange = (e) => {
-  //   if (e.target.value === "") {
-  //     dispatch(setIsSearch(false));
-  //   }
-  // };
+const SearchBar = ({
+  search,
+  dispatch,
+  store,
+  result,
+  isFetching,
+  setOnSearch,
+  onSearch,
+}) => {
+  const handleChange = (e) => {
+    if (e.target.value === "") {
+      setOnSearch(!onSearch);
+      dispatch(setIsSearch(false));
+    }
+  };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   let val = search.current.value;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let val = search.current.value;
 
-  //   if (val === " " || val === "") {
-  //     dispatch(setIsSearch(false));
-  //     dispatch(setError(true));
-  //     dispatch(setMessage("Search keyword cannot be space only or blank."));
-  //   } else {
-  //     dispatch(setIsSearch(true));
-  //   }
-  // };
+    if (val === " " || val === "") {
+      setOnSearch(!onSearch);
+      dispatch(setIsSearch(false));
+      dispatch(setError(true));
+      dispatch(setMessage("Search keyword cannot be space only or blank."));
+    } else {
+      setOnSearch(!onSearch);
+      dispatch(setIsSearch(true));
+    }
+  };
 
   return (
     <form
@@ -33,8 +45,8 @@ const SearchBar = ({ search, dispatch, store, result, isFetching }) => {
           type="search"
           placeholder="Search here..."
           className="searchbar rounded-tr-none rounded-br-none text-xs border-r-0 py-[0px] h-[35px]"
-          // ref={search}
-          // onChange={(e) => handleChange(e)}
+          ref={search}
+          onChange={(e) => handleChange(e)}
         />
         <button
           type="submit"
@@ -44,11 +56,11 @@ const SearchBar = ({ search, dispatch, store, result, isFetching }) => {
           <FaSearch />
         </button>
       </div>
-      {/* {store.isSearch && ( */}
-      <p className="absolute top-[9px] right-20 text-xs">
-        Result: {isFetching ? "Searching..." : result?.[0].count}
-      </p>
-      {/* )} */}
+      {store.isSearch && (
+        <p className="absolute top-[9px] right-20 text-xs">
+          Result: {isFetching ? "Searching..." : result?.[0].count}
+        </p>
+      )}
     </form>
   );
 };
