@@ -2,26 +2,21 @@ import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
-import RecordCount from "@/components/partials/RecordCount";
 import SearchBar from "@/components/partials/SearchBar";
 import ServerError from "@/components/partials/ServerError";
-import Table from "@/components/partials/Table.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
 import ModalReset from "@/components/partials/modals/ModalReset.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
-import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setIsAdd,
   setIsConfirm,
   setIsDelete,
 } from "@/components/store/StoreAction";
 
-import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { createColumnHelper } from "@tanstack/react-table";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
@@ -29,7 +24,6 @@ import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { PiPasswordLight, PiStudentLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import { getStudentCountRecord } from "./functions-student";
 
 const StudentList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -38,6 +32,11 @@ const StudentList = ({ setItemEdit }) => {
   const [isArchive, setIsArchive] = React.useState(1);
   const [reset, setReset] = React.useState(false);
   const search = React.useRef({ value: "" });
+
+  let link =
+    store.credentials.data.role_name.toLowerCase() === "developer"
+      ? "system"
+      : store.credentials.data.role_name.toLowerCase();
 
   const [columnVisibility, setColumnVisibility] = React.useState({
     user_other_email: true,
@@ -124,7 +123,13 @@ const StudentList = ({ setItemEdit }) => {
 
   return (
     <>
-      <SearchBar />
+      <SearchBar
+        search={search}
+        dispatch={dispatch}
+        store={store}
+        result={result?.pages}
+        isFetching={isFetching}
+      />
       <div className="main__table">
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
@@ -153,7 +158,7 @@ const StudentList = ({ setItemEdit }) => {
                   <td>
                     <div className="flex gap-2 justify-end">
                       <Link
-                        to={`${devNavUrl}/system/clients/students?cid=${1}`}
+                        to={`${devNavUrl}/${link}/clients/students?cid=${1}`}
                         className="tooltip text-base"
                         data-tooltip="Student"
                       >
@@ -161,7 +166,7 @@ const StudentList = ({ setItemEdit }) => {
                       </Link>
 
                       <Link
-                        to={`${devNavUrl}/system/clients/information?cid=${1}`}
+                        to={`${devNavUrl}/${link}/clients/information?cid=${1}`}
                         className="tooltip text-base"
                         data-tooltip="Info"
                       >

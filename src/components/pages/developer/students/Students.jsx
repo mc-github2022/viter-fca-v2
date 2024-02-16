@@ -54,7 +54,7 @@ const Students = () => {
                 </p>
               </div>
               <button
-                className="btn btn--accent btn--sm mt-1"
+                className="btn btn--accent btn--sm mt-1 mr-0.5"
                 onClick={handleAdd}
               >
                 <FaPlus /> Add
