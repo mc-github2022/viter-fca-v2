@@ -404,7 +404,7 @@
   }
 
   .modal__main {
-    @apply flex flex-col;
+    @apply flex flex-col relative;
   }
 
   .modal__main .modal__body {
@@ -412,7 +412,7 @@
   }
 
   .modal__main .modal__action {
-    @apply flex  gap-2 justify-end pt-4 pr-4;
+    @apply flex  gap-2 absolute bottom-3 right-3;
   }
 
   .modal.modal--side.show .modal__main {
