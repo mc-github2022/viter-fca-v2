@@ -1,5 +1,5 @@
 import React from "react";
-import { BsCalendar2Week, BsGear } from "react-icons/bs";
+import { BsCalendar2Week, BsGear, BsPeople } from "react-icons/bs";
 import { Link } from "react-router-dom";
 // import {
 //   consoleLog,
@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { FaUserGraduate } from "react-icons/fa";
 const Navigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   // const urlRolePath = getUserType();
@@ -41,7 +40,7 @@ const Navigation = ({ menu, submenu }) => {
                 // to={`${devNavUrl}/admin/students`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
               >
-                <BsCalendar2Week className="text-lg" /> S.Y 2023-2024
+                <BsCalendar2Week className="text-lg ml-4" /> S.Y 2023-2024
               </Link>
             </li>
             <li>
@@ -49,7 +48,7 @@ const Navigation = ({ menu, submenu }) => {
                 to={`${devNavUrl}/admin/students`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
               >
-                <FaUserGraduate className="text-lg" /> Students
+                <BsPeople className="text-lg ml-4" /> Students
               </Link>
             </li>
             <li className={`nav__link ${menu === "clients" ? "active" : ""}`}>
@@ -57,7 +56,7 @@ const Navigation = ({ menu, submenu }) => {
                 to={`${devNavUrl}/admin/clients`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
               >
-                <BsGear className="text-lg" /> Parents
+                <BsGear className="text-lg ml-4" /> Parents
               </Link>
             </li>
           </ul>

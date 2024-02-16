@@ -1,7 +1,6 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ProtectedRouteOther from "@/components/pages/access/other/ProtectedRouteOther.jsx";
 import Profile from "@/components/pages/admin/account/Profile.jsx";
-import Discount from "@/components/pages/admin/settings/discount/Discount";
 import StudentViewInfo from "@/components/pages/admin/students/student-info/StudentViewInfo.jsx";
 import Clients from "@/components/pages/admin/clients/Clients.jsx";
 import StudentView from "@/components/pages/developer/clients/StudentView";
@@ -15,14 +14,6 @@ export const routesAdmin = [
     element: (
       <ProtectedRouteOther>
         <Profile />
-      </ProtectedRouteOther>
-    ),
-  },
-  {
-    path: `/${devNavUrl}/admin/discount`,
-    element: (
-      <ProtectedRouteOther>
-        <Discount />
       </ProtectedRouteOther>
     ),
   },

@@ -1,22 +1,14 @@
 import React from "react";
-import { BsCalendar2Week, BsGear } from "react-icons/bs";
-import { MdOutlinePunchClock } from "react-icons/md";
-import { PiCaretRight } from "react-icons/pi";
+import { BsCalendar2Week, BsGear, BsPeople } from "react-icons/bs";
 import { Link } from "react-router-dom";
 // import {
 //   consoleLog,
 //   devNavUrl,
 //   getUserType,
 // } from "../helpers/functions-general.jsx";
-import {
-  setInputVal,
-  setIsSearch,
-  setIsSettingsOpen,
-  setIsShow,
-} from "@/components/store/StoreAction";
-import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
-import { FaCalendarAlt, FaUserGraduate } from "react-icons/fa";
+import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 const Navigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   // const urlRolePath = getUserType();
@@ -48,7 +40,7 @@ const Navigation = ({ menu, submenu }) => {
                 // to={`${devNavUrl}/admin/students`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
               >
-                <BsCalendar2Week className="text-lg" /> S.Y 2023-2024
+                <BsCalendar2Week className="text-lg ml-4" /> S.Y 2023-2024
               </Link>
             </li>
             <li className={`nav__link ${menu === "students" ? "active" : ""}`}>
@@ -56,7 +48,7 @@ const Navigation = ({ menu, submenu }) => {
                 to={`${devNavUrl}/system/students`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
               >
-                <FaUserGraduate className="text-lg" /> Students
+                <BsPeople className="text-lg ml-4" /> Students
               </Link>
             </li>
 
@@ -65,7 +57,7 @@ const Navigation = ({ menu, submenu }) => {
                 to={`${devNavUrl}/system/clients`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
               >
-                <BsGear className="text-lg" /> Parents
+                <BsGear className="text-lg ml-4" /> Parents
               </Link>
             </li>
           </ul>
