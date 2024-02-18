@@ -114,7 +114,7 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     select_user: !itemEdit && Yup.string().required("Required"),
-    user_other_role_id: Yup.string().required("Required"),
+    user_other_role_id: select === "staff" && Yup.string().required("Required"),
     user_other_fname: itemEdit && Yup.string().required("Required"),
     user_other_lname: itemEdit && Yup.string().required("Required"),
     user_other_email: itemEdit && Yup.string().required("Required"),
@@ -195,7 +195,7 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
       document.removeEventListener("click", handleClickOutsideTrainer);
   }, []);
 
-  console.log(dataSelected);
+  console.log(dataSelected?.length);
 
   return (
     <>
@@ -205,18 +205,19 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
           validationSchema={yupSchema}
           validateOnChange="false"
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            if (dataSelected?.length === 0) {
-              dispatch(setValidate(true));
-              dispatch(
-                setMessage(
-                  select === "staff"
-                    ? "Staff cannot be empty."
-                    : "Parent cannot be empty."
-                )
-              );
-              return;
-            }
-            mutation.mutate({
+            // if (dataSelected?.length === 0) {
+            //   dispatch(setValidate(true));
+            //   dispatch(
+            //     setMessage(
+            //       select === "staff"
+            //         ? "Staff cannot be empty."
+            //         : "Parent cannot be empty."
+            //     )
+            //   );
+            //   return;
+            // }
+
+            console.log({
               ...values,
               user_other_fname: itemEdit
                 ? values.user_other_fname
@@ -240,29 +241,29 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
                 : values.user_other_role_id,
             });
 
-            // console.log({
-            //   ...values,
-            //   user_other_fname: itemEdit
-            //     ? values.user_other_fname
-            //     : select === "staff"
-            //     ? dataSelected.settings_staff_fname
-            //     : dataSelected.parents_fname,
-            //   user_other_lname: itemEdit
-            //     ? values.user_other_lname
-            //     : select === "staff"
-            //     ? dataSelected.settings_staff_lname
-            //     : dataSelected.parents_lname,
-            //   user_other_email: itemEdit
-            //     ? values.user_other_email
-            //     : select === "staff"
-            //     ? dataSelected.settings_staff_email
-            //     : dataSelected.parents_email,
-            //   user_other_role_id: itemEdit
-            //     ? values.user_other_role_id
-            //     : select === "parent"
-            //     ? getpParentRole.role_aid
-            //     : values.user_other_role_id,
-            // });
+            mutation.mutate({
+              ...values,
+              user_other_fname: itemEdit
+                ? values.user_other_fname
+                : select === "staff"
+                ? dataSelected.settings_staff_fname
+                : dataSelected.parents_fname,
+              user_other_lname: itemEdit
+                ? values.user_other_lname
+                : select === "staff"
+                ? dataSelected.settings_staff_lname
+                : dataSelected.parents_lname,
+              user_other_email: itemEdit
+                ? values.user_other_email
+                : select === "staff"
+                ? dataSelected.settings_staff_email
+                : dataSelected.parents_email,
+              user_other_role_id: itemEdit
+                ? values.user_other_role_id
+                : select === "parent"
+                ? getpParentRole.role_aid
+                : values.user_other_role_id,
+            });
           }}
         >
           {(props) => {
