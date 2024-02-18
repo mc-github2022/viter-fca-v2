@@ -8,6 +8,7 @@ import {
   setIsSettingAdd,
   setMessage,
   setSuccess,
+  setValidate,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -63,7 +64,10 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
   );
 
   const getNonDeveloperRole = roles?.data.filter(
-    (item) => item.role_is_active === 1 && item.role_is_developer !== 1
+    (item) =>
+      item.role_is_active === 1 &&
+      item.role_is_developer !== 1 &&
+      item.role_is_parent !== 1
   );
 
   const getpParentRole = roles?.data.find(
@@ -105,7 +109,7 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
     user_other_role_id: itemEdit ? itemEdit.user_other_role_id : "",
     user_other_email_old: itemEdit ? itemEdit.user_other_email : "",
     select_user: "",
-    search: "",
+    // search: "",
   };
 
   const yupSchema = Yup.object({
@@ -114,12 +118,13 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
     user_other_fname: itemEdit && Yup.string().required("Required"),
     user_other_lname: itemEdit && Yup.string().required("Required"),
     user_other_email: itemEdit && Yup.string().required("Required"),
-    search: !itemEdit && Yup.string().required("Required"),
+    // search: !itemEdit && Yup.string().required("Required"),
   });
 
   const handleSearchTrainer = (e) => {
     setOnFocusUser(true);
     setSearchUser(e.target.value);
+    setDataSelected([]);
 
     if (select === "staff") {
       const filteredData = staff?.data.filter((entry) =>
@@ -190,6 +195,8 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
       document.removeEventListener("click", handleClickOutsideTrainer);
   }, []);
 
+  console.log(dataSelected);
+
   return (
     <>
       <div className="settings__addEdit mb-8 max-w-[350px] w-full">
@@ -198,6 +205,17 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
           validationSchema={yupSchema}
           validateOnChange="false"
           onSubmit={async (values, { setSubmitting, resetForm }) => {
+            if (dataSelected?.length === 0) {
+              dispatch(setValidate(true));
+              dispatch(
+                setMessage(
+                  select === "staff"
+                    ? "Staff cannot be empty."
+                    : "Parent cannot be empty."
+                )
+              );
+              return;
+            }
             mutation.mutate({
               ...values,
               user_other_fname: itemEdit
@@ -221,6 +239,30 @@ const UserOtherFormAddEdit = ({ itemEdit }) => {
                 ? getpParentRole.role_aid
                 : values.user_other_role_id,
             });
+
+            // console.log({
+            //   ...values,
+            //   user_other_fname: itemEdit
+            //     ? values.user_other_fname
+            //     : select === "staff"
+            //     ? dataSelected.settings_staff_fname
+            //     : dataSelected.parents_fname,
+            //   user_other_lname: itemEdit
+            //     ? values.user_other_lname
+            //     : select === "staff"
+            //     ? dataSelected.settings_staff_lname
+            //     : dataSelected.parents_lname,
+            //   user_other_email: itemEdit
+            //     ? values.user_other_email
+            //     : select === "staff"
+            //     ? dataSelected.settings_staff_email
+            //     : dataSelected.parents_email,
+            //   user_other_role_id: itemEdit
+            //     ? values.user_other_role_id
+            //     : select === "parent"
+            //     ? getpParentRole.role_aid
+            //     : values.user_other_role_id,
+            // });
           }}
         >
           {(props) => {
