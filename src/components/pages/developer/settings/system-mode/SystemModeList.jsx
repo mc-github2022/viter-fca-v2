@@ -14,6 +14,7 @@ import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError.jsx";
 import React from "react";
 import { FiTrash } from "react-icons/fi";
+import ModalTurnOnAndOff from "./ModalTurnOnAndOff";
 const SystemModeList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -77,7 +78,7 @@ const SystemModeList = ({ setItemEdit }) => {
           system_mode?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none "
               }
               key={key}
             >
@@ -111,8 +112,8 @@ const SystemModeList = ({ setItemEdit }) => {
                       data-tooltip="Turn OFF"
                       onClick={() => handleArchive(item)}
                     >
-                      <span className="bg-green-50 border border-green-200 rounded-full text-[5px] px-2 absolute cursor-pointer">
-                        <span className="bg-green-200 p-1 rounded-full relative right-[0.44rem] ">
+                      <span className="bg-green-50 border border-accent rounded-full text-[5px] px-2 absolute cursor-pointer">
+                        <span className="bg-accent p-1 rounded-full relative right-[0.44rem] text-white">
                           ON
                         </span>
                       </span>
@@ -159,12 +160,11 @@ const SystemModeList = ({ setItemEdit }) => {
       </div>
 
       {store.isSettingConfirm && (
-        <ModalConfirm
+        <ModalTurnOnAndOff
           mysqlApiArchive={`/v2/dev-system-mode/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "turn on" : "turn off"
-          } this record?`}
-          item={dataItem.system_mode_name}
+          } "${dataItem.system_mode_name} Mode"?`}
           queryKey={"settings_system_mode"}
           isArchive={isArchive}
         />

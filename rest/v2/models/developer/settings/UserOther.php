@@ -13,6 +13,8 @@ class UserOther
     public $user_other_created;
     public $user_other_datetime;
 
+    public $parents_old_email;
+
     public $connection;
     public $lastInsertedId;
     public $user_other_start;
@@ -224,6 +226,7 @@ class UserOther
         try {
             $sql = "select ";
             $sql .= "user_other_key, ";
+            $sql .= "user_other_email, ";
             $sql .= "user_other_new_email ";
             $sql .= "from {$this->tblUserOther} ";
             $sql .= "where user_other_key = :user_other_key ";
@@ -356,6 +359,26 @@ class UserOther
                 "user_other_email" => $this->user_other_email,
                 "user_other_datetime" => $this->user_other_datetime,
                 "user_other_key" => $this->user_other_key,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // update email
+    public function updateEmailForParents()
+    {
+        try {
+            $sql = "update {$this->tblParents} set ";
+            $sql .= "parents_email = :parents_email, ";
+            $sql .= "parents_datetime = :user_other_datetime ";
+            $sql .= "where parents_email = :parents_old_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_email" => $this->user_other_email,
+                "user_other_datetime" => $this->user_other_datetime,
+                "parents_old_email" => $this->parents_old_email,
             ]);
         } catch (PDOException $ex) {
             $query = false;

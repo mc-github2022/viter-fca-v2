@@ -10,6 +10,7 @@ import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import {
+  setIsAdd,
   setSettingIsConfirm,
   setSettingIsDelete,
 } from "@/components/store/StoreAction";
@@ -25,7 +26,7 @@ import { PiStudentLight } from "react-icons/pi";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 
-const ClientList = () => {
+const ClientList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
@@ -67,6 +68,11 @@ const ClientList = () => {
     },
     refetchOnWindowFocus: false,
   });
+
+  const handleEdit = (item) => {
+    dispatch(setIsAdd(true));
+    setItemEdit(item);
+  };
 
   const handleArchive = (item) => {
     dispatch(setSettingIsConfirm(true));
@@ -165,13 +171,13 @@ const ClientList = () => {
                           />
                         </td>
                         <td>
-                          {item.parents_fullname} {item.parents_aid}
+                          {item.parents_fname} {item.parents_lname}
                         </td>
                         <td>
                           {item.parents_is_active === 1 ? (
                             <div className="flex gap-2 justify-end">
                               <Link
-                                to={`${devNavUrl}/${link}/clients/students?pid=${item.parents_aid}`}
+                                to={`${devNavUrl}/${link}/clients/students?cid=${item.parents_aid}`}
                                 className="tooltip text-base"
                                 data-tooltip="Student"
                               >
@@ -179,7 +185,7 @@ const ClientList = () => {
                               </Link>
 
                               <Link
-                                to={`${devNavUrl}/${link}/clients/information?pid=${item.parents_aid}`}
+                                to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
                                 className="tooltip text-base"
                                 data-tooltip="Info"
                               >
@@ -190,7 +196,7 @@ const ClientList = () => {
                                 type="button"
                                 className="tooltip "
                                 data-tooltip="Edit"
-                                // onClick={() => handleEdit(row.row.original)}
+                                onClick={() => handleEdit(item)}
                               >
                                 <FiEdit2 />
                               </button>

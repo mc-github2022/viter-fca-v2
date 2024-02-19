@@ -7,6 +7,7 @@ import {
   setIsDelete,
   setIsSettingAdd,
   setSettingIsConfirm,
+  setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
@@ -14,25 +15,31 @@ import { BsArchive } from "react-icons/bs";
 import NoData from "@/components/partials/NoData.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
+import ModalReset from "@/components/partials/modals/ModalReset";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import { MdOutlineRestore } from "react-icons/md";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
-const RolesList = ({ setItemEdit }) => {
+import { MdOutlineRestore, MdPassword } from "react-icons/md";
+import { PiPasswordLight } from "react-icons/pi";
+const UserOtherStaffList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
+  const [isReset, setReset] = React.useState(false);
 
   const {
     isLoading,
     isFetching,
-    data: roles,
+    error,
+    data: other,
   } = useQueryData(
-    "/v2/dev-roles", // endpoint
+    "/v2/user-other", // endpoint
     "get", // method
-    "roles" // key
+    "other" // key
   );
+
+  const getStaffUser = other?.data.filter((item) => item.role_is_parent !== 1);
 
   const handleEdit = (item) => {
     dispatch(setIsSettingAdd(true));
@@ -41,23 +48,27 @@ const RolesList = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.role_aid);
+    setId(item.user_other_aid);
     setData(item);
     setIsArchive(0);
-    console.log(isArchive);
   };
 
   const handleRestore = (item) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.role_aid);
+    setId(item.user_other_aid);
     setData(item);
     setIsArchive(1);
-    console.log(isArchive);
   };
 
   const handleDelete = (item) => {
     dispatch(setSettingIsDelete(true));
-    setId(item.role_aid);
+    setId(item.user_other_aid);
+    setData(item);
+  };
+
+  const handleReset = (item) => {
+    setId(item.user_other_aid);
+    setReset(true);
     setData(item);
   };
 
@@ -68,16 +79,16 @@ const RolesList = ({ setItemEdit }) => {
       <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}
 
-        {!isLoading && roles.success === false ? (
+        {!isLoading && other.success === false ? (
           <ModalInvalidRequestError />
         ) : isLoading ? (
           <TableLoading count={20} cols={3} />
-        ) : roles?.data.length === 0 ? (
+        ) : getStaffUser?.length === 0 ? (
           <NoData />
         ) : (
           !isLoading &&
-          roles.success === true &&
-          roles?.data.map((item, key) => (
+          other.success === true &&
+          getStaffUser?.map((item, key) => (
             <div
               className={
                 "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
@@ -86,14 +97,18 @@ const RolesList = ({ setItemEdit }) => {
             >
               <div
                 className={`${
-                  item.role_is_active ? "opacity-100" : "opacity-40"
+                  item.user_other_is_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <p className="mb-1 capitalize">{item.role_name}</p>
+                <p className="mb-1">
+                  {item.user_other_fname} {item.user_other_lname}
+                </p>
+                <p className="mb-1">{item.user_other_email}</p>
+                <p className="mb-1">{item.role_name}</p>
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">
-                {item.role_is_active === 1 ? (
+                {item.user_other_is_active === 1 ? (
                   <>
                     <li className=" ">
                       <button
@@ -102,6 +117,15 @@ const RolesList = ({ setItemEdit }) => {
                         onClick={() => handleEdit(item)}
                       >
                         <FiEdit2 />
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="tooltip"
+                        data-tooltip="Reset password"
+                        onClick={() => handleReset(item)}
+                      >
+                        <PiPasswordLight />
                       </button>
                     </li>
                     <li>
@@ -142,28 +166,38 @@ const RolesList = ({ setItemEdit }) => {
         )}
       </div>
 
+      {isReset && (
+        <ModalReset
+          setReset={setReset}
+          mysqlApiReset={`/v2/user-other/reset`}
+          msg={"Are you sure you want to reset the password of this record?"}
+          item={dataItem.user_other_email}
+          queryKey={"other"}
+        />
+      )}
+
       {store.isSettingConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/dev-roles/active/${id}`}
+          mysqlApiArchive={`/v2/user-other/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={dataItem.role_name}
-          queryKey={"roles"}
+          item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
+          queryKey={"other"}
           isArchive={isArchive}
         />
       )}
 
       {store.isSettingDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-roles/${id}`}
+          mysqlApiDelete={`/v2/user-other/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={dataItem.role_name}
-          queryKey={"roles"}
+          item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
+          queryKey={"other"}
         />
       )}
     </>
   );
 };
 
-export default RolesList;
+export default UserOtherStaffList;

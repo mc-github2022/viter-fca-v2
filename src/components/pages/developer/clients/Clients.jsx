@@ -12,9 +12,11 @@ import ModalAddClient from "./ModalAddClient.jsx";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
+    setItemEdit(null);
   };
 
   return (
@@ -44,13 +46,13 @@ const Clients = () => {
               </button>
             </div>
 
-            <ClientList />
+            <ClientList setItemEdit={setItemEdit} />
           </main>
         </div>
         <Footer />
       </section>
 
-      {store.isAdd && <ModalAddClient />}
+      {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}
 
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
