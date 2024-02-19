@@ -25,7 +25,7 @@ class Profile
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblUserOther = "fcav2_settings_user_system";
+        $this->tblUserOther = "fcav2_settings_user_other";
         $this->tblRole = "fcav2_settings_role";
     }
 
