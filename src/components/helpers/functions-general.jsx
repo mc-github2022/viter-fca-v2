@@ -6,11 +6,6 @@ import { StoreContext } from "../store/StoreContext.jsx";
 const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
 const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
 
-// // cycy
-// export const urlPathFca = "http://localhost/projects/viter-fca-v2";
-// export const imgUrlPathFca =
-//   "http://localhost/projects/viter-fca-v2/public/img";
-
 // // // // Patrick
 // export const urlPathFca = `https://devapp.fbasapp.com`;
 // export const imgUrlPathFca = `https://devapp.fbasapp.com/img`;
