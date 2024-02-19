@@ -109,7 +109,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="mt-5 bg-primary rounded-md max-w-[600px] border-line border shadow-sm relative pb-4">
+          <div className="mt-5 bg-primary rounded-md max-w-[430px]  shadow-sm relative pb-4">
             <header className=" py-2 pr-4 flex justify-end">
               <button className="text-lg md:hidden" onClick={handleShowSubMenu}>
                 <FaBars />
@@ -117,24 +117,9 @@ const Profile = () => {
             </header>
 
             <div className=" pl-0  md:flex md:gap-5">
-              <aside
-                className={`mb-5 max-w-[150px] w-full subnav absolute md:static top-8 right-4 bg-primary z-40 shadow-sm border border-line md:shadow-none md:border-none ${
-                  show ? "block" : "hidden"
-                } md:block `}
-              >
-                <ul>
-                  <li className="active !p-0 text-center">
-                    <button className="text-sm w-full p-2">
-                      <TfiLock className="md:text-lg" />
-                      Password
-                    </button>
-                  </li>
-                </ul>
-              </aside>
-
-              <div className="px-4 w-full">
+              <div className="w-full">
                 <div className="profile__block min-h-[300px] w-full ">
-                  <h6 className="mb-5">Update password</h6>
+                  <h6 className="mb-5">Change Password</h6>
 
                   <Formik
                     initialValues={initVal}
