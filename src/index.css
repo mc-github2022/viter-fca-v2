@@ -160,7 +160,7 @@
   }
 
   nav {
-    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border-r border-line w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
+    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border-r-2 border-gray-300 w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
   }
 
   nav .backdrop {
@@ -496,9 +496,9 @@
     @apply content-[attr(data-tooltip)] absolute -top-[20px] text-[10px]  left-1/2  -translate-x-1/2  bg-black  bg-opacity-70 py-[4px] px-1.5 text-primary  rounded-md hidden leading-none;
   }
 
-  .tooltip::before {
+  /* .tooltip::before {
     @apply content-[''] absolute w-0 h-0 -top-[2px] left-1/2 -translate-x-1/2 border-t-4 border-r-4 border-l-4 border-solid border-transparent border-t-black/70 hidden;
-  }
+  } */
 
   /* HEADER DROPDOWN */
   .dropdown.active {

@@ -3,6 +3,7 @@
 require '../../../../core/header.php';
 // use needed functions
 require '../../../../core/functions.php';
+require 'functions.php';
 // use needed classes
 require '../../../../models/developer/settings/UserOther.php';
 // check database connection
@@ -34,7 +35,10 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
             $row = $readKey->fetch(PDO::FETCH_ASSOC);
             extract($row);
             $user_other->user_other_email = $user_other_new_email;
+            $user_other->parents_old_email = $user_other_email;
+
             // update
+            checkUpdateEmailForParents($user_other);
             $query = checkUpdateEmailForUser($user_other);
             returnSuccess($user_other, "System user", $query);
         }

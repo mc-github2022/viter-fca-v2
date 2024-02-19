@@ -20,11 +20,15 @@ import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
 import Department from "@/components/pages/developer/settings/Department/Department";
+import UserOtherParent from "@/components/pages/developer/settings/user-other/parent/UserOtherParent";
+import UserOtherStaff from "@/components/pages/developer/settings/user-other/staff/UserOtherStaff";
+
 const ModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
 
   const [index, setIndex] = React.useState(1);
+  const [indexInner, setIndexInner] = React.useState(1);
 
   const handleShowSideNav = () => {
     setShowSideNav(!showSideNav);
@@ -64,6 +68,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
               <ModalSettingsNav
                 showSideNav={showSideNav}
                 setIndex={setIndex}
+                setIndexInner={setIndexInner}
                 index={index}
                 setShowSideNav={setShowSideNav}
               />
@@ -82,7 +87,9 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <RequirementIt index={index} />
                 <TuitionCategory index={index} />
                 <Scheme index={index} />
-                <UserOther index={index} />
+                {/* <UserOther index={index} indexInner={indexInner} /> */}
+                <UserOtherParent index={index} indexInner={indexInner} />
+                <UserOtherStaff index={index} indexInner={indexInner} />
                 <UserSystem index={index} />
                 <Roles index={index} />
                 <Discount index={index} />

@@ -8,7 +8,7 @@ define("FEEDBACK_ASSIGNER", "Feedback From Assigner");
 define("TASK_CONTROL_DETAILS", "Task Control Details");
 define("VERIFY_EMAIL", "Email Verification");
 define("DEVELOPER", "mark.merin@frontlinebusiness.com.ph");
-define("ADMIN", "mark.merin@frontlinebusiness.com.ph");
+define("ADMIN", "jhonny.dichoso@frontlinebusiness.com.ph");
 
 // // local
 define("ROOT_DOMAIN", "http://127.0.0.1:5173");
