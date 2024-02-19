@@ -127,21 +127,18 @@ RewriteRule ^dev-system-mode/active/([0-9]+)$ controllers/developer/settings/sys
  
 #INFO-CONTACT
 RewriteRule ^dev-info-contact$ controllers/developer/client/info-contact/info-contact.php [L]
-RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?contactinfoid=$1 [L]
+RewriteRule ^dev-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?contactid=$1 [L]
+RewriteRule ^dev-read-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?parentid=$1 [L]
 
-RewriteRule ^dev-read-info-contact/([0-9]+)$ controllers/developer/client/info-contact/info-contact.php?parentuid=$1 [L]
-
-###### DEV CLIENT ######
+#INFO-PARENT
 RewriteRule ^dev-info-parent$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php [L]
-RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentinfoaid=$1 [L]
+RewriteRule ^dev-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentid=$1 [L]
+RewriteRule ^dev-read-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentid=$1 [L]
 
-RewriteRule ^dev-read-info-parent/([0-9]+)$ controllers/developer/client/info-parent-guardian/info-parent-guardian.php?parentuid=$1 [L]
-
-##### INFO-FINANCIAL #######
-RewriteRule ^dev-info-financial$ controllers/developer/client/info-financial/info-financial.php [L]
-RewriteRule ^dev-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?financialinfoaid=$1 [L]
-
-RewriteRule ^dev-read-info-financial/([0-9]+)$ controllers/developer/client/info-financial/info-financial.php?parentuid=$1 [L]
+#INFO-GUARDIAN
+RewriteRule ^dev-info-guardian$ controllers/developer/client/info-guardian/info-guardian.php [L]
+RewriteRule ^dev-info-guardian/([0-9]+)$ controllers/developer/client/info-guardian/info-guardian.php?guardianid=$1 [L]
+RewriteRule ^dev-read-info-guardian/([0-9]+)$ controllers/developer/client/info-guardian/info-guardian.php?parentid=$1 [L]
 
 ###### DEV CLIENT ######
 

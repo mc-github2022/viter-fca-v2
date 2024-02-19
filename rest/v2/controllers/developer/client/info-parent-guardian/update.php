@@ -3,44 +3,44 @@
 
 $conn = null;
 $conn = checkDbConnection();
-$parent = new InfoParentGuardian($conn);
+$parent = new InfoParent($conn);
 $error = [];
 $returnData = [];
 
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
 
-if (array_key_exists("parentinfoaid", $_GET)) {
+if (array_key_exists("parentid", $_GET)) {
     checkPayload($data);
-    $parent->parent_guardian_info_aid =  $_GET['parentinfoaid'];
-    $parent->parent_guardian_info_user_id = checkIndex($data, "parent_guardian_info_user_id");
-    $parent->parent_guardian_info_relationship_id = checkIndex($data, "parent_guardian_info_relationship_id");
-    $parent->parent_guardian_info_salutation = checkIndex($data, "parent_guardian_info_salutation");
-    $parent->parent_guardian_info_reside = checkIndex($data, "parent_guardian_info_reside");
-    $parent->parent_guardian_info_fname = checkIndex($data, "parent_guardian_info_fname");
-    $parent->parent_guardian_info_mname = $data["parent_guardian_info_mname"];
-    $parent->parent_guardian_info_lname = checkIndex($data, "parent_guardian_info_lname");
-    $parent->parent_guardian_info_maiden_name = $data["parent_guardian_info_maiden_name"];
-    $parent->parent_guardian_info_email = checkIndex($data, "parent_guardian_info_email");
-    $parent->parent_guardian_info_mobile = checkIndex($data, "parent_guardian_info_mobile");
-    $parent->parent_guardian_info_landline = $data["parent_guardian_info_landline"];
-    $parent->parent_guardian_info_address = checkIndex($data, "parent_guardian_info_address");
-    $parent->parent_guardian_info_province = checkIndex($data, "parent_guardian_info_province");
-    $parent->parent_guardian_info_city = checkIndex($data, "parent_guardian_info_city");
-    $parent->parent_guardian_info_zipcode = checkIndex($data, "parent_guardian_info_zipcode");
-    $parent->parent_guardian_info_religion = checkIndex($data, "parent_guardian_info_religion");
-    $parent->parent_guardian_info_occupation = checkIndex($data, "parent_guardian_info_occupation");
-    $parent->parent_guardian_info_datetime = date("Y-m-d H:i:s");
+    $parent->parents_aid =  $_GET['parentid'];
+    $parent->parents_relationship_id = checkIndex($data, "parents_relationship_id");
+    $parent->parents_salutation = checkIndex($data, "parents_salutation");
+    $parent->parents_is_reside = checkIndex($data, "parents_is_reside");
+    $parent->parents_fname = checkIndex($data, "parents_fname");
+    $parent->parents_mname = $data["parents_mname"];
+    $parent->parents_lname = checkIndex($data, "parents_lname");
+    $parent->parents_maiden_name = $data["parents_maiden_name"];
+    $parent->parents_email = checkIndex($data, "parents_email");
+    $parent->parents_mobile = checkIndex($data, "parents_mobile");
+    $parent->parents_landline = $data["parents_landline"];
+    $parent->parents_address = checkIndex($data, "parents_address");
+    $parent->parents_province = checkIndex($data, "parents_province");
+    $parent->parents_city = checkIndex($data, "parents_city");
+    $parent->parents_zipcode = checkIndex($data, "parents_zipcode");
+    $parent->parents_country = checkIndex($data, "parents_country");
+    $parent->parents_religion = checkIndex($data, "parents_religion");
+    $parent->parents_occupation = checkIndex($data, "parents_occupation");
+    $parent->parents_datetime = date("Y-m-d H:i:s");
 
-    $parent_guardian_info_fname_old = checkIndex($data, "parent_guardian_info_fname_old");
-    $parent_guardian_info_lname_old = checkIndex($data, "parent_guardian_info_lname_old");
+    $parents_fname_old = checkIndex($data, "parents_fname_old");
+    $parents_lname_old = checkIndex($data, "parents_lname_old");
 
     
-    $parent->fullname = strtolower($parent->parent_guardian_info_fname) ." ". strtolower($parent->parent_guardian_info_lname);
+    $parent->fullname = strtolower($parent->parents_fname) ." ". strtolower($parent->parents_lname);
 
-    $fullname_old = $parent_guardian_info_fname_old . " " . $parent_guardian_info_lname_old;
+    $fullname_old = $parents_fname_old . " " . $parents_lname_old;
 
-    checkId($parent->parent_guardian_info_aid);
+    checkId($parent->parents_aid);
 
     compareName($parent, $fullname_old, $parent->fullname);
     $query = checkUpdate($parent);

@@ -88,8 +88,6 @@ const ClientList = () => {
     setData(item);
   };
 
-  console.log(result);
-
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -166,12 +164,14 @@ const ClientList = () => {
                             }
                           />
                         </td>
-                        <td>{item.parents_fullname}</td>
+                        <td>
+                          {item.parents_fullname} {item.parents_aid}
+                        </td>
                         <td>
                           {item.parents_is_active === 1 ? (
                             <div className="flex gap-2 justify-end">
                               <Link
-                                to={`${devNavUrl}/${link}/clients/students?cid=${1}`}
+                                to={`${devNavUrl}/${link}/clients/students?pid=${item.parents_aid}`}
                                 className="tooltip text-base"
                                 data-tooltip="Student"
                               >
@@ -179,7 +179,7 @@ const ClientList = () => {
                               </Link>
 
                               <Link
-                                to={`${devNavUrl}/${link}/clients/information?cid=${1}`}
+                                to={`${devNavUrl}/${link}/clients/information?pid=${item.parents_aid}`}
                                 className="tooltip text-base"
                                 data-tooltip="Info"
                               >

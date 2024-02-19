@@ -1,13 +1,13 @@
 <?php
 $conn = null;
 $conn = checkDbConnection();
-$parent = new InfoParentGuardian($conn);
+$parent = new InfoParent($conn);
 $error = [];
 $returnData = [];
 
-if (array_key_exists("parentuid", $_GET)) {
-    $parent->parent_guardian_info_user_id = $_GET['parentuid'];
-    checkId($parent->parent_guardian_info_user_id);
+if (array_key_exists("parentid", $_GET)) {
+    $parent->parents_aid = $_GET['parentid'];
+    checkId($parent->parents_aid);
     $query = checkReadById($parent);
     http_response_code(200);
     getQueriedData($query);

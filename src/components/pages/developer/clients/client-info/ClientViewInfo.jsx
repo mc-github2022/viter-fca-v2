@@ -9,13 +9,13 @@ import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
 import { FaAngleLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Navigation from "../../Navigation.jsx";
 import CardClientContactInfo from "./CardClientContactInfo.jsx";
 import CardClientFinancierInfo from "./CardClientFinancierInfo.jsx";
 import CardClientParentInfo from "./CardClientParentInfo.jsx";
 import FormClientContactInfo from "./FormClientContactInfo.jsx";
 import FormClientFinancierInfo from "./FormClientFinancierInfo.jsx";
 import FormClientParentInfo from "./FormClientParentInfo.jsx";
-import Navigation from "../../Navigation.jsx";
 const ClientViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [showParentForm, setShowParentForm] = React.useState(false);
@@ -23,41 +23,30 @@ const ClientViewInfo = () => {
   const [showFinancierForm, setShowFinancierForm] = React.useState(false);
   const [itemEdit, setItemEdit] = React.useState(null);
 
-  const id = getUrlParam().get("cid");
+  const pid = getUrlParam().get("pid");
   const navigate = useNavigate();
 
-  // const {
-  //   isLoading: userIsLoading,
-  //   isFetching: userIsFetching,
-  //   error: userError,
-  //   data: userAccount,
-  // } = useQueryData(
-  //   `/v2/user-other/${id}`, // endpoint
-  //   "get", // method
-  //   "userAccount" // key
-  // );
+  const {
+    isLoading: guardianIsLoading,
+    isFetching: guardianIsFetching,
+    error: guardianIsError,
+    data: guardianInfo,
+  } = useQueryData(
+    `/v2/dev-read-info-guardian/${pid}`, // endpoint
+    "get", // method
+    "guardianInfo" // key
+  );
 
-  // const {
-  //   isLoading,
-  //   isFetching,
-  //   error,
-  //   data: parentInfo,
-  // } = useQueryData(
-  //   `/v2/dev-read-info-pat/${id}`, // endpoint
-  //   "get", // method
-  //   "parentInfo" // key
-  // );
-
-  // const {
-  //   isLoading: contactIsLoading,
-  //   isFetching: contactIsFetching,
-  //   error: contactIsError,
-  //   data: contactInfo,
-  // } = useQueryData(
-  //   `/v2/dev-read-info-contact/${id}`, // endpoint
-  //   "get", // method
-  //   "contactInfo" // key
-  // );
+  const {
+    isLoading: contactIsLoading,
+    isFetching: contactIsFetching,
+    error: contactIsError,
+    data: contactInfo,
+  } = useQueryData(
+    `/v2/dev-read-info-contact/${pid}`, // endpoint
+    "get", // method
+    "contactInfo" // key
+  );
 
   // const {
   //   isLoading: financierIsLoading,
@@ -91,23 +80,23 @@ const ClientViewInfo = () => {
                   <FaAngleLeft /> Back
                 </button>
                 <BreadCrumbs />
-                <h1 className="text-clampH1 mb-5">
-                  {userIsLoading || userIsFetching ? (
+                <h1 className="text-clampH1 ">
+                  {/* {parentIsLoading || parentIsFetching ? (
                     <p>Loading</p>
                   ) : (
                     <>
-                      <span className="pr-2">
-                        {userAccount?.data[0].user_other_fname}
+                      <span className="pr-2 capitalize">
+                        {parentInfo?.data[0].parents_fname}{" "}
+                        {parentInfo?.data[0].parents_lname}
                       </span>
-                      <span>{userAccount?.data[0].user_other_lname}</span>
                     </>
-                  )}
+                  )} */}
                 </h1>
               </div>
             </div>
 
             <div className="main__cardlist">
-              {isLoading ? (
+              {guardianIsLoading ? (
                 <TableLoading />
               ) : (
                 !showParentForm && (
@@ -119,11 +108,13 @@ const ClientViewInfo = () => {
                     }`}
                   >
                     <CardClientParentInfo
-                      parentInfo={parentInfo}
+                      guardianInfo={guardianInfo}
                       itemEdit={itemEdit}
-                      error={error}
                       setItemEdit={setItemEdit}
                       setShowParentForm={setShowParentForm}
+                      error={guardianIsError}
+                      isLoading={guardianIsLoading}
+                      isFetching={guardianIsFetching}
                     />
                   </div>
                 )
@@ -151,8 +142,11 @@ const ClientViewInfo = () => {
                     <CardClientContactInfo
                       contactInfo={contactInfo}
                       itemEdit={itemEdit}
-                      setShowContactForm={setShowContactForm}
                       setItemEdit={setItemEdit}
+                      setShowContactForm={setShowContactForm}
+                      error={contactIsError}
+                      isLoading={contactIsLoading}
+                      isFetching={contactIsFetching}
                     />
                   </div>
                 )
@@ -166,7 +160,7 @@ const ClientViewInfo = () => {
                 />
               )}
 
-              {financierIsLoading || financierIsFetching ? (
+              {/*{financierIsLoading || financierIsFetching ? (
                 <TableLoading />
               ) : (
                 !showFinancierForm && (
@@ -193,7 +187,7 @@ const ClientViewInfo = () => {
                   setShowFinancierForm={setShowFinancierForm}
                   setItemEdit={setItemEdit}
                 />
-              )}
+              )} */}
             </div>
           </main>
         </div>
