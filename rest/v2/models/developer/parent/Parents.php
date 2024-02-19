@@ -9,24 +9,30 @@ class Parents
     public $parents_created;
     public $parents_datetime;
 
+    public $parents_email_old;
+
+    public $user_other_key;
+
     public $connection;
     public $lastInsertedId;
     public $parents_start;
     public $parents_total;
     public $parents_search;
 
-    public $tblStaff;
+    public $tblParents;
+    public $tblUserOther;
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblStaff = "fcav2_parents";
+        $this->tblParents = "fcav2_parents";
+        $this->tblUserOther = "fcav2_settings_user_other";
     }
 
     public function create()
     {
         try {
-            $sql = "insert into {$this->tblStaff} ";
+            $sql = "insert into {$this->tblParents} ";
             $sql .= "( parents_is_active, ";
             $sql .= "parents_fname, ";
             $sql .= "parents_lname, ";
@@ -62,9 +68,10 @@ class Parents
             $sql = "select ";
             $sql .= "parents_aid, ";
             $sql .= "parents_is_active, ";
-            $sql .= "CONCAT(parents_fname, ' ', parents_lname) as parents_fullname, ";
+            $sql .= "parents_fname, ";
+            $sql .= "parents_lname, ";
             $sql .= "parents_email ";
-            $sql .= "from {$this->tblStaff} ";
+            $sql .= "from {$this->tblParents} ";
             $sql .= "order by parents_is_active desc, ";
             $sql .= "parents_fname ";
             $query = $this->connection->query($sql);
@@ -81,9 +88,10 @@ class Parents
             $sql = "select ";
             $sql .= "parents_aid, ";
             $sql .= "parents_is_active, ";
-            $sql .= "CONCAT(parents_fname, ' ', parents_lname) as parents_fullname, ";
+            $sql .= "parents_fname, ";
+            $sql .= "parents_lname, ";
             $sql .= "parents_email ";
-            $sql .= "from {$this->tblStaff} ";
+            $sql .= "from {$this->tblParents} ";
             $sql .= "order by parents_is_active desc, ";
             $sql .= "parents_fname ";
             $sql .= "limit :start, ";
@@ -106,9 +114,10 @@ class Parents
             $sql = "select ";
             $sql .= "parents_aid, ";
             $sql .= "parents_is_active, ";
-            $sql .= "CONCAT(parents_fname, ' ', parents_lname) as parents_fullname, ";
+            $sql .= "parents_fname, ";
+            $sql .= "parents_lname, ";
             $sql .= "parents_email ";
-            $sql .= "from {$this->tblStaff} ";
+            $sql .= "from {$this->tblParents} ";
             $sql .= "where ( ";
             $sql .= "parents_fname like :parents_fname ";
             $sql .= "or parents_lname like :parents_lname ";
@@ -132,7 +141,7 @@ class Parents
     public function readById()
     {
         try {
-            $sql = "select * from {$this->tblStaff} ";
+            $sql = "select * from {$this->tblParents} ";
             $sql .= "where parents_aid = :parents_aid ";
             $sql .= "order by user_other_fname asc ";
             $query = $this->connection->prepare($sql);
@@ -148,7 +157,30 @@ class Parents
     public function update()
     {
         try {
-            $sql = "update {$this->tblStaff} set ";
+            $sql = "update {$this->tblParents} set ";
+            $sql .= "parents_fname = :parents_fname, ";
+            $sql .= "parents_lname = :parents_lname, ";
+            // $sql .= "parents_email = :parents_email, ";
+            $sql .= "parents_datetime = :parents_datetime ";
+            $sql .= "where parents_aid  = :parents_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_fname" => $this->parents_fname,
+                "parents_lname" => $this->parents_lname,
+                // "parents_email" => $this->parents_email,
+                "parents_datetime" => $this->parents_datetime,
+                "parents_aid" => $this->parents_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function updateIfNoAccount()
+    {
+        try {
+            $sql = "update {$this->tblParents} set ";
             $sql .= "parents_fname = :parents_fname, ";
             $sql .= "parents_lname = :parents_lname, ";
             $sql .= "parents_email = :parents_email, ";
@@ -168,10 +200,32 @@ class Parents
         return $query;
     }
 
+    // update
+    public function updateUserKeyAndNewEmail()
+    {
+        try {
+            $sql = "update {$this->tblUserOther} set ";
+            $sql .= "user_other_key = :user_other_key, ";
+            $sql .= "user_other_new_email = :parents_email, ";
+            $sql .= "user_other_datetime = :parents_datetime ";
+            $sql .= "where user_other_email = :parents_email_old ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "user_other_key" => $this->user_other_key,
+                "parents_email" => $this->parents_email,
+                "parents_datetime" => $this->parents_datetime,
+                "parents_email_old" => $this->parents_email_old,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function active()
     {
         try {
-            $sql = "update {$this->tblStaff} set ";
+            $sql = "update {$this->tblParents} set ";
             $sql .= "parents_is_active = :parents_is_active, ";
             $sql .= "parents_datetime = :parents_datetime ";
             $sql .= "where parents_aid  = :parents_aid ";
@@ -190,7 +244,7 @@ class Parents
     public function delete()
     {
         try {
-            $sql = "delete from {$this->tblStaff} ";
+            $sql = "delete from {$this->tblParents} ";
             $sql .= "where parents_aid = :parents_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
@@ -208,11 +262,27 @@ class Parents
     public function checkEmail()
     {
         try {
-            $sql = "select parents_email from {$this->tblStaff} ";
+            $sql = "select parents_email from {$this->tblParents} ";
             $sql .= "where parents_email = :parents_email ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "parents_email" => "{$this->parents_email}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // email
+    public function checkUserOtherAccount()
+    {
+        try {
+            $sql = "select user_other_email from {$this->tblUserOther} ";
+            $sql .= "where user_other_email = :parents_email_old ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_email_old" => "{$this->parents_email_old}",
             ]);
         } catch (PDOException $ex) {
             $query = false;

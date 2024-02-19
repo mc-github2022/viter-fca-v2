@@ -39,3 +39,11 @@ function checkReadParents($object)
     checkQuery($query, "Empty records. (parents)");
     return $query;
 }
+
+// update parents email 
+function checkUpdateEmailForParents($object)
+{
+    $query = $object->updateEmailForParents();
+    checkQuery($query, "There's a problem processing your request. (update parents email)");
+    return $query;
+}
