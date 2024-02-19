@@ -114,7 +114,7 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     // select_user: !itemEdit && Yup.string().required("Required"),
-    user_other_role_id: select === "staff" && Yup.string().required("Required"),
+    user_other_role_id: itemEdit && Yup.string().required("Required"),
     user_other_fname: itemEdit && Yup.string().required("Required"),
     user_other_lname: itemEdit && Yup.string().required("Required"),
     user_other_email: itemEdit && Yup.string().required("Required"),
