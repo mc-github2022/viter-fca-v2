@@ -54,7 +54,7 @@ const ClientViewInfo = () => {
     error: financierIsError,
     data: financierInfo,
   } = useQueryData(
-    `/v2/dev-read-info-parent/${cid}`, // endpoint
+    `/v2/dev-parents/${cid}`, // endpoint
     "get", // method
     "financierInfo" // key
   );
@@ -189,6 +189,7 @@ const ClientViewInfo = () => {
                   itemEdit={itemEdit}
                   setShowFinancierForm={setShowFinancierForm}
                   setItemEdit={setItemEdit}
+                  financierInfo={financierInfo}
                 />
               )}
             </div>

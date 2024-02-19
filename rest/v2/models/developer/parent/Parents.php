@@ -143,7 +143,7 @@ class Parents
         try {
             $sql = "select * from {$this->tblParents} ";
             $sql .= "where parents_aid = :parents_aid ";
-            $sql .= "order by user_other_fname asc ";
+            $sql .= "order by parents_lname asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "parents_aid" => $this->parents_aid,

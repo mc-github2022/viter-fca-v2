@@ -23,6 +23,7 @@ const FormClientFinancierInfo = ({
   itemEdit,
   setShowFinancierForm,
   setItemEdit,
+  financierInfo,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const id = getUrlParam().get("cid");
@@ -33,8 +34,8 @@ const FormClientFinancierInfo = ({
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-info-parent/${itemEdit.financial_info_aid}`
-          : "/v2/dev-info-parent",
+          ? `/v2/dev-parents/${itemEdit.parents_aid}`
+          : "/v2/dev-parents",
         itemEdit ? "PUT" : "POST",
         values
       ),
@@ -73,7 +74,6 @@ const FormClientFinancierInfo = ({
       ? itemEdit.parents_financier_occupation
       : "",
     parents_financier_income: itemEdit ? itemEdit.parents_financier_income : "",
-    parents_financier_name_old: itemEdit ? itemEdit.parents_financier_name : "",
   };
 
   const yupSchema = Yup.object({});
@@ -85,7 +85,12 @@ const FormClientFinancierInfo = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({ ...values, financial_info_user_id: id });
+          mutation.mutate({
+            ...values,
+            parents_fname: financierInfo.data[0].parents_fname,
+            parents_lname: financierInfo.data[0].parents_lname,
+            parents_email: financierInfo.data[0].parents_email,
+          });
         }}
       >
         {(props) => {
@@ -159,7 +164,7 @@ const FormClientFinancierInfo = ({
                   <InputText
                     label="Occupation"
                     type="text"
-                    name="financial_info_financier_occupation"
+                    name="parents_financier_occupation"
                     disabled={mutation.isLoading}
                   />
                 </div>

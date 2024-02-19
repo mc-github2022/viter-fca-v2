@@ -52,14 +52,6 @@ const CardClientFinancierInfo = ({
             Setup student financier information
           </p>
         </div>
-
-        <button
-          className="tooltip"
-          data-tooltip="New"
-          onClick={handleAddFinancier}
-        >
-          <FaPlus />
-        </button>
       </div>
 
       <div className="max-w-[620px] w-full gap-4 mb-2">
@@ -94,7 +86,7 @@ const CardClientFinancierInfo = ({
                   <button
                     className=" tooltip"
                     data-tooltip="Edit"
-                    // onClick={() => handleShowFinancierForm(item)}
+                    onClick={() => handleShowFinancierForm(item)}
                   >
                     <FiEdit2 />
                   </button>
