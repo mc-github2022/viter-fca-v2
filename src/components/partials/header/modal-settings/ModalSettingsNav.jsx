@@ -1,4 +1,4 @@
-import { setIsAdd } from "@/components/store/StoreAction.jsx";
+import { setIndexItem, setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 
@@ -11,6 +11,7 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
     setIndex(index);
     dispatch(setIsAdd(false));
     setShowSideNav(false);
+    dispatch(setIndexItem(0));
   };
   return (
     <>

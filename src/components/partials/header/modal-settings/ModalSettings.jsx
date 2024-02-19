@@ -13,7 +13,7 @@ import SystemMode from "@/components/pages/developer/settings/system-mode/System
 import TuitionCategory from "@/components/pages/developer/settings/tuition-category/TuitionCategory";
 import UserOther from "@/components/pages/developer/settings/user-other/UserOther";
 import UserSystem from "@/components/pages/developer/settings/user-system/UserSystem";
-import { setIsShowModal } from "@/components/store/StoreAction";
+import { setIndexItem, setIsShowModal } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
 import { FaBars } from "react-icons/fa";

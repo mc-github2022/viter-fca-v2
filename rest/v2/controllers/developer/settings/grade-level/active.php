@@ -15,10 +15,12 @@ $data = json_decode($body, true);
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     if (array_key_exists("gradelevelid", $_GET)) {
-     
+
         checkPayload($data);
         $grade_level->grade_level_aid = $_GET['gradelevelid'];
         $grade_level->grade_level_active = trim($data["isActive"]);
+        $grade_level->grade_level_datetime = date("Y-m-d H:i:s");
+
         checkId($grade_level->grade_level_aid);
         $query = checkActive($grade_level);
         http_response_code(200);

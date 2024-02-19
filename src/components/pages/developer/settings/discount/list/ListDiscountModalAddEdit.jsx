@@ -1,9 +1,14 @@
-import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
+import useQueryData from "@/components/custom-hooks/useQueryData";
+import {
+  InputSelect,
+  InputText,
+  InputTextArea,
+} from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
-  setIsAdd,
+  setIsSettingAdd,
   setMessage,
   setSuccess,
 } from "@/components/store/StoreAction";
@@ -13,12 +18,22 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const DiscountFormAddEdit = ({ itemEdit }) => {
+const ListDiscountModalAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: category,
+  } = useQueryData(
+    "/v2/dev-settings-discount/read-all-category", // endpoint
+    "get", // method
+    "read-all-category" // key
+  );
 
   const handleClose = () => {
-    dispatch(setIsAdd(false));
+    dispatch(setIsSettingAdd(false));
   };
 
   const mutation = useMutation({
@@ -39,7 +54,7 @@ const DiscountFormAddEdit = ({ itemEdit }) => {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        dispatch(setIsAdd(false));
+        dispatch(setIsSettingAdd(false));
         dispatch(setSuccess(true));
         dispatch(
           setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
@@ -49,28 +64,19 @@ const DiscountFormAddEdit = ({ itemEdit }) => {
   });
 
   const initVal = {
-    discount_type: itemEdit ? itemEdit.discount_type : "",
-    discount_tuition_fee: itemEdit ? itemEdit.discount_tuition_fee : "",
+    discount_category_id: itemEdit ? itemEdit.discount_category_id : "",
     discount_entrance_fee: itemEdit ? itemEdit.discount_entrance_fee : "",
-    discount_category: itemEdit ? itemEdit.discount_category : "",
-    discount_qualifications: itemEdit ? itemEdit.discount_qualifications : "",
+    discount_tuition_fee: itemEdit ? itemEdit.discount_tuition_fee : "",
+    discount_qualification: itemEdit ? itemEdit.discount_qualification : "",
     discount_duration: itemEdit ? itemEdit.discount_duration : "",
     discount_maintaining_grade: itemEdit
       ? itemEdit.discount_maintaining_grade
       : "",
     discount_requirement: itemEdit ? itemEdit.discount_requirement : "",
-    role_name_old: itemEdit ? itemEdit.role_name : "",
   };
 
   const yupSchema = Yup.object({
-    discount_type: Yup.string().required("Required"),
-    discount_tuition_fee: Yup.string().required("Required"),
-    discount_entrance_fee: Yup.string().required("Required"),
-    discount_category: Yup.string().required("Required"),
-    discount_qualifications: Yup.string().required("Required"),
-    discount_duration: Yup.string().required("Required"),
-    discount_maintaining_grade: Yup.string().required("Required"),
-    discount_requirement: Yup.string().required("Required"),
+    discount_category_id: Yup.string().required("Required"),
   });
   return (
     <>
@@ -85,35 +91,36 @@ const DiscountFormAddEdit = ({ itemEdit }) => {
           {(props) => {
             return (
               <Form>
-                {/* {!itemEdit && (
-                  <div className="form__wrap text-xs mb-3">
-                    <InputText
-                      label="Discount Type"
-                      name="discount_type"
-                      disabled={mutation.isLoading}
-                    />
-                  </div>
-                )} */}
-
                 <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Discount Type"
-                    name="discount_type"
+                  <InputSelect
+                    label="Category"
+                    type="text"
+                    name="discount_category_id"
                     disabled={mutation.isLoading}
-                  />
-                </div>
+                    onChange={(e) => e}
+                  >
+                    <option value="" hidden></option>
 
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Tuition Fee"
-                    name="discount_tuition_fee"
-                    disabled={mutation.isLoading}
-                  />
+                    {isLoading || isFetching ? (
+                      <option>Loading...</option>
+                    ) : category?.data.length === 0 ? (
+                      <option>No Data</option>
+                    ) : (
+                      category?.data.map((item, key) => {
+                        return (
+                          <option key={key} value={item.discount_category_aid}>
+                            {`${item.discount_category_name}`}
+                          </option>
+                        );
+                      })
+                    )}
+                  </InputSelect>
                 </div>
 
                 <div className="form__wrap text-xs mb-3">
                   <InputText
                     label="Entrance Fee"
+                    type="text"
                     name="discount_entrance_fee"
                     disabled={mutation.isLoading}
                   />
@@ -121,16 +128,17 @@ const DiscountFormAddEdit = ({ itemEdit }) => {
 
                 <div className="form__wrap text-xs mb-3">
                   <InputText
-                    label="Category"
-                    name="discount_category"
+                    label="Tuition Fee"
+                    type="text"
+                    name="discount_tuition_fee"
                     disabled={mutation.isLoading}
                   />
                 </div>
-
                 <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Qualifications"
-                    name="discount_qualifications"
+                  <InputTextArea
+                    label="Qualification"
+                    type="text"
+                    name="discount_qualification"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -138,6 +146,7 @@ const DiscountFormAddEdit = ({ itemEdit }) => {
                 <div className="form__wrap text-xs mb-3">
                   <InputTextArea
                     label="Duration"
+                    type="text"
                     name="discount_duration"
                     disabled={mutation.isLoading}
                   />
@@ -145,7 +154,8 @@ const DiscountFormAddEdit = ({ itemEdit }) => {
 
                 <div className="form__wrap text-xs mb-3">
                   <InputText
-                    label="Maintaining Grade"
+                    label="Tuition Fee"
+                    type="text"
                     name="discount_maintaining_grade"
                     disabled={mutation.isLoading}
                   />
@@ -154,6 +164,7 @@ const DiscountFormAddEdit = ({ itemEdit }) => {
                 <div className="form__wrap text-xs mb-3">
                   <InputTextArea
                     label="Requirement"
+                    type="text"
                     name="discount_requirement"
                     disabled={mutation.isLoading}
                   />
@@ -187,4 +198,4 @@ const DiscountFormAddEdit = ({ itemEdit }) => {
   );
 };
 
-export default DiscountFormAddEdit;
+export default ListDiscountModalAddEdit;

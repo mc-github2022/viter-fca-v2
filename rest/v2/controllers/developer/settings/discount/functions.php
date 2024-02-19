@@ -1,22 +1,9 @@
 <?php
-// check association
-function isUserSystemAssociated($object)
-{
-    $query = $object->checkUserSystemAssociation();
-    $count = $query->rowCount();
-    checkExistence($count, "You cannot delete this item because it is already associated with other module.");
-}
 
-function isUserOtherAssociated($object)
+// Read all
+function checkReadAllCategory($object)
 {
-    $query = $object->checkUserOtherAssociation();
-    $count = $query->rowCount();
-    checkExistence($count, "You cannot delete this item because it is already associated with other module.");
-}
-
-function isRoleAssociated($object)
-{
-    $query = $object->checkUserSystemAssociation();
-    $count = $query->rowCount();
-    checkExistence($count, "You cannot update the name this item because it is already associated with other module.");
+    $query = $object->readAllCategory();
+    checkQuery($query, "Empty records. (read all category)");
+    return $query;
 }
