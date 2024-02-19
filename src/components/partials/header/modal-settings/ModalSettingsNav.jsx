@@ -1,6 +1,7 @@
+import { consoleLog } from "@/components/helpers/functions-general";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-import React from "react";
+import React, { useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
 
 const ModalSettingsNav = ({
@@ -14,6 +15,16 @@ const ModalSettingsNav = ({
   const { store, dispatch } = React.useContext(StoreContext);
   let userRole = store.credentials.data.role_name.toLowerCase();
 
+  const [btnCollapse, setbtnCollapse] = useState(false);
+  const handleBtnCollapse = () => {
+    setbtnCollapse(!btnCollapse);
+  };
+
+  const [subNavActive, setSubNavActive] = useState(true);
+  const handleSubNavActive = () => {
+    setSubNavActive(!subNavActive);
+  };
+
   const handleChangeSetting = (index, e) => {
     e.preventDefault;
     setIndex(index);
@@ -26,7 +37,6 @@ const ModalSettingsNav = ({
     setIndexInner(indexInner);
     dispatch(setIsAdd(false));
     setShowSideNav(false);
-    console.log(indexInner);
   };
   return (
     <>
@@ -135,18 +145,22 @@ const ModalSettingsNav = ({
           </li>
 
           <li className={` ${index === 12 ? "active" : ""}`}>
+            {console.log(index)}
             <button
-              onClick={(e) => handleChangeSetting(12, e)}
+              onClick={(e) => {
+                handleChangeSetting(12, e);
+                handleBtnCollapse();
+              }}
               className="p-1 pl-4"
             >
               <div className="flex items-center justify-between">
                 <span>Users</span>
                 <BsChevronRight
-                  className={` ${index === 12 ? "-rotate-90" : "rotate-90"}`}
+                  className={` ${btnCollapse ? "-rotate-90" : "rotate-90"}`}
                 />
               </div>
             </button>
-            <ul className={`${index === 12 ? "!block" : ""} hidden bg-white`}>
+            <ul className={`${btnCollapse ? "!block" : ""} hidden bg-white`}>
               <li className="text-gray-600 p-1 pl-8">
                 <button
                   onClick={(e) => handleChangeSettingInner(1, e)}
