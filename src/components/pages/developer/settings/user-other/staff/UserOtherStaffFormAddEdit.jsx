@@ -1,7 +1,6 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { InputSelect, InputText } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
-import NoData from "@/components/partials/NoData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
@@ -52,26 +51,11 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
     "user-other-staff" // key
   );
 
-  const {
-    isLoading: isLoadingParents,
-    isFetching: isFetchingParents,
-    error: errorParents,
-    data: parents,
-  } = useQueryData(
-    "/v2/user-other/parents", // endpoint
-    "get", // method
-    "user-other-parents" // key
-  );
-
   const getNonDeveloperRole = roles?.data.filter(
     (item) =>
       item.role_is_active === 1 &&
       item.role_is_developer !== 1 &&
       item.role_is_parent !== 1
-  );
-
-  const getpParentRole = roles?.data.find(
-    (item) => item.role_is_active === 1 && item.role_is_parent === 1
   );
 
   const mutation = useMutation({
@@ -114,14 +98,14 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     // select_user: !itemEdit && Yup.string().required("Required"),
-    user_other_role_id: select === "staff" && Yup.string().required("Required"),
+    user_other_role_id: Yup.string().required("Required"),
     user_other_fname: itemEdit && Yup.string().required("Required"),
     user_other_lname: itemEdit && Yup.string().required("Required"),
     user_other_email: itemEdit && Yup.string().required("Required"),
     // search: !itemEdit && Yup.string().required("Required"),
   });
 
-  const handleSearchTrainer = (e) => {
+  const handleSearchStaff = (e) => {
     setOnFocusUser(true);
     setSearchUser(e.target.value);
     setDataSelected([]);
@@ -140,7 +124,7 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
     setDataUser(filteredData);
   };
 
-  const handleClickOutsideTrainer = (e) => {
+  const handleClickOutsideStaff = (e) => {
     if (
       refUser.current !== undefined &&
       refUser.current !== null &&
@@ -150,25 +134,18 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
     }
   };
 
-  const handleClickTrainer = (item, props) => {
+  const handleClickStaff = (item, props) => {
     setSearchUser(`${item.settings_staff_fname} ${item.settings_staff_lname}`);
     setDataSelected(item);
     props.values.search = `${item.settings_staff_fname} ${item.settings_staff_lname}`;
   };
 
-  const handleSelectUser = (e) => {
-    setSelect(e.target.value);
-    setSearchUser("");
-    setDataSelected([]);
-  };
-
   React.useEffect(() => {
-    document.addEventListener("click", handleClickOutsideTrainer);
-    return () =>
-      document.removeEventListener("click", handleClickOutsideTrainer);
+    document.addEventListener("click", handleClickOutsideStaff);
+    return () => document.removeEventListener("click", handleClickOutsideStaff);
   }, []);
 
-  console.log(dataSelected?.length);
+  console.log(dataSelected);
 
   return (
     <>
@@ -178,33 +155,11 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
           validationSchema={yupSchema}
           validateOnChange="false"
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            // if (dataSelected?.length === 0) {
-            //   dispatch(setValidate(true));
-            //   dispatch(
-            //     setMessage(
-            //       select === "staff"
-            //         ? "Staff cannot be empty."
-            //         : "Parent cannot be empty."
-            //     )
-            //   );
-            //   return;
-            // }
-
-            console.log({
-              ...values,
-              user_other_fname: itemEdit
-                ? values.user_other_fname
-                : dataSelected.settings_staff_fname,
-              user_other_lname: itemEdit
-                ? values.user_other_lname
-                : dataSelected.settings_staff_lname,
-              user_other_email: itemEdit
-                ? values.user_other_email
-                : dataSelected.settings_staff_email,
-              user_other_role_id: itemEdit
-                ? values.user_other_role_id
-                : values.user_other_role_id,
-            });
+            if (!itemEdit && dataSelected?.length === 0) {
+              dispatch(setValidate(true));
+              dispatch(setMessage("Staff cannot be empty."));
+              return;
+            }
 
             mutation.mutate({
               ...values,
@@ -226,65 +181,54 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
           {(props) => {
             return (
               <Form>
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Staff"
-                    type="text"
-                    name="search"
-                    disabled={mutation.isPending}
-                    placeholder="Search staff here"
-                    onChange={(e) => handleSearchTrainer(e)}
-                    onFocus={() => {
-                      setOnFocusUser(true);
-                      setDataUser(staff?.data);
-                    }}
-                    refVal={refUser}
-                    value={searchUser}
-                  />
+                {!itemEdit && (
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="Staff"
+                      type="text"
+                      name="search"
+                      disabled={mutation.isPending}
+                      placeholder="Search staff here"
+                      onChange={(e) => handleSearchStaff(e)}
+                      onFocus={() => {
+                        setOnFocusUser(true);
+                        setDataUser(staff?.data);
+                      }}
+                      refVal={refUser}
+                      value={searchUser}
+                    />
 
-                  {onFocusUser && (
-                    <ul className="absolute z-50 h-52 overflow-y-auto w-full bg-white border border-gray-200 rounded-md">
-                      {dataUser?.length > 0 ? (
-                        dataUser?.map((item, key) => {
-                          {
-                            return select === "staff" ? (
-                              <button
-                                type="button"
-                                className="p-1 pl-3 pr-3 w-full text-left break-all bg-white hover:bg-gray-100  focus:bg-gray-100 focus:outline-none cursor-pointer duration-200"
-                                key={key}
-                                onClick={() => handleClickTrainer(item, props)}
-                              >
-                                {item.settings_staff_fname}{" "}
-                                {item.settings_staff_lname} (
-                                {item.settings_staff_email === ""
-                                  ? "No email provided."
-                                  : item.settings_staff_email}
-                                )
-                              </button>
-                            ) : (
-                              <button
-                                type="button"
-                                className="p-1 pl-3 pr-3 w-full text-left break-all bg-white hover:bg-gray-100  focus:bg-gray-100 focus:outline-none cursor-pointer duration-200"
-                                key={key}
-                                onClick={() => handleClickTrainer(item, props)}
-                              >
-                                {item.parents_fname} {item.parents_lname} (
-                                {item.parents_email === ""
-                                  ? "No email provided."
-                                  : item.parents_email}
-                                )
-                              </button>
-                            );
-                          }
-                        })
-                      ) : (
-                        <li className="mt-8 p-2 w-full text-center bg-white focus:bg-gray-200 border-b border-white">
-                          No Data
-                        </li>
-                      )}
-                    </ul>
-                  )}
-                </div>
+                    {onFocusUser && (
+                      <ul className="absolute z-50 h-52 overflow-y-auto w-full bg-white border border-gray-200 rounded-md">
+                        {dataUser?.length > 0 ? (
+                          dataUser?.map((item, key) => {
+                            {
+                              return (
+                                <button
+                                  type="button"
+                                  className="p-1 pl-3 pr-3 w-full text-left break-all bg-white hover:bg-gray-100  focus:bg-gray-100 focus:outline-none cursor-pointer duration-200"
+                                  key={key}
+                                  onClick={() => handleClickStaff(item, props)}
+                                >
+                                  {item.settings_staff_fname}{" "}
+                                  {item.settings_staff_lname} (
+                                  {item.settings_staff_email === ""
+                                    ? "No email provided."
+                                    : item.settings_staff_email}
+                                  )
+                                </button>
+                              );
+                            }
+                          })
+                        ) : (
+                          <li className="mt-8 p-2 w-full text-center bg-white focus:bg-gray-200 border-b border-white">
+                            No Data
+                          </li>
+                        )}
+                      </ul>
+                    )}
+                  </div>
+                )}
 
                 {itemEdit && (
                   <>
@@ -355,7 +299,11 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
                 </div>
 
                 <div className={`settings__actions flex gap-2 mt-4`}>
-                  <button className="btn btn--accent" type="submit">
+                  <button
+                    className="btn btn--accent"
+                    type="submit"
+                    disabled={mutation.isPending || !props.dirty}
+                  >
                     {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
