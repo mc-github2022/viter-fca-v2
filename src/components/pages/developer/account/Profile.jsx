@@ -1,7 +1,6 @@
 import { InputText } from "@/components/helpers/FormInputs";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import Navigation from "@/components/partials/Navigation-old.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setError, setMessage } from "@/components/store/StoreAction";
@@ -13,6 +12,7 @@ import { TfiLock } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
+import Navigation from "../Navigation";
 
 const Profile = () => {
   const { store, dispatch } = React.useContext(StoreContext);
