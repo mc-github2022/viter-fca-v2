@@ -33,10 +33,8 @@ const FormClientFinancierInfo = ({
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/v2/dev-parents/${itemEdit.parents_aid}`
-          : "/v2/dev-parents",
-        itemEdit ? "PUT" : "POST",
+        `/v2/dev-update-parents-financier/${itemEdit.parents_aid}`,
+        "PUT",
         values
       ),
     onSuccess: (data) => {
@@ -85,12 +83,7 @@ const FormClientFinancierInfo = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({
-            ...values,
-            parents_fname: financierInfo.data[0].parents_fname,
-            parents_lname: financierInfo.data[0].parents_lname,
-            parents_email: financierInfo.data[0].parents_email,
-          });
+          mutation.mutate(values);
         }}
       >
         {(props) => {
