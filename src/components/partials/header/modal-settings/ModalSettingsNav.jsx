@@ -163,9 +163,12 @@ const ModalSettingsNav = ({
             <ul className={`${btnCollapse ? "!block" : ""} hidden bg-white`}>
               <li className="text-gray-600 p-1 pl-8">
                 <button
-                  onClick={(e) => handleChangeSettingInner(1, e)}
+                  onClick={(e) => {
+                    handleChangeSettingInner(1, e);
+                    handleSubNavActive();
+                  }}
                   className={`${
-                    indexInner === 1 ? "!border-l-2 !border-[#123909]" : ""
+                    subNavActive ? "!border-l-2 !border-[#123909]" : ""
                   } !bg-[unset] !text-gray-600`}
                 >
                   <span className="ml-2">Parent</span>
@@ -173,9 +176,12 @@ const ModalSettingsNav = ({
               </li>
               <li className="text-gray-600 p-1 pl-8">
                 <button
-                  onClick={(e) => handleChangeSettingInner(122, e)}
+                  onClick={(e) => {
+                    handleChangeSettingInner(122, e);
+                    handleSubNavActive();
+                  }}
                   className={`${
-                    indexInner === 122 ? "!border-l-2 !border-[#123909]" : ""
+                    subNavActive ? "" : "!border-l-2 !border-[#123909]"
                   } !bg-[unset] !text-gray-600`}
                 >
                   <span className="ml-2">Staff</span>
