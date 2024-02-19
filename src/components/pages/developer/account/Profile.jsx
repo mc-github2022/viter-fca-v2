@@ -109,7 +109,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="mt-5 bg-primary rounded-md max-w-[430px]  shadow-sm relative pb-4">
+          <div className="mt-5 bg-primary rounded-md max-w-[430px] relative pb-4">
             <header className=" py-2 pr-4 flex justify-end">
               <button className="text-lg md:hidden" onClick={handleShowSubMenu}>
                 <FaBars />
