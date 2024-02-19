@@ -11,6 +11,8 @@ import ModalDelete from "@/components/partials/modals/ModalDelete";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import {
   setIsAdd,
+  setIsConfirm,
+  setIsDelete,
   setSettingIsConfirm,
   setSettingIsDelete,
 } from "@/components/store/StoreAction";
@@ -75,21 +77,21 @@ const ClientList = ({ setItemEdit }) => {
   };
 
   const handleArchive = (item) => {
-    dispatch(setSettingIsConfirm(true));
+    dispatch(setIsConfirm(true));
     setId(item.parents_aid);
     setData(item);
     setIsArchive(0);
   };
 
   const handleRestore = (item) => {
-    dispatch(setSettingIsConfirm(true));
+    dispatch(setIsConfirm(true));
     setId(item.parents_aid);
     setData(item);
     setIsArchive(1);
   };
 
   const handleDelete = (item) => {
-    dispatch(setSettingIsDelete(true));
+    dispatch(setIsDelete(true));
     setId(item.parents_aid);
     setData(item);
   };
@@ -257,7 +259,7 @@ const ClientList = ({ setItemEdit }) => {
         </div>
       </div>
 
-      {store.isSettingConfirm && (
+      {store.isConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/dev-parents/active/${id}`}
           msg={`Are you sure you want to ${
@@ -269,7 +271,7 @@ const ClientList = ({ setItemEdit }) => {
         />
       )}
 
-      {store.isSettingDelete && (
+      {store.isDelete && (
         <ModalDelete
           mysqlApiDelete={`/v2/dev-parents/${id}`}
           msg={"Are you sure you want to delete this record?"}
