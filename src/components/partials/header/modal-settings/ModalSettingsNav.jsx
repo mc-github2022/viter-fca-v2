@@ -168,7 +168,9 @@ const ModalSettingsNav = ({
                     handleSubNavActive();
                   }}
                   className={`${
-                    subNavActive ? "!border-l-2 !border-[#123909]" : ""
+                    subNavActive
+                      ? "!border-l-2 !border-[#123909]"
+                      : "border-l-2 border-transparent"
                   } !bg-[unset] !text-gray-600`}
                 >
                   <span className="ml-2">Parent</span>
@@ -181,7 +183,9 @@ const ModalSettingsNav = ({
                     handleSubNavActive();
                   }}
                   className={`${
-                    subNavActive ? "" : "!border-l-2 !border-[#123909]"
+                    subNavActive
+                      ? "border-l-2 border-transparent"
+                      : "!border-l-2 !border-[#123909]"
                   } !bg-[unset] !text-gray-600`}
                 >
                   <span className="ml-2">Staff</span>
