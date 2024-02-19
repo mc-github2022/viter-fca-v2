@@ -1,7 +1,7 @@
 <?php
 require '../../../../core/header.php';
 require '../../../../core/functions.php';
-require '../../../../models/developer/client/info-parent/InfoParent.php';
+require '../../../../models/developer/client/info-guardian/InfoGuardian.php';
 require 'functions.php';
 
 $body = file_get_contents("php://input");

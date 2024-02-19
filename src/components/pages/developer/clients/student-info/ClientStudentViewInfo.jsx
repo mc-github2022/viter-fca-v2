@@ -21,9 +21,9 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 import { LuDot } from "react-icons/lu";
 import { PiPhoneThin } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import Navigation from "../../Navigation.jsx";
 import ModalAddStudent from "./form/ModalAddStudent.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
-import Navigation from "../../Navigation.jsx";
 
 const ClientStudentViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);

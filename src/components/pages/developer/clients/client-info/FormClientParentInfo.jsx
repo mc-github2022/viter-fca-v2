@@ -29,7 +29,7 @@ import * as Yup from "yup";
 const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [getRelationship, setGetRelationship] = React.useState("");
-  const id = getUrlParam().get("cid");
+  const id = getUrlParam().get("pid");
 
   const queryClient = useQueryClient();
 
@@ -44,18 +44,22 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
     "relationship" // key
   );
 
+  const activeRelationship = relationship?.data.filter(
+    (relationship) => relationship.relationship_active === 1
+  );
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-info-parent/${itemEdit.parent_guardian_info_aid}`
-          : "/v2/dev-info-parent",
+          ? `/v2/dev-info-guardian/${itemEdit.guardian_aid}`
+          : "/v2/dev-info-guardian",
         itemEdit ? "PUT" : "POST",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["parentInfo"] });
+      queryClient.invalidateQueries({ queryKey: ["guardianInfo"] });
 
       // show error box
       if (!data.success) {
@@ -74,84 +78,48 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
   });
 
   const initVal = {
-    parent_guardian_info_aid: itemEdit ? itemEdit.parent_guardian_info_aid : "",
-    parent_guardian_info_relationship_id: itemEdit
-      ? itemEdit.parent_guardian_info_relationship_id
-      : "",
-    parent_guardian_info_reside: itemEdit
-      ? itemEdit.parent_guardian_info_reside
-      : "",
-    parent_guardian_info_salutation: itemEdit
-      ? itemEdit.parent_guardian_info_salutation
-      : "",
-    parent_guardian_info_fname: itemEdit
-      ? itemEdit.parent_guardian_info_fname
-      : "",
-    parent_guardian_info_lname: itemEdit
-      ? itemEdit.parent_guardian_info_lname
-      : "",
-    parent_guardian_info_mname: itemEdit
-      ? itemEdit.parent_guardian_info_mname
-      : "",
-    parent_guardian_info_maiden_name: itemEdit
-      ? itemEdit.parent_guardian_info_maiden_name
-      : "",
-    parent_guardian_info_email: itemEdit
-      ? itemEdit.parent_guardian_info_email
-      : "",
-    parent_guardian_info_mobile: itemEdit
-      ? itemEdit.parent_guardian_info_mobile
-      : "",
-    parent_guardian_info_landline: itemEdit
-      ? itemEdit.parent_guardian_info_landline
-      : "",
-    parent_guardian_info_address: itemEdit
-      ? itemEdit.parent_guardian_info_address
-      : "",
-    parent_guardian_info_province: itemEdit
-      ? itemEdit.parent_guardian_info_province
-      : "",
-    parent_guardian_info_city: itemEdit
-      ? itemEdit.parent_guardian_info_city
-      : "",
-    parent_guardian_info_zipcode: itemEdit
-      ? itemEdit.parent_guardian_info_zipcode
-      : "",
-    parent_guardian_info_religion: itemEdit
-      ? itemEdit.parent_guardian_info_religion
-      : "",
-    parent_guardian_info_occupation: itemEdit
-      ? itemEdit.parent_guardian_info_occupation
-      : "",
+    guardian_aid: itemEdit ? itemEdit.guardian_aid : "",
+    guardian_relationship_id: itemEdit ? itemEdit.guardian_relationship_id : "",
+    guardian_is_reside: itemEdit ? itemEdit.guardian_is_reside : "",
+    guardian_salutation: itemEdit ? itemEdit.guardian_salutation : "",
+    guardian_fname: itemEdit ? itemEdit.guardian_fname : "",
+    guardian_lname: itemEdit ? itemEdit.guardian_lname : "",
+    guardian_mname: itemEdit ? itemEdit.guardian_mname : "",
+    guardian_maiden_name: itemEdit ? itemEdit.guardian_maiden_name : "",
+    guardian_email: itemEdit ? itemEdit.guardian_email : "",
+    guardian_mobile: itemEdit ? itemEdit.guardian_mobile : "",
+    guardian_landline: itemEdit ? itemEdit.guardian_landline : "",
+    guardian_address: itemEdit ? itemEdit.guardian_address : "",
+    guardian_province: itemEdit ? itemEdit.guardian_province : "",
+    guardian_city: itemEdit ? itemEdit.guardian_city : "",
+    guardian_zipcode: itemEdit ? itemEdit.guardian_zipcode : "",
+    guardian_country: itemEdit ? itemEdit.guardian_country : "",
+    guardian_religion: itemEdit ? itemEdit.guardian_religion : "",
+    guardian_occupation: itemEdit ? itemEdit.guardian_occupation : "",
 
-    parent_guardian_info_fname_old: itemEdit
-      ? itemEdit.parent_guardian_info_fname
-      : "",
-    parent_guardian_info_lname_old: itemEdit
-      ? itemEdit.parent_guardian_info_lname
-      : "",
+    guardian_fname_old: itemEdit ? itemEdit.guardian_fname : "",
+    guardian_lname_old: itemEdit ? itemEdit.guardian_lname : "",
   };
 
   const yupSchema = Yup.object({
-    parent_guardian_info_relationship_id: Yup.string().required("Required"),
-    parent_guardian_info_salutation: Yup.string().required("Required"),
-    parent_guardian_info_reside: Yup.string().required("Required"),
-    parent_guardian_info_fname: Yup.string().required("Required"),
-    parent_guardian_info_lname: Yup.string().required("Required"),
-    parent_guardian_info_maiden_name:
+    guardian_relationship_id: Yup.string().required("Required"),
+    guardian_salutation: Yup.string().required("Required"),
+    guardian_is_reside: Yup.string().required("Required"),
+    guardian_fname: Yup.string().required("Required"),
+    guardian_lname: Yup.string().required("Required"),
+    guardian_maiden_name:
       getRelationship === "Biological Mother"
         ? Yup.string().required("Required")
         : null,
-    parent_guardian_info_email: Yup.string()
-      .required("Required")
-      .email("Invalid email"),
-    parent_guardian_info_mobile: Yup.string().required("Required"),
-    parent_guardian_info_address: Yup.string().required("Required"),
-    parent_guardian_info_province: Yup.string().required("Required"),
-    parent_guardian_info_city: Yup.string().required("Required"),
-    parent_guardian_info_zipcode: Yup.string().required("Required"),
-    parent_guardian_info_religion: Yup.string().required("Required"),
-    parent_guardian_info_occupation: Yup.string().required("Required"),
+    guardian_email: Yup.string().required("Required").email("Invalid email"),
+    guardian_mobile: Yup.string().required("Required"),
+    guardian_address: Yup.string().required("Required"),
+    guardian_province: Yup.string().required("Required"),
+    guardian_city: Yup.string().required("Required"),
+    guardian_zipcode: Yup.string().required("Required"),
+    guardian_country: Yup.string().required("Required"),
+    guardian_religion: Yup.string().required("Required"),
+    guardian_occupation: Yup.string().required("Required"),
   });
 
   const handleChangeRelationship = (e) => {
@@ -167,7 +135,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({ ...values, parent_guardian_info_user_id: id });
+          mutation.mutate({ ...values, guardian_parent_id: id });
         }}
       >
         {(props) => {
@@ -203,9 +171,9 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="form__wrap">
                   <InputSelect
-                    label="Client Relationship"
+                    label="Parent Relationship"
                     type="text"
-                    name="parent_guardian_info_relationship_id"
+                    name="guardian_relationship_id"
                     disabled={mutation.isLoading}
                     onChange={(e) => handleChangeRelationship(e)}
                   >
@@ -230,7 +198,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputSelect
                     label="Resided with Child?"
                     type="text"
-                    name="parent_guardian_info_reside"
+                    name="guardian_is_reside"
                     disabled={mutation.isLoading}
                     onChange={(e) => e}
                   >
@@ -238,8 +206,8 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                       <option value="" hidden>
                         --
                       </option>
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
                     </optgroup>
                   </InputSelect>
                 </div>
@@ -254,7 +222,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                 <div className="form__wrap">
                   <InputSelect
                     label="Title"
-                    name="parent_guardian_info_salutation"
+                    name="guardian_salutation"
                     disabled={mutation.isLoading}
                     onChange={(e) => e}
                   >
@@ -273,7 +241,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="First Name"
                     type="text"
-                    name="parent_guardian_info_fname"
+                    name="guardian_fname"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -281,7 +249,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="Last Name"
                     type="text"
-                    name="parent_guardian_info_lname"
+                    name="guardian_lname"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -291,7 +259,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="Middle Name"
                     type="text"
-                    name="parent_guardian_info_mname"
+                    name="guardian_mname"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -300,7 +268,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="Maiden Name"
                     type="text"
-                    name="parent_guardian_info_maiden_name"
+                    name="guardian_maiden_name"
                     disabled={
                       getRelationship === "Biological Mother" ? false : true
                     }
@@ -316,7 +284,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                 <InputText
                   label="Email"
                   type="email"
-                  name="parent_guardian_info_email"
+                  name="guardian_email"
                   disabled={mutation.isLoading}
                 />
               </div>
@@ -325,7 +293,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="Mobile"
                     type="text"
-                    name="parent_guardian_info_mobile"
+                    name="guardian_mobile"
                     maxLength="11"
                     onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
@@ -337,7 +305,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     type="text"
                     maxLength="11"
                     onKeyPress={handleNumOnly}
-                    name="parent_guardian_info_landline"
+                    name="guardian_landline"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -351,16 +319,16 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                 <InputText
                   label="Address"
                   type="text"
-                  name="parent_guardian_info_address"
+                  name="guardian_address"
                   disabled={mutation.isLoading}
                 />
               </div>
-              <div className="grid grid-cols-[1fr_1fr_100px] gap-4">
+              <div className="grid grid-cols-[1fr_1fr] gap-4">
                 <div className="form__wrap">
                   <InputText
                     label="City"
                     type="text"
-                    name="parent_guardian_info_city"
+                    name="guardian_city"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -368,7 +336,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="Province"
                     type="text"
-                    name="parent_guardian_info_province"
+                    name="guardian_province"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -378,7 +346,15 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     type="text"
                     maxLength="4"
                     onKeyPress={handleNumOnly}
-                    name="parent_guardian_info_zipcode"
+                    name="guardian_zipcode"
+                    disabled={mutation.isLoading}
+                  />
+                </div>
+                <div className="form__wrap">
+                  <InputText
+                    label="Country"
+                    type="text"
+                    name="guardian_country"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -394,7 +370,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="Religion"
                     type="text"
-                    name="parent_guardian_info_religion"
+                    name="guardian_religion"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -402,7 +378,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="Occupation"
                     type="text"
-                    name="parent_guardian_info_occupation"
+                    name="guardian_occupation"
                     disabled={mutation.isLoading}
                   />
                 </div>

@@ -5,9 +5,9 @@ $InfoContact = new InfoContact($conn);
 
 $error = [];
 $returnData = [];
-if (array_key_exists("contactinfoid", $_GET)) {
-    $InfoContact->contact_aid = $_GET['contactinfoid'];
-    checkId($InfoContact->contact_aid);
+if (array_key_exists("contactid", $_GET)) {
+    $InfoContact->emergency_contact_aid  = $_GET['contactid'];
+    checkId($InfoContact->emergency_contact_aid );
 
 
     $query = checkDelete($InfoContact);

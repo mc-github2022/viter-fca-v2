@@ -18,6 +18,12 @@ if (array_key_exists("parentsid", $_GET)) {
     $parents->parents_fname = checkIndex($data, "parents_fname");
     $parents->parents_lname = checkIndex($data, "parents_lname");
     $parents->parents_email = checkIndex($data, "parents_email");
+    $parents->parents_father_income = $data["parents_father_income"];
+    $parents->parents_mother_income = $data["parents_mother_income"];
+    $parents->parents_financier_income = checkIndex($data, "parents_financier_income");
+    $parents->parents_financier_name = checkIndex($data, "parents_financier_name");
+    $parents->parents_financier_occupation = checkIndex($data, "parents_financier_occupation");
+    $parents->parents_financier_relationship = checkIndex($data, "parents_financier_relationship");
     $parents->parents_datetime = date("Y-m-d H:i:s");
 
     $parents->user_other_key = $encrypt->doHash(rand());
