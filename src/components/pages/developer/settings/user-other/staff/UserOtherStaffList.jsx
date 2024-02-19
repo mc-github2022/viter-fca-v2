@@ -39,6 +39,8 @@ const UserOtherStaffList = ({ setItemEdit }) => {
     "other" // key
   );
 
+  const getStaffUser = other?.data.filter((item) => item.role_is_parent !== 1);
+
   const handleEdit = (item) => {
     dispatch(setIsSettingAdd(true));
     setItemEdit(item);
@@ -81,12 +83,12 @@ const UserOtherStaffList = ({ setItemEdit }) => {
           <ModalInvalidRequestError />
         ) : isLoading ? (
           <TableLoading count={20} cols={3} />
-        ) : other?.data.length === 0 ? (
+        ) : getStaffUser?.length === 0 ? (
           <NoData />
         ) : (
           !isLoading &&
           other.success === true &&
-          other?.data.map((item, key) => (
+          getStaffUser?.map((item, key) => (
             <div
               className={
                 "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
