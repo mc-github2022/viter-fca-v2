@@ -11,7 +11,7 @@ if (array_key_exists("roleid", $_GET)) {
 // check data
 checkPayload($data);
 // get data
-$role->role_name = checkIndex($data, "role_name");
+$role->role_name = strtolower(checkIndex($data, "role_name"));
 $role->role_description = checkIndex($data, "role_description");
 $role->role_is_active = 1;
 $role->role_created = date("Y-m-d H:i:s");

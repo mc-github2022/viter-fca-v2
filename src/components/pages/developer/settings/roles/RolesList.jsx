@@ -27,7 +27,6 @@ const RolesList = ({ setItemEdit }) => {
   const {
     isLoading,
     isFetching,
-    error,
     data: roles,
   } = useQueryData(
     "/v2/dev-roles", // endpoint
@@ -90,7 +89,7 @@ const RolesList = ({ setItemEdit }) => {
                   item.role_is_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <p className="mb-1">{item.role_name}</p>
+                <p className="mb-1 capitalize">{item.role_name}</p>
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">

@@ -2,7 +2,6 @@ import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
-  setError,
   setIsAdd,
   setIsShowModal,
   setMessage,
@@ -16,7 +15,7 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 
-const ModalAddClient = () => {
+const ModalAddClient = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -29,7 +28,14 @@ const ModalAddClient = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: (values) => queryData("/v2/dev-parents", "post", values),
+    mutationFn: (values) =>
+      queryData(
+        itemEdit
+          ? `/v2/dev-parents/${itemEdit.parents_aid}`
+          : "/v2/dev-parents",
+        itemEdit ? "put" : "post",
+        values
+      ),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["parents"] });
@@ -37,7 +43,13 @@ const ModalAddClient = () => {
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
-        dispatch(setMessage("Record successfully added."));
+        dispatch(
+          setMessage(
+            itemEdit
+              ? "Record successfully updated."
+              : "Record successfully added."
+          )
+        );
       }
       if (!data.success) {
         dispatch(setValidate(true));
@@ -46,10 +58,13 @@ const ModalAddClient = () => {
     },
   });
 
+  console.log(itemEdit);
+
   const initVal = {
-    parents_fname: "",
-    parents_lname: "",
-    parents_email: "",
+    parents_fname: itemEdit ? itemEdit.parents_fname : "",
+    parents_lname: itemEdit ? itemEdit.parents_lname : "",
+    parents_email: itemEdit ? itemEdit.parents_email : "",
+    parents_email_old: itemEdit ? itemEdit.parents_email : "",
   };
 
   const yupSchema = Yup.object({
@@ -65,7 +80,7 @@ const ModalAddClient = () => {
 
         <div className="modal__main ">
           <div className="modal__header">
-            <h3>Add Client</h3>
+            <h3>{itemEdit ? "Update" : "Add"} Parent</h3>
             <button onClick={handleClose}>
               <FaTimes />
             </button>
