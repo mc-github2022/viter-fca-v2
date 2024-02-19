@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2024 at 12:42 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: Feb 20, 2024 at 12:56 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `fcav2_guardian` (
   `guardian_aid` int(11) NOT NULL,
   `guardian_active` tinyint(1) NOT NULL,
-  `guardian_relationship_id` varchar(11) NOT NULL,
-  `guardian_parent_id` varchar(20) NOT NULL,
+  `guardian_relationship_id` int(11) NOT NULL,
+  `guardian_parent_id` int(11) NOT NULL,
   `guardian_is_reside` tinyint(1) NOT NULL,
   `guardian_salutation` varchar(10) NOT NULL,
   `guardian_fname` varchar(50) NOT NULL,
@@ -53,14 +53,6 @@ CREATE TABLE `fcav2_guardian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `fcav2_guardian`
---
-
-INSERT INTO `fcav2_guardian` (`guardian_aid`, `guardian_active`, `guardian_relationship_id`, `guardian_parent_id`, `guardian_is_reside`, `guardian_salutation`, `guardian_fname`, `guardian_mname`, `guardian_maiden_name`, `guardian_lname`, `guardian_email`, `guardian_mobile`, `guardian_landline`, `guardian_address`, `guardian_province`, `guardian_city`, `guardian_zipcode`, `guardian_country`, `guardian_religion`, `guardian_occupation`, `guardian_datetime`, `guardian_created`) VALUES
-(3, 0, '2', '1', 0, 'mrs', 'vbncbn', 0, '', 'qwecvbncvbncv', 'xx@ccc.com', '1233232132', '12312312312', 'sdfgs', 'sdfgsdf', 'sdfg', '2223', 'Philippines', 'asdfasd', 'asdfasd', '2024-02-19 13:23:38', ''),
-(6, 0, '2', '1', 1, 'mr', 'xxxxx', 0, '', 'sssss', 'xx@ccc.com', '1233232132', '', 'qqq', 'qq', 'qqq', 'qqqq', 'Philippines', 'sdf', 'sdf', '2024-02-19 14:48:51', '');
-
---
 -- Indexes for dumped tables
 --
 
@@ -78,7 +70,7 @@ ALTER TABLE `fcav2_guardian`
 -- AUTO_INCREMENT for table `fcav2_guardian`
 --
 ALTER TABLE `fcav2_guardian`
-  MODIFY `guardian_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `guardian_aid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

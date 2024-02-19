@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2024 at 07:01 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: Feb 20, 2024 at 12:55 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `fcav2_emergency_contact` (
   `emergency_contact_aid` int(11) NOT NULL,
-  `emergency_contact_student_id` varchar(20) NOT NULL,
+  `emergency_contact_parent_id` int(11) NOT NULL,
   `emergency_contact_name` varchar(100) NOT NULL,
   `emergency_contact_mobile` varchar(30) NOT NULL,
   `emergency_contact_landline` varchar(30) NOT NULL,
@@ -41,20 +41,32 @@ CREATE TABLE `fcav2_emergency_contact` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fcav2_financier`
+-- Table structure for table `fcav2_guardian`
 --
 
-CREATE TABLE `fcav2_financier` (
-  `fcav2_financier_aid` int(11) NOT NULL,
-  `fcav2_financier_student_id` varchar(20) NOT NULL,
-  `fcav2_financier_father_income` varchar(20) NOT NULL,
-  `fcav2_financier_mother_income` varchar(20) NOT NULL,
-  `fcav2_financier_name` varchar(50) NOT NULL,
-  `fcav2_financier_relationship` varchar(20) NOT NULL,
-  `fcav2_financier_occupation` varchar(20) NOT NULL,
-  `fcav2_financier_income` varchar(20) NOT NULL,
-  `fcav2_financier_created` varchar(20) NOT NULL,
-  `fcav2_financier_datetime` varchar(20) NOT NULL
+CREATE TABLE `fcav2_guardian` (
+  `guardian_aid` int(11) NOT NULL,
+  `guardian_active` tinyint(1) NOT NULL,
+  `guardian_relationship_id` int(11) NOT NULL,
+  `guardian_parent_id` int(11) NOT NULL,
+  `guardian_is_reside` tinyint(1) NOT NULL,
+  `guardian_salutation` varchar(10) NOT NULL,
+  `guardian_fname` varchar(50) NOT NULL,
+  `guardian_mname` int(20) NOT NULL,
+  `guardian_maiden_name` varchar(20) NOT NULL,
+  `guardian_lname` varchar(50) NOT NULL,
+  `guardian_email` varchar(100) NOT NULL,
+  `guardian_mobile` varchar(30) NOT NULL,
+  `guardian_landline` varchar(30) NOT NULL,
+  `guardian_address` varchar(50) NOT NULL,
+  `guardian_province` varchar(30) NOT NULL,
+  `guardian_city` varchar(20) NOT NULL,
+  `guardian_zipcode` varchar(10) NOT NULL,
+  `guardian_country` varchar(20) NOT NULL,
+  `guardian_religion` varchar(30) NOT NULL,
+  `guardian_occupation` varchar(30) NOT NULL,
+  `guardian_datetime` varchar(20) NOT NULL,
+  `guardian_created` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -66,27 +78,25 @@ CREATE TABLE `fcav2_financier` (
 CREATE TABLE `fcav2_parents` (
   `parents_aid` int(11) NOT NULL,
   `parents_is_active` tinyint(1) NOT NULL,
-  `parents_student_id` varchar(20) NOT NULL,
-  `parents_relationship_id` varchar(20) NOT NULL,
-  `parents_salutation` varchar(10) NOT NULL,
-  `parents_is_reside` tinyint(1) NOT NULL,
-  `parents_fname` varchar(100) NOT NULL,
-  `parents_mname` varchar(50) NOT NULL,
-  `parents_maiden_name` varchar(50) NOT NULL,
-  `parents_lname` varchar(50) NOT NULL,
   `parents_email` varchar(50) NOT NULL,
-  `parents_mobile` varchar(30) NOT NULL,
-  `parents_landline` varchar(30) NOT NULL,
-  `parents_address` varchar(100) NOT NULL,
-  `parents_province` varchar(20) NOT NULL,
-  `parents_city` varchar(20) NOT NULL,
-  `parents_zipcode` varchar(10) NOT NULL,
-  `parents_country` varchar(20) NOT NULL,
-  `parents_religion` varchar(30) NOT NULL,
-  `parents_occupation` varchar(30) NOT NULL,
+  `parents_fname` varchar(20) NOT NULL,
+  `parents_lname` varchar(20) NOT NULL,
+  `parents_father_income` varchar(10) NOT NULL,
+  `parents_mother_income` varchar(10) NOT NULL,
+  `parents_financier_name` varchar(50) NOT NULL,
+  `parents_financier_relationship` varchar(20) NOT NULL,
+  `parents_financier_occupation` varchar(20) NOT NULL,
+  `parents_financier_income` varchar(10) NOT NULL,
   `parents_datetime` varchar(20) NOT NULL,
   `parents_created` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_parents`
+--
+
+INSERT INTO `fcav2_parents` (`parents_aid`, `parents_is_active`, `parents_email`, `parents_fname`, `parents_lname`, `parents_father_income`, `parents_mother_income`, `parents_financier_name`, `parents_financier_relationship`, `parents_financier_occupation`, `parents_financier_income`, `parents_datetime`, `parents_created`) VALUES
+(1, 1, 'macmerin24@gmail.com', 'Patrick', 'Reyes', '', '', '', '', '', '', '2024-02-20 07:45:59', '2024-02-20 07:45:59');
 
 -- --------------------------------------------------------
 
@@ -253,6 +263,33 @@ CREATE TABLE `fcav2_settings_scheme` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fcav2_settings_staff`
+--
+
+CREATE TABLE `fcav2_settings_staff` (
+  `settings_staff_aid` int(11) NOT NULL,
+  `settings_staff_is_active` tinyint(1) NOT NULL,
+  `settings_staff_fname` varchar(128) NOT NULL,
+  `settings_staff_lname` varchar(128) NOT NULL,
+  `settings_staff_email` varchar(255) NOT NULL,
+  `settings_staff_created_at` datetime NOT NULL,
+  `settings_staff_updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_settings_staff`
+--
+
+INSERT INTO `fcav2_settings_staff` (`settings_staff_aid`, `settings_staff_is_active`, `settings_staff_fname`, `settings_staff_lname`, `settings_staff_email`, `settings_staff_created_at`, `settings_staff_updated_at`) VALUES
+(1, 1, 'Mac', 'Mac', 'merin.ryanmark@gmail.com', '2024-02-15 10:11:20', '2024-02-15 10:11:20'),
+(3, 1, 'Emman', 'Manalo', 'emmanuel.manalo@frontlinebusiness.com.ph', '2024-02-15 10:12:53', '2024-02-15 10:12:53'),
+(4, 1, 'Rode', 'Delmonts', 'roderick@gmail.com', '2024-02-15 10:13:21', '2024-02-15 10:13:21'),
+(5, 1, 'I-valo', 'Adao', 'valoadao@gmail.com', '2024-02-15 10:14:11', '2024-02-15 10:14:11'),
+(6, 1, 'cy', 'pumasok', 'cy@gmail.com', '2024-02-15 10:14:25', '2024-02-15 10:14:25');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fcav2_settings_tuition_category`
 --
 
@@ -298,7 +335,7 @@ CREATE TABLE `fcav2_settings_user_other` (
   `user_other_lname` varchar(50) NOT NULL,
   `user_other_email` varchar(128) NOT NULL,
   `user_other_new_email` varchar(128) NOT NULL,
-  `user_other_role_id` varchar(20) NOT NULL,
+  `user_other_role_id` int(11) NOT NULL,
   `user_other_key` varchar(255) NOT NULL,
   `user_other_password` varchar(255) NOT NULL,
   `user_other_created` datetime NOT NULL,
@@ -310,7 +347,8 @@ CREATE TABLE `fcav2_settings_user_other` (
 --
 
 INSERT INTO `fcav2_settings_user_other` (`user_other_aid`, `user_other_is_active`, `user_other_fname`, `user_other_lname`, `user_other_email`, `user_other_new_email`, `user_other_role_id`, `user_other_key`, `user_other_password`, `user_other_created`, `user_other_datetime`) VALUES
-(34, 1, 'Mon', 'Mon', 'monmon.plaza@gmail.com', '', '4', '', '$2y$10$00A64PB.pRmYxFhebmPvJ.ht1iqqOF8HpoZD8Cc4euFaaw92Bol.G', '2024-02-14 07:35:12', '2024-02-14 07:36:25');
+(39, 1, 'Patrick', 'Reyes', 'macdet21@gmail.com', '', 4, '', '$2y$10$UGeHmWSHj4ri3vT/dDAQHuaGanPtRo0/tKAmhY0JTY27Hx1PfVkX2', '2024-02-19 13:52:56', '2024-02-19 15:50:13'),
+(40, 1, 'Mac', 'Mac', 'merin.ryanmark@gmail.com', '', 2, '', '$2y$10$joJ4kHIyaroc/J5HzOXr3eZcEJtzdajKXCXd6vldDmqCEAiar3qkC', '2024-02-19 14:00:05', '2024-02-19 14:01:36');
 
 -- --------------------------------------------------------
 
@@ -324,6 +362,7 @@ CREATE TABLE `fcav2_settings_user_system` (
   `user_system_fname` varchar(128) NOT NULL,
   `user_system_lname` varchar(128) NOT NULL,
   `user_system_email` varchar(255) NOT NULL,
+  `user_system_new_email` varchar(255) NOT NULL,
   `user_system_role_id` int(11) NOT NULL,
   `user_system_key` varchar(255) NOT NULL,
   `user_system_password` varchar(255) NOT NULL,
@@ -335,9 +374,9 @@ CREATE TABLE `fcav2_settings_user_system` (
 -- Dumping data for table `fcav2_settings_user_system`
 --
 
-INSERT INTO `fcav2_settings_user_system` (`user_system_aid`, `user_system_is_active`, `user_system_fname`, `user_system_lname`, `user_system_email`, `user_system_role_id`, `user_system_key`, `user_system_password`, `user_system_created`, `user_system_datetime`) VALUES
-(1, 1, 'Mark Ryan', 'Merin', 'mark.merin@frontlinebusiness.com.ph', 1, 'c47a62a6f5fc28388226429177c984b80f52b3167a792da2dd70332e745ebf70', '', '2023-04-19 09:13:08', '2023-12-19 14:54:05'),
-(17, 1, 'Monmon', 'Plaza', 'ramon.plaza@frontlinebusiness.com.ph', 1, '', '$2y$10$KXu/IEfKf4hytdeRfVYTY.gnzHrNbZytzMQepTtZdifr8Ct3DJ1w2', '2024-01-08 08:26:34', '2024-01-08 12:50:29');
+INSERT INTO `fcav2_settings_user_system` (`user_system_aid`, `user_system_is_active`, `user_system_fname`, `user_system_lname`, `user_system_email`, `user_system_new_email`, `user_system_role_id`, `user_system_key`, `user_system_password`, `user_system_created`, `user_system_datetime`) VALUES
+(1, 1, 'Mark Ryan', 'Merin', 'mark.merin@frontlinebusiness.com.ph', '', 1, '', '$2y$10$KiIkfVXV5U357nFYWo0KDewRDHr7YTcGk9JC6G4bXsfQU7IOB7tfi', '2023-04-19 09:13:08', '2024-02-16 09:07:02'),
+(17, 1, 'Monmon', 'Plaza', 'ramon.plaza@frontlinebusiness.com.ph', '', 1, '', '$2y$10$KXu/IEfKf4hytdeRfVYTY.gnzHrNbZytzMQepTtZdifr8Ct3DJ1w2', '2024-01-08 08:26:34', '2024-01-08 12:50:29');
 
 -- --------------------------------------------------------
 
@@ -394,10 +433,10 @@ ALTER TABLE `fcav2_emergency_contact`
   ADD PRIMARY KEY (`emergency_contact_aid`);
 
 --
--- Indexes for table `fcav2_financier`
+-- Indexes for table `fcav2_guardian`
 --
-ALTER TABLE `fcav2_financier`
-  ADD PRIMARY KEY (`fcav2_financier_aid`);
+ALTER TABLE `fcav2_guardian`
+  ADD PRIMARY KEY (`guardian_aid`);
 
 --
 -- Indexes for table `fcav2_parents`
@@ -466,6 +505,12 @@ ALTER TABLE `fcav2_settings_scheme`
   ADD PRIMARY KEY (`scheme_aid`);
 
 --
+-- Indexes for table `fcav2_settings_staff`
+--
+ALTER TABLE `fcav2_settings_staff`
+  ADD PRIMARY KEY (`settings_staff_aid`);
+
+--
 -- Indexes for table `fcav2_settings_tuition_category`
 --
 ALTER TABLE `fcav2_settings_tuition_category`
@@ -506,16 +551,16 @@ ALTER TABLE `fcav2_emergency_contact`
   MODIFY `emergency_contact_aid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `fcav2_financier`
+-- AUTO_INCREMENT for table `fcav2_guardian`
 --
-ALTER TABLE `fcav2_financier`
-  MODIFY `fcav2_financier_aid` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `fcav2_guardian`
+  MODIFY `guardian_aid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fcav2_parents`
 --
 ALTER TABLE `fcav2_parents`
-  MODIFY `parents_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `parents_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_department`
@@ -578,6 +623,12 @@ ALTER TABLE `fcav2_settings_scheme`
   MODIFY `scheme_aid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `fcav2_settings_staff`
+--
+ALTER TABLE `fcav2_settings_staff`
+  MODIFY `settings_staff_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `fcav2_settings_tuition_category`
 --
 ALTER TABLE `fcav2_settings_tuition_category`
@@ -593,7 +644,7 @@ ALTER TABLE `fcav2_settings_tuition_fee`
 -- AUTO_INCREMENT for table `fcav2_settings_user_other`
 --
 ALTER TABLE `fcav2_settings_user_other`
-  MODIFY `user_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `user_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_user_system`

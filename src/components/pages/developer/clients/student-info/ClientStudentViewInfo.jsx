@@ -77,6 +77,8 @@ const ClientStudentViewInfo = () => {
     "clients" // key
   );
 
+  console.log(mystudent);
+
   return (
     <>
       <Header />
