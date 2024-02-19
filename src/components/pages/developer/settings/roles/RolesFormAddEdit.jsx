@@ -70,7 +70,16 @@ const RolesFormAddEdit = ({ itemEdit }) => {
           {(props) => {
             return (
               <Form>
-                {!itemEdit && (
+                {itemEdit ? (
+                  <div className="form__wrap text-xs mb-3">
+                    <p>
+                      Name:{" "}
+                      <span className="capitalize">
+                        {props.values.role_name}
+                      </span>
+                    </p>
+                  </div>
+                ) : (
                   <div className="form__wrap text-xs mb-3">
                     <InputText
                       label="Name"
