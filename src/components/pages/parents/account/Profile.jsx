@@ -1,18 +1,17 @@
 import { InputText } from "@/components/helpers/FormInputs";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import Navigation from "@/components/partials/Navigation-old.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setError, setMessage } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { Form, Formik } from "formik";
 import React from "react";
-import { FaAngleLeft, FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
 import { TfiLock } from "react-icons/tfi";
-import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
-import Navigation from "../Navigation";
 
 const Profile = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -109,7 +108,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="mt-5 bg-primary rounded-md max-w-[430px] relative pb-4">
+          <div className="mt-5 bg-primary rounded-md max-w-[600px] border-line border shadow-sm relative pb-4">
             <header className=" py-2 pr-4 flex justify-end">
               <button className="text-lg md:hidden" onClick={handleShowSubMenu}>
                 <FaBars />
@@ -117,9 +116,24 @@ const Profile = () => {
             </header>
 
             <div className=" pl-0  md:flex md:gap-5">
-              <div className="w-full">
+              <aside
+                className={`mb-5 max-w-[150px] w-full subnav absolute md:static top-8 right-4 bg-primary z-40 shadow-sm border border-line md:shadow-none md:border-none ${
+                  show ? "block" : "hidden"
+                } md:block `}
+              >
+                <ul>
+                  <li className="active !p-0 text-center">
+                    <button className="text-sm w-full p-2">
+                      <TfiLock className="md:text-lg" />
+                      Password
+                    </button>
+                  </li>
+                </ul>
+              </aside>
+
+              <div className="px-4 w-full">
                 <div className="profile__block min-h-[300px] w-full ">
-                  <h6 className="mb-5">Change Password</h6>
+                  <h6 className="mb-5">Update password</h6>
 
                   <Formik
                     initialValues={initVal}
