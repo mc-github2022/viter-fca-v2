@@ -1,8 +1,16 @@
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
+import { BsChevronRight } from "react-icons/bs";
 
-const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
+const ModalSettingsNav = ({
+  showSideNav,
+  setIndex,
+  setShowSideNav,
+  setIndexInner,
+  index,
+  indexInner,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   let userRole = store.credentials.data.role_name.toLowerCase();
 
@@ -11,6 +19,14 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
     setIndex(index);
     dispatch(setIsAdd(false));
     setShowSideNav(false);
+  };
+
+  const handleChangeSettingInner = (indexInner, e) => {
+    e.preventDefault;
+    setIndexInner(indexInner);
+    dispatch(setIsAdd(false));
+    setShowSideNav(false);
+    console.log(indexInner);
   };
   return (
     <>
@@ -123,8 +139,35 @@ const ModalSettingsNav = ({ showSideNav, setIndex, setShowSideNav, index }) => {
               onClick={(e) => handleChangeSetting(12, e)}
               className="p-1 pl-4"
             >
-              Users
+              <div className="flex items-center justify-between">
+                <span>Users</span>
+                <BsChevronRight
+                  className={` ${index === 12 ? "-rotate-90" : "rotate-90"}`}
+                />
+              </div>
             </button>
+            <ul className={`${index === 12 ? "!block" : ""} hidden bg-white`}>
+              <li className="text-gray-600 p-1 pl-8">
+                <button
+                  onClick={(e) => handleChangeSettingInner(1, e)}
+                  className={`${
+                    indexInner === 1 ? "!border-l-2 !border-[#123909]" : ""
+                  } !bg-[unset] !text-gray-600`}
+                >
+                  <span className="ml-2">Parent</span>
+                </button>
+              </li>
+              <li className="text-gray-600 p-1 pl-8">
+                <button
+                  onClick={(e) => handleChangeSettingInner(122, e)}
+                  className={`${
+                    indexInner === 122 ? "!border-l-2 !border-[#123909]" : ""
+                  } !bg-[unset] !text-gray-600`}
+                >
+                  <span className="ml-2">Staff</span>
+                </button>
+              </li>
+            </ul>
           </li>
 
           <li
