@@ -23,7 +23,7 @@ const ClientViewInfo = () => {
   const [showFinancierForm, setShowFinancierForm] = React.useState(false);
   const [itemEdit, setItemEdit] = React.useState(null);
 
-  const pid = getUrlParam().get("pid");
+  const cid = getUrlParam().get("cid");
   const navigate = useNavigate();
 
   const {
@@ -32,7 +32,7 @@ const ClientViewInfo = () => {
     error: guardianIsError,
     data: guardianInfo,
   } = useQueryData(
-    `/v2/dev-read-info-guardian/${pid}`, // endpoint
+    `/v2/dev-read-info-guardian/${cid}`, // endpoint
     "get", // method
     "guardianInfo" // key
   );
@@ -43,21 +43,21 @@ const ClientViewInfo = () => {
     error: contactIsError,
     data: contactInfo,
   } = useQueryData(
-    `/v2/dev-read-info-contact/${pid}`, // endpoint
+    `/v2/dev-read-info-contact/${cid}`, // endpoint
     "get", // method
     "contactInfo" // key
   );
 
-  // const {
-  //   isLoading: financierIsLoading,
-  //   isFetching: financierIsFetching,
-  //   error: financierIsError,
-  //   data: financierInfo,
-  // } = useQueryData(
-  //   `/v2/dev-read-info-financial/${id}`, // endpoint
-  //   "get", // method
-  //   "financierInfo" // key
-  // );
+  const {
+    isLoading: financierIsLoading,
+    isFetching: financierIsFetching,
+    error: financierIsError,
+    data: financierInfo,
+  } = useQueryData(
+    `/v2/dev-read-info-parent/${cid}`, // endpoint
+    "get", // method
+    "financierInfo" // key
+  );
 
   return (
     <>
@@ -160,7 +160,7 @@ const ClientViewInfo = () => {
                 />
               )}
 
-              {/*{financierIsLoading || financierIsFetching ? (
+              {financierIsLoading || financierIsFetching ? (
                 <TableLoading />
               ) : (
                 !showFinancierForm && (
@@ -176,6 +176,9 @@ const ClientViewInfo = () => {
                       itemEdit={itemEdit}
                       setShowFinancierForm={setShowFinancierForm}
                       setItemEdit={setItemEdit}
+                      error={financierIsError}
+                      isLoading={financierIsLoading}
+                      isFetching={financierIsFetching}
                     />
                   </div>
                 )
@@ -187,7 +190,7 @@ const ClientViewInfo = () => {
                   setShowFinancierForm={setShowFinancierForm}
                   setItemEdit={setItemEdit}
                 />
-              )} */}
+              )}
             </div>
           </main>
         </div>
