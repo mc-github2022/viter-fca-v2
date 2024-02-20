@@ -73,6 +73,12 @@ RewriteRule ^dev-scheme/active/([0-9]+)$ controllers/developer/settings/scheme/a
 RewriteRule ^dev-tuition-fee$ controllers/developer/settings/tuition-fee/tuition-fee.php [L]
 RewriteRule ^dev-tuition-fee/([0-9]+)$ controllers/developer/settings/tuition-fee/tuition-fee.php?tuitionfeeid=$1 [L]
 RewriteRule ^dev-tuition-fee/active/([0-9]+)$ controllers/developer/settings/tuition-fee/active.php?tuitionfeeid=$1 [L]
+RewriteRule ^dev-tuition-fee/read-all-group-by-category-grade$ controllers/developer/settings/tuition-fee/read-all-group-by-category-grade.php [L] 
+RewriteRule ^dev-tuition-fee/read-all-category$ controllers/developer/settings/tuition-fee/read-all-category.php [L]
+RewriteRule ^dev-tuition-fee/read-all-scheme$ controllers/developer/settings/tuition-fee/read-all-scheme.php [L]
+RewriteRule ^dev-tuition-fee/read-all-grade$ controllers/developer/settings/tuition-fee/read-all-grade.php [L]
+RewriteRule ^dev-tuition-fee/read-all-group-by-category-grade$ controllers/developer/settings/tuition-fee/read-all-group-by-category-grade.php [L]
+RewriteRule ^dev-tuition-fee/read-by-category-grade$ controllers/developer/settings/tuition-fee/read-by-category-grade.php [L]
 
 # ROLES
 RewriteRule ^dev-roles$ controllers/developer/settings/roles/roles.php [L]

@@ -65,6 +65,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
 
   const initVal = {
     discount_category_id: itemEdit ? itemEdit.discount_category_id : "",
+    discount_type: itemEdit ? itemEdit.discount_type : "",
     discount_entrance_fee: itemEdit ? itemEdit.discount_entrance_fee : "",
     discount_tuition_fee: itemEdit ? itemEdit.discount_tuition_fee : "",
     discount_qualification: itemEdit ? itemEdit.discount_qualification : "",
@@ -77,10 +78,14 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     discount_category_id: Yup.string().required("Required"),
+    discount_type: Yup.string().required("Required"),
+    discount_tuition_fee: Yup.string().required("Required"),
+    discount_qualification: Yup.string().required("Required"),
+    discount_duration: Yup.string().required("Required"),
   });
   return (
     <>
-      <div className="settings__addEdit mb-8 max-w-[350px] w-full">
+      <div className="settings__addEdit mb-8 max-w-[800px] w-full">
         <Formik
           initialValues={initVal}
           validationSchema={yupSchema}
@@ -91,85 +96,100 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
           {(props) => {
             return (
               <Form>
-                <div className="form__wrap text-xs mb-3">
-                  <InputSelect
-                    label="Category"
-                    type="text"
-                    name="discount_category_id"
-                    disabled={mutation.isLoading}
-                    onChange={(e) => e}
-                  >
-                    <option value="" hidden></option>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="form__wrap text-xs mb-3">
+                    <InputSelect
+                      label="Category"
+                      type="text"
+                      name="discount_category_id"
+                      disabled={mutation.isLoading}
+                      onChange={(e) => e}
+                    >
+                      <option value="" hidden>
+                        {(isLoading || isFetching) && "Loading..."}
+                      </option>
 
-                    {isLoading || isFetching ? (
-                      <option>Loading...</option>
-                    ) : category?.data.length === 0 ? (
-                      <option>No Data</option>
-                    ) : (
-                      category?.data.map((item, key) => {
-                        return (
-                          <option key={key} value={item.discount_category_aid}>
-                            {`${item.discount_category_name}`}
-                          </option>
-                        );
-                      })
-                    )}
-                  </InputSelect>
-                </div>
+                      {(!isLoading || !isFetching) &&
+                      category?.data.length === 0 ? (
+                        <option>No Data</option>
+                      ) : (
+                        category?.data.map((item, key) => {
+                          return (
+                            <option
+                              key={key}
+                              value={item.discount_category_aid}
+                            >
+                              {`${item.discount_category_name}`}
+                            </option>
+                          );
+                        })
+                      )}
+                    </InputSelect>
+                  </div>
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="Type"
+                      type="text"
+                      name="discount_type"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
+                  <div>
+                    <div className="form__wrap text-xs mb-3">
+                      <InputText
+                        label="Entrance Fee (%)"
+                        type="text"
+                        name="discount_entrance_fee"
+                        disabled={mutation.isLoading}
+                      />
+                    </div>
 
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Entrance Fee"
-                    type="text"
-                    name="discount_entrance_fee"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
+                    <div className="form__wrap text-xs mb-3">
+                      <InputText
+                        label="Tuition Fee (%)"
+                        type="text"
+                        name="discount_tuition_fee"
+                        disabled={mutation.isLoading}
+                      />
+                    </div>
 
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Tuition Fee"
-                    type="text"
-                    name="discount_tuition_fee"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-                <div className="form__wrap text-xs mb-3">
-                  <InputTextArea
-                    label="Qualification"
-                    type="text"
-                    name="discount_qualification"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
+                    <div className="form__wrap text-xs mb-3">
+                      <InputText
+                        label="Maintaining Grade (GA)"
+                        type="text"
+                        name="discount_maintaining_grade"
+                        disabled={mutation.isLoading}
+                      />
+                    </div>
+                  </div>
 
-                <div className="form__wrap text-xs mb-3">
-                  <InputTextArea
-                    label="Duration"
-                    type="text"
-                    name="discount_duration"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
+                  <div className="form__wrap text-xs mb-3">
+                    <InputTextArea
+                      label="Qualification"
+                      type="text"
+                      name="discount_qualification"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
 
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Tuition Fee"
-                    type="text"
-                    name="discount_maintaining_grade"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
+                  <div className="form__wrap text-xs mb-3">
+                    <InputTextArea
+                      label="Duration"
+                      type="text"
+                      name="discount_duration"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
 
-                <div className="form__wrap text-xs mb-3">
-                  <InputTextArea
-                    label="Requirement"
-                    type="text"
-                    name="discount_requirement"
-                    disabled={mutation.isLoading}
-                  />
+                  <div className="form__wrap text-xs mb-3">
+                    <InputTextArea
+                      label="Requirement"
+                      type="text"
+                      name="discount_requirement"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
                 </div>
-
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
                     {mutation.isLoading ? (

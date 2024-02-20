@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2024 at 09:08 AM
+-- Generation Time: Feb 20, 2024 at 12:44 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `fcav2_settings_discount` (
   `discount_aid` int(11) NOT NULL,
   `discount_category_id` varchar(20) NOT NULL,
+  `discount_type` varchar(200) NOT NULL,
   `discount_is_active` tinyint(1) NOT NULL,
   `discount_entrance_fee` varchar(50) NOT NULL,
   `discount_tuition_fee` varchar(50) NOT NULL,
@@ -45,8 +46,8 @@ CREATE TABLE `fcav2_settings_discount` (
 -- Dumping data for table `fcav2_settings_discount`
 --
 
-INSERT INTO `fcav2_settings_discount` (`discount_aid`, `discount_category_id`, `discount_is_active`, `discount_entrance_fee`, `discount_tuition_fee`, `discount_qualification`, `discount_duration`, `discount_maintaining_grade`, `discount_requirement`, `discount_created`, `discount_updated`) VALUES
-(1, '1', 1, '20', '2', 'xcbb', 'cvn', '13', 'xcgn', '2024-02-19 16:05:33', '2024-02-19 16:08:22');
+INSERT INTO `fcav2_settings_discount` (`discount_aid`, `discount_category_id`, `discount_type`, `discount_is_active`, `discount_entrance_fee`, `discount_tuition_fee`, `discount_qualification`, `discount_duration`, `discount_maintaining_grade`, `discount_requirement`, `discount_created`, `discount_updated`) VALUES
+(1, '1', '', 1, '20', '2', 'xcbb', 'cvn', '13', 'xcgn', '2024-02-19 16:05:33', '2024-02-20 06:48:00');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +67,7 @@ ALTER TABLE `fcav2_settings_discount`
 -- AUTO_INCREMENT for table `fcav2_settings_discount`
 --
 ALTER TABLE `fcav2_settings_discount`
-  MODIFY `discount_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `discount_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

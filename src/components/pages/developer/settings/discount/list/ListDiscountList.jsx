@@ -63,7 +63,7 @@ const ListDiscountList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
+      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto max-h-[530px] lg:max-h-[580px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && discount.success === false ? (
@@ -78,7 +78,7 @@ const ListDiscountList = ({ setItemEdit }) => {
           discount?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "datalist__item text-xs flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row"
               }
               key={key}
             >
@@ -87,7 +87,30 @@ const ListDiscountList = ({ setItemEdit }) => {
                   item.discount_is_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <p className="mb-1">{item.discount_category_name}</p>
+                <p className="mb-1 font-bold">{item.discount_category_name}</p>
+                <p className="mb-3">{item.discount_type}</p>
+                <ul className="flex gap-5">
+                  <li className="mb-1">
+                    <span className="font-bold">Entrance fee: </span>
+                    {item.discount_entrance_fee}%
+                  </li>
+                  <li className="mb-1">
+                    <span className="font-bold">Tuition fee: </span>
+                    {item.discount_tuition_fee}%
+                  </li>
+                  <li className="mb-1">
+                    <span className="font-bold">Maintaining Grade: </span>
+                    {item.discount_maintaining_grade} GA
+                  </li>
+                </ul>
+                <ul className="flex">
+                  <li className="mb-1 font-bold mr-1">Qualification:</li>
+                  <li className="mb-1"> {item.discount_qualification}</li>
+                </ul>
+                <ul className="flex">
+                  <li className="mb-1 font-bold mr-6">Duration:</li>
+                  <li className="mb-1"> {item.discount_duration}</li>
+                </ul>
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">

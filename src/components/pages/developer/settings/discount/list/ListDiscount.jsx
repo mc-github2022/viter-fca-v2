@@ -19,13 +19,17 @@ const ListDiscount = () => {
   if (store.indexItem === 2) {
     return (
       <>
-        <button
-          className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-          onClick={handleAdd}
-        >
-          <AiOutlinePlus /> Add New
-        </button>
-        {!store.isSettingAdd && <ListDiscountList setItemEdit={setItemEdit} />}
+        {!store.isSettingAdd && (
+          <div className="max-w-[800px]">
+            <button
+              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+              onClick={handleAdd}
+            >
+              <AiOutlinePlus /> Add New
+            </button>
+            <ListDiscountList setItemEdit={setItemEdit} />
+          </div>
+        )}
         {store.isSettingAdd && <ListDiscountModalAddEdit itemEdit={itemEdit} />}
       </>
     );

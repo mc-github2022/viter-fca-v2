@@ -22,6 +22,7 @@ import ModalSettingsNav from "./ModalSettingsNav";
 import Department from "@/components/pages/developer/settings/Department/Department";
 import UserOtherParent from "@/components/pages/developer/settings/user-other/parent/UserOtherParent";
 import UserOtherStaff from "@/components/pages/developer/settings/user-other/staff/UserOtherStaff";
+import ScheduleOfFees from "@/components/pages/developer/settings/schedule-of-fee/ScheduleOfFees";
 
 const ModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
@@ -74,7 +75,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
               />
               <main
                 className={`${
-                  showSideNav ? "lg:-left-[210px]" : "lg:left-[0px]"
+                  showSideNav ? "lg:-left-[210px]" : "lg:left-[0px] "
                 } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-timing-nav `}
               >
                 <Department index={index} />
@@ -87,6 +88,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <RequirementIt index={index} />
                 <TuitionCategory index={index} />
                 <Scheme index={index} />
+                <ScheduleOfFees index={index} />
                 {/* <UserOther index={index} indexInner={indexInner} /> */}
                 <UserOtherParent index={index} indexInner={indexInner} />
                 <UserOtherStaff index={index} indexInner={indexInner} />

@@ -3,6 +3,7 @@ class Discount
 {
     public $discount_aid;
     public $discount_is_active;
+    public $discount_type;
     public $discount_tuition_fee;
     public $discount_entrance_fee;
     public $discount_category_id;
@@ -31,6 +32,7 @@ class Discount
         try {
             $sql = "insert into {$this->tblDiscount} ";
             $sql .= "( discount_is_active, ";
+            $sql .= "discount_type, ";
             $sql .= "discount_tuition_fee, ";
             $sql .= "discount_entrance_fee, ";
             $sql .= "discount_category_id, ";
@@ -41,6 +43,7 @@ class Discount
             $sql .= "discount_updated, ";
             $sql .= "discount_created ) values ( ";
             $sql .= ":discount_is_active, ";
+            $sql .= ":discount_type, ";
             $sql .= ":discount_tuition_fee, ";
             $sql .= ":discount_entrance_fee, ";
             $sql .= ":discount_category_id, ";
@@ -53,6 +56,7 @@ class Discount
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "discount_is_active" => $this->discount_is_active,
+                "discount_type" => $this->discount_type,
                 "discount_tuition_fee" => $this->discount_tuition_fee,
                 "discount_entrance_fee" => $this->discount_entrance_fee,
                 "discount_category_id" => $this->discount_category_id,
@@ -112,6 +116,7 @@ class Discount
     {
         try {
             $sql = "update {$this->tblDiscount} set ";
+            $sql .= "discount_type = :discount_type, ";
             $sql .= "discount_tuition_fee = :discount_tuition_fee, ";
             $sql .= "discount_entrance_fee = :discount_entrance_fee, ";
             $sql .= "discount_category_id = :discount_category_id, ";
@@ -123,6 +128,7 @@ class Discount
             $sql .= "where discount_aid = :discount_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "discount_type" => $this->discount_type,
                 "discount_tuition_fee" => $this->discount_tuition_fee,
                 "discount_entrance_fee" => $this->discount_entrance_fee,
                 "discount_category_id" => $this->discount_category_id,
@@ -182,10 +188,10 @@ class Discount
         try {
             $sql = "select discount_category_id from {$this->tblDiscount} ";
             $sql .= "where discount_category_id = :discount_category_id ";
-            $sql .= "and discount_qualification = :discount_qualification ";
+            $sql .= "and discount_type = :discount_type ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "discount_qualification" => $this->discount_qualification,
+                "discount_type" => $this->discount_type,
                 "discount_category_id" => $this->discount_category_id,
             ]);
         } catch (PDOException $ex) {
@@ -202,7 +208,8 @@ class Discount
             $sql .= "discount_category_aid, ";
             $sql .= "discount_category_name ";
             $sql .= "from ";
-            $sql .= " {$this->tblDiscountCategory} ";
+            $sql .= "{$this->tblDiscountCategory} ";
+            $sql .= "where discount_category_is_active = '1' ";
             $sql .= "order by discount_category_name asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {

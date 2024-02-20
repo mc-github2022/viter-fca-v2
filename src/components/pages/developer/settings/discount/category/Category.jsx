@@ -18,13 +18,17 @@ const Category = ({ indexItem }) => {
   if (store.indexItem === 1) {
     return (
       <>
-        <button
-          className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-          onClick={handleAdd}
-        >
-          <AiOutlinePlus /> Add New
-        </button>
-        {!store.isSettingAdd && <CategoryList setItemEdit={setItemEdit} />}
+        {!store.isSettingAdd && (
+          <>
+            <button
+              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+              onClick={handleAdd}
+            >
+              <AiOutlinePlus /> Add New
+            </button>
+            <CategoryList setItemEdit={setItemEdit} />
+          </>
+        )}
         {store.isSettingAdd && <CategoryModalAddEdit itemEdit={itemEdit} />}
       </>
     );

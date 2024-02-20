@@ -26,9 +26,9 @@ const ModalSettingsNav = ({
   };
 
   const handleChangeSetting = (index, e) => {
+    dispatch(setIsAdd(false));
     e.preventDefault;
     setIndex(index);
-    dispatch(setIsAdd(false));
     setShowSideNav(false);
     dispatch(setIndexItem(0));
   };
@@ -146,7 +146,7 @@ const ModalSettingsNav = ({
           </li>
 
           <li className={` ${index === 12 ? "active" : ""}`}>
-            {console.log(index)}
+            {/* {console.log(index)} */}
             <button
               onClick={(e) => {
                 handleChangeSetting(12, e);
