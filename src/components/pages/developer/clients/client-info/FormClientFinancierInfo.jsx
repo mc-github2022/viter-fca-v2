@@ -32,13 +32,7 @@ const FormClientFinancierInfo = ({
 
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData(
-        itemEdit
-          ? `/v2/dev-parents/${itemEdit.parents_aid}`
-          : "/v2/dev-parents",
-        itemEdit ? "PUT" : "POST",
-        values
-      ),
+      queryData(`/v2/dev-update-parents-financier/${id}`, "PUT", values),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["financierInfo"] });
@@ -67,16 +61,22 @@ const FormClientFinancierInfo = ({
       ? itemEdit.financial_info_financier_income
       : "",
     parents_financier_name: itemEdit ? itemEdit.parents_financier_name : "",
-    parents_financier_relationship: itemEdit
-      ? itemEdit.parents_financier_relationship
-      : "",
+
+    parents_financier_income: itemEdit ? itemEdit.parents_financier_income : "",
     parents_financier_occupation: itemEdit
       ? itemEdit.parents_financier_occupation
       : "",
-    parents_financier_income: itemEdit ? itemEdit.parents_financier_income : "",
+    parents_financier_relationship: itemEdit
+      ? itemEdit.parents_financier_relationship
+      : "",
   };
 
-  const yupSchema = Yup.object({});
+  const yupSchema = Yup.object({
+    parents_financier_name: Yup.string().required("Required"),
+    parents_financier_income: Yup.number().required("Required"),
+    parents_financier_relationship: Yup.string().required("Required"),
+    parents_financier_occupation: Yup.string().required("Required"),
+  });
 
   return (
     <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-md max-w-[620px] w-full mb-5 relative">
@@ -85,12 +85,7 @@ const FormClientFinancierInfo = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({
-            ...values,
-            parents_fname: financierInfo.data[0].parents_fname,
-            parents_lname: financierInfo.data[0].parents_lname,
-            parents_email: financierInfo.data[0].parents_email,
-          });
+          mutation.mutate(values);
         }}
       >
         {(props) => {
@@ -137,7 +132,7 @@ const FormClientFinancierInfo = ({
                 </div>
                 <div className="form__wrap">
                   <InputText
-                    label="Financer"
+                    label="Financer Name"
                     type="text"
                     name="parents_financier_name"
                     disabled={mutation.isLoading}
@@ -145,7 +140,7 @@ const FormClientFinancierInfo = ({
                 </div>
                 <div className="form__wrap">
                   <InputText
-                    label="Financer's Income"
+                    label="Financer Income"
                     type="text"
                     onKeyPress={handleNumOnly}
                     name="parents_financier_income"
@@ -154,7 +149,7 @@ const FormClientFinancierInfo = ({
                 </div>
                 <div className="form__wrap">
                   <InputText
-                    label="Relationship"
+                    label="Financier Relationship"
                     type="text"
                     name="parents_financier_relationship"
                     disabled={mutation.isLoading}
@@ -162,7 +157,7 @@ const FormClientFinancierInfo = ({
                 </div>
                 <div className="form__wrap">
                   <InputText
-                    label="Occupation"
+                    label="Financier Occupation"
                     type="text"
                     name="parents_financier_occupation"
                     disabled={mutation.isLoading}

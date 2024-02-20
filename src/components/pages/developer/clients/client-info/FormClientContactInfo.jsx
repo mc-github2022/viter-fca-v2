@@ -25,7 +25,7 @@ const FormClientContactInfo = ({
   setItemEdit,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const pid = getUrlParam().get("pid");
+  const id = getUrlParam().get("cid");
 
   const queryClient = useQueryClient();
 
@@ -86,7 +86,7 @@ const FormClientContactInfo = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({ ...values, emergency_contact_parent_id: pid });
+          mutation.mutate({ ...values, emergency_contact_parent_id: id });
         }}
       >
         {(props) => {
@@ -150,7 +150,7 @@ const FormClientContactInfo = ({
                     label="Landline"
                     type="text"
                     name="emergency_contact_landline"
-                    maxLength="11"
+                    maxLength="7"
                     onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
                   />

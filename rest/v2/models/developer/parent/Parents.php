@@ -177,6 +177,35 @@ class Parents
         return $query;
     }
 
+    public function updateFinancier()
+    {
+        try {
+            $sql = "update {$this->tblParents} set ";
+            $sql .= "parents_father_income = :parents_father_income, ";
+            $sql .= "parents_mother_income = :parents_mother_income, ";
+            $sql .= "parents_financier_name = :parents_financier_name, ";
+            $sql .= "parents_financier_occupation = :parents_financier_occupation, ";
+            $sql .= "parents_financier_relationship = :parents_financier_relationship, ";
+            $sql .= "parents_financier_income = :parents_financier_income, ";
+            $sql .= "parents_datetime = :parents_datetime ";
+            $sql .= "where parents_aid = :parents_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_father_income" => $this->parents_father_income,
+                "parents_mother_income" => $this->parents_mother_income,
+                "parents_financier_name" => $this->parents_financier_name,
+                "parents_financier_occupation" => $this->parents_financier_occupation,
+                "parents_financier_relationship" => $this->parents_financier_relationship,
+                "parents_financier_income" => $this->parents_financier_income,
+                "parents_datetime" => $this->parents_datetime,
+                "parents_aid" => $this->parents_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function updateIfNoAccount()
     {
         try {
