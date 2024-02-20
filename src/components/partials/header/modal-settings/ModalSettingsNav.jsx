@@ -22,7 +22,8 @@ const ModalSettingsNav = ({
 
   const [subNavActive, setSubNavActive] = useState(true);
   const handleSubNavActive = () => {
-    setSubNavActive(!subNavActive);
+    setIndex(12);
+    setSubNavActive(subNavActive ? false : true);
   };
 
   const handleChangeSetting = (index, e) => {
