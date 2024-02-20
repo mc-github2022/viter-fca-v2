@@ -20,9 +20,11 @@ const ModalSettingsNav = ({
     setbtnCollapse(!btnCollapse);
   };
 
-  const [subNavActive, setSubNavActive] = useState(true);
-  const handleSubNavActive = () => {
-    setSubNavActive(!subNavActive);
+  const [subNavActive, setSubNavActive] = useState("");
+
+  const handleSubNavActive = (subMenu) => {
+    setIndex(12);
+    setSubNavActive(subMenu);
   };
 
   const handleChangeSetting = (index, e) => {
@@ -31,6 +33,10 @@ const ModalSettingsNav = ({
     setIndex(index);
     setShowSideNav(false);
     dispatch(setIndexItem(0));
+    setbtnCollapse(false);
+    if (index === 12) {
+      setSubNavActive("Parent");
+    }
   };
 
   const handleChangeSettingInner = (indexInner, e) => {
@@ -161,18 +167,18 @@ const ModalSettingsNav = ({
                 />
               </div>
             </button>
-            <ul className={`${btnCollapse ? "!block" : ""} hidden bg-white`}>
+            <ul className={`${btnCollapse ? "!block" : ""} hidden bg-white h`}>
               <li className="text-gray-600 p-1 pl-8">
                 <button
                   onClick={(e) => {
                     handleChangeSettingInner(1, e);
-                    handleSubNavActive();
+                    handleSubNavActive("Parent");
                   }}
                   className={`${
-                    subNavActive
+                    subNavActive === "Parent"
                       ? "!border-l-2 !border-[#123909]"
-                      : "border-l-2 border-transparent"
-                  } !bg-[unset] !text-gray-600`}
+                      : ""
+                  } !bg-[unset] !text-gray-600 border-l-2 border-transparent`}
                 >
                   <span className="ml-2">Parent</span>
                 </button>
@@ -181,13 +187,13 @@ const ModalSettingsNav = ({
                 <button
                   onClick={(e) => {
                     handleChangeSettingInner(122, e);
-                    handleSubNavActive();
+                    handleSubNavActive("Staff");
                   }}
                   className={`${
-                    subNavActive
-                      ? "border-l-2 border-transparent"
-                      : "!border-l-2 !border-[#123909]"
-                  } !bg-[unset] !text-gray-600`}
+                    subNavActive === "Staff"
+                      ? "!border-l-2 !border-[#123909]"
+                      : ""
+                  } !bg-[unset] !text-gray-600 border-l-2 border-transparent`}
                 >
                   <span className="ml-2">Staff</span>
                 </button>
@@ -237,6 +243,14 @@ const ModalSettingsNav = ({
           <li className={` ${index === 17 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(17, e)}
+              className="p-1 pl-4"
+            >
+              School Year
+            </button>
+          </li>
+          <li className={` ${index === 18 ? "active" : ""}`}>
+            <button
+              onClick={(e) => handleChangeSetting(18, e)}
               className="p-1 pl-4"
             >
               System Mode

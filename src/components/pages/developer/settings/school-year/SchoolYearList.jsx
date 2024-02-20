@@ -2,71 +2,64 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import TableLoading from "@/components/partials/TableLoading";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
-  setIsAdd,
-  setIsConfirm,
-  setIsDelete,
   setIsSettingAdd,
   setSettingIsConfirm,
   setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import { BsArchive } from "react-icons/bs";
+import { BsArchive, BsCalendar2Date } from "react-icons/bs";
 
+import { formatDate } from "@/components/helpers/functions-general";
 import NoData from "@/components/partials/NoData.jsx";
+import Pills from "@/components/partials/Pills";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
-import ModalReset from "@/components/partials/modals/ModalReset";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
-import { MdOutlineRestore, MdPassword } from "react-icons/md";
-import { PiPasswordLight } from "react-icons/pi";
-const UserOtherList = ({ setItemEdit }) => {
+import { IoMdDoneAll } from "react-icons/io";
+import { MdDone, MdDoneAll, MdOutlineRestore } from "react-icons/md";
+
+const SchoolYearList = ({
+  setItemEdit,
+  setIsEditEnrollment,
+  isLoading,
+  isFetching,
+  error,
+  schoolYear,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
-  const [isReset, setReset] = React.useState(false);
-
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: other,
-  } = useQueryData(
-    "/v2/user-other", // endpoint
-    "get", // method
-    "other" // key
-  );
 
   const handleEdit = (item) => {
     dispatch(setIsSettingAdd(true));
     setItemEdit(item);
   };
 
+  const handleEditEnrollment = (item) => {
+    setIsEditEnrollment(true);
+    setItemEdit(item);
+  };
+
   const handleArchive = (item) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.user_other_aid);
+    setId(item.school_year_aid);
     setData(item);
     setIsArchive(0);
   };
 
   const handleRestore = (item) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.user_other_aid);
+    setId(item.school_year_aid);
     setData(item);
     setIsArchive(1);
   };
 
   const handleDelete = (item) => {
     dispatch(setSettingIsDelete(true));
-    setId(item.user_other_aid);
-    setData(item);
-  };
-
-  const handleReset = (item) => {
-    setId(item.user_other_aid);
-    setReset(true);
+    setId(item.school_year_aid);
     setData(item);
   };
 
@@ -77,38 +70,84 @@ const UserOtherList = ({ setItemEdit }) => {
       <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}
 
-        {!isLoading && other.success === false ? (
+        {!isLoading && !schoolYear.success && error ? (
           <ModalInvalidRequestError />
         ) : isLoading ? (
           <TableLoading count={20} cols={3} />
-        ) : other?.data.length === 0 ? (
+        ) : schoolYear?.count === 0 ? (
           <NoData />
         ) : (
           !isLoading &&
-          other.success === true &&
-          other?.data.map((item, key) => (
+          schoolYear.success &&
+          schoolYear?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs  flex justify-between md:grid md:grid-cols-[468px,92px] items-center lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "relative datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
               }
               key={key}
             >
               <div
                 className={`${
-                  item.user_other_is_active ? "opacity-100" : "opacity-40"
+                  item.school_year_is_active === 1
+                    ? "opacity-100"
+                    : "opacity-40"
                 } `}
               >
-                <div className="sm:grid sm:grid-cols-[180px,220px,68px]">
-                  <p className="mb-1">
-                    {item.user_other_fname} {item.user_other_lname}
-                  </p>
-                  <p className="mb-1">{item.user_other_email}</p>
-                  <p className="mb-1">{item.role_name}</p>
-                </div>
+                <p className="mb-1 flex items-center">
+                  <span className="font-bold block w-[8rem]">S.Y Status:</span>{" "}
+                  <Pills
+                    bg="bg-gray-200"
+                    label={
+                      item.school_year_is_active === 1 ? "On-going" : "Finished"
+                    }
+                    color={
+                      item.school_year_is_active === 1
+                        ? "text-green-500"
+                        : "text-blue-500"
+                    }
+                  />
+                </p>
+                <p className="mb-1 flex items-center">
+                  <span className="font-bold block w-[8rem]">S.Y:</span>{" "}
+                  {item.start_year} - {item.end_year}
+                </p>
+                <p className="mb-1 flex items-center">
+                  <span className="font-bold block w-[8rem]"> Date:</span>{" "}
+                  {formatDate(item.school_year_start_date)} -{" "}
+                  {formatDate(item.school_year_end_date)}
+                </p>
+                <p className="mb-1 flex items-center">
+                  <span className="font-bold block w-[8rem]">Enrollment:</span>{" "}
+                  {item.school_year_enrollment_start_date === ""
+                    ? "Not set"
+                    : formatDate(item.school_year_enrollment_start_date)}{" "}
+                  -{" "}
+                  {item.school_year_enrollment_end_date === ""
+                    ? "Not set"
+                    : formatDate(item.school_year_enrollment_end_date)}
+                </p>
+                <p className="mb-1 flex items-center">
+                  <span className="font-bold block w-[8rem]">
+                    Enrollment Status:
+                  </span>{" "}
+                  <Pills
+                    bg="bg-gray-200"
+                    label={
+                      item.school_year_is_enrollment_open === 1
+                        ? "Open"
+                        : "Closed"
+                    }
+                    color={
+                      item.school_year_is_enrollment_open === 1
+                        ? "text-green-500"
+                        : "text-gray-500"
+                    }
+                  />
+                </p>
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">
-                {item.user_other_is_active === 1 ? (
+                {item.school_year_is_active === 1 ? (
                   <>
                     <li className=" ">
                       <button
@@ -119,22 +158,24 @@ const UserOtherList = ({ setItemEdit }) => {
                         <FiEdit2 />
                       </button>
                     </li>
-                    <li>
+
+                    <li className=" ">
                       <button
                         className="tooltip"
-                        data-tooltip="Reset password"
-                        onClick={() => handleReset(item)}
+                        data-tooltip="Enrollment"
+                        onClick={() => handleEditEnrollment(item)}
                       >
-                        <PiPasswordLight />
+                        <BsCalendar2Date />
                       </button>
                     </li>
+
                     <li>
                       <button
                         className="tooltip"
-                        data-tooltip="Archive"
+                        data-tooltip="Finish"
                         onClick={() => handleArchive(item)}
                       >
-                        <BsArchive />
+                        <IoMdDoneAll />
                       </button>
                     </li>
                   </>
@@ -166,38 +207,28 @@ const UserOtherList = ({ setItemEdit }) => {
         )}
       </div>
 
-      {isReset && (
-        <ModalReset
-          setReset={setReset}
-          mysqlApiReset={`/v2/user-other/reset`}
-          msg={"Are you sure you want to reset the password of this record?"}
-          item={dataItem.user_other_email}
-          queryKey={"other"}
-        />
-      )}
-
       {store.isSettingConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/user-other/active/${id}`}
+          mysqlApiArchive={`/v2/dev-school-year/active/${id}`}
           msg={`Are you sure you want to ${
-            isArchive ? "restore" : "archive"
+            isArchive ? "restore" : "finish"
           } this record?`}
-          item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
-          queryKey={"other"}
+          item={`S.Y ${dataItem.start_year} ${dataItem.end_year}`}
+          queryKey={"school-year"}
           isArchive={isArchive}
         />
       )}
 
       {store.isSettingDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/user-other/${id}`}
+          mysqlApiDelete={`/v2/dev-school-year/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
-          queryKey={"other"}
+          item={`S.Y ${dataItem.start_year} ${dataItem.end_year}`}
+          queryKey={"school-year"}
         />
       )}
     </>
   );
 };
 
-export default UserOtherList;
+export default SchoolYearList;
