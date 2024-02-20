@@ -124,6 +124,14 @@ RewriteRule ^dev-system-mode/maintenance-mode$ controllers/developer/settings/sy
 RewriteRule ^dev-system-mode/([0-9]+)$ controllers/developer/settings/system-mode/system-mode.php?systemModeId=$1 [L]
 RewriteRule ^dev-system-mode/active/([0-9]+)$ controllers/developer/settings/system-mode/active.php?systemModeId=$1 [L] 
 
+# SCHOOL YEAR
+RewriteRule ^dev-school-year$ controllers/developer/settings/school-year/school-year.php [L]
+RewriteRule ^dev-school-year/search$ controllers/developer/settings/school-year/search.php [L]
+RewriteRule ^dev-school-year/([0-9]+)$ controllers/developer/settings/school-year/school-year.php?syid=$1 [L]
+RewriteRule ^dev-school-year/active/([0-9]+)$ controllers/developer/settings/school-year/active.php?syid=$1 [L]
+RewriteRule ^dev-school-year/page/([0-9]+)$ controllers/developer/settings/school-year/page.php?start=$1 [L]
+RewriteRule ^dev-school-year/([0-9]+)$ controllers/developer/settings/school-year/update-enrollment.php?syid=$1 [L]
+
 ###### DEV SETTINGS ######
  
 #INFO-CONTACT
