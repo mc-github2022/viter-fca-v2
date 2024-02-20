@@ -141,7 +141,7 @@ const Header = () => {
 
                   <button
                     className="absolute top-2 right-2 tooltip"
-                    data-tooltip="Edit Profile"
+                    data-tooltip="Profile"
                   >
                     <Link to={`${devNavUrl}/${link}/profile`}>
                       <RiEdit2Line />
