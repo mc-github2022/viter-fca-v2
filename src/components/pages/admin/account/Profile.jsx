@@ -96,7 +96,7 @@ const Profile = () => {
           <Navigation menu="student" />
 
           <main
-            className={`main__content mt-[35px] ${
+            className={`main__content mt-[35px] 2xl:h-[90vh] ${
               store.isMenuExpand ? "expand" : ""
             }`}
           >

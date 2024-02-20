@@ -89,7 +89,7 @@ const UserOtherList = ({ setItemEdit }) => {
           other?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "datalist__item text-xs  flex justify-between md:grid md:grid-cols-[468px,92px] items-center lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
               }
               key={key}
             >
@@ -98,11 +98,13 @@ const UserOtherList = ({ setItemEdit }) => {
                   item.user_other_is_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <p className="mb-1">
-                  {item.user_other_fname} {item.user_other_lname}
-                </p>
-                <p className="mb-1">{item.user_other_email}</p>
-                <p className="mb-1">{item.role_name}</p>
+                <div className="sm:grid sm:grid-cols-[180px,220px,68px]">
+                  <p className="mb-1">
+                    {item.user_other_fname} {item.user_other_lname}
+                  </p>
+                  <p className="mb-1">{item.user_other_email}</p>
+                  <p className="mb-1">{item.role_name}</p>
+                </div>
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">
