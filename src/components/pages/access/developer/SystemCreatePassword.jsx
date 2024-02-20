@@ -195,7 +195,7 @@ const SystemCreatePassword = () => {
                         />
                         {props.values.new_password && (
                           <span
-                            className="text-base absolute bottom-1/2 right-3 translate-y-1/2 cursor-pointer"
+                            className="text-base absolute bottom-1/2 top-7 right-3 cursor-pointer"
                             onClick={handlePassword}
                           >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -212,7 +212,7 @@ const SystemCreatePassword = () => {
                         />
                         {props.values.confirm_password && (
                           <span
-                            className="text-base absolute bottom-5 right-3 translate-y-1/2 cursor-pointer"
+                            className="text-base absolute bottom-5 right-3 top-7 cursor-pointer"
                             onClick={handleConfirmPassword}
                           >
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}

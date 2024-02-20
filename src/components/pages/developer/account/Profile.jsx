@@ -104,7 +104,7 @@ const Profile = () => {
             <div>
               <h1 className="text-clampH1 mb-0">User Account</h1>
               <p className="mb-4 text-xs hidden lg:block">
-                Manage your information and account security
+                Manage your information and account securitygi
               </p>
             </div>
           </div>
