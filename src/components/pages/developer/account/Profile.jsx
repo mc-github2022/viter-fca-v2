@@ -119,7 +119,7 @@ const Profile = () => {
             <div className=" pl-0  md:flex md:gap-5">
               <div className="w-full">
                 <div className="profile__block min-h-[300px] w-full ">
-                  <h6 className="mb-5">Change Password</h6>
+                  <h6 className="mb-5 text-sm">Change Password</h6>
 
                   <Formik
                     initialValues={initVal}
