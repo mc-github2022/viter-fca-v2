@@ -121,15 +121,15 @@ const Profile = () => {
                 <h6 className="mb-5 text-sm">Profile</h6>
                 <p className="flex">
                   <span className="font-bold mr-2 block">First Name:</span>
-                  {store.credentials.data.user_other_fname}
+                  {store.credentials.data.user_system_fname}
                 </p>
                 <p className="flex">
                   <span className="font-bold mr-2">Last Name:</span>
-                  {store.credentials.data.user_other_lname}
+                  {store.credentials.data.user_system_lname}
                 </p>
                 <p className="flex">
                   <span className="font-bold mr-2">Email:</span>
-                  {store.credentials.data.user_other_email}
+                  {store.credentials.data.user_system_email}
                 </p>
               </div>
 
