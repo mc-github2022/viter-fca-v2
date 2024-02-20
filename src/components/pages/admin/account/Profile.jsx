@@ -118,15 +118,15 @@ const Profile = () => {
 
               <div className="mb-8 pb-5">
                 <h6 className="mb-5 text-sm">Profile</h6>
-                <p className="flex">
+                <p className="grid grid-cols-[80px,200px]">
                   <span className="font-bold mr-2 block">First Name:</span>
                   {store.credentials.data.user_other_fname}
                 </p>
-                <p className="flex">
+                <p className="grid grid-cols-[80px,200px]">
                   <span className="font-bold mr-2">Last Name:</span>
                   {store.credentials.data.user_other_lname}
                 </p>
-                <p className="flex">
+                <p className="grid grid-cols-[80px,200px]">
                   <span className="font-bold mr-2">Email:</span>
                   {store.credentials.data.user_other_email}
                 </p>
