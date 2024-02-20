@@ -16,7 +16,7 @@ const ModalInvalidRequestError = () => {
       <Modal>
         <div className="modal__header mb-4 ">
           <h3 className=" flex flex-col items-center justify-center gap-2">
-            <MdOutlineError className="text-4xl text-alert" />
+            <MdOutlineError className="text-4xl text-warningDark" />
             <span className="text-xl"> Something Went Wrong</span>
           </h3>
         </div>
@@ -25,7 +25,10 @@ const ModalInvalidRequestError = () => {
             Please contact developer team for assistance.
           </p>
           <div className="modal__action flex items-center !justify-center gap-4 !pr-0 mt-4">
-            <button className="btn btn--alert " onClick={handleClose}>
+            <button
+              className="btn bg-warningDark text-white "
+              onClick={handleClose}
+            >
               Go Back
             </button>
           </div>
