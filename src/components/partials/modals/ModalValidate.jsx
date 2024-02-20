@@ -12,17 +12,14 @@ const ModalValidate = () => {
       <Modal>
         <div className="modal__header mb-4 ">
           <h3 className=" flex flex-col items-center justify-center gap-2">
-            <FaInfoCircle className="text-4xl text-warningDark" />
+            <FaInfoCircle className="text-4xl text-warning" />
             <span className="text-xl">Oops! Something went wrong.</span>
           </h3>
         </div>
         <div className=" text-center">
           <p>{store.message}</p>
           <div className=" flex !justify-center  mt-8">
-            <button
-              className="btn bg-warningDark text-white"
-              onClick={handleClose}
-            >
+            <button className="btn bg-warning text-white" onClick={handleClose}>
               Close
             </button>
           </div>

@@ -104,22 +104,38 @@ const Profile = () => {
             <div>
               <h1 className="text-clampH1 mb-0">User Account</h1>
               <p className="mb-4 text-xs hidden lg:block">
-                Manage your information and account securitygi
+                Manage your information and account security
               </p>
             </div>
           </div>
 
-          <div className="mt-5 bg-primary rounded-md max-w-[430px] relative pb-4">
-            <header className=" py-2 pr-4 flex justify-end">
+          <div className="mt-5 bg-primary md:max-w-[430px] relative pb-4">
+            {/* <header className=" py-2 pr-4 flex justify-end">
               <button className="text-lg md:hidden" onClick={handleShowSubMenu}>
                 <FaBars />
               </button>
-            </header>
+            </header> */}
+
+            <div className="mb-8 pb-5">
+              <h6 className="mb-5 text-sm">Profile</h6>
+              <p className="flex">
+                <span className="font-bold mr-2 block">First Name:</span>
+                {store.credentials.data.user_other_fname}
+              </p>
+              <p className="flex">
+                <span className="font-bold mr-2">Last Name:</span>
+                {store.credentials.data.user_other_lname}
+              </p>
+              <p className="flex">
+                <span className="font-bold mr-2">Email:</span>
+                {store.credentials.data.user_other_email}
+              </p>
+            </div>
 
             <div className=" pl-0  md:flex md:gap-5">
               <div className="w-full">
                 <div className="profile__block min-h-[300px] w-full ">
-                  <h6 className="mb-5">Change Password</h6>
+                  <h6 className="mb-5 text-sm">Change Password</h6>
 
                   <Formik
                     initialValues={initVal}
@@ -137,12 +153,12 @@ const Profile = () => {
                               type={showCurrentPassword ? "text" : "password"}
                               name="current_password"
                               className="account_password"
-                              placeholder="Current password"
+                              label="Current password"
                             />
                             {props.values.current_password && (
                               <button
                                 type="button"
-                                className="absolute top-1/2 -translate-y-1/2 text-base text-gray-400 right-3"
+                                className="absolute top-7 text-base text-gray-400 right-3"
                                 onClick={handleShowCurrentPassword}
                               >
                                 {showCurrentPassword ? (
@@ -159,13 +175,13 @@ const Profile = () => {
                               type={showNewPassword ? "text" : "password"}
                               name="new_password"
                               className="account_password"
-                              placeholder="New password"
+                              label="New password"
                             />
 
                             {props.values.new_password && (
                               <button
                                 type="button"
-                                className="absolute top-1/2 -translate-y-1/2 text-base text-gray-400 right-3"
+                                className="absolute top-7  text-base text-gray-400 right-3"
                                 onClick={handleShowNewPassword}
                               >
                                 {showNewPassword ? <FaEyeSlash /> : <FaEye />}
@@ -178,12 +194,12 @@ const Profile = () => {
                               type={showConfirmPassword ? "text" : "password"}
                               name="confirm_password"
                               className="account_password"
-                              placeholder="Confirm New password"
+                              label="Confirm New password"
                             />
                             {props.values.confirm_password && (
                               <button
                                 type="button"
-                                className="absolute top-1/2 -translate-y-1/2 text-base text-gray-400 right-3"
+                                className="absolute top-7 text-base text-gray-400 right-3"
                                 onClick={handleShowConfirmPassword}
                               >
                                 {showConfirmPassword ? (
@@ -220,12 +236,11 @@ const Profile = () => {
             </div>
           </div>
         </main>
-
         <Footer />
       </section>
 
       {store.success && <ModalSuccess />}
-      {store.error && <ModalError />}
+      {store.error && <ModalError setChangePassword={setChangePassword} />}
 
       {changePassword && (
         <ModalConfirmPasswordChange
