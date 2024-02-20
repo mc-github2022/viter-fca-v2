@@ -25,6 +25,7 @@ class UserOther
     public $tblStaff;
     public $tblRole;
     public $tblParents;
+    public $tblRelationship;
 
     public function __construct($db)
     {
@@ -136,11 +137,14 @@ class UserOther
             $sql .= "user.user_other_lname, ";
             $sql .= "user.user_other_email, ";
             $sql .= "user.user_other_password, ";
+            $sql .= "parent.parents_aid, ";
             $sql .= "role.* ";
             $sql .= "from {$this->tblUserOther} as user, ";
-            $sql .= "{$this->tblRole} as role ";
+            $sql .= "{$this->tblRole} as role, ";
+            $sql .= "{$this->tblParents} as parent ";
             $sql .= "where user.user_other_role_id = role.role_aid ";
-            $sql .= "and user.user_other_email like :user_other_email ";
+            $sql .= "and user.user_other_email = parent.parents_email ";
+            $sql .= "and user.user_other_email = :user_other_email ";
             $sql .= "and user.user_other_is_active = 1 ";
             $query = $this->connection->prepare($sql);
             $query->execute([

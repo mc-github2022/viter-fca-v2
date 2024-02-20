@@ -23,20 +23,21 @@ const Parents = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
   const [parentID, setParentID] = React.useState(null);
 
-  const {
-    isLoading: isLoadingParent,
-    isFetching: isFetchingParent,
-    error: errorParent,
-    data: parents,
-  } = useQueryData(
-    `/v2/dev-parents`, // endpoint
-    "get", // method
-    "parents" // key
-  );
+  // const {
+  //   isLoading: isLoadingParent,
+  //   isFetching: isFetchingParent,
+  //   error: errorParent,
+  //   data: parents,
+  // } = useQueryData(
+  //   `/v2/dev-parents`, // endpoint
+  //   "post", // method
+  //   "parents",
+  //   { email: store.credentials?.data.user_other_email } // key
+  // );
 
-  const currentUser = parents?.data.find((item) => {
-    item.parents_email === store.credentials?.data.user_other_email;
-  });
+  // const currentUser = parents?.data.find((item) => {
+  //   item.parents_email === store.credentials?.data.user_other_email;
+  // });
 
   const {
     isLoading,
@@ -44,7 +45,7 @@ const Parents = () => {
     error,
     data: guardianInfo,
   } = useQueryData(
-    `/v2/dev-read-info-guardian/${6}`, // endpoint
+    `/v2/dev-read-info-guardian/${store.credentials?.data.parents_aid}`, // endpoint
     "get", // method
     "guardianInfo" // key
   );

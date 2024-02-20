@@ -135,7 +135,12 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({ ...values, guardian_parent_id: id });
+          mutation.mutate({
+            ...values,
+            guardian_parent_id:
+              //if id from url of developer is null then use parent login credentials id
+              id === null ? store.credentials?.data.parents_aid : id,
+          });
         }}
       >
         {(props) => {
@@ -181,10 +186,10 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
 
                     {isLoading || isFetching ? (
                       <option>Loading...</option>
-                    ) : relationship?.data.length === 0 ? (
+                    ) : activeRelationship.length === 0 ? (
                       <option>No Data</option>
                     ) : (
-                      relationship?.data.map((item, key) => {
+                      activeRelationship.map((item, key) => {
                         return (
                           <option key={key} value={item.relationship_aid}>
                             {`${item.relationship_name}`}
