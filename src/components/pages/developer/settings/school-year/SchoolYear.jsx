@@ -1,22 +1,49 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsSettingAdd } from "@/components/store/StoreAction";
+import {
+  setError,
+  setIsSettingAdd,
+  setMessage,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import StaffFormAddEdit from "./StaffFormAddEdit";
-import StaffList from "./StaffList";
+import SchoolYearFormAddEdit from "./SchoolYearFormAddEdit";
+import SchoolYearFormEditEnrollment from "./SchoolYearFormEditEnrollment";
+import SchoolYearList from "./SchoolYearList";
 
 const SchoolYear = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
+  const [editEnrollment, setIsEditEnrollment] = React.useState(false);
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: schoolYear,
+  } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "school-year" // key
+  );
+
+  const getOngoingSchoolYear =
+    schoolYear?.count > 0 &&
+    schoolYear?.data.filter((item) => item.school_year_is_active === 1);
 
   const handleAdd = () => {
+    if (getOngoingSchoolYear?.length > 0) {
+      dispatch(setError(true));
+      dispatch(setMessage("Error. There is already an on-going SY."));
+      return;
+    }
     dispatch(setIsSettingAdd(true));
     setItemEdit(null);
   };
 
-  if (index === 16) {
+  if (index === 17) {
     return (
       <>
         <div className="">
@@ -37,9 +64,25 @@ const SchoolYear = ({ index }) => {
             </button>
           )}
 
-          {!store.isSettingAdd && <StaffList setItemEdit={setItemEdit} />}
+          {!store.isSettingAdd && !editEnrollment && (
+            <SchoolYearList
+              setItemEdit={setItemEdit}
+              setIsEditEnrollment={setIsEditEnrollment}
+              isLoading={isLoading}
+              isFetching={isFetching}
+              error={error}
+              schoolYear={schoolYear}
+            />
+          )}
 
-          {store.isSettingAdd && <StaffFormAddEdit itemEdit={itemEdit} />}
+          {store.isSettingAdd && <SchoolYearFormAddEdit itemEdit={itemEdit} />}
+
+          {editEnrollment && (
+            <SchoolYearFormEditEnrollment
+              itemEdit={itemEdit}
+              setIsEditEnrollment={setIsEditEnrollment}
+            />
+          )}
 
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

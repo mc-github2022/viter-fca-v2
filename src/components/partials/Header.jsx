@@ -95,7 +95,7 @@ const Header = () => {
       {loading && <FetchingSpinner />}
       <header className=" pr-4 pl-[13.5px] fixed  w-full bg-primary border-gray-100 border-0 py-1 z-20 drop-shadow">
         <div className="flex justify-between items-center">
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-2">
             <button className="text-2xl lg:hidden" onClick={handleToggleMenu}>
               <FaBars />
             </button>
@@ -105,7 +105,7 @@ const Header = () => {
               data-tooltip="Expand"
               onClick={handleToggleExpandMenu}
             >
-              <FaBars />
+              <FaBars className="h-5 w-5" />
             </button>
             <LogoTextOnly />
             {/* <LogoGreen width="170" height="44" /> */}

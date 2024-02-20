@@ -1,4 +1,4 @@
-import { InputText } from "@/components/helpers/FormInputs";
+import { InputCheckbox, InputText } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -13,55 +13,58 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StaffFormAddEdit = ({ itemEdit }) => {
+const SchoolYearFormEditEnrollment = ({ itemEdit, setIsEditEnrollment }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
   const handleClose = () => {
-    dispatch(setIsSettingAdd(false));
+    setIsEditEnrollment(false);
   };
 
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/v2/dev-staff/${itemEdit.settings_staff_aid}`
-          : "/v2/dev-staff",
-        itemEdit ? "put" : "post",
+        `/v2/dev-school-year/enrollment/${itemEdit.school_year_aid}`,
+        "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["school-year"] });
 
       // show error box
       if (!data.success) {
         dispatch(setError(true));
         dispatch(setMessage(data.error));
       } else {
-        dispatch(setIsSettingAdd(false));
+        setIsEditEnrollment(false);
         dispatch(setSuccess(true));
-        dispatch(
-          setMessage(`Record successfully ${itemEdit ? "updated" : "added"}.`)
-        );
+        dispatch(setMessage(`Record successfully updated.`));
       }
     },
   });
 
   const initVal = {
-    settings_staff_aid: itemEdit ? itemEdit.settings_staff_aid : "",
-    settings_staff_fname: itemEdit ? itemEdit.settings_staff_fname : "",
-    settings_staff_lname: itemEdit ? itemEdit.settings_staff_lname : "",
-    settings_staff_email: itemEdit ? itemEdit.settings_staff_email : "",
-    settings_staff_email_old: itemEdit ? itemEdit.settings_staff_email : "",
+    school_year_aid: itemEdit ? itemEdit.school_year_aid : "",
+    school_year_enrollment_start_date: itemEdit
+      ? itemEdit.school_year_enrollment_start_date
+      : "",
+    school_year_enrollment_end_date: itemEdit
+      ? itemEdit.school_year_enrollment_end_date
+      : "",
+    school_year_is_enrollment_open: itemEdit
+      ? itemEdit.school_year_is_enrollment_open === 1
+        ? true
+        : false
+      : false,
+    school_year_enrollment_start_date_old: itemEdit
+      ? itemEdit.school_year_enrollment_start_date
+      : "",
   };
 
   const yupSchema = Yup.object({
-    settings_staff_fname: Yup.string().required("Required"),
-    settings_staff_lname: Yup.string().required("Required"),
-    settings_staff_email: Yup.string()
-      .required("Required")
-      .email("Invalid Email"),
+    school_year_enrollment_start_date: Yup.string().required("Required"),
+    school_year_enrollment_end_date: Yup.string().required("Required"),
   });
 
   return (
@@ -79,27 +82,28 @@ const StaffFormAddEdit = ({ itemEdit }) => {
               <Form>
                 <div className="form__wrap text-xs mb-3">
                   <InputText
-                    label="First Name"
-                    type="text"
-                    name="settings_staff_fname"
+                    label="Enrollment Start Date"
+                    type="date"
+                    name="school_year_enrollment_start_date"
                     disabled={mutation.isPending}
                   />
                 </div>
 
                 <div className="form__wrap text-xs mb-3">
                   <InputText
-                    label="Last Name"
-                    type="text"
-                    name="settings_staff_lname"
+                    label="Enrollment End Date"
+                    type="date"
+                    name="school_year_enrollment_end_date"
                     disabled={mutation.isPending}
                   />
                 </div>
 
                 <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Email"
-                    type="email"
-                    name="settings_staff_email"
+                  <InputCheckbox
+                    label="Mark check to open this enrollment"
+                    type="checkbox"
+                    name="school_year_is_enrollment_open"
+                    id="school_year_is_enrollment_open"
                     disabled={mutation.isPending}
                   />
                 </div>
@@ -136,4 +140,4 @@ const StaffFormAddEdit = ({ itemEdit }) => {
   );
 };
 
-export default StaffFormAddEdit;
+export default SchoolYearFormEditEnrollment;

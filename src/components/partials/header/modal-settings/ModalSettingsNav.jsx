@@ -239,6 +239,14 @@ const ModalSettingsNav = ({
               onClick={(e) => handleChangeSetting(17, e)}
               className="p-1 pl-4"
             >
+              School Year
+            </button>
+          </li>
+          <li className={` ${index === 18 ? "active" : ""}`}>
+            <button
+              onClick={(e) => handleChangeSetting(18, e)}
+              className="p-1 pl-4"
+            >
               System Mode
             </button>
           </li>

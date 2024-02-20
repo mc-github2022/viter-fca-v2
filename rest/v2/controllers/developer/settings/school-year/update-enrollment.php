@@ -21,9 +21,15 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         $sy->school_year_aid = $_GET['syid'];
         $sy->school_year_enrollment_start_date = $data["school_year_enrollment_start_date"];
         $sy->school_year_enrollment_end_date = $data["school_year_enrollment_end_date"];
+        $sy->school_year_is_enrollment_open = $data["school_year_is_enrollment_open"];
 
         // validate id if empty or valid number
         checkId($sy->school_year_aid);
+
+        // $school_year_enrollment_start_date_old = $data["school_year_enrollment_start_date_old"];
+
+        // only if email is changed, then check if already exist
+        // compareEmail($sy, $school_year_enrollment_start_date_old, $sy->school_year_start_date);
 
         // update status
         $query = checkUpdateEnrollmentDate($sy);

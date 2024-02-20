@@ -6,12 +6,30 @@ import { Link } from "react-router-dom";
 //   devNavUrl,
 //   getUserType,
 // } from "../helpers/functions-general.jsx";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 const Navigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   // const urlRolePath = getUserType();
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: schoolYear,
+  } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "nav-school-year" // key
+  );
+
+  const getOngoingSchoolYear =
+    schoolYear?.count > 0 &&
+    schoolYear?.data.filter((item) => item.school_year_is_active === 1);
+
+  console.log(getOngoingSchoolYear);
 
   const handleToggleMenu = () => {
     dispatch(setIsShow(!store.isShow));
@@ -40,7 +58,14 @@ const Navigation = ({ menu, submenu }) => {
                 // to={`${devNavUrl}/admin/students`}
                 className="flex gap-3 items-center uppercase w-full"
               >
-                <BsCalendar2Week className="text-lg ml-4" /> S.Y 2023-2024
+                <BsCalendar2Week className="text-lg ml-4" />
+                {isLoading
+                  ? "Loading..."
+                  : error
+                  ? "API / Network Error"
+                  : getOngoingSchoolYear?.length > 0
+                  ? `S.Y ${getOngoingSchoolYear[0]?.start_year}-${getOngoingSchoolYear[0]?.end_year}`
+                  : "0000-0000"}
               </Link>
             </li>
             <li className={`nav__link ${menu === "students" ? "active" : ""}`}>
