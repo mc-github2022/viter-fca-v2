@@ -167,7 +167,7 @@ const ModalSettingsNav = ({
                 />
               </div>
             </button>
-            <ul className={`${btnCollapse ? "!block" : ""} hidden bg-white`}>
+            <ul className={`${btnCollapse ? "!block" : ""} hidden bg-white h`}>
               <li className="text-gray-600 p-1 pl-8">
                 <button
                   onClick={(e) => {
