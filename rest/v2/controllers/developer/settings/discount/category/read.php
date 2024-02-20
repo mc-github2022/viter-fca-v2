@@ -3,21 +3,21 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$discount = new Discount($conn);
+$categroy_discount = new DiscountCategory($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
 
-if (array_key_exists("discountId", $_GET)) {
-    $discount->discount_aid = $_GET['discountId'];
-    checkId($discount->discount_aid);
-    $query = checkReadById($discount);
+if (array_key_exists("discountCategoryId", $_GET)) {
+    $categroy_discount->discount_category_aid = $_GET['discountCategoryId'];
+    checkId($categroy_discount->discount_category_aid);
+    $query = checkReadById($categroy_discount);
     http_response_code(200);
     getQueriedData($query);
 }
 
 if (empty($_GET)) {
-    $query = checkReadAll($discount);
+    $query = checkReadAll($categroy_discount);
     http_response_code(200);
     getQueriedData($query);
 }

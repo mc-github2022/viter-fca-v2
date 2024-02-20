@@ -6,7 +6,7 @@ require '../../../../core/header.php';
 require '../../../../core/functions.php';
 require 'functions.php';
 // use needed classes
-require '../../../../models/developer/settings/Discount.php';
+require '../../../../models/developer/settings/discount/Discount.php';
 // check database connection
 $conn = null;
 $conn = checkDbConnection();
@@ -19,11 +19,13 @@ $data = json_decode($body, true);
 // validate api key
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
-    if (array_key_exists("discountid", $_GET)) {
+    if (array_key_exists("discountId", $_GET)) {
         // check data
         checkPayload($data);
-        $discount->discount_aid = $_GET['discountid'];
+        $discount->discount_aid = $_GET['discountId'];
         $discount->discount_is_active = trim($data["isActive"]);
+        $discount->discount_updated = date("Y-m-d H:i:s");
+
         checkId($discount->discount_aid);
         $query = checkActive($discount);
         http_response_code(200);
