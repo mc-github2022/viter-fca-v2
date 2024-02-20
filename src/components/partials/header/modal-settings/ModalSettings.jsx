@@ -15,7 +15,7 @@ import UserOther from "@/components/pages/developer/settings/user-other/UserOthe
 import UserSystem from "@/components/pages/developer/settings/user-system/UserSystem";
 import { setIndexItem, setIsShowModal } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import React from "react";
+import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
