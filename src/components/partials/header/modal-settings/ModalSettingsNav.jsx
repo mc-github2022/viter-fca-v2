@@ -34,7 +34,9 @@ const ModalSettingsNav = ({
     setShowSideNav(false);
     dispatch(setIndexItem(0));
     setbtnCollapse(false);
-    setSubNavActive("Parent");
+    if (index === 12) {
+      setSubNavActive("Parent");
+    }
   };
 
   const handleChangeSettingInner = (indexInner, e) => {
