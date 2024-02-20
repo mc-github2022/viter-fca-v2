@@ -16,6 +16,7 @@ import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
 import { devNavUrl } from "../helpers/functions-general.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
 import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
+import LogoGreen from "./svg/LogoGreen.jsx";
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
@@ -92,7 +93,7 @@ const Header = () => {
   return (
     <>
       {loading && <FetchingSpinner />}
-      <header className=" pr-4 pl-[13.5px] fixed  w-full bg-primary border-b-2 border-gray-300 border-0 py-1 z-20">
+      <header className=" pr-4 pl-[13.5px] fixed  w-full bg-primary border-gray-100 border-0 py-1 z-20 drop-shadow">
         <div className="flex justify-between items-center">
           <div className="flex justify-center">
             <button className="text-2xl lg:hidden" onClick={handleToggleMenu}>
@@ -107,6 +108,7 @@ const Header = () => {
               <FaBars />
             </button>
             <LogoTextOnly />
+            {/* <LogoGreen width="170" height="44" /> */}
           </div>
 
           <div className="flex items-center gap-3">
