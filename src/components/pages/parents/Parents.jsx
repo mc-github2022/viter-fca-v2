@@ -21,45 +21,70 @@ const Parents = () => {
   const [showContactForm, setShowContactForm] = React.useState(false);
   const [showFinancierForm, setShowFinancierForm] = React.useState(false);
   const [itemEdit, setItemEdit] = React.useState(null);
+  const [parentID, setParentID] = React.useState(null);
 
-  const id = 31;
+  const {
+    isLoading: isLoadingParent,
+    isFetching: isFetchingParent,
+    error: errorParent,
+    data: parents,
+  } = useQueryData(
+    `/v2/dev-parents`, // endpoint
+    "get", // method
+    "parents" // key
+  );
+
+  const currentUser = parents?.data.find((item) => {
+    item.parents_email === store.credentials?.data.user_other_email;
+  });
 
   const {
     isLoading,
     isFetching,
     error,
-    data: parentInfo,
+    data: guardianInfo,
   } = useQueryData(
-    `/v2/dev-read-info-parent/${id}`, // endpoint
+    `/v2/dev-read-info-guardian/${6}`, // endpoint
     "get", // method
-    "parentInfo" // key
+    "guardianInfo" // key
   );
 
-  const {
-    isLoading: contactIsLoading,
-    isFetching: contactIsFetching,
-    error: contactIsError,
-    data: contactInfo,
-  } = useQueryData(
-    `/v2/dev-read-info-contact/${id}`, // endpoint
-    "get", // method
-    "contactInfo" // key
-  );
+  // const {
+  //   isLoading: contactIsLoading,
+  //   isFetching: contactIsFetching,
+  //   error: contactIsError,
+  //   data: contactInfo,
+  // } = useQueryData(
+  //   `/v2/dev-read-info-contact/${1}`, // endpoint
+  //   "get", // method
+  //   "contactInfo" // key
+  // );
 
-  const {
-    isLoading: financierIsLoading,
-    isFetching: financierIsFetching,
-    error: financierIsError,
-    data: financierInfo,
-  } = useQueryData(
-    `/v2/dev-read-info-financial/${id}`, // endpoint
-    "get", // method
-    "financierInfo" // key
-  );
+  // const {
+  //   isLoading: financierIsLoading,
+  //   isFetching: financierIsFetching,
+  //   error: financierIsError,
+  //   data: financierInfo,
+  // } = useQueryData(
+  //   `/v2/dev-parents/${store.credentials?.data.user_other_aid}`, // endpoint
+  //   "get", // method
+  //   "financierInfo" // key
+  // );
+
+  // React.useEffect(() => {
+  // setParentID(
+  //   !isLoadingParent &&
+  //     parents?.data.find(
+  //       (item) =>
+  //         item.parents_email === store.credentials?.data.user_other_email
+  //     )
+  // );
+  // console.log(parentID.parents_email);
+  // }, [parentID]);
 
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       {/* <ModalEditStudent /> */}
       <section className="main__wrap flex flex-col relative h-[100vh] ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
@@ -92,7 +117,7 @@ const Parents = () => {
                     }`}
                   >
                     <CardClientParentInfo
-                      parentInfo={parentInfo}
+                      guardianInfo={guardianInfo}
                       itemEdit={itemEdit}
                       setItemEdit={setItemEdit}
                       setShowParentForm={setShowParentForm}
@@ -101,7 +126,6 @@ const Parents = () => {
                   </div>
                 )
               )}
-
               {showParentForm && (
                 <FormClientParentInfo
                   itemEdit={itemEdit}
@@ -109,8 +133,7 @@ const Parents = () => {
                   setItemEdit={setItemEdit}
                 />
               )}
-
-              {contactIsLoading || contactIsFetching ? (
+              {/*{contactIsLoading || contactIsFetching ? (
                 <TableLoading />
               ) : (
                 !showContactForm && (
@@ -130,16 +153,15 @@ const Parents = () => {
                   </div>
                 )
               )}
-
               {showContactForm && (
                 <FormClientContactInfo
                   itemEdit={itemEdit}
                   setShowContactForm={setShowContactForm}
                   setItemEdit={setItemEdit}
                 />
-              )}
-
-              {financierIsLoading || financierIsFetching ? (
+              )}{" "}
+              */}
+              {/* {financierIsLoading || financierIsFetching ? (
                 <TableLoading />
               ) : (
                 !showFinancierForm && (
@@ -166,7 +188,7 @@ const Parents = () => {
                   setShowFinancierForm={setShowFinancierForm}
                   setItemEdit={setItemEdit}
                 />
-              )}
+              )} */}
             </div>
           </main>
         </div>
