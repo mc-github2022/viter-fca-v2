@@ -15,14 +15,17 @@ const ModalError = () => {
       <Modal>
         <div className="modal__header mb-4 ">
           <h3 className=" flex flex-col items-center justify-center gap-2">
-            <MdOutlineError className="text-4xl text-alert" />
-            <span className="text-xl">Error</span>
+            <MdOutlineError className="text-4xl text-warningDark" />
+            <span className="text-xl">Oops! Something went wrong.</span>
           </h3>
         </div>
         <div className="modal__body__error text-center !pr-0">
           <p>{store.message} </p>
           <div className="modal__action flex items-center !justify-center gap-4 !pr-0 mt-4">
-            <button className="btn btn--alert " onClick={handleClose}>
+            <button
+              className="btn bg-warningDark text-white "
+              onClick={handleClose}
+            >
               Close
             </button>
           </div>

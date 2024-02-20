@@ -3,6 +3,7 @@ import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { devNavUrl } from "@/components/helpers/functions-general";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
+import ModalValidate from "@/components/partials/modals/ModalValidate";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
 import { setMessage, setValidate } from "@/components/store/StoreAction.jsx";
@@ -130,7 +131,7 @@ const SystemForgotPassword = () => {
           )}
         </div>
       </div>
-      {store.validate && <ModalError />}
+      {store.validate && <ModalValidate />}
     </>
   );
 };
