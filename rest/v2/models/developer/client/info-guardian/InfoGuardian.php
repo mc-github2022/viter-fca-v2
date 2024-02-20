@@ -136,10 +136,10 @@ class InfoGuardian
     {
         try {
             $sql = "select * ";
-            $sql .= "from {$this->tblGuardian} as guardian ";
-            // $sql .= "{$this->fcav2_settings_relationship} as relationship ";
-            // $sql .= "where relationship.relationship_aid = parent.guardian_relationship_id ";
-            $sql .= "where guardian.guardian_parent_id = :guardian_parent_id ";
+            $sql .= "from {$this->tblGuardian} as guardian,  ";
+            $sql .= "{$this->tblRelationship} as relationship ";
+            $sql .= "where guardian.guardian_relationship_id = relationship.relationship_aid ";
+            $sql .= "and guardian.guardian_parent_id = :guardian_parent_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "guardian_parent_id" => $this->guardian_parent_id,

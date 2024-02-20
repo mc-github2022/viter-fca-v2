@@ -1,4 +1,5 @@
 import {
+  getPesoSign,
   numberWithCommas,
   pesoSign,
 } from "@/components/helpers/functions-general.jsx";
@@ -11,7 +12,7 @@ import { FaPlus } from "react-icons/fa";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { LiaHardHatSolid } from "react-icons/lia";
 import { LuDot } from "react-icons/lu";
-import { PiCoinsLight } from "react-icons/pi";
+import { PiBriefcase, PiCoinsLight } from "react-icons/pi";
 import { SlPeople } from "react-icons/sl";
 import ModalDeleteInfoCard from "./ModalDeleteInfoCard.jsx";
 
@@ -32,17 +33,6 @@ const CardClientFinancierInfo = ({
     setShowFinancierForm(true);
   };
 
-  const handleDeleteFinancierCard = (item) => {
-    setCardId(item.financial_info_aid);
-    setData(item);
-    setDeleteFinancier(true);
-  };
-
-  const handleAddFinancier = () => {
-    setShowFinancierForm(true);
-    setItemEdit(null);
-  };
-
   return (
     <div>
       <div className="flex justify-between items-center max-w-[620px] w-full mb-5 relative">
@@ -52,12 +42,23 @@ const CardClientFinancierInfo = ({
             Setup student financier information
           </p>
         </div>
+
+        {financierInfo.data[0].parents_financier_name === "" && (
+          <button
+            className="tooltip"
+            data-tooltip="New"
+            onClick={handleShowFinancierForm}
+          >
+            <FaPlus />
+          </button>
+        )}
       </div>
 
       <div className="max-w-[620px] w-full gap-4 mb-2">
         {isLoading ? (
           <TableLoading count={20} cols={3} />
-        ) : !isLoading && financierInfo.data.length === 0 ? (
+        ) : !isLoading &&
+          financierInfo.data[0].parents_financier_name === "" ? (
           <NoData />
         ) : error ? (
           <ServerError />
@@ -68,7 +69,7 @@ const CardClientFinancierInfo = ({
                 <h5 className="mb-1">{item.parents_financier_name}</h5>
                 <p className="md:flex gap-2 text-xs items-center ">
                   <span className="flex gap-2 mb-2 md:mb-0">
-                    <LiaHardHatSolid className="text-base" />{" "}
+                    <PiBriefcase className="text-base" />{" "}
                     {item.parents_financier_occupation}
                   </span>
                   <LuDot className="text-xl hidden md:block" />{" "}
@@ -79,7 +80,8 @@ const CardClientFinancierInfo = ({
                   <LuDot className="text-xl hidden md:block" />{" "}
                   <span className="flex gap-2 mb-2 md:mb-0">
                     <PiCoinsLight className="text-base" />
-                    {item.parents_financier_income}
+                    {pesoSign}
+                    {numberWithCommas(item.parents_financier_income)}
                   </span>
                 </p>
                 <div className="card__action absolute bottom-5 right-5  flex gap-2 ">
@@ -89,14 +91,6 @@ const CardClientFinancierInfo = ({
                     onClick={() => handleShowFinancierForm(item)}
                   >
                     <FiEdit2 />
-                  </button>
-
-                  <button
-                    className=" tooltip"
-                    data-tooltip="Delete"
-                    // onClick={() => handleDeleteFinancierCard(item)}
-                  >
-                    <FiTrash />
                   </button>
                 </div>
               </div>
