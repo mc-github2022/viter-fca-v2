@@ -54,7 +54,7 @@ const ModalReset = ({ setReset, mysqlApiReset, msg, item, queryKey }) => {
       <ModalWrapper>
         <div className="modal__header flex items-center gap-3">
           <div
-            className="flex justify-center items-center w-6 h-6 rounded-full bg-warningDark relative isolate after:[''] after:absolute after:-top-[4px] after:-left-[4px] after:bg-[rgba(175,24,24,0.5)] after:w-8 after:h-8 z-0 after:rounded-full
+            className="flex justify-center items-center w-6 h-6 rounded-full bg-warning relative isolate after:[''] after:absolute after:-top-[4px] after:-left-[4px] after:bg-[rgba(175,24,24,0.5)] after:w-8 after:h-8 z-0 after:rounded-full
           "
           >
             <MdPassword className="fill-white text-base relative z-10" />
@@ -69,7 +69,7 @@ const ModalReset = ({ setReset, mysqlApiReset, msg, item, queryKey }) => {
 
         <div className="modal__action flex justify-end mt-2 gap-2">
           <button
-            className="btn bg-warningDark text-white"
+            className="btn bg-warning text-white"
             disabled={mutation.isPending}
             onClick={handleYes}
             type="submit"
