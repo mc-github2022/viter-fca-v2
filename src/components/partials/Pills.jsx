@@ -5,7 +5,7 @@ const Pills = ({
   color = "text-success",
   label = "label",
 }) => {
-  return <p className={`relative mb-0 ${color}`}>{label}</p>;
+  return <span className={`relative mb-0 ${color}`}>{label}</span>;
 };
 
 export default Pills;

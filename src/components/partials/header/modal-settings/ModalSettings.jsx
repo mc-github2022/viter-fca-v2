@@ -1,3 +1,4 @@
+import Department from "@/components/pages/developer/settings/Department/Department";
 import Discount from "@/components/pages/developer/settings/discount/Discount";
 import GradeLevel from "@/components/pages/developer/settings/grade-level/GradeLevel.jsx";
 import LearningType from "@/components/pages/developer/settings/learning-type/LearningType.jsx";
@@ -7,11 +8,15 @@ import RequirementFinance from "@/components/pages/developer/settings/requiremen
 import RequirementIt from "@/components/pages/developer/settings/requirement-it/RequirementIt";
 import RequirementRegistrar from "@/components/pages/developer/settings/requirement-registrar/RequirementRegistrar.jsx";
 import Roles from "@/components/pages/developer/settings/roles/Roles";
+import ScheduleOfFees from "@/components/pages/developer/settings/schedule-of-fee/ScheduleOfFees";
 import Scheme from "@/components/pages/developer/settings/scheme/Scheme";
+import SchoolYear from "@/components/pages/developer/settings/school-year/SchoolYear";
 import Staff from "@/components/pages/developer/settings/staff/Staff";
 import SystemMode from "@/components/pages/developer/settings/system-mode/SystemMode";
 import TuitionCategory from "@/components/pages/developer/settings/tuition-category/TuitionCategory";
 import UserOther from "@/components/pages/developer/settings/user-other/UserOther";
+import UserOtherParent from "@/components/pages/developer/settings/user-other/parent/UserOtherParent";
+import UserOtherStaff from "@/components/pages/developer/settings/user-other/staff/UserOtherStaff";
 import UserSystem from "@/components/pages/developer/settings/user-system/UserSystem";
 import { setIndexItem, setIsShowModal } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
@@ -19,10 +24,6 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
-import Department from "@/components/pages/developer/settings/Department/Department";
-import UserOtherParent from "@/components/pages/developer/settings/user-other/parent/UserOtherParent";
-import UserOtherStaff from "@/components/pages/developer/settings/user-other/staff/UserOtherStaff";
-import ScheduleOfFees from "@/components/pages/developer/settings/schedule-of-fee/ScheduleOfFees";
 
 const ModalSettings = ({ setIsShowSettings }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
@@ -96,6 +97,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <Roles index={index} />
                 <Discount index={index} />
                 <Staff index={index} />
+                <SchoolYear index={index} />
                 <SystemMode index={index} />
               </main>
             </div>

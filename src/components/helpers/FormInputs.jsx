@@ -1,5 +1,6 @@
 import { useField } from "formik";
 import React from "react";
+import { FaCheck } from "react-icons/fa";
 
 export const InputTextArea = ({ label, onChange = null, ...props }) => {
   const [field, meta] = useField(props);
@@ -123,28 +124,36 @@ export const MyRadio = ({ label, ...props }) => {
   );
 };
 
-export const InputCheckbox = ({ label, open, ...props }) => {
-  // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-  // which we can spread on <input> and alse replace ErrorMessage entirely.
+export const InputCheckbox = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <>
-      <input
-        {...field}
-        {...props}
-        className={
-          meta.touched && meta.error
-            ? "w-auto h-auto error-show"
-            : "w-auto h-auto"
-        }
-      />
-      <label className={props.className} htmlFor={props.id || props.name}>
-        {label}
-      </label>
-      {/* <span htmlFor={props.id || props.name}>{label}</span> */}
-      {meta.touched && meta.error ? (
-        <small className="msg--error">{meta.error}</small>
-      ) : null}
+      <div className="flex items-center gap-2">
+        <span
+          className="relative flex cursor-pointer items-center justify-center rounded-full"
+          htmlFor="select_all"
+        >
+          <input
+            {...field}
+            {...props}
+            className={
+              meta.touched && meta.error
+                ? "w-auto h-auto error-show"
+                : "p-1.5 before:content-[''] peer relative h-auto w-auto cursor-pointer border-accent appearance-none rounded-sm transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:-translate-y-2/4 before:-translate-x-2/4 before:opacity-0 before:transition-opacity checked:bg-accent"
+            }
+          />
+          <span className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+            <FaCheck className="h-3 w-3" />
+          </span>
+        </span>
+
+        <label
+          htmlFor={props.id || props.name}
+          className="cursor-pointer text-accent m-0"
+        >
+          {label}
+        </label>
+      </div>
     </>
   );
 };
