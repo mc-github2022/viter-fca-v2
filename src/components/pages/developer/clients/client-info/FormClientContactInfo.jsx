@@ -25,7 +25,7 @@ const FormClientContactInfo = ({
   setItemEdit,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const id = getUrlParam().get("cid");
+  const pid = getUrlParam().get("pid");
 
   const queryClient = useQueryClient();
 
@@ -33,7 +33,7 @@ const FormClientContactInfo = ({
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-info-contact/${itemEdit.contact_aid}`
+          ? `/v2/dev-info-contact/${itemEdit.emergency_contact_aid}`
           : "/v2/dev-info-contact",
         itemEdit ? "PUT" : "POST",
         values
@@ -59,20 +59,24 @@ const FormClientContactInfo = ({
   });
 
   const initVal = {
-    contact_aid: itemEdit ? itemEdit.contact_aid : "",
-    contact_name: itemEdit ? itemEdit.contact_name : "",
-    contact_email: itemEdit ? itemEdit.contact_email : "",
-    contact_mobile: itemEdit ? itemEdit.contact_mobile : "",
-    contact_landline: itemEdit ? itemEdit.contact_landline : "",
-    contact_level: itemEdit ? itemEdit.contact_level : "",
-    contact_name_old: itemEdit ? itemEdit.contact_name : "",
+    emergency_contact_aid: itemEdit ? itemEdit.emergency_contact_aid : "",
+    emergency_contact_name: itemEdit ? itemEdit.emergency_contact_name : "",
+    emergency_contact_email: itemEdit ? itemEdit.emergency_contact_email : "",
+    emergency_contact_mobile: itemEdit ? itemEdit.emergency_contact_mobile : "",
+    emergency_contact_landline: itemEdit
+      ? itemEdit.emergency_contact_landline
+      : "",
+    emergency_contact_level: itemEdit ? itemEdit.emergency_contact_level : "",
+    emergency_contact_name_old: itemEdit ? itemEdit.emergency_contact_name : "",
   };
 
   const yupSchema = Yup.object({
-    contact_name: Yup.string().required("Required"),
-    contact_email: Yup.string().required("Required"),
-    contact_mobile: Yup.string().required("Required"),
-    contact_level: Yup.string().required("Required"),
+    emergency_contact_name: Yup.string().required("Required"),
+    emergency_contact_email: Yup.string()
+      .required("Required")
+      .email("Invalid Email"),
+    emergency_contact_mobile: Yup.string().required("Required"),
+    emergency_contact_level: Yup.string().required("Required"),
   });
 
   return (
@@ -82,7 +86,7 @@ const FormClientContactInfo = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({ ...values, contact_user_id: id });
+          mutation.mutate({ ...values, emergency_contact_parent_id: pid });
         }}
       >
         {(props) => {
@@ -118,7 +122,7 @@ const FormClientContactInfo = ({
                 <InputText
                   label="Full Name"
                   type="text"
-                  name="contact_name"
+                  name="emergency_contact_name"
                   disabled={mutation.isLoading}
                 />
               </div>
@@ -127,7 +131,7 @@ const FormClientContactInfo = ({
                   <InputText
                     label="Email"
                     type="email"
-                    name="contact_email"
+                    name="emergency_contact_email"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -135,7 +139,7 @@ const FormClientContactInfo = ({
                   <InputText
                     label="Mobile"
                     type="text"
-                    name="contact_mobile"
+                    name="emergency_contact_mobile"
                     maxLength="11"
                     onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
@@ -145,7 +149,7 @@ const FormClientContactInfo = ({
                   <InputText
                     label="Landline"
                     type="text"
-                    name="contact_landline"
+                    name="emergency_contact_landline"
                     maxLength="11"
                     onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
@@ -154,9 +158,9 @@ const FormClientContactInfo = ({
 
                 <div className="form__wrap">
                   <InputSelect
-                    label="Prioriry Level?"
+                    label="Prioriry Level"
                     type="text"
-                    name="contact_level"
+                    name="emergency_contact_level"
                     disabled={mutation.isLoading}
                     onChange={(e) => e}
                   >

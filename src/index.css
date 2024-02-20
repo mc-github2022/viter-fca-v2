@@ -216,6 +216,10 @@
     @apply resize-none min-h-[120px];
   }
 
+  select {
+    @apply text-xs;
+  }
+
   input:disabled,
   select:disabled,
   textarea:disabled,

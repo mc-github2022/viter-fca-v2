@@ -18,6 +18,7 @@ if (array_key_exists("parentsid", $_GET)) {
     $parents->parents_fname = checkIndex($data, "parents_fname");
     $parents->parents_lname = checkIndex($data, "parents_lname");
     $parents->parents_email = checkIndex($data, "parents_email");
+   
     $parents->parents_datetime = date("Y-m-d H:i:s");
 
     $parents->user_other_key = $encrypt->doHash(rand());

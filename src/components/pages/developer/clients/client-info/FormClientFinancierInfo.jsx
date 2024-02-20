@@ -23,6 +23,7 @@ const FormClientFinancierInfo = ({
   itemEdit,
   setShowFinancierForm,
   setItemEdit,
+  financierInfo,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const id = getUrlParam().get("cid");
@@ -32,10 +33,8 @@ const FormClientFinancierInfo = ({
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/v2/dev-info-financial/${itemEdit.financial_info_aid}`
-          : "/v2/dev-info-financial",
-        itemEdit ? "PUT" : "POST",
+        `/v2/dev-update-parents-financier/${itemEdit.parents_aid}`,
+        "PUT",
         values
       ),
     onSuccess: (data) => {
@@ -59,28 +58,20 @@ const FormClientFinancierInfo = ({
   });
 
   const initVal = {
-    financial_info_aid: itemEdit ? itemEdit.financial_info_aid : "",
-    financial_info_father_income: itemEdit
-      ? itemEdit.financial_info_father_income
-      : "",
-    financial_info_mother_income: itemEdit
-      ? itemEdit.financial_info_mother_income
-      : "",
+    parents_aid: itemEdit ? itemEdit.parents_aid : "",
+    parents_father_income: itemEdit ? itemEdit.parents_father_income : "",
+    parents_mother_income: itemEdit ? itemEdit.parents_mother_income : "",
     financial_info_financier_income: itemEdit
       ? itemEdit.financial_info_financier_income
       : "",
-    financial_info_financier_full_name: itemEdit
-      ? itemEdit.financial_info_financier_full_name
+    parents_financier_name: itemEdit ? itemEdit.parents_financier_name : "",
+    parents_financier_relationship: itemEdit
+      ? itemEdit.parents_financier_relationship
       : "",
-    financial_info_financier_relationship: itemEdit
-      ? itemEdit.financial_info_financier_relationship
+    parents_financier_occupation: itemEdit
+      ? itemEdit.parents_financier_occupation
       : "",
-    financial_info_financier_occupation: itemEdit
-      ? itemEdit.financial_info_financier_occupation
-      : "",
-    financial_info_financier_full_name_old: itemEdit
-      ? itemEdit.financial_info_financier_full_name
-      : "",
+    parents_financier_income: itemEdit ? itemEdit.parents_financier_income : "",
   };
 
   const yupSchema = Yup.object({});
@@ -92,7 +83,7 @@ const FormClientFinancierInfo = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({ ...values, financial_info_user_id: id });
+          mutation.mutate(values);
         }}
       >
         {(props) => {
@@ -125,7 +116,7 @@ const FormClientFinancierInfo = ({
                   <InputText
                     label="Father's Income"
                     type="text"
-                    name="financial_info_father_income"
+                    name="parents_father_income"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -133,7 +124,7 @@ const FormClientFinancierInfo = ({
                   <InputText
                     label="Mother's Income"
                     type="text"
-                    name="financial_info_mother_income"
+                    name="parents_mother_income"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -141,7 +132,7 @@ const FormClientFinancierInfo = ({
                   <InputText
                     label="Financer"
                     type="text"
-                    name="financial_info_financier_full_name"
+                    name="parents_financier_name"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -150,7 +141,7 @@ const FormClientFinancierInfo = ({
                     label="Financer's Income"
                     type="text"
                     onKeyPress={handleNumOnly}
-                    name="financial_info_financier_income"
+                    name="parents_financier_income"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -158,7 +149,7 @@ const FormClientFinancierInfo = ({
                   <InputText
                     label="Relationship"
                     type="text"
-                    name="financial_info_financier_relationship"
+                    name="parents_financier_relationship"
                     disabled={mutation.isLoading}
                   />
                 </div>
@@ -166,7 +157,7 @@ const FormClientFinancierInfo = ({
                   <InputText
                     label="Occupation"
                     type="text"
-                    name="financial_info_financier_occupation"
+                    name="parents_financier_occupation"
                     disabled={mutation.isLoading}
                   />
                 </div>

@@ -96,8 +96,6 @@ const ClientList = ({ setItemEdit }) => {
     setData(item);
   };
 
-  console.log(result);
-
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
