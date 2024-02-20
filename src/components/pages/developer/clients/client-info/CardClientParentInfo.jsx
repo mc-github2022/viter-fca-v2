@@ -1,6 +1,5 @@
-import useQueryData from "@/components/custom-hooks/useQueryData";
 import {
-  formatLandlandNumber,
+  formatLandlineNumber,
   formatMobileNumber,
   getUrlParam,
 } from "@/components/helpers/functions-general.jsx";
@@ -17,8 +16,7 @@ import { FaPlus } from "react-icons/fa";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { LuDot } from "react-icons/lu";
-import { PiMapPinLight, PiPhoneThin } from "react-icons/pi";
-import { useNavigate } from "react-router-dom";
+import { PiMapPinLight, PiPhoneThin, PiUser } from "react-icons/pi";
 
 const CardClientParentInfo = ({
   setItemEdit,
@@ -32,8 +30,7 @@ const CardClientParentInfo = ({
   const [guardianId, setGuardianId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
 
-  const pid = getUrlParam().get("pid");
-  const navigate = useNavigate();
+  const id = getUrlParam().get("cid");
 
   const handleShowGuardianForm = (item) => {
     setItemEdit(item);
@@ -82,11 +79,9 @@ const CardClientParentInfo = ({
               <div className="card bg-primary border-b border-line rounded-sm mb-2 last:mb-0 relative">
                 <div className="flex gap-3 items-center mb-3">
                   <ul>
-                    <li className="font-bold capitalize">
-                      <span className="pr-2">{item.guardian_salutation}</span>
-                      {item.guardian_fname} {item.guardian_lname}
+                    <li className="capitalize font-bold">
+                      {item.relationship_name}
                     </li>
-                    <li className="text-xs">{item.relationship_name}</li>
                   </ul>
 
                   <div className="card__action absolute bottom-5 right-0  flex gap-2 ">
@@ -109,6 +104,14 @@ const CardClientParentInfo = ({
                 </div>
 
                 <p className=" flex gap-2 text-xs mb-2">
+                  <PiUser className="text-base  mr-1" />
+                  <span className="capitalize ">
+                    {item.guardian_salutation}.
+                  </span>
+                  {item.guardian_fname} {item.guardian_lname}
+                </p>
+
+                <p className=" flex gap-2 text-xs mb-2">
                   <PiMapPinLight className="text-base" />
                   {`${item.guardian_address}, ${item.guardian_city}, ${item.guardian_province}, ${item.guardian_country}`}
                 </p>
@@ -121,14 +124,15 @@ const CardClientParentInfo = ({
                   <LuDot className="text-xl hidden md:block" />{" "}
                   <span className="flex  mb-2 md:mb-0">
                     <CiMobile3 className="text-base mr-1.5" />
-                    {item.guardian_mobile}
+                    {formatMobileNumber(item.guardian_mobile)}
                   </span>
                   {item.guardian_landline && (
                     <>
                       <LuDot className="text-xl hidden md:block" />{" "}
                       <span className="flex  mb-2 md:mb-0">
                         <PiPhoneThin className="text-base mr-1.5" />
-                        {item.guardian_landline}
+
+                        {formatLandlineNumber(item.guardian_landline)}
                       </span>
                     </>
                   )}

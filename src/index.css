@@ -160,7 +160,7 @@
   }
 
   nav {
-    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border-r-2 border-gray-300 w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
+    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border-gray-100 drop-shadow w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
   }
 
   nav .backdrop {

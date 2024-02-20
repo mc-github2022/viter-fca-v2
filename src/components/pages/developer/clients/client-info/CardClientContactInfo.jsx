@@ -1,5 +1,5 @@
 import {
-  formatLandlandNumber,
+  formatLandlineNumber,
   formatMobileNumber,
 } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
@@ -13,7 +13,7 @@ import { FaPlus } from "react-icons/fa";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { LuDot } from "react-icons/lu";
-import { PiPhoneThin } from "react-icons/pi";
+import { PiPhoneThin, PiUser } from "react-icons/pi";
 import ModalDeleteInfoCard from "./ModalDeleteInfoCard.jsx";
 
 const CardClientContactInfo = ({
@@ -74,10 +74,11 @@ const CardClientContactInfo = ({
           contactInfo.data.map((item, key) => (
             <React.Fragment key={key}>
               <div className="card bg-primary border-b border-line rounded-sm relative mb-2 last:mb-0 ">
-                <h5 className="">{item.emergency_contact_name}</h5>
-                <p>
-                  <span className="capitalize text-xs block mb-2">
-                    {item.emergency_contact_level}
+                <h5 className="capitalize">{item.emergency_contact_level}</h5>
+                <p className="md:flex gap-2 text-xs items-center ">
+                  <span className="capitalize text-xs  flex">
+                    <PiUser className="text-base mr-1.5" />{" "}
+                    {item.emergency_contact_name}
                   </span>
                 </p>
                 <p className="md:flex gap-2 text-xs items-center mb-2">
@@ -88,12 +89,12 @@ const CardClientContactInfo = ({
                   <LuDot className="text-xl hidden md:block" />
                   <span className="flex mb-2 md:mb-0">
                     <CiMobile3 className="text-base mr-1.5" />
-                    {item.emergency_contact_mobile}
+                    {formatMobileNumber(item.emergency_contact_mobile)}
                   </span>
                   <LuDot className="text-xl hidden md:block" />{" "}
                   <span className="flex ">
                     <PiPhoneThin className="text-base mr-1.5" />
-                    {item.emergency_contact_landline}
+                    {formatLandlineNumber(item.emergency_contact_landline)}
                   </span>
                 </p>
                 <div className="card__action absolute bottom-5 right-0  flex gap-2 ">

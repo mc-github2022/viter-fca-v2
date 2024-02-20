@@ -29,7 +29,7 @@ import * as Yup from "yup";
 const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [getRelationship, setGetRelationship] = React.useState("");
-  const id = getUrlParam().get("pid");
+  const id = getUrlParam().get("cid");
 
   const queryClient = useQueryClient();
 
@@ -303,7 +303,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputText
                     label="Landline"
                     type="text"
-                    maxLength="11"
+                    maxLength="7"
                     onKeyPress={handleNumOnly}
                     name="guardian_landline"
                     disabled={mutation.isLoading}
