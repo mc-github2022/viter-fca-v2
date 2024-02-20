@@ -268,3 +268,10 @@ export const setLastIdInserted = (val) => {
     payload: val,
   };
 };
+
+export const setIndexItem = (val) => {
+  return {
+    type: "IS_INDEX_ITEM",
+    payload: val,
+  };
+};

@@ -1,5 +1,5 @@
 import { consoleLog } from "@/components/helpers/functions-general";
-import { setIsAdd } from "@/components/store/StoreAction.jsx";
+import { setIndexItem, setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React, { useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
@@ -26,10 +26,11 @@ const ModalSettingsNav = ({
   };
 
   const handleChangeSetting = (index, e) => {
+    dispatch(setIsAdd(false));
     e.preventDefault;
     setIndex(index);
-    dispatch(setIsAdd(false));
     setShowSideNav(false);
+    dispatch(setIndexItem(0));
   };
 
   const handleChangeSettingInner = (indexInner, e) => {
@@ -145,7 +146,7 @@ const ModalSettingsNav = ({
           </li>
 
           <li className={` ${index === 12 ? "active" : ""}`}>
-            {console.log(index)}
+            {/* {console.log(index)} */}
             <button
               onClick={(e) => {
                 handleChangeSetting(12, e);

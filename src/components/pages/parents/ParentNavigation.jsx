@@ -34,14 +34,6 @@ const ParentNavigation = ({ menu, submenu }) => {
             <p className="flex gap-3 items-center uppercase p-1 w-full text-sm mb-5">
               <LiaCalendarSolid className="text-lg" /> 2024-2025
             </p>
-            <li className={`nav__link ${menu === "student" ? "active" : ""}`}>
-              <Link
-                to={`${devNavUrl}/parent/student`}
-                className="flex gap-3 items-center uppercase p-1 w-full"
-              >
-                <PiStudent className="text-lg" /> My Students
-              </Link>
-            </li>
 
             <li className={`nav__link ${menu === "clients" ? "active" : ""}`}>
               <Link
@@ -50,6 +42,15 @@ const ParentNavigation = ({ menu, submenu }) => {
               >
                 <HiOutlineInformationCircle className="text-lg" /> My
                 Information
+              </Link>
+            </li>
+
+            <li className={`nav__link ${menu === "student" ? "active" : ""}`}>
+              <Link
+                to={`${devNavUrl}/parent/student`}
+                className="flex gap-3 items-center uppercase p-1 w-full"
+              >
+                <PiStudent className="text-lg" /> My Students
               </Link>
             </li>
           </ul>

@@ -5,7 +5,7 @@ $conn = checkDbConnection();
 // make instance of classes
 $discount = new Discount($conn);
 // get should not be present
-if (array_key_exists("discountid", $_GET)) {
+if (array_key_exists("discountId", $_GET)) {
     checkEndpoint();
 }
 // check data
@@ -14,22 +14,17 @@ checkPayload($data);
 $discount->discount_is_active = 1;
 $discount->discount_type = checkIndex($data, "discount_type");
 $discount->discount_tuition_fee = checkIndex($data, "discount_tuition_fee");
-$discount->discount_entrance_fee = checkIndex($data, "discount_type");
-$discount->discount_category = checkIndex($data, "discount_category");
-$discount->discount_qualifications = checkIndex($data, "discount_qualifications");
+$discount->discount_entrance_fee = $data["discount_entrance_fee"];
+$discount->discount_category_id = checkIndex($data, "discount_category_id");
+$discount->discount_qualification = checkIndex($data, "discount_qualification");
 $discount->discount_duration = checkIndex($data, "discount_duration");
-$discount->discount_maintaining_grade = checkIndex($data, "discount_maintaining_grade");
-$discount->discount_requirement = checkIndex($data, "discount_requirement");
+$discount->discount_maintaining_grade = $data["discount_maintaining_grade"];
+$discount->discount_requirement = $data["discount_requirement"];
 $discount->discount_created = date("Y-m-d H:i:s");
-$discount->discount_datetime = date("Y-m-d H:i:s");
-// string value convert to lower case
-$column_name = strtolower(str_replace(" ", "_", $data["discount_type"]));
+$discount->discount_updated = date("Y-m-d H:i:s");
 // check name
 isNameExist($discount, $discount->discount_type);
+
 // create
 $query = checkCreate($discount);
-// add column
-// checkAddColumn($discount, $column_name);
-// update column value after adding
-// checkUpdateColumnValue($discount, $column_name);
 returnSuccess($discount, "Discount", $query);

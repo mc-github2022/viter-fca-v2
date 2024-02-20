@@ -7,20 +7,12 @@ $discount = new Discount($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("discountid", $_GET)) {
+if (array_key_exists("discountId", $_GET)) {
     // get data
-    $discount->discount_aid = $_GET['discountid'];
-    // $column_name = strtolower($data['item']);
-    checkId($discount->discount_aid);
-    // delete
-    // if ($column_name == "developer") {
-    //     isUserSystemAssociated($discount);
-    // } else {
-    //     isUserOtherAssociated($discount);
-    // }
+    $discount->discount_aid = $_GET['discountId'];
 
+    checkId($discount->discount_aid);
     $query = checkDelete($discount);
-    // checkDropColumnName($discount, $column_name);
     returnSuccess($discount, "Discount", $query);
 }
 

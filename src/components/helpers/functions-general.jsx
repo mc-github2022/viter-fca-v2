@@ -162,10 +162,10 @@ export const formatMobileNumber = (x) => {
 };
 
 // Format number 5622212 to 562-2212
-export const formatLandlandNumber = (x) => {
+export const formatLandlineNumber = (x) => {
   let tel = x.toString();
   tel = tel.replace(/\D+/g, "");
-  tel = `${tel.substr(0, 3)}-${tel.substr(4, 4)}`;
+  tel = `${tel.substr(0, 3)}-${tel.substr(3, 5)}`;
   return tel;
 };
 

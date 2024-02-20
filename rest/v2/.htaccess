@@ -73,6 +73,12 @@ RewriteRule ^dev-scheme/active/([0-9]+)$ controllers/developer/settings/scheme/a
 RewriteRule ^dev-tuition-fee$ controllers/developer/settings/tuition-fee/tuition-fee.php [L]
 RewriteRule ^dev-tuition-fee/([0-9]+)$ controllers/developer/settings/tuition-fee/tuition-fee.php?tuitionfeeid=$1 [L]
 RewriteRule ^dev-tuition-fee/active/([0-9]+)$ controllers/developer/settings/tuition-fee/active.php?tuitionfeeid=$1 [L]
+RewriteRule ^dev-tuition-fee/read-all-group-by-category-grade$ controllers/developer/settings/tuition-fee/read-all-group-by-category-grade.php [L] 
+RewriteRule ^dev-tuition-fee/read-all-category$ controllers/developer/settings/tuition-fee/read-all-category.php [L]
+RewriteRule ^dev-tuition-fee/read-all-scheme$ controllers/developer/settings/tuition-fee/read-all-scheme.php [L]
+RewriteRule ^dev-tuition-fee/read-all-grade$ controllers/developer/settings/tuition-fee/read-all-grade.php [L]
+RewriteRule ^dev-tuition-fee/read-all-group-by-category-grade$ controllers/developer/settings/tuition-fee/read-all-group-by-category-grade.php [L]
+RewriteRule ^dev-tuition-fee/read-by-category-grade$ controllers/developer/settings/tuition-fee/read-by-category-grade.php [L]
 
 # ROLES
 RewriteRule ^dev-roles$ controllers/developer/settings/roles/roles.php [L]
@@ -160,8 +166,15 @@ RewriteRule ^dev-profile/([0-9]+)$ controllers/developer/account/profile.php?pro
 
 # DISCOUNT
 RewriteRule ^dev-settings-discount$ controllers/developer/settings/discount/discount.php [L]
-RewriteRule ^dev-settings-discount/([0-9]+)$ controllers/developer/settings/discount/discount.php?discountid=$1 [L]
-RewriteRule ^dev-settings-discount/active/([0-9]+)$ controllers/developer/settings/discount/active.php?discountid=$1 [L]
+RewriteRule ^dev-settings-discount/read-all-category$ controllers/developer/settings/discount/read-all-category.php [L]
+RewriteRule ^dev-settings-discount/([0-9]+)$ controllers/developer/settings/discount/discount.php?discountId=$1 [L]
+RewriteRule ^dev-settings-discount/active/([0-9]+)$ controllers/developer/settings/discount/active.php?discountId=$1 [L]
+
+
+# DISCOUNT CATEGORY
+RewriteRule ^dev-settings-discount-category$ controllers/developer/settings/discount/category/discount-category.php [L]
+RewriteRule ^dev-settings-discount-category/([0-9]+)$ controllers/developer/settings/discount/category/discount-category.php?discountCategoryId=$1 [L]
+RewriteRule ^dev-settings-discount-category/active/([0-9]+)$ controllers/developer/settings/discount/category/active.php?discountCategoryId=$1 [L]
 
 
 # INFO-STUDENT

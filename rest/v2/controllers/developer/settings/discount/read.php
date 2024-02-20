@@ -8,8 +8,8 @@ $discount = new Discount($conn);
 $error = [];
 $returnData = [];
 
-if (array_key_exists("discountid", $_GET)) {
-    $discount->discount_aid = $_GET['discountid'];
+if (array_key_exists("discountId", $_GET)) {
+    $discount->discount_aid = $_GET['discountId'];
     checkId($discount->discount_aid);
     $query = checkReadById($discount);
     http_response_code(200);

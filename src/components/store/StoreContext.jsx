@@ -21,6 +21,7 @@ const initVal = {
   isFeedback: false,
   isSearch: false,
   startIndex: 0,
+  indexItem: 0,
   isCreatePassSuccess: false,
   isForgotPassSuccess: false,
   isLogin: false,

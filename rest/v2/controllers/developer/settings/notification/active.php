@@ -15,10 +15,12 @@ $data = json_decode($body, true);
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     if (array_key_exists("notificationid", $_GET)) {
-     
+
         checkPayload($data);
         $notification->notification_aid = $_GET['notificationid'];
         $notification->notification_active = trim($data["isActive"]);
+        $notification->notification_datetime = date("Y-m-d H:i:s");
+
         checkId($notification->notification_aid);
         $query = checkActive($notification);
         http_response_code(200);
