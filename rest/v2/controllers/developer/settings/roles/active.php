@@ -24,6 +24,8 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         checkPayload($data);
         $role->role_aid = $_GET['roleid'];
         $role->role_is_active = trim($data["isActive"]);
+        $role->role_datetime = date("Y-m-d H:i:s");
+
         checkId($role->role_aid);
         $query = checkActive($role);
         http_response_code(200);

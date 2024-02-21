@@ -15,10 +15,12 @@ $data = json_decode($body, true);
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     if (array_key_exists("requirementregistrarid", $_GET)) {
-     
+
         checkPayload($data);
         $requirementRegistrar->requirement_registrar_aid = $_GET['requirementregistrarid'];
         $requirementRegistrar->requirement_registrar_active = trim($data["isActive"]);
+        $requirementRegistrar->requirement_registrar_datetime = date("Y-m-d H:i:s");
+
         checkId($requirementRegistrar->requirement_registrar_aid);
         $query = checkActive($requirementRegistrar);
         http_response_code(200);

@@ -15,10 +15,12 @@ $data = json_decode($body, true);
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     if (array_key_exists("requirementfinanceid", $_GET)) {
-     
+
         checkPayload($data);
         $requirementFinance->requirement_finance_aid = $_GET['requirementfinanceid'];
         $requirementFinance->requirement_finance_active = trim($data["isActive"]);
+        $requirementFinance->requirement_finance_datetime = date("Y-m-d H:i:s");
+
         checkId($requirementFinance->requirement_finance_aid);
         $query = checkActive($requirementFinance);
         http_response_code(200);

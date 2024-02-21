@@ -2,9 +2,6 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import TableLoading from "@/components/partials/TableLoading";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
-  setIsAdd,
-  setIsConfirm,
-  setIsDelete,
   setIsSettingAdd,
   setSettingIsConfirm,
   setSettingIsDelete,
@@ -13,17 +10,19 @@ import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
 
 import NoData from "@/components/partials/NoData.jsx";
-import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
-import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
-const ScheduleOfFeeSchemeList = ({ val, fetching }) => {
-  const { store, dispatch } = React.useContext(StoreContext);
-  const [dataItem, setData] = React.useState(null);
-  const [id, setId] = React.useState(null);
-  const [isArchive, setIsArchive] = React.useState(1);
+const ScheduleOfFeeSchemeList = ({
+  setItemEdit,
+  val,
+  fetching,
+  setData,
+  setId,
+  setIsArchive,
+}) => {
+  const { dispatch } = React.useContext(StoreContext);
 
   const {
     isLoading,
@@ -42,31 +41,29 @@ const ScheduleOfFeeSchemeList = ({ val, fetching }) => {
     val.tuition_fee_aid
   );
 
-  const handleEdit = (item) => {
+  const handleEdit = (sItem) => {
     dispatch(setIsSettingAdd(true));
-    setItemEdit(item);
+    setItemEdit(sItem);
   };
 
-  const handleArchive = (item) => {
+  const handleArchive = (sItem) => {
+    setData(sItem);
     dispatch(setSettingIsConfirm(true));
-    setId(item.tuition_fee_aid);
-    setData(item);
+    setId(sItem.tuition_fee_aid);
     setIsArchive(0);
-    console.log(isArchive);
   };
 
-  const handleRestore = (item) => {
+  const handleRestore = (sItem) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.tuition_fee_aid);
-    setData(item);
+    setId(sItem.tuition_fee_aid);
+    setData(sItem);
     setIsArchive(1);
-    console.log(isArchive);
   };
 
-  const handleDelete = (item) => {
+  const handleDelete = (sItem) => {
     dispatch(setSettingIsDelete(true));
-    setId(item.tuition_fee_aid);
-    setData(item);
+    setId(sItem.tuition_fee_aid);
+    setData(sItem);
   };
 
   return (
@@ -82,26 +79,28 @@ const ScheduleOfFeeSchemeList = ({ val, fetching }) => {
       ) : (
         !isLoading &&
         scheme.success === true &&
-        scheme?.data.map((item, key) => (
-          <>
-            <ul
-              className="grid grid-cols-[4rem,6rem,7rem,7rem,7rem,8rem,1fr] items-center w-full text-right"
-              key={key}
-            >
-              <li>{item.scheme_name}</li>
-              <li>5,733.00</li>
-              <li>1,500.00</li>
-              <li>18,900.00</li>
-              <li>11,716.95</li>
-              <li>37,849.95</li>
+        scheme?.data.map((sItem, key) => (
+          <div
+            className={`${
+              sItem.tuition_fee_active ? "opacity-100" : "opacity-40"
+            } w-full mr-1`}
+            key={key}
+          >
+            <ul className="grid grid-cols-[4rem,7rem,7rem,7rem,7rem,8rem,1fr] items-center w-full text-right">
+              <li>{sItem.scheme_name}</li>
+              <li>{sItem.tuition_fee_admission}</li>
+              <li>{sItem.tuition_fee_miscellaneous}</li>
+              <li>{sItem.tuition_fee_tuition}</li>
+              <li>{sItem.tuition_fee_books}</li>
+              <li>{sItem.tuition_fee_upon_enrollment}</li>
               <ul className="datalist__action flex items-center justify-end gap-1 pr-3 ">
-                {item.tuition_category_active === 1 ? (
+                {sItem.tuition_fee_active === 1 ? (
                   <>
                     <li className=" ">
                       <button
                         className="tooltip"
                         data-tooltip="Edit"
-                        onClick={() => handleEdit(item)}
+                        onClick={() => handleEdit(sItem)}
                       >
                         <FiEdit2 />
                       </button>
@@ -110,7 +109,7 @@ const ScheduleOfFeeSchemeList = ({ val, fetching }) => {
                       <button
                         className="tooltip"
                         data-tooltip="Archive"
-                        onClick={() => handleArchive(item)}
+                        onClick={() => handleArchive(sItem)}
                       >
                         <BsArchive />
                       </button>
@@ -122,7 +121,7 @@ const ScheduleOfFeeSchemeList = ({ val, fetching }) => {
                       <button
                         className="tooltip"
                         data-tooltip="Restore"
-                        onClick={() => handleRestore(item)}
+                        onClick={() => handleRestore(sItem)}
                       >
                         <MdOutlineRestore className="text-base" />
                       </button>
@@ -131,7 +130,7 @@ const ScheduleOfFeeSchemeList = ({ val, fetching }) => {
                       <button
                         className="tooltip"
                         data-tooltip="Delete"
-                        onClick={() => handleDelete(item)}
+                        onClick={() => handleDelete(sItem)}
                       >
                         <FiTrash />
                       </button>
@@ -140,29 +139,8 @@ const ScheduleOfFeeSchemeList = ({ val, fetching }) => {
                 )}
               </ul>
             </ul>
-          </>
+          </div>
         ))
-      )}
-
-      {store.isSettingConfirm && (
-        <ModalConfirm
-          mysqlApiArchive={`/v2/dev-scheme/active/${id}`}
-          msg={`Are you sure you want to ${
-            isArchive ? "restore" : "archive"
-          } this record?`}
-          item={`${dataItem.tuition_category_name} - ${dataItem.grade_level_name}`}
-          queryKey={"scheme"}
-          isArchive={isArchive}
-        />
-      )}
-
-      {store.isSettingDelete && (
-        <ModalDelete
-          mysqlApiDelete={`/v2/dev-scheme/${id}`}
-          msg={"Are you sure you want to delete this record?"}
-          item={`${dataItem.tuition_category_name} - ${dataItem.grade_level_name}`}
-          queryKey={"scheme"}
-        />
       )}
     </>
   );

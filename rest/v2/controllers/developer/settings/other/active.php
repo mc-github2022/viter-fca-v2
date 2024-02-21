@@ -23,6 +23,8 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         checkPayload($data);
         $user_other->user_other_aid = $_GET['userotherid'];
         $user_other->user_other_is_active = trim($data["isActive"]);
+        $user_other->user_other_datetime = date("Y-m-d H:i:s");
+
         checkId($user_other->user_other_aid);
         $query = checkActive($user_other);
         http_response_code(200);

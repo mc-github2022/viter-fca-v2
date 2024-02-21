@@ -10,7 +10,6 @@ if (array_key_exists("tuitionfeeid", $_GET)) {
     $tuitionFee->tuition_fee_category_id = checkIndex($data, "tuition_fee_category_id");
     $tuitionFee->tuition_fee_grade_id = checkIndex($data, "tuition_fee_grade_id");
     $tuitionFee->tuition_fee_scheme_id = checkIndex($data, "tuition_fee_scheme_id");
-    $tuitionFee->tuition_fee_entrance = checkIndex($data, "tuition_fee_entrance");
     $tuitionFee->tuition_fee_miscellaneous = checkIndex($data, "tuition_fee_miscellaneous");
     $tuitionFee->tuition_fee_tuition = checkIndex($data, "tuition_fee_tuition");
     $tuitionFee->tuition_fee_books = checkIndex($data, "tuition_fee_books");
@@ -23,7 +22,7 @@ if (array_key_exists("tuitionfeeid", $_GET)) {
     $tuition_old = $data["tuition_name_old"];
 
 
-    compareName($tuitionFee, $tuition_name_old, $tuition);
+    compareName($tuitionFee, $tuition_old, $tuition);
 
     $query = checkUpdate($tuitionFee);
     returnSuccess($tuitionFee, "Tuition Fee", $query);

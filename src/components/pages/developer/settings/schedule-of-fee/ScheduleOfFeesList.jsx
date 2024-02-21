@@ -1,11 +1,18 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import TableLoading from "@/components/partials/TableLoading";
-import TableSpinner from "@/components/partials/spinners/TableSpinner";
-
 import NoData from "@/components/partials/NoData.jsx";
+import TableLoading from "@/components/partials/TableLoading";
+import ModalConfirm from "@/components/partials/modals/ModalConfirm";
+import ModalDelete from "@/components/partials/modals/ModalDelete";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
+import { StoreContext } from "@/components/store/StoreContext";
+import React from "react";
 import ScheduleOfFeeSchemeList from "./ScheduleOfFeeSchemeList";
 const ScheduleOfFeesList = ({ setItemEdit }) => {
+  const { store, dispatch } = React.useContext(StoreContext);
+  const [dataItem, setData] = React.useState(null);
+  const [id, setId] = React.useState(null);
+  const [isArchive, setIsArchive] = React.useState(1);
   const {
     isLoading,
     isFetching,
@@ -49,10 +56,10 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
                   {item.tuition_category_name} - {item.grade_level_name}
                 </p>
 
-                <ul className="grid grid-cols-[4rem,6rem,7rem,7rem,7rem,8rem] w-full text-right">
+                <ul className="grid grid-cols-[4rem,7rem,7rem,7rem,7rem,8rem] w-full text-right">
                   <li></li>
                   <li>Admission Fee</li>
-                  <li>Misc Fee</li>
+                  <li>Miscellaneous Fee</li>
                   <li>Tuition Fee</li>
                   <li>Books</li>
                   <li>Upon Enrollment</li>
@@ -62,12 +69,35 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
                   setItemEdit={setItemEdit}
                   val={item}
                   fetching={isFetching}
+                  setData={setData}
+                  setId={setId}
+                  setIsArchive={setIsArchive}
                 />
               </div>
             </div>
           ))
         )}
       </div>
+      {store.isSettingConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/v2/dev-tuition-fee/active/${id}`}
+          msg={`Are you sure you want to ${
+            isArchive ? "restore" : "archive"
+          } this record?`}
+          // item={`${dataItem.tuition_category_name} - ${dataItem.grade_level_name} (${dataItem.scheme_name})`}
+          queryKey={"group-by-category-grade"}
+          isArchive={isArchive}
+        />
+      )}
+
+      {store.isSettingDelete && (
+        <ModalDelete
+          mysqlApiDelete={`/v2/dev-tuition-fee/${id}`}
+          msg={"Are you sure you want to delete this record?"}
+          item={`${dataItem.tuition_category_name} - ${dataItem.grade_level_name} (${dataItem.scheme_name})`}
+          queryKey={"group-by-category-grade"}
+        />
+      )}
     </>
   );
 };

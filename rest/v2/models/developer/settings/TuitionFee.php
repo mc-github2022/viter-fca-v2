@@ -6,7 +6,6 @@ class TuitionFee
     public $tuition_fee_category_id;
     public $tuition_fee_grade_id;
     public $tuition_fee_scheme_id;
-    public $tuition_fee_entrance;
     public $tuition_fee_miscellaneous;
     public $tuition_fee_tuition;
     public $tuition_fee_books;
@@ -46,7 +45,6 @@ class TuitionFee
             $sql .= "( tuition_fee_active, ";
             $sql .= "tuition_fee_category_id, ";
             $sql .= "tuition_fee_grade_id, ";
-            $sql .= "tuition_fee_entrance, ";
             $sql .= "tuition_fee_miscellaneous, ";
             $sql .= "tuition_fee_tuition, ";
             $sql .= "tuition_fee_books, ";
@@ -58,7 +56,6 @@ class TuitionFee
             $sql .= ":tuition_fee_active, ";
             $sql .= ":tuition_fee_category_id, ";
             $sql .= ":tuition_fee_grade_id, ";
-            $sql .= ":tuition_fee_entrance, ";
             $sql .= ":tuition_fee_miscellaneous, ";
             $sql .= ":tuition_fee_tuition, ";
             $sql .= ":tuition_fee_books, ";
@@ -72,7 +69,6 @@ class TuitionFee
                 "tuition_fee_active" => $this->tuition_fee_active,
                 "tuition_fee_category_id" => $this->tuition_fee_category_id,
                 "tuition_fee_grade_id" => $this->tuition_fee_grade_id,
-                "tuition_fee_entrance" => $this->tuition_fee_entrance,
                 "tuition_fee_miscellaneous" => $this->tuition_fee_miscellaneous,
                 "tuition_fee_tuition" => $this->tuition_fee_tuition,
                 "tuition_fee_books" => $this->tuition_fee_books,
@@ -137,7 +133,6 @@ class TuitionFee
             $sql = "update {$this->tblTuitionFee} set ";
             $sql .= "tuition_fee_category_id = :tuition_fee_category_id, ";
             $sql .= "tuition_fee_grade_id = :tuition_fee_grade_id, ";
-            $sql .= "tuition_fee_entrance = :tuition_fee_entrance, ";
             $sql .= "tuition_fee_miscellaneous = :tuition_fee_miscellaneous, ";
             $sql .= "tuition_fee_tuition = :tuition_fee_tuition, ";
             $sql .= "tuition_fee_books = :tuition_fee_books, ";
@@ -150,7 +145,6 @@ class TuitionFee
             $query->execute([
                 "tuition_fee_category_id" => $this->tuition_fee_category_id,
                 "tuition_fee_grade_id" => $this->tuition_fee_grade_id,
-                "tuition_fee_entrance" => $this->tuition_fee_entrance,
                 "tuition_fee_miscellaneous" => $this->tuition_fee_miscellaneous,
                 "tuition_fee_tuition" => $this->tuition_fee_tuition,
                 "tuition_fee_books" => $this->tuition_fee_books,
@@ -225,14 +219,16 @@ class TuitionFee
     public function readByCategoryAndGrade()
     {
         try {
-            $sql = "select * ";
+            $sql = "select fee.*, ";
+            $sql .= "category.tuition_category_name, ";
+            $sql .= "grade.grade_level_name, ";
+            $sql .= "scheme.scheme_name ";
             $sql .= "from {$this->tblTuitionFee} as fee, ";
             $sql .= "{$this->tblTuitionCategory} as category, ";
             $sql .= "{$this->tblGradeLevel} as grade, ";
             $sql .= "{$this->tblScheme} as scheme ";
             $sql .= "where fee.tuition_fee_category_id = :tuition_fee_category_id ";
             $sql .= "and fee.tuition_fee_grade_id = :tuition_fee_grade_id ";
-            $sql .= "and fee.tuition_fee_scheme_id = :tuition_fee_scheme_id ";
             $sql .= "and fee.tuition_fee_category_id = category.tuition_category_aid ";
             $sql .= "and fee.tuition_fee_grade_id = grade.grade_level_aid ";
             $sql .= "and fee.tuition_fee_scheme_id = scheme.scheme_aid ";
@@ -241,7 +237,6 @@ class TuitionFee
             $query->execute([
                 "tuition_fee_category_id" => $this->tuition_fee_category_id,
                 "tuition_fee_grade_id" => $this->tuition_fee_grade_id,
-                "tuition_fee_scheme_id" => $this->tuition_fee_scheme_id,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -302,7 +297,8 @@ class TuitionFee
             $sql .= "fee.tuition_fee_grade_id, ";
             $sql .= "fee.tuition_fee_aid, ";
             $sql .= "category.tuition_category_name, ";
-            $sql .= "grade.grade_level_name ";
+            $sql .= "grade.grade_level_name, ";
+            $sql .= "scheme.scheme_name ";
             $sql .= "from {$this->tblTuitionFee} as fee, ";
             $sql .= "{$this->tblTuitionCategory} as category, ";
             $sql .= "{$this->tblGradeLevel} as grade, ";

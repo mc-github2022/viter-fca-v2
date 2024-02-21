@@ -9,7 +9,6 @@ checkPayload($data);
 $tuitionFee->tuition_fee_category_id = checkIndex($data, "tuition_fee_category_id");
 $tuitionFee->tuition_fee_grade_id = checkIndex($data, "tuition_fee_grade_id");
 $tuitionFee->tuition_fee_scheme_id = checkIndex($data, "tuition_fee_scheme_id");
-$tuitionFee->tuition_fee_entrance = checkIndex($data, "tuition_fee_entrance");
 $tuitionFee->tuition_fee_miscellaneous = checkIndex($data, "tuition_fee_miscellaneous");
 $tuitionFee->tuition_fee_tuition = checkIndex($data, "tuition_fee_tuition");
 $tuitionFee->tuition_fee_books = checkIndex($data, "tuition_fee_books");
