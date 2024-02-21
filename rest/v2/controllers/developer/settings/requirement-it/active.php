@@ -15,10 +15,12 @@ $data = json_decode($body, true);
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     if (array_key_exists("requirementitid", $_GET)) {
-     
+
         checkPayload($data);
         $requirementIT->requirement_it_aid = $_GET['requirementitid'];
         $requirementIT->requirement_it_active = trim($data["isActive"]);
+        $requirementIT->requirement_it_datetime = date("Y-m-d H:i:s");
+
         checkId($requirementIT->requirement_it_aid);
         $query = checkActive($requirementIT);
         http_response_code(200);

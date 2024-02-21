@@ -19,6 +19,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
         $staff->settings_staff_aid = $_GET['staffid'];
         $staff->settings_staff_is_active = $data["isActive"];
+        $staff->settings_staff_updated_at = date("Y-m-d H:i:s");
 
         // validate id if empty or valid number
         checkId($staff->settings_staff_aid);

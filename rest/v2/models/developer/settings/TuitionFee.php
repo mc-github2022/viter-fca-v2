@@ -232,7 +232,6 @@ class TuitionFee
             $sql .= "{$this->tblScheme} as scheme ";
             $sql .= "where fee.tuition_fee_category_id = :tuition_fee_category_id ";
             $sql .= "and fee.tuition_fee_grade_id = :tuition_fee_grade_id ";
-            $sql .= "and fee.tuition_fee_scheme_id = :tuition_fee_scheme_id ";
             $sql .= "and fee.tuition_fee_category_id = category.tuition_category_aid ";
             $sql .= "and fee.tuition_fee_grade_id = grade.grade_level_aid ";
             $sql .= "and fee.tuition_fee_scheme_id = scheme.scheme_aid ";
@@ -241,7 +240,6 @@ class TuitionFee
             $query->execute([
                 "tuition_fee_category_id" => $this->tuition_fee_category_id,
                 "tuition_fee_grade_id" => $this->tuition_fee_grade_id,
-                "tuition_fee_scheme_id" => $this->tuition_fee_scheme_id,
             ]);
         } catch (PDOException $ex) {
             $query = false;
