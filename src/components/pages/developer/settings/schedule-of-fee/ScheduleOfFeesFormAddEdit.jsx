@@ -105,7 +105,6 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
     tuition_fee_category_id: itemEdit ? itemEdit.tuition_fee_category_id : "",
     tuition_fee_grade_id: itemEdit ? itemEdit.tuition_fee_grade_id : "",
     tuition_fee_scheme_id: itemEdit ? itemEdit.tuition_fee_scheme_id : "",
-    tuition_fee_entrance: itemEdit ? itemEdit.tuition_fee_entrance : "",
     tuition_fee_miscellaneous: itemEdit
       ? itemEdit.tuition_fee_miscellaneous
       : "",
@@ -118,7 +117,6 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
     tuition_fee_category_id: Yup.string().required("Required"),
     tuition_fee_grade_id: Yup.string().required("Required"),
     tuition_fee_scheme_id: Yup.string().required("Required"),
-    tuition_fee_entrance: Yup.string().required("Required"),
     tuition_fee_miscellaneous: Yup.string().required("Required"),
     tuition_fee_tuition: Yup.string().required("Required"),
     tuition_fee_books: Yup.string().required("Required"),
@@ -143,6 +141,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
               ...values,
               tuition_fee_upon_enrollment,
               tuition_name,
+              tuition_name_old,
             });
           }}
         >
@@ -236,15 +235,6 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       })
                     )}
                   </InputSelect>
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Entrance Fee"
-                    type="text"
-                    name="tuition_fee_entrance"
-                    disabled={mutation.isLoading}
-                  />
                 </div>
 
                 <div className="form__wrap text-xs mb-3">
