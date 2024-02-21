@@ -24,21 +24,8 @@ const Parents = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
   const [parentID, setParentID] = React.useState(null);
 
-  // const {
-  //   isLoading: isLoadingParent,
-  //   isFetching: isFetchingParent,
-  //   error: errorParent,
-  //   data: parents,
-  // } = useQueryData(
-  //   `/v2/dev-parents`, // endpoint
-  //   "post", // method
-  //   "parents",
-  //   { email: store.credentials?.data.user_other_email } // key
-  // );
-
-  // const currentUser = parents?.data.find((item) => {
-  //   item.parents_email === store.credentials?.data.user_other_email;
-  // });
+  const [hasBiologicalMother, setHasBiologicalMother] = React.useState(false);
+  const [hasBiologicalFather, setHasBiologicalFather] = React.useState(false);
 
   const {
     isLoading,
@@ -51,38 +38,44 @@ const Parents = () => {
     "guardianInfo" // key
   );
 
-  // const {
-  //   isLoading: contactIsLoading,
-  //   isFetching: contactIsFetching,
-  //   error: contactIsError,
-  //   data: contactInfo,
-  // } = useQueryData(
-  //   `/v2/dev-read-info-contact/${1}`, // endpoint
-  //   "get", // method
-  //   "contactInfo" // key
-  // );
+  const {
+    isLoading: contactIsLoading,
+    isFetching: contactIsFetching,
+    error: contactIsError,
+    data: contactInfo,
+  } = useQueryData(
+    `/v2/dev-read-info-contact/${store.credentials?.data.parents_aid}`, // endpoint
+    "get", // method
+    "contactInfo" // key
+  );
 
-  // const {
-  //   isLoading: financierIsLoading,
-  //   isFetching: financierIsFetching,
-  //   error: financierIsError,
-  //   data: financierInfo,
-  // } = useQueryData(
-  //   `/v2/dev-parents/${store.credentials?.data.user_other_aid}`, // endpoint
-  //   "get", // method
-  //   "financierInfo" // key
-  // );
+  const {
+    isLoading: financierIsLoading,
+    isFetching: financierIsFetching,
+    error: financierIsError,
+    data: financierInfo,
+  } = useQueryData(
+    `/v2/dev-parents/${store.credentials?.data.parents_aid}`, // endpoint
+    "get", // method
+    "financierInfo" // key
+  );
 
-  // React.useEffect(() => {
-  // setParentID(
-  //   !isLoadingParent &&
-  //     parents?.data.find(
-  //       (item) =>
-  //         item.parents_email === store.credentials?.data.user_other_email
-  //     )
-  // );
-  // console.log(parentID.parents_email);
-  // }, [parentID]);
+  React.useEffect(() => {
+    function checkRelationshipExist(guardianInfo) {
+      if (!isLoading) {
+        guardianInfo.data.map((relationship) => {
+          if (relationship.relationship_name === "Biological Mother") {
+            setHasBiologicalMother(true);
+          } else if (relationship.relationship_name === "Biological Father") {
+            setHasBiologicalFather(true);
+          }
+          return;
+        });
+      }
+    }
+
+    checkRelationshipExist(guardianInfo);
+  }, [isLoading]);
 
   return (
     <>
@@ -134,9 +127,11 @@ const Parents = () => {
                   itemEdit={itemEdit}
                   setShowParentForm={setShowParentForm}
                   setItemEdit={setItemEdit}
+                  hasBiologicalMother={hasBiologicalMother}
+                  hasBiologicalFather={hasBiologicalFather}
                 />
               )}
-              {/*{contactIsLoading || contactIsFetching ? (
+              {contactIsLoading || contactIsFetching ? (
                 <TableLoading />
               ) : (
                 !showContactForm && (
@@ -163,8 +158,7 @@ const Parents = () => {
                   setItemEdit={setItemEdit}
                 />
               )}{" "}
-              */}
-              {/* {financierIsLoading || financierIsFetching ? (
+              {financierIsLoading || financierIsFetching ? (
                 <TableLoading />
               ) : (
                 !showFinancierForm && (
@@ -184,14 +178,13 @@ const Parents = () => {
                   </div>
                 )
               )}
-
               {showFinancierForm && (
                 <FormClientFinancierInfo
                   itemEdit={itemEdit}
                   setShowFinancierForm={setShowFinancierForm}
                   setItemEdit={setItemEdit}
                 />
-              )} */}
+              )}
             </div>
           </main>
         </div>

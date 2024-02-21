@@ -9,7 +9,7 @@ if (array_key_exists("relationshipid", $_GET)) {
     checkId($relationship->relationship_aid);
 
     isAssociated($relationship);
-     $query = checkDelete($relationship);
+    $query = checkDelete($relationship);
     returnSuccess($relationship, "", $query);
 }
 

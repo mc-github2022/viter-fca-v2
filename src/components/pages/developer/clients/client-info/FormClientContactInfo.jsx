@@ -86,7 +86,11 @@ const FormClientContactInfo = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({ ...values, emergency_contact_parent_id: id });
+          mutation.mutate({
+            ...values,
+            emergency_contact_parent_id:
+              id === null ? store.credentials?.data.parents_aid : id,
+          });
         }}
       >
         {(props) => {

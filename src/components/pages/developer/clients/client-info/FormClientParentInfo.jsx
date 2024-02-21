@@ -5,6 +5,7 @@ import {
   handleNumOnly,
 } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
@@ -26,9 +27,16 @@ import { RiProfileLine } from "react-icons/ri";
 import { TfiLocationPin } from "react-icons/tfi";
 import * as Yup from "yup";
 
-const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
+const FormClientParentInfo = ({
+  itemEdit,
+  setShowParentForm,
+  setItemEdit,
+  hasBiologicalFather,
+  hasBiologicalMother,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [getRelationship, setGetRelationship] = React.useState("");
+
   const id = getUrlParam().get("cid");
 
   const queryClient = useQueryClient();
@@ -99,6 +107,9 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
 
     guardian_fname_old: itemEdit ? itemEdit.guardian_fname : "",
     guardian_lname_old: itemEdit ? itemEdit.guardian_lname : "",
+    guardian_relationship_id_old: itemEdit
+      ? itemEdit.guardian_relationship_id
+      : "",
   };
 
   const yupSchema = Yup.object({
@@ -124,6 +135,14 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
 
   const handleChangeRelationship = (e) => {
     const selectedRelationship = e.target.options[e.target.selectedIndex].text;
+    // if (hasBiologicalMother) {
+    //   dispatch(setValidate(true));
+    //   dispatch(setMessage("You already selected a biological Mother"));
+    // } else if (hasBiologicalFather) {
+    //   dispatch(setValidate(true));
+    //   dispatch(setMessage("You already selected a biological Father"));
+    // }
+
     setGetRelationship(selectedRelationship);
   };
 
@@ -392,6 +411,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
           );
         }}
       </Formik>
+      {store.validate && <ModalValidate />}
     </div>
   );
 };

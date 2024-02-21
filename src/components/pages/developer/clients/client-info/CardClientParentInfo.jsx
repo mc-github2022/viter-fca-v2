@@ -7,7 +7,9 @@ import NoData from "@/components/partials/NoData.jsx";
 import ServerError from "@/components/partials/ServerError";
 import TableLoading from "@/components/partials/TableLoading";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { setIsDelete } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -152,6 +154,7 @@ const CardClientParentInfo = ({
         />
       )}
       {store.success && <ModalSuccess />}
+      {store.error && <ModalError />}
     </div>
   );
 };

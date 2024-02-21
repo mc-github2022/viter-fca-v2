@@ -26,9 +26,10 @@ $guardian->guardian_created = date("Y-m-d H:i:s");
 $guardian->guardian_datetime = date("Y-m-d H:i:s");
 
 $fullname = "$guardian->guardian_fname, $guardian->guardian_lname";
+$biologicalParent = "$guardian->guardian_parent_id, $guardian->guardian_relationship_id";
 
 isNameExist($guardian, $fullname);  
-
+isBiologicalParentExist($guardian, $biologicalParent);
 $query = checkCreate($guardian);
 returnSuccess($guardian, "", $query);
 

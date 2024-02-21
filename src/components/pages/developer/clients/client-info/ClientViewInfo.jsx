@@ -122,6 +122,7 @@ const ClientViewInfo = () => {
 
               {showParentForm && (
                 <FormClientParentInfo
+                  guardianInfo={guardianInfo}
                   itemEdit={itemEdit}
                   setShowParentForm={setShowParentForm}
                   setItemEdit={setItemEdit}
