@@ -14,3 +14,7 @@ function checkUpdateFinancier($object)
     checkQuery($query, "There's a problem processing your request. (update if no account)");
     return $query;
 }
+
+
+
+

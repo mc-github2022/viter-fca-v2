@@ -20,7 +20,7 @@ class Relationship
     {
         $this->connection = $db;
         $this->tblRelationship = "fcav2_settings_relationship";
-        $this->tblInfoParentGuardian = "fcav2_info_parent_guardian";
+        $this->tblInfoParentGuardian = "fcav2_guardian";
     }
 
 
@@ -145,9 +145,9 @@ class Relationship
     public function checkAssociation()
     {
         try {
-            $sql = "select parent_guardian_info_relationship_id ";
+            $sql = "select guardian_relationship_id ";
             $sql .= "from {$this->tblInfoParentGuardian} ";
-            $sql .= "where parent_guardian_info_relationship_id = :relationship_aid ";
+            $sql .= "where guardian_relationship_id = :relationship_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "relationship_aid" => "{$this->relationship_aid}",

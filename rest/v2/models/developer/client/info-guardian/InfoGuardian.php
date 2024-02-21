@@ -237,4 +237,25 @@ class InfoGuardian
         }
         return $query;
     }
+    public function checkBiologicalParent()
+    {
+        try {
+            $sql = "select guardian_relationship_id, ";
+            $sql .= "guardian_parent_id ";
+            $sql .= "from {$this->tblGuardian} ";
+            $sql .= "where guardian_relationship_id = :guardian_relationship_id ";
+            $sql .= "and guardian_parent_id = :guardian_parent_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "guardian_relationship_id" => "{$this->guardian_relationship_id}",
+                "guardian_parent_id" => "{$this->guardian_parent_id}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+
+    
 }

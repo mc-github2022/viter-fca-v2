@@ -32,7 +32,13 @@ const FormClientFinancierInfo = ({
 
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData(`/v2/dev-update-parents-financier/${id}`, "PUT", values),
+      queryData(
+        `/v2/dev-update-parents-financier/${
+          id === null ? store.credentials?.data.parents_aid : id
+        }`,
+        "PUT",
+        values
+      ),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["financierInfo"] });
@@ -116,17 +122,19 @@ const FormClientFinancierInfo = ({
               <div className="grid grid-cols-2 gap-4">
                 <div className="form__wrap">
                   <InputText
-                    label="Father's Income"
+                    label="Father's Income (Optional)"
                     type="text"
                     name="parents_father_income"
+                    onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
                   />
                 </div>
                 <div className="form__wrap">
                   <InputText
-                    label="Mother's Income"
+                    label="Mother's Income (Optional)"
                     type="text"
                     name="parents_mother_income"
+                    onKeyPress={handleNumOnly}
                     disabled={mutation.isLoading}
                   />
                 </div>

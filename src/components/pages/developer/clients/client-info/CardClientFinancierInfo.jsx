@@ -57,8 +57,7 @@ const CardClientFinancierInfo = ({
       <div className="max-w-[620px] w-full gap-4 mb-2">
         {isLoading ? (
           <TableLoading count={20} cols={3} />
-        ) : !isLoading &&
-          financierInfo.data[0].parents_financier_name === "" ? (
+        ) : !isLoading && financierInfo.data.length === 0 ? (
           <NoData />
         ) : error ? (
           <ServerError />
@@ -70,18 +69,24 @@ const CardClientFinancierInfo = ({
                 <p className="md:flex gap-2 text-xs items-center ">
                   <span className="flex gap-2 mb-2 md:mb-0">
                     <PiBriefcase className="text-base" />{" "}
-                    {item.parents_financier_occupation}
+                    {item.parents_financier_occupation
+                      ? item.parents_financier_occupation
+                      : "unspecified"}
                   </span>
                   <LuDot className="text-xl hidden md:block" />{" "}
                   <span className="flex gap-2 mb-2 md:mb-0">
                     <SlPeople className="text-base" />
-                    {item.parents_financier_relationship}
+                    {item.parents_financier_relationship
+                      ? item.parents_financier_occupation
+                      : "unspecified"}
                   </span>
                   <LuDot className="text-xl hidden md:block" />{" "}
                   <span className="flex gap-2 mb-2 md:mb-0">
                     <PiCoinsLight className="text-base" />
                     {pesoSign}
-                    {numberWithCommas(item.parents_financier_income)}
+                    {item.parents_financier_income
+                      ? numberWithCommas(item.parents_financier_income)
+                      : "unspecified"}
                   </span>
                 </p>
                 <div className="card__action absolute bottom-5 right-5  flex gap-2 ">

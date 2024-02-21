@@ -72,7 +72,7 @@ const ModalDeleteInfoCard = ({
 
         <div className="modal__action flex justify-end mt-2  !pr-0">
           <button
-            className="btn btn--cancel "
+            className="btn btn--alert "
             disabled={mutation.isLoading}
             onClick={handleYes}
             type="submit"
@@ -80,7 +80,7 @@ const ModalDeleteInfoCard = ({
             {mutation.isLoading ? <ButtonSpinner /> : "Confirm"}
           </button>
           <button
-            className="btn btn--alert text-white"
+            className="btn btn--cancel text-gray-500"
             disabled={mutation.isLoading}
             onClick={handleClose}
             type="button"
