@@ -84,7 +84,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          // item={`${dataItem.tuition_category_name} - ${dataItem.grade_level_name} (${dataItem.scheme_name})`}
+          item={`${dataItem.tuition_category_name} - ${dataItem.grade_level_name} (${dataItem.scheme_name})`}
           queryKey={"group-by-category-grade"}
           isArchive={isArchive}
         />
