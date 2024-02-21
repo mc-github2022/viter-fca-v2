@@ -1,5 +1,9 @@
 import { consoleLog } from "@/components/helpers/functions-general";
-import { setIndexItem, setIsAdd } from "@/components/store/StoreAction.jsx";
+import {
+  setIndexItem,
+  setIsAdd,
+  setIsSettingAdd,
+} from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React, { useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
@@ -16,15 +20,20 @@ const ModalSettingsNav = ({
   let userRole = store.credentials.data.role_name.toLowerCase();
 
   const [btnCollapse, setbtnCollapse] = useState(false);
+  const [categoryCollapse, setCategoryCollapse] = useState(false);
   const handleBtnCollapse = () => {
     setbtnCollapse(!btnCollapse);
+  };
+  const handleCategoryCollapse = () => {
+    setCategoryCollapse(!categoryCollapse);
   };
 
   const [subNavActive, setSubNavActive] = useState("");
 
-  const handleSubNavActive = (subMenu) => {
-    setIndex(12);
+  const handleSubNavActive = (subMenu, index) => {
+    setIndex(index);
     setSubNavActive(subMenu);
+    dispatch(setIsSettingAdd(false));
   };
 
   const handleChangeSetting = (index, e) => {
@@ -34,9 +43,8 @@ const ModalSettingsNav = ({
     setShowSideNav(false);
     dispatch(setIndexItem(0));
     setbtnCollapse(false);
-    if (index === 12) {
-      setSubNavActive("Parent");
-    }
+    setCategoryCollapse(false);
+    dispatch(setIsSettingAdd(false));
   };
 
   const handleChangeSettingInner = (indexInner, e) => {
@@ -157,6 +165,8 @@ const ModalSettingsNav = ({
               onClick={(e) => {
                 handleChangeSetting(12, e);
                 handleBtnCollapse();
+                handleChangeSettingInner(1, e);
+                handleSubNavActive("Parent", 12);
               }}
               className="p-1 pl-4"
             >
@@ -172,7 +182,7 @@ const ModalSettingsNav = ({
                 <button
                   onClick={(e) => {
                     handleChangeSettingInner(1, e);
-                    handleSubNavActive("Parent");
+                    handleSubNavActive("Parent", 12);
                   }}
                   className={`${
                     subNavActive === "Parent"
@@ -186,8 +196,8 @@ const ModalSettingsNav = ({
               <li className="text-gray-600 p-1 pl-8">
                 <button
                   onClick={(e) => {
-                    handleChangeSettingInner(122, e);
-                    handleSubNavActive("Staff");
+                    handleChangeSettingInner(2, e);
+                    handleSubNavActive("Staff", 12);
                   }}
                   className={`${
                     subNavActive === "Staff"
@@ -224,12 +234,61 @@ const ModalSettingsNav = ({
           </li>
 
           <li className={` ${index === 15 ? "active" : ""}`}>
+            {/* {console.log(index)} */}
             <button
-              onClick={(e) => handleChangeSetting(15, e)}
+              onClick={(e) => {
+                handleChangeSetting(15, e);
+                handleCategoryCollapse();
+                handleChangeSettingInner(3, e);
+                handleSubNavActive("discount-category", 15);
+              }}
               className="p-1 pl-4"
             >
-              Discount
+              <div className="flex items-center justify-between">
+                <span>Discount</span>
+                <BsChevronRight
+                  className={` ${
+                    categoryCollapse ? "-rotate-90" : "rotate-90"
+                  }`}
+                />
+              </div>
             </button>
+            <ul
+              className={`${
+                categoryCollapse ? "!block" : ""
+              } hidden bg-white h`}
+            >
+              <li className="text-gray-600 p-1 pl-8">
+                <button
+                  onClick={(e) => {
+                    handleChangeSettingInner(3, e);
+                    handleSubNavActive("discount-category", 15);
+                  }}
+                  className={`${
+                    subNavActive === "discount-category"
+                      ? "!border-l-2 !border-[#123909]"
+                      : ""
+                  } !bg-[unset] !text-gray-600 border-l-2 border-transparent`}
+                >
+                  <span className="ml-2">Category</span>
+                </button>
+              </li>
+              <li className="text-gray-600 p-1 pl-8">
+                <button
+                  onClick={(e) => {
+                    handleChangeSettingInner(4, e);
+                    handleSubNavActive("discount-list", 15);
+                  }}
+                  className={`${
+                    subNavActive === "discount-list"
+                      ? "!border-l-2 !border-[#123909]"
+                      : ""
+                  } !bg-[unset] !text-gray-600 border-l-2 border-transparent`}
+                >
+                  <span className="ml-2">List</span>
+                </button>
+              </li>
+            </ul>
           </li>
 
           <li className={` ${index === 16 ? "active" : ""}`}>

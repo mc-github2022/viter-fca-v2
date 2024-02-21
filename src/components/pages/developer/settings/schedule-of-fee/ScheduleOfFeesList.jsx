@@ -47,11 +47,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
               }
               key={key}
             >
-              <div
-                className={`${
-                  item.tuition_fee_active ? "opacity-100" : "opacity-40"
-                } w-full mr-1`}
-              >
+              <div className={` w-full mr-1`}>
                 <p className="my-3 first:mb-3 first:mt-0 font-bold">
                   {item.tuition_category_name} - {item.grade_level_name}
                 </p>
@@ -84,7 +80,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          // item={`${dataItem.tuition_category_name} - ${dataItem.grade_level_name} (${dataItem.scheme_name})`}
+          item={`${dataItem.tuition_category_name} - ${dataItem.grade_level_name} (${dataItem.scheme_name})`}
           queryKey={"group-by-category-grade"}
           isArchive={isArchive}
         />

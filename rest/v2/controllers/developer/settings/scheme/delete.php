@@ -8,7 +8,7 @@ if (array_key_exists("schemeid", $_GET)) {
     $scheme->scheme_aid = $_GET['schemeid'];
     checkId($scheme->scheme_aid);
 
-    //isAssociated($scheme);
+    isAssociated($scheme);
     $query = checkDelete($scheme);
     returnSuccess($scheme, "Scheme", $query);
 }

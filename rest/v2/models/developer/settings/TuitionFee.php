@@ -292,8 +292,7 @@ class TuitionFee
     public function readAllGroupBYCategoryGrade()
     {
         try {
-            $sql = "select fee.tuition_fee_active, ";
-            $sql .= "fee.tuition_fee_category_id, ";
+            $sql = "select fee.tuition_fee_category_id, ";
             $sql .= "fee.tuition_fee_grade_id, ";
             $sql .= "fee.tuition_fee_aid, ";
             $sql .= "category.tuition_category_name, ";
@@ -308,7 +307,9 @@ class TuitionFee
             $sql .= "and fee.tuition_fee_scheme_id = scheme.scheme_aid ";
             $sql .= "group by fee.tuition_fee_category_id, ";
             $sql .= "fee.tuition_fee_grade_id ";
-            $sql .= "order by fee.tuition_fee_active desc ";
+            $sql .= "order by fee.tuition_fee_active desc, ";
+            $sql .= "category.tuition_category_name asc, ";
+            $sql .= "grade.grade_level_name asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;

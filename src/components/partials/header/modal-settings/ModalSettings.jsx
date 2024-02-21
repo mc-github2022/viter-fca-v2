@@ -95,7 +95,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <UserOtherStaff index={index} indexInner={indexInner} />
                 <UserSystem index={index} />
                 <Roles index={index} />
-                <Discount index={index} />
+                <Discount index={index} indexInner={indexInner} />
                 <Staff index={index} />
                 <SchoolYear index={index} />
                 <SystemMode index={index} />
