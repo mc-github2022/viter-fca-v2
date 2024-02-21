@@ -107,6 +107,9 @@ const FormClientParentInfo = ({
 
     guardian_fname_old: itemEdit ? itemEdit.guardian_fname : "",
     guardian_lname_old: itemEdit ? itemEdit.guardian_lname : "",
+    guardian_relationship_id_old: itemEdit
+      ? itemEdit.guardian_relationship_id
+      : "",
   };
 
   const yupSchema = Yup.object({
