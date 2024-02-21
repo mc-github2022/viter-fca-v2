@@ -47,11 +47,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
               }
               key={key}
             >
-              <div
-                className={`${
-                  item.tuition_fee_active ? "opacity-100" : "opacity-40"
-                } w-full mr-1`}
-              >
+              <div className={` w-full mr-1`}>
                 <p className="my-3 first:mb-3 first:mt-0 font-bold">
                   {item.tuition_category_name} - {item.grade_level_name}
                 </p>

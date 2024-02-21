@@ -85,7 +85,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
   });
   return (
     <>
-      <div className="settings__addEdit mb-8 max-w-[800px] w-full">
+      <div className="settings__addEdit mb-8 max-w-[350px] w-full">
         <Formik
           initialValues={initVal}
           validationSchema={yupSchema}
@@ -95,8 +95,8 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
         >
           {(props) => {
             return (
-              <Form>
-                <div className="grid grid-cols-2 gap-3">
+              <Form className="flex flex-col h-full max-h-[calc(70vh-90px)] overflow-y-auto">
+                <div className="modal__body custom__scroll">
                   <div className="form__wrap text-xs mb-3">
                     <InputSelect
                       label="Category"
@@ -135,24 +135,24 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                     />
                   </div>
                   <div>
-                    <div className="form__wrap text-xs mb-3">
-                      <InputText
-                        label="Entrance Fee (%)"
-                        type="text"
-                        name="discount_entrance_fee"
-                        disabled={mutation.isLoading}
-                      />
+                    <div className="flex items-center justify-between">
+                      <div className="form__wrap text-xs mb-3">
+                        <InputText
+                          label="Entrance Fee (%)"
+                          type="text"
+                          name="discount_entrance_fee"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap text-xs mb-3">
+                        <InputText
+                          label="Tuition Fee (%)"
+                          type="text"
+                          name="discount_tuition_fee"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
                     </div>
-
-                    <div className="form__wrap text-xs mb-3">
-                      <InputText
-                        label="Tuition Fee (%)"
-                        type="text"
-                        name="discount_tuition_fee"
-                        disabled={mutation.isLoading}
-                      />
-                    </div>
-
                     <div className="form__wrap text-xs mb-3">
                       <InputText
                         label="Maintaining Grade (GA)"
@@ -190,6 +190,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                     />
                   </div>
                 </div>
+
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
                     {mutation.isLoading ? (

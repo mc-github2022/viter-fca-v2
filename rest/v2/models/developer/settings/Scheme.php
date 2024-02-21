@@ -13,11 +13,13 @@ class Scheme
     public $scheme_total;
     public $scheme_search;
     public $tblScheme;
+    public $tblTuitionFee;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblScheme = "fcav2_settings_scheme";
+        $this->tblTuitionFee = "fcav2_settings_tuition_fee";
     }
 
     public function create()
@@ -131,15 +133,14 @@ class Scheme
         return $query;
     }
 
+
     // validator
     public function checkAssociation()
     {
         try {
-            $sql = "select employee_last_name, ";
-            $sql .= "employee_first_name, ";
-            $sql .= "employee_aid ";
-            $sql .= "from {$this->tblEmployee} ";
-            $sql .= "where employee_scheme_id = :scheme_aid ";
+            $sql = "select * ";
+            $sql .= "from {$this->tblTuitionFee} ";
+            $sql .= "where tuition_fee_scheme_id = :scheme_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "scheme_aid" => $this->scheme_aid,

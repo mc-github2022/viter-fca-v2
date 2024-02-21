@@ -2,13 +2,12 @@ import React from "react";
 
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
+import { setIndexItem, setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import DiscountList from "./DiscountList";
+import { FaArrowLeft } from "react-icons/fa";
 import Category from "./category/Category";
 import ListDiscount from "./list/ListDiscount";
-import { FaArrowLeft } from "react-icons/fa";
-import { setIndexItem, setIsSettingAdd } from "@/components/store/StoreAction";
-const Discount = ({ index }) => {
+const Discount = ({ index, indexInner }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const handleBack = () => {
@@ -38,15 +37,10 @@ const Discount = ({ index }) => {
               year
             </p>
           </div>
+          {console.log("index ", index, indexInner)}
+          {indexInner === 3 && <Category />}
 
-          {store.indexItem === 0 && (
-            <>
-              <DiscountList />
-            </>
-          )}
-
-          <Category />
-          <ListDiscount />
+          {indexInner === 4 && <ListDiscount />}
 
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

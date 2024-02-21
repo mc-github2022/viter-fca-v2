@@ -18,7 +18,7 @@ const UserOtherStaff = ({ indexInner, index }) => {
     setItemEdit(null);
   };
 
-  if (indexInner === 122 && index == 12) {
+  if (indexInner === 2 && index == 12) {
     return (
       <>
         <div className="">

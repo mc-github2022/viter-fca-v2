@@ -166,7 +166,7 @@ class DiscountCategory
             $sql .= "* ";
             $sql .= "from ";
             $sql .= " {$this->tblDiscount} ";
-            $sql .= "where discount_category_id = :discount_category_id, ";
+            $sql .= "where discount_category_id = :discount_category_id ";
             $sql .= "order by discount_is_active desc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
