@@ -74,7 +74,7 @@
   }
 
   h4 {
-    @apply text-base mb-1;
+    @apply text-sm mb-1;
   }
 
   h6 {
@@ -217,7 +217,7 @@
   }
 
   select {
-    @apply text-xs;
+    @apply text-xs h-[34.75px];
   }
 
   input:disabled,

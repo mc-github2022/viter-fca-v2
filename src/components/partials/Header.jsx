@@ -1,6 +1,7 @@
 import React from "react";
 import { FaBars, FaCog, FaEdit, FaUserCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { LiaCogSolid } from "react-icons/lia";
 import { RiEdit2Line } from "react-icons/ri";
 import { setIsMenuExpand, setIsShow } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
@@ -115,7 +116,7 @@ const Header = () => {
             {(store.credentials.data.role_is_developer === 1 ||
               store.credentials.data.role_is_admin === 1) && (
               <button className="text-xl" onClick={handleShowSettings}>
-                <FaCog />
+                <LiaCogSolid />
               </button>
             )}
 

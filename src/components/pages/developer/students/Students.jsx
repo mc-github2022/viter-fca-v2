@@ -10,9 +10,10 @@ import React from "react";
 import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import StudentList from "./StudentList.jsx";
-import ModalAddStudent from "./ModalAddStudent.jsx";
 import Navigation from "../Navigation.jsx";
+import ModalAddStudent from "./ModalAddStudent.jsx";
+import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
+import StudentList from "./StudentList.jsx";
 
 const Students = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -69,6 +70,7 @@ const Students = () => {
       {store.isAdd && <ModalAddStudent itemEdit={itemEdit} roles={roles} />}
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
+      {<ModalEditStudent />}
     </div>
   );
 };
