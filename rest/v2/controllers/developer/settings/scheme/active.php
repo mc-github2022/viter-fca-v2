@@ -18,6 +18,8 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         checkPayload($data);
         $scheme->scheme_aid = $_GET['schemeid'];
         $scheme->scheme_active = trim($data["isActive"]);
+        $scheme->scheme_datetime = date("Y-m-d H:i:s");
+
         checkId($scheme->scheme_aid);
         $query = checkActive($scheme);
         http_response_code(200);

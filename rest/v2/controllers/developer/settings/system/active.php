@@ -25,6 +25,8 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         checkPayload($data);
         $user_system->user_system_aid = $_GET['usersystemid'];
         $user_system->user_system_is_active = trim($data["isActive"]);
+        $user_system->user_system_datetime = date("Y-m-d H:i:s");
+
         checkId($user_system->user_system_aid);
         $query = checkActive($user_system);
         http_response_code(200);
