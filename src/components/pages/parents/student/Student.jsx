@@ -8,9 +8,10 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { FiEdit2, FiPlus, FiTrash } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import ParentNavigation from "../ParentNavigation.jsx";
+// import ParentNavigation from "../ParentNavigation.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
 import StudentViewInfo from "./student-info/StudentViewInfo.jsx";
+import Navigation from "../Navigation.jsx";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -20,7 +21,8 @@ const Student = () => {
       <Header />
       <section className="main__wrap flex flex-col relative h-[100vh] ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
-          <ParentNavigation menu="student" />
+          {/* <ParentNavigation menu="student" /> */}
+          <Navigation menu="student" />
 
           <main
             className={`main__content mt-[35px]  ${

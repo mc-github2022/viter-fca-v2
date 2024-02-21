@@ -140,8 +140,8 @@ const Header = () => {
                   </div>
 
                   <button
-                    className="absolute top-2 right-2 tooltip"
-                    data-tooltip="Profile"
+                    className="absolute top-3 right-2 tooltip"
+                    data-tooltip="Account"
                   >
                     <Link to={`${devNavUrl}/${link}/profile`}>
                       <RiEdit2Line />
