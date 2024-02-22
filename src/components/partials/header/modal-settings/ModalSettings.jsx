@@ -25,7 +25,7 @@ import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
 
-const ModalSettings = ({ setIsShowSettings }) => {
+const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
 
@@ -60,7 +60,7 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 >
                   <FaBars />
                 </button>
-                <h5 className="mb-0 font-normal pl-2">Settings</h5>
+                <h5 className="mb-0 font-normal pl-2">Settiasdasdngs</h5>
               </div>
               <button onClick={handleCloseSettings}>
                 <LiaTimesSolid />
@@ -73,13 +73,17 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 setIndexInner={setIndexInner}
                 index={index}
                 setShowSideNav={setShowSideNav}
+                isGreaterThanEndYear={isGreaterThanEndYear}
               />
               <main
                 className={`${
                   showSideNav ? "lg:-left-[210px]" : "lg:left-[0px] "
                 } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-timing-nav `}
               >
-                <Department index={index} />
+                <Department
+                  index={index}
+                  isGreaterThanEndYear={isGreaterThanEndYear}
+                />
                 <Notifications index={index} />
                 <ParentRelationship index={index} />
                 <GradeLevel index={index} />
@@ -97,7 +101,10 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <Roles index={index} />
                 <Discount index={index} indexInner={indexInner} />
                 <Staff index={index} />
-                <SchoolYear index={index} />
+                <SchoolYear
+                  index={index}
+                  isGreaterThanEndYear={isGreaterThanEndYear}
+                />
                 <SystemMode index={index} />
               </main>
             </div>
