@@ -43,23 +43,27 @@ const Navigation = ({ menu, submenu }) => {
   const handleDropDownSetting = () => {
     dispatch(setIsSettingsOpen(!store.isSettingsOpen));
   };
+
+  console.log(store.isMenuExpand);
   return (
     <>
       <nav
-        className={`mt-[50px] ${store.isShow ? "show" : ""}  ${
-          store.isMenuExpand ? "expand" : ""
-        }`}
+        className={`${
+          getOngoingSchoolYear[0]?.school_year_is_enrollment_open === 1
+            ? "mt-[82px]"
+            : "mt-[54px]"
+        } ${store.isShow ? "show" : ""} ${store.isMenuExpand ? "expand" : ""}`}
       >
         <div className="backdrop" onClick={() => setIsShow(false)}></div>
         <div className="flex flex-col justify-between h-[93%] py-2 pr-0 custom__scroll overflow-y-auto">
-          <ul className="mt-3  h-[calc(100vh-48px)] pb-8">
+          <ul className={`mt-3 h-[calc(100vh-48px)] pb-8`}>
             <li>
               <Link
                 // to={`${devNavUrl}/admin/students`}
                 className="flex gap-3 items-center uppercase w-full"
               >
                 <BsCalendar2Week className="text-lg ml-4" />
-                {isLoading
+                {isLoading || isFetching
                   ? "Loading..."
                   : error
                   ? "API / Network Error"

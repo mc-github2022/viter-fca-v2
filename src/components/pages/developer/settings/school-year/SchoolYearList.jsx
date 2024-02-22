@@ -116,7 +116,7 @@ const SchoolYearList = ({
                   {formatDate(item.school_year_start_date)} -{" "}
                   {formatDate(item.school_year_end_date)}
                 </p>
-                <p className="mb-1 flex items-center">
+                {/* <p className="mb-1 flex items-center">
                   <span className="font-bold block w-[8rem]">Enrollment:</span>{" "}
                   {item.school_year_enrollment_start_date === ""
                     ? "Not set"
@@ -125,7 +125,7 @@ const SchoolYearList = ({
                   {item.school_year_enrollment_end_date === ""
                     ? "Not set"
                     : formatDate(item.school_year_enrollment_end_date)}
-                </p>
+                </p> */}
                 <p className="mb-1 flex items-center">
                   <span className="font-bold block w-[8rem]">
                     Enrollment Status:
@@ -159,7 +159,7 @@ const SchoolYearList = ({
                       </button>
                     </li>
 
-                    <li className=" ">
+                    {/* <li className=" ">
                       <button
                         className="tooltip"
                         data-tooltip="Enrollment"
@@ -167,7 +167,7 @@ const SchoolYearList = ({
                       >
                         <BsCalendar2Date />
                       </button>
-                    </li>
+                    </li> */}
 
                     <li>
                       <button
