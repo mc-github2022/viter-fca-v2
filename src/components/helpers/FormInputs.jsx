@@ -1,6 +1,7 @@
 import { useField } from "formik";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
+import { NumericFormat } from "react-number-format";
 
 export const InputTextArea = ({ label, onChange = null, ...props }) => {
   const [field, meta] = useField(props);
@@ -37,6 +38,30 @@ export const InputText = ({
   ...props
 }) => {
   const [field, meta] = useField(props);
+
+  if (props.number === "number") {
+    return (
+      <>
+        <label htmlFor={props.id || props.name}>{label}</label>
+        <NumericFormat
+          {...field}
+          {...props}
+          allowLeadingZeros
+          autoComplete="off"
+          className={`${meta.touched && meta.error ? "error-show" : null} `}
+          onChange={(e) => {
+            onChange !== null && onChange(e);
+            field.onChange(e);
+          }}
+        />
+
+        {meta.touched && meta.error ? (
+          <span className={`error-show ${top}`}>{meta.error}</span>
+        ) : null}
+      </>
+    );
+  }
+
   return (
     <>
       <label
