@@ -74,7 +74,7 @@
   }
 
   h4 {
-    @apply text-base mb-1;
+    @apply text-sm mb-1;
   }
 
   h6 {
@@ -217,7 +217,7 @@
   }
 
   select {
-    @apply text-xs;
+    @apply text-xs h-[34.75px];
   }
 
   input:disabled,
@@ -431,13 +431,24 @@
     @apply opacity-100  bg-black/30;
   }
 
+  .modal.modal--settings .modal__main {
+    @apply transition-all animate-slideUp opacity-0 -translate-y-[30px];
+  }
+  .modal.modal--settings .modal__backdrop {
+    @apply transition-all animate-backdrop  bg-opacity-0;
+  }
+
   .modal.modal--settings.show .modal__main {
-    @apply opacity-100 scale-100;
+    @apply translate-y-0 opacity-100;
   }
 
   .modal.modal--settings.show .modal__backdrop {
-    @apply opacity-100  bg-black/30;
+    @apply bg-opacity-30;
   }
+
+  /* .modal.modal--settings.show .modal__backdrop {
+    @apply opacity-100  bg-black/30;
+  }  */
 
   .modal__center.show .modal__main {
     @apply opacity-100 scale-100;
@@ -523,6 +534,17 @@
 
   .column__toggle input:checked + div div {
     @apply translate-x-3;
+  }
+
+  .scheme-list li:first-child {
+    @apply text-left;
+  }
+
+  .scheme-list li {
+    @apply !mb-0 leading-none text-center py-1;
+  }
+  .selected {
+    @apply border border-line bg-gray-100;
   }
 }
 

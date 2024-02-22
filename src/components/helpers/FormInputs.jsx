@@ -147,10 +147,7 @@ export const InputCheckbox = ({ label, ...props }) => {
           </span>
         </span>
 
-        <label
-          htmlFor={props.id || props.name}
-          className="cursor-pointer text-accent m-0"
-        >
+        <label htmlFor={props.id || props.name} className="cursor-pointer  m-0">
           {label}
         </label>
       </div>

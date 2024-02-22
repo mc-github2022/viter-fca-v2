@@ -1,6 +1,7 @@
 import React from "react";
 import { FaBars, FaCog, FaExclamationCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { LiaCogSolid } from "react-icons/lia";
 import { RiEdit2Line } from "react-icons/ri";
 import { setIsMenuExpand, setIsShow } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
@@ -15,9 +16,9 @@ import { Link } from "react-router-dom";
 import useQueryData from "../custom-hooks/useQueryData.jsx";
 import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
 import { devNavUrl } from "../helpers/functions-general.jsx";
+import Footer from "./Footer.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
 import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
-import Footer from "./Footer.jsx";
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
@@ -74,6 +75,11 @@ const Header = () => {
 
   const handleShowSettings = () => {
     setIsShowSettings(true);
+    if (!isShowSetting) {
+      document.querySelector("body").classList.add("no--scroll");
+    } else {
+      document.querySelector("body").classList.remove("no--scroll");
+    }
   };
 
   const handleLogout = () => {
@@ -154,7 +160,7 @@ const Header = () => {
             {(store.credentials.data.role_is_developer === 1 ||
               store.credentials.data.role_is_admin === 1) && (
               <button className="text-xl" onClick={handleShowSettings}>
-                <FaCog />
+                <LiaCogSolid />
               </button>
             )}
 

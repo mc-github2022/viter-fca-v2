@@ -11,6 +11,9 @@ import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
 import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
+import { PiStudent } from "react-icons/pi";
+import { RiParentLine } from "react-icons/ri";
+
 const Navigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
@@ -107,7 +110,7 @@ const Navigation = ({ menu, submenu }) => {
                 to={`${devNavUrl}/system/students`}
                 className="flex gap-3 items-center uppercase  w-full"
               >
-                <BsPeople className="text-lg ml-4" /> Students
+                <PiStudent className="text-lg ml-4" /> Students
               </Link>
             </li>
 
@@ -116,7 +119,17 @@ const Navigation = ({ menu, submenu }) => {
                 to={`${devNavUrl}/system/clients`}
                 className="flex gap-3 items-center uppercase  w-full"
               >
-                <BsGear className="text-lg ml-4" /> Parents
+                <RiParentLine className="text-lg ml-4" /> Parents
+              </Link>
+            </li>
+            <li
+              className={`nav__link ${menu === "assessment" ? "active" : ""}`}
+            >
+              <Link
+                to={`${devNavUrl}/system/assessment`}
+                className="flex gap-3 items-center uppercase  w-full"
+              >
+                <RiParentLine className="text-lg ml-4" /> Assessment
               </Link>
             </li>
           </ul>

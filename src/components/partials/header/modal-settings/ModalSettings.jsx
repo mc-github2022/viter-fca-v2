@@ -36,11 +36,17 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
     setShowSideNav(!showSideNav);
   };
 
-  const handleCloseSettings = () => {
+  const handleCloseSettings = (e) => {
     dispatch(setIsShowModal(false));
     setTimeout(() => {
       setIsShowSettings(false);
       dispatch(setIsShowModal(true));
+
+      if (!isShowSetting) {
+        document.querySelector("body").classList.add("no--scroll");
+      } else {
+        document.querySelector("body").classList.remove("no--scroll");
+      }
     }, 200);
   };
   return (
@@ -48,14 +54,17 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
       <div
         className={`modal modal--settings ${store.isShowModal ? "show" : ""} `}
       >
-        <div className="modal__backdrop bg-black/30"></div>
+        <div
+          className="modal__backdrop bg-black bg-opacity-0"
+          onClick={() => console.log("asd")}
+        ></div>
         <div className="modal__main  w-full  h-screen flex justify-center items-center p-3 lg:p-5 ">
           <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-180px)] custom__scroll overflow-y-hidden">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <button
                   className="text-base tooltip tooltip--bottom z-50 !-translate-y-0 md:block"
-                  onClick={handleShowSideNav}
+                  onClick={() => handleShowSideNav(e)}
                   data-tooltip="Menu"
                 >
                   <FaBars />
