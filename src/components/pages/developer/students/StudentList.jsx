@@ -24,6 +24,7 @@ import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { PiPasswordLight, PiStudentLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
 
 const StudentList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -32,6 +33,7 @@ const StudentList = ({ setItemEdit }) => {
   const [isArchive, setIsArchive] = React.useState(1);
   const [reset, setReset] = React.useState(false);
   const search = React.useRef({ value: "" });
+  const [isViewInfo, setIsViewInfo] = React.useState(false);
 
   let link =
     store.credentials.data.role_name.toLowerCase() === "developer"
@@ -121,6 +123,10 @@ const StudentList = ({ setItemEdit }) => {
     setData(item);
   };
 
+  const handleViewInfo = () => {
+    setIsViewInfo(true);
+  };
+
   return (
     <>
       <SearchBar
@@ -157,41 +163,14 @@ const StudentList = ({ setItemEdit }) => {
 
                   <td>
                     <div className="flex gap-2 justify-end">
-                      <Link
-                        to={`${devNavUrl}/${link}/clients/students?cid=${1}`}
-                        className="tooltip text-base"
-                        data-tooltip="Student"
-                      >
-                        <PiStudentLight />
-                      </Link>
-
-                      <Link
-                        to={`${devNavUrl}/${link}/clients/information?cid=${1}`}
+                      <button
                         className="tooltip text-base"
                         data-tooltip="Info"
+                        onClick={handleViewInfo}
                       >
                         <CiViewList />
-                      </Link>
-
-                      <button
-                        type="button"
-                        className="tooltip "
-                        data-tooltip="Edit"
-                        // onClick={() => handleEdit(row.row.original)}
-                      >
-                        <FiEdit2 />
                       </button>
 
-                      <button
-                        type="button"
-                        className="tooltip text-lg"
-                        data-tooltip="Reset"
-                        // onClick={() =>
-                        //   handleResetPassword(row.row.original)
-                        // }
-                      >
-                        <PiPasswordLight />
-                      </button>
                       <button
                         type="button"
                         className="tooltip"
@@ -255,6 +234,8 @@ const StudentList = ({ setItemEdit }) => {
           </div>
         </div>
       </div>
+
+      {isViewInfo && <ModalEditStudent setIsViewInfo={setIsViewInfo} />}
 
       {store.isConfirm && (
         <ModalConfirm

@@ -118,7 +118,7 @@ const ModalAddStudent = ({ itemEdit, roles, id }) => {
                       />
                     </div>
                   </div>
-                  <div className="modal__action btnActionAbsolute">
+                  <div className="modal__action ">
                     <button className="btn btn--accent" type="submit">
                       {itemEdit ? "Update" : "Save"}
                     </button>

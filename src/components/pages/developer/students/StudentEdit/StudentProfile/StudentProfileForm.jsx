@@ -13,38 +13,38 @@ import * as Yup from "yup";
 const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
-  const {
-    isLoading: gradeLoading,
-    isFetching: gradeFetching,
-    error: gradeError,
-    data: gradelevel,
-  } = useQueryData(
-    "/v2/dev-grade-level", // endpoint
-    "get", // method
-    "gradelevel" // key
-  );
+  // const {
+  //   isLoading: gradeLoading,
+  //   isFetching: gradeFetching,
+  //   error: gradeError,
+  //   data: gradelevel,
+  // } = useQueryData(
+  //   "/v2/dev-grade-level", // endpoint
+  //   "get", // method
+  //   "gradelevel" // key
+  // );
 
-  const {
-    isLoading: learningLoading,
-    isFetching: learningFetching,
-    error: learningError,
-    data: learningtype,
-  } = useQueryData(
-    "/v2/dev-learning-type", // endpoint
-    "get", // method
-    "learningtype" // key
-  );
+  // const {
+  //   isLoading: learningLoading,
+  //   isFetching: learningFetching,
+  //   error: learningError,
+  //   data: learningtype,
+  // } = useQueryData(
+  //   "/v2/dev-learning-type", // endpoint
+  //   "get", // method
+  //   "learningtype" // key
+  // );
 
-  const {
-    isLoading: parentLoading,
-    isFetching: parentFetching,
-    error: parentError,
-    data: parent,
-  } = useQueryData(
-    `/v2/student/parent-address/${31}`, // endpoint
-    "get", // method
-    "parent" // key
-  );
+  // const {
+  //   isLoading: parentLoading,
+  //   isFetching: parentFetching,
+  //   error: parentError,
+  //   data: parent,
+  // } = useQueryData(
+  //   `/v2/student/parent-address/${31}`, // endpoint
+  //   "get", // method
+  //   "parent" // key
+  // );
 
   const queryClient = useQueryClient();
 
@@ -83,15 +83,15 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary border-t border-line z-20 max-w-[calc(1065px-200px)] p-2 w-full shadow-[0_0_30px_-15px_rgba(0,0,0,0.3)]`}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
                   >
                     <button className="btn btn--accent">Save</button>
                     <button className="btn btn--cancel" onClick={handleClose}>
-                      Dismiss
+                      Discard
                     </button>{" "}
                   </div>
-                  <h3 className="mb-3">Student Profile</h3>
-                  <h5 className="mb-2">Classification</h5>
+                  <h3 className="mb-3">Profile</h3>
+                  <h6 className="mb-2 uppercase">Classification</h6>
                   <div className="grid grid-cols-[120px_1fr_1fr_1fr] gap-x-3">
                     <div className="form__wrap">
                       <InputText
@@ -112,7 +112,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       >
                         <option value="" hidden></option>
 
-                        {learningLoading || learningFetching ? (
+                        {/* {learningLoading || learningFetching ? (
                           <option>Loading...</option>
                         ) : learningtype?.data.length === 0 ? (
                           <option>No Data</option>
@@ -124,7 +124,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                               </option>
                             );
                           })
-                        )}
+                        )} */}
                       </InputSelect>
                     </div>
 
@@ -147,7 +147,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       >
                         <option value="" hidden></option>
 
-                        {gradeLoading || gradeFetching ? (
+                        {/* {gradeLoading || gradeFetching ? (
                           <option>Loading...</option>
                         ) : gradelevel?.data.length === 0 ? (
                           <option>No Data</option>
@@ -159,12 +159,12 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                               </option>
                             );
                           })
-                        )}
+                        )} */}
                       </InputSelect>
                     </div>
                   </div>
 
-                  <h5 className="mb-2">Profile</h5>
+                  <h6 className="mb-2 uppercase">Profile</h6>
                   <div className="grid grid-cols-3 gap-x-3">
                     <div className="form__wrap">
                       <InputText
@@ -245,7 +245,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                     </div>
                   </div>
 
-                  <h5 className="mb-2">Address</h5>
+                  <h6 className="mb-2 uppercase">Address</h6>
                   <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
                       <InputSelect
@@ -257,7 +257,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       >
                         <option value="" hidden></option>
 
-                        {parentLoading || parentFetching ? (
+                        {/* {parentLoading || parentFetching ? (
                           <option>Loading...</option>
                         ) : parent?.data.length === 0 ? (
                           <option>No Data</option>
@@ -272,12 +272,12 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                               </option>
                             );
                           })
-                        )}
+                        )} */}
                       </InputSelect>
                     </div>
                   </div>
 
-                  <h5 className="mb-2">Last School </h5>
+                  <h6 className="mb-2 uppercase">Last School</h6>
                   <div className="grid grid-cols-[400px_1fr_1fr] gap-x-3">
                     <div className="form__wrap">
                       <InputText
@@ -327,7 +327,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                     </div>
                   </div>
 
-                  <h5 className="mb-2">Medical Information</h5>
+                  <h6 className="mb-2 uppercase">Medical Information</h6>
                   <div className="grid grid-cols-2 gap-x-3">
                     <div className="form__wrap">
                       <InputText

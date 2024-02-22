@@ -13,7 +13,7 @@ import SchoolYearFormAddEdit from "./SchoolYearFormAddEdit";
 import SchoolYearFormEditEnrollment from "./SchoolYearFormEditEnrollment";
 import SchoolYearList from "./SchoolYearList";
 
-const SchoolYear = ({ index }) => {
+const SchoolYear = ({ index, isGreaterThanEndYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
   const [editEnrollment, setIsEditEnrollment] = React.useState(false);
@@ -43,7 +43,7 @@ const SchoolYear = ({ index }) => {
     setItemEdit(null);
   };
 
-  if (index === 17) {
+  if (index === 17 || isGreaterThanEndYear) {
     return (
       <>
         <div className="">

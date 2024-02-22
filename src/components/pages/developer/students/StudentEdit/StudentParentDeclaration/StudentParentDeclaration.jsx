@@ -41,17 +41,18 @@ const StudentParentDeclaration = ({ showSideNav, setIsViewInfo }) => {
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary border-t border-line z-20 max-w-[calc(1065px-200px)] p-2 w-full shadow-[0_0_30px_-15px_rgba(0,0,0,0.3)]`}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                       <button className="btn btn--accent">Save</button>
                       <button className="btn btn--cancel" onClick={handleClose}>
-                        Dismiss
+                        Discard
                       </button>
                     </div>
                   </div>
                   <div className="mb-14 text-xs">
-                    <h3 className="mb-2">Parent/Guardian Declaration</h3>
+                    <h3 className="mb-3">Parent/Guardian Declaration</h3>
+
                     <p className="mb-4">I hereby declare that:</p>
 
                     <ol className=" list-inside list-[upper-roman] pl-4 my-3">

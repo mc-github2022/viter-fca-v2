@@ -74,7 +74,7 @@
   }
 
   h4 {
-    @apply text-base mb-1;
+    @apply text-sm mb-1;
   }
 
   h6 {
@@ -187,9 +187,9 @@
     @apply bg-opacity-10;
   }
 
-  nav ul > li {
+  /* nav ul > li {
     @apply mb-2;
-  }
+  } */
 
   nav ul li svg {
     @apply text-base;
@@ -217,7 +217,7 @@
   }
 
   select {
-    @apply text-xs;
+    @apply text-xs h-[34.75px];
   }
 
   input:disabled,
@@ -300,7 +300,7 @@
   }
   .nav__link a,
   .nav__link button {
-    @apply w-full py-[5px];
+    @apply w-full py-[7px];
   }
 
   .nav__link.active {
@@ -431,13 +431,24 @@
     @apply opacity-100  bg-black/30;
   }
 
+  .modal.modal--settings .modal__main {
+    @apply transition-all animate-slideUp opacity-0 -translate-y-[30px];
+  }
+  .modal.modal--settings .modal__backdrop {
+    @apply transition-all animate-backdrop  bg-opacity-0;
+  }
+
   .modal.modal--settings.show .modal__main {
-    @apply opacity-100 scale-100;
+    @apply translate-y-0 opacity-100;
   }
 
   .modal.modal--settings.show .modal__backdrop {
-    @apply opacity-100  bg-black/30;
+    @apply bg-opacity-30;
   }
+
+  /* .modal.modal--settings.show .modal__backdrop {
+    @apply opacity-100  bg-black/30;
+  }  */
 
   .modal__center.show .modal__main {
     @apply opacity-100 scale-100;
@@ -524,6 +535,17 @@
   .column__toggle input:checked + div div {
     @apply translate-x-3;
   }
+
+  .scheme-list li:first-child {
+    @apply text-left;
+  }
+
+  .scheme-list li {
+    @apply !mb-0 leading-none text-center py-2;
+  }
+  .selected {
+    @apply border border-line bg-gray-100;
+  }
 }
 
 @layer utilities {
@@ -601,4 +623,12 @@ body::-webkit-scrollbar-thumb {
 
 .moveTop {
   top: clamp(2rem, 12vw, 8rem);
+}
+
+.customHeight {
+  min-height: calc(100vh - 52px);
+}
+
+.customHeightOngoing {
+  min-height: calc(100vh - 92px);
 }

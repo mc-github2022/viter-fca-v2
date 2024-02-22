@@ -40,17 +40,18 @@ const StudentParentConsent = ({ showSideNav, setIsViewInfo }) => {
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary border-t border-line z-20 max-w-[calc(1065px-200px)] p-2 w-full shadow-[0_0_30px_-15px_rgba(0,0,0,0.3)]`}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                       <button className="btn btn--accent">Save</button>
                       <button className="btn btn--cancel" onClick={handleClose}>
-                        Dismiss
+                        Discard
                       </button>
                     </div>
                   </div>
                   <div className="mb-14 text-xs">
-                    <h3>Parent Consent Form</h3>
+                    <h3 className="mb-3">Parent Consent Form</h3>
+
                     <p>
                       I as the parent or legal guardian hereby acknowledge that
                       I have been informed of the details of the conduct of
@@ -70,28 +71,31 @@ const StudentParentConsent = ({ showSideNav, setIsViewInfo }) => {
                       transmissions to my child/dren, and to the members of my
                       household, I freely assume the said risk and I permit my
                       child/dren to attend the school under this activity, the
-                      Face-to-Face Summer Classes. I am aware that the symptoms
-                      of COVID 19 include but are not limited to, fever or
-                      chills, cough, shortness of breath or difficulty of
-                      breathing, body and headache, loss of taste and smell,
-                      sore throat, congestion, nausea, vomiting and diarrhea. I
-                      confirm that my child/dren currently has none of those
-                      symptoms, and is in good health. I will not allow my
-                      child/dren to physically go to school to attend classes if
-                      my child/dren or any members of my household develops any
-                      said symptoms or any other illness that may or may not be
-                      related to COVID 19. I will also inform the school and not
-                      allow my child/dren to attend Face-to-Face classes if my
-                      child/dren or any of my household members tests positive
-                      for COVID 19. My child/dren and I, with my household
-                      members, will follow the required health and safety
-                      protocols and procedures adopted by the school and our
-                      community. To the extent allowed by law and rules, I
-                      hereby agree to waive, release and discharge any and all
-                      claims, causes of action, damages and rights against the
-                      school and its personnel as well as officials and
-                      personnel of the Department of Education relative to the
-                      conduct of the activity.
+                      Face-to-Face Summer Classes.
+                    </p>
+
+                    <p>
+                      I am aware that the symptoms of COVID 19 include but are
+                      not limited to, fever or chills, cough, shortness of
+                      breath or difficulty of breathing, body and headache, loss
+                      of taste and smell, sore throat, congestion, nausea,
+                      vomiting and diarrhea. I confirm that my child/dren
+                      currently has none of those symptoms, and is in good
+                      health. I will not allow my child/dren to physically go to
+                      school to attend classes if my child/dren or any members
+                      of my household develops any said symptoms or any other
+                      illness that may or may not be related to COVID 19. I will
+                      also inform the school and not allow my child/dren to
+                      attend Face-to-Face classes if my child/dren or any of my
+                      household members tests positive for COVID 19. My
+                      child/dren and I, with my household members, will follow
+                      the required health and safety protocols and procedures
+                      adopted by the school and our community. To the extent
+                      allowed by law and rules, I hereby agree to waive, release
+                      and discharge any and all claims, causes of action,
+                      damages and rights against the school and its personnel as
+                      well as officials and personnel of the Department of
+                      Education relative to the conduct of the activity.
                     </p>
 
                     <div className="form__wrap flex items-center gap-2 ">

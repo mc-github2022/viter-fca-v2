@@ -5,6 +5,7 @@ import StudentCodeOfConduct from "./StudentCodeOfConduct/StudentCodeOfConduct.js
 import StudentParentCommitment from "./StudentParentCommitment/StudentParentCommitment.jsx";
 import StudentParentConsent from "./StudentParentConsent/StudentParentConsent.jsx";
 import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDeclaration.jsx";
+import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
 
 const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
@@ -25,10 +26,10 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
   };
   return (
     <>
-      <div className="fixed top-0 left-0 z-20 h-screen w-full">
-        <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-40"></div>
+      <div className={`modal modal--settings show `}>
+        <div className="modal__backdrop bg-black bg-opacity-0"></div>
         <div className="z-50 h-full w-full flex justify-center items-center relative ">
-          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-350px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
+          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-150px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <button
@@ -64,6 +65,17 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                       className="p-1 pl-4 "
                     >
                       Profile
+                    </button>
+                  </li>
+
+                  <li
+                    className={`${index === 6 ? "bg-accent text-primary" : ""}`}
+                  >
+                    <button
+                      onClick={() => handleChangeProfile(6)}
+                      className="p-1 pl-4 "
+                    >
+                      Payment Scheme
                     </button>
                   </li>
                   <li
@@ -120,7 +132,7 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                 </ul>
               </aside>
               <main
-                className={` p-5 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
+                className={` p-5 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
                 {index === 1 && (
                   <StudentProfileForm
@@ -156,6 +168,15 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                 )}
                 {index === 5 && (
                   <StudentParentCommitment
+                    index={index}
+                    setIsViewInfo={setIsViewInfo}
+                    showSideNav={showSideNav}
+                    itemEdit={itemEdit}
+                  />
+                )}
+
+                {index === 6 && (
+                  <StudentPaymentScheme
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}

@@ -25,7 +25,7 @@ import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
 
-const ModalSettings = ({ setIsShowSettings }) => {
+const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
 
@@ -36,11 +36,17 @@ const ModalSettings = ({ setIsShowSettings }) => {
     setShowSideNav(!showSideNav);
   };
 
-  const handleCloseSettings = () => {
+  const handleCloseSettings = (e) => {
     dispatch(setIsShowModal(false));
     setTimeout(() => {
       setIsShowSettings(false);
       dispatch(setIsShowModal(true));
+
+      if (!isShowSetting) {
+        document.querySelector("body").classList.add("no--scroll");
+      } else {
+        document.querySelector("body").classList.remove("no--scroll");
+      }
     }, 200);
   };
   return (
@@ -48,19 +54,22 @@ const ModalSettings = ({ setIsShowSettings }) => {
       <div
         className={`modal modal--settings ${store.isShowModal ? "show" : ""} `}
       >
-        <div className="modal__backdrop bg-black/30"></div>
+        <div
+          className="modal__backdrop bg-black bg-opacity-0"
+          onClick={() => console.log("asd")}
+        ></div>
         <div className="modal__main  w-full  h-screen flex justify-center items-center p-3 lg:p-5 ">
           <div className="relative w-full max-w-[1065px] h-[calc(100vh-80px)] lg:h-[calc(100vh-180px)] custom__scroll overflow-y-hidden">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <button
                   className="text-base tooltip tooltip--bottom z-50 !-translate-y-0 md:block"
-                  onClick={handleShowSideNav}
+                  onClick={() => handleShowSideNav(e)}
                   data-tooltip="Menu"
                 >
                   <FaBars />
                 </button>
-                <h5 className="mb-0 font-normal pl-2">Settings</h5>
+                <h5 className="mb-0 font-normal pl-2">Settiasdasdngs</h5>
               </div>
               <button onClick={handleCloseSettings}>
                 <LiaTimesSolid />
@@ -73,13 +82,17 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 setIndexInner={setIndexInner}
                 index={index}
                 setShowSideNav={setShowSideNav}
+                isGreaterThanEndYear={isGreaterThanEndYear}
               />
               <main
                 className={`${
                   showSideNav ? "lg:-left-[210px]" : "lg:left-[0px] "
                 } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-timing-nav `}
               >
-                <Department index={index} />
+                <Department
+                  index={index}
+                  isGreaterThanEndYear={isGreaterThanEndYear}
+                />
                 <Notifications index={index} />
                 <ParentRelationship index={index} />
                 <GradeLevel index={index} />
@@ -97,7 +110,10 @@ const ModalSettings = ({ setIsShowSettings }) => {
                 <Roles index={index} />
                 <Discount index={index} indexInner={indexInner} />
                 <Staff index={index} />
-                <SchoolYear index={index} />
+                <SchoolYear
+                  index={index}
+                  isGreaterThanEndYear={isGreaterThanEndYear}
+                />
                 <SystemMode index={index} />
               </main>
             </div>

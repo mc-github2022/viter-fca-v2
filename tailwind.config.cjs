@@ -114,6 +114,11 @@ export default {
           "100%": { opacity: 1 },
         },
 
+        backdrop: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 0.3 },
+        },
+
         fadeOut: {
           "0%": { opacity: 1 },
           "100%": { opacity: 0 },
@@ -125,13 +130,13 @@ export default {
         },
 
         slideUp: {
-          "0%": { transform: "translateY(10px)" },
-          "100%": { transform: "translateY(0px)" },
+          "0%": { transform: "translateY(30px)", opacity: 0 },
+          "100%": { transform: "translateY(0px)", opacity: 100 },
         },
 
         slideDown: {
           "0%": { transform: "translateY(0px)" },
-          "100%": { transform: "translateY(10px)" },
+          "100%": { transform: "translateY(30px)" },
         },
 
         slideLeft: {
@@ -161,6 +166,7 @@ export default {
 
       animation: {
         shake: "shake .2s ease-in-out",
+        backdrop: "backdrop .2s ease-in-out",
         slideUp: "slideUp .2s ease-in-out",
         slideDown: "slideDown .2s ease-in-out",
         slideLeft: "slideLeft .2s ease-in-out",

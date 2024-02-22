@@ -32,7 +32,9 @@ const SchoolYearFormAddEdit = ({ itemEdit }) => {
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["school-year"] });
+      queryClient.invalidateQueries({ queryKey: ["header-school-year"] });
+      queryClient.invalidateQueries({ queryKey: ["nav-school-year"] });
 
       // show error box
       if (!data.success) {
@@ -52,6 +54,11 @@ const SchoolYearFormAddEdit = ({ itemEdit }) => {
     school_year_aid: itemEdit ? itemEdit.school_year_aid : "",
     school_year_start_date: itemEdit ? itemEdit.school_year_start_date : "",
     school_year_end_date: itemEdit ? itemEdit.school_year_end_date : "",
+    school_year_is_enrollment_open: itemEdit
+      ? itemEdit.school_year_is_enrollment_open === 1
+        ? true
+        : false
+      : false,
     school_year_start_date_old: itemEdit ? itemEdit.school_year_start_date : "",
   };
 
@@ -87,6 +94,16 @@ const SchoolYearFormAddEdit = ({ itemEdit }) => {
                     label="S.Y End Date"
                     type="date"
                     name="school_year_end_date"
+                    disabled={mutation.isPending}
+                  />
+                </div>
+
+                <div className="form__wrap text-xs mb-3">
+                  <InputCheckbox
+                    label="Mark check to open this enrollment"
+                    type="checkbox"
+                    name="school_year_is_enrollment_open"
+                    id="school_year_is_enrollment_open"
                     disabled={mutation.isPending}
                   />
                 </div>
