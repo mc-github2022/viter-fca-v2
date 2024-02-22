@@ -1,9 +1,8 @@
-import { InputCheckbox, InputText } from "@/components/helpers/FormInputs";
+import { InputText } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
-  setIsSettingAdd,
   setMessage,
   setSuccess,
 } from "@/components/store/StoreAction";
@@ -52,11 +51,6 @@ const SchoolYearFormEditEnrollment = ({ itemEdit, setIsEditEnrollment }) => {
     school_year_enrollment_end_date: itemEdit
       ? itemEdit.school_year_enrollment_end_date
       : "",
-    school_year_is_enrollment_open: itemEdit
-      ? itemEdit.school_year_is_enrollment_open === 1
-        ? true
-        : false
-      : false,
     school_year_enrollment_start_date_old: itemEdit
       ? itemEdit.school_year_enrollment_start_date
       : "",
@@ -94,16 +88,6 @@ const SchoolYearFormEditEnrollment = ({ itemEdit, setIsEditEnrollment }) => {
                     label="Enrollment End Date"
                     type="date"
                     name="school_year_enrollment_end_date"
-                    disabled={mutation.isPending}
-                  />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputCheckbox
-                    label="Mark check to open this enrollment"
-                    type="checkbox"
-                    name="school_year_is_enrollment_open"
-                    id="school_year_is_enrollment_open"
                     disabled={mutation.isPending}
                   />
                 </div>

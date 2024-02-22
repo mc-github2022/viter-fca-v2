@@ -161,18 +161,42 @@ class SchoolYear
         return $query;
     }
 
+    // read last school year
+    public function readLastSchoolYear()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "school_year_aid, ";
+            $sql .= "school_year_is_active, ";
+            $sql .= "YEAR(school_year_start_date) as start_year, ";
+            $sql .= "school_year_start_date, ";
+            $sql .= "YEAR(school_year_end_date) as end_year, ";
+            $sql .= "school_year_end_date, ";
+            $sql .= "school_year_is_enrollment_open ";
+            $sql .= "from {$this->tblSchoolYear} ";
+            $sql .= "order by ";
+            $sql .= "school_year_start_date desc ";
+            $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function update()
     {
         try {
             $sql = "update {$this->tblSchoolYear} set ";
             $sql .= "school_year_start_date = :school_year_start_date, ";
             $sql .= "school_year_end_date = :school_year_end_date, ";
+            $sql .= "school_year_is_enrollment_open = :school_year_is_enrollment_open, ";
             $sql .= "school_year_datetime = :school_year_datetime ";
             $sql .= "where school_year_aid = :school_year_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "school_year_start_date" => $this->school_year_start_date,
                 "school_year_end_date" => $this->school_year_end_date,
+                "school_year_is_enrollment_open" => $this->school_year_is_enrollment_open,
                 "school_year_datetime" => $this->school_year_datetime,
                 "school_year_aid" => $this->school_year_aid,
             ]);
@@ -188,14 +212,12 @@ class SchoolYear
             $sql = "update {$this->tblSchoolYear} set ";
             $sql .= "school_year_enrollment_start_date = :school_year_enrollment_start_date, ";
             $sql .= "school_year_enrollment_end_date = :school_year_enrollment_end_date, ";
-            $sql .= "school_year_is_enrollment_open = :school_year_is_enrollment_open, ";
             $sql .= "school_year_datetime = :school_year_datetime ";
             $sql .= "where school_year_aid = :school_year_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "school_year_enrollment_start_date" => $this->school_year_enrollment_start_date,
                 "school_year_enrollment_end_date" => $this->school_year_enrollment_end_date,
-                "school_year_is_enrollment_open" => $this->school_year_is_enrollment_open,
                 "school_year_datetime" => $this->school_year_datetime,
                 "school_year_aid" => $this->school_year_aid,
             ]);

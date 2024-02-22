@@ -9,6 +9,7 @@ if (array_key_exists("syid", $_GET)) {
     $sy->school_year_aid = $_GET['syid'];
     $sy->school_year_start_date = checkIndex($data, "school_year_start_date");
     $sy->school_year_end_date = checkIndex($data, "school_year_end_date");
+    $sy->school_year_is_enrollment_open = checkIndex($data, "school_year_is_enrollment_open");
     $sy->school_year_datetime = date("Y-m-d H:i:s");
 
     // validate id if empty or valid number
