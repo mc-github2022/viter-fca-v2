@@ -42,7 +42,7 @@ const Students = () => {
           <Navigation menu="students" />
 
           <main
-            className={`main__content mt-[35px]  ${
+            className={`main__content mt-[35px] customHeightOngoing relative ${
               store.isMenuExpand ? "expand" : ""
             }`}
           >
@@ -62,9 +62,9 @@ const Students = () => {
             </div>
 
             <StudentList setItemEdit={setItemEdit} />
+            <Footer />
           </main>
         </div>
-        <Footer />
       </section>
       {store.isAdd && <ModalAddStudent itemEdit={itemEdit} roles={roles} />}
       {store.success && <ModalSuccess />}

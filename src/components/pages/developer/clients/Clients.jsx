@@ -9,6 +9,7 @@ import { FaPlus } from "react-icons/fa";
 import Navigation from "../Navigation.jsx";
 import ClientList from "./ClientList.jsx";
 import ModalAddClient from "./ModalAddClient.jsx";
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -19,6 +20,19 @@ const Clients = () => {
     setItemEdit(null);
   };
 
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: schoolYear,
+  } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "header-school-year" // key
+  );
+
+  const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
+
   return (
     <>
       <Header />
@@ -27,9 +41,9 @@ const Clients = () => {
           <Navigation menu="clients" />
 
           <main
-            className={`main__content mt-[35px] customHeight ${
+            className={`main__content mt-[35px]  relative ${
               store.isMenuExpand ? "expand" : ""
-            }`}
+            } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header flex justify-between items-start lg:items-center  ">
               <div>

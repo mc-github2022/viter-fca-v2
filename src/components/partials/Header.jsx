@@ -17,11 +17,13 @@ import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
 import { devNavUrl } from "../helpers/functions-general.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
 import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
+import Footer from "./Footer.jsx";
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+
   let link =
     store.credentials.data.role_name.toLowerCase() === "developer"
       ? "system"

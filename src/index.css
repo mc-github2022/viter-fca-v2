@@ -604,5 +604,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .customHeight {
-  height: calc(100%-52px) !important;
+  min-height: calc(100vh - 52px);
+}
+
+.customHeightOngoing {
+  min-height: calc(100vh - 92px);
 }
