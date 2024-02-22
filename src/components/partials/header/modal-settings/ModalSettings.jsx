@@ -42,11 +42,11 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
       setIsShowSettings(false);
       dispatch(setIsShowModal(true));
 
-      if (!isShowSetting) {
-        document.querySelector("body").classList.add("no--scroll");
-      } else {
-        document.querySelector("body").classList.remove("no--scroll");
-      }
+      // if (!isShowSetting) {
+      //   document.querySelector("body").classList.add("no--scroll");
+      // } else {
+      //   document.querySelector("body").classList.remove("no--scroll");
+      // }
     }, 200);
   };
   return (
@@ -64,7 +64,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
               <div className="flex item-center gap-4">
                 <button
                   className="text-base tooltip tooltip--bottom z-50 !-translate-y-0 md:block"
-                  onClick={() => handleShowSideNav(e)}
+                  onClick={() => handleShowSideNav()}
                   data-tooltip="Menu"
                 >
                   <FaBars />

@@ -34,10 +34,6 @@ const Navigation = ({ menu, submenu }) => {
     schoolYear?.count > 0 &&
     schoolYear?.data.filter((item) => item.school_year_is_active === 1);
 
-  console.log(schoolYear);
-
-  console.log(getOngoingSchoolYear[0]?.school_year_is_enrollment_open === 1);
-
   const handleToggleMenu = () => {
     dispatch(setIsShow(!store.isShow));
     if (store.isShow) {
@@ -93,7 +89,7 @@ const Navigation = ({ menu, submenu }) => {
                 }`}
               >
                 <BsCalendar2Week className="text-lg ml-4" />
-                {isLoading || isFetching
+                {isLoading
                   ? "Loading..."
                   : error
                   ? "API / Network Error"
