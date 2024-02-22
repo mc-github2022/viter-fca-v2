@@ -36,7 +36,7 @@ const Clients = () => {
   return (
     <>
       <Header />
-      <section className="main__wrap flex flex-col relative h-[100vh] ">
+      <section className="main__wrap flex flex-col relative ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation menu="clients" />
 
