@@ -60,7 +60,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
                 >
                   <FaBars />
                 </button>
-                <h5 className="mb-0 font-normal pl-2">Settiasdasdngs</h5>
+                <h5 className="mb-0 font-normal pl-2">Settings</h5>
               </div>
               <button onClick={handleCloseSettings}>
                 <LiaTimesSolid />
