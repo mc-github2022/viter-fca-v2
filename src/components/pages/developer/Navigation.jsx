@@ -53,7 +53,7 @@ const Navigation = ({ menu, submenu }) => {
         <div className="backdrop" onClick={() => setIsShow(false)}></div>
         <div className="flex flex-col justify-between h-[93%] py-2 pr-0 custom__scroll overflow-y-auto">
           <ul className="mt-3  h-[calc(100vh-48px)] pb-8">
-            <li>
+            <li className={`nav__link ${menu === "" ? "active" : ""}`}>
               <Link
                 // to={`${devNavUrl}/admin/students`}
                 className="flex gap-3 items-center uppercase w-full"
