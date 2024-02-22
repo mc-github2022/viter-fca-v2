@@ -39,7 +39,7 @@ const Header = () => {
   } = useQueryData(
     "/v2/dev-school-year", // endpoint
     "get", // method
-    "header-school-year" // key
+    "school-year" // key
   );
 
   const handleToggleMenu = () => {
@@ -110,12 +110,18 @@ const Header = () => {
         (schoolYear?.data[0].school_year_is_enrollment_open === 1 ||
           schoolYear?.isGreaterThanEndYear) && (
           <>
-            <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 fixed w-full z-50 top-0">
+            <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 fixed w-full z-10 top-0">
               <FaExclamationCircle className="h-6 w-6 fill-white bg-[#f09a02] rounded-full" />
               {schoolYear?.isGreaterThanEndYear ? (
                 <span>
                   School Year is not updated. Go to{" "}
-                  <span className="underline">settings</span> and add new S.Y
+                  <span
+                    className="underline cursor-pointer"
+                    onClick={handleShowSettings}
+                  >
+                    settings
+                  </span>{" "}
+                  and add new S.Y
                 </span>
               ) : (
                 "Enrollment is On-going"
@@ -210,7 +216,12 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {isShowSetting && <ModalSettings setIsShowSettings={setIsShowSettings} />}
+      {isShowSetting && (
+        <ModalSettings
+          setIsShowSettings={setIsShowSettings}
+          isGreaterThanEndYear={schoolYear?.isGreaterThanEndYear}
+        />
+      )}
     </>
   );
 };

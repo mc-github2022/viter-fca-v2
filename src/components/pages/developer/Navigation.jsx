@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 // } from "../helpers/functions-general.jsx";
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
+import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
 import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 const Navigation = ({ menu, submenu }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const [isShowSetting, setIsShowSettings] = React.useState(false);
   // const urlRolePath = getUserType();
 
   const {
@@ -22,7 +24,7 @@ const Navigation = ({ menu, submenu }) => {
   } = useQueryData(
     "/v2/dev-school-year", // endpoint
     "get", // method
-    "nav-school-year" // key
+    "school-year" // key
   );
 
   const getOngoingSchoolYear =
@@ -30,6 +32,8 @@ const Navigation = ({ menu, submenu }) => {
     schoolYear?.data.filter((item) => item.school_year_is_active === 1);
 
   console.log(schoolYear);
+
+  console.log(getOngoingSchoolYear[0]?.school_year_is_enrollment_open === 1);
 
   const handleToggleMenu = () => {
     dispatch(setIsShow(!store.isShow));
@@ -44,12 +48,15 @@ const Navigation = ({ menu, submenu }) => {
     dispatch(setIsSettingsOpen(!store.isSettingsOpen));
   };
 
-  console.log(store.isMenuExpand);
+  const handleShowSettings = () => {
+    setIsShowSettings(true);
+  };
+
   return (
     <>
       <nav
         className={`${
-          getOngoingSchoolYear[0]?.school_year_is_enrollment_open === 1 ||
+          schoolYear?.data[0]?.school_year_is_enrollment_open === 1 ||
           schoolYear?.isGreaterThanEndYear
             ? "mt-[94px]"
             : "mt-[54px]"
@@ -60,13 +67,26 @@ const Navigation = ({ menu, submenu }) => {
           <ul className="mt-3 h-[calc(100vh-48px)] pb-8">
             <li
               className={`nav__link ${menu === "" ? "active" : ""} ${
-                schoolYear?.isGreaterThanEndYear ? "border-alert" : ""
+                schoolYear?.isGreaterThanEndYear ||
+                getOngoingSchoolYear?.length === 0
+                  ? "border-alert cursor-pointer tooltip h-[unset] w-[unset] hover:!bg-[unset] hover:underline"
+                  : ""
               }`}
+              data-tooltip="Invalid S.Y. Go to settings school year"
+              onClick={
+                schoolYear?.isGreaterThanEndYear ||
+                getOngoingSchoolYear?.length === 0
+                  ? handleShowSettings
+                  : null
+              }
             >
               <Link
                 // to={`${devNavUrl}/admin/students`}
-                className={`flex gap-3 items-center uppercase w-full cursor-default ${
-                  schoolYear?.isGreaterThanEndYear ? "text-alert" : ""
+                className={`flex gap-3 items-center uppercase w-full cursor-default pointer-events-none ${
+                  schoolYear?.isGreaterThanEndYear ||
+                  getOngoingSchoolYear?.length === 0
+                    ? "text-alert"
+                    : ""
                 }`}
               >
                 <BsCalendar2Week className="text-lg ml-4" />
@@ -76,7 +96,7 @@ const Navigation = ({ menu, submenu }) => {
                   ? "API / Network Error"
                   : getOngoingSchoolYear?.length > 0
                   ? `S.Y ${getOngoingSchoolYear[0]?.start_year}-${getOngoingSchoolYear[0]?.end_year}`
-                  : "0000-0000"}
+                  : "S.Y not set"}
                 {/* {schoolYear?.isGreaterThanEndYear && (
                   <span className="text-[10px]"></span>
                 )} */}
@@ -102,6 +122,16 @@ const Navigation = ({ menu, submenu }) => {
           </ul>
         </div>
       </nav>
+
+      {isShowSetting && (
+        <ModalSettings
+          setIsShowSettings={setIsShowSettings}
+          isGreaterThanEndYear={
+            schoolYear?.isGreaterThanEndYear ||
+            getOngoingSchoolYear?.length === 0
+          }
+        />
+      )}
     </>
   );
 };
