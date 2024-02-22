@@ -14,7 +14,7 @@ const ModalSettingsNav = ({
   setShowSideNav,
   setIndexInner,
   index,
-  indexInner,
+  isGreaterThanEndYear,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   let userRole = store.credentials.data.role_name.toLowerCase();
@@ -61,7 +61,11 @@ const ModalSettingsNav = ({
         } modal__settings__nav z-10 ease-timing-nav top-11 h-[calc(100%-40px)] lg:h-full w-[195px]  absolute lg:relative lg:top-0 border-r border-line transition-all duration-300 bg-primary`}
       >
         <ul className="py-5 lg:pt-0 mb-10 overflow-y-auto h-full custom__scroll ">
-          <li className={` ${index === 1 ? "active" : ""}`}>
+          <li
+            className={` ${
+              index === 1 && !isGreaterThanEndYear ? "active" : ""
+            }`}
+          >
             <button
               onClick={(e) => handleChangeSetting(1, e)}
               className="p-1 pl-4"
@@ -299,7 +303,11 @@ const ModalSettingsNav = ({
               Staff
             </button>
           </li>
-          <li className={` ${index === 17 ? "active" : ""}`}>
+          <li
+            className={` ${
+              index === 17 || isGreaterThanEndYear ? "active" : ""
+            }`}
+          >
             <button
               onClick={(e) => handleChangeSetting(17, e)}
               className="p-1 pl-4"

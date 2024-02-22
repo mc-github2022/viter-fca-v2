@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBars, FaCog } from "react-icons/fa";
+import { FaBars, FaCog, FaExclamationCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LiaCogSolid } from "react-icons/lia";
 import { RiEdit2Line } from "react-icons/ri";
@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import useQueryData from "../custom-hooks/useQueryData.jsx";
 import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
 import { devNavUrl } from "../helpers/functions-general.jsx";
+import Footer from "./Footer.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
 import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
 const Header = () => {
@@ -23,6 +24,7 @@ const Header = () => {
   const [show, setShow] = React.useState(false);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+
   let link =
     store.credentials.data.role_name.toLowerCase() === "developer"
       ? "system"
@@ -38,7 +40,7 @@ const Header = () => {
   } = useQueryData(
     "/v2/dev-school-year", // endpoint
     "get", // method
-    "header-school-year" // key
+    "school-year" // key
   );
 
   const handleToggleMenu = () => {
@@ -114,13 +116,24 @@ const Header = () => {
         (schoolYear?.data[0].school_year_is_enrollment_open === 1 ||
           schoolYear?.isGreaterThanEndYear) && (
           <>
-            <p className="uppercase text-base flex items-center justify-center text-center bg-[#f09a02] text-white mb-0 h-7 fixed w-full z-50 top-0">
-              NOTICE:{" "}
-              {schoolYear?.isGreaterThanEndYear
-                ? "School Year is not updated"
-                : "Enrollment is On-going"}
+            <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 fixed w-full z-10 top-0">
+              <FaExclamationCircle className="h-6 w-6 fill-white bg-[#f09a02] rounded-full" />
+              {schoolYear?.isGreaterThanEndYear ? (
+                <span>
+                  School Year is not updated. Go to{" "}
+                  <span
+                    className="underline cursor-pointer"
+                    onClick={handleShowSettings}
+                  >
+                    settings
+                  </span>{" "}
+                  and add new S.Y
+                </span>
+              ) : (
+                "Enrollment is On-going"
+              )}
             </p>
-            <p className="mb-7"></p>
+            <p className="mb-10"></p>
           </>
         )}
       {loading && <FetchingSpinner />}
@@ -212,7 +225,7 @@ const Header = () => {
       {isShowSetting && (
         <ModalSettings
           setIsShowSettings={setIsShowSettings}
-          isShowSetting={isShowSetting}
+          isGreaterThanEndYear={schoolYear?.isGreaterThanEndYear}
         />
       )}
     </>

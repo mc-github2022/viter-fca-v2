@@ -624,3 +624,11 @@ body::-webkit-scrollbar-thumb {
 .moveTop {
   top: clamp(2rem, 12vw, 8rem);
 }
+
+.customHeight {
+  min-height: calc(100vh - 52px);
+}
+
+.customHeightOngoing {
+  min-height: calc(100vh - 92px);
+}

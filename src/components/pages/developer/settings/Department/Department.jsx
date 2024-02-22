@@ -8,7 +8,7 @@ import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import DepartmentFormAddEdit from "./DepartmentFormAddEdit";
 import DepartmentList from "./DepartmentList";
-const Department = ({ index }) => {
+const Department = ({ index, isGreaterThanEndYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -18,7 +18,7 @@ const Department = ({ index }) => {
     setItemEdit(null);
   };
 
-  if (index === 1) {
+  if (index === 1 && !isGreaterThanEndYear) {
     return (
       <>
         <div className="">

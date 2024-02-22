@@ -29,6 +29,19 @@ const Students = () => {
     "roles" // key
   );
 
+  const {
+    isLoading: isLoadingSY,
+    isFetching: isFetchingSY,
+    error: errorSY,
+    data: schoolYear,
+  } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "header-school-year" // key
+  );
+
+  const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
+
   const handleAdd = () => {
     dispatch(setIsAdd(true));
     setItemEdit(null);
@@ -37,14 +50,14 @@ const Students = () => {
   return (
     <div>
       <Header />
-      <section className="main__wrap flex flex-col relative h-[100vh] ">
-        <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
+      <section className="main__wrap flex flex-col relative ">
+        <div className={`grow ${store.isMenuExpand ? "" : "expand"} `}>
           <Navigation menu="students" />
 
           <main
             className={`main__content mt-[35px]  ${
               store.isMenuExpand ? "expand" : ""
-            }`}
+            } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header flex justify-between items-start lg:items-center  ">
               <div>
@@ -62,9 +75,9 @@ const Students = () => {
             </div>
 
             <StudentList setItemEdit={setItemEdit} />
+            <Footer />
           </main>
         </div>
-        <Footer />
       </section>
       {store.isAdd && <ModalAddStudent itemEdit={itemEdit} roles={roles} />}
       {store.success && <ModalSuccess />}

@@ -12,14 +12,29 @@ import { Link } from "react-router-dom";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
 import StudentViewInfo from "./student-info/StudentViewInfo.jsx";
 import Navigation from "../Navigation.jsx";
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [showRequirement, setShowRequirement] = React.useState(false);
+
+  const {
+    isLoading: isLoadingSY,
+    isFetching: isFetchingSY,
+    error: errorSY,
+    data: schoolYear,
+  } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "header-school-year" // key
+  );
+
+  const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
+
   return (
     <>
       <Header />
-      <section className="main__wrap flex flex-col relative h-[100vh] ">
+      <section className="main__wrap flex flex-col relative ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           {/* <ParentNavigation menu="student" /> */}
           <Navigation menu="student" />
@@ -27,7 +42,7 @@ const Student = () => {
           <main
             className={`main__content mt-[35px]  ${
               store.isMenuExpand ? "expand" : ""
-            }`}
+            } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header  flex justify-between items-start lg:items-center  ">
               <div>
@@ -57,9 +72,9 @@ const Student = () => {
               <NoData />
               <ServerError />
             </div> */}
+            <Footer />
           </main>
         </div>
-        <Footer />
       </section>
       {showRequirement && (
         <ModalRequirements setShowRequirement={setShowRequirement} />

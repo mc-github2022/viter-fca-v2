@@ -32,11 +32,13 @@ class SchoolYear
             $sql .= "( school_year_is_active, ";
             $sql .= "school_year_start_date, ";
             $sql .= "school_year_end_date, ";
+            $sql .= "school_year_is_enrollment_open, ";
             $sql .= "school_year_created, ";
             $sql .= "school_year_datetime ) values ( ";
             $sql .= ":school_year_is_active, ";
             $sql .= ":school_year_start_date, ";
             $sql .= ":school_year_end_date, ";
+            $sql .= ":school_year_is_enrollment_open, ";
             $sql .= ":school_year_created, ";
             $sql .= ":school_year_datetime ) ";
             $query = $this->connection->prepare($sql);
@@ -44,6 +46,7 @@ class SchoolYear
                 "school_year_is_active" => $this->school_year_is_active,
                 "school_year_start_date" => $this->school_year_start_date,
                 "school_year_end_date" => $this->school_year_end_date,
+                "school_year_is_enrollment_open" => $this->school_year_is_enrollment_open,
                 "school_year_created" => $this->school_year_created,
                 "school_year_datetime" => $this->school_year_datetime,
             ]);
@@ -70,7 +73,7 @@ class SchoolYear
             $sql .= "school_year_is_enrollment_open ";
             $sql .= "from {$this->tblSchoolYear} ";
             $sql .= "order by school_year_is_active desc, ";
-            $sql .= "school_year_start_date ";
+            $sql .= "school_year_start_date desc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -94,7 +97,7 @@ class SchoolYear
             $sql .= "school_year_is_enrollment_open ";
             $sql .= "from {$this->tblSchoolYear} ";
             $sql .= "order by school_year_is_active desc, ";
-            $sql .= "school_year_start_date ";
+            $sql .= "school_year_start_date desc ";
             $sql .= "limit :start, ";
             $sql .= ":total ";
             $query = $this->connection->prepare($sql);
@@ -131,7 +134,7 @@ class SchoolYear
             $sql .= "or school_year_is_enrollment_open like :school_year_is_enrollment_open ";
             $sql .= ") ";
             $sql .= "order by school_year_is_active desc, ";
-            $sql .= "school_year_start_date ";
+            $sql .= "school_year_start_date desc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "school_year_start_date" => "%{$this->school_year_search}%",
