@@ -541,7 +541,7 @@
   }
 
   .scheme-list li {
-    @apply !mb-0 leading-none text-center py-1;
+    @apply !mb-0 leading-none text-center py-2;
   }
   .selected {
     @apply border border-line bg-gray-100;

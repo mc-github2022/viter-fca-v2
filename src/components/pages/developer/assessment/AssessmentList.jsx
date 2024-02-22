@@ -202,7 +202,7 @@ const AssessmentList = () => {
           </div>
         </div>
       </div>
-      {/* <ModalAssessment /> */}
+      <ModalAssessment />
     </>
   );
 };
