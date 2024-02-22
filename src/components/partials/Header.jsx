@@ -62,6 +62,11 @@ const Header = () => {
 
   const handleShowSettings = () => {
     setIsShowSettings(true);
+    if (!isShowSetting) {
+      document.querySelector("body").classList.add("no--scroll");
+    } else {
+      document.querySelector("body").classList.remove("no--scroll");
+    }
   };
 
   const handleLogout = () => {
@@ -178,7 +183,12 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {isShowSetting && <ModalSettings setIsShowSettings={setIsShowSettings} />}
+      {isShowSetting && (
+        <ModalSettings
+          setIsShowSettings={setIsShowSettings}
+          isShowSetting={isShowSetting}
+        />
+      )}
     </>
   );
 };

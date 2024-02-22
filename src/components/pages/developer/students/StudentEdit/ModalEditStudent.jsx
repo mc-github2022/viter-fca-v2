@@ -25,8 +25,8 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
   };
   return (
     <>
-      <div className="fixed top-0 left-0 z-20 h-screen w-full">
-        <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-40"></div>
+      <div className={`modal modal--settings show `}>
+        <div className="modal__backdrop bg-black bg-opacity-0"></div>
         <div className="z-50 h-full w-full flex justify-center items-center relative ">
           <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-150px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
@@ -64,6 +64,17 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                       className="p-1 pl-4 "
                     >
                       Profile
+                    </button>
+                  </li>
+
+                  <li
+                    className={`${index === 6 ? "bg-accent text-primary" : ""}`}
+                  >
+                    <button
+                      // onClick={() => handleChangeProfile(1)}
+                      className="p-1 pl-4 "
+                    >
+                      Payment Scheme
                     </button>
                   </li>
                   <li

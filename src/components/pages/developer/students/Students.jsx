@@ -70,7 +70,6 @@ const Students = () => {
       {store.isAdd && <ModalAddStudent itemEdit={itemEdit} roles={roles} />}
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
-      {<ModalEditStudent />}
     </div>
   );
 };
