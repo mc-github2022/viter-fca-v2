@@ -27,7 +27,7 @@ const Clients = () => {
           <Navigation menu="clients" />
 
           <main
-            className={`main__content mt-[35px]  ${
+            className={`main__content mt-[35px] customHeight ${
               store.isMenuExpand ? "expand" : ""
             }`}
           >
@@ -47,9 +47,9 @@ const Clients = () => {
             </div>
 
             <ClientList setItemEdit={setItemEdit} />
+            <Footer />
           </main>
         </div>
-        <Footer />
       </section>
 
       {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}

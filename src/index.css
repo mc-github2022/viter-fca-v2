@@ -602,3 +602,7 @@ body::-webkit-scrollbar-thumb {
 .moveTop {
   top: clamp(2rem, 12vw, 8rem);
 }
+
+.customHeight {
+  height: calc(100%-52px) !important;
+}
