@@ -104,6 +104,16 @@ const Navigation = ({ menu, submenu }) => {
                 <RiParentLine className="text-lg ml-4" /> Parents
               </Link>
             </li>
+            <li
+              className={`nav__link ${menu === "assessment" ? "active" : ""}`}
+            >
+              <Link
+                to={`${devNavUrl}/system/assessment`}
+                className="flex gap-3 items-center uppercase  w-full"
+              >
+                <RiParentLine className="text-lg ml-4" /> Assessment
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>

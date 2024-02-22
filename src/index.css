@@ -535,6 +535,17 @@
   .column__toggle input:checked + div div {
     @apply translate-x-3;
   }
+
+  .scheme-list li:first-child {
+    @apply text-left;
+  }
+
+  .scheme-list li {
+    @apply !mb-0 leading-none text-center py-1;
+  }
+  .selected {
+    @apply border border-line bg-gray-100;
+  }
 }
 
 @layer utilities {

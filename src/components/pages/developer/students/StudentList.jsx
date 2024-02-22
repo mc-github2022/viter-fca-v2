@@ -163,14 +163,6 @@ const StudentList = ({ setItemEdit }) => {
 
                   <td>
                     <div className="flex gap-2 justify-end">
-                      <Link
-                        to={`${devNavUrl}/${link}/clients/students?cid=${1}`}
-                        className="tooltip text-base"
-                        data-tooltip="Student"
-                      >
-                        <PiStudentLight />
-                      </Link>
-
                       <button
                         className="tooltip text-base"
                         data-tooltip="Info"
@@ -179,25 +171,6 @@ const StudentList = ({ setItemEdit }) => {
                         <CiViewList />
                       </button>
 
-                      <button
-                        type="button"
-                        className="tooltip "
-                        data-tooltip="Edit"
-                        // onClick={() => handleEdit(row.row.original)}
-                      >
-                        <FiEdit2 />
-                      </button>
-
-                      <button
-                        type="button"
-                        className="tooltip text-lg"
-                        data-tooltip="Reset"
-                        // onClick={() =>
-                        //   handleResetPassword(row.row.original)
-                        // }
-                      >
-                        <PiPasswordLight />
-                      </button>
                       <button
                         type="button"
                         className="tooltip"

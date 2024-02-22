@@ -5,6 +5,7 @@ import StudentCodeOfConduct from "./StudentCodeOfConduct/StudentCodeOfConduct.js
 import StudentParentCommitment from "./StudentParentCommitment/StudentParentCommitment.jsx";
 import StudentParentConsent from "./StudentParentConsent/StudentParentConsent.jsx";
 import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDeclaration.jsx";
+import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
 
 const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
@@ -71,7 +72,7 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                     className={`${index === 6 ? "bg-accent text-primary" : ""}`}
                   >
                     <button
-                      // onClick={() => handleChangeProfile(1)}
+                      onClick={() => handleChangeProfile(6)}
                       className="p-1 pl-4 "
                     >
                       Payment Scheme
@@ -167,6 +168,15 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                 )}
                 {index === 5 && (
                   <StudentParentCommitment
+                    index={index}
+                    setIsViewInfo={setIsViewInfo}
+                    showSideNav={showSideNav}
+                    itemEdit={itemEdit}
+                  />
+                )}
+
+                {index === 6 && (
+                  <StudentPaymentScheme
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}

@@ -5,6 +5,7 @@ import SystemForgotPassword from "@/components/pages/access/developer/SystemForg
 import SystemLogin from "@/components/pages/access/developer/SystemLogin.jsx";
 import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEmailSystemUser.jsx";
 import Profile from "@/components/pages/developer/account/Profile.jsx";
+import Assestment from "@/components/pages/developer/assessment/Assestment.jsx";
 import Clients from "@/components/pages/developer/clients/Clients.jsx";
 import StudentView from "@/components/pages/developer/clients/StudentView";
 import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
@@ -94,6 +95,15 @@ export const routesSystem = [
     element: (
       <ProtectedRouteSystem>
         <StudentViewInfo />
+      </ProtectedRouteSystem>
+    ),
+  },
+
+  {
+    path: `${devNavUrl}/system/assessment`,
+    element: (
+      <ProtectedRouteSystem>
+        <Assestment />
       </ProtectedRouteSystem>
     ),
   },
