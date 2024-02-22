@@ -51,7 +51,7 @@ const Navigation = ({ menu, submenu }) => {
         className={`${
           getOngoingSchoolYear[0]?.school_year_is_enrollment_open === 1 ||
           schoolYear?.isGreaterThanEndYear
-            ? "mt-[82px]"
+            ? "mt-[94px]"
             : "mt-[54px]"
         } ${store.isShow ? "show" : ""} ${store.isMenuExpand ? "expand" : ""}`}
       >
@@ -60,9 +60,7 @@ const Navigation = ({ menu, submenu }) => {
           <ul className="mt-3 h-[calc(100vh-48px)] pb-8">
             <li
               className={`nav__link ${menu === "" ? "active" : ""} ${
-                schoolYear?.isGreaterThanEndYear
-                  ? "border-b-2 border-alert"
-                  : ""
+                schoolYear?.isGreaterThanEndYear ? "border-alert" : ""
               }`}
             >
               <Link
@@ -79,9 +77,9 @@ const Navigation = ({ menu, submenu }) => {
                   : getOngoingSchoolYear?.length > 0
                   ? `S.Y ${getOngoingSchoolYear[0]?.start_year}-${getOngoingSchoolYear[0]?.end_year}`
                   : "0000-0000"}
-                {schoolYear?.isGreaterThanEndYear && (
-                  <span className="text-[10px]">Please check S.Y</span>
-                )}
+                {/* {schoolYear?.isGreaterThanEndYear && (
+                  <span className="text-[10px]"></span>
+                )} */}
               </Link>
             </li>
             <li className={`nav__link ${menu === "students" ? "active" : ""}`}>

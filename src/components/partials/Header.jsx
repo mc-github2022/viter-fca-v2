@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBars, FaCog } from "react-icons/fa";
+import { FaBars, FaCog, FaExclamationCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { RiEdit2Line } from "react-icons/ri";
 import { setIsMenuExpand, setIsShow } from "../store/StoreAction.jsx";
@@ -108,13 +108,18 @@ const Header = () => {
         (schoolYear?.data[0].school_year_is_enrollment_open === 1 ||
           schoolYear?.isGreaterThanEndYear) && (
           <>
-            <p className="uppercase text-base flex items-center justify-center text-center bg-[#f09a02] text-white mb-0 h-7 fixed w-full z-50 top-0">
-              NOTICE:{" "}
-              {schoolYear?.isGreaterThanEndYear
-                ? "School Year is not updated"
-                : "Enrollment is On-going"}
+            <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 fixed w-full z-50 top-0">
+              <FaExclamationCircle className="h-6 w-6 fill-white bg-[#f09a02] rounded-full" />
+              {schoolYear?.isGreaterThanEndYear ? (
+                <span>
+                  School Year is not updated. Go to{" "}
+                  <span className="underline">settings</span> and add new S.Y
+                </span>
+              ) : (
+                "Enrollment is On-going"
+              )}
             </p>
-            <p className="mb-7"></p>
+            <p className="mb-10"></p>
           </>
         )}
       {loading && <FetchingSpinner />}
