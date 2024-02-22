@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBars, FaCog, FaEdit, FaUserCircle } from "react-icons/fa";
+import { FaBars, FaCog } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { RiEdit2Line } from "react-icons/ri";
 import { setIsMenuExpand, setIsShow } from "../store/StoreAction.jsx";
@@ -17,7 +17,6 @@ import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
 import { devNavUrl } from "../helpers/functions-general.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
 import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
-import LogoGreen from "./svg/LogoGreen.jsx";
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
@@ -106,10 +105,14 @@ const Header = () => {
     <>
       {!isLoading &&
         !isFetching &&
-        schoolYear?.data[0].school_year_is_enrollment_open === 1 && (
+        (schoolYear?.data[0].school_year_is_enrollment_open === 1 ||
+          schoolYear?.isGreaterThanEndYear) && (
           <>
-            <p className="uppercase text-lg text-center bg-[#fffde7] mb-0 h-7 fixed w-full z-50 top-0">
-              Enrollment is On-going
+            <p className="uppercase text-base flex items-center justify-center text-center bg-[#f09a02] text-white mb-0 h-7 fixed w-full z-50 top-0">
+              NOTICE:{" "}
+              {schoolYear?.isGreaterThanEndYear
+                ? "School Year is not updated"
+                : "Enrollment is On-going"}
             </p>
             <p className="mb-7"></p>
           </>
@@ -124,7 +127,7 @@ const Header = () => {
             </button>
 
             <button
-              className="hidden "
+              className="hidden lg:block"
               data-tooltip="Expand"
               onClick={handleToggleExpandMenu}
             >
