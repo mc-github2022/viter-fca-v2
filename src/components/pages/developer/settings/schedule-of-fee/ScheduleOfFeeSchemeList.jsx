@@ -14,6 +14,10 @@ import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidR
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
+import {
+  numberWithCommas,
+  pesoSign,
+} from "@/components/helpers/functions-general";
 const ScheduleOfFeeSchemeList = ({
   setItemEdit,
   val,
@@ -88,11 +92,32 @@ const ScheduleOfFeeSchemeList = ({
           >
             <ul className="grid grid-cols-[4rem,7rem,7rem,7rem,7rem,8rem,1fr] items-center w-full text-right">
               <li>{sItem.scheme_name}</li>
-              <li>{sItem.tuition_fee_admission}</li>
-              <li>{sItem.tuition_fee_miscellaneous}</li>
-              <li>{sItem.tuition_fee_tuition}</li>
-              <li>{sItem.tuition_fee_books}</li>
-              <li>{sItem.tuition_fee_upon_enrollment}</li>
+              <li>
+                {pesoSign}
+                {numberWithCommas(
+                  Number(sItem.tuition_fee_admission).toFixed(2)
+                )}
+              </li>
+              <li>
+                {pesoSign}
+                {numberWithCommas(
+                  Number(sItem.tuition_fee_miscellaneous).toFixed(2)
+                )}
+              </li>
+              <li>
+                {pesoSign}
+                {numberWithCommas(Number(sItem.tuition_fee_tuition).toFixed(2))}
+              </li>
+              <li>
+                {pesoSign}
+                {numberWithCommas(Number(sItem.tuition_fee_books).toFixed(2))}
+              </li>
+              <li>
+                {pesoSign}
+                {numberWithCommas(
+                  Number(sItem.tuition_fee_upon_enrollment).toFixed(2)
+                )}
+              </li>
               <ul className="datalist__action flex items-center justify-end gap-1 pr-3 ">
                 {sItem.tuition_fee_active === 1 ? (
                   <>

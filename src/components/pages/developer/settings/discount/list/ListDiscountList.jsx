@@ -61,7 +61,7 @@ const ListDiscountList = ({ setItemEdit }) => {
   };
   return (
     <>
-      <h5 className="text-sm">List</h5>
+      <h5 className="text-sm">Primary List</h5>
 
       <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto max-h-[530px] lg:max-h-[580px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}

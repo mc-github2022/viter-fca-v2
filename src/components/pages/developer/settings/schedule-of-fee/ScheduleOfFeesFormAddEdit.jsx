@@ -14,6 +14,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import { getUponEnrollment } from "./functions-schedule-of-fee";
+import { numberWithCommas } from "@/components/helpers/functions-general";
 
 const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -241,6 +242,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                   <InputText
                     label="Admission Fee"
                     type="text"
+                    number="number"
                     name="tuition_fee_admission"
                     disabled={mutation.isLoading}
                   />
@@ -250,6 +252,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                   <InputText
                     label="Misc Fee"
                     type="text"
+                    number="number"
                     name="tuition_fee_miscellaneous"
                     disabled={mutation.isLoading}
                   />
@@ -259,6 +262,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                   <InputText
                     label="Tuition Fee"
                     type="text"
+                    number="number"
                     name="tuition_fee_tuition"
                     disabled={mutation.isLoading}
                   />
@@ -268,11 +272,15 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                   <InputText
                     label="Books"
                     type="text"
+                    number="number"
                     name="tuition_fee_books"
                     disabled={mutation.isLoading}
                   />
                 </div>
-                <p>Upon Enrollment: {getUponEnrollment(props.values)}</p>
+                <p>
+                  Upon Enrollment:{" "}
+                  {numberWithCommas(getUponEnrollment(props.values))}
+                </p>
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">

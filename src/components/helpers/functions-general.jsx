@@ -28,7 +28,7 @@ export const devKey =
   "$2a$12$47wDvbLInZif/PVS8B6P3.7WxyJvUpBzZAWCsnWJUKq3nrn4qgmeO";
 
 export const isDemoMode = 1;
-export const pesoSign = <span>&#8369;</span>;
+export const pesoSign = <span className="mr-1">&#8369;</span>;
 
 // Copyright year
 export const copyrightYear = () => {
