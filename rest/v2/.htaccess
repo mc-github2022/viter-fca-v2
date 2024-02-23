@@ -182,12 +182,12 @@ RewriteRule ^dev-settings-discount-additional$ controllers/developer/settings/di
 RewriteRule ^dev-settings-discount-additional/([0-9]+)$ controllers/developer/settings/discount/additional/discount-additional.php?discountAdditionalId=$1 [L]
 RewriteRule ^dev-settings-discount-additional/active/([0-9]+)$ controllers/developer/settings/discount/additional/active.php?discountAdditionalId=$1 [L]
 
-# INFO-STUDENT
-RewriteRule ^student$ controllers/developer/students/students.php [L]
-RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
-RewriteRule ^student/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]
-RewriteRule ^student/page/([0-9]+)$ controllers/developer/students/page.php?start=$1 [L]
-RewriteRule ^student/search$ controllers/developer/students/search.php [L]
+# STUDENTS
+RewriteRule ^dev-students$ controllers/developer/students/students.php [L]
+RewriteRule ^dev-students/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
+RewriteRule ^dev-students/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]
+RewriteRule ^dev-students/page/([0-9]+)$ controllers/developer/students/page.php?start=$1 [L]
+RewriteRule ^dev-students/search$ controllers/developer/students/search.php [L]
 
 # READ ALL PARENT ADDRESS BY STUDENT ID
 RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/readParentAddressByStudentId.php?studentid=$1 [L]
