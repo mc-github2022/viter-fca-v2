@@ -112,7 +112,7 @@ const Header = () => {
   return (
     <>
       {!isLoading &&
-        !isFetching &&
+        // !isFetching &&
         (schoolYear?.data[0].school_year_is_enrollment_open === 1 ||
           schoolYear?.isGreaterThanEndYear) && (
           <>
