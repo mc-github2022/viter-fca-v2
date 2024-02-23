@@ -140,6 +140,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                         <InputText
                           label="Entrance Fee (%)"
                           type="text"
+                          number="number"
                           name="discount_entrance_fee"
                           disabled={mutation.isLoading}
                         />
@@ -148,6 +149,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                         <InputText
                           label="Tuition Fee (%)"
                           type="text"
+                          number="number"
                           name="discount_tuition_fee"
                           disabled={mutation.isLoading}
                         />
@@ -157,6 +159,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       <InputText
                         label="Maintaining Grade (GA)"
                         type="text"
+                        number="number"
                         name="discount_maintaining_grade"
                         disabled={mutation.isLoading}
                       />

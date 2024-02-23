@@ -289,7 +289,22 @@ const ModalSettingsNav = ({
                       : ""
                   } !bg-[unset] !text-gray-600 border-l-2 border-transparent`}
                 >
-                  <span className="ml-2">List</span>
+                  <span className="ml-2">Primary</span>
+                </button>
+              </li>
+              <li className="text-gray-600 p-1 pl-8">
+                <button
+                  onClick={(e) => {
+                    handleChangeSettingInner(5, e);
+                    handleSubNavActive("additional-list", 15);
+                  }}
+                  className={`${
+                    subNavActive === "additional-list"
+                      ? "!border-l-2 !border-[#123909]"
+                      : ""
+                  } !bg-[unset] !text-gray-600 border-l-2 border-transparent`}
+                >
+                  <span className="ml-2">Additional</span>
                 </button>
               </li>
             </ul>

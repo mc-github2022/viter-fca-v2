@@ -7,6 +7,7 @@ import { StoreContext } from "@/components/store/StoreContext";
 import { FaArrowLeft } from "react-icons/fa";
 import Category from "./category/Category";
 import ListDiscount from "./list/ListDiscount";
+import AdditionalDiscount from "./additional/AdditionalDiscount";
 const Discount = ({ index, indexInner }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
@@ -41,6 +42,7 @@ const Discount = ({ index, indexInner }) => {
           {indexInner === 3 && <Category />}
 
           {indexInner === 4 && <ListDiscount />}
+          {indexInner === 5 && <AdditionalDiscount />}
 
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
