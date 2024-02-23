@@ -177,7 +177,12 @@ RewriteRule ^dev-settings-discount-category/([0-9]+)$ controllers/developer/sett
 RewriteRule ^dev-settings-discount-category/active/([0-9]+)$ controllers/developer/settings/discount/category/active.php?discountCategoryId=$1 [L]
 
 
-# STUDENT
+# DISCOUNT ADDTIONAL
+RewriteRule ^dev-settings-discount-additional$ controllers/developer/settings/discount/additional/discount-additional.php [L]
+RewriteRule ^dev-settings-discount-additional/([0-9]+)$ controllers/developer/settings/discount/additional/discount-additional.php?discountAdditionalId=$1 [L]
+RewriteRule ^dev-settings-discount-additional/active/([0-9]+)$ controllers/developer/settings/discount/additional/active.php?discountAdditionalId=$1 [L]
+
+# INFO-STUDENT
 RewriteRule ^student$ controllers/developer/students/students.php [L]
 RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
 RewriteRule ^student/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]
