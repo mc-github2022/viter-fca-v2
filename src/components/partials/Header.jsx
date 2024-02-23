@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBars, FaCog, FaExclamationCircle } from "react-icons/fa";
+import { FaBars, FaExclamationCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LiaCogSolid } from "react-icons/lia";
 import { RiEdit2Line } from "react-icons/ri";
@@ -13,13 +13,11 @@ import {
 } from "react-icons/md";
 import { PiSignOut } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import useQueryData from "../custom-hooks/useQueryData.jsx";
 import { checkLocalStorage } from "../helpers/CheckLocalStorage.jsx";
 import { devNavUrl } from "../helpers/functions-general.jsx";
-import Footer from "./Footer.jsx";
 import ModalSettings from "./header/modal-settings/ModalSettings.jsx";
 import FetchingSpinner from "./spinners/FetchingSpinner.jsx";
-const Header = () => {
+const Header = ({ isLoading, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [show, setShow] = React.useState(false);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
@@ -31,17 +29,6 @@ const Header = () => {
       : store.credentials.data.role_name.toLowerCase();
 
   const menuRef = React.useRef();
-
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: schoolYear,
-  } = useQueryData(
-    "/v2/dev-school-year", // endpoint
-    "get", // method
-    "school-year" // key
-  );
 
   const handleToggleMenu = () => {
     dispatch(setIsShow(!store.isShow));

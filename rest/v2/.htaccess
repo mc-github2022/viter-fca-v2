@@ -177,7 +177,7 @@ RewriteRule ^dev-settings-discount-category/([0-9]+)$ controllers/developer/sett
 RewriteRule ^dev-settings-discount-category/active/([0-9]+)$ controllers/developer/settings/discount/category/active.php?discountCategoryId=$1 [L]
 
 
-# INFO-STUDENT
+# STUDENT
 RewriteRule ^student$ controllers/developer/students/students.php [L]
 RewriteRule ^student/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
 RewriteRule ^student/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]

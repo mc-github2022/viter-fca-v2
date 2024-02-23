@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
@@ -9,7 +10,6 @@ import { FaPlus } from "react-icons/fa";
 import Navigation from "../Navigation.jsx";
 import ClientList from "./ClientList.jsx";
 import ModalAddClient from "./ModalAddClient.jsx";
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -22,23 +22,27 @@ const Clients = () => {
 
   const {
     isLoading,
-    isFetching,
     error,
     data: schoolYear,
   } = useQueryData(
     "/v2/dev-school-year", // endpoint
     "get", // method
-    "header-school-year" // key
+    "school-year" // key
   );
 
   const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
 
   return (
     <>
-      <Header />
+      <Header isLoading={isLoading} schoolYear={schoolYear} />
       <section className="main__wrap flex flex-col relative ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
-          <Navigation menu="clients" />
+          <Navigation
+            menu="clients"
+            isLoading={isLoading}
+            error={error}
+            schoolYear={schoolYear}
+          />
 
           <main
             className={`main__content mt-[35px]  relative ${

@@ -1,16 +1,14 @@
 <?php
 $conn = null;
 $conn = checkDbConnection();
-$student = new StudentInfo($conn);
+$student = new Student($conn);
 
-$error = [];
-$returnData = [];
 if (array_key_exists("studentid", $_GET)) {
-    $student->student_info_aid   = $_GET['studentid'];
-    checkId($student->student_info_aid);
+    $student->students_aid   = $_GET['studentid'];
+    checkId($student->students_aid);
 
     $query = checkDelete($student);
-    returnSuccess($student, "student", $query);
+    returnSuccess($student, "Student", $query);
 }
 
 checkEndpoint();
