@@ -4,7 +4,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 
 const ModalAssessment = ({ index = 1 }) => {
   return (
-    <div>
+    <>
       <div className={`modal modal--settings show `}>
         <div className="modal__backdrop bg-black bg-opacity-0"></div>
         <div className="z-50 h-full w-full flex justify-center items-center relative ">
@@ -29,7 +29,6 @@ const ModalAssessment = ({ index = 1 }) => {
                 {index === 1 && (
                   <>
                     <div>
-                      <small>FOR EM VIEW - alisin mo to</small>
                       <h3>Ramon Plaza</h3>
                       <p>Grade I</p>
 
@@ -133,7 +132,7 @@ const ModalAssessment = ({ index = 1 }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
