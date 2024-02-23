@@ -1,6 +1,7 @@
-import { React } from "react";
+import React from "react";
 import { BiSolidCheckCircle } from "react-icons/bi";
-const TuitionScheme = ({ setShowTuitionScheme }) => {
+import { LiaTimesSolid } from "react-icons/lia";
+const ModalTuitionScheme = ({ setShowTuitionScheme }) => {
   const [selectA, setSelectA] = React.useState(false);
   const [selectB, setSelectB] = React.useState(false);
   const [selectC, setSelectC] = React.useState(false);
@@ -30,11 +31,11 @@ const TuitionScheme = ({ setShowTuitionScheme }) => {
       <div className={`modal modal--settings show `}>
         <div className="modal__backdrop bg-black bg-opacity-0"></div>
         <div className="z-50 h-full w-full flex justify-center items-center relative ">
-          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-430px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
+          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-150px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <h5 className="mb-0 font-normal">
-                  Student Assessment{" "}
+                  Payment Scheme
                   {/* {`${itemEdit.student_info_fname}, ${itemEdit.student_info_lname}`} */}
                 </h5>
               </div>
@@ -42,29 +43,11 @@ const TuitionScheme = ({ setShowTuitionScheme }) => {
                 <LiaTimesSolid />
               </button>
             </div>
-            <div
-              className={`flex gap-3 h-full  bg-white overflow-hidden relative`}
-            >
-              <main
-                className={` p-5 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
-              >
+            <div className="flex gap-3 h-full  bg-white overflow-hidden relative">
+              <main className="mt-5 p-5 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all ">
                 <div className="overflow-y-auto custom__scroll  z-30 modal__article">
-                  <div
-                    className={` ${
-                      showSideNav
-                        ? "max-w-[calc(1065px-0px)]"
-                        : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
-                  >
-                    <div className="flex items-center gap-2">
-                      <button className="btn btn--accent">Save</button>
-                      <button className="btn btn--cancel">Discard</button>{" "}
-                    </div>
-                  </div>
-                  <div className="mb-14 text-xs">
-                    <h3 className="mb-3">Payment Scheme</h3>
-                    <h4></h4>
-                    <div className=" grid grid-cols-4 mt-10 mb-5">
+                  <div className="text-xs">
+                    <div className=" grid grid-cols-4 mb-5">
                       <div className="col-header min-h-[140px] flex items-center  p-1">
                         <h4>Compare All Legacy Grade I Tuition Fee Scheme</h4>
                       </div>
@@ -223,6 +206,24 @@ const TuitionScheme = ({ setShowTuitionScheme }) => {
                       </ul>
                     </div>
                   </div>
+                  <div action="" className="mt-5 max-w-[300px] w-full">
+                    <div className="form__wrap">
+                      <label htmlFor="">Remarks</label>
+                      <textarea
+                        name=""
+                        id=""
+                        className="min-h-[50px]"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`flex items-center gap-x-2  bg-primary z-20   w-full `}
+                >
+                  <button className="btn btn--accent">Save</button>
+                  <button className="btn btn--cancel" onClick={handleClose}>
+                    Discard
+                  </button>{" "}
                 </div>
               </main>
             </div>
@@ -233,4 +234,4 @@ const TuitionScheme = ({ setShowTuitionScheme }) => {
   );
 };
 
-export default TuitionScheme;
+export default ModalTuitionScheme;

@@ -12,6 +12,7 @@ import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
 import { FiEdit2, FiTrash } from "react-icons/fi";
+import { HiOutlineCreditCard } from "react-icons/hi2";
 import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
@@ -26,6 +27,7 @@ const AssessmentList = () => {
   const [onSearch, setOnSearch] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
+  const [showAssesment, setShowAssessment] = React.useState(false);
   let counter = 1;
 
   const {
@@ -55,6 +57,7 @@ const AssessmentList = () => {
     refetchOnWindowFocus: false,
   });
 
+  const handleAssessment = () => setShowAssessment(true);
   return (
     <>
       <SearchBar
@@ -141,6 +144,15 @@ const AssessmentList = () => {
                               <button
                                 type="button"
                                 className="tooltip "
+                                data-tooltip="Assessment"
+                                onClick={() => handleAssessment()}
+                              >
+                                <HiOutlineCreditCard />
+                              </button>
+
+                              <button
+                                type="button"
+                                className="tooltip "
                                 data-tooltip="Edit"
                                 // onClick={() => handleEdit(item)}
                               >
@@ -202,7 +214,10 @@ const AssessmentList = () => {
           </div>
         </div>
       </div>
-      <ModalAssessment />
+
+      {showAssesment && (
+        <ModalAssessment setShowAssessment={setShowAssessment} />
+      )}
     </>
   );
 };

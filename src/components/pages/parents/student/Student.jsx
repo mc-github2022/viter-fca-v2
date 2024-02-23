@@ -1,12 +1,8 @@
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import NoData from "@/components/partials/NoData.jsx";
-import ServerError from "@/components/partials/ServerError.jsx";
-import TableLoading from "@/components/partials/TableLoading.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { FaPlus } from "react-icons/fa";
-import { FiEdit2, FiPlus, FiTrash } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 // import ParentNavigation from "../ParentNavigation.jsx";
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
@@ -15,7 +11,7 @@ import ModalEditStudent from "../../admin/students/StudentEdit/ModalEditStudent.
 import Navigation from "../Navigation.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
 import StudentViewInfo from "./student-info/StudentViewInfo.jsx";
-import TuitionScheme from "./tuition-scheme/TuitionScheme.jsx";
+import { default as ModalTuitionScheme } from "./tuition-scheme/ModalTuitionScheme.jsx";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -87,7 +83,7 @@ const Student = () => {
       </section>
 
       {showTuitionScheme && (
-        <TuitionScheme setShowTuitionScheme={setShowTuitionScheme} />
+        <ModalTuitionScheme setShowTuitionScheme={setShowTuitionScheme} />
       )}
 
       {isViewInfo && <ModalEditStudent setIsViewInfo={setIsViewInfo} />}

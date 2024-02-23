@@ -1,7 +1,12 @@
 import { FiEdit2, FiTrash } from "react-icons/fi";
 
-const StudentViewInfo = ({ setShowRequirement, setIsViewInfo }) => {
+const StudentViewInfo = ({
+  setShowRequirement,
+  setIsViewInfo,
+  setShowTuitionScheme,
+}) => {
   const handleShowRequirement = () => setShowRequirement(true);
+  const handleShowTuitionScheme = () => setShowTuitionScheme(true);
   const handleShowViewInfo = () => setIsViewInfo(true);
   return (
     <>
@@ -36,7 +41,10 @@ const StudentViewInfo = ({ setShowRequirement, setIsViewInfo }) => {
         <ul className="grid grid-cols-[90px_1fr] gap-4 mb-1.5 text-xs ">
           <li className="min-w-[80px]">Tuition Scheme: </li>
           <li>
-            <button className="underline text-accent ">
+            <button
+              className="underline text-accent"
+              onClick={handleShowTuitionScheme}
+            >
               View scheme selected
             </button>
           </li>
