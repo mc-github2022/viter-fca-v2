@@ -1,6 +1,7 @@
 <?php
 
-function getHtmlEmailAdmin(
+function getHtmlAssessmentParentSelect(
+  $link,
   $name,
   $email,
   $ROOT_DOMAIN,
@@ -41,9 +42,9 @@ function getHtmlEmailAdmin(
     <div style="padding: 10px 10px 0px">
       <div style="text-align: left">
         <img
-          src="' . $IMAGES_URL . '/fbs-lcss-logo-email.png"
-          alt="lcss"
-        />
+        src="' . $IMAGES_URL . '/FCALogo.png"
+        alt="fca-logo"
+      />
       </div>
     </div>
     <div style="padding: 0 10px 0px">
@@ -57,7 +58,7 @@ function getHtmlEmailAdmin(
           color: black;
         "
       >
-        New Trainee Application
+        Select Student Tuition Fee Scheme
       </h1>
       <div
         style="
@@ -68,21 +69,21 @@ function getHtmlEmailAdmin(
           border: 1px solid #ddd;
         "
       >
-      
         <p style="margin-bottom: 20px">
-        There is a new trainee application that has been submitted to LCS System. 
-        
+            We have prepared a list of tuition fee schemes for you to select from.
+            To select a tuition fee scheme: 
         </p>
-<p><strong>Name:</strong> ' . $name . '</p>
-<p><strong>Email:</strong> ' . $email . '</p>
-<p>Click the button below to see details.</p>
-        
+
+          <ol>
+            <li>Login to FCA Enrollment system by clicking the login button below</li>
+            <li>Select view scheme on you student </li>
+          </ol>
 
         <a
-        href="' . $ROOT_DOMAIN . '/v2/admin/trainee"
+        href="' . $ROOT_DOMAIN . '' . $password_link . '"
           style="
             padding: 4px 25px;
-            background-color: #3c78d8;
+            background-color: #123909;
             color: #fff;
             display: inline-block;
             text-decoration: none;
@@ -90,7 +91,7 @@ function getHtmlEmailAdmin(
             border-radius: 30px;
             margin-bottom: 10px;
           "
-          >See details</a
+          >Login</a
         >
 
       </div>
@@ -105,9 +106,9 @@ function getHtmlEmailAdmin(
                 font-size: 12px;
                 font-family: Helvetica Neue, sans-serif;
                 text-decoration: none;
-                color: #505050;
+                color: #123909;
               "
-              >' . $ROOT_DOMAIN . '/v2/admin/trainee</a
+              >' . $ROOT_DOMAIN . '' . $password_link  . '</a
       >
           </p>
         </div>
@@ -123,7 +124,7 @@ function getHtmlEmailAdmin(
       >
         <p style="font-size: 10px; line-height: 1.4; opacity: 0.5">
           &copy; ' . date("Y") . ' All Rights Reserved <br />
-          Frontline Business Solutions, Inc., Baloc Road, Brgy. San Ignacio
+          Frontline Christian Academy., Baloc Road, Brgy. San Ignacio
           <br />
           San Pablo City, 4000, Laguna, Philippines
         </p>

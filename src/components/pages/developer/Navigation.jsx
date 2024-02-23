@@ -4,7 +4,7 @@ import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { BsCalendar2Week } from "react-icons/bs";
-import { PiStudent } from "react-icons/pi";
+import { PiListMagnifyingGlass, PiStudent } from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
@@ -107,7 +107,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
                 to={`${devNavUrl}/system/assessment`}
                 className="flex gap-3 items-center uppercase  w-full"
               >
-                <RiParentLine className="text-lg ml-4" /> Assessment
+                <PiListMagnifyingGlass className="text-lg ml-4" /> Assessment
               </Link>
             </li>
           </ul>
