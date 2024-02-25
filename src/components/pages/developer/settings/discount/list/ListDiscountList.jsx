@@ -17,6 +17,7 @@ import { BsArchive } from "react-icons/bs";
 import { MdOutlineRestore } from "react-icons/md";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
+import { isItemEmpty } from "@/components/helpers/functions-general";
 
 const ListDiscountList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -63,7 +64,7 @@ const ListDiscountList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Primary List</h5>
 
-      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto max-h-[530px] lg:max-h-[580px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px]">
+      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto max-h-[530px] lg:!max-h-[530px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px]">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && discount.success === false ? (
@@ -87,20 +88,22 @@ const ListDiscountList = ({ setItemEdit }) => {
                   item.discount_is_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <p className="mb-1 font-bold">{item.discount_category_name}</p>
+                <p className="mb-1 font-bold text-accent">
+                  {item.discount_category_name}
+                </p>
                 <p className="mb-3">{item.discount_type}</p>
                 <ul className="flex gap-5">
                   <li className="mb-1">
                     <span className="font-bold">Entrance fee: </span>
-                    {item.discount_entrance_fee}%
+                    {Number(item.discount_entrance_fee)}%
                   </li>
                   <li className="mb-1">
                     <span className="font-bold">Tuition fee: </span>
-                    {item.discount_tuition_fee}%
+                    {Number(item.discount_tuition_fee)}%
                   </li>
                   <li className="mb-1">
                     <span className="font-bold">Maintaining Grade: </span>
-                    {item.discount_maintaining_grade} GA
+                    {isItemEmpty(item.discount_maintaining_grade, " GA")}
                   </li>
                 </ul>
                 <ul className="flex">

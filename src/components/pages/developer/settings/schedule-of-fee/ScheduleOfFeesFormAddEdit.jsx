@@ -277,7 +277,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                     disabled={mutation.isLoading}
                   />
                 </div>
-                <p>
+                <p className="text-accent font-bold">
                   Upon Enrollment:{" "}
                   {numberWithCommas(getUponEnrollment(props.values))}
                 </p>

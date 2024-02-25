@@ -112,7 +112,7 @@ const ScheduleOfFeeSchemeList = ({
                 {pesoSign}
                 {numberWithCommas(Number(sItem.tuition_fee_books).toFixed(2))}
               </li>
-              <li>
+              <li className="text-accent font-bold">
                 {pesoSign}
                 {numberWithCommas(
                   Number(sItem.tuition_fee_upon_enrollment).toFixed(2)
