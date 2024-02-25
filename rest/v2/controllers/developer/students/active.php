@@ -1,12 +1,12 @@
 <?php
 require '../../../core/header.php';
 require '../../../core/functions.php';
-require '../../../models/developer/student-info/StudentInfo.php';
+require '../../../models/developer/student/Student.php';
 
 $conn = null;
 $conn = checkDbConnection();
 
-$student = new StudentInfo($conn);
+$student = new Student($conn);
 
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -15,13 +15,17 @@ $data = json_decode($body, true);
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     if (array_key_exists("studentid", $_GET)) {
-     
+
         checkPayload($data);
-        $student->student_info_aid = $_GET['studentid'];
-        $student->student_info_is_archive = trim($data["isActive"]);
-        $student->student_info_datetime = date("Y-m-d H:i:s");
-        checkId($student->student_info_aid);
+
+        $student->students_aid = $_GET['studentid'];
+        $student->students_is_active = trim($data["isActive"]);
+        $student->students_datetime = date("Y-m-d H:i:s");
+
+        checkId($student->students_aid);
+
         $query = checkActive($student);
+
         http_response_code(200);
         returnSuccess($student, "Student", $query);
     }

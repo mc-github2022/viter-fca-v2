@@ -8,7 +8,7 @@ import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDe
 import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
 
-const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
+const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
 
   const [index, setIndex] = React.useState(1);
@@ -41,7 +41,7 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                 </button>
                 <h5 className="mb-0 font-normal">
                   Student Information -{" "}
-                  {/* {`${itemEdit.student_info_fname}, ${itemEdit.student_info_lname}`} */}
+                  <span className="font-bold">{dataItem.student_fullname}</span>
                 </h5>
               </div>
               <button onClick={handleClose}>
@@ -132,14 +132,15 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                 </ul>
               </aside>
               <main
-                className={` p-5 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
+                className={` p-5 pb-20 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
                 {index === 1 && (
                   <StudentProfileForm
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 2 && (
@@ -147,7 +148,8 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 3 && (
@@ -155,7 +157,8 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 4 && (
@@ -163,7 +166,8 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 5 && (
@@ -171,7 +175,8 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
 
@@ -180,7 +185,8 @@ const ModalEditStudent = ({ setIsViewInfo, itemEdit }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
               </main>

@@ -1,34 +1,16 @@
-import React from "react";
-import { BsCalendar2Week, BsGear, BsPeople } from "react-icons/bs";
-import { Link } from "react-router-dom";
-// import {
-//   consoleLog,
-//   devNavUrl,
-//   getUserType,
-// } from "../helpers/functions-general.jsx";
-import useQueryData from "@/components/custom-hooks/useQueryData";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
 import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { PiStudent } from "react-icons/pi";
+import React from "react";
+import { BsCalendar2Week } from "react-icons/bs";
+import { PiListMagnifyingGlass, PiStudent } from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
-const Navigation = ({ menu, submenu }) => {
+const Navigation = ({ menu, isLoading, error, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
-  // const urlRolePath = getUserType();
-
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: schoolYear,
-  } = useQueryData(
-    "/v2/dev-school-year", // endpoint
-    "get", // method
-    "school-year" // key
-  );
 
   const getOngoingSchoolYear =
     schoolYear?.count > 0 &&
@@ -68,7 +50,7 @@ const Navigation = ({ menu, submenu }) => {
               className={`nav__link ${menu === "" ? "active" : ""} ${
                 schoolYear?.isGreaterThanEndYear ||
                 getOngoingSchoolYear?.length === 0
-                  ? "border-alert cursor-pointer tooltip h-[unset] w-[unset] hover:!bg-[unset] hover:underline"
+                  ? "border-alert cursor-pointer tooltip h-[unset] w-[unset] hover:!bg-[unset] hover:underline hover:decoration-[#af1818]"
                   : ""
               }`}
               data-tooltip="Invalid S.Y. Go to settings school year"
@@ -125,7 +107,7 @@ const Navigation = ({ menu, submenu }) => {
                 to={`${devNavUrl}/system/assessment`}
                 className="flex gap-3 items-center uppercase  w-full"
               >
-                <RiParentLine className="text-lg ml-4" /> Assessment
+                <PiListMagnifyingGlass className="text-lg ml-4" /> Assessment
               </Link>
             </li>
           </ul>

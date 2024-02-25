@@ -257,7 +257,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       >
                         <option value="" hidden></option>
 
-                        {parentLoading || parentFetching ? (
+                        {/* {parentLoading || parentFetching ? (
                           <option>Loading...</option>
                         ) : parent?.data.length === 0 ? (
                           <option>No Data</option>
@@ -272,7 +272,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                               </option>
                             );
                           })
-                        )}
+                        )} */}
                       </InputSelect>
                     </div>
                   </div>

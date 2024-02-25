@@ -13,8 +13,6 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsDelete,
-  setSettingIsConfirm,
-  setSettingIsDelete,
 } from "@/components/store/StoreAction";
 
 import { StoreContext } from "@/components/store/StoreContext";
@@ -151,6 +149,7 @@ const ClientList = ({ setItemEdit }) => {
                     </td>
                   </tr>
                 )}
+
                 {result?.pages.map((page, key) => (
                   <React.Fragment key={key}>
                     {page.data.map((item, key) => (
