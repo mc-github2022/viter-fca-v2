@@ -250,7 +250,8 @@ class TuitionFee
             $sql .= "and fee.tuition_fee_category_id = category.tuition_category_aid ";
             $sql .= "and fee.tuition_fee_grade_id = grade.grade_level_aid ";
             $sql .= "and fee.tuition_fee_scheme_id = scheme.scheme_aid ";
-            $sql .= "order by fee.tuition_fee_active desc ";
+            $sql .= "order by fee.tuition_fee_active desc, ";
+            $sql .= "scheme.scheme_name asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "tuition_fee_category_id" => $this->tuition_fee_category_id,

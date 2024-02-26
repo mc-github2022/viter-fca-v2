@@ -28,7 +28,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist max-w-[800px] w-[750px] overflow-x-hidden overflow-y-auto max-h-[610px] lg:max-h-[520px] custom__scroll ">
+      <div className="datalist max-w-[810px] w-[810px] overflow-x-hidden overflow-y-auto max-h-[610px] lg:max-h-[520px] custom__scroll ">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && scheduleOfFees.success === false ? (
@@ -52,12 +52,12 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
                   {item.tuition_category_name} - {item.grade_level_name}
                 </p>
 
-                <ul className="grid grid-cols-9 w-full text-right">
+                <ul className="grid grid-cols-[4rem,6rem,6rem,6rem,6rem,6rem,6rem,6rem,7rem] w-full text-right">
                   <li></li>
                   <li>Admission</li>
                   <li>Miscellaneous</li>
                   <li>Tuition</li>
-                  <li>Books</li>
+                  <li className="mr-3">Books</li>
                   <li className="text-accent font-bold">Upon Enrollment</li>
                   <li>Monthly</li>
                   <li>Total Monthly</li>

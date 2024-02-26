@@ -232,7 +232,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
 
                       {(!loadingScheme || !fetchingScheme) &&
                       scheme?.data.length === 0 ? (
-                        <option>No Data</option>
+                        <option disabled>No Data</option>
                       ) : (
                         scheme?.data.map((item, key) => {
                           return (

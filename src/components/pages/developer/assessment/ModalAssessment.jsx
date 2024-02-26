@@ -4,6 +4,7 @@ import {
   numberWithCommasToFixed,
 } from "@/components/helpers/functions-general";
 import NoData from "@/components/partials/NoData";
+import TableLoading from "@/components/partials/TableLoading";
 import { setIsShowModal } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -13,7 +14,8 @@ import { LiaTimesSolid } from "react-icons/lia";
 const ModalAssessment = ({ setShowAssessment, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [categoryId, setCatgeoryId] = React.useState(0);
-
+  const [discountId, setDiscountId] = React.useState(0);
+  const [additionalDiscountId, setAdditionalDiscountId] = React.useState(0);
   const {
     isLoading,
     isFetching,
@@ -97,7 +99,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                           {isLoading || isFetching ? (
                             <option>Loading...</option>
                           ) : schemeByGrade?.data.length === 0 ? (
-                            <option>No Data</option>
+                            <option disabled>No Data</option>
                           ) : (
                             schemeByGrade?.data.map((item, key) => {
                               return (
@@ -143,27 +145,43 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     )}
                   </div>
 
-                  {listOfScheme?.count === 0 && (
+                  {(loadingListOfScheme || listOfScheme?.count === 0) && (
                     <div>
-                      <NoData />
+                      {loadingListOfScheme ? (
+                        <TableLoading count={20} cols={3} />
+                      ) : (
+                        <div className="min-h-[250px] grid place-content-center border border-line">
+                          <p className="font-bold text-base">
+                            No Rate Selected
+                          </p>
+                        </div>
+                      )}
                     </div>
                   )}
 
-                  {listOfScheme?.count > 0 && (
+                  {!loadingListOfScheme && listOfScheme?.count > 0 && (
                     <>
                       <div className="border-y border-line scheme-list">
                         <ul className="grid grid-cols-4 hover:bg-gray-100 border-b border-line text-xs">
                           <li>Admission</li>
-                          {listOfScheme?.data.map((listItem, key) => {
-                            return (
-                              <li className="" key={key}>
-                                {numberWithCommasToFixed(
-                                  listItem.tuition_fee_admission,
-                                  2
-                                )}
-                              </li>
-                            );
-                          })}
+                          {listOfScheme?.count > 0 ? (
+                            listOfScheme?.data.map((listItem, key) => {
+                              return (
+                                <li className="" key={key}>
+                                  {numberWithCommasToFixed(
+                                    listItem.tuition_fee_admission,
+                                    2
+                                  )}
+                                </li>
+                              );
+                            })
+                          ) : (
+                            <div className="min-h-250px grid place-content-center border border-line">
+                              <p className="font-bold text-base">
+                                No Discount Selected
+                              </p>
+                            </div>
+                          )}
                         </ul>
 
                         <ul className="grid grid-cols-4 hover:bg-gray-100 border-b border-line text-xs">
@@ -259,53 +277,60 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                             Primary Discount
                           </label>
                           <select name="" id="">
+                            <option value="" hidden></option>
                             <option value="">Legacy</option>
                             <option value="">Regular</option>
                             <option value="">Re-enroll</option>
                           </select>
                         </div>
 
-                        {/* <div className="min-h-250px grid place-content-center border border-line">
-                      <p className="font-bold text-base">
-                        No Discount Selected
-                      </p>
-                    </div> */}
-
-                        <div className="discount-info">
-                          <h4 className="pb-1 ">Legacy & Loyalty</h4>
-
-                          <div className="grid grid-cols-2 max-w-[80%] mt-2">
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Type: </li>
-                              <li>type ito</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Entrance Fee: </li>
-                              <li>20%</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">2%: </li>
-                              <li>Currently Year</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Qualification: </li>
-                              <li>Magaling lang</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Maintaining Grade: </li>
-                              <li>13GA</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Duration: </li>
-                              <li>Current School Year</li>
-                            </ul>
+                        {additionalDiscountId === 0 && (
+                          <div className="min-h-250px grid place-content-center border border-line">
+                            <p className="font-bold text-base">
+                              No Discount Selected
+                            </p>
                           </div>
-                        </div>
+                        )}
+
+                        {additionalDiscountId > 0 && (
+                          <div className="discount-info">
+                            <h4 className="pb-1 ">Legacy & Loyalty</h4>
+
+                            <div className="grid grid-cols-2 max-w-[80%] mt-2">
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">Type: </li>
+                                <li>type ito</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">Entrance Fee: </li>
+                                <li>20%</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">2%: </li>
+                                <li>Currently Year</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">Qualification: </li>
+                                <li>Magaling lang</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">
+                                  Maintaining Grade:{" "}
+                                </li>
+                                <li>13GA</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">Duration: </li>
+                                <li>Current School Year</li>
+                              </ul>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       <div className="grid grid-cols-[250px_1fr] mt-3 gap-5">
@@ -317,53 +342,60 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                             Additional Discount
                           </label>
                           <select name="" id="">
+                            <option value="" hidden></option>
                             <option value="">Legacy</option>
                             <option value="">Regular</option>
                             <option value="">Re-enroll</option>
                           </select>
                         </div>
 
-                        {/* <div className="min-h-250px grid place-content-center border border-line">
-                      <p className="font-bold text-base">
-                        No Additional Discount Selected
-                      </p>
-                    </div> */}
-
-                        <div className="discount-info">
-                          <h4 className="pb-1 ">Legacy & Loyalty</h4>
-
-                          <div className="grid grid-cols-2 max-w-[80%] mt-2">
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Type: </li>
-                              <li>type ito</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Entrance Fee: </li>
-                              <li>20%</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">2%: </li>
-                              <li>Currently Year</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Qualification: </li>
-                              <li>Magaling lang</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Maintaining Grade: </li>
-                              <li>13GA</li>
-                            </ul>
-
-                            <ul className="flex gap-2 mb-2 text-xs">
-                              <li className="font-bold">Duration: </li>
-                              <li>Current School Year</li>
-                            </ul>
+                        {additionalDiscountId === 0 && (
+                          <div className="min-h-250px grid place-content-center border border-line ">
+                            <p className="font-bold text-base">
+                              No Additional Discount Selected
+                            </p>
                           </div>
-                        </div>
+                        )}
+
+                        {additionalDiscountId > 0 && (
+                          <div className="discount-info">
+                            <h4 className="pb-1 ">Legacy & Loyalty</h4>
+
+                            <div className="grid grid-cols-2 max-w-[80%] mt-2">
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">Type: </li>
+                                <li>type ito</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">Entrance Fee: </li>
+                                <li>20%</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">2%: </li>
+                                <li>Currently Year</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">Qualification: </li>
+                                <li>Magaling lang</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">
+                                  Maintaining Grade:{" "}
+                                </li>
+                                <li>13GA</li>
+                              </ul>
+
+                              <ul className="flex gap-2 mb-2 text-xs">
+                                <li className="font-bold">Duration: </li>
+                                <li>Current School Year</li>
+                              </ul>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       <h3 className="mb-3">
@@ -374,27 +406,43 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                       </h3>
 
                       <div className="grid grid-cols-6 ">
-                        <div>
-                          <h4 className="uppercase">Scheme A</h4>
-                          <p className="text-xl font-bold mb-0 leading-none">
-                            10,789.00
-                          </p>
-                          <small className="text-xs">0/mo</small>
-                        </div>
-                        <div>
-                          <h4 className="uppercase">Scheme B</h4>
-                          <p className="text-xl font-bold mb-0 leading-none">
-                            10,789.00
-                          </p>
-                          <small className="text-xs">2500/mo</small>
-                        </div>
-                        <div>
-                          <h4 className="uppercase">Scheme C</h4>
-                          <p className="text-xl font-bold mb-0 leading-none">
-                            10,789.00
-                          </p>
-                          <small className="text-xs">2500/mo</small>
-                        </div>
+                        {listOfScheme?.data.map((listItem, key) => {
+                          return (
+                            <div key={key}>
+                              <h4 className="uppercase">
+                                {listItem.scheme_name}
+                              </h4>
+                              <p className="text-xl font-bold mb-0 leading-none">
+                                {numberWithCommasToFixed(
+                                  Number(listItem.tuition_fee_upon_enrollment) +
+                                    Number(listItem.tuition_fee_total_monthly),
+                                  2
+                                )}
+                              </p>
+                              <small className="text-xs">
+                                {numberWithCommasToFixed(
+                                  listItem.tuition_fee_monthly,
+                                  2
+                                )}
+                                /mo
+                              </small>
+                            </div>
+                          );
+                        })}
+                        {/* // <div>
+                        //   <h4 className="uppercase">Scheme B</h4>
+                        //   <p className="text-xl font-bold mb-0 leading-none">
+                        //     10,789.00
+                        //   </p>
+                        //   <small className="text-xs">2500/mo</small>
+                        // </div>
+                        // <div>
+                        //   <h4 className="uppercase">Scheme C</h4>
+                        //   <p className="text-xl font-bold mb-0 leading-none">
+                        //     10,789.00
+                        //   </p>
+                        //   <small className="text-xs">2500/mo</small>
+                        // </div> */}
                       </div>
                     </>
                   )}

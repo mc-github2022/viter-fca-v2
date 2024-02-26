@@ -111,7 +111,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
 
                       {(!isLoading || !isFetching) &&
                       category?.data.length === 0 ? (
-                        <option>No Data</option>
+                        <option disabled>No Data</option>
                       ) : (
                         category?.data.map((item, key) => {
                           return (

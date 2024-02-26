@@ -179,6 +179,7 @@ class Assessment
             $sql .= "{$this->tblGradeLevel} as grade, ";
             $sql .= "{$this->tblScheme} as scheme ";
             $sql .= "where fee.tuition_fee_grade_id = :tuition_fee_grade_id ";
+            $sql .= "and fee.tuition_fee_active = '1' ";
             $sql .= "and fee.tuition_fee_category_id = category.tuition_category_aid ";
             $sql .= "and fee.tuition_fee_grade_id = grade.grade_level_aid ";
             $sql .= "and fee.tuition_fee_scheme_id = scheme.scheme_aid ";
@@ -210,6 +211,7 @@ class Assessment
             $sql .= "{$this->tblScheme} as scheme ";
             $sql .= "where fee.tuition_fee_category_id = :tuition_fee_category_id ";
             $sql .= "and fee.tuition_fee_grade_id = :tuition_fee_grade_id ";
+            $sql .= "and fee.tuition_fee_active = '1' ";
             $sql .= "and fee.tuition_fee_category_id = category.tuition_category_aid ";
             $sql .= "and fee.tuition_fee_grade_id = grade.grade_level_aid ";
             $sql .= "and fee.tuition_fee_scheme_id = scheme.scheme_aid ";
