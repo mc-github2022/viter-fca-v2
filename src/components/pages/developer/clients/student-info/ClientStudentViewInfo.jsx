@@ -136,6 +136,7 @@ const ClientStudentViewInfo = () => {
                           Enrolled
                         </span>
                       </h5>
+
                       <small className="flex mb-2 ">
                         {item.grade_level_name}
 
