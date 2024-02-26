@@ -174,43 +174,45 @@ const StudentList = ({ gradeLevel }) => {
                         <td>{item.school_year}</td>
 
                         <td>
-                          <div className="flex gap-2 justify-end">
-                            <button
-                              className="tooltip text-base"
-                              data-tooltip="Info"
-                              onClick={() => handleViewInfo(item)}
-                            >
-                              <CiViewList />
-                            </button>
+                          {item.students_is_active === 1 ? (
+                            <div className="flex gap-2 justify-end">
+                              <button
+                                className="tooltip text-base"
+                                data-tooltip="Info"
+                                onClick={() => handleViewInfo(item)}
+                              >
+                                <CiViewList />
+                              </button>
 
-                            <button
-                              type="button"
-                              className="tooltip"
-                              data-tooltip="Archive"
-                              // onClick={() => handleArchive(row.row.original)}
-                            >
-                              <BsArchive />
-                            </button>
-                          </div>
-
-                          <div className="flex gap-2 justify-end">
-                            <button
-                              type="button"
-                              className="tooltip"
-                              data-tooltip="Restore"
-                              // onClick={() => handleRestore(row.row.original)}
-                            >
-                              <MdOutlineRestore />
-                            </button>
-                            <button
-                              type="button"
-                              className="tooltip"
-                              data-tooltip="Delete"
-                              // onClick={() => handleDelete(row.row.original)}
-                            >
-                              <FiTrash />
-                            </button>
-                          </div>
+                              <button
+                                type="button"
+                                className="tooltip"
+                                data-tooltip="Archive"
+                                onClick={() => handleArchive(item)}
+                              >
+                                <BsArchive />
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="flex gap-2 justify-end">
+                              <button
+                                type="button"
+                                className="tooltip"
+                                data-tooltip="Restore"
+                                onClick={() => handleRestore(item)}
+                              >
+                                <MdOutlineRestore />
+                              </button>
+                              <button
+                                type="button"
+                                className="tooltip"
+                                data-tooltip="Delete"
+                                onClick={() => handleDelete(item)}
+                              >
+                                <FiTrash />
+                              </button>
+                            </div>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -251,7 +253,7 @@ const StudentList = ({ gradeLevel }) => {
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={dataItem.students_fullname}
+          item={dataItem.student_fullname}
           queryKey={"students"}
           isArchive={isArchive}
         />
@@ -259,9 +261,9 @@ const StudentList = ({ gradeLevel }) => {
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-students/${id}`}
+          mysqlApiDelete={`/v2/dev-students/${id}/${dataItem.school_year_aid}`}
           msg={"Are you sure you want to delete this record?"}
-          item={dataItem.students_fullname}
+          item={dataItem.student_fullname}
           queryKey={"students"}
         />
       )}

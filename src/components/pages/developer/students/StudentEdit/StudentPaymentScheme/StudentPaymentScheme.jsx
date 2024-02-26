@@ -3,7 +3,12 @@ import React from "react";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { LiaAccusoft } from "react-icons/lia";
 
-const StudentPaymentScheme = ({ showSideNav, setIsViewInfo }) => {
+const StudentPaymentScheme = ({
+  setIsViewInfo,
+  showSideNav,
+  dataItem,
+  gradeLevel,
+}) => {
   const [selectA, setSelectA] = React.useState(false);
   const [selectB, setSelectB] = React.useState(false);
   const [selectC, setSelectC] = React.useState(false);
