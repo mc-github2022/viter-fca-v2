@@ -52,13 +52,15 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
                   {item.tuition_category_name} - {item.grade_level_name}
                 </p>
 
-                <ul className="grid grid-cols-[4rem,7rem,7rem,7rem,7rem,8rem] w-full text-right">
+                <ul className="grid grid-cols-9 w-full text-right">
                   <li></li>
-                  <li>Admission Fee</li>
-                  <li>Miscellaneous Fee</li>
-                  <li>Tuition Fee</li>
+                  <li>Admission</li>
+                  <li>Miscellaneous</li>
+                  <li>Tuition</li>
                   <li>Books</li>
                   <li className="text-accent font-bold">Upon Enrollment</li>
+                  <li>Monthly</li>
+                  <li>Total Monthly</li>
                 </ul>
 
                 <ScheduleOfFeeSchemeList
