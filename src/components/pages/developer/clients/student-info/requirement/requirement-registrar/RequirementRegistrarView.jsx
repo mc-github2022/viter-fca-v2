@@ -4,7 +4,11 @@ import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-const RequirementRegistrarView = ({ registrar, setIsEdit }) => {
+const RequirementRegistrarView = ({
+  registrarRequirements,
+  setIsEdit,
+  isLoading,
+}) => {
   const handleEdit = () => {
     setIsEdit(true);
   };
@@ -27,18 +31,22 @@ const RequirementRegistrarView = ({ registrar, setIsEdit }) => {
       </div>
 
       <div className="table__wrapper max-w-[600px]">
-        <TableLoading />
-        <NoData />
-        {registrar?.data.map((item, key) => {
-          return (
-            <div
-              key={key}
-              className="list  flex justify-between items-center py-2 border-b border-line"
-            >
-              <p className="text-xs">{item.requirement_registrar_name}</p>
-            </div>
-          );
-        })}
+        {isLoading ? (
+          <TableLoading />
+        ) : registrarRequirements?.count > 0 ? (
+          registrarRequirements?.data.map((item, key) => {
+            return (
+              <div
+                key={key}
+                className="list  flex justify-between items-center py-2 border-b border-line"
+              >
+                <p className="text-xs">{item.requirement_registrar_name}</p>
+              </div>
+            );
+          })
+        ) : (
+          <NoData />
+        )}
       </div>
 
       <div className="remarks max-w-[500px] mt-10">

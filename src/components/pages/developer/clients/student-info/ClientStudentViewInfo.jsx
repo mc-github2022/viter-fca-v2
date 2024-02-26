@@ -156,7 +156,7 @@ const ClientStudentViewInfo = () => {
                       </p>
 
                       <button
-                        className="block text-xs mb-2"
+                        className="block text-xs mb-2 text-accent"
                         onClick={() => handleViewInfoRequirements(item)}
                       >
                         View Requirement

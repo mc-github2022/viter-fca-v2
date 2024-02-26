@@ -5,14 +5,12 @@ import { PiMegaphoneLight } from "react-icons/pi";
 import RequirementRegistrarEdit from "./RequirementRegistrarEdit.jsx";
 import RequirementRegistrarView from "./RequirementRegistrarView.jsx";
 
-const RequirementRegistrar = ({ itemEdit }) => {
+const RequirementRegistrar = ({
+  itemEdit,
+  registrarRequirements,
+  isLoading,
+}) => {
   const [isEdit, setIsEdit] = React.useState(false);
-
-  const { isLoading: error, data: registrar } = useQueryData(
-    `/v2/dev-requirement-registrar`, // endpoint
-    "get", // method
-    "registrar" // key
-  );
 
   return (
     <div>
@@ -25,10 +23,18 @@ const RequirementRegistrar = ({ itemEdit }) => {
       </p>
 
       {!isEdit && (
-        <RequirementRegistrarView registrar={registrar} setIsEdit={setIsEdit} />
+        <RequirementRegistrarView
+          isLoading={isLoading}
+          registrarRequirements={registrarRequirements}
+          setIsEdit={setIsEdit}
+        />
       )}
       {isEdit && (
-        <RequirementRegistrarEdit registrar={registrar} setIsEdit={setIsEdit} />
+        <RequirementRegistrarEdit
+          isLoading={isLoading}
+          registrarRequirements={registrarRequirements}
+          setIsEdit={setIsEdit}
+        />
       )}
     </div>
   );
