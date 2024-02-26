@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -10,10 +11,21 @@ import StudentParentDeclaration from "./StudentParentDeclaration.jsx";
 import StudentPaymentScheme from "./StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfileForm.jsx";
 
-const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
+const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, syid }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
   const [index, setIndex] = React.useState(1);
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: gradelevel,
+  } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "gradelevel" // key
+  );
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
@@ -44,7 +56,7 @@ const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
                 </button>
                 <h5 className="mb-0 font-normal">
                   Student Information{" "}
-                  {/* <span className="font-bold">- {dataItem.student_fullname}</span> */}
+                  {/* <span className="font-bold">- {itemEdit.student_fullname}</span> */}
                 </h5>
               </div>
 
@@ -152,8 +164,9 @@ const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
-                    gradeLevel={gradeLevel}
+                    itemEdit={itemEdit}
+                    gradelevel={gradelevel}
+                    syid={syid}
                   />
                 )}
                 {index === 2 && (
@@ -161,7 +174,7 @@ const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    itemEdit={itemEdit}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -170,7 +183,7 @@ const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    itemEdit={itemEdit}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -179,7 +192,7 @@ const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    itemEdit={itemEdit}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -188,7 +201,7 @@ const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    itemEdit={itemEdit}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -198,7 +211,7 @@ const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    itemEdit={itemEdit}
                     gradeLevel={gradeLevel}
                   />
                 )}

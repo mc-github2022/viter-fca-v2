@@ -77,6 +77,8 @@ const ClientStudentViewInfo = () => {
     "parent" // key
   );
 
+  console.log(mystudent);
+
   return (
     <>
       <Header />
@@ -207,7 +209,13 @@ const ClientStudentViewInfo = () => {
         />
       )}
 
-      {store.isAdd && <ModalAddStudent itemEdit={itemEdit} parent={parent} />}
+      {store.isAdd && (
+        <ModalAddStudent
+          itemEdit={itemEdit}
+          parent={parent}
+          syid={mystudent?.data.school_year_aid}
+        />
+      )}
 
       {store.isDelete && (
         <ModalDelete
