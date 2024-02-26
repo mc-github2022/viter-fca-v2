@@ -39,6 +39,12 @@ export const copyrightYear = () => {
 export const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
+// format the numbers separated by comma
+export const numberWithCommasToFixed = (item, x) => {
+  let result = numberWithCommas(Number(item).toFixed(x));
+
+  return result;
+};
 
 // get the url id parameter
 export const getUrlParam = () => {

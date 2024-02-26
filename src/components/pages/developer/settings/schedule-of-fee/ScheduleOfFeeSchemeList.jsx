@@ -90,7 +90,7 @@ const ScheduleOfFeeSchemeList = ({
             } w-full mr-1`}
             key={key}
           >
-            <ul className="grid grid-cols-[4rem,7rem,7rem,7rem,7rem,8rem,1fr] items-center w-full text-right">
+            <ul className="grid grid-cols-9 items-center w-full text-right">
               <li>{sItem.scheme_name}</li>
               <li>
                 {pesoSign}
@@ -116,6 +116,16 @@ const ScheduleOfFeeSchemeList = ({
                 {pesoSign}
                 {numberWithCommas(
                   Number(sItem.tuition_fee_upon_enrollment).toFixed(2)
+                )}
+              </li>
+              <li className="text-accent font-bold">
+                {pesoSign}
+                {numberWithCommas(Number(sItem.tuition_fee_monthly).toFixed(2))}
+              </li>
+              <li className="text-accent font-bold">
+                {pesoSign}
+                {numberWithCommas(
+                  Number(sItem.tuition_fee_total_monthly).toFixed(2)
                 )}
               </li>
               <ul className="datalist__action flex items-center justify-end gap-1 pr-3 ">
