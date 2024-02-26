@@ -5,6 +5,7 @@ import { FaQuestionCircle, FaRegQuestionCircle } from "react-icons/fa";
 
 import {
   setIsConfirm,
+  setIsShowModal,
   setMessage,
   setSuccess,
   setValidate,
@@ -12,8 +13,8 @@ import {
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 
 import { queryData } from "@/components/helpers/queryData.jsx";
-import Modal from "../wrapper/Modal";
 import ButtonSpinner from "../spinners/ButtonSpinner";
+import Modal from "../wrapper/Modal";
 
 const ModalArchive = ({ mysqlApiArchive, item, queryKey, isActive }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -38,7 +39,11 @@ const ModalArchive = ({ mysqlApiArchive, item, queryKey, isActive }) => {
   });
 
   const handleClose = () => {
-    dispatch(setIsConfirm(false));
+    dispatch(setIsShowModal(false));
+    setTimeout(() => {
+      dispatch(setIsConfirm(false));
+      dispatch(setIsShowModal(true));
+    }, 200);
   };
 
   const handleYes = async () => {

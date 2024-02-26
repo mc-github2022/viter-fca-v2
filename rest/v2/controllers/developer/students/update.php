@@ -42,8 +42,13 @@ if (array_key_exists("studentid", $_GET)) {
     $student->school_year_students_last_remarks = $data["school_year_students_last_remarks"];
     $student->students_datetime = date("Y-m-d H:i:s");
 
+    $students_lrn_old = $data["students_lrn_old"];
+
     checkId($student->students_aid);
-    // compareName($student, $fullname_old, $student->fullname);
+
+    if ($student->students_lrn != "") {
+        compareLrn($student, $students_lrn_old, $student->students_lrn);
+    }
 
     $query = checkUpdate($student);
     checkUpdateSchoolYearStudent($student);

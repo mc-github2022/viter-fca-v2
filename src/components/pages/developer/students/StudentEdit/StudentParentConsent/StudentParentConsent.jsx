@@ -3,21 +3,59 @@ import {
   InputText,
   InputTextArea,
 } from "@/components/helpers/FormInputs.jsx";
+import { queryData } from "@/components/helpers/queryData";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import {
+  setMessage,
+  setSuccess,
+  setValidate,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StudentParentConsent = ({ showSideNav, setIsViewInfo }) => {
+const StudentParentConsent = ({
+  setIsViewInfo,
+  showSideNav,
+  dataItem,
+  gradeLevel,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
-
   const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (values) =>
+      queryData(`/v2/dev-students/update-parent-consent`, "put", values),
+    onSuccess: (data) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["students"] });
+      // show error box
+      if (data.success) {
+        setIsViewInfo(false);
+        dispatch(setSuccess(true));
+        dispatch(setMessage("Record successfully updated."));
+      }
+      if (!data.success) {
+        dispatch(setValidate(true));
+        dispatch(setMessage(data.error));
+      }
+    },
+  });
+
   const handleClose = () => {
     setIsViewInfo(false);
   };
 
-  const initVal = {};
+  const initVal = {
+    school_year_students_aid: dataItem.school_year_students_aid,
+    school_year_students_last_parent_consent_is_agree:
+      dataItem.school_year_students_last_parent_consent_is_agree === "" ||
+      dataItem.school_year_students_last_parent_consent_is_agree === 0
+        ? false
+        : true,
+  };
 
   const yupSchema = Yup.object({});
 
@@ -43,8 +81,19 @@ const StudentParentConsent = ({ showSideNav, setIsViewInfo }) => {
                     } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
                   >
                     <div className="flex items-center gap-2">
-                      <button className="btn btn--accent">Save</button>
-                      <button className="btn btn--cancel" onClick={handleClose}>
+                      <button
+                        className="btn btn--accent"
+                        type="submit"
+                        disabled={mutation.isPending || !props.dirty}
+                      >
+                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                      </button>
+                      <button
+                        className="btn btn--cancel"
+                        type="button"
+                        onClick={handleClose}
+                        disabled={mutation.isPending}
+                      >
                         Discard
                       </button>
                     </div>
@@ -103,7 +152,8 @@ const StudentParentConsent = ({ showSideNav, setIsViewInfo }) => {
                         label="I agree and undestand this code of conduct"
                         type="checkbox"
                         className="mb-0 !text-xs font-bold"
-                        name="department_name"
+                        name="school_year_students_last_parent_consent_is_agree"
+                        id="school_year_students_last_parent_consent_is_agree"
                       />
                     </div>
                   </div>

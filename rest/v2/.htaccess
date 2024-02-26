@@ -123,6 +123,8 @@ RewriteRule ^dev-parents/([0-9]+)$ controllers/developer/parents/parents.php?par
 RewriteRule ^dev-parents/active/([0-9]+)$ controllers/developer/parents/active.php?parentsid=$1 [L]
 RewriteRule ^dev-parents/page/([0-9]+)$ controllers/developer/parents/page.php?start=$1 [L]
 RewriteRule ^dev-update-parents-financier/([0-9]+)$ controllers/developer/parents/update-fianancier.php?parentsid=$1 [L]
+RewriteRule ^dev-read-students/([0-9]+)$ controllers/developer/parents/read-student-by-parent-id.php?parentsid=$1 [L]
+
 
 # ASSESSMENT
 RewriteRule ^dev-assessment$ controllers/developer/assessment/assessment.php [L]
@@ -192,10 +194,14 @@ RewriteRule ^dev-settings-discount-additional/active/([0-9]+)$ controllers/devel
 
 # STUDENTS
 RewriteRule ^dev-students$ controllers/developer/students/students.php [L]
-RewriteRule ^dev-students/([0-9]+)$ controllers/developer/students/students.php?studentid=$1 [L]
+RewriteRule ^dev-students/([0-9]+)/([0-9]+)$ controllers/developer/students/students.php?studentid=$1&syid=$2 [L]
 RewriteRule ^dev-students/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]
 RewriteRule ^dev-students/page/([0-9]+)$ controllers/developer/students/page.php?start=$1 [L]
 RewriteRule ^dev-students/search$ controllers/developer/students/search.php [L]
+RewriteRule ^dev-students/update-coc$ controllers/developer/students/update-coc.php [L]
+RewriteRule ^dev-students/update-parent-declare$ controllers/developer/students/update-parent-declare.php [L]
+RewriteRule ^dev-students/update-parent-consent$ controllers/developer/students/update-parent-consent.php [L]
+RewriteRule ^dev-students/update-commitment-form$ controllers/developer/students/update-commitment-form.php [L]
 
 # READ ALL PARENT ADDRESS BY STUDENT ID
 RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/readParentAddressByStudentId.php?studentid=$1 [L]
