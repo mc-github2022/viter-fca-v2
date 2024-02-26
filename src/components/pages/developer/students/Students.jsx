@@ -20,10 +20,6 @@ const Students = () => {
     "grade-level" // key
   );
 
-  const handleAdd = () => {
-    dispatch(setIsAdd(true));
-  };
-
   const {
     isLoading,
     error,
@@ -35,6 +31,10 @@ const Students = () => {
   );
 
   const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
+
+  const handleAdd = () => {
+    dispatch(setIsAdd(true));
+  };
 
   return (
     <div>

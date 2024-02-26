@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import { InputSelect, InputText } from "@/components/helpers/FormInputs.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
@@ -19,6 +20,21 @@ import * as Yup from "yup";
 const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
+  const [onFocusUser, setOnFocusUser] = React.useState(false);
+  const [dataUser, setDataUser] = React.useState([]);
+  const [dataSelected, setDataSelected] = React.useState([]);
+  const [searchUser, setSearchUser] = React.useState("");
+  const refUser = React.useRef();
+
+  const {
+    isLoading,
+    error,
+    data: parents,
+  } = useQueryData(
+    "/v2/dev-parents", // endpoint
+    "get", // method
+    "parents-students" // key
+  );
 
   const handleClose = () => {
     dispatch(setIsShowModal(false));
@@ -48,7 +64,49 @@ const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
     },
   });
 
+  const handleSearchParent = (e) => {
+    setOnFocusUser(true);
+    setSearchUser(e.target.value);
+    setDataSelected([]);
+    const filteredData = parents?.data.filter((entry) => {
+      console.log(entry);
+      return Object.values(entry).some(
+        (stringValue) =>
+          typeof stringValue === "string" &&
+          (stringValue.toUpperCase().includes(e.target.value) ||
+            stringValue.toLowerCase().includes(e.target.value) ||
+            stringValue
+              .replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase())
+              .includes(e.target.value))
+      );
+    });
+    setDataUser(filteredData);
+  };
+  const handleClickOutsideParent = (e) => {
+    if (
+      refUser.current !== undefined &&
+      refUser.current !== null &&
+      !refUser.current.contains(e.target)
+    ) {
+      setOnFocusUser(false);
+    }
+  };
+
+  const handleClickParent = (item, props) => {
+    setSearchUser(`${item.parents_fname} ${item.parents_lname}`);
+    setDataSelected(item);
+
+    props.values.search = `${item.parents_fname} ${item.parents_lname}`;
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("click", handleClickOutsideParent);
+    return () =>
+      document.removeEventListener("click", handleClickOutsideParent);
+  }, []);
+
   const initVal = {
+    students_parent_id: "",
     students_lrn: "",
     students_fname: "",
     students_lname: "",
@@ -89,14 +147,67 @@ const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
             initialValues={initVal}
             validationSchema={yupSchema}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
+              if (dataSelected?.length === 0) {
+                dispatch(setValidate(true));
+                dispatch(setMessage("Parent cannot be empty."));
+                return;
+              }
+
               // console.log(values);
-              mutation.mutate(values);
+              mutation.mutate({
+                ...values,
+                students_parent_id: dataSelected.parents_aid,
+              });
             }}
           >
             {(props) => {
               return (
                 <Form className="flex flex-col h-full max-h-[1200px] overflow-y-auto">
                   <div className="modal__body custom__scroll">
+                    <div className="form__wrap text-xs mb-3">
+                      <InputText
+                        label="Parent"
+                        type="text"
+                        name="search"
+                        disabled={mutation.isPending}
+                        placeholder="Search parent here"
+                        onChange={(e) => handleSearchParent(e)}
+                        onFocus={() => {
+                          setOnFocusUser(true);
+                          setDataUser(parents?.data);
+                        }}
+                        refVal={refUser}
+                        value={searchUser}
+                      />
+
+                      {onFocusUser && (
+                        <ul className="absolute z-50 h-52 overflow-y-auto w-full bg-white border border-gray-200 rounded-md">
+                          {dataUser?.length > 0 ? (
+                            dataUser?.map((item, key) => {
+                              {
+                                return (
+                                  <button
+                                    type="button"
+                                    className="p-1 pl-3 pr-3 w-full text-left break-all bg-white hover:bg-gray-100  focus:bg-gray-100 focus:outline-none cursor-pointer duration-200"
+                                    key={key}
+                                    onClick={() =>
+                                      handleClickParent(item, props)
+                                    }
+                                  >
+                                    {item.parents_fname} {item.parents_lname}
+                                  </button>
+                                );
+                              }
+                            })
+                          ) : (
+                            <li className="mt-8 p-2 w-full text-center bg-white focus:bg-gray-200 border-b border-white">
+                              No Data
+                            </li>
+                          )}
+                        </ul>
+                      )}
+                    </div>
+
                     <div className="form__wrap">
                       <InputText
                         disabled={mutation.isPending}

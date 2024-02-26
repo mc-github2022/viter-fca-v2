@@ -13,6 +13,7 @@ if (array_key_exists("studentid", $_GET)) {
 checkPayload($data);
 
 $student->students_is_active = 1;
+$student->students_parent_id = $data["students_parent_id"];
 $student->students_lrn = $data["students_lrn"];
 $student->students_fname = checkIndex($data, "students_fname");
 $student->students_lname = checkIndex($data, "students_lname");

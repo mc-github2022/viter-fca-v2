@@ -44,9 +44,16 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
                   <span className="font-bold">{dataItem.student_fullname}</span>
                 </h5>
               </div>
-              <button onClick={handleClose}>
-                <LiaTimesSolid />
-              </button>
+
+              <div className="flex items-center gap-4">
+                <h5 className="mb-0 font-normal">
+                  Parent Name -{" "}
+                  <span className="font-bold">{dataItem.parent_fullname}</span>
+                </h5>
+                <button onClick={handleClose}>
+                  <LiaTimesSolid />
+                </button>
+              </div>
             </div>
             <div
               className={`flex gap-3 h-full  bg-white overflow-hidden relative`}

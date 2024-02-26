@@ -3,6 +3,7 @@ class Student
 {
     public $students_aid;
     public $students_is_active;
+    public $students_parent_id;
     public $students_lrn;
     public $students_parent_id;
     public $students_fname;
@@ -39,6 +40,7 @@ class Student
     public $students_total;
     public $students_search;
 
+    public $tblParent;
     public $tblStudent;
     public $tblSyStudent;
     public $tblSchoolYear;
@@ -51,6 +53,7 @@ class Student
     public function __construct($db)
     {
         $this->connection = $db;
+        $this->tblParent = "fcav2_parents";
         $this->tblStudent = "fcav2_students";
         $this->tblSyStudent = "fcav2_school_year_students";
         $this->tblGradeLevel = "fcav2_settings_grade_level";
@@ -64,6 +67,7 @@ class Student
             $sql = "insert into {$this->tblStudent} ";
             $sql .= "( ";
             $sql .= "students_is_active, ";
+            $sql .= "students_parent_id, ";
             $sql .= "students_lrn, ";
             $sql .= "students_fname, ";
             $sql .= "students_lname, ";
@@ -76,6 +80,7 @@ class Student
             $sql .= "students_created, ";
             $sql .= "students_datetime ) values ( ";
             $sql .= ":students_is_active, ";
+            $sql .= ":students_parent_id, ";
             $sql .= ":students_lrn, ";
             $sql .= ":students_fname, ";
             $sql .= ":students_lname, ";
@@ -90,6 +95,7 @@ class Student
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "students_is_active" => $this->students_is_active,
+                "students_parent_id" => $this->students_parent_id,
                 "students_lrn" => $this->students_lrn,
                 "students_fname" => $this->students_fname,
                 "students_lname" => $this->students_lname,
@@ -149,12 +155,15 @@ class Student
             $sql .= "student.students_aid, ";
             $sql .= "student.students_is_active, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
+            $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
+            $sql .= "{$this->tblParent} as parent, ";
             $sql .= "{$this->tblSyStudent} as syStudent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
+            $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
@@ -177,12 +186,15 @@ class Student
             $sql .= "student.students_aid, ";
             $sql .= "student.students_is_active, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
+            $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
+            $sql .= "{$this->tblParent} as parent, ";
             $sql .= "{$this->tblSyStudent} as syStudent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
+            $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
@@ -211,12 +223,15 @@ class Student
             $sql .= "student.students_aid, ";
             $sql .= "student.students_is_active, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
+            $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
+            $sql .= "{$this->tblParent} as parent, ";
             $sql .= "{$this->tblSyStudent} as syStudent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
+            $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
@@ -300,6 +315,7 @@ class Student
     {
         try {
             $sql = "update {$this->tblStudent} set ";
+            $sql .= "students_parent_id = :students_parent_id, ";
             $sql .= "students_lrn = :students_lrn, ";
             $sql .= "students_fname = :students_fname, ";
             $sql .= "students_mname = :students_mname, ";
@@ -320,6 +336,8 @@ class Student
             $sql .= "where students_aid = :students_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "students_parent_id" => $this->students_parent_id,
+                "students_lrn" => $this->students_lrn,
                 "students_lrn" => $this->students_lrn,
                 "students_fname" => $this->students_fname,
                 "students_mname" => $this->students_mname,
