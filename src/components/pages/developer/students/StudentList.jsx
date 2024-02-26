@@ -162,7 +162,7 @@ const StudentList = ({ setItemEdit }) => {
                   <td>Ramon Plaza</td>
 
                   <td>
-                    <div className="flex gap-2 justify-end">
+                    <div className="flex gap-2 justify-end table-action">
                       <button
                         className="tooltip text-base"
                         data-tooltip="Info"

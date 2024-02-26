@@ -132,7 +132,7 @@ const AssessmentList = () => {
                         </td>
                         <td>
                           {item.parents_is_active === 1 ? (
-                            <div className="flex gap-2 justify-end">
+                            <div className="table-action flex gap-2 justify-end">
                               <Link
                                 // to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
                                 className="tooltip text-base"

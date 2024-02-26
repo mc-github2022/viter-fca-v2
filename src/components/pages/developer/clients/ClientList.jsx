@@ -177,9 +177,9 @@ const ClientList = ({ setItemEdit }) => {
                         </td>
                         <td>
                           {item.parents_is_active === 1 ? (
-                            <div className="flex gap-2 justify-end">
+                            <div className="table-action flex gap-2 justify-end">
                               <Link
-                                to={`${devNavUrl}/${link}/clients/students?cid=${item.parents_aid}`}
+                                to={`${devNavUrl}/${link}/clients/students`}
                                 className="tooltip text-base"
                                 data-tooltip="Student"
                               >
