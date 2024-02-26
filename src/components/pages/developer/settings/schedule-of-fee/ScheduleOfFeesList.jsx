@@ -58,7 +58,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
                   <li>Miscellaneous Fee</li>
                   <li>Tuition Fee</li>
                   <li>Books</li>
-                  <li>Upon Enrollment</li>
+                  <li className="text-accent font-bold">Upon Enrollment</li>
                 </ul>
 
                 <ScheduleOfFeeSchemeList
