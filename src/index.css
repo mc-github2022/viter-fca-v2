@@ -175,6 +175,10 @@
     @apply justify-end;
   }
 
+  table .table-action {
+    @apply mr-1;
+  }
+
   nav.show.expand {
     @apply translate-x-0;
   }

@@ -61,23 +61,10 @@ const ClientStudentViewInfo = () => {
     error,
     data: mystudent,
   } = useQueryData(
-    `/v2/student-parent-id/${cid}`, // endpoint
+    `/v2/dev-read-students/${cid}`, // endpoint
     "get", // method
     "mystudent" // key
   );
-
-  const {
-    isLoading: isClientLoading,
-    isFetching: isClientFetching,
-    error: isClentError,
-    data: clients,
-  } = useQueryData(
-    `/v2/user-other/${cid}`, // endpoint
-    "get", // method
-    "clients" // key
-  );
-
-  console.log(mystudent);
 
   return (
     <>
@@ -100,15 +87,15 @@ const ClientStudentViewInfo = () => {
                   <FaAngleLeft /> Back
                 </button>
                 <BreadCrumbs />
-                <h1 className="text-clampH1 mb-5">
-                  {isClientLoading || isClientFetching ? (
+                <h1 className="text-clampH1 mb-2">
+                  {isLoading || isFetching ? (
                     <p>Loading...</p>
                   ) : (
                     <>
                       <span className="pr-2">
-                        {clients?.data[0].user_other_fname}
+                        {mystudent?.data[0].parents_fname}
                       </span>
-                      <span>{clients?.data[0].user_other_lname}</span>
+                      <span>{mystudent?.data[0].parents_lname}</span>
                     </>
                   )}
                 </h1>
@@ -144,11 +131,12 @@ const ClientStudentViewInfo = () => {
                       key={key}
                     >
                       <h5>
-                        {item.student_info_fname} {item.student_info_lname} -{" "}
+                        {item.students_fname} {item.students_lname} -{" "}
                         <span className="text-accentLight font-bold">
                           Enrolled
                         </span>
                       </h5>
+
                       <small className="flex mb-2 ">
                         {item.grade_level_name}
 

@@ -5,6 +5,7 @@ class Student
     public $students_is_active;
     public $students_parent_id;
     public $students_lrn;
+    public $students_parent_id;
     public $students_fname;
     public $students_lname;
     public $students_mname;
