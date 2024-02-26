@@ -29,7 +29,9 @@ $student->school_year_students_last_learning_type = checkIndex($data, "school_ye
 $student->school_year_students_sy_id = checkIndex($data, "school_year_students_sy_id");
 $student->school_year_students_last_grade_level_id = checkIndex($data, "school_year_students_last_grade_level_id");
 
-// isNameExist($student, $student->student_name);
+if ($student->students_lrn != "") {
+    isLrnExist($student, $student->students_lrn);
+}
 
 $query = checkCreate($student);
 

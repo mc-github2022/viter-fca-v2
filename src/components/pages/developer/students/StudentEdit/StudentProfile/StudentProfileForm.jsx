@@ -56,6 +56,7 @@ const StudentProfileForm = ({
 
   const initVal = {
     ...dataItem,
+    students_lrn_old: dataItem.students_lrn,
   };
 
   const yupSchema = Yup.object({});

@@ -164,7 +164,7 @@ const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
               return (
                 <Form className="flex flex-col h-full max-h-[1200px] overflow-y-auto">
                   <div className="modal__body custom__scroll">
-                    <div className="form__wrap text-xs mb-3">
+                    <div className="form__wrap">
                       <InputText
                         label="Parent"
                         type="text"
