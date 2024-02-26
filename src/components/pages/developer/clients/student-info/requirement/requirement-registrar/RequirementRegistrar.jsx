@@ -9,6 +9,7 @@ const RequirementRegistrar = ({
   itemEdit,
   registrarRequirements,
   isLoading,
+  studentRequirement,
 }) => {
   const [isEdit, setIsEdit] = React.useState(false);
 
@@ -27,6 +28,7 @@ const RequirementRegistrar = ({
           isLoading={isLoading}
           registrarRequirements={registrarRequirements}
           setIsEdit={setIsEdit}
+          studentRequirement={studentRequirement}
         />
       )}
       {isEdit && (
@@ -34,6 +36,8 @@ const RequirementRegistrar = ({
           isLoading={isLoading}
           registrarRequirements={registrarRequirements}
           setIsEdit={setIsEdit}
+          studentRequirement={studentRequirement}
+          itemEdit={itemEdit}
         />
       )}
     </div>

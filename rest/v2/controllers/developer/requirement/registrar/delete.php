@@ -6,8 +6,8 @@ $registrar = new Registrar($conn);
 if (array_key_exists("reqid", $_GET)) {
     checkPayload($data);
 
-    $registrar->students_requirement_aid = $_GET['reqid'];
-    checkId($registrar->students_requirement_aid);
+    $registrar->students_requirements_aid = $_GET['reqid'];
+    checkId($registrar->students_requirements_aid);
 
     $query = checkDelete($registrar);
 

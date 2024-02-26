@@ -1,13 +1,14 @@
 <?php
 class Registrar
 {
-    public $students_requirement_aid;
-    public $students_requirement_is_active;
-    public $students_requirement_student_id;
-    public $students_requirement_sy_id;
-    public $students_requirement_id;
-    public $students_requirement_created;
-    public $students_requirement_datetime;
+    public $students_requirements_aid;
+    public $students_requirements_is_active;
+    public $students_requirements_student_id;
+    public $students_requirements_sy_id;
+    public $students_requirements_id;
+    public $students_requirements_remarks;
+    public $students_requirements_created;
+    public $students_requirements_datetime;
 
     public $connection;
     public $lastInsertedId;
@@ -28,26 +29,29 @@ class Registrar
     {
         try {
             $sql = "insert into {$this->tblRequirement} ";
-            $sql .= "( students_requirement_is_active, ";
-            $sql .= "students_requirement_student_id, ";
-            $sql .= "students_requirement_sy_id, ";
-            $sql .= "students_requirement_id, ";
-            $sql .= "students_requirement_created, ";
-            $sql .= "students_requirement_datetime ) values ( ";
-            $sql .= ":students_requirement_is_active, ";
-            $sql .= ":students_requirement_student_id, ";
-            $sql .= ":students_requirement_sy_id, ";
-            $sql .= ":students_requirement_id, ";
-            $sql .= ":students_requirement_created, ";
-            $sql .= ":students_requirement_datetime ) ";
+            $sql .= "( students_requirements_is_active, ";
+            $sql .= "students_requirements_student_id, ";
+            $sql .= "students_requirements_sy_id, ";
+            $sql .= "students_requirements_id, ";
+            $sql .= "students_requirements_remarks, ";
+            $sql .= "students_requirements_created, ";
+            $sql .= "students_requirements_datetime ) values ( ";
+            $sql .= ":students_requirements_is_active, ";
+            $sql .= ":students_requirements_student_id, ";
+            $sql .= ":students_requirements_sy_id, ";
+            $sql .= ":students_requirements_id, ";
+            $sql .= ":students_requirements_remarks, ";
+            $sql .= ":students_requirements_created, ";
+            $sql .= ":students_requirements_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "students_requirement_is_active" => $this->students_requirement_is_active,
-                "students_requirement_student_id" => $this->students_requirement_student_id,
-                "students_requirement_sy_id" => $this->students_requirement_sy_id,
-                "students_requirement_id" => $this->students_requirement_id,
-                "students_requirement_created" => $this->students_requirement_created,
-                "students_requirement_datetime" => $this->students_requirement_datetime,
+                "students_requirements_is_active" => $this->students_requirements_is_active,
+                "students_requirements_student_id" => $this->students_requirements_student_id,
+                "students_requirements_sy_id" => $this->students_requirements_sy_id,
+                "students_requirements_id" => $this->students_requirements_id,
+                "students_requirements_remarks" => $this->students_requirements_remarks,
+                "students_requirements_created" => $this->students_requirements_created,
+                "students_requirements_datetime" => $this->students_requirements_datetime,
             ]);
             $this->lastInsertedId = $this->connection->lastInsertId();
         } catch (PDOException $ex) {
@@ -59,16 +63,18 @@ class Registrar
     public function readById()
     {
         try {
-            $sql = "select students_requirement_aid, ";
-            $sql .= "students_requirement_is_active, ";
-            $sql .= "students_requirement_student_id, ";
-            $sql .= "students_requirement_sy_id, ";
-            $sql .= "students_requirement_id ";
+            $sql = "select ";
+            $sql .= "students_requirements_aid, ";
+            $sql .= "students_requirements_is_active, ";
+            $sql .= "students_requirements_student_id, ";
+            $sql .= "students_requirements_sy_id, ";
+            $sql .= "students_requirements_remarks, ";
+            $sql .= "students_requirements_id ";
             $sql .= "from {$this->tblRequirement} ";
-            $sql .= "where students_requirement_student_id = :students_requirement_student_id ";
+            $sql .= "where students_requirements_student_id = :students_requirements_student_id";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "students_requirement_student_id" => $this->students_requirement_student_id,
+                "students_requirements_student_id" => $this->students_requirements_student_id,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -80,10 +86,10 @@ class Registrar
     {
         try {
             $sql = "delete from {$this->tblRequirement} ";
-            $sql .= "where students_requirement_aid = :students_requirement_aid ";
+            $sql .= "where students_requirements_aid = :students_requirements_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "students_requirement_aid" => $this->students_requirement_aid
+                "students_requirements_aid" => $this->students_requirements_aid
             ]);
         } catch (PDOException $ex) {
             $query = false;

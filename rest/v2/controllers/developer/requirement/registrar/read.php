@@ -5,9 +5,9 @@ $registrar = new Registrar($conn);
 
 
 if (array_key_exists("reqid", $_GET)) {
-    $registrar->students_requirement_student_id = $_GET['reqid'];
+    $registrar->students_requirements_student_id = $_GET['reqid'];
 
-    checkId($registrar->students_requirement_student_id);
+    checkId($registrar->students_requirements_student_id);
     $query = checkReadById($registrar);
     http_response_code(200);
     getQueriedData($query);

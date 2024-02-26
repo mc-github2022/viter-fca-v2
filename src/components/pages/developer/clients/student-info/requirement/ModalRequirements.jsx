@@ -23,8 +23,6 @@ const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
     "students-requirements" // key
   );
 
-  console.log(studentRequirement);
-
   const handleClose = () => {
     setViewRequirements(false);
   };
@@ -115,6 +113,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
                     itemEdit={itemEdit}
                     registrarRequirements={registrarRequirements}
                     isLoading={isLoading}
+                    studentRequirement={studentRequirement}
                   />
                 )}
               </main>
