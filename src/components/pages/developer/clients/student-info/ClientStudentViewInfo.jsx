@@ -55,6 +55,15 @@ const ClientStudentViewInfo = () => {
     setViewRequirements(true);
   };
 
+  const { data: schoolYear } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "school-year" // key
+  );
+
+  const isOngoing =
+    schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
+
   const {
     isLoading,
     isFetching,
@@ -68,14 +77,19 @@ const ClientStudentViewInfo = () => {
 
   return (
     <>
-      <Header />
+      <Header isLoading={isLoading} schoolYear={schoolYear} />
       <section className="main__wrap flex flex-col relative h-[100vh] ">
         <div className={`grow ${store.isMenuExpand ? "expand" : ""}`}>
-          <Navigation menu="clients" />
+          <Navigation
+            menu="clients"
+            isLoading={isLoading}
+            error={error}
+            schoolYear={schoolYear}
+          />
           <main
-            className={`main__content mt-[35px] ${
+            className={`main__content mt-[35px]  relative ${
               store.isMenuExpand ? "expand" : ""
-            }`}
+            } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header flex justify-between items-start lg:items-center">
               <div>
@@ -193,6 +207,7 @@ const ClientStudentViewInfo = () => {
         <ModalRequirements
           setViewRequirements={setViewRequirements}
           itemEdit={itemEdit}
+          schoolYear={schoolYear}
         />
       )}
 

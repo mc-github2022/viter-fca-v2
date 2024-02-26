@@ -16,18 +16,25 @@ const RequirementRegistrarView = ({
   };
 
   const getSubmittedRequirements = (requirementsId) => {
-    return studentRequirement?.count > 0 ? (
-      studentRequirement?.data.map((item) => {
-        if (Number(item.students_requirements_id) === Number(requirementsId)) {
-          return <FaCheck className="fill-accent" />;
-        } else {
-          return <FaTimes className="fill-alert" />;
-        }
-      })
-    ) : (
-      <FaTimes className="fill-alert" />
-    );
+    // return studentRequirement?.count > 0
+    //   ? studentRequirement?.data.map((item, key) => {
+    //       if (
+    //         Number(item.students_requirements_id) === Number(requirementsId)
+    //       ) {
+    //         return <FaCheck className="fill-accent" key={key} />;
+    //       } else {
+    //         return <FaTimes className="fill-alert" key={key} />;
+    //       }
+    //     })
+    //   : "";
+    // registrarRequirements?.data.filter((regItem) => {
+    // return  studentRequirement?.data.find((reqItem) => {
+    //   return
+    //   })
+    // })
   };
+
+  // console.log(studentRequirement);
 
   return (
     <div className="mode__view">
@@ -50,14 +57,26 @@ const RequirementRegistrarView = ({
         {isLoading ? (
           <TableLoading />
         ) : registrarRequirements?.count > 0 ? (
-          registrarRequirements?.data.map((item, key) => {
+          registrarRequirements?.data.map((registarItem, key) => {
             return (
               <div
                 key={key}
                 className="list flex justify-between items-center py-2 border-b border-line"
               >
-                <p className="text-xs">{item.requirement_registrar_name}</p>{" "}
-                {getSubmittedRequirements(item.requirement_registrar_aid)}
+                <p className="text-xs">
+                  {registarItem.requirement_registrar_name}
+                </p>{" "}
+                {/* {getSubmittedRequirements(item.requirement_registrar_aid)}{" "} */}
+                {/* {studentRequirement?.data.map((reqITem, reqKey) => {
+                  if (
+                    Number(registarItem.requirement_registrar_aid) ===
+                    Number(reqITem.students_requirements_id)
+                  ) {
+                    return <FaCheck className="fill-accent" key={reqKey} />;
+                  } else {
+                    return <FaTimes className="fill-alert" key={reqKey} />;
+                  }
+                })} */}
               </div>
             );
           })
@@ -66,14 +85,14 @@ const RequirementRegistrarView = ({
         )}
       </div>
 
-      <div className="remarks max-w-[500px] mt-10">
+      {/* <div className="remarks max-w-[500px] mt-10">
         <h6>Remarks:</h6>
         <p className="text-xs">
           {studentRequirement?.count > 0
             ? studentRequirement?.data[0].students_requirements_remarks
             : "None"}
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

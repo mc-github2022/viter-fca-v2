@@ -6,7 +6,6 @@ class Registrar
     public $students_requirements_student_id;
     public $students_requirements_sy_id;
     public $students_requirements_id;
-    public $students_requirements_remarks;
     public $students_requirements_created;
     public $students_requirements_datetime;
 
@@ -33,14 +32,12 @@ class Registrar
             $sql .= "students_requirements_student_id, ";
             $sql .= "students_requirements_sy_id, ";
             $sql .= "students_requirements_id, ";
-            $sql .= "students_requirements_remarks, ";
             $sql .= "students_requirements_created, ";
             $sql .= "students_requirements_datetime ) values ( ";
             $sql .= ":students_requirements_is_active, ";
             $sql .= ":students_requirements_student_id, ";
             $sql .= ":students_requirements_sy_id, ";
             $sql .= ":students_requirements_id, ";
-            $sql .= ":students_requirements_remarks, ";
             $sql .= ":students_requirements_created, ";
             $sql .= ":students_requirements_datetime ) ";
             $query = $this->connection->prepare($sql);
@@ -49,7 +46,6 @@ class Registrar
                 "students_requirements_student_id" => $this->students_requirements_student_id,
                 "students_requirements_sy_id" => $this->students_requirements_sy_id,
                 "students_requirements_id" => $this->students_requirements_id,
-                "students_requirements_remarks" => $this->students_requirements_remarks,
                 "students_requirements_created" => $this->students_requirements_created,
                 "students_requirements_datetime" => $this->students_requirements_datetime,
             ]);
@@ -68,7 +64,6 @@ class Registrar
             $sql .= "students_requirements_is_active, ";
             $sql .= "students_requirements_student_id, ";
             $sql .= "students_requirements_sy_id, ";
-            $sql .= "students_requirements_remarks, ";
             $sql .= "students_requirements_id ";
             $sql .= "from {$this->tblRequirement} ";
             $sql .= "where students_requirements_student_id = :students_requirements_student_id";

@@ -10,6 +10,9 @@ const RequirementRegistrar = ({
   registrarRequirements,
   isLoading,
   studentRequirement,
+  schoolYear,
+  reqLoading,
+  reqFetching,
 }) => {
   const [isEdit, setIsEdit] = React.useState(false);
 
@@ -23,23 +26,26 @@ const RequirementRegistrar = ({
         payment details.
       </p>
 
-      {!isEdit && (
+      {/* {!isEdit && (
         <RequirementRegistrarView
           isLoading={isLoading}
           registrarRequirements={registrarRequirements}
           setIsEdit={setIsEdit}
           studentRequirement={studentRequirement}
         />
-      )}
-      {isEdit && (
-        <RequirementRegistrarEdit
-          isLoading={isLoading}
-          registrarRequirements={registrarRequirements}
-          setIsEdit={setIsEdit}
-          studentRequirement={studentRequirement}
-          itemEdit={itemEdit}
-        />
-      )}
+      )} */}
+      {/* {isEdit && ( */}
+      <RequirementRegistrarEdit
+        isLoading={isLoading}
+        registrarRequirements={registrarRequirements}
+        setIsEdit={setIsEdit}
+        studentRequirement={studentRequirement}
+        itemEdit={itemEdit}
+        schoolYear={schoolYear}
+        reqLoading={reqLoading}
+        reqFetching={reqFetching}
+      />
+      {/* )} */}
     </div>
   );
 };

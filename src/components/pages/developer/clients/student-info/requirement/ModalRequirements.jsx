@@ -5,11 +5,9 @@ import { FiEdit2, FiPlus } from "react-icons/fi";
 import { LiaTimesSolid } from "react-icons/lia";
 import RequirementRegistrar from "./requirement-registrar/RequirementRegistrar.jsx";
 
-const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
+const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const [index, setIndex] = React.useState(1);
-
-  console.log(itemEdit);
 
   const { isLoading, data: registrarRequirements } = useQueryData(
     `/v2/dev-requirement-registrar`, // endpoint
@@ -17,10 +15,16 @@ const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
     "registrar-requirements" // key
   );
 
-  const { data: studentRequirement } = useQueryData(
+  const {
+    isLoading: reqLoading,
+    isFetching: reqFetching,
+    data: studentRequirement,
+  } = useQueryData(
     `/v2/dev-students-requirement/${itemEdit.students_aid}`, // endpoint
     "get", // method
-    "students-requirements" // key
+    "students-requirements", // key
+    {},
+    itemEdit.students_aid
   );
 
   const handleClose = () => {
@@ -114,6 +118,9 @@ const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
                     registrarRequirements={registrarRequirements}
                     isLoading={isLoading}
                     studentRequirement={studentRequirement}
+                    schoolYear={schoolYear}
+                    reqLoading={reqLoading}
+                    reqFetching={reqFetching}
                   />
                 )}
               </main>
