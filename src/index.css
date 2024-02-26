@@ -332,7 +332,7 @@
   }
 
   .form__wrap {
-    @apply mb-4 relative;
+    @apply !mb-2 relative;
   }
 
   .form__wrap label {

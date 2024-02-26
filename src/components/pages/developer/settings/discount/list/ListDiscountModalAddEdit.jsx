@@ -155,17 +155,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                         />
                       </div>
                     </div>
-                    <div className="form__wrap text-xs mb-3">
-                      <InputText
-                        label="Maintaining Grade (GA)"
-                        type="text"
-                        number="number"
-                        name="discount_maintaining_grade"
-                        disabled={mutation.isLoading}
-                      />
-                    </div>
                   </div>
-
                   <div className="form__wrap text-xs mb-3">
                     <InputTextArea
                       label="Qualification"
@@ -174,7 +164,6 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       disabled={mutation.isLoading}
                     />
                   </div>
-
                   <div className="form__wrap text-xs mb-3">
                     <InputTextArea
                       label="Duration"
@@ -183,7 +172,15 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       disabled={mutation.isLoading}
                     />
                   </div>
-
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="Maintaining Grade (GA)"
+                      type="text"
+                      number="number"
+                      name="discount_maintaining_grade"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
                   <div className="form__wrap text-xs mb-3">
                     <InputTextArea
                       label="Requirement"

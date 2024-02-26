@@ -1,5 +1,4 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
 import SearchBar from "@/components/partials/SearchBar";
@@ -15,46 +14,30 @@ import {
   setIsDelete,
 } from "@/components/store/StoreAction";
 
+import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
+import Loadmore from "@/components/partials/Loadmore.jsx";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
-import { FiEdit2, FiTrash } from "react-icons/fi";
+import { FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-import { PiPasswordLight, PiStudentLight } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
 
-const StudentList = ({ setItemEdit }) => {
+const StudentList = ({ gradeLevel }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
-  const [reset, setReset] = React.useState(false);
   const search = React.useRef({ value: "" });
   const [isViewInfo, setIsViewInfo] = React.useState(false);
-
-  let link =
-    store.credentials.data.role_name.toLowerCase() === "developer"
-      ? "system"
-      : store.credentials.data.role_name.toLowerCase();
-
-  const [columnVisibility, setColumnVisibility] = React.useState({
-    user_other_email: true,
-    user_other_is_active: true,
-  });
-
-  // const {
-  //   isLoading,
-  //   isFetching,
-  //   error,
-  //   data: student,
-  // } = useQueryData(
-  //   "/v2/student", // endpoint
-  //   "get", // method
-  //   "student" // key
-  // );
+  const [page, setPage] = React.useState(1);
+  const { ref, inView } = useInView();
+  const [onSearch, setOnSearch] = React.useState(false);
+  let counter = 1;
 
   const {
     data: result,
@@ -66,14 +49,13 @@ const StudentList = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["student", search.current.value, store.isSearch],
+    queryKey: ["students", onSearch, store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/student/search`, // search endpoint
-        `/v2/student/page/${pageParam}`, // list endpoint
+        `/v2/dev-students/search`, // search endpoint
+        `/v2/dev-students/page/${pageParam}`, // list endpoint
         store.isSearch, // search boolean
-        "post",
-        { search: search.current.value }
+        { searchValue: search.current.value }
       ),
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.total) {
@@ -82,50 +64,39 @@ const StudentList = ({ setItemEdit }) => {
       return;
     },
     refetchOnWindowFocus: false,
-    // networkMode: "always",
-    // cacheTime: 200,
   });
-
-  const { data: readAllStudent } = useQueryData(
-    "/v2/student", // endpoint
-    "get", // method
-    "student" // key
-  );
-
-  const handleEdit = (item) => {
-    setItemEdit(item);
-    dispatch(setIsAdd(true));
-    setId(item.user_other_aid);
-  };
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.user_other_aid);
+    setId(item.students_aid);
     setData(item);
     setIsArchive(0);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.user_other_aid);
+    setId(item.students_aid);
     setData(item);
     setIsArchive(1);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
-    setId(item.user_other_aid);
+    setId(item.students_aid);
     setData(item);
   };
 
-  const handleResetPassword = (item) => {
-    setReset(true);
+  const handleViewInfo = (item) => {
     setData(item);
-  };
-
-  const handleViewInfo = () => {
     setIsViewInfo(true);
   };
+
+  React.useEffect(() => {
+    if (inView) {
+      setPage((prev) => prev + 1);
+      fetchNextPage();
+    }
+  }, [inView]);
 
   return (
     <>
@@ -135,8 +106,13 @@ const StudentList = ({ setItemEdit }) => {
         store={store}
         result={result?.pages}
         isFetching={isFetching}
+        setOnSearch={setOnSearch}
+        onSearch={onSearch}
       />
-      <div className="main__table">
+      <div className="main__table relative">
+        {isFetching && !isFetchingNextPage && status !== "loading" && (
+          <FetchingSpinner />
+        )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm">
@@ -145,126 +121,148 @@ const StudentList = ({ setItemEdit }) => {
                   <th>#</th>
                   <th className="w-20">Status</th>
                   <th>Name</th>
+                  <th>Grade Level</th>
+                  <th>S.Y</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>
-                    <Pills
-                      bg="bg-green-500"
-                      label="Active"
-                      color="text-green-500"
-                    />
-                  </td>
-                  <td>Ramon Plaza</td>
+                {(status === "loading" ||
+                  result?.pages[0].data.length === 0) && (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      {status === "loading" ? (
+                        <TableLoading count={20} cols={3} />
+                      ) : (
+                        <NoData />
+                      )}
+                    </td>
+                  </tr>
+                )}
 
-                  <td>
-                    <div className="flex gap-2 justify-end table-action">
-                      <button
-                        className="tooltip text-base"
-                        data-tooltip="Info"
-                        onClick={handleViewInfo}
-                      >
-                        <CiViewList />
-                      </button>
+                {error && (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      <ServerError />
+                    </td>
+                  </tr>
+                )}
 
-                      <button
-                        type="button"
-                        className="tooltip"
-                        data-tooltip="Archive"
-                        // onClick={() => handleArchive(row.row.original)}
-                      >
-                        <BsArchive />
-                      </button>
-                    </div>
+                {result?.pages.map((page, key) => (
+                  <React.Fragment key={key}>
+                    {page.data.map((item, key) => (
+                      <tr key={key}>
+                        <td>{counter++}.</td>
+                        <td>
+                          <Pills
+                            bg="bg-gray-200"
+                            label={
+                              item.students_is_active === 1
+                                ? "Active"
+                                : "Inactive"
+                            }
+                            color={
+                              item.students_is_active === 1
+                                ? "text-green-500"
+                                : "text-gray-500"
+                            }
+                          />
+                        </td>
+                        <td>{item.student_fullname}</td>
+                        <td>{item.grade_level_name}</td>
+                        <td>{item.school_year}</td>
 
-                    <div className="flex gap-2 justify-end">
-                      <button
-                        type="button"
-                        className="tooltip"
-                        data-tooltip="Restore"
-                        // onClick={() => handleRestore(row.row.original)}
-                      >
-                        <MdOutlineRestore />
-                      </button>
-                      <button
-                        type="button"
-                        className="tooltip"
-                        data-tooltip="Delete"
-                        // onClick={() => handleDelete(row.row.original)}
-                      >
-                        <FiTrash />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                        <td>
+                          <div className="flex gap-2 justify-end">
+                            <button
+                              className="tooltip text-base"
+                              data-tooltip="Info"
+                              onClick={() => handleViewInfo(item)}
+                            >
+                              <CiViewList />
+                            </button>
 
-                <tr className="text-center relative">
-                  <td colSpan="100%" className="p-2 md:p-10">
-                    {/* <FetchingSpinner /> */}
-                  </td>
-                </tr>
+                            <button
+                              type="button"
+                              className="tooltip"
+                              data-tooltip="Archive"
+                              // onClick={() => handleArchive(row.row.original)}
+                            >
+                              <BsArchive />
+                            </button>
+                          </div>
 
-                <tr className="text-center ">
-                  <td colSpan="100%" className="p-2 md:p-10">
-                    <TableLoading count={20} cols={3} />
-                    <NoData />
-                  </td>
-                </tr>
-
-                <tr className="text-center ">
-                  <td colSpan="100%" className="p-10">
-                    <ServerError />
-                  </td>
-                </tr>
+                          <div className="flex gap-2 justify-end">
+                            <button
+                              type="button"
+                              className="tooltip"
+                              data-tooltip="Restore"
+                              // onClick={() => handleRestore(row.row.original)}
+                            >
+                              <MdOutlineRestore />
+                            </button>
+                            <button
+                              type="button"
+                              className="tooltip"
+                              data-tooltip="Delete"
+                              // onClick={() => handleDelete(row.row.original)}
+                            >
+                              <FiTrash />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </React.Fragment>
+                ))}
               </tbody>
             </table>
             <div className="flex justify-between mt-10">
               <h6>
-                Count: <span>2</span>
+                Count: <span>{result?.pages[0].data.length}</span>
               </h6>
-              <button className="btn text-xs hover:underline">
-                Load More <ButtonSpinner color={"!stroke-[#123909]"} />
-              </button>
+              <Loadmore
+                fetchNextPage={fetchNextPage}
+                isFetchingNextPage={isFetchingNextPage}
+                hasNextPage={hasNextPage}
+                result={result?.pages[0]}
+                setPage={setPage}
+                page={page}
+                refView={ref}
+              />
               <span></span>
             </div>
           </div>
         </div>
       </div>
 
-      {isViewInfo && <ModalEditStudent setIsViewInfo={setIsViewInfo} />}
+      {isViewInfo && (
+        <ModalEditStudent
+          setIsViewInfo={setIsViewInfo}
+          dataItem={dataItem}
+          gradeLevel={gradeLevel}
+        />
+      )}
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/user-other/active/${id}`}
+          mysqlApiArchive={`/v2/dev-students/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={dataItem.user_other_email}
-          queryKey={"clients"}
+          item={dataItem.students_fullname}
+          queryKey={"students"}
           isArchive={isArchive}
         />
       )}
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/user-other/${id}`}
+          mysqlApiDelete={`/v2/dev-students/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={dataItem.user_other_email}
-          queryKey={"clients"}
-        />
-      )}
-
-      {reset && (
-        <ModalReset
-          setReset={setReset}
-          mysqlApiReset={`/v2/user-other/reset`}
-          msg={"Are you sure you want to reset this client password?"}
-          item={dataItem.user_other_email}
-          queryKey="clients"
+          item={dataItem.students_fullname}
+          queryKey={"students"}
         />
       )}
     </>

@@ -16,5 +16,16 @@ function checkUpdateFinancier($object)
 }
 
 
+function checkReadStudentByParentId($object)
+{
+    $query = $object->readStudentById();
+    checkQuery($query, "There's a problem processing your request. (Read by student id)");
+    return $query;
+}
+
+
+
+
+
 
 

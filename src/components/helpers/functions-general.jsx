@@ -188,3 +188,12 @@ export const getUserType = () => {
 
   return link;
 };
+
+export const isItemEmpty = (item, name = "") => {
+  let result = "";
+
+  if (item !== "") {
+    result = `${item}${name}`;
+  }
+  return result;
+};

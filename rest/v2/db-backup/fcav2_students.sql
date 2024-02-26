@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2024 at 02:23 AM
+-- Generation Time: Feb 23, 2024 at 07:26 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -51,6 +51,13 @@ CREATE TABLE `fcav2_students` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `fcav2_students`
+--
+
+INSERT INTO `fcav2_students` (`students_aid`, `students_is_active`, `students_lrn`, `students_fname`, `students_mname`, `students_lname`, `students_gender`, `students_birth_date`, `students_birth_place`, `students_email`, `students_mobile`, `students_landline`, `students_address`, `students_institutional_email`, `students_family_doctor`, `students_family_doctor_contact`, `students_medical_remarks`, `students_family_circumstances`, `students_created`, `students_datetime`) VALUES
+(1, 1, '', 'Mark Ryan', '', 'Merin', 'm', '', '', '', '', '', '', '', '', '', '', '', '2024-02-23 12:16:30', '2024-02-23 14:25:01');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -68,7 +75,7 @@ ALTER TABLE `fcav2_students`
 -- AUTO_INCREMENT for table `fcav2_students`
 --
 ALTER TABLE `fcav2_students`
-  MODIFY `students_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

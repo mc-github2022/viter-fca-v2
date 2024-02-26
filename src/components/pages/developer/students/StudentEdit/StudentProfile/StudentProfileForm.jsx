@@ -4,47 +4,49 @@ import {
   InputText,
   InputTextArea,
 } from "@/components/helpers/FormInputs.jsx";
+import { queryData } from "@/components/helpers/queryData";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import {
+  setIsAdd,
+  setMessage,
+  setSuccess,
+  setValidate,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
+const StudentProfileForm = ({
+  setIsViewInfo,
+  showSideNav,
+  dataItem,
+  gradeLevel,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
-  // const {
-  //   isLoading: gradeLoading,
-  //   isFetching: gradeFetching,
-  //   error: gradeError,
-  //   data: gradelevel,
-  // } = useQueryData(
-  //   "/v2/dev-grade-level", // endpoint
-  //   "get", // method
-  //   "gradelevel" // key
-  // );
+  console.log(dataItem);
+  console.log(gradeLevel);
 
-  // const {
-  //   isLoading: learningLoading,
-  //   isFetching: learningFetching,
-  //   error: learningError,
-  //   data: learningtype,
-  // } = useQueryData(
-  //   "/v2/dev-learning-type", // endpoint
-  //   "get", // method
-  //   "learningtype" // key
-  // );
-
-  // const {
-  //   isLoading: parentLoading,
-  //   isFetching: parentFetching,
-  //   error: parentError,
-  //   data: parent,
-  // } = useQueryData(
-  //   `/v2/student/parent-address/${31}`, // endpoint
-  //   "get", // method
-  //   "parent" // key
-  // );
+  const mutation = useMutation({
+    mutationFn: (values) =>
+      queryData(`/v2/dev-students/${dataItem.students_aid}`, "put", values),
+    onSuccess: (data) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["students"] });
+      // show error box
+      if (data.success) {
+        setIsViewInfo(false);
+        dispatch(setSuccess(true));
+        dispatch(setMessage("Record successfully updated."));
+      }
+      if (!data.success) {
+        dispatch(setValidate(true));
+        dispatch(setMessage(data.error));
+      }
+    },
+  });
 
   const queryClient = useQueryClient();
 
@@ -53,13 +55,7 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
   };
 
   const initVal = {
-    student_info_aid: itemEdit ? itemEdit.student_info_aid : "",
-    student_info_learning_type: itemEdit
-      ? itemEdit.student_info_learning_type
-      : "",
-    student_info_reference_no: itemEdit
-      ? itemEdit.student_info_reference_no
-      : "",
+    ...dataItem,
   };
 
   const yupSchema = Yup.object({});
@@ -85,10 +81,21 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                         : "max-w-[calc(1065px-200px)]"
                     } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
                   >
-                    <button className="btn btn--accent">Save</button>
-                    <button className="btn btn--cancel" onClick={handleClose}>
+                    <button
+                      className="btn btn--accent"
+                      type="submit"
+                      disabled={mutation.isPending}
+                    >
+                      {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                    </button>
+                    <button
+                      className="btn btn--cancel"
+                      type="button"
+                      onClick={handleClose}
+                      disabled={mutation.isPending}
+                    >
                       Discard
-                    </button>{" "}
+                    </button>
                   </div>
                   <h3 className="mb-3">Profile</h3>
                   <h6 className="mb-2 uppercase">Classification</h6>
@@ -97,34 +104,21 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       <InputText
                         label="School Year"
                         type="text"
-                        name="department_name"
-                        // disabled={mutation.isLoading}
+                        name="school_year"
+                        value={dataItem.school_year}
+                        disabled
                       />
                     </div>
 
                     <div className="form__wrap">
                       <InputSelect
                         label="Learning Type"
-                        type="text"
-                        name="student_info_learning_type"
-                        //disabled={mutation.isLoading}
-                        onChange={(e) => e}
+                        name="school_year_students_last_learning_type"
+                        disabled={mutation.isPending}
                       >
                         <option value="" hidden></option>
-
-                        {/* {learningLoading || learningFetching ? (
-                          <option>Loading...</option>
-                        ) : learningtype?.data.length === 0 ? (
-                          <option>No Data</option>
-                        ) : (
-                          learningtype?.data.map((item, key) => {
-                            return (
-                              <option key={key} value={item.learning_type_aid}>
-                                {`${item.learning_type_name}`}
-                              </option>
-                            );
-                          })
-                        )} */}
+                        <option value="onsite">Face-to-Face</option>
+                        <option value="online">Online</option>
                       </InputSelect>
                     </div>
 
@@ -132,34 +126,31 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       <InputText
                         label="Learning Reference No."
                         type="text"
-                        name="student_info_reference_no"
-                        // disabled={mutation.isLoading}
+                        name="students_lrn"
+                        disabled={mutation.isPending}
                       />
                     </div>
 
                     <div className="form__wrap">
                       <InputSelect
                         label="Grade Level"
-                        type="text"
-                        name="student_info_grade_level"
-                        //disabled={mutation.isLoading}
-                        onChange={(e) => e}
+                        name="school_year_students_last_grade_level_id"
+                        disabled={mutation.isPending}
                       >
                         <option value="" hidden></option>
-
-                        {/* {gradeLoading || gradeFetching ? (
-                          <option>Loading...</option>
-                        ) : gradelevel?.data.length === 0 ? (
-                          <option>No Data</option>
-                        ) : (
-                          gradelevel?.data.map((item, key) => {
+                        {gradeLevel?.count > 0 ? (
+                          gradeLevel?.data.map((item, key) => {
                             return (
-                              <option key={key} value={item.grade_level_aid}>
-                                {`${item.grade_level_name}`}
+                              <option value={item.grade_level_aid} key={key}>
+                                {item.grade_level_name}
                               </option>
                             );
                           })
-                        )} */}
+                        ) : (
+                          <option value="" disabled>
+                            No data
+                          </option>
+                        )}
                       </InputSelect>
                     </div>
                   </div>
@@ -170,8 +161,8 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       <InputText
                         label="Last Name (Suffix)"
                         type="text"
-                        name="student_info_lname"
-                        // disabled={mutation.isLoading}
+                        name="students_lname"
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -179,35 +170,38 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       <InputText
                         label="First Name"
                         type="text"
-                        name="student_info_fname"
-                        // disabled={mutation.isLoading}
+                        name="students_fname"
+                        disabled={mutation.isPending}
                       />
                     </div>
 
                     <div className="form__wrap">
                       <InputText
-                        label="Middle Name"
+                        label="Middle Name "
                         type="text"
-                        name="student_info_mname"
-                        // disabled={mutation.isLoading}
+                        name="students_mname"
+                        disabled={mutation.isPending}
                       />
                     </div>
 
                     <div className="form__wrap">
-                      <InputText
+                      <InputSelect
                         label="Gender"
-                        type="text"
-                        name="student_info_gender"
-                        // disabled={mutation.isLoading}
-                      />
+                        name="students_gender"
+                        disabled={mutation.isPending}
+                      >
+                        <option value="" hidden></option>
+                        <option value="m">Male</option>
+                        <option value="f">Female</option>
+                      </InputSelect>
                     </div>
 
                     <div className="form__wrap">
                       <InputText
-                        label="Birthday"
-                        type="text"
-                        name="student_info_bday"
-                        // disabled={mutation.isLoading}
+                        label="Birth Date "
+                        type="date"
+                        name="students_birth_date"
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -215,32 +209,32 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       <InputText
                         label="Birth Place"
                         type="text"
-                        name="student_info_birth_place"
-                        // disabled={mutation.isLoading}
+                        name="student_birth_place"
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
                       <InputText
                         label="Email"
                         type="text"
-                        name="student_info_email"
-                        // disabled={mutation.isLoading}
+                        name="student_email"
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
                       <InputText
                         label="Mobile"
                         type="text"
-                        name="student_info_mobile"
-                        // disabled={mutation.isLoading}
+                        name="student_mobile"
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
                       <InputText
-                        label="Landline (Optional)"
+                        label="Landline "
                         type="text"
-                        name="student_info_landline"
-                        // disabled={mutation.isLoading}
+                        name="student_landline"
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -248,32 +242,12 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                   <h6 className="mb-2 uppercase">Address</h6>
                   <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
-                      <InputSelect
+                      <InputText
                         label="Current Address"
                         type="text"
-                        name="student_info_adress_id"
-                        //disabled={mutation.isLoading}
-                        onChange={(e) => e}
-                      >
-                        <option value="" hidden></option>
-
-                        {/* {parentLoading || parentFetching ? (
-                          <option>Loading...</option>
-                        ) : parent?.data.length === 0 ? (
-                          <option>No Data</option>
-                        ) : (
-                          parent?.data.map((item, key) => {
-                            return (
-                              <option
-                                key={key}
-                                value={item.parent_guardian_info_aid}
-                              >
-                                {`${item.parent_guardian_info_fname} ${item.parent_guardian_info_lname} - ${item.parent_guardian_info_address} ${item.parent_guardian_info_city} ${item.parent_guardian_info_province}, ${item.parent_guardian_info_zipcode}`}
-                              </option>
-                            );
-                          })
-                        )} */}
-                      </InputSelect>
+                        name="student_adress"
+                        disabled={mutation.isPending}
+                      />
                     </div>
                   </div>
 
@@ -283,35 +257,49 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       <InputText
                         label="Last School Name"
                         type="text"
-                        name="student_info_last_school"
-                        // disabled={mutation.isLoading}
+                        name="school_year_students_last_school_attended"
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
                       <InputText
                         label="GPA Last School Year"
                         type="text"
-                        name="student_info_last_gpa"
-                        // disabled={mutation.isLoading}
+                        name="school_year_students_last_gpa"
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
-                      <InputText
-                        label="Grade Level Last School Year"
-                        type="text"
-                        name="student_info_last_grade"
-                        // disabled={mutation.isLoading}
-                      />
+                      <InputSelect
+                        label="Grade Level"
+                        name="school_year_students_last_grade_level_id"
+                        disabled
+                      >
+                        <option value="" hidden></option>
+                        {gradeLevel?.count > 0 ? (
+                          gradeLevel?.data.map((item, key) => {
+                            return (
+                              <option value={item.grade_level_aid} key={key}>
+                                {item.grade_level_name}
+                              </option>
+                            );
+                          })
+                        ) : (
+                          <option value="" disabled>
+                            No data
+                          </option>
+                        )}
+                      </InputSelect>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
                       <InputText
-                        label="Select Parent Address"
+                        label="Parent Address"
                         type="text"
-                        name="student_info_school_address"
-                        // disabled={mutation.isLoading}
+                        name="student_adress"
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -321,8 +309,8 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                       <InputTextArea
                         label="Was the student ever submitted to any form of disciplinary action? If so, why?"
                         type="text"
-                        name="student_info_school_other"
-                        // disabled={mutation.isLoading}
+                        name="school_year_students_last_remarks"
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -331,18 +319,18 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                   <div className="grid grid-cols-2 gap-x-3">
                     <div className="form__wrap">
                       <InputText
-                        label="Pediatrician/Family Doctor: (optional)"
+                        label="Pediatrician/Family Doctor "
                         type="text"
-                        name="student_info_medical_doctor"
-                        // disabled={mutation.isLoading}
+                        name="students_family_doctor"
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
                       <InputText
-                        label="Contact Name: (optional)"
+                        label="Contact Name "
                         type="text"
-                        name="student_info_medical_contact"
-                        // disabled={mutation.isLoading}
+                        name="students_family_doctor_contact"
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -350,8 +338,8 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                     <InputTextArea
                       label="Are there any serious medical conditions about which you wish the school to be aware? Please indicate below:"
                       type="text"
-                      name="student_info_medical_notes"
-                      // disabled={mutation.isLoading}
+                      name="students_medical_remarks"
+                      disabled={mutation.isPending}
                     />
                   </div>
 
@@ -359,8 +347,8 @@ const StudentProfileForm = ({ setIsViewInfo, showSideNav, itemEdit }) => {
                     <InputTextArea
                       label="Are there any family circumstances about which you wish the school to be aware? Please indicate below:"
                       type="text"
-                      name="student_info_family_circumstances"
-                      // disabled={mutation.isLoading}
+                      name="students_family_circumstances"
+                      disabled={mutation.isPending}
                     />
                   </div>
                 </div>

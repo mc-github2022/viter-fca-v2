@@ -12,15 +12,13 @@ $data = json_decode($body, true);
 
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
-    if (empty($_GET)) {
-        checkPayload($data);
+    checkPayload($data);
 
-        $student->students_search = checkIndex($data, "searchValue");
+    $student->students_search = checkIndex($data, "searchValue");
 
-        $query = checkSearch($student);
-        http_response_code(200);
-        getQueriedData($query);
-    }
+    $query = checkSearch($student);
+    http_response_code(200);
+    getQueriedData($query);
     // return 404 error if endpoint not available
     checkEndpoint();
 }

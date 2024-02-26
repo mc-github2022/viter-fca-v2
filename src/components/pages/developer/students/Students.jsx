@@ -13,17 +13,15 @@ import StudentList from "./StudentList.jsx";
 
 const Students = () => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [itemEdit, setItemEdit] = React.useState(null);
 
-  const { data: roles } = useQueryData(
-    "/v2/dev-roles", // endpoint
+  const { data: gradeLevel } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
     "get", // method
-    "roles" // key
+    "grade-level" // key
   );
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));
-    setItemEdit(null);
   };
 
   const {
@@ -70,12 +68,14 @@ const Students = () => {
               </button>
             </div>
 
-            <StudentList setItemEdit={setItemEdit} />
+            <StudentList gradeLevel={gradeLevel} />
             <Footer />
           </main>
         </div>
       </section>
-      {store.isAdd && <ModalAddStudent itemEdit={itemEdit} roles={roles} />}
+      {store.isAdd && (
+        <ModalAddStudent schoolYear={schoolYear} gradeLevel={gradeLevel} />
+      )}
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
     </div>

@@ -13,8 +13,6 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsDelete,
-  setSettingIsConfirm,
-  setSettingIsDelete,
 } from "@/components/store/StoreAction";
 
 import { StoreContext } from "@/components/store/StoreContext";
@@ -151,6 +149,7 @@ const ClientList = ({ setItemEdit }) => {
                     </td>
                   </tr>
                 )}
+
                 {result?.pages.map((page, key) => (
                   <React.Fragment key={key}>
                     {page.data.map((item, key) => (
@@ -179,7 +178,7 @@ const ClientList = ({ setItemEdit }) => {
                           {item.parents_is_active === 1 ? (
                             <div className="table-action flex gap-2 justify-end">
                               <Link
-                                to={`${devNavUrl}/${link}/clients/students`}
+                                to={`${devNavUrl}/${link}/clients/students?cid=${item.parents_aid}`}
                                 className="tooltip text-base"
                                 data-tooltip="Student"
                               >

@@ -1,5 +1,6 @@
-import { InputText } from "@/components/helpers/FormInputs.jsx";
+import { InputSelect, InputText } from "@/components/helpers/FormInputs.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setError,
   setIsAdd,
@@ -15,7 +16,7 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 
-const ModalAddStudent = ({ itemEdit, roles, id }) => {
+const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -27,20 +28,13 @@ const ModalAddStudent = ({ itemEdit, roles, id }) => {
     }, 200);
   };
 
-  const roleId = roles?.data.filter((item) => item.role_is_client === 1);
+  const syId = schoolYear?.data.find((item) => item.school_year_aid);
 
   const mutation = useMutation({
-    mutationFn: (values) =>
-      queryData(
-        itemEdit
-          ? `/v2/user-other/${itemEdit.user_other_aid}`
-          : "/v2/user-other",
-        itemEdit ? "put" : "post",
-        values
-      ),
+    mutationFn: (values) => queryData("/v2/dev-students", "post", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["clients"] });
+      queryClient.invalidateQueries({ queryKey: ["students"] });
       // show error box
       if (data.success) {
         dispatch(setIsAdd(false));
@@ -55,16 +49,27 @@ const ModalAddStudent = ({ itemEdit, roles, id }) => {
   });
 
   const initVal = {
-    user_other_fname: itemEdit ? itemEdit.user_other_fname : "",
-    user_other_lname: itemEdit ? itemEdit.user_other_lname : "",
-    user_other_email: itemEdit ? itemEdit.user_other_email : "",
-    user_other_email_old: itemEdit ? itemEdit.user_other_email : "",
+    students_lrn: "",
+    students_fname: "",
+    students_lname: "",
+    students_mname: "",
+    students_gender: "",
+    students_birth_date: "",
+    students_email: "",
+    students_mobile: "",
+    students_landline: "",
+    school_year_students_last_learning_type: "",
+    school_year_students_sy_id: syId.school_year_aid,
+    school_year_students_last_grade_level_id: "",
   };
 
   const yupSchema = Yup.object({
-    user_other_fname: Yup.string().required("Required"),
-    user_other_lname: Yup.string().required("Required"),
-    user_other_email: Yup.string().required("Required").email("Invalid email"),
+    students_fname: Yup.string().required("Required"),
+    students_lname: Yup.string().required("Required"),
+    students_gender: Yup.string().required("Required"),
+    students_email: Yup.string().email("Invalid email"),
+    school_year_students_last_learning_type: Yup.string().required("Required"),
+    school_year_students_last_grade_level_id: Yup.string().required("Required"),
   });
 
   return (
@@ -84,10 +89,8 @@ const ModalAddStudent = ({ itemEdit, roles, id }) => {
             initialValues={initVal}
             validationSchema={yupSchema}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              mutation.mutate({
-                ...values,
-                user_other_role_id: roleId[0].role_aid,
-              });
+              // console.log(values);
+              mutation.mutate(values);
             }}
           >
             {(props) => {
@@ -96,36 +99,136 @@ const ModalAddStudent = ({ itemEdit, roles, id }) => {
                   <div className="modal__body custom__scroll">
                     <div className="form__wrap">
                       <InputText
+                        disabled={mutation.isPending}
+                        label="LRN (Optional)"
+                        type="text"
+                        name="students_lrn"
+                      />
+                    </div>
+
+                    <div className="form__wrap">
+                      <InputSelect
+                        disabled={mutation.isPending}
+                        label="Grade Level"
+                        name="school_year_students_last_grade_level_id"
+                      >
+                        <option value="" hidden></option>
+                        {gradeLevel?.count > 0 ? (
+                          gradeLevel?.data.map((item, key) => {
+                            return (
+                              <option value={item.grade_level_aid} key={key}>
+                                {item.grade_level_name}
+                              </option>
+                            );
+                          })
+                        ) : (
+                          <option value="" disabled>
+                            No data
+                          </option>
+                        )}
+                      </InputSelect>
+                    </div>
+
+                    <div className="form__wrap">
+                      <InputSelect
+                        disabled={mutation.isPending}
+                        label="Learning Type"
+                        name="school_year_students_last_learning_type"
+                      >
+                        <option value="" hidden></option>
+                        <option value="onsite">Face-to-Face</option>
+                        <option value="online">Online</option>
+                      </InputSelect>
+                    </div>
+
+                    <div className="form__wrap">
+                      <InputText
+                        disabled={mutation.isPending}
                         label="First Name"
                         type="text"
-                        name="user_other_fname"
+                        name="students_fname"
                       />
                     </div>
 
                     <div className="form__wrap">
                       <InputText
+                        disabled={mutation.isPending}
+                        label="Middle Name (Optional)"
+                        type="text"
+                        name="students_mname"
+                      />
+                    </div>
+
+                    <div className="form__wrap">
+                      <InputText
+                        disabled={mutation.isPending}
                         label="Last Name"
                         type="text"
-                        name="user_other_lname"
+                        name="students_lname"
+                      />
+                    </div>
+
+                    <div className="form__wrap">
+                      <InputSelect
+                        disabled={mutation.isPending}
+                        label="Gender"
+                        name="students_gender"
+                      >
+                        <option value="" hidden></option>
+                        <option value="m">Male</option>
+                        <option value="f">Female</option>
+                      </InputSelect>
+                    </div>
+
+                    <div className="form__wrap">
+                      <InputText
+                        disabled={mutation.isPending}
+                        label="Birth Date (Optional)"
+                        type="date"
+                        name="students_birth_date"
                       />
                     </div>
 
                     <div className="form__wrap">
                       <InputText
-                        label="Email"
+                        disabled={mutation.isPending}
+                        label="Email (Optional)"
                         type="email"
-                        name="user_other_email"
+                        name="students_email"
+                      />
+                    </div>
+
+                    <div className="form__wrap">
+                      <InputText
+                        disabled={mutation.isPending}
+                        label="Mobile (Optional)"
+                        type="text"
+                        name="students_mobile"
+                      />
+                    </div>
+
+                    <div className="form__wrap">
+                      <InputText
+                        disabled={mutation.isPending}
+                        label="Landline (Optional)"
+                        type="text"
+                        name="students_landline"
                       />
                     </div>
                   </div>
                   <div className="modal__action ">
-                    <button className="btn btn--accent" type="submit">
-                      {itemEdit ? "Update" : "Save"}
+                    <button
+                      className="btn btn--accent"
+                      type="submit"
+                      disabled={mutation.isPending || !props.dirty}
+                    >
+                      {mutation.isPending ? <ButtonSpinner /> : "Save"}
                     </button>
                     <button
                       className="btn btn--cancel"
                       type="button"
                       onClick={handleClose}
+                      disabled={mutation.isPending}
                     >
                       Discard
                     </button>

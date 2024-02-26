@@ -21,11 +21,13 @@ class Parents
 
     public $tblParents;
     public $tblUserOther;
+    public $tblStudents;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblParents = "fcav2_parents";
+        $this->tblStudents = "fcav2_students";
         $this->tblUserOther = "fcav2_settings_user_other";
     }
 
@@ -153,6 +155,25 @@ class Parents
         }
         return $query;
     }
+
+        // read by id
+        public function readStudentById()
+        {
+            try {
+                $sql = "select * from {$this->tblStudents} as students, ";
+                $sql .= "{$this->tblParents} as parents ";
+                $sql .= "where students.students_parent_id = parents.parents_aid ";
+                $sql .= "and students.students_parent_id = :parents_aid ";
+                $sql .= "order by students.students_fname asc ";
+                $query = $this->connection->prepare($sql);
+                $query->execute([
+                    "parents_aid" => $this->parents_aid,
+                ]);
+            } catch (PDOException $ex) {
+                $query = false;
+            }
+            return $query;
+        }
 
     public function update()
     {
