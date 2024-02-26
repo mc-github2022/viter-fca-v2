@@ -18,6 +18,7 @@ if (array_key_exists("studentid", $_GET)) {
     //     $student->$key = $data[$value];
     // }
 
+    $student->students_parent_id = $data["students_parent_id"];
     $student->students_lrn = $data["students_lrn"];
     $student->students_fname = $data["students_fname"];
     $student->students_mname = $data["students_mname"];

@@ -24,7 +24,6 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
   const [dataSelected, setDataSelected] = React.useState([]);
   const [searchUser, setSearchUser] = React.useState("");
   const refUser = React.useRef();
-  const [select, setSelect] = React.useState("");
 
   const handleClose = () => {
     dispatch(setIsSettingAdd(false));

@@ -84,7 +84,7 @@ const StudentProfileForm = ({
                     <button
                       className="btn btn--accent"
                       type="submit"
-                      disabled={mutation.isPending}
+                      disabled={mutation.isPending || !props.dirty}
                     >
                       {mutation.isPending ? <ButtonSpinner /> : "Save"}
                     </button>
