@@ -3,15 +3,16 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
-import StudentCodeOfConduct from "./StudentCodeOfConduct/StudentCodeOfConduct.jsx";
-import StudentParentCommitment from "./StudentParentCommitment/StudentParentCommitment.jsx";
-import StudentParentConsent from "./StudentParentConsent/StudentParentConsent.jsx";
-import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDeclaration.jsx";
-import StudentProfileForm from "./StudentProfileForm/StudentProfileForm.jsx";
+import StudentCodeOfConduct from "./StudentCodeOfConduct.jsx";
+import StudentParentCommitment from "./StudentParentCommitment.jsx";
+import StudentParentConsent from "./StudentParentConsent.jsx";
+import StudentParentDeclaration from "./StudentParentDeclaration.jsx";
+import StudentPaymentScheme from "./StudentPaymentScheme.jsx";
+import StudentProfileForm from "./StudentProfileForm.jsx";
 
-const ModalAddStudent = ({ itemEdit, cid }) => {
-  const { store, dispatch } = React.useContext(StoreContext);
+const ModalAddStudent = ({ setIsViewInfo, dataItem, gradeLevel, parent }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
+  const { store, dispatch } = React.useContext(StoreContext);
   const [index, setIndex] = React.useState(1);
 
   const handleClose = () => {
@@ -28,10 +29,10 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 z-20 h-screen w-full">
-        <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-40"></div>
+      <div className={`modal modal--settings show `}>
+        <div className="modal__backdrop bg-black bg-opacity-0"></div>
         <div className="z-50 h-full w-full flex justify-center items-center relative ">
-          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-350px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
+          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-150px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <button
@@ -42,13 +43,23 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   <FaBars />
                 </button>
                 <h5 className="mb-0 font-normal">
-                  Student Information -{" "}
-                  {/* {`${itemEdit.student_info_fname}, ${itemEdit.student_info_lname}`} */}
+                  Student Information{" "}
+                  {/* <span className="font-bold">- {dataItem.student_fullname}</span> */}
                 </h5>
               </div>
-              <button onClick={handleClose}>
-                <LiaTimesSolid />
-              </button>
+
+              <div className="flex items-center gap-4">
+                <h5 className="mb-0 font-normal">
+                  Parent Name -{" "}
+                  <span className="font-bold">
+                    {parent?.data[0].parents_fname}{" "}
+                    {parent?.data[0].parents_lname}
+                  </span>
+                </h5>
+                <button onClick={handleClose}>
+                  <LiaTimesSolid />
+                </button>
+              </div>
             </div>
             <div
               className={`flex gap-3 h-full  bg-white overflow-hidden relative`}
@@ -64,19 +75,30 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   >
                     <button
                       onClick={() => handleChangeProfile(1)}
-                      className="p-1 pl-4 w-full text-left "
+                      className="p-1 pl-4 "
                     >
                       Profile
                     </button>
                   </li>
+
+                  <li
+                    className={`${index === 6 ? "bg-accent text-primary" : ""}`}
+                  >
+                    <button
+                      onClick={() => handleChangeProfile(6)}
+                      className="p-1 pl-4 "
+                    >
+                      Payment Scheme
+                    </button>
+                  </li>
                   <li
                     className={` ${
-                      index === 2 ? "bg-accent text-primary " : ""
+                      index === 2 ? "bg-accent text-primary" : ""
                     }`}
                   >
                     <button
                       onClick={() => handleChangeProfile(2)}
-                      className="p-1 pl-4 w-full text-left "
+                      className="p-1 pl-4 "
                     >
                       Code of Conduct
                     </button>
@@ -89,7 +111,7 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   >
                     <button
                       onClick={() => handleChangeProfile(3)}
-                      className="p-1 pl-4 w-full text-left "
+                      className="p-1 pl-4 "
                     >
                       Parent Declaration
                     </button>
@@ -102,7 +124,7 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   >
                     <button
                       onClick={() => handleChangeProfile(4)}
-                      className="p-1 pl-4 w-full text-left"
+                      className="p-1 pl-4 "
                     >
                       Parent Consent
                     </button>
@@ -115,7 +137,7 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                   >
                     <button
                       onClick={() => handleChangeProfile(5)}
-                      className="p-1 pl-4  w-full text-left"
+                      className="p-1 pl-4 "
                     >
                       Commitment Form
                     </button>
@@ -123,42 +145,61 @@ const ModalAddStudent = ({ itemEdit, cid }) => {
                 </ul>
               </aside>
               <main
-                className={` p-5 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
+                className={` p-5 pb-20 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
                 {index === 1 && (
                   <StudentProfileForm
                     index={index}
+                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
-                    cid={cid}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 2 && (
                   <StudentCodeOfConduct
                     index={index}
+                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 3 && (
                   <StudentParentDeclaration
                     index={index}
+                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 4 && (
                   <StudentParentConsent
                     index={index}
+                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 5 && (
                   <StudentParentCommitment
                     index={index}
+                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    itemEdit={itemEdit}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
+                  />
+                )}
+
+                {index === 6 && (
+                  <StudentPaymentScheme
+                    index={index}
+                    setIsViewInfo={setIsViewInfo}
+                    showSideNav={showSideNav}
+                    dataItem={dataItem}
+                    gradeLevel={gradeLevel}
                   />
                 )}
               </main>
