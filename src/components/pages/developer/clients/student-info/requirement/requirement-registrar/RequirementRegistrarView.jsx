@@ -2,11 +2,31 @@ import NoData from "@/components/partials/NoData.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import React from "react";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 
-const RequirementRegistrarView = ({ registrar, setIsEdit }) => {
+const RequirementRegistrarView = ({
+  registrarRequirements,
+  setIsEdit,
+  isLoading,
+  studentRequirement,
+}) => {
   const handleEdit = () => {
     setIsEdit(true);
+  };
+
+  const getSubmittedRequirements = (requirementsId) => {
+    return studentRequirement?.count > 0 ? (
+      studentRequirement?.data.map((item) => {
+        if (Number(item.students_requirements_id) === Number(requirementsId)) {
+          return <FaCheck className="fill-accent" />;
+        } else {
+          return <FaTimes className="fill-alert" />;
+        }
+      })
+    ) : (
+      <FaTimes className="fill-alert" />
+    );
   };
 
   return (
@@ -27,26 +47,31 @@ const RequirementRegistrarView = ({ registrar, setIsEdit }) => {
       </div>
 
       <div className="table__wrapper max-w-[600px]">
-        <TableLoading />
-        <NoData />
-        {registrar?.data.map((item, key) => {
-          return (
-            <div
-              key={key}
-              className="list  flex justify-between items-center py-2 border-b border-line"
-            >
-              <p className="text-xs">{item.requirement_registrar_name}</p>
-            </div>
-          );
-        })}
+        {isLoading ? (
+          <TableLoading />
+        ) : registrarRequirements?.count > 0 ? (
+          registrarRequirements?.data.map((item, key) => {
+            return (
+              <div
+                key={key}
+                className="list flex justify-between items-center py-2 border-b border-line"
+              >
+                <p className="text-xs">{item.requirement_registrar_name}</p>{" "}
+                {getSubmittedRequirements(item.requirement_registrar_aid)}
+              </div>
+            );
+          })
+        ) : (
+          <NoData />
+        )}
       </div>
 
       <div className="remarks max-w-[500px] mt-10">
-        <h6>Note:</h6>
+        <h6>Remarks:</h6>
         <p className="text-xs">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam
-          doloremque quas reiciendis consequuntur numquam distinctio nemo atque
-          deleniti qui eligendi?
+          {studentRequirement?.count > 0
+            ? studentRequirement?.data[0].students_requirements_remarks
+            : "None"}
         </p>
       </div>
     </div>

@@ -1,8 +1,4 @@
-import {
-  InputCheckbox,
-  InputText,
-  InputTextArea,
-} from "@/components/helpers/FormInputs.jsx";
+import { InputCheckbox } from "@/components/helpers/FormInputs.jsx";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
