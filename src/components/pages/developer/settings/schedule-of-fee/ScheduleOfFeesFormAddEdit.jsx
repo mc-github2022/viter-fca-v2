@@ -13,7 +13,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import { getUponEnrollment } from "./functions-schedule-of-fee";
+import {
+  getTotalMonthlyFee,
+  getTotalPayment,
+  getUponEnrollment,
+} from "./functions-schedule-of-fee";
 import { numberWithCommas } from "@/components/helpers/functions-general";
 
 const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
@@ -112,6 +116,10 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
     tuition_fee_tuition: itemEdit ? itemEdit.tuition_fee_tuition : "",
     tuition_fee_books: itemEdit ? itemEdit.tuition_fee_books : "",
     tuition_fee_admission: itemEdit ? itemEdit.tuition_fee_admission : "",
+    tuition_fee_monthly: itemEdit ? itemEdit.tuition_fee_monthly : "",
+    tuition_fee_how_many_months: itemEdit
+      ? itemEdit.tuition_fee_how_many_months
+      : "",
   };
 
   const yupSchema = Yup.object({
@@ -133,6 +141,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             // console.log(values);
             const tuition_fee_upon_enrollment = getUponEnrollment(values);
+            const tuition_fee_total_monthly = getTotalMonthlyFee(values);
             const tuition_name = `${categoryName} - ${gradeName} (${schemeName})`;
             const tuition_name_old = itemEdit
               ? `${itemEdit.tuition_category_name} - ${itemEdit.grade_level_name} (${itemEdit.scheme_name})`
@@ -141,6 +150,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
             mutation.mutate({
               ...values,
               tuition_fee_upon_enrollment,
+              tuition_fee_total_monthly,
               tuition_name,
               tuition_name_old,
             });
@@ -148,140 +158,172 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
         >
           {(props) => {
             return (
-              <Form>
-                <div className="form__wrap text-xs mb-3">
-                  <InputSelect
-                    label="Category"
-                    type="text"
-                    name="tuition_fee_category_id"
-                    disabled={mutation.isLoading}
-                    onChange={(e) => handleCategory(e)}
-                  >
-                    <option value="" hidden>
-                      {(isLoading || isFetching) && "Loading..."}
-                    </option>
+              <Form className="flex flex-col h-full max-h-[calc(70vh-90px)] overflow-y-auto">
+                <div className="modal__body custom__scroll">
+                  <div className="form__wrap text-xs mb-3">
+                    <InputSelect
+                      label="Category"
+                      type="text"
+                      name="tuition_fee_category_id"
+                      disabled={mutation.isLoading}
+                      onChange={(e) => handleCategory(e)}
+                    >
+                      <option value="" hidden>
+                        {(isLoading || isFetching) && "Loading..."}
+                      </option>
 
-                    {(!isLoading || !isFetching) &&
-                    category?.data.length === 0 ? (
-                      <option>No Data</option>
-                    ) : (
-                      category?.data.map((item, key) => {
-                        return (
-                          <option key={key} value={item.tuition_category_aid}>
-                            {`${item.tuition_category_name}`}
-                          </option>
-                        );
-                      })
+                      {(!isLoading || !isFetching) &&
+                      category?.data.length === 0 ? (
+                        <option>No Data</option>
+                      ) : (
+                        category?.data.map((item, key) => {
+                          return (
+                            <option key={key} value={item.tuition_category_aid}>
+                              {`${item.tuition_category_name}`}
+                            </option>
+                          );
+                        })
+                      )}
+                    </InputSelect>
+                  </div>
+
+                  <div className="form__wrap text-xs mb-3">
+                    <InputSelect
+                      label="Grade"
+                      type="text"
+                      name="tuition_fee_grade_id"
+                      disabled={mutation.isLoading}
+                      onChange={(e) => handleGrade(e)}
+                    >
+                      <option value="" hidden>
+                        {(loadingGrade || fetchingGrade) && "Loading..."}
+                      </option>
+
+                      {(!loadingGrade || !fetchingGrade) &&
+                      grade?.data.length === 0 ? (
+                        <option>No Data</option>
+                      ) : (
+                        grade?.data.map((item, key) => {
+                          return (
+                            <option
+                              key={key}
+                              value={item.grade_level_aid}
+                              id={item.grade_level_name}
+                            >
+                              {`${item.grade_level_name}`}
+                            </option>
+                          );
+                        })
+                      )}
+                    </InputSelect>
+                  </div>
+
+                  <div className="form__wrap text-xs mb-3">
+                    <InputSelect
+                      label="Scheme"
+                      type="text"
+                      name="tuition_fee_scheme_id"
+                      disabled={mutation.isLoading}
+                      onChange={(e) => handleScheme(e)}
+                    >
+                      <option value="" hidden>
+                        {(loadingScheme || fetchingScheme) && "Loading..."}
+                      </option>
+
+                      {(!loadingScheme || !fetchingScheme) &&
+                      scheme?.data.length === 0 ? (
+                        <option disabled>No Data</option>
+                      ) : (
+                        scheme?.data.map((item, key) => {
+                          return (
+                            <option
+                              key={key}
+                              value={item.scheme_aid}
+                              id={item.scheme_name}
+                            >
+                              {`${item.scheme_name}`}
+                            </option>
+                          );
+                        })
+                      )}
+                    </InputSelect>
+                  </div>
+
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="Admission Fee"
+                      type="text"
+                      number="number"
+                      name="tuition_fee_admission"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
+
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="Misc Fee"
+                      type="text"
+                      number="number"
+                      name="tuition_fee_miscellaneous"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
+
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="Tuition Fee"
+                      type="text"
+                      number="number"
+                      name="tuition_fee_tuition"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
+
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="Books"
+                      type="text"
+                      number="number"
+                      name="tuition_fee_books"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
+                  <p className="text-accent font-bold ">
+                    {numberWithCommas(
+                      Number(getUponEnrollment(props.values)).toFixed(2)
                     )}
-                  </InputSelect>
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputSelect
-                    label="Grade"
-                    type="text"
-                    name="tuition_fee_grade_id"
-                    disabled={mutation.isLoading}
-                    onChange={(e) => handleGrade(e)}
-                  >
-                    <option value="" hidden>
-                      {(loadingGrade || fetchingGrade) && "Loading..."}
-                    </option>
-
-                    {(!loadingGrade || !fetchingGrade) &&
-                    grade?.data.length === 0 ? (
-                      <option>No Data</option>
-                    ) : (
-                      grade?.data.map((item, key) => {
-                        return (
-                          <option
-                            key={key}
-                            value={item.grade_level_aid}
-                            id={item.grade_level_name}
-                          >
-                            {`${item.grade_level_name}`}
-                          </option>
-                        );
-                      })
+                  </p>
+                  <div className="form__wrap text-xs my-3">
+                    <InputText
+                      label="Monthly Fee"
+                      type="text"
+                      number="number"
+                      name="tuition_fee_monthly"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
+                  <div className="form__wrap text-xs mb-3">
+                    <InputText
+                      label="How many months"
+                      type="text"
+                      number="number"
+                      name="tuition_fee_how_many_months"
+                      disabled={mutation.isLoading}
+                    />
+                  </div>
+                  <p className="text-accent font-bold ">
+                    Total Monthly Fee:{" "}
+                    {numberWithCommas(
+                      Number(getTotalMonthlyFee(props.values)).toFixed(2)
                     )}
-                  </InputSelect>
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputSelect
-                    label="Scheme"
-                    type="text"
-                    name="tuition_fee_scheme_id"
-                    disabled={mutation.isLoading}
-                    onChange={(e) => handleScheme(e)}
-                  >
-                    <option value="" hidden>
-                      {(loadingScheme || fetchingScheme) && "Loading..."}
-                    </option>
-
-                    {(!loadingScheme || !fetchingScheme) &&
-                    scheme?.data.length === 0 ? (
-                      <option>No Data</option>
-                    ) : (
-                      scheme?.data.map((item, key) => {
-                        return (
-                          <option
-                            key={key}
-                            value={item.scheme_aid}
-                            id={item.scheme_name}
-                          >
-                            {`${item.scheme_name}`}
-                          </option>
-                        );
-                      })
+                  </p>
+                  <p className="text-accent font-bold ">
+                    Total :{" "}
+                    {numberWithCommas(
+                      Number(getTotalPayment(props.values)).toFixed(2)
                     )}
-                  </InputSelect>
+                  </p>
                 </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Admission Fee"
-                    type="text"
-                    number="number"
-                    name="tuition_fee_admission"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Misc Fee"
-                    type="text"
-                    number="number"
-                    name="tuition_fee_miscellaneous"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Tuition Fee"
-                    type="text"
-                    number="number"
-                    name="tuition_fee_tuition"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-
-                <div className="form__wrap text-xs mb-3">
-                  <InputText
-                    label="Books"
-                    type="text"
-                    number="number"
-                    name="tuition_fee_books"
-                    disabled={mutation.isLoading}
-                  />
-                </div>
-                <p className="text-accent font-bold">
-                  Upon Enrollment:{" "}
-                  {numberWithCommas(getUponEnrollment(props.values))}
-                </p>
-
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
                     {mutation.isLoading ? (

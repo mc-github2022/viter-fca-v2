@@ -11,6 +11,9 @@ class TuitionFee
     public $tuition_fee_books;
     public $tuition_fee_admission;
     public $tuition_fee_upon_enrollment;
+    public $tuition_fee_total_monthly;
+    public $tuition_fee_monthly;
+    public $tuition_fee_how_many_months;
 
 
     public $tuition_fee_category_id_old;
@@ -51,6 +54,9 @@ class TuitionFee
             $sql .= "tuition_fee_scheme_id, ";
             $sql .= "tuition_fee_admission, ";
             $sql .= "tuition_fee_upon_enrollment, ";
+            $sql .= "tuition_fee_monthly, ";
+            $sql .= "tuition_fee_how_many_months, ";
+            $sql .= "tuition_fee_total_monthly, ";
             $sql .= "tuition_fee_created, ";
             $sql .= "tuition_fee_updated ) values ( ";
             $sql .= ":tuition_fee_active, ";
@@ -62,6 +68,9 @@ class TuitionFee
             $sql .= ":tuition_fee_scheme_id, ";
             $sql .= ":tuition_fee_admission, ";
             $sql .= ":tuition_fee_upon_enrollment, ";
+            $sql .= ":tuition_fee_monthly, ";
+            $sql .= ":tuition_fee_how_many_months, ";
+            $sql .= ":tuition_fee_total_monthly, ";
             $sql .= ":tuition_fee_created, ";
             $sql .= ":tuition_fee_updated ) ";
             $query = $this->connection->prepare($sql);
@@ -75,6 +84,9 @@ class TuitionFee
                 "tuition_fee_scheme_id" => $this->tuition_fee_scheme_id,
                 "tuition_fee_admission" => $this->tuition_fee_admission,
                 "tuition_fee_upon_enrollment" => $this->tuition_fee_upon_enrollment,
+                "tuition_fee_monthly" => $this->tuition_fee_monthly,
+                "tuition_fee_how_many_months" => $this->tuition_fee_how_many_months,
+                "tuition_fee_total_monthly" => $this->tuition_fee_total_monthly,
                 "tuition_fee_created" => $this->tuition_fee_created,
                 "tuition_fee_updated" => $this->tuition_fee_updated,
             ]);
@@ -139,6 +151,9 @@ class TuitionFee
             $sql .= "tuition_fee_scheme_id = :tuition_fee_scheme_id, ";
             $sql .= "tuition_fee_admission = :tuition_fee_admission, ";
             $sql .= "tuition_fee_upon_enrollment = :tuition_fee_upon_enrollment, ";
+            $sql .= "tuition_fee_how_many_months = :tuition_fee_how_many_months, ";
+            $sql .= "tuition_fee_monthly = :tuition_fee_monthly, ";
+            $sql .= "tuition_fee_total_monthly = :tuition_fee_total_monthly, ";
             $sql .= "tuition_fee_updated = :tuition_fee_updated ";
             $sql .= "where tuition_fee_aid  = :tuition_fee_aid ";
             $query = $this->connection->prepare($sql);
@@ -150,6 +165,9 @@ class TuitionFee
                 "tuition_fee_books" => $this->tuition_fee_books,
                 "tuition_fee_scheme_id" => $this->tuition_fee_scheme_id,
                 "tuition_fee_admission" => $this->tuition_fee_admission,
+                "tuition_fee_total_monthly" => $this->tuition_fee_total_monthly,
+                "tuition_fee_monthly" => $this->tuition_fee_monthly,
+                "tuition_fee_how_many_months" => $this->tuition_fee_how_many_months,
                 "tuition_fee_upon_enrollment" => $this->tuition_fee_upon_enrollment,
                 "tuition_fee_updated" => $this->tuition_fee_updated,
                 "tuition_fee_aid" => $this->tuition_fee_aid,
@@ -232,7 +250,8 @@ class TuitionFee
             $sql .= "and fee.tuition_fee_category_id = category.tuition_category_aid ";
             $sql .= "and fee.tuition_fee_grade_id = grade.grade_level_aid ";
             $sql .= "and fee.tuition_fee_scheme_id = scheme.scheme_aid ";
-            $sql .= "order by fee.tuition_fee_active desc ";
+            $sql .= "order by fee.tuition_fee_active desc, ";
+            $sql .= "scheme.scheme_name asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "tuition_fee_category_id" => $this->tuition_fee_category_id,

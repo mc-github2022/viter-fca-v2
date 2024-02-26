@@ -22,6 +22,7 @@ const AssessmentList = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
+  const [itemAssessment, setItemAssessment] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
   const search = React.useRef({ value: "" });
   const [onSearch, setOnSearch] = React.useState(false);
@@ -40,11 +41,11 @@ const AssessmentList = () => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["parents", onSearch, store.isSearch],
+    queryKey: ["assessment", onSearch, store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/dev-parents/search`, // search endpoint
-        `/v2/dev-parents/page/${pageParam}`, // list endpoint
+        `/v2/dev-assessment/search`, // search endpoint
+        `/v2/dev-assessment/page/${pageParam}`, // list endpoint
         store.isSearch, // search boolean
         { search: search.current.value }
       ),
@@ -57,7 +58,11 @@ const AssessmentList = () => {
     refetchOnWindowFocus: false,
   });
 
-  const handleAssessment = () => setShowAssessment(true);
+  const handleAssessment = (item) => {
+    setShowAssessment(true);
+    setItemAssessment(item);
+  };
+
   return (
     <>
       <SearchBar
@@ -81,6 +86,7 @@ const AssessmentList = () => {
                   <th>#</th>
                   <th className="w-20">Status</th>
                   <th>Name</th>
+                  <th>Grade</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
               </thead>
@@ -116,78 +122,38 @@ const AssessmentList = () => {
                           <Pills
                             bg="bg-gray-200"
                             label={
-                              item.parents_is_active === 1
+                              item.students_is_active === 1
                                 ? "Active"
                                 : "Inactive"
                             }
                             color={
-                              item.parents_is_active === 1
+                              item.students_is_active === 1
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }
                           />
                         </td>
+                        <td>{item.student_fullname}</td>
+                        <td>{item.grade_level_name}</td>
                         <td>
-                          {item.parents_fname} {item.parents_lname}
-                        </td>
-                        <td>
-                          {item.parents_is_active === 1 ? (
-                            <div className="table-action flex gap-2 justify-end">
-                              <Link
-                                // to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
-                                className="tooltip text-base"
-                                data-tooltip="Info"
-                              >
-                                <CiViewList />
-                              </Link>
+                          <div className="flex gap-2 justify-end mr-5">
+                            <Link
+                              // to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
+                              className="tooltip text-base"
+                              data-tooltip="Info"
+                            >
+                              <CiViewList />
+                            </Link>
 
-                              <button
-                                type="button"
-                                className="tooltip "
-                                data-tooltip="Assessment"
-                                onClick={() => handleAssessment()}
-                              >
-                                <HiOutlineCreditCard />
-                              </button>
-
-                              <button
-                                type="button"
-                                className="tooltip "
-                                data-tooltip="Edit"
-                                // onClick={() => handleEdit(item)}
-                              >
-                                <FiEdit2 />
-                              </button>
-
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Archive"
-                                // onClick={() => handleArchive(item)}
-                              >
-                                <BsArchive />
-                              </button>
-                            </div>
-                          ) : (
-                            <div className="flex gap-2 justify-end">
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Restore"
-                                // onClick={() => handleRestore(item)}
-                              >
-                                <MdOutlineRestore />
-                              </button>
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Delete"
-                                onClick={() => handleDelete(item)}
-                              >
-                                <FiTrash />
-                              </button>
-                            </div>
-                          )}
+                            <button
+                              type="button"
+                              className="tooltip "
+                              data-tooltip="Assessment"
+                              onClick={() => handleAssessment(item)}
+                            >
+                              <HiOutlineCreditCard />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -216,7 +182,10 @@ const AssessmentList = () => {
       </div>
 
       {showAssesment && (
-        <ModalAssessment setShowAssessment={setShowAssessment} />
+        <ModalAssessment
+          setShowAssessment={setShowAssessment}
+          item={itemAssessment}
+        />
       )}
     </>
   );

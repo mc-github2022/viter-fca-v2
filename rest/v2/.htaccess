@@ -126,6 +126,14 @@ RewriteRule ^dev-update-parents-financier/([0-9]+)$ controllers/developer/parent
 RewriteRule ^dev-read-students/([0-9]+)$ controllers/developer/parents/read-student-by-parent-id.php?parentsid=$1 [L]
 
 
+# ASSESSMENT
+RewriteRule ^dev-assessment$ controllers/developer/assessment/assessment.php [L]
+RewriteRule ^dev-assessment/([0-9]+)$ controllers/developer/assessment/assessment.php?studentId=$1 [L]  
+RewriteRule ^dev-assessment/page/([0-9]+)$ controllers/developer/assessment/page.php?start=$1 [L]
+RewriteRule ^dev-assessment/search$ controllers/developer/assessment/search.php [L]
+RewriteRule ^dev-assessment/group-by-tuition-grade$ controllers/developer/assessment/read-by-group-tuition-fee-grade.php [L]
+RewriteRule ^dev-assessment/read-by-tuition-scheme$ controllers/developer/assessment/read-by-tuition-grade-and-category.php [L]
+
 #SYSTEM MODE
 RewriteRule ^dev-system-mode$ controllers/developer/settings/system-mode/system-mode.php [L]
 RewriteRule ^dev-system-mode/maintenance-mode$ controllers/developer/settings/system-mode/read-by-maintenance.php [L]
@@ -194,6 +202,11 @@ RewriteRule ^dev-students/update-coc$ controllers/developer/students/update-coc.
 RewriteRule ^dev-students/update-parent-declare$ controllers/developer/students/update-parent-declare.php [L]
 RewriteRule ^dev-students/update-parent-consent$ controllers/developer/students/update-parent-consent.php [L]
 RewriteRule ^dev-students/update-commitment-form$ controllers/developer/students/update-commitment-form.php [L]
+
+# STUDENTS REQUIREMENT
+RewriteRule ^dev-students-requirement$ controllers/developer/requirement/registrar/registrar.php [L]
+RewriteRule ^dev-students-requirement/([0-9]+)$ controllers/developer/requirement/registrar/registrar.php?reqid=$1 [L]
+
 
 # READ ALL PARENT ADDRESS BY STUDENT ID
 RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/readParentAddressByStudentId.php?studentid=$1 [L]

@@ -1,18 +1,16 @@
 <?php
 $conn = null;
 $conn = checkDbConnection();
-$registrar = new ReqRegistrar($conn);
-$error = [];
-$returnData = [];
+$registrar = new Registrar($conn);
 
 
-if (array_key_exists("studentid", $_GET)) {
-     $registrar->requirement_registrar_student_id = $_GET['studentid'];
-    
-    checkId($registrar->requirement_registrar_student_id);
-    $query = checkReadByStudentId($registrar);
+if (array_key_exists("reqid", $_GET)) {
+    $registrar->students_requirements_student_id = $_GET['reqid'];
+
+    checkId($registrar->students_requirements_student_id);
+    $query = checkReadById($registrar);
     http_response_code(200);
-    getQueriedData($query);   
+    getQueriedData($query);
 }
 
 if (empty($_GET)) {

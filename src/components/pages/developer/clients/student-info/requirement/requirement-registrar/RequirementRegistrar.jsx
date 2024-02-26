@@ -5,14 +5,16 @@ import { PiMegaphoneLight } from "react-icons/pi";
 import RequirementRegistrarEdit from "./RequirementRegistrarEdit.jsx";
 import RequirementRegistrarView from "./RequirementRegistrarView.jsx";
 
-const RequirementRegistrar = ({ itemEdit }) => {
+const RequirementRegistrar = ({
+  itemEdit,
+  registrarRequirements,
+  isLoading,
+  studentRequirement,
+  schoolYear,
+  reqLoading,
+  reqFetching,
+}) => {
   const [isEdit, setIsEdit] = React.useState(false);
-
-  const { isLoading: error, data: registrar } = useQueryData(
-    `/v2/dev-requirement-registrar`, // endpoint
-    "get", // method
-    "registrar" // key
-  );
 
   return (
     <div>
@@ -24,12 +26,26 @@ const RequirementRegistrar = ({ itemEdit }) => {
         payment details.
       </p>
 
-      {!isEdit && (
-        <RequirementRegistrarView registrar={registrar} setIsEdit={setIsEdit} />
-      )}
-      {isEdit && (
-        <RequirementRegistrarEdit registrar={registrar} setIsEdit={setIsEdit} />
-      )}
+      {/* {!isEdit && (
+        <RequirementRegistrarView
+          isLoading={isLoading}
+          registrarRequirements={registrarRequirements}
+          setIsEdit={setIsEdit}
+          studentRequirement={studentRequirement}
+        />
+      )} */}
+      {/* {isEdit && ( */}
+      <RequirementRegistrarEdit
+        isLoading={isLoading}
+        registrarRequirements={registrarRequirements}
+        setIsEdit={setIsEdit}
+        studentRequirement={studentRequirement}
+        itemEdit={itemEdit}
+        schoolYear={schoolYear}
+        reqLoading={reqLoading}
+        reqFetching={reqFetching}
+      />
+      {/* )} */}
     </div>
   );
 };

@@ -1,12 +1,31 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import React from "react";
 import { FaBars } from "react-icons/fa";
 import { FiEdit2, FiPlus } from "react-icons/fi";
 import { LiaTimesSolid } from "react-icons/lia";
 import RequirementRegistrar from "./requirement-registrar/RequirementRegistrar.jsx";
 
-const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
+const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const [index, setIndex] = React.useState(1);
+
+  const { isLoading, data: registrarRequirements } = useQueryData(
+    `/v2/dev-requirement-registrar`, // endpoint
+    "get", // method
+    "registrar-requirements" // key
+  );
+
+  const {
+    isLoading: reqLoading,
+    isFetching: reqFetching,
+    data: studentRequirement,
+  } = useQueryData(
+    `/v2/dev-students-requirement/${itemEdit.students_aid}`, // endpoint
+    "get", // method
+    "students-requirements", // key
+    {},
+    itemEdit.students_aid
+  );
 
   const handleClose = () => {
     setViewRequirements(false);
@@ -93,7 +112,17 @@ const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
               <main
                 className={` p-5 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all bg-primary`}
               >
-                {index === 1 && <RequirementRegistrar itemEdit={itemEdit} />}
+                {index === 1 && (
+                  <RequirementRegistrar
+                    itemEdit={itemEdit}
+                    registrarRequirements={registrarRequirements}
+                    isLoading={isLoading}
+                    studentRequirement={studentRequirement}
+                    schoolYear={schoolYear}
+                    reqLoading={reqLoading}
+                    reqFetching={reqFetching}
+                  />
+                )}
               </main>
             </div>
           </div>
