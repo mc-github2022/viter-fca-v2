@@ -16,7 +16,7 @@ import { HiOutlineCreditCard } from "react-icons/hi2";
 import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
-import ModalAssessment from "./ModalAssessment.jsx";
+import ModalAssessment from "./modal/ModalAssessment.jsx";
 
 const AssessmentList = () => {
   const { store, dispatch } = React.useContext(StoreContext);

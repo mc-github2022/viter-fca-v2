@@ -20,6 +20,8 @@ class Assessment
     public $tblTuitionCategory;
     public $tblTuitionFee;
     public $tblScheme;
+    public $tblDiscount;
+    public $tblDiscountCategory;
 
     public function __construct($db)
     {
@@ -33,6 +35,8 @@ class Assessment
         $this->tblTuitionCategory = "fcav2_settings_tuition_category";
         $this->tblTuitionFee = "fcav2_settings_tuition_fee";
         $this->tblScheme = "fcav2_settings_scheme";
+        $this->tblDiscount = "fcav2_settings_discount";
+        $this->tblDiscountCategory = "fcav2_settings_discount_category";
     }
 
 
@@ -55,6 +59,10 @@ class Assessment
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
+            $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_consent_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "group by ";
             $sql .= "student.students_aid ";
@@ -87,6 +95,10 @@ class Assessment
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
+            $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_consent_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "group by ";
             $sql .= "student.students_aid ";
@@ -125,6 +137,10 @@ class Assessment
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
+            $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_consent_is_agree = 1 ";
+            $sql .= "and syStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "and ";
             $sql .= "( ";
@@ -221,6 +237,26 @@ class Assessment
                 "tuition_fee_category_id" => $this->tuition_category_aid,
                 "tuition_fee_grade_id" => $this->grade_level_aid,
             ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read all
+    public function readAllPrimaryDiscount()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "discount.*, ";
+            $sql .= "discountCategory.discount_category_name ";
+            $sql .= "from ";
+            $sql .= "{$this->tblDiscountCategory} as discountCategory, ";
+            $sql .= "{$this->tblDiscount} as discount ";
+            $sql .= "where discount.discount_category_id = discountCategory.discount_category_aid ";
+            $sql .= "order by discount.discount_is_active desc, ";
+            $sql .= "discountCategory.discount_category_name asc ";
+            $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
         }
