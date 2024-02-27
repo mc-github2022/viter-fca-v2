@@ -46,10 +46,6 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
               </div>
 
               <div className="flex items-center gap-4">
-                <h5 className="mb-0 font-normal">
-                  Parent Name -{" "}
-                  <span className="font-bold">{dataItem.parent_fullname}</span>
-                </h5>
                 <button onClick={handleClose}>
                   <LiaTimesSolid />
                 </button>
@@ -141,6 +137,10 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
               <main
                 className={` p-5 pb-20 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
+                <span className="block mb-3 uppercase font-normal text-[20px]">
+                  Parent Account -{" "}
+                  <span className="">{dataItem.parent_fullname}</span>
+                </span>
                 {index === 1 && (
                   <StudentProfileForm
                     index={index}

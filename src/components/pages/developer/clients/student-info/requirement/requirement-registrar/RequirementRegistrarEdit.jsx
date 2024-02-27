@@ -2,6 +2,7 @@ import { InputCheckbox, InputTextArea } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import NoData from "@/components/partials/NoData";
 import TableLoading from "@/components/partials/TableLoading";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setMessage,
   setSuccess,
@@ -49,21 +50,31 @@ const RequirementRegistrarEdit = ({
 
   const syId = schoolYear?.count > 0 && schoolYear?.data[0].school_year_aid;
 
-  let value = [];
+  let valueToAdd = [];
+  let valueToRemove = [];
 
-  registrarRequirements?.data.map((regItem, i) => {
+  registrarRequirements?.data.map((regItem) => {
     return studentRequirement?.data.filter((reqItem) => {
       if (
         regItem.requirement_registrar_aid === reqItem.students_requirements_id
       ) {
-        value[regItem.requirement_registrar_aid] = true;
+        valueToAdd[regItem.requirement_registrar_aid] = true;
       }
+
       return;
     });
   });
 
+  valueToRemove = registrarRequirements?.data.filter((regItem) => {
+    return !studentRequirement?.data.find((reqItem) => {
+      return (
+        regItem.requirement_registrar_aid === reqItem.students_requirements_id
+      );
+    });
+  });
+
   const initVal = {
-    ...value,
+    ...valueToAdd,
   };
 
   const yupSchema = Yup.object({});
@@ -93,23 +104,14 @@ const RequirementRegistrarEdit = ({
           }}
         >
           {(props) => {
+            console.log(valueToAdd);
+
             return (
               <>
                 <Form>
                   <div className="mode__edit">
                     <div className="max-w-[600px] flex justify-between mb-2">
                       <h5>Add/Remove Registrar Requirement</h5>
-                      <ul className="flex justify-end gap-4">
-                        <li>
-                          <button
-                            className="flex justify-center items-center gap-2  mb-2  tooltip text-xl"
-                            data-tooltip="Save"
-                            type="submit"
-                          >
-                            <AiOutlineSave />
-                          </button>
-                        </li>
-                      </ul>
                     </div>
 
                     <div className="max-w-[600px]  ">
@@ -117,7 +119,7 @@ const RequirementRegistrarEdit = ({
                         registrarRequirements?.data.map((item, key) => {
                           return (
                             <div
-                              className="list  flex justify-between items-center py-2 border-b border-line"
+                              className="list flex justify-between items-center py-2 border-b border-line"
                               key={key}
                             >
                               <div className="form__wrap flex items-center mt-3 gap-2 ">
@@ -126,6 +128,7 @@ const RequirementRegistrarEdit = ({
                                   type="checkbox"
                                   name={item.requirement_registrar_aid}
                                   id={item.requirement_registrar_aid}
+                                  disabled={mutation.isPending}
                                 />
                               </div>
                             </div>
@@ -143,6 +146,14 @@ const RequirementRegistrarEdit = ({
                         />
                       </div>
                     </div> */}
+
+                      <button
+                        className="btn btn--accent mt-5"
+                        type="submit"
+                        disabled={mutation.isPending || !props.dirty}
+                      >
+                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                      </button>
                     </div>
                   </div>
                 </Form>

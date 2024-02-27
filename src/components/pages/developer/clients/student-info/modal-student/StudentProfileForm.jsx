@@ -75,9 +75,9 @@ const StudentProfileForm = ({
     students_mobile: itemEdit ? itemEdit.students_mobile : "",
     students_landline: itemEdit ? itemEdit.students_landline : "",
     students_address: itemEdit ? itemEdit.students_address : "",
-    // school_year_students_sy_id: itemEdit
-    //   ? itemEdit.school_year_students_sy_id
-    //   : "",
+    school_year_students_sy_id: itemEdit
+      ? itemEdit.school_year_students_sy_id
+      : "",
     school_year_students_last_grade_level_id: itemEdit
       ? itemEdit.school_year_students_last_grade_level_id
       : "",
