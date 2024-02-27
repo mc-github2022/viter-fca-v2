@@ -78,3 +78,9 @@ function checkCreateStudentProfileByParent($object) {
     checkQuery($query, "There's a problem processing your request. (Create student by parent )");
     return $query;
 }
+
+function checkCreateStudentSchoolYearByParent($object) {
+    $query = $object->createStudentSchoolYearByParent();
+    checkQuery($query, "There's a problem processing your request. (Create student school year by parent )");
+    return $query;
+}

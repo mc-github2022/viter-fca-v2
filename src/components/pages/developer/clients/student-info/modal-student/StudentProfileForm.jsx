@@ -6,6 +6,8 @@ import {
 } from "@/components/helpers/FormInputs.jsx";
 import { getUrlParam } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
   setIsAdd,
@@ -24,6 +26,7 @@ const StudentProfileForm = ({
   showSideNav,
   itemEdit,
   gradelevel,
+  schoolYear,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const cid = getUrlParam().get("cid");
@@ -53,6 +56,8 @@ const StudentProfileForm = ({
     },
   });
 
+  const syid = schoolYear?.data.find((item) => item.school_year_aid);
+
   const queryClient = useQueryClient();
 
   const handleClose = () => {
@@ -60,7 +65,7 @@ const StudentProfileForm = ({
   };
 
   const initVal = {
-    school_year: itemEdit ? itemEdit.school_year : "",
+    // school_year: itemEdit ? itemEdit.school_year : "",
     students_lrn: itemEdit ? itemEdit.students_lrn : "",
     school_year_students_last_learning_type: itemEdit
       ? itemEdit.school_year_students_last_learning_type
@@ -101,7 +106,6 @@ const StudentProfileForm = ({
   };
 
   const yupSchema = Yup.object({});
-
   return (
     <>
       <Formik
@@ -111,9 +115,8 @@ const StudentProfileForm = ({
           mutation.mutate({
             ...values,
             students_parent_id: cid,
-            school_year_students_sy_id: "2024 - 2552",
+            school_year_students_sy_id: syid.school_year_aid,
           });
-          console.log(values);
         }}
       >
         {(props) => {
@@ -152,8 +155,8 @@ const StudentProfileForm = ({
                         label="School Year"
                         type="text"
                         name="school_year"
-                        // value={sy}
-                        // disabled
+                        value={`${syid.start_year}-${syid.end_year}`}
+                        disabled
                       />
                     </div>
 
@@ -399,6 +402,9 @@ const StudentProfileForm = ({
           );
         }}
       </Formik>
+
+      {store.success && <ModalSuccess />}
+      {store.validate && <ModalValidate />}
     </>
   );
 };

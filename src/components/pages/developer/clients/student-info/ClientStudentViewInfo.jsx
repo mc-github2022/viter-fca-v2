@@ -222,7 +222,13 @@ const ClientStudentViewInfo = () => {
         />
       )}
 
-      {store.isAdd && <ModalAddStudent itemEdit={itemEdit} parent={parent} />}
+      {store.isAdd && (
+        <ModalAddStudent
+          itemEdit={itemEdit}
+          parent={parent}
+          schoolYear={schoolYear}
+        />
+      )}
 
       {store.isDelete && (
         <ModalDelete

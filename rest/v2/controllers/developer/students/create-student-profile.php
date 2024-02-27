@@ -9,6 +9,10 @@ $conn = null;
 $conn = checkDbConnection();
 $student = new Student($conn);
 
+$body = file_get_contents("php://input");
+$data = json_decode($body, true);
+checkPayload($data);
+
 $student->students_is_active = 1;
 $student->students_parent_id = $data["students_parent_id"];
 $student->students_lrn = $data["students_lrn"];
@@ -31,16 +35,22 @@ $student->students_family_circumstances = $data["students_family_circumstances"]
 $student->students_created = date("Y-m-d H:i:s");
 $student->students_datetime = date("Y-m-d H:i:s");
 // SCHOOL YEAR STUDENT
-$student->school_year_students_last_learning_type = checkIndex($data, "school_year_students_last_learning_type");
+$student->school_year_students_is_active = 1;
 $student->school_year_students_sy_id = checkIndex($data, "school_year_students_sy_id");
+
+$student->school_year_students_last_learning_type = checkIndex($data, "school_year_students_last_learning_type");
 $student->school_year_students_last_grade_level_id = checkIndex($data, "school_year_students_last_grade_level_id");
 $student->school_year_students_last_remarks = $data["school_year_students_last_grade_level_id"];
 $student->school_year_students_last_school_attended = checkIndex($data, "school_year_students_last_grade_level_id");
+// $student->school_year_students_last_school_address = $data["school_year_students_last_school_address"];
 $student->school_year_students_last_gpa = checkIndex($data, "school_year_students_last_gpa");
+
+$student->school_year_students_created = date("Y-m-d H:i:s");
+$student->school_year_students_datetime = date("Y-m-d H:i:s");
 
 
 $query = checkCreateStudentProfileByParent($student);
 
-// checkCreateSchoolYearStudent($student);
+checkCreateStudentSchoolYearByParent($student);
 
 returnSuccess($student, "Student", $query);
