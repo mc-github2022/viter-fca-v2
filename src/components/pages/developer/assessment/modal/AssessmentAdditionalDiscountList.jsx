@@ -1,24 +1,24 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { getGetPrimaryDiscount } from "./functions-assessment";
+import { getGetAdditionalDiscount } from "./functions-assessment";
 import { isItemEmpty } from "@/components/helpers/functions-general";
 
 const AssessmentAdditionalDiscountList = ({
-  primaryDiscountId,
-  setPrimaryDiscountId,
+  additionalDiscountId,
+  setAdditionalDiscountId,
 }) => {
   const {
     isLoading,
     isFetching,
     error,
-    data: primaryDiscount,
+    data: additionalDiscount,
   } = useQueryData(
-    "/v2/dev-assessment/read-primary-discount", // endpoint
+    "/v2/dev-assessment/read-additional-discount", // endpoint
     "get", // method
-    "primary-discount" // key
+    "addtional-discount" // key
   );
 
-  const handleChangePrimaryDiscount = (e) => {
-    setPrimaryDiscountId(e.target.value);
+  const handleChangeAdditionalDiscount = (e) => {
+    setAdditionalDiscountId(e.target.value);
   };
 
   return (
@@ -29,8 +29,8 @@ const AssessmentAdditionalDiscountList = ({
             Primary Discount
           </label>
           <select
-            value={primaryDiscountId}
-            onChange={(e) => handleChangePrimaryDiscount(e)}
+            value={additionalDiscountId}
+            onChange={(e) => handleChangeAdditionalDiscount(e)}
           >
             <option value="0">
               {isLoading || isFetching ? "Loading..." : "No Discount"}
@@ -38,13 +38,13 @@ const AssessmentAdditionalDiscountList = ({
 
             {isLoading || isFetching ? (
               <option>Loading...</option>
-            ) : primaryDiscount?.data.length === 0 ? (
+            ) : additionalDiscount?.data.length === 0 ? (
               <option disabled>No Data</option>
             ) : (
-              primaryDiscount?.data.map((pItem, key) => {
+              additionalDiscount?.data.map((pItem, key) => {
                 return (
-                  <option key={key} value={pItem.discount_aid}>
-                    {`${pItem.discount_category_name} (${pItem.discount_type})`}
+                  <option key={key} value={pItem.discount_additional_aid}>
+                    {`${pItem.discount_additional_name}`}
                   </option>
                 );
               })
@@ -52,81 +52,47 @@ const AssessmentAdditionalDiscountList = ({
           </select>
         </div>
 
-        {Number(primaryDiscountId) === 0 && (
+        {Number(additionalDiscountId) === 0 && (
           <div className="min-h-250px grid place-content-center border border-line">
-            <p className="font-bold text-base">No Discount Selected</p>
+            <p className="font-bold text-base">
+              No Additional Discount Selected
+            </p>
           </div>
         )}
-        {Number(primaryDiscountId) > 0 && (
+        {Number(additionalDiscountId) > 0 && (
           <div className="discount-info">
             <h4 className="pb-1 ">
               {
-                getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                  .discount_category_name
+                getGetAdditionalDiscount(
+                  additionalDiscount,
+                  additionalDiscountId
+                )[0].discount_additional_name
               }
             </h4>
 
             <div className="grid grid-cols-2 max-w-[95%] mt-2">
               <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Type: </li>
+                <li className="font-bold">Amount: </li>
                 <li>
                   {
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                      ?.discount_type
+                    getGetAdditionalDiscount(
+                      additionalDiscount,
+                      additionalDiscountId
+                    )[0]?.discount_additional_amount
                   }
                 </li>
               </ul>
 
               <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Entrance Fee: </li>
+                <li className="font-bold">Percent: </li>
                 <li>
                   {isItemEmpty(
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                      ?.discount_entrance_fee,
+                    getGetAdditionalDiscount(
+                      additionalDiscount,
+                      additionalDiscountId
+                    )[0]?.discount_additional_percent,
                     "%"
                   )}
-                </li>
-              </ul>
-
-              <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Tuition Fee: </li>
-                <li>
-                  {isItemEmpty(
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                      ?.discount_tuition_fee,
-                    "%"
-                  )}
-                </li>
-              </ul>
-
-              <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Qualification: </li>
-                <li>
-                  {isItemEmpty(
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                      ?.discount_qualification
-                  )}
-                </li>
-              </ul>
-
-              <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Maintaining Grade: </li>
-                <li>
-                  {isItemEmpty(
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                      ?.discount_maintaining_grade,
-                    " GA"
-                  )}
-                </li>
-              </ul>
-
-              <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Duration: </li>
-                <li>
-                  {
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                      ?.discount_duration
-                  }
                 </li>
               </ul>
             </div>

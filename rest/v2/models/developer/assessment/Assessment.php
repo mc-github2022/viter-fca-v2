@@ -22,6 +22,7 @@ class Assessment
     public $tblScheme;
     public $tblDiscount;
     public $tblDiscountCategory;
+    public $tblDiscountAdditional;
 
     public function __construct($db)
     {
@@ -37,6 +38,7 @@ class Assessment
         $this->tblScheme = "fcav2_settings_scheme";
         $this->tblDiscount = "fcav2_settings_discount";
         $this->tblDiscountCategory = "fcav2_settings_discount_category";
+        $this->tblDiscountAdditional = "fcav2_settings_discount_additional";
     }
 
 
@@ -256,6 +258,23 @@ class Assessment
             $sql .= "where discount.discount_category_id = discountCategory.discount_category_aid ";
             $sql .= "order by discount.discount_is_active desc, ";
             $sql .= "discountCategory.discount_category_name asc ";
+            $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read all
+    public function readAllAdditionalDiscount()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "* ";
+            $sql .= "from ";
+            $sql .= " {$this->tblDiscountAdditional} ";
+            $sql .= "order by discount_additional_is_active desc, ";
+            $sql .= "discount_additional_name asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;

@@ -24,3 +24,11 @@ function checkReadAllPrimaryDiscount($object)
     checkQuery($query, "Empty records. (read all primary discount)");
     return $query;
 }
+
+// Read all Tuition Fee Scheme by category and grade
+function checkReadAllAdditionalDiscount($object)
+{
+    $query = $object->readAllAdditionalDiscount();
+    checkQuery($query, "Empty records. (read all addittional discount)");
+    return $query;
+}

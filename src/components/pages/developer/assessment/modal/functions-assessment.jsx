@@ -1,7 +1,10 @@
-export const getGetPrimaryDiscount = (primaryDiscount, primaryDiscountId) => {
+export const getGetadditionalDiscount = (
+  additionalDiscount,
+  additionalDiscountId
+) => {
   let result = [];
 
-  if (primaryDiscount?.count > 0) {
+  if (additionalDiscount?.count > 0) {
     const val = primaryDiscount?.data.filter(
       (acItem) => acItem.discount_aid === Number(primaryDiscountId)
     );
@@ -11,15 +14,16 @@ export const getGetPrimaryDiscount = (primaryDiscount, primaryDiscountId) => {
   return result;
 };
 
-export const getGetPrimaryDiscountItem = (
-  primaryDiscount,
-  primaryDiscountId
+export const getGetAdditionalDiscount = (
+  additionalDiscount,
+  additionalDiscountId
 ) => {
   let result = [];
 
-  if (primaryDiscount?.count > 0) {
-    const val = primaryDiscount?.data.filter(
-      (acItem) => acItem.discount_aid === Number(primaryDiscountId)
+  if (additionalDiscount?.count > 0) {
+    const val = additionalDiscount?.data.filter(
+      (acItem) =>
+        acItem.discount_additional_aid === Number(additionalDiscountId)
     );
     result = val;
   }

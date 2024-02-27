@@ -54,7 +54,7 @@ const AssessmentPrimaryDiscountList = ({
 
         {Number(primaryDiscountId) === 0 && (
           <div className="min-h-250px grid place-content-center border border-line">
-            <p className="font-bold text-base">No Discount Selected</p>
+            <p className="font-bold text-base">No Primary Discount Selected</p>
           </div>
         )}
         {Number(primaryDiscountId) > 0 && (
