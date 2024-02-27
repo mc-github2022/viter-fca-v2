@@ -177,8 +177,10 @@ class SchoolYear
             $sql .= "school_year_end_date, ";
             $sql .= "school_year_is_enrollment_open ";
             $sql .= "from {$this->tblSchoolYear} ";
+            $sql .= "where school_year_is_active = 1 ";
             $sql .= "order by ";
             $sql .= "school_year_start_date desc ";
+            $sql .= "limit 1 ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;

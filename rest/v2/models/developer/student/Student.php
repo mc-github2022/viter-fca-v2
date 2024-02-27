@@ -14,7 +14,7 @@ class Student
     public $students_email;
     public $students_mobile;
     public $students_landline;
-    public $students_address;
+    public $students_address_id;
     public $students_institutional_email;
     public $students_family_doctor;
     public $students_family_doctor_contact;
@@ -48,6 +48,7 @@ class Student
     public $students_search;
 
     public $tblParent;
+    public $tblGuardian;
     public $tblStudent;
     public $tblSyStudent;
     public $tblSchoolYear;
@@ -61,6 +62,7 @@ class Student
     {
         $this->connection = $db;
         $this->tblParent = "fcav2_parents";
+        $this->tblGuardian = "fcav2_guardian";
         $this->tblStudent = "fcav2_students";
         $this->tblSyStudent = "fcav2_school_year_students";
         $this->tblGradeLevel = "fcav2_settings_grade_level";
@@ -127,25 +129,25 @@ class Student
         try {
             $sql = "insert into {$this->tblSyStudent} ";
             $sql .= "( ";
-            $sql .= "students_is_active, ";
-            $sql .= "students_lrn, ";
-            $sql .= "students_parent_id, ";
+            $sql .= "school_year_students_is_active, ";
+            $sql .= "school_year_students_last_learning_type, ";
+            $sql .= "school_year_students_sy_id, ";
             $sql .= "school_year_students_student_id, ";
             $sql .= "school_year_students_last_grade_level_id, ";
             $sql .= "school_year_students_created, ";
             $sql .= "school_year_students_datetime ) values ( ";
-            $sql .= ":students_is_active, ";
-            $sql .= ":students_lrn, ";
-            $sql .= ":students_parent_id, ";
+            $sql .= ":school_year_students_is_active, ";
+            $sql .= ":school_year_students_last_learning_type, ";
+            $sql .= ":school_year_students_sy_id, ";
             $sql .= ":school_year_students_student_id, ";
             $sql .= ":school_year_students_last_grade_level_id, ";
             $sql .= ":school_year_students_created, ";
             $sql .= ":school_year_students_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "students_is_active" => $this->students_is_active,
-                "students_lrn" => $this->students_lrn,
-                "students_parent_id" => $this->students_parent_id,
+                "school_year_students_is_active" => $this->students_is_active,
+                "school_year_students_last_learning_type" => $this->school_year_students_last_learning_type,
+                "school_year_students_sy_id" => $this->school_year_students_sy_id,
                 "school_year_students_student_id" => $this->lastInsertedId,
                 "school_year_students_last_grade_level_id" => $this->school_year_students_last_grade_level_id,
                 "school_year_students_created" => $this->students_created,
@@ -284,6 +286,32 @@ class Student
         return $query;
     }
 
+
+    public function readGuardianByParentId()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "guardian.guardian_aid, ";
+            $sql .= "guardian.guardian_address, ";
+            $sql .= "guardian.guardian_province, ";
+            $sql .= "guardian.guardian_city, ";
+            $sql .= "guardian.guardian_zipcode, ";
+            $sql .= "guardian.guardian_country ";
+            $sql .= "from {$this->tblStudent} as students, ";
+            $sql .= "{$this->tblGuardian} as guardian ";
+            $sql .= "where students.students_parent_id = :students_parent_id ";
+            $sql .= "and students.students_parent_id = guardian.guardian_parent_id ";
+            $sql .= "group by guardian.guardian_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "students_parent_id" => $this->students_parent_id
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function active()
     {
         try {
@@ -336,7 +364,7 @@ class Student
             $sql .= "students_email = :students_email, ";
             $sql .= "students_mobile = :students_mobile, ";
             $sql .= "students_landline = :students_landline, ";
-            $sql .= "students_address = :students_address, ";
+            $sql .= "students_address_id = :students_address_id, ";
             $sql .= "students_institutional_email = :students_institutional_email, ";
             $sql .= "students_family_doctor = :students_family_doctor, ";
             $sql .= "students_family_doctor_contact = :students_family_doctor_contact, ";
@@ -358,7 +386,7 @@ class Student
                 "students_email" => $this->students_email,
                 "students_mobile" => $this->students_mobile,
                 "students_landline" => $this->students_landline,
-                "students_address" => $this->students_address,
+                "students_address_id" => $this->students_address_id,
                 "students_institutional_email" => $this->students_institutional_email,
                 "students_family_doctor" => $this->students_family_doctor,
                 "students_family_doctor_contact" => $this->students_family_doctor_contact,
