@@ -6,6 +6,12 @@ class Parents
     public $parents_fname;
     public $parents_lname;
     public $parents_email;
+    public $parents_father_income;
+    public $parents_mother_income;
+    public $parents_financier_name;
+    public $parents_financier_occupation;
+    public $parents_financier_relationship;
+    public $parents_financier_income;
     public $parents_created;
     public $parents_datetime;
 
@@ -162,30 +168,30 @@ class Parents
         return $query;
     }
 
-        // read by id
-        public function readStudentById()
-        {
-            try {
-                $sql = "select * from {$this->tblStudents} as students, ";
-                $sql .= "{$this->tblParents} as parents, ";
-                $sql .= "{$this->tblStudentsSY} as students_sy, ";
-                $sql .= "{$this->tblGradeLevel} as grade_level, ";
-                $sql .= "{$this->tblSchoolYear} as school_year ";
-                $sql .= "where students.students_parent_id = parents.parents_aid ";
-                $sql .= "and students_sy.school_year_students_student_id = students.students_aid ";
-                $sql .= "and students_sy.school_year_students_sy_id = school_year.school_year_aid ";
-                $sql .= "and students_sy.school_year_students_last_grade_level_id = grade_level.grade_level_aid ";
-                $sql .= "and students.students_parent_id = :parents_aid ";
-                $sql .= "order by students.students_fname asc ";
-                $query = $this->connection->prepare($sql);
-                $query->execute([
-                    "parents_aid" => $this->parents_aid,
-                ]);
-            } catch (PDOException $ex) {
-                $query = false;
-            }
-            return $query;
+    // read by id
+    public function readStudentById()
+    {
+        try {
+            $sql = "select * from {$this->tblStudents} as students, ";
+            $sql .= "{$this->tblParents} as parents, ";
+            $sql .= "{$this->tblStudentsSY} as students_sy, ";
+            $sql .= "{$this->tblGradeLevel} as grade_level, ";
+            $sql .= "{$this->tblSchoolYear} as school_year ";
+            $sql .= "where students.students_parent_id = parents.parents_aid ";
+            $sql .= "and students_sy.school_year_students_student_id = students.students_aid ";
+            $sql .= "and students_sy.school_year_students_sy_id = school_year.school_year_aid ";
+            $sql .= "and students_sy.school_year_students_last_grade_level_id = grade_level.grade_level_aid ";
+            $sql .= "and students.students_parent_id = :parents_aid ";
+            $sql .= "order by students.students_fname asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_aid" => $this->parents_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
         }
+        return $query;
+    }
 
     public function update()
     {

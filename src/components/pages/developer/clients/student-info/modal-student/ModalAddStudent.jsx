@@ -11,7 +11,7 @@ import StudentParentDeclaration from "./StudentParentDeclaration.jsx";
 import StudentPaymentScheme from "./StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfileForm.jsx";
 
-const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, schoolYear }) => {
+const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
   const [index, setIndex] = React.useState(1);
@@ -26,6 +26,8 @@ const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, schoolYear }) => {
     "get", // method
     "gradelevel" // key
   );
+
+  console.log(itemEdit);
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
@@ -61,13 +63,6 @@ const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, schoolYear }) => {
               </div>
 
               <div className="flex items-center gap-4">
-                <h5 className="mb-0 font-normal">
-                  Parent Name -{" "}
-                  <span className="font-bold">
-                    {parent?.data[0].parents_fname}{" "}
-                    {parent?.data[0].parents_lname}
-                  </span>
-                </h5>
                 <button onClick={handleClose}>
                   <LiaTimesSolid />
                 </button>
@@ -159,10 +154,16 @@ const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, schoolYear }) => {
               <main
                 className={` p-5 pb-20 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
+                <span className="block mb-3 uppercase text-accent font-normal text-[20px]">
+                  Parent Account -{" "}
+                  <span className="">
+                    {parent?.data[0].parents_fname}{" "}
+                    {parent?.data[0].parents_lname}
+                  </span>
+                </span>
                 {index === 1 && (
                   <StudentProfileForm
                     index={index}
-                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
                     gradelevel={gradelevel}
@@ -172,34 +173,31 @@ const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, schoolYear }) => {
                 {index === 2 && (
                   <StudentCodeOfConduct
                     index={index}
-                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
+                    gradelevel={gradelevel}
+                    schoolYear={schoolYear}
                   />
                 )}
                 {index === 3 && (
                   <StudentParentDeclaration
                     index={index}
-                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
+                    gradelevel={gradelevel}
                   />
                 )}
                 {index === 4 && (
                   <StudentParentConsent
                     index={index}
-                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
+                    gradelevel={gradelevel}
                   />
                 )}
                 {index === 5 && (
                   <StudentParentCommitment
                     index={index}
-                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
                     gradeLevel={gradeLevel}
@@ -209,7 +207,6 @@ const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, schoolYear }) => {
                 {index === 6 && (
                   <StudentPaymentScheme
                     index={index}
-                    setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
                     gradeLevel={gradeLevel}
