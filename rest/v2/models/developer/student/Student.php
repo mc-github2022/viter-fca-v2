@@ -123,25 +123,16 @@ class Student
         try {
             $sql = "insert into {$this->tblSyStudent} ";
             $sql .= "( ";
-            $sql .= "students_is_active, ";
-            $sql .= "students_lrn, ";
-            $sql .= "students_parent_id, ";
             $sql .= "school_year_students_student_id, ";
             $sql .= "school_year_students_last_grade_level_id, ";
             $sql .= "school_year_students_created, ";
             $sql .= "school_year_students_datetime ) values ( ";
-            $sql .= ":students_is_active, ";
-            $sql .= ":students_lrn, ";
-            $sql .= ":students_parent_id, ";
             $sql .= ":school_year_students_student_id, ";
             $sql .= ":school_year_students_last_grade_level_id, ";
             $sql .= ":school_year_students_created, ";
             $sql .= ":school_year_students_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "students_is_active" => $this->students_is_active,
-                "students_lrn" => $this->students_lrn,
-                "students_parent_id" => $this->students_parent_id,
                 "school_year_students_student_id" => $this->lastInsertedId,
                 "school_year_students_last_grade_level_id" => $this->school_year_students_last_grade_level_id,
                 "school_year_students_created" => $this->students_created,
@@ -532,7 +523,8 @@ class Student
 
 
 
-    public function createStudentProfileByParent() {
+    public function createStudentProfileByParent()
+    {
         try {
             $sql = "insert into {$this->tblStudent} ";
             $sql .= "( ";
@@ -601,7 +593,8 @@ class Student
     }
 
 
-    public function createStudentSchoolYearByParent() {
+    public function createStudentSchoolYearByParent()
+    {
         try {
             $sql = "insert into {$this->tblSyStudent} ";
             $sql .= "( ";
