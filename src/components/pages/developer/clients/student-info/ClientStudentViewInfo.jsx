@@ -86,8 +86,6 @@ const ClientStudentViewInfo = () => {
     "parent" // key
   );
 
-  console.log(mystudent);
-
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />

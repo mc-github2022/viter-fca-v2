@@ -205,8 +205,7 @@ RewriteRule ^dev-students/update-commitment-form$ controllers/developer/students
 
 # STUDENTS REQUIREMENT
 RewriteRule ^dev-students-requirement$ controllers/developer/requirement/registrar/registrar.php [L]
-RewriteRule ^dev-students-requirement/([0-9]+)$ controllers/developer/requirement/registrar/registrar.php?reqid=$1 [L]
-
+RewriteRule ^dev-students-requirement/([0-9]+)/([0-9]+)$ controllers/developer/requirement/registrar/registrar.php?reqid=$1&studentid=$2 [L]
 
 # READ ALL PARENT ADDRESS BY STUDENT ID
 RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/readParentAddressByStudentId.php?studentid=$1 [L]
@@ -214,9 +213,6 @@ RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/rea
 # READ STUDENT BY PARENT ID
 RewriteRule ^student-parent-id/([0-9]+)$ controllers/developer/students/readStudentByParentId.php?parentid=$1 [L]
 
-# REQUIREMENTS REGISTRAR
-RewriteRule ^req-registrar$ controllers/developer/requirement/registrar/req-registrar.php
-RewriteRule ^req-registrar/([0-9]+)$ controllers/developer/requirement/registrar/req-registrar.php?studentid=$1 [L]
 
 
 
