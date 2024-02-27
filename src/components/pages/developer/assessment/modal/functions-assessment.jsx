@@ -1,10 +1,7 @@
-export const getGetadditionalDiscount = (
-  additionalDiscount,
-  additionalDiscountId
-) => {
+export const getGetPrimaryDiscount = (primaryDiscount, primaryDiscountId) => {
   let result = [];
 
-  if (additionalDiscount?.count > 0) {
+  if (primaryDiscount?.count > 0) {
     const val = primaryDiscount?.data.filter(
       (acItem) => acItem.discount_aid === Number(primaryDiscountId)
     );
