@@ -14,7 +14,7 @@ if (array_key_exists("discountId", $_GET)) {
     $discount->discount_aid = $_GET['discountId'];
     $discount->discount_type = checkIndex($data, "discount_type");
     $discount->discount_tuition_fee = checkIndex($data, "discount_tuition_fee");
-    $discount->discount_entrance_fee = $data["discount_entrance_fee"];
+    $discount->discount_admission_fee = $data["discount_admission_fee"];
     $discount->discount_category_id = checkIndex($data, "discount_category_id");
     $discount->discount_qualification = checkIndex($data, "discount_qualification");
     $discount->discount_duration = checkIndex($data, "discount_duration");
