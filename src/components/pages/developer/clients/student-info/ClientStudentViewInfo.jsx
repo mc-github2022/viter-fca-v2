@@ -22,7 +22,7 @@ import { LuDot } from "react-icons/lu";
 import { PiPhoneThin } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import Navigation from "../../Navigation.jsx";
-import ModalAddStudent from "./form/ModalAddStudent.jsx";
+import ModalAddStudent from "./modal-student/ModalAddStudent.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
 
 const ClientStudentViewInfo = () => {
@@ -46,7 +46,7 @@ const ClientStudentViewInfo = () => {
 
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
-    setId(item.student_info_aid);
+    setId(item.students_aid);
     setData(item);
   };
 
@@ -75,6 +75,19 @@ const ClientStudentViewInfo = () => {
     "mystudent" // key
   );
 
+  const {
+    isLoading: parentIsLoading,
+    isFetching: parentIsFetching,
+    error: parentIsError,
+    data: parent,
+  } = useQueryData(
+    `/v2/dev-parents/${cid}`, // endpoint
+    "get", // method
+    "parent" // key
+  );
+
+  console.log(mystudent);
+
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
@@ -102,14 +115,14 @@ const ClientStudentViewInfo = () => {
                 </button>
                 <BreadCrumbs />
                 <h1 className="text-clampH1 mb-2">
-                  {isLoading || isFetching ? (
+                  {parentIsLoading || parentIsFetching ? (
                     <p>Loading...</p>
                   ) : (
                     <>
                       <span className="pr-2">
-                        {mystudent?.data[0].parents_fname}
+                        {parent?.data[0].parents_fname}
                       </span>
-                      <span>{mystudent?.data[0].parents_lname}</span>
+                      <span>{parent?.data[0].parents_lname}</span>
                     </>
                   )}
                 </h1>
@@ -211,13 +224,19 @@ const ClientStudentViewInfo = () => {
         />
       )}
 
-      {store.isAdd && <ModalAddStudent itemEdit={itemEdit} cid={cid} />}
+      {store.isAdd && (
+        <ModalAddStudent
+          itemEdit={itemEdit}
+          parent={parent}
+          syid={mystudent?.data.school_year_aid}
+        />
+      )}
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/student/${id}`}
+          mysqlApiDelete={`/v2/dev-students/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={`${dataItem.student_info_fname} ${dataItem.student_info_lname}`}
+          item={`${dataItem.students_fname} ${dataItem.students_lname}`}
           queryKey={"mystudent"}
         />
       )}
