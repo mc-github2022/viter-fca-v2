@@ -123,25 +123,25 @@ class Student
         try {
             $sql = "insert into {$this->tblSyStudent} ";
             $sql .= "( ";
-            $sql .= "school_year_students_is_active, ";
-            $sql .= "school_year_students_last_learning_type, ";
-            $sql .= "school_year_students_sy_id, ";
+            $sql .= "students_is_active, ";
+            $sql .= "students_lrn, ";
+            $sql .= "students_parent_id, ";
             $sql .= "school_year_students_student_id, ";
             $sql .= "school_year_students_last_grade_level_id, ";
             $sql .= "school_year_students_created, ";
             $sql .= "school_year_students_datetime ) values ( ";
-            $sql .= ":school_year_students_is_active, ";
-            $sql .= ":school_year_students_last_learning_type, ";
-            $sql .= ":school_year_students_sy_id, ";
+            $sql .= ":students_is_active, ";
+            $sql .= ":students_lrn, ";
+            $sql .= ":students_parent_id, ";
             $sql .= ":school_year_students_student_id, ";
             $sql .= ":school_year_students_last_grade_level_id, ";
             $sql .= ":school_year_students_created, ";
             $sql .= ":school_year_students_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "school_year_students_is_active" => $this->students_is_active,
-                "school_year_students_last_learning_type" => $this->school_year_students_last_learning_type,
-                "school_year_students_sy_id" => $this->school_year_students_sy_id,
+                "students_is_active" => $this->students_is_active,
+                "students_lrn" => $this->students_lrn,
+                "students_parent_id" => $this->students_parent_id,
                 "school_year_students_student_id" => $this->lastInsertedId,
                 "school_year_students_last_grade_level_id" => $this->school_year_students_last_grade_level_id,
                 "school_year_students_created" => $this->students_created,
@@ -524,6 +524,71 @@ class Student
                 "students_aid" => $this->students_aid,
                 "school_year_students_sy_id" => $this->school_year_students_sy_id,
             ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+
+
+    public function createStudentProfileByParent() {
+        try {
+            $sql = "insert into {$this->tblStudent} ";
+            $sql .= "( ";
+            $sql .= "students_is_active, ";
+            $sql .= "students_lrn, ";
+            $sql .= "students_fname, ";
+            $sql .= "school_year_students_student_id, ";
+            $sql .= "students_mname, ";
+            $sql .= "students_gender, ";
+            $sql .= "students_birth_date, ";
+            $sql .= "students_birth_place, ";
+            $sql .= "students_email, ";
+            $sql .= "students_mobile, ";
+            $sql .= "students_landline, ";
+            $sql .= "students_medical_remarks, ";
+            $sql .= "students_family_doctor, ";
+            $sql .= "students_family_doctor_contact, ";
+            $sql .= "students_family_circumstances, ";
+            $sql .= "students_created, ";
+            $sql .= "students_datetime ) values ( ";
+            $sql .= ":students_is_active, ";
+            $sql .= ":students_lrn, ";
+            $sql .= ":students_fname, ";
+            $sql .= ":students_mname, ";
+            $sql .= ":students_gender, ";
+            $sql .= ":students_birth_date, ";
+            $sql .= ":students_birth_place, ";
+            $sql .= ":students_email, ";
+            $sql .= ":students_mobile, ";
+            $sql .= ":students_landline, ";
+            $sql .= ":students_medical_remarks, ";
+            $sql .= ":students_family_doctor, ";
+            $sql .= ":students_family_doctor_contact, ";
+            $sql .= ":students_family_circumstances, ";
+            $sql .= ":students_created, ";
+            $sql .= ":students_datetime ) ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "students_is_active" => $this->students_is_active,
+                "students_lrn" => $this->students_lrn,
+                "students_fname" => $this->students_fname,
+                "students_mname" => $this->students_mname,
+                "students_gender" => $this->students_gender,
+                "students_birth_date" => $this->students_birth_date,
+                "students_birth_place" => $this->students_birth_place,
+                "students_email" => $this->students_email,
+                "students_mobile" => $this->students_mobile,
+                "students_landline" => $this->students_landline,
+                "students_medical_remarks" => $this->students_medical_remarks,
+                "students_family_doctor" => $this->students_family_doctor,
+                "students_family_doctor_contact" => $this->students_family_doctor_contact,
+                "students_family_circumstances" => $this->students_family_doctor_contact,
+                "students_created" => $this->students_created,
+                "students_datetime" => $this->students_datetime,
+            ]);
+            $this->lastInsertedId = $this->connection->lastInsertId();
         } catch (PDOException $ex) {
             $query = false;
         }

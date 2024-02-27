@@ -202,6 +202,7 @@ RewriteRule ^dev-students/update-coc$ controllers/developer/students/update-coc.
 RewriteRule ^dev-students/update-parent-declare$ controllers/developer/students/update-parent-declare.php [L]
 RewriteRule ^dev-students/update-parent-consent$ controllers/developer/students/update-parent-consent.php [L]
 RewriteRule ^dev-students/update-commitment-form$ controllers/developer/students/update-commitment-form.php [L]
+RewriteRule ^dev-students/create-student-profile$ controllers/developer/students/create-student-profile.php [L]
 
 # STUDENTS REQUIREMENT
 RewriteRule ^dev-students-requirement$ controllers/developer/requirement/registrar/registrar.php [L]
