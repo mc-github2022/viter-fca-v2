@@ -108,8 +108,8 @@ const Header = ({ isLoading, schoolYear }) => {
               {schoolYear?.isGreaterThanEndYear ? (
                 <span>
                   School Year is not updated.{" "}
-                  {store.credentials.role_is_admin === 1 ||
-                    (store.credentials.role_is_developer === 1 && (
+                  {store.credentials.data.role_is_admin === 1 ||
+                    (store.credentials.data.role_is_developer === 1 && (
                       <span>
                         Go to{" "}
                         <span
