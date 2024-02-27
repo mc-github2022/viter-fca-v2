@@ -94,8 +94,8 @@ const ListDiscountList = ({ setItemEdit }) => {
                 <p className="mb-3">{item.discount_type}</p>
                 <ul className="flex gap-5">
                   <li className="mb-1">
-                    <span className="font-bold">Entrance fee: </span>
-                    {Number(item.discount_entrance_fee)}%
+                    <span className="font-bold">Admission fee: </span>
+                    {Number(item.discount_admission_fee)}%
                   </li>
                   <li className="mb-1">
                     <span className="font-bold">Tuition fee: </span>

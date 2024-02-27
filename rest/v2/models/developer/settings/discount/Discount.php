@@ -5,7 +5,7 @@ class Discount
     public $discount_is_active;
     public $discount_type;
     public $discount_tuition_fee;
-    public $discount_entrance_fee;
+    public $discount_admission_fee;
     public $discount_category_id;
     public $discount_qualification;
     public $discount_duration;
@@ -34,7 +34,7 @@ class Discount
             $sql .= "( discount_is_active, ";
             $sql .= "discount_type, ";
             $sql .= "discount_tuition_fee, ";
-            $sql .= "discount_entrance_fee, ";
+            $sql .= "discount_admission_fee, ";
             $sql .= "discount_category_id, ";
             $sql .= "discount_qualification, ";
             $sql .= "discount_duration, ";
@@ -45,7 +45,7 @@ class Discount
             $sql .= ":discount_is_active, ";
             $sql .= ":discount_type, ";
             $sql .= ":discount_tuition_fee, ";
-            $sql .= ":discount_entrance_fee, ";
+            $sql .= ":discount_admission_fee, ";
             $sql .= ":discount_category_id, ";
             $sql .= ":discount_qualification, ";
             $sql .= ":discount_duration, ";
@@ -58,7 +58,7 @@ class Discount
                 "discount_is_active" => $this->discount_is_active,
                 "discount_type" => $this->discount_type,
                 "discount_tuition_fee" => $this->discount_tuition_fee,
-                "discount_entrance_fee" => $this->discount_entrance_fee,
+                "discount_admission_fee" => $this->discount_admission_fee,
                 "discount_category_id" => $this->discount_category_id,
                 "discount_qualification" => $this->discount_qualification,
                 "discount_duration" => $this->discount_duration,
@@ -118,7 +118,7 @@ class Discount
             $sql = "update {$this->tblDiscount} set ";
             $sql .= "discount_type = :discount_type, ";
             $sql .= "discount_tuition_fee = :discount_tuition_fee, ";
-            $sql .= "discount_entrance_fee = :discount_entrance_fee, ";
+            $sql .= "discount_admission_fee = :discount_admission_fee, ";
             $sql .= "discount_category_id = :discount_category_id, ";
             $sql .= "discount_qualification = :discount_qualification, ";
             $sql .= "discount_duration = :discount_duration, ";
@@ -130,7 +130,7 @@ class Discount
             $query->execute([
                 "discount_type" => $this->discount_type,
                 "discount_tuition_fee" => $this->discount_tuition_fee,
-                "discount_entrance_fee" => $this->discount_entrance_fee,
+                "discount_admission_fee" => $this->discount_admission_fee,
                 "discount_category_id" => $this->discount_category_id,
                 "discount_qualification" => $this->discount_qualification,
                 "discount_duration" => $this->discount_duration,
