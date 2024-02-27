@@ -71,3 +71,10 @@ function checkUpdateSchoolYearStudentCommitmentForm($object)
     checkQuery($query, "There's a problem processing your request. (update school year student Commitment Form)");
     return $query;
 }
+
+
+function checkCreateStudentProfileByParent($object) {
+    $query = $object->createStudentProfileByParent();
+    checkQuery($query, "There's a problem processing your request. (Create student by parent )");
+    return $query;
+}
