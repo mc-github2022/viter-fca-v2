@@ -30,8 +30,6 @@ const Students = () => {
     "school-year" // key
   );
 
-  console.log(schoolYear);
-
   const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
 
   const handleAdd = () => {
