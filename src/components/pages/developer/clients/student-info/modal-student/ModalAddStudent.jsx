@@ -11,7 +11,7 @@ import StudentParentDeclaration from "./StudentParentDeclaration.jsx";
 import StudentPaymentScheme from "./StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfileForm.jsx";
 
-const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, syid }) => {
+const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
   const [index, setIndex] = React.useState(1);
@@ -166,7 +166,6 @@ const ModalAddStudent = ({ setIsViewInfo, itemEdit, parent, syid }) => {
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
                     gradelevel={gradelevel}
-                    syid={syid}
                   />
                 )}
                 {index === 2 && (

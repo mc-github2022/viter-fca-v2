@@ -32,8 +32,8 @@ const StudentProfileForm = ({
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-students/${itemEdit.students_aid}`
-          : `/v2/dev-students`,
+          ? `/v2/dev-students/create-student-profile/${itemEdit.students_aid}`
+          : `/v2/dev-students/create-student-profile`,
         itemEdit ? "put" : "post",
         values
       ),
@@ -75,12 +75,9 @@ const StudentProfileForm = ({
     students_mobile: itemEdit ? itemEdit.students_mobile : "",
     students_landline: itemEdit ? itemEdit.students_landline : "",
     students_address: itemEdit ? itemEdit.students_address : "",
-    school_year_students_last_learning_type: itemEdit
-      ? itemEdit.school_year_students_last_learning_type
-      : "",
-    school_year_students_sy_id: itemEdit
-      ? itemEdit.school_year_students_sy_id
-      : "",
+    // school_year_students_sy_id: itemEdit
+    //   ? itemEdit.school_year_students_sy_id
+    //   : "",
     school_year_students_last_grade_level_id: itemEdit
       ? itemEdit.school_year_students_last_grade_level_id
       : "",
@@ -114,7 +111,7 @@ const StudentProfileForm = ({
           mutation.mutate({
             ...values,
             students_parent_id: cid,
-            school_year_students_sy_id: syid,
+            school_year_students_sy_id: "2024 - 2552",
           });
           console.log(values);
         }}
@@ -155,8 +152,8 @@ const StudentProfileForm = ({
                         label="School Year"
                         type="text"
                         name="school_year"
-                        // value={dataItem.school_year}
-                        disabled
+                        // value={sy}
+                        // disabled
                       />
                     </div>
 
@@ -215,7 +212,6 @@ const StudentProfileForm = ({
                         disabled={mutation.isPending}
                       />
                     </div>
-
                     <div className="form__wrap">
                       <InputText
                         label="First Name"
@@ -224,7 +220,6 @@ const StudentProfileForm = ({
                         disabled={mutation.isPending}
                       />
                     </div>
-
                     <div className="form__wrap">
                       <InputText
                         label="Middle Name "
@@ -233,7 +228,6 @@ const StudentProfileForm = ({
                         disabled={mutation.isPending}
                       />
                     </div>
-
                     <div className="form__wrap">
                       <InputSelect
                         label="Gender"
@@ -245,7 +239,6 @@ const StudentProfileForm = ({
                         <option value="f">Female</option>
                       </InputSelect>
                     </div>
-
                     <div className="form__wrap">
                       <InputText
                         label="Birth Date "
@@ -254,7 +247,6 @@ const StudentProfileForm = ({
                         disabled={mutation.isPending}
                       />
                     </div>
-
                     <div className="form__wrap">
                       <InputText
                         label="Birth Place"
