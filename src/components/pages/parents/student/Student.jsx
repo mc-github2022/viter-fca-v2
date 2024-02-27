@@ -20,9 +20,9 @@ const Student = () => {
   const [showTuitionScheme, setShowTuitionScheme] = React.useState(false);
 
   const {
-    isLoading: isLoadingSY,
-    isFetching: isFetchingSY,
-    error: errorSY,
+    isLoading,
+    isFetching,
+    error,
     data: schoolYear,
   } = useQueryData(
     "/v2/dev-school-year", // endpoint
@@ -34,11 +34,16 @@ const Student = () => {
 
   return (
     <>
-      <Header />
+      <Header isLoading={isLoading} schoolYear={schoolYear} />
       <section className="main__wrap flex flex-col relative ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           {/* <ParentNavigation menu="student" /> */}
-          <Navigation menu="student" />
+          <Navigation
+            menu="student"
+            isLoading={isLoading}
+            error={error}
+            schoolYear={schoolYear}
+          />
 
           <main
             className={`main__content mt-[35px]  ${

@@ -123,16 +123,25 @@ class Student
         try {
             $sql = "insert into {$this->tblSyStudent} ";
             $sql .= "( ";
+            $sql .= "school_year_students_is_active, ";
+            $sql .= "school_year_students_last_learning_type, ";
+            $sql .= "school_year_students_sy_id, ";
             $sql .= "school_year_students_student_id, ";
             $sql .= "school_year_students_last_grade_level_id, ";
             $sql .= "school_year_students_created, ";
             $sql .= "school_year_students_datetime ) values ( ";
+            $sql .= ":school_year_students_is_active, ";
+            $sql .= ":school_year_students_last_learning_type, ";
+            $sql .= ":school_year_students_sy_id, ";
             $sql .= ":school_year_students_student_id, ";
             $sql .= ":school_year_students_last_grade_level_id, ";
             $sql .= ":school_year_students_created, ";
             $sql .= ":school_year_students_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "school_year_students_is_active" => $this->students_is_active,
+                "school_year_students_last_learning_type" => $this->school_year_students_last_learning_type,
+                "school_year_students_sy_id" => $this->school_year_students_sy_id,
                 "school_year_students_student_id" => $this->lastInsertedId,
                 "school_year_students_last_grade_level_id" => $this->school_year_students_last_grade_level_id,
                 "school_year_students_created" => $this->students_created,
