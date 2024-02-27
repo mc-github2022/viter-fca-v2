@@ -3,11 +3,10 @@ $conn = null;
 $conn = checkDbConnection();
 $registrar = new Registrar($conn);
 
-if (array_key_exists("reqid", $_GET)) {
-    checkPayload($data);
+if (array_key_exists("reqid", $_GET) && array_key_exists("studentid", $_GET)) {
 
-    $registrar->students_requirements_aid = $_GET['reqid'];
-    checkId($registrar->students_requirements_aid);
+    $registrar->students_requirements_id = $_GET['reqid'];
+    $registrar->students_requirements_student_id = $_GET['studentid'];
 
     $query = checkDelete($registrar);
 

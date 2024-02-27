@@ -3,6 +3,7 @@ import { queryData } from "@/components/helpers/queryData";
 import NoData from "@/components/partials/NoData";
 import TableLoading from "@/components/partials/TableLoading";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import {
   setMessage,
   setSuccess,
@@ -50,8 +51,36 @@ const RequirementRegistrarEdit = ({
 
   const syId = schoolYear?.count > 0 && schoolYear?.data[0].school_year_aid;
 
+  const handleCheck = async (e, requirementId) => {
+    if (e.target.value === false || e.target.value === "") {
+      await queryData(`/v2/dev-students-requirement`, "post", {
+        students_requirements_id: requirementId,
+        students_requirements_student_id: itemEdit.students_aid,
+        students_requirements_sy_id: syId,
+      });
+
+      queryClient.invalidateQueries({ queryKey: ["students-requirements"] });
+
+      dispatch(setSuccess(true));
+      dispatch(setMessage("Record successfully added."));
+
+      return;
+    }
+
+    await queryData(
+      `/v2/dev-students-requirement/${requirementId}/${itemEdit.students_aid}`,
+      "delete"
+    );
+
+    queryClient.invalidateQueries({ queryKey: ["students-requirements"] });
+
+    dispatch(setSuccess(true));
+    dispatch(setMessage("Record successfully removed."));
+
+    return;
+  };
+
   let valueToAdd = [];
-  let valueToRemove = [];
 
   registrarRequirements?.data.map((regItem) => {
     return studentRequirement?.data.filter((reqItem) => {
@@ -65,14 +94,6 @@ const RequirementRegistrarEdit = ({
     });
   });
 
-  valueToRemove = registrarRequirements?.data.filter((regItem) => {
-    return !studentRequirement?.data.find((reqItem) => {
-      return (
-        regItem.requirement_registrar_aid === reqItem.students_requirements_id
-      );
-    });
-  });
-
   const initVal = {
     ...valueToAdd,
   };
@@ -80,32 +101,22 @@ const RequirementRegistrarEdit = ({
   const yupSchema = Yup.object({});
 
   const handleView = () => setIsEdit(false);
+
   return (
     <>
       {reqLoading || reqFetching || isLoading ? (
-        <div className="max-w-[600px]">
-          <TableLoading count={10} cols={2} />
+        <div className="max-w-[600px] h-[50vh] relative">
+          <FetchingSpinner />
         </div>
       ) : (
         <Formik
           initialValues={initVal}
           validationSchema={yupSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            // console.log({
-            //   requirements_id: Object.keys(values),
-            //   students_requirements_student_id: itemEdit.students_aid,
-            //   students_requirements_sy_id: syId,
-            // });
-            mutation.mutate({
-              requirements_id: Object.keys(values),
-              students_requirements_student_id: itemEdit.students_aid,
-              students_requirements_sy_id: syId,
-            });
+            mutation.mutate({});
           }}
         >
           {(props) => {
-            console.log(valueToAdd);
-
             return (
               <>
                 <Form>
@@ -129,6 +140,12 @@ const RequirementRegistrarEdit = ({
                                   name={item.requirement_registrar_aid}
                                   id={item.requirement_registrar_aid}
                                   disabled={mutation.isPending}
+                                  onClick={(e) =>
+                                    handleCheck(
+                                      e,
+                                      item.requirement_registrar_aid
+                                    )
+                                  }
                                 />
                               </div>
                             </div>
@@ -137,23 +154,6 @@ const RequirementRegistrarEdit = ({
                       ) : (
                         <NoData />
                       )}
-
-                      {/* <div className="remarks mt-5">
-                      <div className="form__wrap">
-                        <InputTextArea
-                          label="Remarks"
-                          name="students_requirements_remarks"
-                        />
-                      </div>
-                    </div> */}
-
-                      <button
-                        className="btn btn--accent mt-5"
-                        type="submit"
-                        disabled={mutation.isPending || !props.dirty}
-                      >
-                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
-                      </button>
                     </div>
                   </div>
                 </Form>

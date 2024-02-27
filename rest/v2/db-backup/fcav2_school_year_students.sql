@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2024 at 07:26 AM
+-- Generation Time: Feb 27, 2024 at 03:56 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -37,7 +37,12 @@ CREATE TABLE `fcav2_school_year_students` (
   `school_year_students_last_gpa` varchar(20) NOT NULL,
   `school_year_students_last_grade_level_id` int(11) NOT NULL,
   `school_year_students_last_school_address` text NOT NULL,
-  `school_year_students_last_remarks` text NOT NULL,
+  `school_year_students_is_notify` tinyint(1) NOT NULL,
+  `school_year_students_is_accept_payment` tinyint(1) NOT NULL,
+  `school_year_students_schedule_fees_id` int(11) NOT NULL,
+  `school_year_students_rate_id` int(11) NOT NULL,
+  `school_year_students_primary_discount_id` int(11) NOT NULL,
+  `school_year_students_additional_discount_id` int(11) NOT NULL,
   `school_year_students_last_coc_is_agree` tinyint(1) NOT NULL,
   `school_year_students_last_parent_declaration_is_agree` tinyint(1) NOT NULL,
   `school_year_students_last_parent_consent_is_agree` tinyint(1) NOT NULL,
@@ -50,8 +55,9 @@ CREATE TABLE `fcav2_school_year_students` (
 -- Dumping data for table `fcav2_school_year_students`
 --
 
-INSERT INTO `fcav2_school_year_students` (`school_year_students_aid`, `school_year_students_is_active`, `school_year_students_sy_id`, `school_year_students_student_id`, `school_year_students_last_learning_type`, `school_year_students_last_school_attended`, `school_year_students_last_gpa`, `school_year_students_last_grade_level_id`, `school_year_students_last_school_address`, `school_year_students_last_remarks`, `school_year_students_last_coc_is_agree`, `school_year_students_last_parent_declaration_is_agree`, `school_year_students_last_parent_consent_is_agree`, `school_year_students_last_parent_commitment_is_agree`, `school_year_students_created`, `school_year_students_datetime`) VALUES
-(1, 0, 4, 1, 'onsite', '', '', 1, '', '', 0, 0, 0, 0, '2024-02-23 12:16:30', '2024-02-23 14:25:01');
+INSERT INTO `fcav2_school_year_students` (`school_year_students_aid`, `school_year_students_is_active`, `school_year_students_sy_id`, `school_year_students_student_id`, `school_year_students_last_learning_type`, `school_year_students_last_school_attended`, `school_year_students_last_gpa`, `school_year_students_last_grade_level_id`, `school_year_students_last_school_address`, `school_year_students_is_notify`, `school_year_students_is_accept_payment`, `school_year_students_schedule_fees_id`, `school_year_students_rate_id`, `school_year_students_primary_discount_id`, `school_year_students_additional_discount_id`, `school_year_students_last_coc_is_agree`, `school_year_students_last_parent_declaration_is_agree`, `school_year_students_last_parent_consent_is_agree`, `school_year_students_last_parent_commitment_is_agree`, `school_year_students_created`, `school_year_students_datetime`) VALUES
+(1, 1, 4, 1, 'onsite', '', '', 1, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2024-02-23 12:16:30', '2024-02-26 10:27:50'),
+(2, 1, 4, 2, 'online', '', '', 3, '', 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, '2024-02-26 09:52:47', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -71,7 +77,7 @@ ALTER TABLE `fcav2_school_year_students`
 -- AUTO_INCREMENT for table `fcav2_school_year_students`
 --
 ALTER TABLE `fcav2_school_year_students`
-  MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

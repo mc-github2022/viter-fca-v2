@@ -81,10 +81,12 @@ class Registrar
     {
         try {
             $sql = "delete from {$this->tblRequirement} ";
-            $sql .= "where students_requirements_aid = :students_requirements_aid ";
+            $sql .= "where students_requirements_id = :students_requirements_id ";
+            $sql .= "and students_requirements_student_id = :students_requirements_student_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "students_requirements_aid" => $this->students_requirements_aid
+                "students_requirements_id" => $this->students_requirements_id,
+                "students_requirements_student_id" => $this->students_requirements_student_id
             ]);
         } catch (PDOException $ex) {
             $query = false;

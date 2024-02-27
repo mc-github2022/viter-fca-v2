@@ -20,7 +20,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
     isFetching: reqFetching,
     data: studentRequirement,
   } = useQueryData(
-    `/v2/dev-students-requirement/${itemEdit.students_aid}`, // endpoint
+    `/v2/dev-students-requirement/${itemEdit.students_aid}/${itemEdit.students_aid}`, // endpoint
     "get", // method
     "students-requirements", // key
     {},

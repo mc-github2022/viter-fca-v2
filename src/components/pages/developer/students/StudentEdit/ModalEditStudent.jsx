@@ -137,7 +137,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
               <main
                 className={` p-5 pb-20 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
-                <span className="block mb-3 uppercase font-normal text-[20px]">
+                <span className="block mb-3 uppercase text-accent font-normal text-[20px]">
                   Parent Account -{" "}
                   <span className="">{dataItem.parent_fullname}</span>
                 </span>
