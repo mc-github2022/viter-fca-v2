@@ -200,6 +200,7 @@ RewriteRule ^dev-students/([0-9]+)/([0-9]+)$ controllers/developer/students/stud
 RewriteRule ^dev-students/active/([0-9]+)$ controllers/developer/students/active.php?studentid=$1 [L]
 RewriteRule ^dev-students/page/([0-9]+)$ controllers/developer/students/page.php?start=$1 [L]
 RewriteRule ^dev-students/search$ controllers/developer/students/search.php [L]
+RewriteRule ^dev-students/parent-guardian$ controllers/developer/students/parent-guardian.php [L]
 RewriteRule ^dev-students/update-coc$ controllers/developer/students/update-coc.php [L]
 RewriteRule ^dev-students/update-parent-declare$ controllers/developer/students/update-parent-declare.php [L]
 RewriteRule ^dev-students/update-parent-consent$ controllers/developer/students/update-parent-consent.php [L]

@@ -73,14 +73,24 @@ function checkUpdateSchoolYearStudentCommitmentForm($object)
 }
 
 
-function checkCreateStudentProfileByParent($object) {
+function checkCreateStudentProfileByParent($object)
+{
     $query = $object->createStudentProfileByParent();
     checkQuery($query, "There's a problem processing your request. (Create student by parent )");
     return $query;
 }
 
-function checkCreateStudentSchoolYearByParent($object) {
+function checkCreateStudentSchoolYearByParent($object)
+{
     $query = $object->createStudentSchoolYearByParent();
     checkQuery($query, "There's a problem processing your request. (Create student school year by parent )");
+    return $query;
+}
+
+// read guardian address by parent id
+function checkReadGuardianByParentId($object)
+{
+    $query = $object->readGuardianByParentId();
+    checkQuery($query, "There's a problem processing your request. (read guardian address by parent id)");
     return $query;
 }

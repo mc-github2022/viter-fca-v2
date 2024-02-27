@@ -26,12 +26,29 @@ const StudentProfileForm = ({
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
+  const {
+    isLoading,
+    error,
+    data: parentGuardian,
+  } = useQueryData(
+    "/v2/dev-students/parent-guardian", // endpoint
+    "post", // method
+    "parent-guardian", // key
+    { students_parent_id: dataItem.students_parent_id },
+    { students_parent_id: dataItem.students_parent_id }
+  );
+
+  console.log(parentGuardian);
   console.log(dataItem);
   console.log(gradeLevel);
 
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData(`/v2/dev-students/${dataItem.students_aid}`, "put", values),
+      queryData(
+        `/v2/dev-students/${dataItem.students_aid}/${dataItem.school_year_aid}`,
+        "put",
+        values
+      ),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["students"] });
@@ -243,12 +260,28 @@ const StudentProfileForm = ({
                   <h6 className="mb-2 uppercase">Address</h6>
                   <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
-                      <InputText
-                        label="Current Address"
-                        type="text"
-                        name="student_adress"
+                      <InputSelect
+                        label="Adress"
+                        name="students_address_id"
                         disabled={mutation.isPending}
-                      />
+                      >
+                        <option value="" hidden></option>
+                        {parentGuardian?.count > 0 ? (
+                          parentGuardian?.data.map((item, key) => {
+                            return (
+                              <option value={item.guardian_aid} key={key}>
+                                {item.guardian_address} {item.guardian_province}{" "}
+                                {item.guardian_province} {item.guardian_city}{" "}
+                                {item.guardian_zipcode} {item.guardian_country}
+                              </option>
+                            );
+                          })
+                        ) : (
+                          <option value="" disabled>
+                            No data
+                          </option>
+                        )}
+                      </InputSelect>
                     </div>
                   </div>
 
@@ -297,9 +330,9 @@ const StudentProfileForm = ({
                   <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
                       <InputText
-                        label="Parent Address"
+                        label="Last School Address"
                         type="text"
-                        name="student_adress"
+                        name="school_year_students_last_school_address"
                         disabled={mutation.isPending}
                       />
                     </div>

@@ -14,10 +14,6 @@ if (array_key_exists("studentid", $_GET)) {
     $student->students_aid = $_GET['studentid'];
     $student->school_year_students_aid = $data['school_year_students_aid'];
 
-    // foreach ($data as $key => $value) {
-    //     $student->$key = $data[$value];
-    // }
-
     $student->students_parent_id = $data["students_parent_id"];
     $student->students_lrn = $data["students_lrn"];
     $student->students_fname = $data["students_fname"];
@@ -29,7 +25,7 @@ if (array_key_exists("studentid", $_GET)) {
     $student->students_email = $data["students_email"];
     $student->students_mobile = $data["students_mobile"];
     $student->students_landline = $data["students_landline"];
-    $student->students_address = $data["students_address"];
+    $student->students_address_id = $data["students_address_id"];
     $student->students_institutional_email = $data["students_institutional_email"];
     $student->students_family_doctor = $data["students_family_doctor"];
     $student->students_family_doctor_contact = $data["students_family_doctor_contact"];
