@@ -92,22 +92,27 @@ const Parents = () => {
 
   return (
     <>
-      <Header />
+      <Header isLoading={isLoading} schoolYear={schoolYear} />
       {/* <ModalEditStudent /> */}
       <section className="main__wrap flex flex-col relative ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           {/* <ParentNavigation menu="clients" /> */}
-          <Navigation menu="sample" />
+          <Navigation
+            menu="my-info"
+            isLoading={isLoading}
+            error={error}
+            schoolYear={schoolYear}
+          />
 
           <main
             className={`main__content mt-[35px]  ${
               store.isMenuExpand ? "expand" : ""
             }  ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center  ">
+            <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
               <div>
-                <h1 className="text-clampH1 mb-0">Information</h1>
-                <p className="mb-4 text-xs hidden lg:block">
+                <h1 className="text-clampH1 mb-2">My Information</h1>
+                <p className="text-xs opacity-75">
                   View information about your students, parents and emergency
                   contact list.
                 </p>

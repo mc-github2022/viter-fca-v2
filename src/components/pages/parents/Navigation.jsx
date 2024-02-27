@@ -15,9 +15,14 @@ import { Link } from "react-router-dom";
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-const Navigation = ({ menu, submenu }) => {
+
+const Navigation = ({ menu, isLoading, error, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   // const urlRolePath = getUserType();
+
+  const getOngoingSchoolYear =
+    schoolYear?.count > 0 &&
+    schoolYear?.data.filter((item) => item.school_year_is_active === 1);
 
   const handleToggleMenu = () => {
     dispatch(setIsShow(!store.isShow));
@@ -34,22 +39,48 @@ const Navigation = ({ menu, submenu }) => {
   return (
     <>
       <nav
-        className={`mt-[50px] ${store.isShow ? "show" : ""}  ${
-          store.isMenuExpand ? "expand" : ""
-        }`}
+        className={`${
+          schoolYear?.data[0]?.school_year_is_enrollment_open === 1 ||
+          schoolYear?.isGreaterThanEndYear
+            ? "mt-[94px]"
+            : "mt-[54px]"
+        } ${store.isShow ? "show" : ""} ${store.isMenuExpand ? "expand" : ""}`}
       >
         <div className="backdrop" onClick={() => setIsShow(false)}></div>
         <div className="flex flex-col justify-between h-[93%] py-2 pr-0 custom__scroll overflow-y-auto">
           <ul className="mt-3  h-[calc(100vh-48px)] pb-8">
-            <li className={`nav__link ${menu === "" ? "active" : ""}`}>
+            <li
+              className={`nav__link ${menu === "" ? "active" : ""} ${
+                schoolYear?.isGreaterThanEndYear ||
+                getOngoingSchoolYear?.length === 0
+                  ? "border-alert cursor-pointer tooltip h-[unset] w-[unset] hover:!bg-[unset] hover:underline hover:decoration-[#af1818]"
+                  : ""
+              }`}
+              data-tooltip="Invalid S.Y."
+            >
               <Link
                 // to={`${devNavUrl}/admin/students`}
-                className="flex gap-3 items-center uppercase p-1 w-full"
+                className={`flex gap-3 items-center uppercase w-full cursor-default pointer-events-none ${
+                  schoolYear?.isGreaterThanEndYear ||
+                  getOngoingSchoolYear?.length === 0
+                    ? "text-alert"
+                    : ""
+                }`}
               >
-                <BsCalendar2Week className="text-lg ml-4" /> S.Y 2023-2024
+                <BsCalendar2Week className="text-lg ml-4" />
+                {isLoading
+                  ? "Loading..."
+                  : error
+                  ? "API / Network Error"
+                  : getOngoingSchoolYear?.length > 0
+                  ? `S.Y ${getOngoingSchoolYear[0]?.start_year}-${getOngoingSchoolYear[0]?.end_year}`
+                  : "S.Y not set"}
+                {/* {schoolYear?.isGreaterThanEndYear && (
+                  <span className="text-[10px]"></span>
+                )} */}
               </Link>
             </li>
-            <li className={`nav__link ${menu === "clients" ? "active" : ""}`}>
+            <li className={`nav__link ${menu === "my-info" ? "active" : ""}`}>
               <Link
                 to={`${devNavUrl}/parent/information`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
@@ -57,7 +88,9 @@ const Navigation = ({ menu, submenu }) => {
                 <BsInfoCircle className="text-lg ml-4" /> My Information
               </Link>
             </li>
-            <li className={`nav__link ${menu === "student" ? "active" : ""}`}>
+            <li
+              className={`nav__link ${menu === "my-student" ? "active" : ""}`}
+            >
               <Link
                 to={`${devNavUrl}/parent/student`}
                 className="flex gap-3 items-center uppercase p-1 w-full"

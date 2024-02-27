@@ -22,7 +22,6 @@ import React from "react";
 import * as Yup from "yup";
 
 const StudentProfileForm = ({
-  setIsViewInfo,
   showSideNav,
   itemEdit,
   gradelevel,
@@ -35,17 +34,17 @@ const StudentProfileForm = ({
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/dev-students/create-student-profile/${itemEdit.students_aid}`
-          : `/v2/dev-students/create-student-profile`,
+          ? `/v2/dev-client-student/${itemEdit.students_aid}`
+          : `/v2/dev-client-student`,
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
       // show error box
       if (data.success) {
-        setIsViewInfo(false);
+        dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
         dispatch(setMessage("Record successfully updated."));
       }
@@ -79,7 +78,10 @@ const StudentProfileForm = ({
     students_email: itemEdit ? itemEdit.students_email : "",
     students_mobile: itemEdit ? itemEdit.students_mobile : "",
     students_landline: itemEdit ? itemEdit.students_landline : "",
-    students_address: itemEdit ? itemEdit.students_address : "",
+    students_address_id: itemEdit ? itemEdit.students_address_id : "",
+    students_institutional_email: itemEdit
+      ? itemEdit.students_institutional_email
+      : "",
     school_year_students_sy_id: itemEdit
       ? itemEdit.school_year_students_sy_id
       : "",
@@ -94,6 +96,9 @@ const StudentProfileForm = ({
       : "",
     school_year_students_last_remarks: itemEdit
       ? itemEdit.school_year_students_last_remarks
+      : "",
+    school_year_students_last_school_address: itemEdit
+      ? itemEdit.school_year_students_last_school_address
       : "",
     students_medical_remarks: itemEdit ? itemEdit.students_medical_remarks : "",
     students_family_doctor_contact: itemEdit
@@ -290,7 +295,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Current Address"
                         type="text"
-                        name="students_address"
+                        name="students_address_id"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -341,9 +346,9 @@ const StudentProfileForm = ({
                   <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
                       <InputText
-                        label="Parent Address"
+                        label="Last School Address"
                         type="text"
-                        name="students_address"
+                        name="school_year_students_last_school_address"
                         disabled={mutation.isPending}
                       />
                     </div>

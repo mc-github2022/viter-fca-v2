@@ -39,6 +39,8 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
     setIndex(index);
   };
 
+  console.log(itemEdit);
+
   return (
     <>
       <div className="fixed top-0 left-0 z-20 w-full h-screen">
@@ -56,7 +58,9 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
                 </button>
                 <h5 className="mb-0 font-normal">
                   Student Information -{" "}
-                  {/* {`${itemEdit.student_info_fname}, ${itemEdit.student_info_lname}`} */}
+                  <span className="font-bold">
+                    {itemEdit.students_fname} {itemEdit.students_lname}
+                  </span>
                 </h5>
               </div>
               <button onClick={handleClose}>
