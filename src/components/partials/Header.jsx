@@ -107,14 +107,20 @@ const Header = ({ isLoading, schoolYear }) => {
               <FaExclamationCircle className="h-6 w-6 fill-white bg-[#f09a02] rounded-full" />
               {schoolYear?.isGreaterThanEndYear ? (
                 <span>
-                  School Year is not updated. Go to{" "}
-                  <span
-                    className="underline cursor-pointer"
-                    onClick={handleShowSettings}
-                  >
-                    settings
-                  </span>{" "}
-                  and add new S.Y
+                  School Year is not updated.{" "}
+                  {store.credentials.role_is_admin === 1 ||
+                    (store.credentials.role_is_developer === 1 && (
+                      <span>
+                        Go to{" "}
+                        <span
+                          className="underline cursor-pointer"
+                          onClick={handleShowSettings}
+                        >
+                          settings
+                        </span>{" "}
+                        and add new S.Y
+                      </span>
+                    ))}
                 </span>
               ) : (
                 "Enrollment is On-going"

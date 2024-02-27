@@ -4,6 +4,7 @@ import NoData from "@/components/partials/NoData";
 import TableLoading from "@/components/partials/TableLoading";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setMessage,
   setSuccess,
@@ -52,6 +53,7 @@ const RequirementRegistrarEdit = ({
   const syId = schoolYear?.count > 0 && schoolYear?.data[0].school_year_aid;
 
   const handleCheck = async (e, requirementId) => {
+    mutation.isPending = true;
     if (e.target.value === false || e.target.value === "") {
       await queryData(`/v2/dev-students-requirement`, "post", {
         students_requirements_id: requirementId,
@@ -104,9 +106,9 @@ const RequirementRegistrarEdit = ({
 
   return (
     <>
-      {reqLoading || reqFetching || isLoading ? (
+      {reqLoading || isLoading || mutation.isPending ? (
         <div className="max-w-[600px] h-[50vh] relative">
-          <FetchingSpinner />
+          <TableSpinner />
         </div>
       ) : (
         <Formik
@@ -125,7 +127,8 @@ const RequirementRegistrarEdit = ({
                       <h5>Add/Remove Registrar Requirement</h5>
                     </div>
 
-                    <div className="max-w-[600px]  ">
+                    <div className="max-w-[600px] relative">
+                      {mutation.isPending && <TableSpinner />}
                       {registrarRequirements?.count > 0 ? (
                         registrarRequirements?.data.map((item, key) => {
                           return (
