@@ -62,7 +62,7 @@ class RequirementRegistrar
             $sql .= "from {$this->tblRequirementRegistrar} as registrar, ";
             $sql .= "{$this->tblDepartment} as dept ";
             $sql .= "where registrar.requirement_registrar_department_id = dept.department_aid ";
-            $sql .= "order by requirement_registrar_active desc ";
+            $sql .= "order by requirement_registrar_aid ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
