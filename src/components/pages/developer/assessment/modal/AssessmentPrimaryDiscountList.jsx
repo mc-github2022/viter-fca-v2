@@ -1,10 +1,14 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { getGetPrimaryDiscount } from "./functions-assessment";
 import { isItemEmpty } from "@/components/helpers/functions-general";
+import {
+  getGetPrimaryDiscount,
+  getGetPrimaryDiscountData,
+} from "./functions-assessment";
 
 const AssessmentPrimaryDiscountList = ({
   primaryDiscountId,
   setPrimaryDiscountId,
+  setPrimaryDiscountData,
 }) => {
   const {
     isLoading,
@@ -19,6 +23,9 @@ const AssessmentPrimaryDiscountList = ({
 
   const handleChangePrimaryDiscount = (e) => {
     setPrimaryDiscountId(e.target.value);
+    setPrimaryDiscountData(
+      getGetPrimaryDiscountData(primaryDiscount, e.target.value)
+    );
   };
 
   return (
@@ -82,7 +89,7 @@ const AssessmentPrimaryDiscountList = ({
                 <li>
                   {isItemEmpty(
                     getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                      ?.discount_entrance_fee,
+                      ?.discount_admission_fee,
                     "%"
                   )}
                 </li>

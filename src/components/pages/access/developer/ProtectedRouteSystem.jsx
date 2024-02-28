@@ -27,6 +27,8 @@ const ProtectedRouteSystem = ({ children }) => {
         isDev: true,
       });
 
+      console.log(login);
+
       if (typeof login === "undefined" || !login.success || login.count === 0) {
         localStorage.removeItem("fcatoken");
         navigate(`${devNavUrl}/system/login`);

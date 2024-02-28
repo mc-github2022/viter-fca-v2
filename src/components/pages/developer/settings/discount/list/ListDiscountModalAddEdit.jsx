@@ -66,7 +66,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
   const initVal = {
     discount_category_id: itemEdit ? itemEdit.discount_category_id : "",
     discount_type: itemEdit ? itemEdit.discount_type : "",
-    discount_entrance_fee: itemEdit ? itemEdit.discount_entrance_fee : "",
+    discount_admission_fee: itemEdit ? itemEdit.discount_admission_fee : "",
     discount_tuition_fee: itemEdit ? itemEdit.discount_tuition_fee : "",
     discount_qualification: itemEdit ? itemEdit.discount_qualification : "",
     discount_duration: itemEdit ? itemEdit.discount_duration : "",
@@ -138,10 +138,10 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                     <div className="flex items-center justify-between">
                       <div className="form__wrap text-xs mb-3">
                         <InputText
-                          label="Entrance Fee (%)"
+                          label="Admission Fee (%)"
                           type="text"
                           number="number"
-                          name="discount_entrance_fee"
+                          name="discount_admission_fee"
                           disabled={mutation.isLoading}
                         />
                       </div>

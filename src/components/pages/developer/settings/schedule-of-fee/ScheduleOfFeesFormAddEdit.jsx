@@ -289,6 +289,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                     />
                   </div>
                   <p className="text-accent font-bold ">
+                    Upon Enrollment:{" "}
                     {numberWithCommas(
                       Number(getUponEnrollment(props.values)).toFixed(2)
                     )}

@@ -32,7 +32,7 @@ CREATE TABLE `fcav2_settings_discount` (
   `discount_category_id` varchar(20) NOT NULL,
   `discount_type` varchar(200) NOT NULL,
   `discount_is_active` tinyint(1) NOT NULL,
-  `discount_entrance_fee` varchar(50) NOT NULL,
+  `discount_admission_fee` varchar(50) NOT NULL,
   `discount_tuition_fee` varchar(50) NOT NULL,
   `discount_qualification` text NOT NULL,
   `discount_duration` text NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `fcav2_settings_discount` (
 -- Dumping data for table `fcav2_settings_discount`
 --
 
-INSERT INTO `fcav2_settings_discount` (`discount_aid`, `discount_category_id`, `discount_type`, `discount_is_active`, `discount_entrance_fee`, `discount_tuition_fee`, `discount_qualification`, `discount_duration`, `discount_maintaining_grade`, `discount_requirement`, `discount_created`, `discount_updated`) VALUES
+INSERT INTO `fcav2_settings_discount` (`discount_aid`, `discount_category_id`, `discount_type`, `discount_is_active`, `discount_admission_fee`, `discount_tuition_fee`, `discount_qualification`, `discount_duration`, `discount_maintaining_grade`, `discount_requirement`, `discount_created`, `discount_updated`) VALUES
 (1, '1', '', 1, '20', '2', 'xcbb', 'cvn', '13', 'xcgn', '2024-02-19 16:05:33', '2024-02-20 06:48:00');
 
 --

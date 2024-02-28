@@ -84,7 +84,6 @@ const AssessmentList = () => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th className="w-20">Status</th>
                   <th>Name</th>
                   <th>Grade</th>
                   <th className="text-right pr-2">Action</th>
@@ -118,21 +117,6 @@ const AssessmentList = () => {
                       <tr key={key}>
                         <td>{counter++}.</td>
 
-                        <td>
-                          <Pills
-                            bg="bg-gray-200"
-                            label={
-                              item.students_is_active === 1
-                                ? "Active"
-                                : "Inactive"
-                            }
-                            color={
-                              item.students_is_active === 1
-                                ? "text-green-500"
-                                : "text-gray-500"
-                            }
-                          />
-                        </td>
                         <td>{item.student_fullname}</td>
                         <td>{item.grade_level_name}</td>
                         <td>
