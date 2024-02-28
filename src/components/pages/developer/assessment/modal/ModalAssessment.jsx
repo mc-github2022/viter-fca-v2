@@ -303,7 +303,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                       className="btn btn--accent"
                       // onClick={handleNotifyParent}
                     >
-                      Rebort Payment
+                      Revert Payment
                     </button>
                   )}
                   {item.school_year_students_is_accept_payment === 0 && (
