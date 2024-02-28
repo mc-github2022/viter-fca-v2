@@ -232,7 +232,7 @@ const ClientStudentViewInfo = () => {
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-students/${id}`}
+          mysqlApiDelete={`/v2/dev-students/${id}/${id}`}
           msg={"Are you sure you want to delete this record?"}
           item={`${dataItem.students_fname} ${dataItem.students_lname}`}
           queryKey={"mystudent"}

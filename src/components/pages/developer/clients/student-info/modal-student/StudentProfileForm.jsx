@@ -41,8 +41,23 @@ const StudentProfileForm = ({
     "/v2/dev-students/parent-guardian", // endpoint
     "post", // method
     "parent-guardian", // key
-    { students_parent_id: itemEdit ? itemEdit.students_parent_id : cid }
+    {
+      students_parent_id: itemEdit
+        ? itemEdit.students_parent_id
+        : store.credentials.data.role_is_parent === 1
+        ? store.credentials.data.parents_aid
+        : cid,
+    },
+    {
+      students_parent_id: itemEdit
+        ? itemEdit.students_parent_id
+        : store.credentials.data.role_is_parent === 1
+        ? store.credentials.data.parents_aid
+        : cid,
+    }
   );
+
+  console.log(gradeLevel);
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -80,7 +95,7 @@ const StudentProfileForm = ({
   const initVal = itemEdit
     ? { ...itemEdit, students_lrn_old: itemEdit ? itemEdit.students_lrn : "" }
     : {
-        students_parent_id: "",
+        students_parent_id: store.credentials.data.parents_aid,
         students_lrn: "",
         students_fname: "",
         students_lname: "",
@@ -99,7 +114,7 @@ const StudentProfileForm = ({
         students_family_circumstances: "",
         students_created: "",
         students_datetime: "",
-        school_year_students_sy_id: "",
+        school_year_students_sy_id: syid.school_year_aid,
         school_year_students_last_learning_type: "",
         school_year_students_last_school_attended: "",
         school_year_students_last_gpa: "",
@@ -128,11 +143,7 @@ const StudentProfileForm = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({
-            ...values,
-            students_parent_id: cid,
-            school_year_students_sy_id: syid.school_year_aid,
-          });
+          mutation.mutate(values);
         }}
       >
         {(props) => {

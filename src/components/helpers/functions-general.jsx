@@ -2,27 +2,27 @@ import React from "react";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
-// Mac // Mc // Mon // Cy
-const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
-const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
+// // Mac // Mc // Mon // Cy
+// const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
+// const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
 
-// // // // Patrick
-// export const urlPathFca = `https://devapp.fbasapp.com`;
-// export const imgUrlPathFca = `https://devapp.fbasapp.com/img`;
+// // // Patrick
+export const urlPathFca = `https://app.fca.edu.ph`;
+export const imgUrlPathFca = `https://app.fca.edu.ph/img`;
 
 // // Local Dev and Online Dev URL
 export const devApiUrl = `${urlPathFca}/rest`;
 export const devBaseUrl = `${urlPathFca}`;
 export const devBaseImgUrl = `${imgUrlPathFca}`;
-export const devNavUrl = "";
+export const devNavUrl = "/v2";
 
 // ONLINE PRODUCTION START HERE //
 
 // // Online URL prod hris
-// export const devApiUrl = "https://fbasapp.com/rest";
-// export const devBaseUrl = "https://fbasapp.com";
-// export const devBaseImgUrl = "https://fbasapp.com/img";
-// export const devNavUrl = "";
+// export const devApiUrl = "https://app.fca.edu.ph/rest";
+// export const devBaseUrl = "https://app.fca.edu.ph";
+// export const devBaseImgUrl = "https://app.fca.edu.ph/img";
+// export const devNavUrl = "/v2";
 
 export const devKey =
   "$2a$12$47wDvbLInZif/PVS8B6P3.7WxyJvUpBzZAWCsnWJUKq3nrn4qgmeO";
@@ -196,7 +196,7 @@ export const getUserType = () => {
 };
 
 export const isItemEmpty = (item, name = "") => {
-  let result = "";
+  let result = "N/A";
 
   if (item !== "") {
     result = `${item}${name}`;
