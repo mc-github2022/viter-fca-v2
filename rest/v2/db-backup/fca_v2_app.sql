@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2024 at 09:05 AM
+-- Generation Time: Feb 28, 2024 at 02:13 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -142,8 +142,9 @@ CREATE TABLE `fcav2_school_year_students` (
 --
 
 INSERT INTO `fcav2_school_year_students` (`school_year_students_aid`, `school_year_students_is_active`, `school_year_students_sy_id`, `school_year_students_student_id`, `school_year_students_last_learning_type`, `school_year_students_last_school_attended`, `school_year_students_last_gpa`, `school_year_students_last_grade_level_id`, `school_year_students_last_school_address`, `school_year_students_last_remarks`, `school_year_students_is_notify`, `school_year_students_is_accept_payment`, `school_year_students_schedule_fees_id`, `school_year_students_rate_id`, `school_year_students_primary_discount_id`, `school_year_students_additional_discount_id`, `school_year_students_last_coc_is_agree`, `school_year_students_last_parent_declaration_is_agree`, `school_year_students_last_parent_consent_is_agree`, `school_year_students_last_parent_commitment_is_agree`, `school_year_students_created`, `school_year_students_datetime`) VALUES
-(1, 1, 4, 1, 'onsite', '', '', 1, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2024-02-23 12:16:30', '2024-02-26 10:27:50'),
-(2, 1, 4, 2, 'online', '', '', 3, '', '', 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, '2024-02-26 09:52:47', '2024-02-27 13:47:58');
+(1, 1, 4, 1, 'onsite', '', '', 1, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2024-02-23 12:16:30', '2024-02-28 08:55:53'),
+(2, 1, 4, 2, 'onsite', '', '', 3, '', '', 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, '2024-02-26 09:52:47', '2024-02-28 09:09:22'),
+(10, 1, 4, 9, 'online', '2', '90', 2, 'San Pablo City', '2', 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, '2024-02-28 09:10:54', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -172,7 +173,9 @@ INSERT INTO `fcav2_school_year_students_requirements` (`students_requirements_ai
 (15, 1, 4, 1, 4, '', '2024-02-27 10:30:04', '2024-02-27 10:30:04'),
 (16, 1, 4, 1, 5, '', '2024-02-27 10:30:04', '2024-02-27 10:30:04'),
 (18, 1, 4, 1, 1, '', '2024-02-27 14:51:37', '2024-02-27 14:51:37'),
-(31, 1, 4, 2, 2, '', '2024-02-27 15:14:19', '2024-02-27 15:14:19');
+(31, 1, 4, 2, 2, '', '2024-02-27 15:14:19', '2024-02-27 15:14:19'),
+(32, 1, 4, 9, 4, '', '2024-02-28 09:11:15', '2024-02-28 09:11:15'),
+(33, 1, 4, 9, 3, '', '2024-02-28 09:11:16', '2024-02-28 09:11:16');
 
 -- --------------------------------------------------------
 
@@ -613,8 +616,8 @@ CREATE TABLE `fcav2_students` (
 --
 
 INSERT INTO `fcav2_students` (`students_aid`, `students_is_active`, `students_parent_id`, `students_lrn`, `students_fname`, `students_mname`, `students_lname`, `students_gender`, `students_birth_date`, `students_birth_place`, `students_email`, `students_mobile`, `students_landline`, `students_address_id`, `students_institutional_email`, `students_family_doctor`, `students_family_doctor_contact`, `students_medical_remarks`, `students_family_circumstances`, `students_created`, `students_datetime`) VALUES
-(1, 1, 1, '109749060127', 'Mark Ryan', '', 'Merin', 'm', '', '', '', '', '', 0, '', '', '', '', '', '2024-02-23 12:16:30', '2024-02-26 10:27:50'),
-(2, 1, 1, '109749060126', 'Cyrene', '', 'Lumabas', 'f', '', '', '', '', '', 1, '', '', '', '', '', '2024-02-26 09:52:47', '2024-02-27 13:47:58');
+(1, 1, 1, '109749060127', 'Mark Ryan', '', 'Merin', 'm', '', '', '', '', '', 0, '', '', '', '', '', '2024-02-23 12:16:30', '2024-02-28 08:55:53'),
+(2, 1, 1, '109749060126', 'Cyrene', '', 'Lumabas', 'f', '', '', '', '', '', 2, '', '', '', '', '', '2024-02-26 09:52:47', '2024-02-28 09:09:22');
 
 --
 -- Indexes for dumped tables
@@ -784,13 +787,13 @@ ALTER TABLE `fcav2_parents`
 -- AUTO_INCREMENT for table `fcav2_school_year_students`
 --
 ALTER TABLE `fcav2_school_year_students`
-  MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `fcav2_school_year_students_requirements`
 --
 ALTER TABLE `fcav2_school_year_students_requirements`
-  MODIFY `students_requirements_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `students_requirements_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_department`
@@ -844,7 +847,7 @@ ALTER TABLE `fcav2_settings_requirement_it`
 -- AUTO_INCREMENT for table `fcav2_settings_requirement_registrar`
 --
 ALTER TABLE `fcav2_settings_requirement_registrar`
-  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `requirement_registrar_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_role`
@@ -898,7 +901,7 @@ ALTER TABLE `fcav2_settings_user_system`
 -- AUTO_INCREMENT for table `fcav2_students`
 --
 ALTER TABLE `fcav2_students`
-  MODIFY `students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

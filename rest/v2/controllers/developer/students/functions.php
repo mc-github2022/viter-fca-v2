@@ -71,3 +71,11 @@ function checkUpdateSchoolYearStudentCommitmentForm($object)
     checkQuery($query, "There's a problem processing your request. (update school year student Commitment Form)");
     return $query;
 }
+
+// read guardian by parent id
+function checkReadGuardianByParentId($object)
+{
+    $query = $object->readGuardianByParentId();
+    checkQuery($query, "There's a problem processing your request. (read guardian by parent id)");
+    return $query;
+}
