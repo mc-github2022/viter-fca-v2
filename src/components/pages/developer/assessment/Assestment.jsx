@@ -1,6 +1,7 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import ServerError from "@/components/partials/ServerError.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
@@ -27,7 +28,7 @@ const Assestment = () => {
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
-      <section className="main__wrap flex flex-col relative h-[100vh] ">
+      <section className="main__wrap flex flex-col relative">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation
             menu="assessment"
@@ -37,7 +38,7 @@ const Assestment = () => {
           />
 
           <main
-            className={`main__content mt-[35px] relative ${
+            className={`main__content translate-y-[35px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >

@@ -108,7 +108,7 @@ const Student = () => {
             <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
               <div>
                 <h1 className="text-clampH1 mb-2">My Students</h1>
-                <p className="text-xs opacity-75">
+                <p className="text-xs opacity-75 hidden md:block">
                   List of client student enrolled for this school year
                 </p>
               </div>

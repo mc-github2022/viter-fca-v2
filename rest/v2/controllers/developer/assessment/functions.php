@@ -32,3 +32,11 @@ function checkReadAllAdditionalDiscount($object)
     checkQuery($query, "Empty records. (read all addittional discount)");
     return $query;
 }
+
+// Update 
+function checkUpdateAcceptPayment($object)
+{
+    $query = $object->updateAcceptPayment();
+    checkQuery($query, "There's a problem processing your request. (update accept payment)");
+    return $query;
+}

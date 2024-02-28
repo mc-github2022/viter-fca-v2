@@ -138,7 +138,8 @@ RewriteRule ^dev-assessment/search$ controllers/developer/assessment/search.php 
 RewriteRule ^dev-assessment/group-by-tuition-grade$ controllers/developer/assessment/read-by-group-tuition-fee-grade.php [L]
 RewriteRule ^dev-assessment/read-by-tuition-scheme$ controllers/developer/assessment/read-by-tuition-grade-and-category.php [L]
 RewriteRule ^dev-assessment/read-primary-discount$ controllers/developer/assessment/read-primary-discount.php [L]
-RewriteRule ^dev-assessment/read-additional-discount$ controllers/developer/assessment/read-additional-discount.php [L]
+RewriteRule ^dev-assessment/read-additional-discount$ controllers/developer/assessment/read-additional-discount.php [L] 
+RewriteRule ^dev-assessment/accept-payment/([0-9]+)$ controllers/developer/assessment/accept-payment.php?studentSyId=$1 [L]  
 
 #SYSTEM MODE
 RewriteRule ^dev-system-mode$ controllers/developer/settings/system-mode/system-mode.php [L]

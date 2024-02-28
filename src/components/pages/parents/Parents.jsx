@@ -125,7 +125,7 @@ const Parents = () => {
               ) : (
                 !showParentForm && (
                   <div
-                    className={`bg-primary p-4 max-w-[620px] w-full rounded-md   relative mb-2 ${
+                    className={`bg-primary md:p-4 max-w-[620px] w-full rounded-md   relative mb-2 ${
                       showContactForm || showFinancierForm
                         ? "pointer-events-none opacity-60"
                         : ""
@@ -155,7 +155,7 @@ const Parents = () => {
               ) : (
                 !showContactForm && (
                   <div
-                    className={`bg-primary p-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
+                    className={`bg-primary md:p-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
                       showParentForm || showFinancierForm
                         ? "pointer-events-none opacity-60"
                         : ""
@@ -182,7 +182,7 @@ const Parents = () => {
               ) : (
                 !showFinancierForm && (
                   <div
-                    className={`bg-primary p-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
+                    className={`bg-primary md:p-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
                       showParentForm || showContactForm
                         ? "pointer-events-none opacity-60"
                         : ""
@@ -205,9 +205,9 @@ const Parents = () => {
                 />
               )}
             </div>
-            <Footer />
           </main>
         </div>
+        <Footer />
       </section>
     </>
   );
