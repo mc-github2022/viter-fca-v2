@@ -1,7 +1,10 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { numberWithCommasToFixed } from "@/components/helpers/functions-general";
 import TableLoading from "@/components/partials/TableLoading";
-import { setIsShowModal } from "@/components/store/StoreAction.jsx";
+import {
+  setIsShowModal,
+  setSettingIsConfirm,
+} from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { BiSolidCheckCircle } from "react-icons/bi";
@@ -10,17 +13,31 @@ import AssessmentAdditionalDiscountList from "./AssessmentAdditionalDiscountList
 import AssessmentPrimaryDiscountList from "./AssessmentPrimaryDiscountList";
 import AssessmentRateList from "./AssessmentRateList";
 import {
+  getGetSectedScheme,
   getMonthlyFeeDiscountedAmount,
   getTotalPaymentDiscountedAmount,
 } from "./functions-assessment";
+import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 
 const ModalAssessment = ({ setShowAssessment, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [categoryId, setCatgeoryId] = React.useState(0);
-  const [primaryDiscountId, setPrimaryDiscountId] = React.useState(0);
-  const [additionalDiscountId, setAdditionalDiscountId] = React.useState(0);
-  const [selectItem, setSelectItem] = React.useState(0);
+  const [categoryId, setCatgeoryId] = React.useState(
+    Number(item.school_year_students_rate_id)
+  );
+  const [primaryDiscountId, setPrimaryDiscountId] = React.useState(
+    Number(item.school_year_students_primary_discount_id)
+  );
+  const [additionalDiscountId, setAdditionalDiscountId] = React.useState(
+    Number(item.school_year_students_additional_discount_id)
+  );
+  const [selectItem, setSelectItem] = React.useState(
+    Number(item.school_year_students_schedule_fees_id)
+  );
   const [primaryDiscountData, setPrimaryDiscountData] = React.useState({});
+  // accept or notify parent
+  const [isNotify, setIsNotify] = React.useState(true);
+  const [dataItem, setData] = React.useState(null);
+  const [id, setId] = React.useState(null);
 
   const {
     isLoading,
@@ -30,13 +47,18 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   } = useQueryData(
     "/v2/dev-assessment/group-by-tuition-grade", // endpoint
     "post", // method
-    "school-year", // key
+    "group-by-tuition-grade", // key
     { gradeId: item.grade_level_aid },
     item.grade_level_aid
   );
 
-  const handleSelectScheme = (item) => {
-    setSelectItem(item.tuition_fee_aid);
+  const handleSelectScheme = (listItem) => {
+    if (item.school_year_students_is_accept_payment === 0) {
+      setSelectItem(listItem.tuition_fee_aid);
+    }
+    if (typeof listItem.tuition_fee_aid === "undefined") {
+      setSelectItem(0);
+    }
   };
 
   const handleClose = () => {
@@ -51,10 +73,17 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     setCatgeoryId(e.target.value);
   };
 
+  const handleAcceptPayment = (tuitionItem) => {
+    dispatch(setSettingIsConfirm(true));
+    setId(item.school_year_students_aid);
+    setData({ ...tuitionItem, primaryDiscountId, additionalDiscountId });
+    setIsNotify(false);
+  };
+
   const { isLoading: loadingListOfScheme, data: listOfScheme } = useQueryData(
     "/v2/dev-assessment/read-by-tuition-scheme", // endpoint
     "post", // method
-    "school-year", // key
+    "read-by-tuition-scheme", // key
     { gradeId: item.grade_level_aid, categoryId },
     item.grade_level_aid,
     categoryId
@@ -103,6 +132,11 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                         <select
                           onChange={(e) => handleChangeCategory(e)}
                           value={categoryId}
+                          disabled={
+                            item.school_year_students_is_accept_payment === 0
+                              ? false
+                              : true
+                          }
                         >
                           <option value="" hidden>
                             No Rate
@@ -140,7 +174,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                               }`}
                               key={key}
                             >
-                              <div className="col-header min-h-[140px] flex flex-col  items-center justify-center p-1">
+                              <div className="col-header min-h-[140px] flex flex-col items-center justify-start p-1">
                                 <h4 className="uppercase">
                                   {listItem.scheme_name}
                                 </h4>
@@ -192,17 +226,35 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                                 </p>
 
                                 {selectItem === listItem.tuition_fee_aid ? (
-                                  <BiSolidCheckCircle
-                                    className="h-[38px] w-[38px] fill-accent my-2"
-                                    onClick={() => handleSelectScheme(0)}
-                                  />
+                                  <>
+                                    {item.school_year_students_is_accept_payment ===
+                                    1 ? (
+                                      <BiSolidCheckCircle className="h-[38px] w-[38px] fill-accent my-2 opacity-[0.6] cursor-not-allowed" />
+                                    ) : (
+                                      <BiSolidCheckCircle
+                                        className="h-[38px] w-[38px] fill-accent my-2 cursor-pointer"
+                                        onClick={handleSelectScheme}
+                                      />
+                                    )}
+                                  </>
                                 ) : (
-                                  <button
-                                    className="btn btn--accent my-2"
-                                    onClick={() => handleSelectScheme(listItem)}
-                                  >
-                                    Select
-                                  </button>
+                                  item.school_year_students_is_accept_payment ===
+                                    0 && (
+                                    <button
+                                      className="btn btn--accent my-2"
+                                      onClick={() =>
+                                        handleSelectScheme(listItem)
+                                      }
+                                      disabled={
+                                        item.school_year_students_is_accept_payment ===
+                                        0
+                                          ? false
+                                          : true
+                                      }
+                                    >
+                                      Select
+                                    </button>
+                                  )
                                 )}
                               </div>
                             </div>
@@ -236,16 +288,48 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     primaryDiscountId={primaryDiscountId}
                     setPrimaryDiscountId={setPrimaryDiscountId}
                     setPrimaryDiscountData={setPrimaryDiscountData}
+                    item={item}
                   />
                   <AssessmentAdditionalDiscountList
                     additionalDiscountId={additionalDiscountId}
                     setAdditionalDiscountId={setAdditionalDiscountId}
+                    item={item}
                   />
                 </div>
 
                 <div className="flex justify-end items-center gap-2">
-                  {listOfScheme?.count > 0 && (
-                    <button className="btn btn--accent">Notify Parent</button>
+                  {item.school_year_students_is_accept_payment === 1 && (
+                    <button
+                      className="btn btn--accent"
+                      // onClick={handleNotifyParent}
+                    >
+                      Revert Payment
+                    </button>
+                  )}
+                  {item.school_year_students_is_accept_payment === 0 && (
+                    <>
+                      {listOfScheme?.count > 0 && selectItem === 0 && (
+                        <button
+                          className="btn btn--accent"
+                          // onClick={handleNotifyParent}
+                        >
+                          Notify Parent
+                        </button>
+                      )}
+
+                      {listOfScheme?.count > 0 && selectItem > 0 && (
+                        <button
+                          className="btn btn--accent"
+                          onClick={() =>
+                            handleAcceptPayment(
+                              getGetSectedScheme(listOfScheme, selectItem)
+                            )
+                          }
+                        >
+                          Accept Payment
+                        </button>
+                      )}
+                    </>
                   )}
                   <button className="btn btn--cancel" onClick={handleClose}>
                     Discard
@@ -256,6 +340,19 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
           </div>
         </div>
       </div>
+
+      {store.isSettingConfirm && (
+        <ModalNotifyOrAcceptPayment
+          mysqlApiNotify={`/v2/dev-assessment/notify-parent/${id}`}
+          mysqlApiAcceptPayment={`/v2/dev-assessment/accept-payment/${id}`}
+          msg={`Are you sure you want to ${
+            isNotify ? "notify parent" : "accept payment"
+          } ?`}
+          item={dataItem}
+          queryKey={"notify-or-accept-payment"}
+          isNotify={isNotify}
+        />
+      )}
     </>
   );
 };

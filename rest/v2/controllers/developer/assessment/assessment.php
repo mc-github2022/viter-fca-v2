@@ -1,6 +1,7 @@
 <?php
 require '../../../core/header.php';
 require '../../../core/functions.php';
+require 'functions.php';
 require '../../../models/developer/assessment/Assessment.php';
 
 $body = file_get_contents("php://input");

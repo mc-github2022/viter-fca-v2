@@ -222,6 +222,21 @@ export const getMonthlyFeeDiscountedAmount = (
   return { monthlyFeeDiscounted, totalMonthlyFeeDiscounted, isDiscounted };
 };
 
+// ACCEPT PAYMENT
+// GETTING THE SELECTED SCHEME
+
+export const getGetSectedScheme = (listOfScheme, selectItem) => {
+  let result = [];
+
+  if (listOfScheme?.count > 0) {
+    result = listOfScheme?.data.filter(
+      (acItem) => acItem.tuition_fee_aid === Number(selectItem)
+    );
+  }
+
+  return { ...result[0] };
+};
+
 // ADDITIONAL DISCOUNT
 //  list of Additional discount for UI purpose
 export const getGetAdditionalDiscount = (
