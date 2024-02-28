@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2024 at 11:51 AM
+-- Generation Time: Feb 29, 2024 at 12:40 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -145,7 +145,7 @@ CREATE TABLE `fcav2_school_year_students` (
 INSERT INTO `fcav2_school_year_students` (`school_year_students_aid`, `school_year_students_is_active`, `school_year_students_sy_id`, `school_year_students_student_id`, `school_year_students_grade_level_id`, `school_year_students_last_learning_type`, `school_year_students_last_school_attended`, `school_year_students_last_gpa`, `school_year_students_last_grade_level_id`, `school_year_students_last_school_address`, `school_year_students_last_remarks`, `school_year_students_is_notify`, `school_year_students_is_accept_payment`, `school_year_students_schedule_fees_id`, `school_year_students_rate_id`, `school_year_students_primary_discount_id`, `school_year_students_additional_discount_id`, `school_year_students_last_coc_is_agree`, `school_year_students_last_parent_declaration_is_agree`, `school_year_students_last_parent_consent_is_agree`, `school_year_students_last_parent_commitment_is_agree`, `school_year_students_created`, `school_year_students_datetime`) VALUES
 (1, 1, 1, 1, 4, 'onsite', 'Ambray Elemantary School', '95', 0, 'San Pablo City, Laguna, Philippines 4000', 'N/a', 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, '2024-02-28 13:54:39', '0000-00-00 00:00:00'),
 (2, 1, 1, 2, 1, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 0, 'San Pablo City, Laguna, Philippines 4000', 'N/A', 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, '2024-02-28 14:01:43', '0000-00-00 00:00:00'),
-(8, 1, 2, 2, 2, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 1, 'San Pablo City, Laguna, Philippines 4000', 'N/A', 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, '2024-02-28 16:51:09', '0000-00-00 00:00:00');
+(8, 1, 2, 2, 2, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 1, 'San Pablo City, Laguna, Philippines 4000', 'N/A', 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, '2024-02-28 16:51:09', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
