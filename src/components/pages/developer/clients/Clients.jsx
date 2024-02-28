@@ -45,11 +45,11 @@ const Clients = () => {
           />
 
           <main
-            className={`main__content mt-[35px]  relative ${
+            className={`main__content translate-y-[35px]  relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center  ">
+            <div className="main__header flex justify-between items-start lg:items-center my-2 ">
               <div>
                 <h1 className="text-clampH1 mb-0">Parent List</h1>
                 <p className="mb-4 text-xs hidden lg:block">
@@ -65,9 +65,9 @@ const Clients = () => {
             </div>
 
             <ClientList setItemEdit={setItemEdit} />
-            <Footer />
           </main>
         </div>
+        <Footer />
       </section>
 
       {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}

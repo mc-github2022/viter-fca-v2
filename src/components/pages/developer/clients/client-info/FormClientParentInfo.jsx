@@ -192,7 +192,7 @@ const FormClientParentInfo = ({
                 Relationship
               </h6>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="form__wrap">
                   <InputSelect
                     label="Parent Relationship"
@@ -242,7 +242,7 @@ const FormClientParentInfo = ({
                 Name
               </h6>
 
-              <div className="grid grid-cols-[100px_1fr_1fr] gap-4">
+              <div className="grid md:grid-cols-[100px_1fr_1fr] gap-4">
                 <div className="form__wrap">
                   <InputSelect
                     label="Title"
@@ -278,7 +278,7 @@ const FormClientParentInfo = ({
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="form__wrap">
                   <InputText
                     label="Middle Name"
@@ -312,7 +312,7 @@ const FormClientParentInfo = ({
                   disabled={mutation.isLoading}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="form__wrap">
                   <InputText
                     label="Mobile"
@@ -347,7 +347,7 @@ const FormClientParentInfo = ({
                   disabled={mutation.isLoading}
                 />
               </div>
-              <div className="grid grid-cols-[1fr_1fr] gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="form__wrap">
                   <InputText
                     label="City"
@@ -389,7 +389,7 @@ const FormClientParentInfo = ({
                 Other
               </h6>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="form__wrap">
                   <InputText
                     label="Religion"

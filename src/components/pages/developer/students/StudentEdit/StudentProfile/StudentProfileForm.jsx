@@ -38,10 +38,6 @@ const StudentProfileForm = ({
     { students_parent_id: dataItem.students_parent_id }
   );
 
-  console.log(parentGuardian);
-  console.log(dataItem);
-  console.log(gradeLevel);
-
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
@@ -76,7 +72,20 @@ const StudentProfileForm = ({
     students_lrn_old: dataItem.students_lrn,
   };
 
-  const yupSchema = Yup.object({});
+  const yupSchema = Yup.object({
+    students_fname: Yup.string().required("Required"),
+    students_lname: Yup.string().required("Required"),
+    students_gender: Yup.string().required("Required"),
+    students_birth_place: Yup.string().required("Required"),
+    students_birth_date: Yup.string().required("Required"),
+    students_address_id: Yup.string().required("Required"),
+    school_year_students_last_learning_type: Yup.string().required("Required"),
+    school_year_students_last_school_attended:
+      Yup.string().required("Required"),
+    school_year_students_last_gpa: Yup.string().required("Required"),
+    school_year_students_last_grade_level_id: Yup.string().required("Required"),
+    school_year_students_last_school_address: Yup.string().required("Required"),
+  });
 
   return (
     <>
@@ -117,7 +126,7 @@ const StudentProfileForm = ({
                   </div>
                   <h3 className="mb-3">Profile</h3>
                   <h6 className="mb-2 uppercase">Classification</h6>
-                  <div className="grid grid-cols-[120px_1fr_1fr_1fr] gap-x-3">
+                  <div className="grid md:grid-cols-[120px_1fr_1fr_1fr] gap-x-3">
                     <div className="form__wrap">
                       <InputText
                         label="School Year"
@@ -174,7 +183,7 @@ const StudentProfileForm = ({
                   </div>
 
                   <h6 className="mb-2 uppercase">Profile</h6>
-                  <div className="grid grid-cols-3 gap-x-3">
+                  <div className="grid md:grid-cols-3 gap-x-3">
                     <div className="form__wrap">
                       <InputText
                         label="Last Name (Suffix)"
@@ -286,7 +295,7 @@ const StudentProfileForm = ({
                   </div>
 
                   <h6 className="mb-2 uppercase">Last School</h6>
-                  <div className="grid grid-cols-[400px_1fr_1fr] gap-x-3">
+                  <div className="grid md:grid-cols-[400px_1fr_1fr] gap-x-3">
                     <div className="form__wrap">
                       <InputText
                         label="Last School Name"
@@ -350,7 +359,7 @@ const StudentProfileForm = ({
                   </div>
 
                   <h6 className="mb-2 uppercase">Medical Information</h6>
-                  <div className="grid grid-cols-2 gap-x-3">
+                  <div className="grid md:grid-cols-2 gap-x-3">
                     <div className="form__wrap">
                       <InputText
                         label="Pediatrician/Family Doctor "

@@ -27,13 +27,12 @@ import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
 
-const StudentList = ({ gradeLevel }) => {
+const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
-  const [dataItem, setData] = React.useState(null);
+
   const [isArchive, setIsArchive] = React.useState(1);
   const search = React.useRef({ value: "" });
-  const [isViewInfo, setIsViewInfo] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
   const [onSearch, setOnSearch] = React.useState(false);
@@ -175,7 +174,7 @@ const StudentList = ({ gradeLevel }) => {
 
                         <td>
                           {item.students_is_active === 1 ? (
-                            <div className="flex gap-2 justify-end">
+                            <div className="flex gap-2 justify-end pr-2">
                               <button
                                 className="tooltip text-base"
                                 data-tooltip="Info"
@@ -238,14 +237,6 @@ const StudentList = ({ gradeLevel }) => {
           </div>
         </div>
       </div>
-
-      {isViewInfo && (
-        <ModalEditStudent
-          setIsViewInfo={setIsViewInfo}
-          dataItem={dataItem}
-          gradeLevel={gradeLevel}
-        />
-      )}
 
       {store.isConfirm && (
         <ModalConfirm

@@ -4,7 +4,10 @@ import {
   InputText,
   InputTextArea,
 } from "@/components/helpers/FormInputs.jsx";
-import { getUrlParam } from "@/components/helpers/functions-general.jsx";
+import {
+  getUrlParam,
+  handleNumOnly,
+} from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
@@ -24,7 +27,7 @@ import * as Yup from "yup";
 const StudentProfileForm = ({
   showSideNav,
   itemEdit,
-  gradelevel,
+  gradeLevel,
   schoolYear,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -38,8 +41,7 @@ const StudentProfileForm = ({
     "/v2/dev-students/parent-guardian", // endpoint
     "post", // method
     "parent-guardian", // key
-    { students_parent_id: itemEdit.students_parent_id },
-    { students_parent_id: itemEdit.students_parent_id }
+    { students_parent_id: itemEdit ? itemEdit.students_parent_id : cid }
   );
 
   const mutation = useMutation({
@@ -106,7 +108,20 @@ const StudentProfileForm = ({
         school_year_students_last_remarks: "",
       };
 
-  const yupSchema = Yup.object({});
+  const yupSchema = Yup.object({
+    students_fname: Yup.string().required("Required"),
+    students_lname: Yup.string().required("Required"),
+    students_gender: Yup.string().required("Required"),
+    students_birth_place: Yup.string().required("Required"),
+    students_birth_date: Yup.string().required("Required"),
+    students_address_id: Yup.string().required("Required"),
+    school_year_students_last_learning_type: Yup.string().required("Required"),
+    school_year_students_last_school_attended:
+      Yup.string().required("Required"),
+    school_year_students_last_gpa: Yup.string().required("Required"),
+    school_year_students_last_grade_level_id: Yup.string().required("Required"),
+    school_year_students_last_school_address: Yup.string().required("Required"),
+  });
   return (
     <>
       <Formik
@@ -150,7 +165,7 @@ const StudentProfileForm = ({
                   </div>
                   <h3 className="mb-3">Profile</h3>
                   <h6 className="mb-2 uppercase">Classification</h6>
-                  <div className="grid grid-cols-[120px_1fr_1fr_1fr] gap-x-3">
+                  <div className="grid md:grid-cols-[120px_1fr_1fr_1fr] gap-x-3">
                     <div className="form__wrap">
                       <InputText
                         label="School Year"
@@ -189,8 +204,8 @@ const StudentProfileForm = ({
                         disabled={mutation.isPending}
                       >
                         <option value="" hidden></option>
-                        {gradelevel?.count > 0 ? (
-                          gradelevel?.data.map((item, key) => {
+                        {gradeLevel?.count > 0 ? (
+                          gradeLevel?.data.map((item, key) => {
                             return (
                               <option value={item.grade_level_aid} key={key}>
                                 {item.grade_level_name}
@@ -207,7 +222,7 @@ const StudentProfileForm = ({
                   </div>
 
                   <h6 className="mb-2 uppercase">Profile</h6>
-                  <div className="grid grid-cols-3 gap-x-3">
+                  <div className="grid md:grid-cols-3 gap-x-3">
                     <div className="form__wrap">
                       <InputText
                         label="Last Name (Suffix)"
@@ -272,6 +287,8 @@ const StudentProfileForm = ({
                         label="Mobile"
                         type="text"
                         name="students_mobile"
+                        maxLength="11"
+                        onKeyPress={handleNumOnly}
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -280,6 +297,8 @@ const StudentProfileForm = ({
                         label="Landline "
                         type="text"
                         name="students_landline"
+                        maxLength="11"
+                        onKeyPress={handleNumOnly}
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -314,7 +333,7 @@ const StudentProfileForm = ({
                   </div>
 
                   <h6 className="mb-2 uppercase">Last School</h6>
-                  <div className="grid grid-cols-[400px_1fr_1fr] gap-x-3">
+                  <div className="grid md:grid-cols-[400px_1fr_1fr] gap-x-3">
                     <div className="form__wrap">
                       <InputText
                         label="Last School Name"
@@ -338,8 +357,8 @@ const StudentProfileForm = ({
                         disabled
                       >
                         <option value="" hidden></option>
-                        {gradelevel?.count > 0 ? (
-                          gradelevel?.data.map((item, key) => {
+                        {gradeLevel?.count > 0 ? (
+                          gradeLevel?.data.map((item, key) => {
                             return (
                               <option value={item.grade_level_aid} key={key}>
                                 {item.grade_level_name}
@@ -378,7 +397,7 @@ const StudentProfileForm = ({
                   </div>
 
                   <h6 className="mb-2 uppercase">Medical Information</h6>
-                  <div className="grid grid-cols-2 gap-x-3">
+                  <div className="grid md:grid-cols-2 gap-x-3">
                     <div className="form__wrap">
                       <InputText
                         label="Pediatrician/Family Doctor "
