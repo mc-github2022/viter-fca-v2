@@ -27,8 +27,6 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
     "gradeLevel" // key
   );
 
-  console.log(itemEdit);
-
   const handleClose = () => {
     dispatch(setIsAdd(false));
   };

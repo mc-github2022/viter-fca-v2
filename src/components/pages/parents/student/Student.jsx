@@ -1,5 +1,4 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
 import NoData from "@/components/partials/NoData";
@@ -210,7 +209,7 @@ const Student = () => {
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-students/${id}`}
+          mysqlApiDelete={`/v2/dev-students/${id}/${id}`}
           msg={"Are you sure you want to delete this record?"}
           item={`${dataItem.students_fname} ${dataItem.students_lname}`}
           queryKey={"mystudent"}
