@@ -1,7 +1,6 @@
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
-import Pills from "@/components/partials/Pills.jsx";
 import SearchBar from "@/components/partials/SearchBar.jsx";
 import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
@@ -9,13 +8,8 @@ import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx"
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { BsArchive } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
-import { FiEdit2, FiTrash } from "react-icons/fi";
-import { HiOutlineCreditCard } from "react-icons/hi2";
-import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
-import { Link } from "react-router-dom";
 import ModalAssessment from "./modal/ModalAssessment.jsx";
 
 const AssessmentList = () => {
@@ -121,13 +115,13 @@ const AssessmentList = () => {
                         <td>{item.grade_level_name}</td>
                         <td>
                           <div className="flex gap-2 justify-end mr-5">
-                            <Link
+                            {/* <Link
                               // to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
                               className="tooltip text-base"
                               data-tooltip="Info"
                             >
                               <CiViewList />
-                            </Link>
+                            </Link> */}
 
                             <button
                               type="button"
@@ -135,7 +129,7 @@ const AssessmentList = () => {
                               data-tooltip="Assessment"
                               onClick={() => handleAssessment(item)}
                             >
-                              <HiOutlineCreditCard />
+                              <CiViewList />
                             </button>
                           </div>
                         </td>

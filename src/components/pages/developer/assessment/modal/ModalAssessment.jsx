@@ -349,7 +349,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
             isNotify ? "notify parent" : "accept payment"
           } ?`}
           item={dataItem}
-          queryKey={"notify-or-accept-payment"}
+          queryKey={"assessment"}
           isNotify={isNotify}
         />
       )}

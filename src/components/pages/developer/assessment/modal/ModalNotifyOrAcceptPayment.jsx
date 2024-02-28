@@ -67,6 +67,8 @@ const ModalNotifyOrAcceptPayment = ({
     // mutate data
     mutation.mutate({
       ...item,
+      is_accept_payment:
+        item.school_year_students_is_accept_payment === 1 ? 0 : 1,
     });
   };
 

@@ -16,7 +16,7 @@ if (array_key_exists("studentSyId", $_GET)) {
     checkPayload($data);
 
     $assessment_list->school_year_students_aid = $_GET['studentSyId'];
-    $assessment_list->school_year_students_is_accept_payment = 1;
+    $assessment_list->school_year_students_is_accept_payment = checkIndex($data, "is_accept_payment");
     $assessment_list->school_year_students_is_notify = 0;
     $assessment_list->school_year_students_schedule_fees_id = checkIndex($data, "tuition_fee_aid");
     $assessment_list->school_year_students_rate_id = checkIndex($data, "tuition_fee_category_id");
