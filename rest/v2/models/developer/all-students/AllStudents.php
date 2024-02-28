@@ -136,7 +136,7 @@ class AllStudents
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
-            $sql .= "and syStudent.school_year_students_sy_id not in (select max(school_year_aid) from {$this->tblSchoolYear}) ";
+            // $sql .= "and syStudent.school_year_students_sy_id in (select max(school_year_aid) from {$this->tblSchoolYear}) ";
             $sql .= "group by ";
             $sql .= "student.students_aid ";
             $sql .= "order by ";
@@ -167,7 +167,7 @@ class AllStudents
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
-            $sql .= "and syStudent.school_year_students_sy_id not in (select max(school_year_aid) from {$this->tblSchoolYear}) ";
+            // $sql .= "and syStudent.school_year_students_sy_id in (select max(school_year_aid) from {$this->tblSchoolYear}) ";
             $sql .= "group by ";
             $sql .= "student.students_aid ";
             $sql .= "order by ";
@@ -204,7 +204,7 @@ class AllStudents
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
-            $sql .= "and syStudent.school_year_students_sy_id not in (select max(school_year_aid) from {$this->tblSchoolYear}) ";
+            // $sql .= "and syStudent.school_year_students_sy_id in (select max(school_year_aid) from {$this->tblSchoolYear}) ";
             $sql .= "and ";
             $sql .= "( ";
             $sql .= "student.students_fname like :students_fname ";
@@ -238,6 +238,36 @@ class AllStudents
             $query->execute([
                 "students_aid" => $this->students_aid,
             ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function readAllSchoolYearStudents()
+    {
+        try {
+            $sql = "select *, ";
+            $sql .= "student.students_aid, ";
+            $sql .= "student.students_is_active, ";
+            $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
+            $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
+            $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
+            $sql .= "from {$this->tblStudent} as student, ";
+            $sql .= "{$this->tblParent} as parent, ";
+            $sql .= "{$this->tblSyStudent} as syStudent, ";
+            $sql .= "{$this->tblSchoolYear} as schoolYear, ";
+            $sql .= "{$this->tblGradeLevel} as gradeLevel ";
+            $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
+            $sql .= "and parent.parents_aid = student.students_parent_id ";
+            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
+            $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
+            // $sql .= "group by ";
+            // $sql .= "student.students_aid ";
+            $sql .= "order by ";
+            $sql .= "student.students_lname, ";
+            $sql .= "student.students_fname ";
+            $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
         }
