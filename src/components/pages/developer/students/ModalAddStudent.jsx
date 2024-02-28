@@ -118,7 +118,7 @@ const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
     students_landline: "",
     school_year_students_last_learning_type: "",
     school_year_students_sy_id: syId.school_year_aid,
-    school_year_students_last_grade_level_id: "",
+    school_year_students_grade_level_id: "",
   };
 
   const yupSchema = Yup.object({
@@ -127,7 +127,7 @@ const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
     students_gender: Yup.string().required("Required"),
     students_email: Yup.string().email("Invalid email"),
     school_year_students_last_learning_type: Yup.string().required("Required"),
-    school_year_students_last_grade_level_id: Yup.string().required("Required"),
+    school_year_students_grade_level_id: Yup.string().required("Required"),
   });
 
   return (
@@ -221,7 +221,7 @@ const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
                       <InputSelect
                         disabled={mutation.isPending}
                         label="Grade Level"
-                        name="school_year_students_last_grade_level_id"
+                        name="school_year_students_grade_level_id"
                       >
                         <option value="" hidden></option>
                         {gradeLevel?.count > 0 ? (

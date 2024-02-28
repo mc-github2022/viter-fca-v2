@@ -1,4 +1,8 @@
-import { InputSelect, InputText } from "@/components/helpers/FormInputs";
+import {
+  InputCheckbox,
+  InputSelect,
+  InputText,
+} from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -52,10 +56,14 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
   const initVal = {
     grade_level_aid: itemEdit ? itemEdit.grade_level_aid : "",
     grade_level_name: itemEdit ? itemEdit.grade_level_name : "",
+    grade_level_order: itemEdit ? itemEdit.grade_level_order : "",
     grade_level_is_pre_school: itemEdit
-      ? itemEdit.grade_level_is_pre_school
-      : "",
+      ? itemEdit.grade_level_is_pre_school === 1
+        ? true
+        : false
+      : false,
     grade_level_name_old: itemEdit ? itemEdit.grade_level_name : "",
+    grade_level_order_old: itemEdit ? itemEdit.grade_level_order : "",
   };
 
   const yupSchema = Yup.object({
@@ -77,6 +85,15 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
               <Form>
                 <div className="form__wrap text-xs mb-3">
                   <InputText
+                    label="Grade Level Order"
+                    type="number"
+                    name="grade_level_order"
+                    disabled={mutation.isLoading}
+                  />
+                </div>
+
+                <div className="form__wrap text-xs mb-3">
+                  <InputText
                     label="Name"
                     type="text"
                     name="grade_level_name"
@@ -85,24 +102,21 @@ const GradeLevelFormAddEdit = ({ itemEdit }) => {
                 </div>
 
                 <div className="form__wrap text-xs mb-3">
-                  <InputSelect
-                    label="Select yes if pre school"
+                  <InputCheckbox
+                    label="Mark check if Pre-School"
+                    type="checkbox"
                     name="grade_level_is_pre_school"
+                    id="grade_level_is_pre_school"
                     disabled={mutation.isLoading}
-                    onChange={(e) => e}
-                  >
-                    <optgroup label="Select Option">
-                      <option value="" hidden>
-                        --
-                      </option>
-                      <option value="1">Yes</option>
-                      <option value="0">No</option>
-                    </optgroup>
-                  </InputSelect>
+                  />
                 </div>
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
-                  <button className="btn btn--accent" type="submit">
+                  <button
+                    className="btn btn--accent"
+                    type="submit"
+                    disabled={mutation.isLoading || !props.dirty}
+                  >
                     {mutation.isLoading ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (

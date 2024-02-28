@@ -1,8 +1,6 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import {
-  formatMobileNumber,
-  getUrlParam,
-} from "@/components/helpers/functions-general.jsx";
+import { getUrlParam } from "@/components/helpers/functions-general.jsx";
+import { queryData } from "@/components/helpers/queryData.jsx";
 import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
@@ -11,15 +9,18 @@ import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
-import { setIsAdd, setIsDelete } from "@/components/store/StoreAction.jsx";
+import {
+  setError,
+  setIsAdd,
+  setIsDelete,
+  setMessage,
+  setSuccess,
+} from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { CiMobile3 } from "react-icons/ci";
 import { FaAngleLeft, FaPlus } from "react-icons/fa";
-import { FiEdit2, FiTrash } from "react-icons/fi";
-import { HiOutlineEnvelope } from "react-icons/hi2";
+import { FiEdit2, FiFilePlus, FiTrash } from "react-icons/fi";
 import { LuDot } from "react-icons/lu";
-import { PiPhoneThin } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import Navigation from "../../Navigation.jsx";
 import ModalAddStudent from "./modal-student/ModalAddStudent.jsx";
@@ -34,7 +35,21 @@ const ClientStudentViewInfo = () => {
   const cid = getUrlParam().get("cid");
   const navigate = useNavigate();
 
+  const { data: schoolYear } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "school-year" // key
+  );
+
+  const isOngoing =
+    schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
+
   const handleAddStudent = () => {
+    if (isOngoing === 0 || !isOngoing) {
+      dispatch(setError(true));
+      dispatch(setMessage("There's no enrollment yet."));
+      return;
+    }
     setItemEdit(null);
     dispatch(setIsAdd(true));
   };
@@ -54,15 +69,6 @@ const ClientStudentViewInfo = () => {
     setItemEdit(item);
     setViewRequirements(true);
   };
-
-  const { data: schoolYear } = useQueryData(
-    "/v2/dev-school-year", // endpoint
-    "get", // method
-    "school-year" // key
-  );
-
-  const isOngoing =
-    schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
   const {
     isLoading,
@@ -85,6 +91,28 @@ const ClientStudentViewInfo = () => {
     "get", // method
     "parent" // key
   );
+
+  const handleEnroll = async (item) => {
+    if (isOngoing === 0 || !isOngoing) {
+      dispatch(setError(true));
+      dispatch(setMessage("There's no enrollment yet."));
+      return;
+    }
+
+    const enroll = await queryData("/v2/dev-client-student/enroll", "post", {
+      ...item,
+      school_year_students_sy_id: schoolYear?.data[0].school_year_aid,
+    });
+
+    if (enroll.success) {
+      dispatch(setSuccess(true));
+      dispatch(setMessage("Successfully enrolled."));
+    }
+    if (!enroll.success) {
+      dispatch(setError(true));
+      dispatch(setMessage(enroll.error));
+    }
+  };
 
   return (
     <>
@@ -136,11 +164,11 @@ const ClientStudentViewInfo = () => {
               </div>
 
               <button
-                className="tooltip"
+                className="btn btn--sm mt-1 border-0 border-b rounded-none hover:border-b border-white hover:border-accent"
                 data-tooltip="New"
                 onClick={handleAddStudent}
               >
-                <FaPlus />
+                <FaPlus /> <span>Add</span>
               </button>
             </div>
 
@@ -152,7 +180,7 @@ const ClientStudentViewInfo = () => {
                 mystudent?.data.map((item, key) => {
                   return (
                     <div
-                      className="card  border border-line p-4 relative mb-2 bg-primary rounded-md"
+                      className="card border-b border-line p-4 relative mb-2 bg-primary"
                       key={key}
                     >
                       <h5>
@@ -188,6 +216,13 @@ const ClientStudentViewInfo = () => {
                       </button>
 
                       <div className="card__action absolute top-5 right-5 flex gap-2">
+                        <button
+                          className=" tooltip"
+                          data-tooltip="Enroll"
+                          onClick={() => handleEnroll(item)}
+                        >
+                          <FiFilePlus />
+                        </button>
                         <button
                           className=" tooltip"
                           data-tooltip="Edit"
@@ -232,7 +267,7 @@ const ClientStudentViewInfo = () => {
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-students/${id}/${id}`}
+          mysqlApiDelete={`/v2/dev-students/${id}/${dataItem.school_year_students_sy_id}`}
           msg={"Are you sure you want to delete this record?"}
           item={`${dataItem.students_fname} ${dataItem.students_lname}`}
           queryKey={"mystudent"}

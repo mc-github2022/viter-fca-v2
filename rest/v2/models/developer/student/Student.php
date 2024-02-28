@@ -30,6 +30,7 @@ class Student
     public $school_year_students_sy_id;
     public $school_year_students_last_grade_level_id;
     public $school_year_students_student_id;
+    public $school_year_students_grade_level_id;
     public $school_year_students_last_school_attended;
     public $school_year_students_last_gpa;
     public $school_year_students_last_school_address;
@@ -133,14 +134,14 @@ class Student
             $sql .= "school_year_students_last_learning_type, ";
             $sql .= "school_year_students_sy_id, ";
             $sql .= "school_year_students_student_id, ";
-            $sql .= "school_year_students_last_grade_level_id, ";
+            $sql .= "school_year_students_grade_level_id, ";
             $sql .= "school_year_students_created, ";
             $sql .= "school_year_students_datetime ) values ( ";
             $sql .= ":school_year_students_is_active, ";
             $sql .= ":school_year_students_last_learning_type, ";
             $sql .= ":school_year_students_sy_id, ";
             $sql .= ":school_year_students_student_id, ";
-            $sql .= ":school_year_students_last_grade_level_id, ";
+            $sql .= ":school_year_students_grade_level_id, ";
             $sql .= ":school_year_students_created, ";
             $sql .= ":school_year_students_datetime ) ";
             $query = $this->connection->prepare($sql);
@@ -149,7 +150,7 @@ class Student
                 "school_year_students_last_learning_type" => $this->school_year_students_last_learning_type,
                 "school_year_students_sy_id" => $this->school_year_students_sy_id,
                 "school_year_students_student_id" => $this->lastInsertedId,
-                "school_year_students_last_grade_level_id" => $this->school_year_students_last_grade_level_id,
+                "school_year_students_grade_level_id" => $this->school_year_students_grade_level_id,
                 "school_year_students_created" => $this->students_created,
                 "school_year_students_datetime" => $this->students_datetime,
             ]);
@@ -176,8 +177,11 @@ class Student
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
-            $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
+            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
+            $sql .= "and (syStudent.school_year_students_last_coc_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_declaration_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_consent_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_commitment_is_agree = 0) ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "group by ";
             $sql .= "student.students_aid ";
@@ -207,8 +211,11 @@ class Student
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
-            $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
+            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
+            $sql .= "and (syStudent.school_year_students_last_coc_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_declaration_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_consent_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_commitment_is_agree = 0) ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "group by ";
             $sql .= "student.students_aid ";
@@ -244,8 +251,11 @@ class Student
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
-            $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
+            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
+            $sql .= "and (syStudent.school_year_students_last_coc_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_declaration_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_consent_is_agree = 0 ";
+            $sql .= "or syStudent.school_year_students_last_parent_commitment_is_agree = 0) ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "and ";
             $sql .= "( ";
@@ -407,6 +417,7 @@ class Student
         try {
             $sql = "update {$this->tblSyStudent} set ";
             $sql .= "school_year_students_last_learning_type = :school_year_students_last_learning_type, ";
+            $sql .= "school_year_students_grade_level_id = :school_year_students_grade_level_id, ";
             $sql .= "school_year_students_last_school_attended = :school_year_students_last_school_attended, ";
             $sql .= "school_year_students_last_gpa = :school_year_students_last_gpa, ";
             $sql .= "school_year_students_last_school_address = :school_year_students_last_school_address, ";
@@ -416,6 +427,7 @@ class Student
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "school_year_students_last_learning_type" => $this->school_year_students_last_learning_type,
+                "school_year_students_grade_level_id" => $this->school_year_students_grade_level_id,
                 "school_year_students_last_school_attended" => $this->school_year_students_last_school_attended,
                 "school_year_students_last_gpa" => $this->school_year_students_last_gpa,
                 "school_year_students_last_school_address" => $this->school_year_students_last_school_address,

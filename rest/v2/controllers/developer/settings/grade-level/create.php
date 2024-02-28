@@ -7,6 +7,7 @@ if (array_key_exists("gradelevelid", $_GET)) {
 }
 checkPayload($data);
 $grade_level->grade_level_name = checkIndex($data, "grade_level_name");
+$grade_level->grade_level_order = checkIndex($data, "grade_level_order");
 $grade_level->grade_level_is_pre_school = checkIndex($data, "grade_level_is_pre_school");
 $grade_level->grade_level_active = 1;
 $grade_level->grade_level_created = date("Y-m-d H:i:s");

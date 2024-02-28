@@ -74,7 +74,7 @@ class Assessment
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
+            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
             $sql .= "and syStudent.school_year_students_is_accept_payment = 0 ";
             $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";
@@ -118,7 +118,7 @@ class Assessment
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
+            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
             $sql .= "and syStudent.school_year_students_is_accept_payment = 0 ";
             $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";
@@ -168,7 +168,7 @@ class Assessment
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_last_grade_level_id ";
+            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
             $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
             $sql .= "and syStudent.school_year_students_is_accept_payment = 0 ";
             $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";

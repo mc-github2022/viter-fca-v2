@@ -44,7 +44,7 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
       <div className={`modal modal--settings show `}>
         <div className="modal__backdrop bg-black bg-opacity-0"></div>
         <div className="z-50 h-full w-full flex justify-center items-center relative ">
-          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-150px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
+          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-150px)] h-full max-w-[1065px] mx-2 md:mx-7  w-full -translate-y-5">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <button
@@ -153,8 +153,8 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                 className={` p-5 pb-20 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
                 <span className="block mb-3 uppercase text-accent font-normal text-[20px]">
-                  Parent Account -{" "}
-                  <span className="">
+                  Parent Account <span className="hidden md:inline">- </span>
+                  <span className="block md:inline">
                     {parent?.data[0].parents_fname}{" "}
                     {parent?.data[0].parents_lname}
                   </span>

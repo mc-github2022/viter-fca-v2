@@ -100,7 +100,8 @@ const Header = ({ isLoading, schoolYear }) => {
     <>
       {!isLoading &&
         // !isFetching &&
-        (schoolYear?.data[0].school_year_is_enrollment_open === 1 ||
+        ((schoolYear?.count > 0 &&
+          schoolYear?.data[0].school_year_is_enrollment_open === 1) ||
           schoolYear?.isGreaterThanEndYear) && (
           <>
             <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 fixed w-full z-10 top-0">

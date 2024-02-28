@@ -2,7 +2,9 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import TableLoading from "@/components/partials/TableLoading";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
+  setError,
   setIsSettingAdd,
+  setMessage,
   setSettingIsConfirm,
   setSettingIsDelete,
 } from "@/components/store/StoreAction";
@@ -27,11 +29,18 @@ const SchoolYearList = ({
   isFetching,
   error,
   schoolYear,
+  getOngoingSchoolYear,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
+
+  const getOngoingEnrollment =
+    schoolYear?.count > 0 &&
+    schoolYear?.data.filter(
+      (item) => item.school_year_is_enrollment_open === 1
+    );
 
   const handleEdit = (item) => {
     dispatch(setIsSettingAdd(true));
@@ -44,6 +53,11 @@ const SchoolYearList = ({
   };
 
   const handleArchive = (item) => {
+    if (getOngoingEnrollment?.length > 0) {
+      dispatch(setError(true));
+      dispatch(setMessage("There is still an on-going enrollment."));
+      return;
+    }
     dispatch(setSettingIsConfirm(true));
     setId(item.school_year_aid);
     setData(item);
@@ -51,6 +65,11 @@ const SchoolYearList = ({
   };
 
   const handleRestore = (item) => {
+    if (getOngoingSchoolYear?.length > 0) {
+      dispatch(setError(true));
+      dispatch(setMessage("There is already an on-going SY."));
+      return;
+    }
     dispatch(setSettingIsConfirm(true));
     setId(item.school_year_aid);
     setData(item);
@@ -86,13 +105,7 @@ const SchoolYearList = ({
               }
               key={key}
             >
-              <div
-                className={`${
-                  item.school_year_is_active === 1
-                    ? "opacity-100"
-                    : "opacity-40"
-                } `}
-              >
+              <div>
                 <p className="mb-1 flex items-center">
                   <span className="font-bold block w-[8rem]">S.Y Status:</span>{" "}
                   <Pills

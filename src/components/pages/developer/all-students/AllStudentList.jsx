@@ -9,11 +9,15 @@ import ModalDelete from "@/components/partials/modals/ModalDelete";
 import ModalReset from "@/components/partials/modals/ModalReset.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
 import {
+  setError,
   setIsAdd,
   setIsConfirm,
   setIsDelete,
+  setMessage,
+  setSuccess,
 } from "@/components/store/StoreAction";
 
+import { queryData } from "@/components/helpers/queryData";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
@@ -22,17 +26,18 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { CiViewList } from "react-icons/ci";
-import { FiTrash } from "react-icons/fi";
+import { FiFilePlus, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
-import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
+import ModalEditStudent from "../students/StudentEdit/ModalEditStudent";
 
-const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
+const AllStudentList = ({ gradeLevel, isOngoing }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
-
+  const [dataItem, setData] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
   const search = React.useRef({ value: "" });
+  const [isViewInfo, setIsViewInfo] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
   const [onSearch, setOnSearch] = React.useState(false);
@@ -48,11 +53,11 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["students", onSearch, store.isSearch],
+    queryKey: ["all-students", onSearch, store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/dev-students/search`, // search endpoint
-        `/v2/dev-students/page/${pageParam}`, // list endpoint
+        `/v2/dev-all-students/search`, // search endpoint
+        `/v2/dev-all-students/page/${pageParam}`, // list endpoint
         store.isSearch, // search boolean
         { searchValue: search.current.value }
       ),
@@ -88,6 +93,27 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
   const handleViewInfo = (item) => {
     setData(item);
     setIsViewInfo(true);
+  };
+
+  const handleEnroll = async (item) => {
+    if (isOngoing === 0 || !isOngoing) {
+      dispatch(setError(true));
+      dispatch(setMessage("There's no enrollment yet."));
+      return;
+    }
+
+    const enroll = await queryData("/v2/dev-client-student/enroll", "post", {
+      ...item,
+    });
+
+    if (enroll.success) {
+      dispatch(setSuccess(true));
+      dispatch(setMessage("Successfully enrolled."));
+    }
+    if (!enroll.success) {
+      dispatch(setError(true));
+      dispatch(setMessage(enroll.error));
+    }
   };
 
   React.useEffect(() => {
@@ -174,7 +200,15 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
 
                         <td>
                           {item.students_is_active === 1 ? (
-                            <div className="flex gap-2 justify-end pr-2">
+                            <div className="flex gap-2 justify-end">
+                              <button
+                                className="tooltip text-base"
+                                data-tooltip="Enroll"
+                                onClick={() => handleEnroll(item)}
+                              >
+                                <FiFilePlus />
+                              </button>
+
                               <button
                                 className="tooltip text-base"
                                 data-tooltip="Info"
@@ -238,6 +272,14 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
         </div>
       </div>
 
+      {isViewInfo && (
+        <ModalEditStudent
+          setIsViewInfo={setIsViewInfo}
+          dataItem={dataItem}
+          gradeLevel={gradeLevel}
+        />
+      )}
+
       {store.isConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/dev-students/active/${id}`}
@@ -245,7 +287,7 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
             isArchive ? "restore" : "archive"
           } this record?`}
           item={dataItem.student_fullname}
-          queryKey={"students"}
+          queryKey={"all-students"}
           isArchive={isArchive}
         />
       )}
@@ -255,11 +297,11 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
           mysqlApiDelete={`/v2/dev-students/${id}/${dataItem.school_year_aid}`}
           msg={"Are you sure you want to delete this record?"}
           item={dataItem.student_fullname}
-          queryKey={"students"}
+          queryKey={"all-students"}
         />
       )}
     </>
   );
 };
 
-export default StudentList;
+export default AllStudentList;

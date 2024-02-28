@@ -29,20 +29,15 @@ $student->students_family_circumstances = $data["students_family_circumstances"]
 $student->students_created = date("Y-m-d H:i:s");
 $student->students_datetime = date("Y-m-d H:i:s");
 
-
-
 // SCHOOL YEAR STUDENT
 $student->school_year_students_sy_id = $data["school_year_students_sy_id"];
 $student->school_year_students_last_learning_type = $data["school_year_students_last_learning_type"];
-$student->school_year_students_last_school_attended = $data["school_year_students_last_grade_level_id"];
+$student->school_year_students_last_school_attended = $data["school_year_students_last_school_attended"];
 $student->school_year_students_last_gpa = $data["school_year_students_last_gpa"];
-$student->school_year_students_last_grade_level_id = $data["school_year_students_last_grade_level_id"];
+$student->school_year_students_grade_level_id = $data["school_year_students_grade_level_id"];
 $student->school_year_students_last_school_address = $data["school_year_students_last_school_address"];
-$student->school_year_students_last_remarks = $data["school_year_students_last_grade_level_id"];
+$student->school_year_students_last_remarks = $data["school_year_students_last_remarks"];
 
-
-// $fullname = "$student->students_fname, $student->students_lname";
-// isNameExist($student, $fullname);
 
 if ($student->students_lrn != "") {
     isLrnExist($student, $student->students_lrn);

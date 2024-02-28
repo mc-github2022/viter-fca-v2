@@ -36,7 +36,7 @@ const SchoolYear = ({ index, isGreaterThanEndYear }) => {
   const handleAdd = () => {
     if (getOngoingSchoolYear?.length > 0) {
       dispatch(setError(true));
-      dispatch(setMessage("Error. There is already an on-going SY."));
+      dispatch(setMessage(" There is already an on-going SY."));
       return;
     }
     dispatch(setIsSettingAdd(true));
@@ -72,6 +72,7 @@ const SchoolYear = ({ index, isGreaterThanEndYear }) => {
               isFetching={isFetching}
               error={error}
               schoolYear={schoolYear}
+              getOngoingSchoolYear={getOngoingSchoolYear}
             />
           )}
 

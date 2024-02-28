@@ -10,6 +10,8 @@ if (array_key_exists("syid", $_GET)) {
     // validate id if empty or valid number
     checkId($sy->school_year_aid);
 
+    isAssociated($sy);
+
     // delete
     $query = checkDelete($sy);
 
