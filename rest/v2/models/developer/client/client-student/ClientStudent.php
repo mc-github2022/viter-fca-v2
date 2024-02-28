@@ -117,59 +117,6 @@ class ClientStudent
         return $query;
     }
 
-    // update
-    public function update()
-    {
-        try {
-            $sql = "update {$this->tblStudent} set ";
-            $sql .= "students_parent_id = :students_parent_id, ";
-            $sql .= "students_lrn = :students_lrn, ";
-            $sql .= "students_fname = :students_fname, ";
-            $sql .= "students_mname = :students_mname, ";
-            $sql .= "students_lname = :students_lname, ";
-            $sql .= "students_gender = :students_gender, ";
-            $sql .= "students_birth_date = :students_birth_date, ";
-            $sql .= "students_birth_place = :students_birth_place, ";
-            $sql .= "students_email = :students_email, ";
-            $sql .= "students_mobile = :students_mobile, ";
-            $sql .= "students_landline = :students_landline, ";
-            $sql .= "students_address_id = :students_address_id, ";
-            $sql .= "students_institutional_email = :students_institutional_email, ";
-            $sql .= "students_family_doctor = :students_family_doctor, ";
-            $sql .= "students_family_doctor_contact = :students_family_doctor_contact, ";
-            $sql .= "students_medical_remarks = :students_medical_remarks, ";
-            $sql .= "students_family_circumstances = :students_family_circumstances, ";
-            $sql .= "students_datetime = :students_datetime ";
-            $sql .= "where students_aid = :students_aid ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "students_parent_id" => $this->students_parent_id,
-                "students_lrn" => $this->students_lrn,
-                "students_lrn" => $this->students_lrn,
-                "students_fname" => $this->students_fname,
-                "students_mname" => $this->students_mname,
-                "students_lname" => $this->students_lname,
-                "students_gender" => $this->students_gender,
-                "students_birth_date" => $this->students_birth_date,
-                "students_birth_place" => $this->students_birth_place,
-                "students_email" => $this->students_email,
-                "students_mobile" => $this->students_mobile,
-                "students_landline" => $this->students_landline,
-                "students_address_id" => $this->students_address_id,
-                "students_institutional_email" => $this->students_institutional_email,
-                "students_family_doctor" => $this->students_family_doctor,
-                "students_family_doctor_contact" => $this->students_family_doctor_contact,
-                "students_medical_remarks" => $this->students_medical_remarks,
-                "students_family_circumstances" => $this->students_family_circumstances,
-                "students_datetime" => $this->students_datetime,
-                "students_aid" => $this->students_aid,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
 
     // update school year students Code of Conduct
     public function updateSchoolYearStudentCoc()
@@ -470,30 +417,78 @@ class ClientStudent
         return $query;
     }
 
-
-
+    // update
+    public function update()
+    {
+        try {
+            $sql = "update {$this->tblStudent} set ";
+            $sql .= "students_parent_id = :students_parent_id, ";
+            $sql .= "students_lrn = :students_lrn, ";
+            $sql .= "students_fname = :students_fname, ";
+            $sql .= "students_mname = :students_mname, ";
+            $sql .= "students_lname = :students_lname, ";
+            $sql .= "students_gender = :students_gender, ";
+            $sql .= "students_birth_date = :students_birth_date, ";
+            $sql .= "students_birth_place = :students_birth_place, ";
+            $sql .= "students_email = :students_email, ";
+            $sql .= "students_mobile = :students_mobile, ";
+            $sql .= "students_landline = :students_landline, ";
+            $sql .= "students_address_id = :students_address_id, ";
+            $sql .= "students_institutional_email = :students_institutional_email, ";
+            $sql .= "students_family_doctor = :students_family_doctor, ";
+            $sql .= "students_family_doctor_contact = :students_family_doctor_contact, ";
+            $sql .= "students_medical_remarks = :students_medical_remarks, ";
+            $sql .= "students_family_circumstances = :students_family_circumstances, ";
+            $sql .= "students_datetime = :students_datetime ";
+            $sql .= "where students_aid = :students_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "students_parent_id" => $this->students_parent_id,
+                "students_lrn" => $this->students_lrn,
+                "students_lrn" => $this->students_lrn,
+                "students_fname" => $this->students_fname,
+                "students_mname" => $this->students_mname,
+                "students_lname" => $this->students_lname,
+                "students_gender" => $this->students_gender,
+                "students_birth_date" => $this->students_birth_date,
+                "students_birth_place" => $this->students_birth_place,
+                "students_email" => $this->students_email,
+                "students_mobile" => $this->students_mobile,
+                "students_landline" => $this->students_landline,
+                "students_address_id" => $this->students_address_id,
+                "students_institutional_email" => $this->students_institutional_email,
+                "students_family_doctor" => $this->students_family_doctor,
+                "students_family_doctor_contact" => $this->students_family_doctor_contact,
+                "students_medical_remarks" => $this->students_medical_remarks,
+                "students_family_circumstances" => $this->students_family_circumstances,
+                "students_datetime" => $this->students_datetime,
+                "students_aid" => $this->students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 
     // update school year students
-    public function updateStudentSchoolYearByParent()
+    public function updateSchoolYearStudent()
     {
         try {
             $sql = "update {$this->tblSyStudent} set ";
-            $sql .= "school_year_students_sy_id = :school_year_students_sy_id, ";
-            $sql .= "school_year_students_student_id = :school_year_students_student_id, ";
             $sql .= "school_year_students_last_learning_type = :school_year_students_last_learning_type, ";
-            $sql .= "school_year_students_last_grade_level_id = :school_year_students_last_grade_level_id, ";
-            $sql .= "school_year_students_last_remarks = :school_year_students_last_remarks, ";
             $sql .= "school_year_students_last_school_attended = :school_year_students_last_school_attended, ";
+            $sql .= "school_year_students_last_gpa = :school_year_students_last_gpa, ";
+            $sql .= "school_year_students_last_school_address = :school_year_students_last_school_address, ";
+            $sql .= "school_year_students_last_remarks = :school_year_students_last_remarks, ";
             $sql .= "school_year_students_datetime = :school_year_students_datetime ";
             $sql .= "where school_year_students_aid = :school_year_students_aid  ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "school_year_students_sy_id" => $this->school_year_students_sy_id,
-                "school_year_students_student_id" => $this->school_year_students_student_id,
                 "school_year_students_last_learning_type" => $this->school_year_students_last_learning_type,
-                "school_year_students_last_grade_level_id" => $this->school_year_students_last_grade_level_id,
-                "school_year_students_last_remarks" => $this->school_year_students_last_remarks,
                 "school_year_students_last_school_attended" => $this->school_year_students_last_school_attended,
+                "school_year_students_last_gpa" => $this->school_year_students_last_gpa,
+                "school_year_students_last_school_address" => $this->school_year_students_last_school_address,
+                "school_year_students_last_remarks" => $this->school_year_students_last_remarks,
                 "school_year_students_datetime" => $this->students_datetime,
                 "school_year_students_aid" => $this->school_year_students_aid,
             ]);

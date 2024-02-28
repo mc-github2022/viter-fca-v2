@@ -21,3 +21,19 @@ function isLrnExist($object, $lrn)
     $count = $query->rowCount();
     checkExistence($count, "This LRN {$lrn} already exist.");
 }
+
+// compare lrn
+function compareLrn($object, $lrn_old, $lrn)
+{
+    if (strtolower($lrn_old) != strtolower($lrn)) {
+        isLrnExist($object, $lrn);
+    }
+}
+
+// update school year student
+function checkUpdateSchoolYearStudent($object)
+{
+    $query = $object->updateSchoolYearStudent();
+    checkQuery($query, "There's a problem processing your request. (update school year student)");
+    return $query;
+}

@@ -3,13 +3,26 @@ import {
   InputText,
   InputTextArea,
 } from "@/components/helpers/FormInputs.jsx";
+import { queryData } from "@/components/helpers/queryData.jsx";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
+import {
+  setError,
+  setIsAdd,
+  setMessage,
+  setSuccess,
+} from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StudentCodeOfConduct = ({ showSideNav, setIsViewInfo }) => {
+const StudentCodeOfConduct = ({
+  showSideNav,
+  itemEdit,
+  gradelevel,
+  schoolYear,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const queryClient = useQueryClient();
@@ -18,25 +31,34 @@ const StudentCodeOfConduct = ({ showSideNav, setIsViewInfo }) => {
       queryData(`/v2/dev-students/update-coc`, "put", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
       // show error box
       if (data.success) {
-        setIsViewInfo(false);
+        dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
         dispatch(setMessage("Record successfully updated."));
       }
       if (!data.success) {
-        dispatch(setValidate(true));
+        dispatch(setError(true));
         dispatch(setMessage(data.error));
       }
     },
   });
 
+  console.log(itemEdit);
+
   const handleClose = () => {
-    setIsViewInfo(false);
+    dispatch(setIsAdd(false));
   };
 
-  const initVal = {};
+  const initVal = {
+    school_year_students_aid: itemEdit.school_year_students_aid,
+    school_year_students_last_coc_is_agree:
+      itemEdit.school_year_students_last_coc_is_agree === "" ||
+      itemEdit.school_year_students_last_coc_is_agree === 0
+        ? false
+        : true,
+  };
 
   const yupSchema = Yup.object({});
 

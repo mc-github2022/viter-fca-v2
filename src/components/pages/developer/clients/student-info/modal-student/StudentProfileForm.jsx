@@ -30,6 +30,18 @@ const StudentProfileForm = ({
   const { store, dispatch } = React.useContext(StoreContext);
   const cid = getUrlParam().get("cid");
 
+  const {
+    isLoading,
+    error,
+    data: parentGuardian,
+  } = useQueryData(
+    "/v2/dev-students/parent-guardian", // endpoint
+    "post", // method
+    "parent-guardian", // key
+    { students_parent_id: itemEdit.students_parent_id },
+    { students_parent_id: itemEdit.students_parent_id }
+  );
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
@@ -63,52 +75,36 @@ const StudentProfileForm = ({
     dispatch(setIsAdd(false));
   };
 
-  const initVal = {
-    // school_year: itemEdit ? itemEdit.school_year : "",
-    students_lrn: itemEdit ? itemEdit.students_lrn : "",
-    school_year_students_last_learning_type: itemEdit
-      ? itemEdit.school_year_students_last_learning_type
-      : "",
-    students_fname: itemEdit ? itemEdit.students_fname : "",
-    students_lname: itemEdit ? itemEdit.students_lname : "",
-    students_mname: itemEdit ? itemEdit.students_mname : "",
-    students_gender: itemEdit ? itemEdit.students_gender : "",
-    students_birth_date: itemEdit ? itemEdit.students_birth_date : "",
-    students_birth_place: itemEdit ? itemEdit.students_birth_place : "",
-    students_email: itemEdit ? itemEdit.students_email : "",
-    students_mobile: itemEdit ? itemEdit.students_mobile : "",
-    students_landline: itemEdit ? itemEdit.students_landline : "",
-    students_address_id: itemEdit ? itemEdit.students_address_id : "",
-    students_institutional_email: itemEdit
-      ? itemEdit.students_institutional_email
-      : "",
-    school_year_students_sy_id: itemEdit
-      ? itemEdit.school_year_students_sy_id
-      : "",
-    school_year_students_last_grade_level_id: itemEdit
-      ? itemEdit.school_year_students_last_grade_level_id
-      : "",
-    school_year_students_last_school_attended: itemEdit
-      ? itemEdit.school_year_students_last_school_attended
-      : "",
-    school_year_students_last_gpa: itemEdit
-      ? itemEdit.school_year_students_last_gpa
-      : "",
-    school_year_students_last_remarks: itemEdit
-      ? itemEdit.school_year_students_last_remarks
-      : "",
-    school_year_students_last_school_address: itemEdit
-      ? itemEdit.school_year_students_last_school_address
-      : "",
-    students_medical_remarks: itemEdit ? itemEdit.students_medical_remarks : "",
-    students_family_doctor_contact: itemEdit
-      ? itemEdit.students_family_doctor_contact
-      : "",
-    students_family_doctor: itemEdit ? itemEdit.students_family_doctor : "",
-    students_family_circumstances: itemEdit
-      ? itemEdit.students_family_circumstances
-      : "",
-  };
+  const initVal = itemEdit
+    ? { ...itemEdit, students_lrn_old: itemEdit ? itemEdit.students_lrn : "" }
+    : {
+        students_parent_id: "",
+        students_lrn: "",
+        students_fname: "",
+        students_lname: "",
+        students_mname: "",
+        students_gender: "",
+        students_birth_place: "",
+        students_birth_date: "",
+        students_email: "",
+        students_mobile: "",
+        students_landline: "",
+        students_address_id: "",
+        students_medical_remarks: "",
+        students_institutional_email: "",
+        students_family_doctor: "",
+        students_family_doctor_contact: "",
+        students_family_circumstances: "",
+        students_created: "",
+        students_datetime: "",
+        school_year_students_sy_id: "",
+        school_year_students_last_learning_type: "",
+        school_year_students_last_school_attended: "",
+        school_year_students_last_gpa: "",
+        school_year_students_last_grade_level_id: "",
+        school_year_students_last_school_address: "",
+        school_year_students_last_remarks: "",
+      };
 
   const yupSchema = Yup.object({});
   return (
@@ -292,12 +288,28 @@ const StudentProfileForm = ({
                   <h6 className="mb-2 uppercase">Address</h6>
                   <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
-                      <InputText
-                        label="Current Address"
-                        type="text"
+                      <InputSelect
+                        label="Current Adress"
                         name="students_address_id"
                         disabled={mutation.isPending}
-                      />
+                      >
+                        <option value="" hidden></option>
+                        {parentGuardian?.count > 0 ? (
+                          parentGuardian?.data.map((item, key) => {
+                            return (
+                              <option value={item.guardian_aid} key={key}>
+                                {item.guardian_address} {item.guardian_province}{" "}
+                                {item.guardian_province} {item.guardian_city}{" "}
+                                {item.guardian_zipcode} {item.guardian_country}
+                              </option>
+                            );
+                          })
+                        ) : (
+                          <option value="" disabled>
+                            No data
+                          </option>
+                        )}
+                      </InputSelect>
                     </div>
                   </div>
 

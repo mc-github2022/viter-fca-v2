@@ -20,11 +20,11 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
     isLoading,
     isFetching,
     error,
-    data: gradelevel,
+    data: gradeLevel,
   } = useQueryData(
     "/v2/dev-grade-level", // endpoint
     "get", // method
-    "gradelevel" // key
+    "gradeLevel" // key
   );
 
   console.log(itemEdit);
@@ -166,7 +166,7 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                     index={index}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
-                    gradelevel={gradelevel}
+                    gradeLevel={gradeLevel}
                     schoolYear={schoolYear}
                   />
                 )}
@@ -175,7 +175,7 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                     index={index}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
-                    gradelevel={gradelevel}
+                    gradeLevel={gradeLevel}
                     schoolYear={schoolYear}
                   />
                 )}
@@ -184,7 +184,7 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                     index={index}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
-                    gradelevel={gradelevel}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 4 && (
@@ -192,7 +192,7 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                     index={index}
                     showSideNav={showSideNav}
                     itemEdit={itemEdit}
-                    gradelevel={gradelevel}
+                    gradeLevel={gradeLevel}
                   />
                 )}
                 {index === 5 && (
