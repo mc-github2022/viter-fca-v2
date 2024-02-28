@@ -196,7 +196,7 @@ export const getUserType = () => {
 };
 
 export const isItemEmpty = (item, name = "") => {
-  let result = "";
+  let result = "N/A";
 
   if (item !== "") {
     result = `${item}${name}`;

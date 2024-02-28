@@ -1,8 +1,8 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { isItemEmpty } from "@/components/helpers/functions-general";
 import {
+  getAdmissionDiscount,
   getGetPrimaryDiscount,
-  getGetPrimaryDiscountData,
 } from "./functions-assessment";
 
 const AssessmentPrimaryDiscountList = ({
@@ -24,54 +24,58 @@ const AssessmentPrimaryDiscountList = ({
   const handleChangePrimaryDiscount = (e) => {
     setPrimaryDiscountId(e.target.value);
     setPrimaryDiscountData(
-      getGetPrimaryDiscountData(primaryDiscount, e.target.value)
+      getAdmissionDiscount(primaryDiscount, e.target.value)
     );
   };
 
   return (
     <>
-      <div className="grid grid-cols-[250px_1fr] mt-3 gap-5">
-        <div className="form__wrap">
-          <label htmlFor="" className="font-bold opacity-100 text-black">
+      <div className="grid grid-cols-[250px_1fr] mb-8 mt-10 gap-5">
+        <div className="form__wrap ">
+          <label
+            htmlFor=""
+            className="font-bold opacity-100 text-black uppercase"
+          >
             Primary Discount
           </label>
           <select
             value={primaryDiscountId}
             onChange={(e) => handleChangePrimaryDiscount(e)}
           >
-            <option value="0">
-              {isLoading || isFetching ? "Loading..." : "No Discount"}
-            </option>
-
             {isLoading || isFetching ? (
-              <option>Loading...</option>
+              <option hidden>Loading...</option>
             ) : primaryDiscount?.data.length === 0 ? (
-              <option disabled>No Data</option>
+              <option hidden>No Data</option>
             ) : (
-              primaryDiscount?.data.map((pItem, key) => {
-                return (
-                  <option key={key} value={pItem.discount_aid}>
-                    {`${pItem.discount_category_name} (${pItem.discount_type})`}
-                  </option>
-                );
-              })
+              <>
+                <option value="0">
+                  {isLoading || isFetching ? "Loading..." : "No Discount"}
+                </option>
+                {primaryDiscount?.data.map((pItem, key) => {
+                  return (
+                    <option key={key} value={pItem.discount_aid}>
+                      {`${pItem.discount_category_name} (${pItem.discount_type})`}
+                    </option>
+                  );
+                })}
+              </>
             )}
           </select>
         </div>
 
         {Number(primaryDiscountId) === 0 && (
-          <div className="min-h-250px grid place-content-center border border-line">
+          <div className="min-h-250px flex items-end opacity-[0.8]">
             <p className="font-bold text-base">No Primary Discount Selected</p>
           </div>
         )}
         {Number(primaryDiscountId) > 0 && (
           <div className="discount-info">
-            <h4 className="pb-1 ">
+            <p className="pb-1 font-bold">
               {
                 getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
                   .discount_category_name
               }
-            </h4>
+            </p>
 
             <div className="grid grid-cols-2 max-w-[95%] mt-2">
               <ul className="flex gap-2 mb-2 text-xs">
@@ -85,7 +89,7 @@ const AssessmentPrimaryDiscountList = ({
               </ul>
 
               <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Entrance Fee: </li>
+                <li className="font-bold">Admission Fee: </li>
                 <li>
                   {isItemEmpty(
                     getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
