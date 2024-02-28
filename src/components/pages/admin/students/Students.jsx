@@ -10,9 +10,9 @@ import React from "react";
 import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import Navigation from "../Navigation.jsx";
-import StudentList from "../../developer/students/StudentList.jsx";
 import ModalAddStudent from "../../developer/students/ModalAddStudent.jsx";
+import StudentList from "../../developer/students/StudentList.jsx";
+import Navigation from "../Navigation.jsx";
 
 const Students = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -40,7 +40,8 @@ const Students = () => {
     "header-school-year" // key
   );
 
-  const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
+  const isOngoing =
+    schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));

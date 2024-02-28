@@ -10,9 +10,9 @@ import React from "react";
 import { FaAngleLeft, FaBars, FaPlus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import Navigation from "../Navigation.jsx";
 import ClientList from "../../developer/clients/ClientList.jsx";
 import ModalAddClient from "../../developer/clients/ModalAddClient.jsx";
+import Navigation from "../Navigation.jsx";
 
 const Clients = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -40,7 +40,8 @@ const Clients = () => {
     "header-school-year" // key
   );
 
-  const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
+  const isOngoing =
+    schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
   const handleAdd = () => {
     dispatch(setIsAdd(true));

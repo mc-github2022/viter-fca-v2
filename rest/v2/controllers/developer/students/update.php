@@ -32,6 +32,7 @@ if (array_key_exists("studentid", $_GET)) {
     $student->students_medical_remarks = $data["students_medical_remarks"];
     $student->students_family_circumstances = $data["students_family_circumstances"];
     $student->school_year_students_last_learning_type = $data["school_year_students_last_learning_type"];
+    $student->school_year_students_grade_level_id = $data["school_year_students_grade_level_id"];
     $student->school_year_students_last_school_attended = $data["school_year_students_last_school_attended"];
     $student->school_year_students_last_gpa = $data["school_year_students_last_gpa"];
     $student->school_year_students_last_school_address = $data["school_year_students_last_school_address"];

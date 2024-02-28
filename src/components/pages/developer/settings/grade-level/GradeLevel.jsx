@@ -16,7 +16,6 @@ const GradeLevel = ({ index }) => {
   const handleAdd = () => {
     dispatch(setIsSettingAdd(true));
     setItemEdit(null);
-    console.log(store.isSettingAdd);
   };
 
   if (index === 4) {

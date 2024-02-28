@@ -5,6 +5,7 @@ import SystemForgotPassword from "@/components/pages/access/developer/SystemForg
 import SystemLogin from "@/components/pages/access/developer/SystemLogin.jsx";
 import VerifyEmailSystemUser from "@/components/pages/access/developer/VerifyEmailSystemUser.jsx";
 import Profile from "@/components/pages/developer/account/Profile.jsx";
+import AllStudents from "@/components/pages/developer/all-students/AllStudents";
 import Assestment from "@/components/pages/developer/assessment/Assestment.jsx";
 import Clients from "@/components/pages/developer/clients/Clients.jsx";
 import StudentView from "@/components/pages/developer/clients/StudentView";
@@ -83,10 +84,18 @@ export const routesSystem = [
     ),
   },
   {
-    path: `${devNavUrl}/system/students`,
+    path: `${devNavUrl}/system/enrollment`,
     element: (
       <ProtectedRouteSystem>
         <Students />
+      </ProtectedRouteSystem>
+    ),
+  },
+  {
+    path: `${devNavUrl}/system/students`,
+    element: (
+      <ProtectedRouteSystem>
+        <AllStudents />
       </ProtectedRouteSystem>
     ),
   },

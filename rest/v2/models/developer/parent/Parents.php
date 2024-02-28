@@ -172,7 +172,7 @@ class Parents
     public function readStudentById()
     {
         try {
-            $sql = "select * from {$this->tblStudents} as students, ";
+            $sql = "select *, max(students_sy.school_year_students_sy_id) from {$this->tblStudents} as students, ";
             $sql .= "{$this->tblParents} as parents, ";
             $sql .= "{$this->tblStudentsSY} as students_sy, ";
             $sql .= "{$this->tblGradeLevel} as grade_level, ";
@@ -180,9 +180,12 @@ class Parents
             $sql .= "where students.students_parent_id = parents.parents_aid ";
             $sql .= "and students_sy.school_year_students_student_id = students.students_aid ";
             $sql .= "and students_sy.school_year_students_sy_id = school_year.school_year_aid ";
-            $sql .= "and students_sy.school_year_students_last_grade_level_id = grade_level.grade_level_aid ";
+            $sql .= "and students_sy.school_year_students_grade_level_id = grade_level.grade_level_aid ";
             $sql .= "and students.students_parent_id = :parents_aid ";
-            $sql .= "order by students.students_fname asc ";
+            // $sql .= "and students_sy.school_year_students_sy_id in (select max(school_year_aid) from {$this->tblSchoolYear}) ";
+            // $sql .= "and students_sy.school_year_students_sy_id = (select max(school_year_students_sy_id) from {$this->tblStudentsSY} group by school_year_students_student_id) ";
+            $sql .= "group by students_sy.school_year_students_student_id ";
+            $sql .= "order by students_sy.school_year_students_student_id desc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "parents_aid" => $this->parents_aid,

@@ -129,7 +129,7 @@ const Student = () => {
                 mystudent?.data.map((item, key) => {
                   return (
                     <div
-                      className="card  border border-line p-4 relative mb-2 bg-primary rounded-md"
+                      className="card border-b border-line p-4 relative mb-2 bg-primary"
                       key={key}
                     >
                       <h5>

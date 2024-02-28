@@ -38,9 +38,9 @@ const StudentProfileForm = ({
     { students_parent_id: dataItem.students_parent_id }
   );
 
-  console.log(parentGuardian);
+  // console.log(parentGuardian);
   console.log(dataItem);
-  console.log(gradeLevel);
+  // console.log(gradeLevel);
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -52,6 +52,7 @@ const StudentProfileForm = ({
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({ queryKey: ["all-students"] });
       // show error box
       if (data.success) {
         setIsViewInfo(false);
@@ -152,7 +153,7 @@ const StudentProfileForm = ({
                     <div className="form__wrap">
                       <InputSelect
                         label="Grade Level"
-                        name="school_year_students_last_grade_level_id"
+                        name="school_year_students_grade_level_id"
                         disabled={mutation.isPending}
                       >
                         <option value="" hidden></option>
@@ -227,7 +228,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Birth Place"
                         type="text"
-                        name="student_birth_place"
+                        name="students_birth_place"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -235,7 +236,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Email"
                         type="text"
-                        name="student_email"
+                        name="students_email"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -243,7 +244,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Mobile"
                         type="text"
-                        name="student_mobile"
+                        name="students_mobile"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -251,7 +252,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Landline "
                         type="text"
-                        name="student_landline"
+                        name="students_landline"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -361,7 +362,7 @@ const StudentProfileForm = ({
                     </div>
                     <div className="form__wrap">
                       <InputText
-                        label="Contact Name "
+                        label="Contact Number"
                         type="text"
                         name="students_family_doctor_contact"
                         disabled={mutation.isPending}

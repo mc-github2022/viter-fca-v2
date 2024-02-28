@@ -26,8 +26,11 @@ if (empty($_GET)) {
     $dateNow = date("Y-m-d");
     $lastSchoolYearData = getResultData($sy->readLastSchoolYear());
 
-    $isGreaterThanEndYear = $dateNow > $lastSchoolYearData[0]["school_year_end_date"];
-
+    if (count($lastSchoolYearData) > 0) {
+        $isGreaterThanEndYear = $dateNow > $lastSchoolYearData[0]["school_year_end_date"];
+    } else {
+        $isGreaterThanEndYear = true;
+    }
 
     // read all
     $query = checkReadAll($sy);

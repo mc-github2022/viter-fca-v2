@@ -7,6 +7,13 @@ function checkCreateStudentSchoolYearByParent($object)
     return $query;
 }
 
+function checkEnrollStudent($object)
+{
+    $query = $object->enrollStudent();
+    checkQuery($query, "There's a problem processing your request. (enroll student)");
+    return $query;
+}
+
 function checkUpdateStudentSchoolYearByParent($object)
 {
     $query = $object->updateStudentSchoolYearByParent();
@@ -36,4 +43,12 @@ function checkUpdateSchoolYearStudent($object)
     $query = $object->updateSchoolYearStudent();
     checkQuery($query, "There's a problem processing your request. (update school year student)");
     return $query;
+}
+
+// check if enrolled
+function isStudentExist($object, $name)
+{
+    $query = $object->checkStudent();
+    $count = $query->rowCount();
+    checkExistence($count, "{$name} is already enrolled.");
 }

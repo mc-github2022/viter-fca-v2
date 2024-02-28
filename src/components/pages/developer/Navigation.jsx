@@ -83,12 +83,14 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
                 )} */}
               </Link>
             </li>
-            <li className={`nav__link ${menu === "students" ? "active" : ""}`}>
+            <li
+              className={`nav__link ${menu === "enrollment" ? "active" : ""}`}
+            >
               <Link
-                to={`${devNavUrl}/system/students`}
+                to={`${devNavUrl}/system/enrollment`}
                 className="flex gap-3 items-center uppercase  w-full"
               >
-                <PiStudent className="text-lg ml-4" /> Students
+                <PiStudent className="text-lg ml-4" /> Enrollment
               </Link>
             </li>
 
@@ -108,6 +110,14 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
                 className="flex gap-3 items-center uppercase  w-full"
               >
                 <PiListMagnifyingGlass className="text-lg ml-4" /> Assessment
+              </Link>
+            </li>
+            <li className={`nav__link ${menu === "students" ? "active" : ""}`}>
+              <Link
+                to={`${devNavUrl}/system/students`}
+                className="flex gap-3 items-center uppercase  w-full"
+              >
+                <PiStudent className="text-lg ml-4" /> Students
               </Link>
             </li>
           </ul>

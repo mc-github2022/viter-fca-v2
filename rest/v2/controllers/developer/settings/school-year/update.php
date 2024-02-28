@@ -18,7 +18,7 @@ if (array_key_exists("syid", $_GET)) {
     $school_year_start_date_old = checkIndex($data, "school_year_start_date_old");
 
     // only if email is changed, then check if already exist
-    compareEmail($sy, $school_year_start_date_old, $sy->school_year_start_date);
+    compareName($sy, $school_year_start_date_old, $sy->school_year_start_date);
 
     // update
     $query = checkUpdate($sy);

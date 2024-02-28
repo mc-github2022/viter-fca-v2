@@ -18,11 +18,13 @@ class SchoolYear
     public $school_year_search;
 
     public $tblSchoolYear;
+    public $tblStudentsSY;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblSchoolYear = "fcav2_settings_school_year";
+        $this->tblStudentsSY = "fcav2_school_year_students";
     }
 
     public function create()
@@ -277,6 +279,23 @@ class SchoolYear
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "school_year_start_date" => "{$this->school_year_start_date}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // validator
+    public function checkAssociation()
+    {
+        try {
+            $sql = "select * ";
+            $sql .= "from {$this->tblStudentsSY} ";
+            $sql .= "where school_year_students_sy_id = :school_year_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "school_year_aid" => $this->school_year_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

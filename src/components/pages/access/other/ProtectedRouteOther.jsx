@@ -18,7 +18,10 @@ const ProtectedRouteOther = ({ children }) => {
   const [isAuth, setIsAuth] = React.useState("");
   const fcatoken = JSON.parse(localStorage.getItem("fcatoken"));
   const navigate = useNavigate();
-  const currentPath = location.pathname.split("/")[1];
+  const currentPath =
+    location.pathname.split("/")[1] === devNavUrl.split("/")[1]
+      ? location.pathname.split("/")[2]
+      : location.pathname.split("/")[1];
   const [pageStatus, setPageStatus] = React.useState(false);
 
   React.useEffect(() => {

@@ -3,7 +3,11 @@ import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
-import { setIsAdd } from "@/components/store/StoreAction.jsx";
+import {
+  setIsAdd,
+  setMessage,
+  setValidate,
+} from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
@@ -30,9 +34,15 @@ const Students = () => {
     "school-year" // key
   );
 
-  const isOngoing = schoolYear?.data[0].school_year_is_enrollment_open;
+  const isOngoing =
+    schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
   const handleAdd = () => {
+    if (isOngoing === 0 || !isOngoing) {
+      dispatch(setValidate(true));
+      dispatch(setMessage(" There's no enrollment yet."));
+      return;
+    }
     dispatch(setIsAdd(true));
   };
 
@@ -42,7 +52,7 @@ const Students = () => {
       <section className="main__wrap flex flex-col relative ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation
-            menu="students"
+            menu="enrollment"
             isLoading={isLoading}
             error={error}
             schoolYear={schoolYear}

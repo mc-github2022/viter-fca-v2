@@ -4,6 +4,7 @@ class GradeLevel
     public $grade_level_aid;
     public $grade_level_active;
     public $grade_level_name;
+    public $grade_level_order;
     public $grade_level_is_pre_school;
     public $grade_level_created;
     public $grade_level_datetime;
@@ -29,11 +30,13 @@ class GradeLevel
             $sql = "insert into {$this->tblGradeLevel} ";
             $sql .= "( grade_level_active, ";
             $sql .= "grade_level_name, ";
+            $sql .= "grade_level_order, ";
             $sql .= "grade_level_is_pre_school, ";
             $sql .= "grade_level_created, ";
             $sql .= "grade_level_datetime ) values ( ";
             $sql .= ":grade_level_active, ";
             $sql .= ":grade_level_name, ";
+            $sql .= ":grade_level_order, ";
             $sql .= ":grade_level_is_pre_school, ";
             $sql .= ":grade_level_created, ";
             $sql .= ":grade_level_datetime ) ";
@@ -41,6 +44,7 @@ class GradeLevel
             $query->execute([
                 "grade_level_active" => $this->grade_level_active,
                 "grade_level_name" => $this->grade_level_name,
+                "grade_level_order" => $this->grade_level_order,
                 "grade_level_is_pre_school" => $this->grade_level_is_pre_school,
                 "grade_level_created" => $this->grade_level_created,
                 "grade_level_datetime" => $this->grade_level_datetime,
@@ -58,9 +62,10 @@ class GradeLevel
             $sql = "select grade_level_aid, ";
             $sql .= "grade_level_active, ";
             $sql .= "grade_level_name, ";
+            $sql .= "grade_level_order, ";
             $sql .= "grade_level_is_pre_school ";
             $sql .= "from {$this->tblGradeLevel} ";
-            $sql .= "order by grade_level_active desc ";
+            $sql .= "order by grade_level_order ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -73,12 +78,14 @@ class GradeLevel
         try {
             $sql = "update {$this->tblGradeLevel} set ";
             $sql .= "grade_level_name = :grade_level_name, ";
+            $sql .= "grade_level_order = :grade_level_order, ";
             $sql .= "grade_level_is_pre_school = :grade_level_is_pre_school, ";
             $sql .= "grade_level_datetime = :grade_level_datetime ";
             $sql .= "where grade_level_aid  = :grade_level_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "grade_level_name" => $this->grade_level_name,
+                "grade_level_order" => $this->grade_level_order,
                 "grade_level_is_pre_school" => $this->grade_level_is_pre_school,
                 "grade_level_datetime" => $this->grade_level_datetime,
                 "grade_level_aid" => $this->grade_level_aid,
