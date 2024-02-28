@@ -5,6 +5,7 @@ import { isItemEmpty } from "@/components/helpers/functions-general";
 const AssessmentAdditionalDiscountList = ({
   additionalDiscountId,
   setAdditionalDiscountId,
+  item,
 }) => {
   const {
     isLoading,
@@ -34,6 +35,9 @@ const AssessmentAdditionalDiscountList = ({
           <select
             value={additionalDiscountId}
             onChange={(e) => handleChangeAdditionalDiscount(e)}
+            disabled={
+              item.school_year_students_is_accept_payment === 0 ? false : true
+            }
           >
             {isLoading || isFetching ? (
               <option hidden>Loading...</option>

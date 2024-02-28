@@ -9,6 +9,7 @@ const AssessmentPrimaryDiscountList = ({
   primaryDiscountId,
   setPrimaryDiscountId,
   setPrimaryDiscountData,
+  item,
 }) => {
   const {
     isLoading,
@@ -41,6 +42,9 @@ const AssessmentPrimaryDiscountList = ({
           <select
             value={primaryDiscountId}
             onChange={(e) => handleChangePrimaryDiscount(e)}
+            disabled={
+              item.school_year_students_is_accept_payment === 0 ? false : true
+            }
           >
             {isLoading || isFetching ? (
               <option hidden>Loading...</option>
