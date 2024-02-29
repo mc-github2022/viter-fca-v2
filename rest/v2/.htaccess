@@ -139,7 +139,7 @@ RewriteRule ^dev-assessment/group-by-tuition-grade$ controllers/developer/assess
 RewriteRule ^dev-assessment/read-by-tuition-scheme$ controllers/developer/assessment/read-by-tuition-grade-and-category.php [L]
 RewriteRule ^dev-assessment/read-primary-discount$ controllers/developer/assessment/read-primary-discount.php [L]
 RewriteRule ^dev-assessment/read-additional-discount$ controllers/developer/assessment/read-additional-discount.php [L] 
-RewriteRule ^dev-assessment/accept-payment/([0-9]+)$ controllers/developer/assessment/accept-payment.php?studentSyId=$1 [L]  
+RewriteRule ^dev-assessment/notify-or-accept-payment/([0-9]+)$ controllers/developer/assessment/notify-or-accept-payment.php?studentSyId=$1 [L]  
 
 #SYSTEM MODE
 RewriteRule ^dev-system-mode$ controllers/developer/settings/system-mode/system-mode.php [L]
@@ -216,6 +216,9 @@ RewriteRule ^dev-all-students$ controllers/developer/all-students/all-students.p
 RewriteRule ^dev-all-students/([0-9]+)$ controllers/developer/all-students/all-students.php?studentid=$1 [L]
 RewriteRule ^dev-all-students/page/([0-9]+)$ controllers/developer/all-students/page.php?start=$1 [L]
 RewriteRule ^dev-all-students/search$ controllers/developer/all-students/search.php [L]
+  
+# STUDENTS PAYMENT SCHEME
+RewriteRule ^dev-students-payment-scheme/([0-9]+)$ controllers/developer/students/payment-scheme/update-payment-scheme.php?studentSyId=$1 [L] 
 
 # STUDENTS REQUIREMENT
 RewriteRule ^dev-students-requirement$ controllers/developer/requirement/registrar/registrar.php [L]

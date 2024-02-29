@@ -21,7 +21,7 @@ class Assessment
 
     public $tblStudent;
     public $tblParents;
-    public $tblSyStudent;
+    public $tblCurrentSYStudent;
     public $tblGradeLevel;
     public $tblParentInfo;
     public $tblSchoolYear;
@@ -37,7 +37,7 @@ class Assessment
         $this->connection = $db;
         $this->tblStudent = "fcav2_students";
         $this->tblParents = "fcav2_parents";
-        $this->tblSyStudent = "fcav2_school_year_students";
+        $this->tblCurrentSYStudent = "fcav2_school_year_students";
         $this->tblGradeLevel = "fcav2_settings_grade_level";
         $this->tblParentInfo = "fcav2_info_parent_guardian";
         $this->tblSchoolYear = "fcav2_settings_school_year";
@@ -55,13 +55,13 @@ class Assessment
     {
         try {
             $sql = "select student.*, ";
-            $sql .= "syStudent.school_year_students_aid, ";
-            $sql .= "syStudent.school_year_students_is_accept_payment, ";
-            $sql .= "syStudent.school_year_students_is_notify, ";
-            $sql .= "syStudent.school_year_students_schedule_fees_id, ";
-            $sql .= "syStudent.school_year_students_rate_id, ";
-            $sql .= "syStudent.school_year_students_primary_discount_id, ";
-            $sql .= "syStudent.school_year_students_additional_discount_id, ";
+            $sql .= "currentSyStudent.school_year_students_aid, ";
+            $sql .= "currentSyStudent.school_year_students_is_accept_payment, ";
+            $sql .= "currentSyStudent.school_year_students_is_notify, ";
+            $sql .= "currentSyStudent.school_year_students_schedule_fees_id, ";
+            $sql .= "currentSyStudent.school_year_students_rate_id, ";
+            $sql .= "currentSyStudent.school_year_students_primary_discount_id, ";
+            $sql .= "currentSyStudent.school_year_students_additional_discount_id, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
@@ -69,18 +69,18 @@ class Assessment
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParents} as parent, ";
-            $sql .= "{$this->tblSyStudent} as syStudent, ";
+            $sql .= "{$this->tblCurrentSYStudent} as currentSyStudent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
-            $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
+            $sql .= "where student.students_aid = currentSyStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
-            $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
-            $sql .= "and syStudent.school_year_students_is_accept_payment = 0 ";
-            $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_consent_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
+            $sql .= "and gradeLevel.grade_level_aid = currentSyStudent.school_year_students_grade_level_id ";
+            $sql .= "and schoolyear.school_year_aid = currentSyStudent.school_year_students_sy_id ";
+            $sql .= "and currentSyStudent.school_year_students_is_accept_payment = 0 ";
+            $sql .= "and currentSyStudent.school_year_students_last_coc_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_consent_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "group by ";
             $sql .= "student.students_aid ";
@@ -99,13 +99,13 @@ class Assessment
     {
         try {
             $sql = "select student.*, ";
-            $sql .= "syStudent.school_year_students_aid, ";
-            $sql .= "syStudent.school_year_students_is_accept_payment, ";
-            $sql .= "syStudent.school_year_students_is_notify, ";
-            $sql .= "syStudent.school_year_students_schedule_fees_id, ";
-            $sql .= "syStudent.school_year_students_rate_id, ";
-            $sql .= "syStudent.school_year_students_primary_discount_id, ";
-            $sql .= "syStudent.school_year_students_additional_discount_id, ";
+            $sql .= "currentSyStudent.school_year_students_aid, ";
+            $sql .= "currentSyStudent.school_year_students_is_accept_payment, ";
+            $sql .= "currentSyStudent.school_year_students_is_notify, ";
+            $sql .= "currentSyStudent.school_year_students_schedule_fees_id, ";
+            $sql .= "currentSyStudent.school_year_students_rate_id, ";
+            $sql .= "currentSyStudent.school_year_students_primary_discount_id, ";
+            $sql .= "currentSyStudent.school_year_students_additional_discount_id, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
@@ -113,18 +113,18 @@ class Assessment
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParents} as parent, ";
-            $sql .= "{$this->tblSyStudent} as syStudent, ";
+            $sql .= "{$this->tblCurrentSYStudent} as currentSyStudent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
-            $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
+            $sql .= "where student.students_aid = currentSyStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
-            $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
-            $sql .= "and syStudent.school_year_students_is_accept_payment = 0 ";
-            $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_consent_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
+            $sql .= "and gradeLevel.grade_level_aid = currentSyStudent.school_year_students_grade_level_id ";
+            $sql .= "and schoolyear.school_year_aid = currentSyStudent.school_year_students_sy_id ";
+            $sql .= "and currentSyStudent.school_year_students_is_accept_payment = 0 ";
+            $sql .= "and currentSyStudent.school_year_students_last_coc_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_consent_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "group by ";
             $sql .= "student.students_aid ";
@@ -149,13 +149,13 @@ class Assessment
     {
         try {
             $sql = "select student.*, ";
-            $sql .= "syStudent.school_year_students_aid, ";
-            $sql .= "syStudent.school_year_students_is_accept_payment, ";
-            $sql .= "syStudent.school_year_students_is_notify, ";
-            $sql .= "syStudent.school_year_students_schedule_fees_id, ";
-            $sql .= "syStudent.school_year_students_rate_id, ";
-            $sql .= "syStudent.school_year_students_primary_discount_id, ";
-            $sql .= "syStudent.school_year_students_additional_discount_id, ";
+            $sql .= "currentSyStudent.school_year_students_aid, ";
+            $sql .= "currentSyStudent.school_year_students_is_accept_payment, ";
+            $sql .= "currentSyStudent.school_year_students_is_notify, ";
+            $sql .= "currentSyStudent.school_year_students_schedule_fees_id, ";
+            $sql .= "currentSyStudent.school_year_students_rate_id, ";
+            $sql .= "currentSyStudent.school_year_students_primary_discount_id, ";
+            $sql .= "currentSyStudent.school_year_students_additional_discount_id, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
@@ -163,18 +163,18 @@ class Assessment
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParents} as parent, ";
-            $sql .= "{$this->tblSyStudent} as syStudent, ";
+            $sql .= "{$this->tblCurrentSYStudent} as currentSyStudent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
-            $sql .= "where student.students_aid = syStudent.school_year_students_student_id ";
+            $sql .= "where student.students_aid = currentSyStudent.school_year_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudent.school_year_students_grade_level_id ";
-            $sql .= "and schoolyear.school_year_aid = syStudent.school_year_students_sy_id ";
-            $sql .= "and syStudent.school_year_students_is_accept_payment = 0 ";
-            $sql .= "and syStudent.school_year_students_last_coc_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_consent_is_agree = 1 ";
-            $sql .= "and syStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
+            $sql .= "and gradeLevel.grade_level_aid = currentSyStudent.school_year_students_grade_level_id ";
+            $sql .= "and schoolyear.school_year_aid = currentSyStudent.school_year_students_sy_id ";
+            $sql .= "and currentSyStudent.school_year_students_is_accept_payment = 0 ";
+            $sql .= "and currentSyStudent.school_year_students_last_coc_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_declaration_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_consent_is_agree = 1 ";
+            $sql .= "and currentSyStudent.school_year_students_last_parent_commitment_is_agree = 1 ";
             $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "and ";
             $sql .= "( ";
@@ -223,6 +223,7 @@ class Assessment
         try {
             $sql = "select category.tuition_category_aid, ";
             $sql .= "category.tuition_category_name, ";
+            $sql .= "CONCAT(category.tuition_category_name, ' ', grade.grade_level_name) as tuitionName, ";
             $sql .= "grade.grade_level_name ";
             $sql .= "from {$this->tblTuitionFee} as fee, ";
             $sql .= "{$this->tblTuitionCategory} as category, ";
@@ -252,9 +253,11 @@ class Assessment
     {
         try {
             $sql = "select fee.*, ";
+            $sql .= "category.tuition_category_aid, ";
             $sql .= "category.tuition_category_name, ";
             $sql .= "grade.grade_level_name, ";
-            $sql .= "scheme.scheme_name ";
+            $sql .= "scheme.scheme_name, ";
+            $sql .= "CONCAT(category.tuition_category_name, ' ', grade.grade_level_name) as tuitionName ";
             $sql .= "from {$this->tblTuitionFee} as fee, ";
             $sql .= "{$this->tblTuitionCategory} as category, ";
             $sql .= "{$this->tblGradeLevel} as grade, ";
@@ -315,10 +318,10 @@ class Assessment
     }
 
     // update accept payment
-    public function updateAcceptPayment()
+    public function updateNotifyOrAcceptPayment()
     {
         try {
-            $sql = "update {$this->tblSyStudent} set ";
+            $sql = "update {$this->tblCurrentSYStudent} set ";
             $sql .= "school_year_students_is_accept_payment = :school_year_students_is_accept_payment, ";
             $sql .= "school_year_students_is_notify = :school_year_students_is_notify, ";
             $sql .= "school_year_students_schedule_fees_id = :school_year_students_schedule_fees_id, ";

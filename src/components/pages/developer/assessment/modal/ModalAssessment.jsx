@@ -13,9 +13,12 @@ import AssessmentAdditionalDiscountList from "./AssessmentAdditionalDiscountList
 import AssessmentPrimaryDiscountList from "./AssessmentPrimaryDiscountList";
 import AssessmentRateList from "./AssessmentRateList";
 import {
-  getGetSectedScheme,
+  getSectedScheme,
   getMonthlyFeeDiscountedAmount,
+  getPrimaryPercentDiscount,
   getTotalPaymentDiscountedAmount,
+  getTotalPaymentWithComma,
+  getSelectedRate,
 } from "./functions-assessment";
 import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 
@@ -33,7 +36,21 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   const [selectItem, setSelectItem] = React.useState(
     Number(item.school_year_students_schedule_fees_id)
   );
-  const [primaryDiscountData, setPrimaryDiscountData] = React.useState({});
+
+  const {
+    isLoading: isLoadingPrimaryDiscount,
+    isFetching: isFetchingPrimaryDiscount,
+    data: primaryDiscount,
+  } = useQueryData(
+    "/v2/dev-assessment/read-primary-discount", // endpoint
+    "get", // method
+    "primary-discount" // key
+  );
+  const primaryDiscountData = getPrimaryPercentDiscount(
+    primaryDiscount,
+    primaryDiscountId
+  );
+
   // accept or notify parent
   const [isNotify, setIsNotify] = React.useState(true);
   const [dataItem, setData] = React.useState(null);
@@ -71,6 +88,18 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
   const handleChangeCategory = (e) => {
     setCatgeoryId(e.target.value);
+  };
+
+  const handleNotifyParent = (tuitionItem) => {
+    dispatch(setSettingIsConfirm(true));
+    setId(item.school_year_students_aid);
+    setData({
+      ...tuitionItem,
+      primaryDiscountId,
+      additionalDiscountId,
+      tuition_fee_aid: 0,
+    });
+    setIsNotify(true);
   };
 
   const handleAcceptPayment = (tuitionItem) => {
@@ -121,7 +150,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                   <p>{item.grade_level_name}</p>
 
                   <div className="grid grid-cols-4 gap-2 mt-3  text-xs">
-                    <form action="">
+                    <form action="" className="">
                       <div className="form__wrap">
                         <label
                           htmlFor=""
@@ -179,50 +208,16 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                                   {listItem.scheme_name}
                                 </h4>
                                 <p className="text-xl !leading-none font-bold !mb-0 ">
-                                  {numberWithCommasToFixed(
-                                    Number(
-                                      listItem.tuition_fee_upon_enrollment
-                                    ) +
-                                      Number(
-                                        listItem.tuition_fee_total_monthly
-                                      ),
-                                    2
-                                  )}{" "}
-                                  <span className="text-accent">
-                                    {getTotalPaymentDiscountedAmount(
-                                      listOfScheme,
-                                      primaryDiscountData,
-                                      listItem
-                                    ) !== 0 &&
-                                      `(${getTotalPaymentDiscountedAmount(
-                                        listOfScheme,
-                                        primaryDiscountData,
-                                        listItem
-                                      )})`}
-                                  </span>
+                                  {getTotalPaymentWithComma(listItem)}
                                 </p>
 
                                 <p className="text-sm !mt-1 !leading-none">
                                   {numberWithCommasToFixed(
                                     listItem.tuition_fee_monthly,
                                     2
-                                  )}{" "}
-                                  <span className="text-accent">
-                                    {getMonthlyFeeDiscountedAmount(
-                                      listOfScheme,
-                                      primaryDiscountData,
-                                      listItem
-                                    ).isDiscounted > 0 &&
-                                      `(${
-                                        getMonthlyFeeDiscountedAmount(
-                                          listOfScheme,
-                                          primaryDiscountData,
-                                          listItem
-                                        ).monthlyFeeDiscounted
-                                      })`}
-                                  </span>
+                                  )}
+
                                   <span className="text-xs"> /mo</span>
-                                  <br />
                                 </p>
 
                                 {selectItem === listItem.tuition_fee_aid ? (
@@ -268,7 +263,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                         {loadingListOfScheme ? (
                           <TableLoading count={20} cols={3} />
                         ) : (
-                          <div className="min-h-250px flex items-end opacity-[0.8] ml-3">
+                          <div className="min-h-250px flex items-end opacity-[0.8] ml-3 ">
                             <p className="font-bold text-base">
                               No Rate Selected
                             </p>
@@ -283,11 +278,15 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     selectItem={selectItem}
                     primaryDiscountData={primaryDiscountData}
                     loadingListOfScheme={loadingListOfScheme}
+                    primaryDiscountId={primaryDiscountId}
                   />
+
                   <AssessmentPrimaryDiscountList
                     primaryDiscountId={primaryDiscountId}
                     setPrimaryDiscountId={setPrimaryDiscountId}
-                    setPrimaryDiscountData={setPrimaryDiscountData}
+                    isLoading={isLoadingPrimaryDiscount}
+                    isFetching={isFetchingPrimaryDiscount}
+                    primaryDiscount={primaryDiscount}
                     item={item}
                   />
                   <AssessmentAdditionalDiscountList
@@ -311,7 +310,11 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                       {listOfScheme?.count > 0 && selectItem === 0 && (
                         <button
                           className="btn btn--accent"
-                          // onClick={handleNotifyParent}
+                          onClick={() =>
+                            handleNotifyParent(
+                              getSelectedRate(schemeByGrade, categoryId)
+                            )
+                          }
                         >
                           Notify Parent
                         </button>
@@ -322,7 +325,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                           className="btn btn--accent"
                           onClick={() =>
                             handleAcceptPayment(
-                              getGetSectedScheme(listOfScheme, selectItem)
+                              getSectedScheme(listOfScheme, selectItem)
                             )
                           }
                         >
@@ -343,14 +346,14 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
       {store.isSettingConfirm && (
         <ModalNotifyOrAcceptPayment
-          mysqlApiNotify={`/v2/dev-assessment/notify-parent/${id}`}
-          mysqlApiAcceptPayment={`/v2/dev-assessment/accept-payment/${id}`}
+          mysqlApiNotifyOrAcceptPayment={`/v2/dev-assessment/notify-or-accept-payment/${id}`}
           msg={`Are you sure you want to ${
             isNotify ? "notify parent" : "accept payment"
           } ?`}
           item={dataItem}
           queryKey={"assessment"}
           isNotify={isNotify}
+          setShowAssessment={setShowAssessment}
         />
       )}
     </>

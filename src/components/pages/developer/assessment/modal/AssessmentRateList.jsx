@@ -2,6 +2,7 @@ import { numberWithCommasToFixed } from "@/components/helpers/functions-general"
 import {
   getAdmissionDiscountedAmount,
   getMonthlyFeeDiscountedAmount,
+  getTotalPaymentDiscountedAmount,
   getTuitionDiscountedAmount,
   getUponEnrollmentDiscountedAmount,
 } from "./functions-assessment";
@@ -11,6 +12,7 @@ const AssessmentRateList = ({
   selectItem,
   primaryDiscountData,
   loadingListOfScheme,
+  primaryDiscountId,
 }) => {
   return (
     <>
@@ -205,6 +207,56 @@ const AssessmentRateList = ({
               })}
             </ul>
           </div>
+
+          {Number(primaryDiscountId) > 0 && (
+            <div className="grid grid-cols-4 gap-2 mt-3 text-xs items-center">
+              <h4 className="uppercase">Discounted Total Amount</h4>
+              {listOfScheme?.data.map((listItem, key) => {
+                return (
+                  <div
+                    className={`${
+                      selectItem === listItem.tuition_fee_aid ? "selected" : ""
+                    }`}
+                    key={key}
+                  >
+                    <div className="col-header flex flex-col items-center justify-start p-2">
+                      <p className="text-xl !leading-none font-bold !mb-0 text-accent">
+                        {getTotalPaymentDiscountedAmount(
+                          listOfScheme,
+                          primaryDiscountData,
+                          listItem
+                        ) !== 0 &&
+                          `${getTotalPaymentDiscountedAmount(
+                            listOfScheme,
+                            primaryDiscountData,
+                            listItem
+                          )}`}
+                      </p>
+
+                      <p className="text-sm !mt-1 !leading-none text-accent">
+                        <span className=" text-accent">
+                          {getMonthlyFeeDiscountedAmount(
+                            listOfScheme,
+                            primaryDiscountData,
+                            listItem
+                          ).isDiscounted > 0
+                            ? `${
+                                getMonthlyFeeDiscountedAmount(
+                                  listOfScheme,
+                                  primaryDiscountData,
+                                  listItem
+                                ).monthlyFeeDiscounted
+                              }`
+                            : "0.00"}
+                        </span>
+                        <span className="text-xs"> /mo</span>
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </>
       )}
     </>
