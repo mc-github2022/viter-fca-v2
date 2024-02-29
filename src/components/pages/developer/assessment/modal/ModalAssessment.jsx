@@ -208,40 +208,15 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                                   {listItem.scheme_name}
                                 </h4>
                                 <p className="text-xl !leading-none font-bold !mb-0 ">
-                                  {getTotalPaymentWithComma(listItem)}{" "}
-                                  <span className="text-accent">
-                                    {getTotalPaymentDiscountedAmount(
-                                      listOfScheme,
-                                      primaryDiscountData,
-                                      listItem
-                                    ) !== 0 &&
-                                      `(${getTotalPaymentDiscountedAmount(
-                                        listOfScheme,
-                                        primaryDiscountData,
-                                        listItem
-                                      )})`}
-                                  </span>
+                                  {getTotalPaymentWithComma(listItem)}
                                 </p>
 
                                 <p className="text-sm !mt-1 !leading-none">
                                   {numberWithCommasToFixed(
                                     listItem.tuition_fee_monthly,
                                     2
-                                  )}{" "}
-                                  <span className="text-accent">
-                                    {getMonthlyFeeDiscountedAmount(
-                                      listOfScheme,
-                                      primaryDiscountData,
-                                      listItem
-                                    ).isDiscounted > 0 &&
-                                      `(${
-                                        getMonthlyFeeDiscountedAmount(
-                                          listOfScheme,
-                                          primaryDiscountData,
-                                          listItem
-                                        ).monthlyFeeDiscounted
-                                      })`}
-                                  </span>
+                                  )}
+
                                   <span className="text-xs"> /mo</span>
                                 </p>
 
@@ -303,7 +278,9 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     selectItem={selectItem}
                     primaryDiscountData={primaryDiscountData}
                     loadingListOfScheme={loadingListOfScheme}
+                    primaryDiscountId={primaryDiscountId}
                   />
+
                   <AssessmentPrimaryDiscountList
                     primaryDiscountId={primaryDiscountId}
                     setPrimaryDiscountId={setPrimaryDiscountId}

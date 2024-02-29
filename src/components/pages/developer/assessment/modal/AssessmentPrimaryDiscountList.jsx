@@ -14,7 +14,7 @@ const AssessmentPrimaryDiscountList = ({
   };
   return (
     <>
-      <div className="grid grid-cols-[250px_1fr] mb-8 mt-10 gap-5">
+      <div className="grid grid-cols-[250px_1fr] mb-8 mt-5 gap-5">
         <div className="form__wrap ">
           <label
             htmlFor=""
