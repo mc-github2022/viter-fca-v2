@@ -13,6 +13,8 @@ import {
   getTotalPaymentWithComma,
 } from "../../../assessment/modal/functions-assessment";
 import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
+import { FaExclamationCircle } from "react-icons/fa";
+import { getStudentByCurrentSyId } from "../../functions-student";
 
 const StudentPaymentScheme = ({
   setIsViewInfo,
@@ -22,10 +24,10 @@ const StudentPaymentScheme = ({
   setItemData,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  // selected scheme
   const [selectItem, setSelectItem] = React.useState(
     Number(dataItem.school_year_students_schedule_fees_id)
   );
+
   const { data: primaryDiscount } = useQueryData(
     "/v2/dev-assessment/read-primary-discount", // endpoint
     "get", // method
@@ -61,12 +63,14 @@ const StudentPaymentScheme = ({
       setSelectItem(0);
     }
   };
+
   const handleSave = (tuitionItem) => {
     dispatch(setSettingIsConfirm(true));
     setItemData({ ...tuitionItem });
     setIsSavePaymentScheme(true);
     setSelectItem(tuitionItem.tuition_fee_aid);
   };
+
   const handleRevert = (tuitionItem) => {
     dispatch(setSettingIsConfirm(true));
     setItemData({ ...tuitionItem });
@@ -87,7 +91,7 @@ const StudentPaymentScheme = ({
             <div className="flex items-center gap-2">
               {(store.credentials.data.role_is_admin === 1 ||
                 store.credentials.data.role_is_developer === 1) &&
-                dataItem?.school_year_students_is_accept_payment === 1 && (
+                dataItem.school_year_students_is_accept_payment === 1 && (
                   <button
                     className="btn btn--accent"
                     type="submit"
@@ -95,21 +99,20 @@ const StudentPaymentScheme = ({
                       handleRevert(getSectedScheme(listOfScheme, selectItem))
                     }
                   >
-                    Revert Payment
-                    {/* {mutation.isPending ? <ButtonSpinner /> : "Save"} */}
+                    Request Revert Payment
                   </button>
                 )}
-              {dataItem?.school_year_students_is_accept_payment === 0 &&
-                dataItem?.school_year_students_schedule_fees_id === 0 && (
+              {dataItem.school_year_students_is_accept_payment === 0 &&
+                dataItem.school_year_students_schedule_fees_id === 0 && (
                   <button
                     className="btn btn--accent"
                     type="submit"
+                    disabled={selectItem > 0 ? false : true}
                     onClick={() =>
                       handleSave(getSectedScheme(listOfScheme, selectItem))
                     }
                   >
                     Save
-                    {/* {mutation.isPending ? <ButtonSpinner /> : "Save"} */}
                   </button>
                 )}
               <button
@@ -204,7 +207,10 @@ const StudentPaymentScheme = ({
               />
             </>
           ) : (
-            <h4 className="text-warning">Pending From FCA Finance</h4>
+            <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 w-full z-10 ">
+              <FaExclamationCircle className="h-6 w-6 fill-white bg-[#f09a02] rounded-full" />
+              Pending From FCA Finance
+            </p>
           )}
 
           {!loadingListOfScheme &&
