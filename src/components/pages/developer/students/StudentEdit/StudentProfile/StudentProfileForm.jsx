@@ -38,10 +38,6 @@ const StudentProfileForm = ({
     { students_parent_id: dataItem.students_parent_id }
   );
 
-  // console.log(parentGuardian);
-  console.log(dataItem);
-  // console.log(gradeLevel);
-
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(

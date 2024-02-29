@@ -34,9 +34,9 @@ function checkReadAllAdditionalDiscount($object)
 }
 
 // Update 
-function checkUpdateAcceptPayment($object)
+function checkUpdateNotifyOrAcceptPayment($object)
 {
-    $query = $object->updateAcceptPayment();
-    checkQuery($query, "There's a problem processing your request. (update accept payment)");
+    $query = $object->updateNotifyOrAcceptPayment();
+    checkQuery($query, "There's a problem processing your request. (update notify or accept payment)");
     return $query;
 }

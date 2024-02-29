@@ -45,7 +45,6 @@ const ScheduleOfFees = ({ index }) => {
             <ScheduleOfFeesList setItemEdit={setItemEdit} />
           )}
           {store.success && <ModalSuccess />}
-          {store.error && <ModalError />}
         </div>
       </>
     );

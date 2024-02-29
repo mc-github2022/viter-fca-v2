@@ -1,34 +1,17 @@
-import useQueryData from "@/components/custom-hooks/useQueryData";
 import { isItemEmpty } from "@/components/helpers/functions-general";
-import {
-  getAdmissionDiscount,
-  getGetPrimaryDiscount,
-} from "./functions-assessment";
+import { getPrimaryDiscount } from "./functions-assessment";
 
 const AssessmentPrimaryDiscountList = ({
   primaryDiscountId,
   setPrimaryDiscountId,
-  setPrimaryDiscountData,
+  isLoading,
+  isFetching,
+  primaryDiscount,
   item,
 }) => {
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: primaryDiscount,
-  } = useQueryData(
-    "/v2/dev-assessment/read-primary-discount", // endpoint
-    "get", // method
-    "primary-discount" // key
-  );
-
   const handleChangePrimaryDiscount = (e) => {
     setPrimaryDiscountId(e.target.value);
-    setPrimaryDiscountData(
-      getAdmissionDiscount(primaryDiscount, e.target.value)
-    );
   };
-
   return (
     <>
       <div className="grid grid-cols-[250px_1fr] mb-8 mt-10 gap-5">
@@ -76,8 +59,8 @@ const AssessmentPrimaryDiscountList = ({
           <div className="discount-info">
             <p className="pb-1 font-bold">
               {
-                getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
-                  .discount_category_name
+                getPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
+                  ?.discount_category_name
               }
             </p>
 
@@ -86,7 +69,7 @@ const AssessmentPrimaryDiscountList = ({
                 <li className="font-bold">Type: </li>
                 <li>
                   {
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
+                    getPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
                       ?.discount_type
                   }
                 </li>
@@ -96,7 +79,7 @@ const AssessmentPrimaryDiscountList = ({
                 <li className="font-bold">Admission Fee: </li>
                 <li>
                   {isItemEmpty(
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
+                    getPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
                       ?.discount_admission_fee,
                     "%"
                   )}
@@ -107,7 +90,7 @@ const AssessmentPrimaryDiscountList = ({
                 <li className="font-bold">Tuition Fee: </li>
                 <li>
                   {isItemEmpty(
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
+                    getPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
                       ?.discount_tuition_fee,
                     "%"
                   )}
@@ -118,7 +101,7 @@ const AssessmentPrimaryDiscountList = ({
                 <li className="font-bold">Qualification: </li>
                 <li>
                   {isItemEmpty(
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
+                    getPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
                       ?.discount_qualification
                   )}
                 </li>
@@ -128,7 +111,7 @@ const AssessmentPrimaryDiscountList = ({
                 <li className="font-bold">Maintaining Grade: </li>
                 <li>
                   {isItemEmpty(
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
+                    getPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
                       ?.discount_maintaining_grade,
                     " GA"
                   )}
@@ -139,7 +122,7 @@ const AssessmentPrimaryDiscountList = ({
                 <li className="font-bold">Duration: </li>
                 <li>
                   {
-                    getGetPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
+                    getPrimaryDiscount(primaryDiscount, primaryDiscountId)[0]
                       ?.discount_duration
                   }
                 </li>

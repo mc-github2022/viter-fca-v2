@@ -30,7 +30,7 @@ const StudentParentDeclaration = ({
       queryData(`/v2/dev-students/update-parent-declare`, "put", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({ queryKey: ["all-students"] });
       // show error box
       if (data.success) {
         setIsViewInfo(false);

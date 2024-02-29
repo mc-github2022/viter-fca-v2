@@ -12,17 +12,15 @@ import { CiViewList } from "react-icons/ci";
 import { useInView } from "react-intersection-observer";
 import ModalAssessment from "./modal/ModalAssessment.jsx";
 
-const AssessmentList = () => {
+const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
-  const [itemAssessment, setItemAssessment] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
   const search = React.useRef({ value: "" });
   const [onSearch, setOnSearch] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
-  const [showAssesment, setShowAssessment] = React.useState(false);
   let counter = 1;
 
   const {
@@ -126,7 +124,7 @@ const AssessmentList = () => {
                             <button
                               type="button"
                               className="tooltip "
-                              data-tooltip="Assessment"
+                              data-tooltip="View"
                               onClick={() => handleAssessment(item)}
                             >
                               <CiViewList />
@@ -158,13 +156,6 @@ const AssessmentList = () => {
           </div>
         </div>
       </div>
-
-      {showAssesment && (
-        <ModalAssessment
-          setShowAssessment={setShowAssessment}
-          item={itemAssessment}
-        />
-      )}
     </>
   );
 };

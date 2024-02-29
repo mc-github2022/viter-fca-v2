@@ -3,23 +3,32 @@
 import { numberWithCommasToFixed } from "@/components/helpers/functions-general";
 
 //  list of Primary discount for UI purpose
-export const getGetPrimaryDiscount = (primaryDiscount, primaryDiscountId) => {
+export const getPrimaryDiscount = (primaryDiscount, primaryDiscountId) => {
   let result = [];
 
   if (primaryDiscount?.count > 0) {
-    const val = primaryDiscount?.data.filter(
+    result = primaryDiscount?.data.filter(
       (acItem) => acItem.discount_aid === Number(primaryDiscountId)
     );
-    result = val;
   }
 
+  return result;
+};
+
+//  list of Primary discount for UI purpose
+export const getTotalPaymentWithComma = (listItem) => {
+  const result = numberWithCommasToFixed(
+    Number(listItem.tuition_fee_upon_enrollment) +
+      Number(listItem.tuition_fee_total_monthly),
+    2
+  );
   return result;
 };
 
 // PRIMARY DISCOUNT
 // Primary Discount percentage in compution
 // Convert to decimal
-export const getAdmissionDiscount = (
+export const getPrimaryPercentDiscount = (
   primaryDiscountData,
   primaryDiscountId
 ) => {
@@ -224,13 +233,26 @@ export const getMonthlyFeeDiscountedAmount = (
 
 // ACCEPT PAYMENT
 // GETTING THE SELECTED SCHEME
-
-export const getGetSectedScheme = (listOfScheme, selectItem) => {
+export const getSectedScheme = (listOfScheme, selectItem) => {
   let result = [];
 
   if (listOfScheme?.count > 0) {
     result = listOfScheme?.data.filter(
       (acItem) => acItem.tuition_fee_aid === Number(selectItem)
+    );
+  }
+
+  return { ...result[0] };
+};
+
+// Notify Parent
+// GETTING THE SELECTED SCHEME
+export const getSelectedRate = (schemeByGrade, categoryId) => {
+  let result = [];
+
+  if (schemeByGrade?.count > 0) {
+    result = schemeByGrade?.data.filter(
+      (acItem) => acItem.tuition_category_aid === Number(categoryId)
     );
   }
 
