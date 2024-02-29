@@ -13,40 +13,35 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { LiaInfoCircleSolid } from "react-icons/lia";
-const ModalNotifyOrAcceptPayment = ({
-  mysqlApiNotifyOrAcceptPayment,
+const ModalRevertOrSavePayment = ({
+  mysqlApiRevertOrSavePayment,
   msg,
   item,
-  queryKey,
-  isNotify,
-  setShowAssessment,
+  isSavePaymentScheme,
+  setIsViewInfo,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (values) =>
-      queryData(mysqlApiNotifyOrAcceptPayment, "put", values),
+      queryData(mysqlApiRevertOrSavePayment, "put", values),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      queryClient.invalidateQueries({ queryKey: ["all-students"] });
 
-      if (setSettingIsConfirm(true)) {
+      if (store.isSettingConfirm === true) {
         dispatch(setSettingIsConfirm(false));
       } else {
         dispatch(setIsConfirm(false));
       }
 
       if (data.success) {
-        setShowAssessment(false);
+        setIsViewInfo(false);
         dispatch(setSuccess(true));
         dispatch(
           setMessage(
-            `${
-              isNotify
-                ? "Successfully Notify Parent"
-                : "Payment Successfully Accept"
-            }.`
+            `Record Successfully ${isSavePaymentScheme ? "Save" : "Revert"}.`
           )
         );
       }
@@ -61,8 +56,6 @@ const ModalNotifyOrAcceptPayment = ({
     // mutate data
     mutation.mutate({
       ...item,
-      is_notify: isNotify ? 1 : 0,
-      is_accept_payment: isNotify ? 0 : 1,
     });
   };
 
@@ -82,13 +75,14 @@ const ModalNotifyOrAcceptPayment = ({
         <div className="modal__header flex items-center gap-2">
           <LiaInfoCircleSolid className="fill-accent text-3xl" />
           <h3 className="text-[16px] mb-0">
-            {isNotify ? "Notify Parent" : "Accept Payment"}
+            {isSavePaymentScheme ? "Save" : "Revert Payment"}
           </h3>
         </div>
         <h3 className=" text-[14px] mb-0 font-normal">{msg}</h3>
         <p className="mt-3 ">
           <span className="font-bold">
-            " {item.tuitionName} {!isNotify && `(${item.scheme_name})`} "
+            " {item.tuitionName}{" "}
+            {!isSavePaymentScheme && `(${item.scheme_name})`} "
           </span>
         </p>
 
@@ -115,4 +109,4 @@ const ModalNotifyOrAcceptPayment = ({
   );
 };
 
-export default ModalNotifyOrAcceptPayment;
+export default ModalRevertOrSavePayment;

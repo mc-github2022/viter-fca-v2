@@ -8,9 +8,12 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import Navigation from "../Navigation.jsx";
 import AssessmentList from "./AssessmentList.jsx";
+import ModalAssessment from "./modal/ModalAssessment.jsx";
 
 const Assestment = () => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const [showAssesment, setShowAssessment] = React.useState(false);
+  const [itemAssessment, setItemAssessment] = React.useState(null);
 
   const {
     isLoading,
@@ -50,12 +53,21 @@ const Assestment = () => {
                 </p>
               </div>
             </div>
-            <AssessmentList />
+            <AssessmentList
+              setShowAssessment={setShowAssessment}
+              setItemAssessment={setItemAssessment}
+            />
           </main>
         </div>
         <Footer />
       </section>
 
+      {showAssesment && (
+        <ModalAssessment
+          setShowAssessment={setShowAssessment}
+          item={itemAssessment}
+        />
+      )}
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
     </>

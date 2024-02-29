@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 29, 2024 at 12:40 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Feb 29, 2024 at 12:46 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -190,6 +190,34 @@ INSERT INTO `fcav2_settings_department` (`department_aid`, `department_active`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fcav2_settings_discount`
+--
+
+CREATE TABLE `fcav2_settings_discount` (
+  `discount_aid` int(11) NOT NULL,
+  `discount_category_id` varchar(20) NOT NULL,
+  `discount_type` varchar(200) NOT NULL,
+  `discount_is_active` tinyint(1) NOT NULL,
+  `discount_admission_fee` varchar(50) NOT NULL,
+  `discount_tuition_fee` varchar(50) NOT NULL,
+  `discount_qualification` text NOT NULL,
+  `discount_duration` text NOT NULL,
+  `discount_maintaining_grade` varchar(200) NOT NULL,
+  `discount_requirement` text NOT NULL,
+  `discount_created` datetime NOT NULL,
+  `discount_updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_settings_discount`
+--
+
+INSERT INTO `fcav2_settings_discount` (`discount_aid`, `discount_category_id`, `discount_type`, `discount_is_active`, `discount_admission_fee`, `discount_tuition_fee`, `discount_qualification`, `discount_duration`, `discount_maintaining_grade`, `discount_requirement`, `discount_created`, `discount_updated`) VALUES
+(1, '1', '', 1, '20', '2', 'xcbb', 'cvn', '13', 'xcgn', '2024-02-19 16:05:33', '2024-02-20 06:48:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fcav2_settings_discount_additional`
 --
 
@@ -211,6 +239,28 @@ INSERT INTO `fcav2_settings_discount_additional` (`discount_additional_aid`, `di
 (1, 1, 'Enable Full Payment Discount?', '10', '', '2024-02-23 09:06:00', '2024-02-23 09:06:00'),
 (2, 1, 'Enable New Student Promo?', '', '1500', '2024-02-23 09:06:36', '2024-02-23 09:06:36'),
 (3, 1, 'Enable Early Bird Promo?', '', '', '2024-02-23 09:07:43', '2024-02-23 09:07:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fcav2_settings_discount_category`
+--
+
+CREATE TABLE `fcav2_settings_discount_category` (
+  `discount_category_aid` int(11) NOT NULL,
+  `discount_category_name` varchar(200) NOT NULL,
+  `discount_category_is_active` tinyint(1) NOT NULL,
+  `discount_category_created` datetime NOT NULL,
+  `discount_category_updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_settings_discount_category`
+--
+
+INSERT INTO `fcav2_settings_discount_category` (`discount_category_aid`, `discount_category_name`, `discount_category_is_active`, `discount_category_created`, `discount_category_updated`) VALUES
+(1, 'Legacy & Loyalty', 1, '2024-02-19 15:00:23', '2024-02-19 15:03:30'),
+(2, 'Regular', 1, '2024-02-19 15:03:39', '2024-02-19 15:04:23');
 
 -- --------------------------------------------------------
 
@@ -459,6 +509,28 @@ INSERT INTO `fcav2_settings_staff` (`settings_staff_aid`, `settings_staff_is_act
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fcav2_settings_system_mode`
+--
+
+CREATE TABLE `fcav2_settings_system_mode` (
+  `system_mode_aid` int(11) NOT NULL,
+  `system_mode_name` varchar(200) NOT NULL,
+  `system_mode_is_on` tinyint(1) NOT NULL,
+  `system_mode_created` datetime NOT NULL,
+  `system_mode_updated` datetime NOT NULL,
+  `system_mode_is_maintenance` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_settings_system_mode`
+--
+
+INSERT INTO `fcav2_settings_system_mode` (`system_mode_aid`, `system_mode_name`, `system_mode_is_on`, `system_mode_created`, `system_mode_updated`, `system_mode_is_maintenance`) VALUES
+(1, 'Maintenance', 1, '2024-02-15 13:53:53', '2024-02-29 07:45:15', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fcav2_settings_tuition_category`
 --
 
@@ -567,7 +639,7 @@ CREATE TABLE `fcav2_settings_user_system` (
 --
 
 INSERT INTO `fcav2_settings_user_system` (`user_system_aid`, `user_system_is_active`, `user_system_fname`, `user_system_lname`, `user_system_email`, `user_system_new_email`, `user_system_role_id`, `user_system_key`, `user_system_password`, `user_system_created`, `user_system_datetime`) VALUES
-(1, 1, 'Mark Ryan', 'Merin', 'mark.merin@frontlinebusiness.com.ph', '', 1, '', '$2y$10$KiIkfVXV5U357nFYWo0KDewRDHr7YTcGk9JC6G4bXsfQU7IOB7tfi', '2023-04-19 09:13:08', '2024-02-16 09:07:02'),
+(1, 1, 'Mark Ryan', 'Merin', 'cyrenemlumabas@gmail.com', '', 1, '', '$2y$10$g/zE/UpZWrfsQ.mJ2KSkkOGezAwVvJSdgjeXknWI/VOyDoSl4/uLm', '2023-04-19 09:13:08', '2024-02-16 09:07:02'),
 (17, 1, 'Monmon', 'Plaza', 'ramon.plaza@frontlinebusiness.com.ph', '', 1, '', '$2y$10$KXu/IEfKf4hytdeRfVYTY.gnzHrNbZytzMQepTtZdifr8Ct3DJ1w2', '2024-01-08 08:26:34', '2024-01-08 12:50:29');
 
 -- --------------------------------------------------------
@@ -649,10 +721,22 @@ ALTER TABLE `fcav2_settings_department`
   ADD PRIMARY KEY (`department_aid`);
 
 --
+-- Indexes for table `fcav2_settings_discount`
+--
+ALTER TABLE `fcav2_settings_discount`
+  ADD PRIMARY KEY (`discount_aid`);
+
+--
 -- Indexes for table `fcav2_settings_discount_additional`
 --
 ALTER TABLE `fcav2_settings_discount_additional`
   ADD PRIMARY KEY (`discount_additional_aid`);
+
+--
+-- Indexes for table `fcav2_settings_discount_category`
+--
+ALTER TABLE `fcav2_settings_discount_category`
+  ADD PRIMARY KEY (`discount_category_aid`);
 
 --
 -- Indexes for table `fcav2_settings_grade_level`
@@ -719,6 +803,12 @@ ALTER TABLE `fcav2_settings_school_year`
 --
 ALTER TABLE `fcav2_settings_staff`
   ADD PRIMARY KEY (`settings_staff_aid`);
+
+--
+-- Indexes for table `fcav2_settings_system_mode`
+--
+ALTER TABLE `fcav2_settings_system_mode`
+  ADD PRIMARY KEY (`system_mode_aid`);
 
 --
 -- Indexes for table `fcav2_settings_tuition_category`
@@ -791,10 +881,22 @@ ALTER TABLE `fcav2_settings_department`
   MODIFY `department_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `fcav2_settings_discount`
+--
+ALTER TABLE `fcav2_settings_discount`
+  MODIFY `discount_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `fcav2_settings_discount_additional`
 --
 ALTER TABLE `fcav2_settings_discount_additional`
   MODIFY `discount_additional_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `fcav2_settings_discount_category`
+--
+ALTER TABLE `fcav2_settings_discount_category`
+  MODIFY `discount_category_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_grade_level`
@@ -861,6 +963,12 @@ ALTER TABLE `fcav2_settings_school_year`
 --
 ALTER TABLE `fcav2_settings_staff`
   MODIFY `settings_staff_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `fcav2_settings_system_mode`
+--
+ALTER TABLE `fcav2_settings_system_mode`
+  MODIFY `system_mode_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_tuition_category`

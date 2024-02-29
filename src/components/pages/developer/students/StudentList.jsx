@@ -1,4 +1,3 @@
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import Pills from "@/components/partials/Pills.jsx";
 import SearchBar from "@/components/partials/SearchBar";
@@ -6,13 +5,7 @@ import ServerError from "@/components/partials/ServerError";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
-import ModalReset from "@/components/partials/modals/ModalReset.jsx";
-import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
-import {
-  setIsAdd,
-  setIsConfirm,
-  setIsDelete,
-} from "@/components/store/StoreAction";
+import { setIsConfirm, setIsDelete } from "@/components/store/StoreAction";
 
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
@@ -25,7 +18,6 @@ import { CiViewList } from "react-icons/ci";
 import { FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
-import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
 
 const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -112,9 +104,9 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
         {isFetching && !isFetchingNextPage && status !== "loading" && (
           <FetchingSpinner />
         )}
-        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
-          <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
-            <table className="table__sm">
+        <div className="table__wrapper mb-[80px]  ">
+          <div className="my-2 px-2 bg-primary  overflow-x-auto custom__scroll ">
+            <table className="table__sm  ">
               <thead>
                 <tr>
                   <th>#</th>

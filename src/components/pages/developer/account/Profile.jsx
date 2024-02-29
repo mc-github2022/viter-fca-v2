@@ -11,8 +11,8 @@ import { FaAngleLeft, FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
 import { TfiLock } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
 import Navigation from "../Navigation";
+import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
 
 const Profile = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -97,25 +97,19 @@ const Profile = () => {
           <Navigation menu="student" />
 
           <main
-            className={`main__content mt-[35px] 2xl:h-[90vh] ${
+            className={`main__content mt-[35px] flex flex-col h-[calc(100vh-35px)] ${
               store.isMenuExpand ? "expand" : ""
             }`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center">
-              <div>
-                <h1 className="text-clampH1 mb-0">User Account</h1>
-                <p className="mb-4 text-xs hidden lg:block">
-                  Manage your information and account security
-                </p>
+            <div className="mt-5 bg-primary rounded-md max-w-[430px]  relative pb-4 grow">
+              <div className="main__header flex justify-between items-start lg:items-center">
+                <div>
+                  <h1 className="text-clampH1 mb-0">User Account</h1>
+                  <p className="mb-4 text-xs hidden lg:block">
+                    Manage your information and account security
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div className="mt-5 bg-primary sm:max-w-[430px] relative pb-4">
-              {/* <header className=" py-2 pr-4 flex justify-end">
-              <button className="text-lg md:hidden" onClick={handleShowSubMenu}>
-                <FaBars />
-              </button>
-            </header> */}
 
               <div className="mb-8 pb-5">
                 <h6 className="mb-5 text-sm">Profile</h6>
@@ -236,8 +230,10 @@ const Profile = () => {
                 </div>
               </div>
             </div>
+            <div className="md:-translate-x-[120px]">
+              <Footer />
+            </div>
           </main>
-          <Footer />
         </div>
       </section>
 

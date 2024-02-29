@@ -49,7 +49,6 @@ const SchemeFormAddEdit = ({ itemEdit }) => {
   const initVal = {
     scheme_aid: itemEdit ? itemEdit.scheme_aid : "",
     scheme_name: itemEdit ? itemEdit.scheme_name : "",
-    scheme_department_id: itemEdit ? itemEdit.scheme_department_id : "",
     scheme_name_old: itemEdit ? itemEdit.scheme_name : "",
   };
 

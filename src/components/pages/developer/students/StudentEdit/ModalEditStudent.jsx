@@ -7,9 +7,17 @@ import StudentParentConsent from "./StudentParentConsent/StudentParentConsent.js
 import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDeclaration.jsx";
 import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
+import ModalRevertOrSavePayment from "./StudentPaymentScheme/ModalRevertOrSavePayment.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 
 const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
+  const { store } = React.useContext(StoreContext);
   const [showSideNav, setShowSideNav] = React.useState(false);
+  // accept or notify parent
+  const [isSavePaymentScheme, setIsSavePaymentScheme] = React.useState(true);
+  const [itemData, setItemData] = React.useState(null);
+  const [id, setId] = React.useState(null);
 
   const [index, setIndex] = React.useState(1);
 
@@ -24,6 +32,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
   const handleChangeProfile = (index) => {
     setIndex(index);
   };
+
   return (
     <>
       <div className="modal modal--settings show ">
@@ -198,7 +207,8 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
                     dataItem={dataItem}
-                    gradeLevel={gradeLevel}
+                    setIsSavePaymentScheme={setIsSavePaymentScheme}
+                    setItemData={setItemData}
                   />
                 )}
               </main>
@@ -206,6 +216,18 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
           </div>
         </div>
       </div>
+      {store.success && <ModalSuccess />}
+      {store.isSettingConfirm && (
+        <ModalRevertOrSavePayment
+          mysqlApiRevertOrSavePayment={`/v2/dev-students-payment-scheme/${dataItem?.school_year_students_aid}`}
+          msg={`Are you sure you want to ${
+            isSavePaymentScheme ? "save" : "revert"
+          } this record ?`}
+          item={itemData}
+          isSavePaymentScheme={isSavePaymentScheme}
+          setIsViewInfo={setIsViewInfo}
+        />
+      )}
     </>
   );
 };

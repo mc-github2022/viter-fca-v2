@@ -2,15 +2,10 @@ import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import RequirementRegistrarFormAddEdit from "./TuitionCategoryAddEdit";
-import RequirementRegistrarList from "./TuitionCategoryList";
-import RequirementItFormAddEdit from "./TuitionCategoryAddEdit";
-import RequirementItList from "./TuitionCategoryList";
 import TuitionCategoryAddEdit from "./TuitionCategoryAddEdit";
 import TuitionCategoryList from "./TuitionCategoryList";
 const TuitionCategory = ({ index }) => {

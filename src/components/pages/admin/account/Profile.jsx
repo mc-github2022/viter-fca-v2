@@ -10,8 +10,8 @@ import React from "react";
 import { FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
 import { TfiLock } from "react-icons/tfi";
 import * as Yup from "yup";
-import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
 import Navigation from "../Navigation";
+import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
 
 const Profile = () => {
   const { store, dispatch } = React.useContext(StoreContext);
