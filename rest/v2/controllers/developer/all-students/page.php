@@ -20,24 +20,6 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         $query = checkReadLimit($student);
         $total_result = checkReadAll($student);
 
-        $total_data = getResultData($total_result);
-
-        // returnError(getResultData($total_result));
-
-        // for ($i = 0; $i < count($total_data); $i++) {
-        //     $duplicates_values = [];
-        //     for ($j = 0; $j < count($total_data); $j++) {
-        //         $duplicates_values[] = $total_data[$j];
-        //         // if ($total_data[$i]["students_aid"] == $total_data[$j]["students_aid"]) {
-        //         //     $duplicates_values[] = $total_data[$j];
-        //         // }
-        //     }
-        // }
-
-        // if (count($duplicates_values) > 0) {
-        //     returnError($duplicates_values);
-        // }
-
         http_response_code(200);
         checkReadQuery(
             $query,
