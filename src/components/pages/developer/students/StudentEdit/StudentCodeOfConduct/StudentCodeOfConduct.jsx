@@ -26,10 +26,11 @@ const StudentCodeOfConduct = ({
       queryData(`/v2/dev-students/update-coc`, "put", values),
     onSuccess: (data) => {
       // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["students"] });
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
       // show error box
       if (data.success) {
-        setIsViewInfo(false);
+        // setIsViewInfo(false);
         dispatch(setSuccess(true));
         dispatch(setMessage("Record successfully updated."));
       }
@@ -45,10 +46,11 @@ const StudentCodeOfConduct = ({
   };
 
   const initVal = {
-    school_year_students_aid: dataItem.school_year_students_aid,
-    school_year_students_last_coc_is_agree:
-      dataItem.school_year_students_last_coc_is_agree === "" ||
-      dataItem.school_year_students_last_coc_is_agree === 0
+    students_aid: dataItem.students_aid,
+    current_students_sy_id: dataItem.current_students_sy_id,
+    current_students_last_coc_is_agree:
+      dataItem.current_students_last_coc_is_agree === "" ||
+      dataItem.current_students_last_coc_is_agree === 0
         ? false
         : true,
   };
@@ -62,9 +64,15 @@ const StudentCodeOfConduct = ({
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           mutation.mutate(values);
+          resetForm();
         }}
       >
         {(props) => {
+          props.initialValues.current_students_last_coc_is_agree =
+            dataItem.current_students_last_coc_is_agree === "" ||
+            dataItem.current_students_last_coc_is_agree === 0
+              ? false
+              : true;
           return (
             <>
               <Form>
@@ -74,7 +82,7 @@ const StudentCodeOfConduct = ({
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <div className="flex items-center gap-2">
                       <button
@@ -221,8 +229,8 @@ const StudentCodeOfConduct = ({
                       <InputCheckbox
                         label="I agree and undestand this code of conduct"
                         type="checkbox"
-                        name="school_year_students_last_coc_is_agree"
-                        id="school_year_students_last_coc_is_agree"
+                        name="current_students_last_coc_is_agree"
+                        id="current_students_last_coc_is_agree"
                       />
                     </div>
                   </div>

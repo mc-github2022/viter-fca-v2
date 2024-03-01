@@ -110,7 +110,7 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th className="w-20">Status</th>
+                  {/* <th className="w-20">Status</th> */}
                   <th>Name</th>
                   <th>Grade Level</th>
                   <th>S.Y</th>
@@ -145,7 +145,7 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
                     {page.data.map((item, key) => (
                       <tr key={key}>
                         <td>{counter++}.</td>
-                        <td>
+                        {/* <td>
                           <Pills
                             bg="bg-gray-200"
                             label={
@@ -159,7 +159,7 @@ const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
                                 : "text-gray-500"
                             }
                           />
-                        </td>
+                        </td> */}
                         <td>{item.student_fullname}</td>
                         <td>{item.grade_level_name}</td>
                         <td>{item.school_year}</td>

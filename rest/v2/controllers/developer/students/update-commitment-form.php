@@ -15,13 +15,23 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     checkPayload($data);
 
-    $student->school_year_students_aid = checkIndex($data, "school_year_students_aid");
-    $student->school_year_students_last_parent_commitment_is_agree = checkIndex($data, "school_year_students_last_parent_commitment_is_agree");
+    $student->students_aid = checkIndex($data, "students_aid");
+    $student->current_students_sy_id = checkIndex($data, "current_students_sy_id");
+    $student->current_students_last_parent_commitment_is_agree = checkIndex($data, "current_students_last_parent_commitment_is_agree");
 
     $schoolYearStudent = getResultData($student->readSchoolYearStudent());
+    $schoolYearStudentCurrent = getResultData($student->readSchoolYearStudentCurrent());
 
-    if ($schoolYearStudent[0]["school_year_students_last_coc_is_agree"] == 1 && $schoolYearStudent[0]["school_year_students_last_parent_declaration_is_agree"] == 1 && $schoolYearStudent[0]["school_year_students_last_parent_consent_is_agree"] == 1) {
+    if (
+        $schoolYearStudent[0]["school_year_students_last_coc_is_agree"] == 1
+        && $schoolYearStudent[0]["school_year_students_last_parent_declaration_is_agree"] == 1
+        && $schoolYearStudent[0]["school_year_students_last_parent_consent_is_agree"] == 1
+        && $schoolYearStudentCurrent[0]["current_students_last_coc_is_agree"] == 1
+        && $schoolYearStudentCurrent[0]["current_students_last_parent_declaration_is_agree"] == 1
+        && $schoolYearStudentCurrent[0]["current_students_last_parent_consent_is_agree"] == 1
+    ) {
         $query = checkUpdateSchoolYearStudentCommitmentForm($student);
+        checkUpdateSchoolYearStudentCommitmentFormCurrent($student);
     } else {
         returnError("Error. You must agree first on Code of Conduct, Parent Declaration, and Parent Consent.");
     }

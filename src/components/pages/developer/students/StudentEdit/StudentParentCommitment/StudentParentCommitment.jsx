@@ -78,7 +78,7 @@ const StudentParentCommitment = ({
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <div className="flex items-center gap-2">
                       <button

@@ -15,12 +15,15 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     checkPayload($data);
 
-    $student->school_year_students_aid = checkIndex($data, "school_year_students_aid");
-    $student->school_year_students_last_parent_consent_is_agree = checkIndex($data, "school_year_students_last_parent_consent_is_agree");
-    $student->school_year_students_last_parent_commitment_is_agree = 0;
+    $student->students_aid = checkIndex($data, "students_aid");
+    $student->current_students_sy_id = checkIndex($data, "current_students_sy_id");
+    $student->current_students_last_parent_consent_is_agree = checkIndex($data, "current_students_last_parent_consent_is_agree");
+    $student->current_students_last_parent_commitment_is_agree = 0;
 
     $query = checkUpdateSchoolYearStudentParentConsent($student);
+    checkUpdateSchoolYearStudentParentConsentCurrent($student);
     checkUpdateSchoolYearStudentCommitmentForm($student);
+    checkUpdateSchoolYearStudentCommitmentFormCurrent($student);
 
     // return success
     http_response_code(200);
