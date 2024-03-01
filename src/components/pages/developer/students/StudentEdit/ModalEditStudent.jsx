@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -32,6 +33,12 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
   const handleChangeProfile = (index) => {
     setIndex(index);
   };
+
+  const { isLoading, data: studentByCurrentSyId } = useQueryData(
+    `/v2/dev-students-payment-scheme/read-student-by-current-sy-id/${dataItem?.students_aid}`, // endpoint
+    "get", // method
+    "read-student-by-current-sy-id" // key
+  );
 
   return (
     <>
@@ -160,7 +167,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    dataItem={{ ...dataItem, ...studentByCurrentSyId?.data[0] }}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -169,7 +176,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    dataItem={{ ...dataItem, ...studentByCurrentSyId?.data[0] }}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -178,7 +185,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    dataItem={{ ...dataItem, ...studentByCurrentSyId?.data[0] }}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -187,7 +194,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    dataItem={{ ...dataItem, ...studentByCurrentSyId?.data[0] }}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -196,7 +203,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    dataItem={{ ...dataItem, ...studentByCurrentSyId?.data[0] }}
                     gradeLevel={gradeLevel}
                   />
                 )}
@@ -206,7 +213,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem, gradeLevel }) => {
                     index={index}
                     setIsViewInfo={setIsViewInfo}
                     showSideNav={showSideNav}
-                    dataItem={dataItem}
+                    dataItem={{ ...dataItem, ...studentByCurrentSyId?.data[0] }}
                     setIsSavePaymentScheme={setIsSavePaymentScheme}
                     setItemData={setItemData}
                   />

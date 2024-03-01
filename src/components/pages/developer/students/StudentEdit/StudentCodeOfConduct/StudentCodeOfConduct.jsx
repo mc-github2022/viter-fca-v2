@@ -28,6 +28,11 @@ const StudentCodeOfConduct = ({
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["students"] });
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
+      queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({
+        queryKey: ["read-student-by-current-sy-id"],
+      });
+
       // show error box
       if (data.success) {
         // setIsViewInfo(false);
@@ -49,10 +54,7 @@ const StudentCodeOfConduct = ({
     students_aid: dataItem.students_aid,
     current_students_sy_id: dataItem.current_students_sy_id,
     current_students_last_coc_is_agree:
-      dataItem.current_students_last_coc_is_agree === "" ||
-      dataItem.current_students_last_coc_is_agree === 0
-        ? false
-        : true,
+      dataItem.current_students_last_coc_is_agree === 0 ? false : true,
   };
 
   const yupSchema = Yup.object({});
@@ -64,15 +66,9 @@ const StudentCodeOfConduct = ({
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           mutation.mutate(values);
-          resetForm();
         }}
       >
         {(props) => {
-          props.initialValues.current_students_last_coc_is_agree =
-            dataItem.current_students_last_coc_is_agree === "" ||
-            dataItem.current_students_last_coc_is_agree === 0
-              ? false
-              : true;
           return (
             <>
               <Form>

@@ -88,6 +88,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
   const handleChangeCategory = (e) => {
     setCatgeoryId(e.target.value);
+    setSelectItem(0);
   };
 
   const handleNotifyParent = (tuitionItem) => {

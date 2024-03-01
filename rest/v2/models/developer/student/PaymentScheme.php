@@ -20,11 +20,13 @@ class PaymentScheme
     public $student_search;
 
     public $tblCurrentSYStudent;
+    public $tblSchoolYear;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblCurrentSYStudent = "fcav2_school_year_students";
+        $this->tblSchoolYear = "fcav2_settings_school_year";
     }
 
     // update accept payment
@@ -45,6 +47,22 @@ class PaymentScheme
                 "school_year_students_schedule_fees_id" => $this->school_year_students_schedule_fees_id,
                 "school_year_students_rate_id" => $this->school_year_students_rate_id,
                 "school_year_students_datetime" => $this->school_year_students_datetime,
+                "school_year_students_aid" => $this->school_year_students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function readByCurrentSyStudentAid()
+    {
+        try {
+            $sql = "select * ";
+            $sql .= "from {$this->tblCurrentSYStudent} ";
+            $sql .= "where school_year_students_aid = :school_year_students_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
                 "school_year_students_aid" => $this->school_year_students_aid,
             ]);
         } catch (PDOException $ex) {
