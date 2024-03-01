@@ -29,6 +29,10 @@ const ModalRevertOrSavePayment = ({
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
+      queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({
+        queryKey: ["read-student-by-current-sy-id"],
+      });
 
       if (store.isSettingConfirm === true) {
         dispatch(setSettingIsConfirm(false));
@@ -37,7 +41,7 @@ const ModalRevertOrSavePayment = ({
       }
 
       if (data.success) {
-        setIsViewInfo(false);
+        // setIsViewInfo(false);
         dispatch(setSuccess(true));
         dispatch(
           setMessage(

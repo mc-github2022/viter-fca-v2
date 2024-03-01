@@ -19,22 +19,23 @@ import {
   getTotalPaymentDiscountedAmount,
   getTotalPaymentWithComma,
   getSelectedRate,
+  getNotifyAcceptParentInitVal,
 } from "./functions-assessment";
 import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 
 const ModalAssessment = ({ setShowAssessment, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [categoryId, setCatgeoryId] = React.useState(
-    Number(item.school_year_students_rate_id)
+    Number(item.current_students_rate_id)
   );
   const [primaryDiscountId, setPrimaryDiscountId] = React.useState(
-    Number(item.school_year_students_primary_discount_id)
+    Number(item.current_students_primary_discount_id)
   );
   const [additionalDiscountId, setAdditionalDiscountId] = React.useState(
-    Number(item.school_year_students_additional_discount_id)
+    Number(item.current_students_additional_discount_id)
   );
   const [selectItem, setSelectItem] = React.useState(
-    Number(item.school_year_students_schedule_fees_id)
+    Number(item.current_students_schedule_fees_id)
   );
 
   const {
@@ -70,7 +71,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   );
 
   const handleSelectScheme = (listItem) => {
-    if (item.school_year_students_is_accept_payment === 0) {
+    if (item.current_students_is_accept_payment === 0) {
       setSelectItem(listItem.tuition_fee_aid);
     }
     if (typeof listItem.tuition_fee_aid === "undefined") {
@@ -88,15 +89,19 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
   const handleChangeCategory = (e) => {
     setCatgeoryId(e.target.value);
+    setSelectItem(0);
   };
 
   const handleNotifyParent = (tuitionItem) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.school_year_students_aid);
+    setId(item.current_students_aid);
     setData({
-      ...tuitionItem,
-      primaryDiscountId,
-      additionalDiscountId,
+      ...getNotifyAcceptParentInitVal(
+        tuitionItem,
+        primaryDiscountId,
+        additionalDiscountId,
+        item
+      ),
       tuition_fee_aid: 0,
     });
     setIsNotify(true);
@@ -104,8 +109,16 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
   const handleAcceptPayment = (tuitionItem) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.school_year_students_aid);
-    setData({ ...tuitionItem, primaryDiscountId, additionalDiscountId });
+    setId(item.current_students_aid);
+
+    setData(
+      getNotifyAcceptParentInitVal(
+        tuitionItem,
+        primaryDiscountId,
+        additionalDiscountId,
+        item
+      )
+    );
     setIsNotify(false);
   };
 
@@ -162,7 +175,8 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                           onChange={(e) => handleChangeCategory(e)}
                           value={categoryId}
                           disabled={
-                            item.school_year_students_is_accept_payment === 0
+                            (!isLoading || !isFetching) &&
+                            item.current_students_is_accept_payment === 0
                               ? false
                               : true
                           }
@@ -222,7 +236,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
                                 {selectItem === listItem.tuition_fee_aid ? (
                                   <>
-                                    {item.school_year_students_is_accept_payment ===
+                                    {item.current_students_is_accept_payment ===
                                     1 ? (
                                       <BiSolidCheckCircle className="h-[38px] w-[38px] fill-accent my-2 opacity-[0.6] cursor-not-allowed" />
                                     ) : (
@@ -233,7 +247,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                                     )}
                                   </>
                                 ) : (
-                                  item.school_year_students_is_accept_payment ===
+                                  item.current_students_is_accept_payment ===
                                     0 && (
                                     <button
                                       className="btn btn--accent my-2"
@@ -241,7 +255,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                                         handleSelectScheme(listItem)
                                       }
                                       disabled={
-                                        item.school_year_students_is_accept_payment ===
+                                        item.current_students_is_accept_payment ===
                                         0
                                           ? false
                                           : true
@@ -297,7 +311,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                 </div>
 
                 <div className="flex justify-end items-center gap-2">
-                  {item.school_year_students_is_accept_payment === 1 && (
+                  {item.current_students_is_accept_payment === 1 && (
                     <button
                       className="btn btn--accent"
                       // onClick={handleNotifyParent}
@@ -305,7 +319,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                       Revert Payment
                     </button>
                   )}
-                  {item.school_year_students_is_accept_payment === 0 && (
+                  {item.current_students_is_accept_payment === 0 && (
                     <>
                       {listOfScheme?.count > 0 && selectItem === 0 && (
                         <button

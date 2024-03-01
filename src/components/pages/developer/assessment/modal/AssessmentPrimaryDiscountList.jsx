@@ -26,7 +26,7 @@ const AssessmentPrimaryDiscountList = ({
             value={primaryDiscountId}
             onChange={(e) => handleChangePrimaryDiscount(e)}
             disabled={
-              item.school_year_students_is_accept_payment === 0 ? false : true
+              item.current_students_is_accept_payment === 0 ? false : true
             }
           >
             {isLoading || isFetching ? (

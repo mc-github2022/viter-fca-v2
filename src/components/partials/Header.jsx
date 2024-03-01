@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBars, FaExclamationCircle } from "react-icons/fa";
+import { FaBars, FaBullhorn, FaExclamationCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LiaCogSolid } from "react-icons/lia";
 import { RiEdit2Line } from "react-icons/ri";
@@ -104,8 +104,20 @@ const Header = ({ isLoading, schoolYear }) => {
           schoolYear?.data[0].school_year_is_enrollment_open === 1) ||
           schoolYear?.isGreaterThanEndYear) && (
           <>
-            <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 fixed w-full z-10 top-0">
-              <FaExclamationCircle className="h-6 w-6 fill-white bg-[#f09a02] rounded-full" />
+            <p
+              className={`uppercase text-base flex items-center justify-center gap-2 text-center ${
+                schoolYear?.count > 0 &&
+                schoolYear?.data[0].school_year_is_enrollment_open === 1
+                  ? "bg-blue-100"
+                  : "bg-[#fff5c2]"
+              }  mb-0 h-10 fixed w-full z-10 top-0`}
+            >
+              {schoolYear?.count > 0 &&
+              schoolYear?.data[0].school_year_is_enrollment_open === 1 ? (
+                <FaBullhorn className="h-5 w-5 fill-accent" />
+              ) : (
+                <FaExclamationCircle className="h-6 w-6 fill-[#f09a02] rounded-full" />
+              )}
               {schoolYear?.isGreaterThanEndYear ? (
                 <span>
                   School Year is not updated.{" "}

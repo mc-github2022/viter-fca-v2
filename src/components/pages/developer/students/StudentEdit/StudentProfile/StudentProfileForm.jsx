@@ -18,12 +18,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StudentProfileForm = ({
-  setIsViewInfo,
-  showSideNav,
-  dataItem,
-  gradeLevel,
-}) => {
+const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const {
@@ -49,9 +44,12 @@ const StudentProfileForm = ({
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["students"] });
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
+      queryClient.invalidateQueries({
+        queryKey: ["read-student-by-current-sy-id"],
+      });
       // show error box
       if (data.success) {
-        setIsViewInfo(false);
+        // setIsViewInfo(false);
         dispatch(setSuccess(true));
         dispatch(setMessage("Record successfully updated."));
       }
@@ -62,11 +60,13 @@ const StudentProfileForm = ({
     },
   });
 
-  const queryClient = useQueryClient();
+  const { data: gradeLevel } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
 
-  const handleClose = () => {
-    setIsViewInfo(false);
-  };
+  const queryClient = useQueryClient();
 
   const initVal = {
     ...dataItem,
@@ -77,15 +77,14 @@ const StudentProfileForm = ({
     students_fname: Yup.string().required("Required"),
     students_lname: Yup.string().required("Required"),
     students_gender: Yup.string().required("Required"),
-    students_birth_place: Yup.string().required("Required"),
+    // students_birth_place: Yup.string().required("Required"),
     students_birth_date: Yup.string().required("Required"),
     students_address_id: Yup.string().required("Required"),
-    school_year_students_last_learning_type: Yup.string().required("Required"),
-    school_year_students_last_school_attended:
-      Yup.string().required("Required"),
-    school_year_students_last_gpa: Yup.string().required("Required"),
-    school_year_students_last_grade_level_id: Yup.string().required("Required"),
-    school_year_students_last_school_address: Yup.string().required("Required"),
+    // current_students_last_learning_type: Yup.string().required("Required"),
+    // current_students_last_school_attended: Yup.string().required("Required"),
+    // current_students_last_gpa: Yup.string().required("Required"),
+    // current_students_last_grade_level_id: Yup.string().required("Required"),
+    // current_students_last_school_address: Yup.string().required("Required"),
   });
 
   return (
@@ -107,7 +106,7 @@ const StudentProfileForm = ({
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <button
                       className="btn btn--accent"
@@ -141,7 +140,7 @@ const StudentProfileForm = ({
                     <div className="form__wrap">
                       <InputSelect
                         label="Learning Type"
-                        name="school_year_students_last_learning_type"
+                        name="current_students_last_learning_type"
                         disabled={mutation.isPending}
                       >
                         <option value="" hidden></option>
@@ -162,7 +161,7 @@ const StudentProfileForm = ({
                     <div className="form__wrap">
                       <InputSelect
                         label="Grade Level"
-                        name="school_year_students_grade_level_id"
+                        name="current_students_grade_level_id"
                         disabled={mutation.isPending}
                       >
                         <option value="" hidden></option>
@@ -301,7 +300,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Last School Name"
                         type="text"
-                        name="school_year_students_last_school_attended"
+                        name="current_students_last_school_attended"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -309,14 +308,14 @@ const StudentProfileForm = ({
                       <InputText
                         label="GPA Last School Year"
                         type="text"
-                        name="school_year_students_last_gpa"
+                        name="current_students_last_gpa"
                         disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
                       <InputSelect
-                        label="Grade Level"
-                        name="school_year_students_last_grade_level_id"
+                        label="Last Grade Level"
+                        name="current_students_last_grade_level_id"
                         disabled
                       >
                         <option value="" hidden></option>
@@ -342,7 +341,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Last School Address"
                         type="text"
-                        name="school_year_students_last_school_address"
+                        name="current_students_last_school_address"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -353,7 +352,7 @@ const StudentProfileForm = ({
                       <InputTextArea
                         label="Was the student ever submitted to any form of disciplinary action? If so, why?"
                         type="text"
-                        name="school_year_students_last_remarks"
+                        name="current_students_last_remarks"
                         disabled={mutation.isPending}
                       />
                     </div>

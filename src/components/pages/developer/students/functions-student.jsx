@@ -114,3 +114,13 @@ export const getStudentCountRecord = (client) => {
 
   return { active, inactive };
 };
+
+export const getStudentByCurrentSyId = (studentByCurrentSyId) => {
+  let result = [];
+
+  if (studentByCurrentSyId?.count > 0) {
+    result = studentByCurrentSyId?.data[0];
+  }
+
+  return result;
+};

@@ -259,6 +259,25 @@ export const getSelectedRate = (schemeByGrade, categoryId) => {
   return { ...result[0] };
 };
 
+// NOTIFY PARENT AND ACCEPT PAYMENT
+// INITIAL VALUES THAT NEEDS IN NOTFY AND ACCEPT PAYMENT
+export const getNotifyAcceptParentInitVal = (
+  tuitionItem,
+  primaryDiscountId,
+  additionalDiscountId,
+  item
+) => {
+  const result = {
+    ...tuitionItem,
+    primaryDiscountId,
+    additionalDiscountId,
+    students_aid: item.students_aid,
+    current_students_sy_id: item.current_students_sy_id,
+  };
+
+  return result;
+};
+
 // ADDITIONAL DISCOUNT
 //  list of Additional discount for UI purpose
 export const getGetAdditionalDiscount = (

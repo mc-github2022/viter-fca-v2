@@ -17,7 +17,7 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 
-const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
+const ModalAddStudent = ({ schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
   const [onFocusUser, setOnFocusUser] = React.useState(false);
@@ -26,11 +26,13 @@ const ModalAddStudent = ({ schoolYear, gradeLevel }) => {
   const [searchUser, setSearchUser] = React.useState("");
   const refUser = React.useRef();
 
-  const {
-    isLoading,
-    error,
-    data: parents,
-  } = useQueryData(
+  const { data: gradeLevel } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
+
+  const { data: parents } = useQueryData(
     "/v2/dev-parents", // endpoint
     "get", // method
     "parents-students" // key

@@ -40,3 +40,11 @@ function checkUpdateNotifyOrAcceptPayment($object)
     checkQuery($query, "There's a problem processing your request. (update notify or accept payment)");
     return $query;
 }
+
+// Update 
+function checkUpdateCurrentNotifyOrAcceptPayment($object)
+{
+    $query = $object->updateCurrentNotifyOrAcceptPayment();
+    checkQuery($query, "There's a problem processing your request. (update current student table notify or accept payment)");
+    return $query;
+}

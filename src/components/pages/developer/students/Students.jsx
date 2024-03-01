@@ -21,12 +21,6 @@ const Students = () => {
   const [isViewInfo, setIsViewInfo] = React.useState(false);
   const [dataItem, setData] = React.useState(null);
 
-  const { data: gradeLevel } = useQueryData(
-    "/v2/dev-grade-level", // endpoint
-    "get", // method
-    "grade-level" // key
-  );
-
   const {
     isLoading,
     error,
@@ -82,7 +76,6 @@ const Students = () => {
             </div>
 
             <StudentList
-              gradeLevel={gradeLevel}
               setIsViewInfo={setIsViewInfo}
               setData={setData}
               dataItem={dataItem}
@@ -91,19 +84,12 @@ const Students = () => {
         </div>
         <Footer />
       </section>
-      {store.isAdd && (
-        <ModalAddStudent schoolYear={schoolYear} gradeLevel={gradeLevel} />
-      )}
+      {store.isAdd && <ModalAddStudent schoolYear={schoolYear} />}
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
 
       {isViewInfo && (
-        <ModalEditStudent
-          setIsViewInfo={setIsViewInfo}
-          dataItem={dataItem}
-          gradeLevel={gradeLevel}
-          setData={setData}
-        />
+        <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={dataItem} />
       )}
     </div>
   );
