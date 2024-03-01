@@ -92,17 +92,17 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <section className="main__wrap flex relative ">
+      <section className="main__wrap flex flex-col relative h-screen">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation menu="student" />
 
           <main
-            className={`main__content mt-[35px] flex flex-col h-[calc(100vh-35px)] ${
+            className={`main__content lg:pl-0 mt-[35px] flex flex-col h-[calc(100vh-35px)] ${
               store.isMenuExpand ? "expand" : ""
             }`}
           >
-            <div className="mt-5 bg-primary rounded-md max-w-[430px]  relative pb-4 grow">
-              <div className="main__header flex justify-between items-start lg:items-center">
+            <div className="mt-4 bg-primary rounded-md max-w-[430px]  relative pb-4 grow">
+              <div className="main__header  pt-[10px] flex justify-between items-start lg:items-center">
                 <div>
                   <h1 className="text-clampH1 mb-0">User Account</h1>
                   <p className="mb-4 text-xs hidden lg:block">

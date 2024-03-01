@@ -44,9 +44,9 @@ const Students = () => {
   };
 
   return (
-    <div>
+    <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
-      <section className="main__wrap flex flex-col relative ">
+      <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation
             menu="enrollment"
@@ -56,14 +56,14 @@ const Students = () => {
           />
 
           <main
-            className={`main__content translate-y-[35px] relative ${
+            className={`main__content px-[13.5px] md:px-0 relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header flex justify-between items-start lg:items-center my-2 ">
               <div>
                 <h1 className="text-clampH1 mb-0">Student List</h1>
-                <p className="mb-4 text-xs hidden lg:block">
+                <p className="text-xs opacity-75 hidden md:block">
                   List of students registered on the system.
                 </p>
               </div>
@@ -91,7 +91,7 @@ const Students = () => {
       {isViewInfo && (
         <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={dataItem} />
       )}
-    </div>
+    </>
   );
 };
 

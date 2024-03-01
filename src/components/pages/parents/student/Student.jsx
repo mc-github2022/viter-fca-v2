@@ -15,8 +15,8 @@ import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import ModalAddStudent from "../../developer/clients/student-info/modal-student/ModalAddStudent";
 import ModalRequirements from "../../developer/clients/student-info/requirement/ModalRequirements";
-import Navigation from "../Navigation";
 import ModalEditStudent from "../../developer/students/StudentEdit/ModalEditStudent";
+import Navigation from "../Navigation";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -82,7 +82,7 @@ const Student = () => {
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
-      <section className="main__wrap flex flex-col relative h-[100vh] ">
+      <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
         <div className={`grow ${store.isMenuExpand ? "expand" : ""}`}>
           <Navigation
             menu="my-student"
@@ -91,11 +91,11 @@ const Student = () => {
             schoolYear={schoolYear}
           />
           <main
-            className={`main__content mt-[35px]  relative ${
+            className={`main__content px-[13.5px] md:px-0 relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center">
+            <div className="main__header flex justify-between items-start lg:items-center my-2 pt-[44px] ">
               <div>
                 <button
                   type="button"
@@ -108,7 +108,7 @@ const Student = () => {
             </div>
 
             <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
-              <div>
+              <div className="">
                 <h1 className="text-clampH1 mb-2">My Students</h1>
                 <p className="text-xs opacity-75 hidden md:block">
                   List of client student enrolled for this school year

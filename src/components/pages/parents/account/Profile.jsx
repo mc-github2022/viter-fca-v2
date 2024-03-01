@@ -7,10 +7,11 @@ import { setError, setMessage } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { Form, Formik } from "formik";
 import React from "react";
-import { FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaAngleLeft, FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
 import { TfiLock } from "react-icons/tfi";
+import { Navigate } from "react-router-dom";
 import * as Yup from "yup";
-import Navigation from "../Navigation";
+import Navigation from "../Navigation.jsx";
 import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
 
 const Profile = () => {
@@ -91,29 +92,32 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <section className="main__wrap flex relative ">
+      <section className="main__wrap flex flex-col relative h-screen">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation menu="student" />
 
           <main
-            className={`main__content mt-[35px] flex flex-col h-[calc(100vh-35px)] ${
+            className={`main__content lg:pl-0 mt-[35px] flex flex-col h-[calc(100vh-35px)] ${
               store.isMenuExpand ? "expand" : ""
             }`}
           >
             <div className="mt-5 bg-primary rounded-md max-w-[430px]  relative pb-4 grow">
-              {/* <header className=" py-2 pr-4 flex justify-end">
-              <button className="text-lg md:hidden" onClick={handleShowSubMenu}>
-                <FaBars />
-              </button>
-            </header> */}
-
-              <div className="main__header flex justify-between items-start lg:items-center">
+              <div className="main__header  pt-[10px] flex justify-between items-start lg:items-center">
                 <div>
-                  <h1 className="text-clampH1 mb-0">User Account</h1>
-                  <p className="mb-4 text-xs hidden lg:block">
-                    Manage your information and account security
-                  </p>
+                  <button
+                    type="button"
+                    onClick={() => Navigate(-1)}
+                    className="flex gap-1 items-center lg:hidden"
+                  >
+                    <FaAngleLeft /> Back
+                  </button>
                 </div>
+              </div>
+              <div className="max-w-[620px] w-full mb-3">
+                <h1 className="text-clampH1 mb-0">User Account</h1>{" "}
+                <p className="mb-4 text-xs hidden lg:block">
+                  Manage your information and account security
+                </p>
               </div>
 
               <div className="mb-8 pb-5">
@@ -235,10 +239,10 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <div className="md:-translate-x-[120px] ">
-              <Footer />
-            </div>
           </main>
+        </div>
+        <div className="md:-translate-x-[120px]">
+          <Footer />
         </div>
       </section>
 

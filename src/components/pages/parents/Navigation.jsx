@@ -44,16 +44,20 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
   return (
     <>
       <nav
-        className={`${
-          schoolYear?.data[0]?.school_year_is_enrollment_open === 1 ||
-          schoolYear?.isGreaterThanEndYear
-            ? "mt-[94px]"
-            : "mt-[54px]"
-        } ${store.isShow ? "show" : ""} ${store.isMenuExpand ? "expand" : ""}`}
+        className={` ${store.isShow ? "show" : ""} ${
+          store.isMenuExpand ? "expand" : ""
+        }`}
       >
         <div className="backdrop" onClick={() => setIsShow(false)}></div>
-        <div className="flex flex-col justify-between h-[93%] py-2 pr-0 custom__scroll overflow-y-auto">
-          <ul className="mt-3  h-[calc(100vh-48px)] pb-8">
+        <div
+          className={`${
+            schoolYear?.data[0]?.school_year_is_enrollment_open === 1 ||
+            schoolYear?.isGreaterThanEndYear
+              ? "mt-[94px]"
+              : "mt-[54px]"
+          } flex flex-col justify-between h-full  pr-0 custom__scroll overflow-y-auto`}
+        >
+          <ul className="pt-3  h-screen ">
             <li
               className={`nav__link ${menu === "" ? "active" : ""} ${
                 schoolYear?.isGreaterThanEndYear ||
