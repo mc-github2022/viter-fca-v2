@@ -1,10 +1,11 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { numberWithCommasToFixed } from "@/components/helpers/functions-general.jsx";
 import TableLoading from "@/components/partials/TableLoading";
-import { setIsAdd, setSettingIsConfirm } from "@/components/store/StoreAction";
+import { setSettingIsConfirm } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
 import { BiSolidCheckCircle } from "react-icons/bi";
+import { FaExclamationCircle } from "react-icons/fa";
 import {
   getMonthlyFeeDiscountedAmount,
   getPrimaryPercentDiscount,
@@ -13,11 +14,8 @@ import {
   getTotalPaymentWithComma,
 } from "../../../assessment/modal/functions-assessment";
 import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
-import { FaExclamationCircle } from "react-icons/fa";
-import { getStudentByCurrentSyId } from "../../functions-student";
 
 const StudentPaymentScheme = ({
-  setIsViewInfo,
   showSideNav,
   dataItem,
   setIsSavePaymentScheme,
@@ -275,22 +273,18 @@ const StudentPaymentScheme = ({
         </div>
       </div>
 
-      {(store.credentials.data.role_is_admin === 0 ||
-        store.credentials.data.role_is_developer === 0) &&
-        Number(dataItem.current_students_schedule_fees_id) > 0 &&
+      {Number(dataItem.current_students_schedule_fees_id) > 0 &&
         dataItem.current_students_is_accept_payment === 0 && (
           <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 w-full z-10 ">
             selected scheme submitted for assessment
           </p>
         )}
 
-      {(store.credentials.data.role_is_admin === 0 ||
-        store.credentials.data.role_is_developer === 0) &&
-        dataItem.current_students_is_accept_payment === 1 && (
-          <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-blue-100 mb-0 h-10 w-full z-10 ">
-            payment acceptted for selected scheme
-          </p>
-        )}
+      {dataItem.current_students_is_accept_payment === 1 && (
+        <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-blue-100 mb-0 h-10 w-full z-10 ">
+          payment acceptted for selected scheme
+        </p>
+      )}
     </>
   );
 };
