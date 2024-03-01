@@ -66,8 +66,6 @@ const Student = () => {
     "mystudent" // key
   );
 
-  console.log(store.credentials.data.parents_aid);
-
   const {
     isLoading: parentIsLoading,
     isFetching: parentIsFetching,

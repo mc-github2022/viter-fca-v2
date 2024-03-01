@@ -33,6 +33,11 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
     setIsShowSettings(true);
   };
 
+  const handleNavigateLink = () => {
+    dispatch(setIsShow(false));
+    document.querySelector("body").classList.remove("no--scroll");
+  };
+
   return (
     <>
       <nav
@@ -89,6 +94,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
               <Link
                 to={`${devNavUrl}/system/enrollment`}
                 className="flex gap-3 items-center uppercase  w-full"
+                onClick={handleNavigateLink}
               >
                 <PiStudent className="text-lg ml-4" /> Enrollment
               </Link>
@@ -98,6 +104,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
               <Link
                 to={`${devNavUrl}/system/clients`}
                 className="flex gap-3 items-center uppercase  w-full"
+                onClick={handleNavigateLink}
               >
                 <RiParentLine className="text-lg ml-4" /> Parents
               </Link>
@@ -108,6 +115,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
               <Link
                 to={`${devNavUrl}/system/assessment`}
                 className="flex gap-3 items-center uppercase  w-full"
+                onClick={handleNavigateLink}
               >
                 <PiListMagnifyingGlass className="text-lg ml-4" /> Assessment
               </Link>
@@ -116,6 +124,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
               <Link
                 to={`${devNavUrl}/system/students`}
                 className="flex gap-3 items-center uppercase  w-full"
+                onClick={handleNavigateLink}
               >
                 <PiStudent className="text-lg ml-4" /> Students
               </Link>

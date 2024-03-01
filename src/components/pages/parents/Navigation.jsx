@@ -27,10 +27,15 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
   const handleToggleMenu = () => {
     dispatch(setIsShow(!store.isShow));
     if (store.isShow) {
-      document.querySelector("body").classList.add("no--scroll");
-    } else {
       document.querySelector("body").classList.remove("no--scroll");
+    } else {
+      document.querySelector("body").classList.add("no--scroll");
     }
+  };
+
+  const handleNavigateLink = () => {
+    dispatch(setIsShow(false));
+    document.querySelector("body").classList.remove("no--scroll");
   };
 
   const handleDropDownSetting = () => {
@@ -84,6 +89,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
               <Link
                 to={`${devNavUrl}/parent/information`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
+                onClick={() => handleNavigateLink()}
               >
                 <BsInfoCircle className="text-lg ml-4" /> My Information
               </Link>
@@ -94,6 +100,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
               <Link
                 to={`${devNavUrl}/parent/student`}
                 className="flex gap-3 items-center uppercase p-1 w-full"
+                onClick={() => handleNavigateLink()}
               >
                 <BsPeople className="text-lg ml-4" /> My Students
               </Link>

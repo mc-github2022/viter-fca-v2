@@ -32,6 +32,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
   };
 
   const handleShowSideNav = () => {
+    console.log("showSideNav", showSideNav);
     setShowSideNav(!showSideNav);
   };
 
@@ -39,11 +40,9 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
     setIndex(index);
   };
 
-  console.log(itemEdit);
-
   return (
     <>
-      <div className="fixed top-0 left-0 z-20 w-full h-screen">
+      <div className="fixed top-0 left-0 z-20 w-full h-screen modal-requirements">
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40"></div>
         <div className="relative z-50 flex items-center justify-center w-full h-full ">
           <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-120px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
@@ -57,8 +56,9 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
                   <FaBars />
                 </button>
                 <h5 className="mb-0 font-normal">
-                  Student Information -{" "}
-                  <span className="font-bold">
+                  Student Information{" "}
+                  <span className="hidden md:inline">-</span>{" "}
+                  <span className="font-bold block md:inline-block">
                     {itemEdit.students_fname} {itemEdit.students_lname}
                   </span>
                 </h5>
@@ -71,9 +71,9 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
               className={`flex gap-3 h-full  bg-primary overflow-hidden relative`}
             >
               <aside
-                className={`${
-                  showSideNav ? "!hidden" : "block"
-                } md:relative transition-all overflow-y-auto  max-h-[100%] h-full custom__scroll bg-secondary max-w-[200px] w-full absolute z-30 hidden md:block `}
+                className={` ${
+                  showSideNav ? "show" : ""
+                } md:relative transition-all overflow-y-auto  max-h-[100%] h-full custom__scroll bg-secondary max-w-[200px] w-full absolute z-30  `}
               >
                 <ul className="mt-2 ">
                   <li
