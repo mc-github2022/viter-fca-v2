@@ -12,7 +12,7 @@ $data = json_decode($body, true);
 if (array_key_exists("studentid", $_GET)) {
     checkPayload($data);
     $student->students_aid = $_GET['studentid'];
-    $student->school_year_students_aid = $data['school_year_students_aid'];
+    $student->current_students_sy_id = $data['current_students_sy_id'];
 
     $student->students_parent_id = $data["students_parent_id"];
     $student->students_lrn = $data["students_lrn"];
@@ -31,12 +31,14 @@ if (array_key_exists("studentid", $_GET)) {
     $student->students_family_doctor_contact = $data["students_family_doctor_contact"];
     $student->students_medical_remarks = $data["students_medical_remarks"];
     $student->students_family_circumstances = $data["students_family_circumstances"];
-    $student->school_year_students_last_learning_type = $data["school_year_students_last_learning_type"];
-    $student->school_year_students_grade_level_id = $data["school_year_students_grade_level_id"];
-    $student->school_year_students_last_school_attended = $data["school_year_students_last_school_attended"];
-    $student->school_year_students_last_gpa = $data["school_year_students_last_gpa"];
-    $student->school_year_students_last_school_address = $data["school_year_students_last_school_address"];
-    $student->school_year_students_last_remarks = $data["school_year_students_last_remarks"];
+
+    $student->current_students_last_learning_type = $data["current_students_last_learning_type"];
+    $student->current_students_grade_level_id = $data["current_students_grade_level_id"];
+    $student->current_students_last_school_attended = $data["current_students_last_school_attended"];
+    $student->current_students_last_gpa = $data["current_students_last_gpa"];
+    $student->current_students_last_school_address = $data["current_students_last_school_address"];
+    $student->current_students_last_remarks = $data["current_students_last_remarks"];
+
     $student->students_datetime = date("Y-m-d H:i:s");
 
     $students_lrn_old = $data["students_lrn_old"];
@@ -47,8 +49,14 @@ if (array_key_exists("studentid", $_GET)) {
         compareLrn($student, $students_lrn_old, $student->students_lrn);
     }
 
+    // for student
     $query = checkUpdate($student);
+
+    // for school year student 
     checkUpdateSchoolYearStudent($student);
+
+    // for school year student current
+    checkUpdateSchoolYearStudentCurrent($student);
 
     returnSuccess($student, "Student", $query);
 }

@@ -1,3 +1,6 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
@@ -5,12 +8,9 @@ import StudentCodeOfConduct from "./StudentCodeOfConduct/StudentCodeOfConduct.js
 import StudentParentCommitment from "./StudentParentCommitment/StudentParentCommitment.jsx";
 import StudentParentConsent from "./StudentParentConsent/StudentParentConsent.jsx";
 import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDeclaration.jsx";
+import ModalRevertOrSavePayment from "./StudentPaymentScheme/ModalRevertOrSavePayment.jsx";
 import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
-import ModalRevertOrSavePayment from "./StudentPaymentScheme/ModalRevertOrSavePayment.jsx";
-import { StoreContext } from "@/components/store/StoreContext.jsx";
-import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
@@ -164,7 +164,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                 </ul>
               </aside>
               <main
-                className={` p-5 pb-20 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
+                className={` p-5 pb-32 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
                 {(store.credentials.data.role_is_admin === 1 ||
                   store.credentials.data.role_is_developer === 1) && (

@@ -8,11 +8,27 @@ function checkCreateSchoolYearStudent($object)
     return $query;
 }
 
+// create school year student current
+function checkCreateSchoolYearStudentCurrent($object)
+{
+    $query = $object->createSchoolYearStudentCurrent();
+    checkQuery($query, "There's a problem processing your request. (create school year student current)");
+    return $query;
+}
+
 // update school year student
 function checkUpdateSchoolYearStudent($object)
 {
     $query = $object->updateSchoolYearStudent();
     checkQuery($query, "There's a problem processing your request. (update school year student)");
+    return $query;
+}
+
+// update school year student current
+function checkUpdateSchoolYearStudentCurrent($object)
+{
+    $query = $object->updateSchoolYearStudentCurrent();
+    checkQuery($query, "There's a problem processing your request. (update school year student current)");
     return $query;
 }
 
@@ -69,6 +85,37 @@ function checkUpdateSchoolYearStudentCommitmentForm($object)
 {
     $query = $object->updateSchoolYearStudentCommitmentForm();
     checkQuery($query, "There's a problem processing your request. (update school year student Commitment Form)");
+    return $query;
+}
+// update school year student Code of Conduct
+function checkUpdateSchoolYearStudentCocCurrent($object)
+{
+    $query = $object->updateSchoolYearStudentCocCurrent();
+    checkQuery($query, "There's a problem processing your request. (update school year student Code of Conduct Current)");
+    return $query;
+}
+
+// update school year student Parent Declaration
+function checkUpdateSchoolYearStudentParentDeclareCurrent($object)
+{
+    $query = $object->updateSchoolYearStudentParentDeclareCurrent();
+    checkQuery($query, "There's a problem processing your request. (update school year student Parent Declaration Current)");
+    return $query;
+}
+
+// update school year student Parent Consent
+function checkUpdateSchoolYearStudentParentConsentCurrent($object)
+{
+    $query = $object->updateSchoolYearStudentParentConsentCurrent();
+    checkQuery($query, "There's a problem processing your request. (update school year student Parent Consent Current)");
+    return $query;
+}
+
+// update school year student Commitment Form
+function checkUpdateSchoolYearStudentCommitmentFormCurrent($object)
+{
+    $query = $object->updateSchoolYearStudentCommitmentFormCurrent();
+    checkQuery($query, "There's a problem processing your request. (update school year student Commitment Form Current)");
     return $query;
 }
 

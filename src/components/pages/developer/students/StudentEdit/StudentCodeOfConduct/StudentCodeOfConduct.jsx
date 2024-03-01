@@ -21,6 +21,7 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
       queryData(`/v2/dev-students/update-coc`, "put", values),
     onSuccess: (data) => {
       // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["students"] });
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
       queryClient.invalidateQueries({ queryKey: ["students"] });
       queryClient.invalidateQueries({
@@ -41,8 +42,9 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
   });
 
   const initVal = {
-    school_year_students_aid: dataItem.school_year_students_aid,
-    school_year_students_last_coc_is_agree:
+    students_aid: dataItem.students_aid,
+    current_students_sy_id: dataItem.current_students_sy_id,
+    current_students_last_coc_is_agree:
       dataItem.current_students_last_coc_is_agree === 0 ? false : true,
   };
 
@@ -67,18 +69,18 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <div className="flex items-center gap-2">
-                      {dataItem.current_students_last_coc_is_agree === 0 && (
-                        <button
-                          className="btn btn--accent"
-                          type="submit"
-                          disabled={mutation.isPending || !props.dirty}
-                        >
-                          {mutation.isPending ? <ButtonSpinner /> : "Save"}
-                        </button>
-                      )}
+                      {/* {dataItem.current_students_last_coc_is_agree === 0 && ( */}
+                      <button
+                        className="btn btn--accent"
+                        type="submit"
+                        disabled={mutation.isPending || !props.dirty}
+                      >
+                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                      </button>
+                      {/* )} */}
                       <button
                         className="btn btn--cancel"
                         type="button"
@@ -217,8 +219,8 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
                       <InputCheckbox
                         label="I agree and undestand this code of conduct"
                         type="checkbox"
-                        name="school_year_students_last_coc_is_agree"
-                        id="school_year_students_last_coc_is_agree"
+                        name="current_students_last_coc_is_agree"
+                        id="current_students_last_coc_is_agree"
                       />
                     </div>
                   </div>

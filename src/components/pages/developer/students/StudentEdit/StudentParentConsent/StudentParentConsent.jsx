@@ -73,19 +73,19 @@ const StudentParentConsent = ({ showSideNav, dataItem, handleClose }) => {
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <div className="flex items-center gap-2">
-                      {dataItem.current_students_last_parent_consent_is_agree ===
-                        0 && (
-                        <button
-                          className="btn btn--accent"
-                          type="submit"
-                          disabled={mutation.isPending || !props.dirty}
-                        >
-                          {mutation.isPending ? <ButtonSpinner /> : "Save"}
-                        </button>
-                      )}
+                      {/* {dataItem.current_students_last_parent_consent_is_agree ===
+                        0 && ( */}
+                      <button
+                        className="btn btn--accent"
+                        type="submit"
+                        disabled={mutation.isPending || !props.dirty}
+                      >
+                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                      </button>
+                      {/* )} */}
                       <button
                         className="btn btn--cancel"
                         type="button"

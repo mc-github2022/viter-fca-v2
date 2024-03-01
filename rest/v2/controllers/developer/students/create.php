@@ -33,8 +33,12 @@ if ($student->students_lrn != "") {
     isLrnExist($student, $student->students_lrn);
 }
 
+// for student
 $query = checkCreate($student);
 
+// for school year student
 checkCreateSchoolYearStudent($student);
+// for school year student current
+checkCreateSchoolYearStudentCurrent($student);
 
 returnSuccess($student, "Student", $query);
