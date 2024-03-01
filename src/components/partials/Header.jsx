@@ -39,6 +39,15 @@ const Header = ({ isLoading, schoolYear }) => {
     }
   };
 
+  const handleShowSettings = () => {
+    setIsShowSettings(true);
+    if (!isShowSetting) {
+      document.querySelector("body").classList.add("no--scroll");
+    } else {
+      document.querySelector("body").classList.remove("no--scroll");
+    }
+  };
+
   const credentials = () => {
     if (store.credentials.data.role_is_developer === 1) {
       return {
@@ -58,15 +67,6 @@ const Header = ({ isLoading, schoolYear }) => {
 
   const handleToggleExpandMenu = () => {
     dispatch(setIsMenuExpand(!store.isMenuExpand));
-  };
-
-  const handleShowSettings = () => {
-    setIsShowSettings(true);
-    if (!isShowSetting) {
-      document.querySelector("body").classList.add("no--scroll");
-    } else {
-      document.querySelector("body").classList.remove("no--scroll");
-    }
   };
 
   const handleLogout = () => {
@@ -139,12 +139,18 @@ const Header = ({ isLoading, schoolYear }) => {
                 "Enrollment is On-going"
               )}
             </p>
-            <p className="mb-10"></p>
+            <p
+              className={
+                schoolYear?.data[0].school_year_is_enrollment_open === 1
+                  ? "mb-10"
+                  : "hidden"
+              }
+            ></p>
           </>
         )}
       {loading && <FetchingSpinner />}
 
-      <header className="pr-4 pl-[13.5px] fixed  w-full bg-primary border-gray-100 border-0 py-1 z-20 drop-shadow">
+      <header className="px-[13.5px] fixed  w-full bg-primary border-gray-100 border-0 py-1 z-20 drop-shadow">
         <div className="flex justify-between items-center">
           <div className="flex justify-center gap-2">
             <button className="lg:hidden" onClick={handleToggleMenu}>

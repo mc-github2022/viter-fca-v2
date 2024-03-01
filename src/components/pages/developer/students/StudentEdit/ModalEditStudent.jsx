@@ -49,7 +49,6 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
     "read-student-by-current-sy-id" // key
   );
 
-  console.log("studentByCurrentSyId", studentByCurrentSyId);
   return (
     <>
       <div className="modal modal--settings show ">
@@ -164,7 +163,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                 </ul>
               </aside>
               <main
-                className={` p-5 pb-32 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
+                className={` p-5 py-3 overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
                 {(store.credentials.data.role_is_admin === 1 ||
                   store.credentials.data.role_is_developer === 1) && (
@@ -244,7 +243,6 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                     {index === 6 && (
                       <StudentPaymentScheme
                         index={index}
-                        setIsViewInfo={setIsViewInfo}
                         showSideNav={showSideNav}
                         dataItem={{
                           ...studentByCurrentSyId?.data[0],

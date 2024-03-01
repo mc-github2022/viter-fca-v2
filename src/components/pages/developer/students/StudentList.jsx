@@ -104,8 +104,8 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
         {isFetching && !isFetchingNextPage && status !== "loading" && (
           <FetchingSpinner />
         )}
-        <div className="table__wrapper mb-[80px]  ">
-          <div className="my-2 px-2 bg-primary  overflow-x-auto custom__scroll ">
+        <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
+          <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm  ">
               <thead>
                 <tr>

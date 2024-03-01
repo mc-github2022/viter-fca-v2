@@ -106,7 +106,7 @@ const Parents = () => {
           />
 
           <main
-            className={`main__content mt-[35px]  ${
+            className={`main__content mt-[60px] px-[13.5px] md:px-0 ${
               store.isMenuExpand ? "expand" : ""
             }  ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >

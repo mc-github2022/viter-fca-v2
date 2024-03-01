@@ -33,7 +33,7 @@ const AllStudents = () => {
   return (
     <div>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
-      <section className="main__wrap flex flex-col relative ">
+      <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation
             menu="students"
@@ -43,12 +43,12 @@ const AllStudents = () => {
           />
 
           <main
-            className={`main__content mt-[35px] relative ${
+            className={`main__content px-[13.5px] md:px-0 relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center  ">
-              <div>
+            <div className="main__header flex justify-between items-start lg:items-center my-2 ">
+              <div className="mt-[60px]">
                 <h1 className="text-clampH1 mb-0">All Student List</h1>
                 <p className="mb-4 text-xs hidden lg:block">
                   List of students registered on the system.
@@ -57,9 +57,9 @@ const AllStudents = () => {
             </div>
 
             <AllStudentList gradeLevel={gradeLevel} isOngoing={isOngoing} />
-            <Footer />
           </main>
         </div>
+        <Footer />
       </section>
 
       {store.success && <ModalSuccess />}

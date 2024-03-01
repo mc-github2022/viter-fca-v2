@@ -160,7 +160,7 @@
   }
 
   nav {
-    @apply h-[calc(100vh-6px)] top-0 bg-primary fixed border-gray-100 drop-shadow w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-50 lg:z-0;
+    @apply top-0 bg-primary fixed border-gray-100 drop-shadow w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-[5] lg:z-0;
   }
 
   nav .backdrop {
@@ -332,7 +332,7 @@
   }
 
   .main__wrap {
-    @apply h-[calc(100vh+54px)] overflow-hidden;
+    @apply h-[calc(100vh+54px)]  md:overflow-y-visible;
   }
 
   .table__wrapper {
@@ -380,7 +380,7 @@
   /* MAIN WRAPPER - PAGE WITH TABLE */
 
   .main__content {
-    @apply py-6 px-2 lg:px-4  w-full lg:pl-4  lg:ml-[240px] transition-all ease-timing-nav duration-300;
+    @apply px-2 lg:px-4  w-full lg:pl-4  lg:ml-[240px] transition-all ease-timing-nav duration-300;
   }
   /* .main__content.expand .main__table {
     @apply lg:ml-0;
@@ -394,7 +394,7 @@
   }
 
   .main__content.expand {
-    @apply lg:max-w-[calc(100%-240px)] lg:ml-[240px];
+    @apply lg:max-w-[calc(100%-260px)] lg:ml-[260px];
   }
 
   /* MODAL */
@@ -476,6 +476,14 @@
 
   .modal__settings__nav ul li button {
     @apply w-full block text-left hover:bg-primary;
+  }
+
+  .modal-requirements aside {
+    @apply -left-[200px] transition-all md:left-0;
+  }
+
+  .modal-requirements aside.show {
+    @apply left-[0px];
   }
 
   .modal__article p,
