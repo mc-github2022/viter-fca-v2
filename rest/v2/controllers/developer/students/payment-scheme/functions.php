@@ -9,6 +9,14 @@ function checkUpdatePaymentSchemeSaveOrRevert($object)
     return $query;
 }
 
+// Update Current
+function checkUpdateCurrentPaymentSchemeSaveOrRevert($object)
+{
+    $query = $object->updateCurrentPaymentSchemeSaveOrRevert();
+    checkQuery($query, "There's a problem processing your request. (update current save or revert)");
+    return $query;
+}
+
 // Read all
 function checkReadByCurrentSyStudentAid($object)
 {

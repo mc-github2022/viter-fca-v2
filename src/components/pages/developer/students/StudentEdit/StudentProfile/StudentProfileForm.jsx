@@ -18,12 +18,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StudentProfileForm = ({
-  setIsViewInfo,
-  showSideNav,
-  dataItem,
-  gradeLevel,
-}) => {
+const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const {
@@ -65,11 +60,13 @@ const StudentProfileForm = ({
     },
   });
 
-  const queryClient = useQueryClient();
+  const { data: gradeLevel } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
 
-  const handleClose = () => {
-    setIsViewInfo(false);
-  };
+  const queryClient = useQueryClient();
 
   const initVal = {
     ...dataItem,

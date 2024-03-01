@@ -12,12 +12,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StudentCodeOfConduct = ({
-  setIsViewInfo,
-  showSideNav,
-  dataItem,
-  gradeLevel,
-}) => {
+const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -45,17 +40,10 @@ const StudentCodeOfConduct = ({
     },
   });
 
-  const handleClose = () => {
-    setIsViewInfo(false);
-  };
-
   const initVal = {
     school_year_students_aid: dataItem.school_year_students_aid,
     school_year_students_last_coc_is_agree:
-      dataItem.school_year_students_last_coc_is_agree === "" ||
-      dataItem.school_year_students_last_coc_is_agree === 0
-        ? false
-        : true,
+      dataItem.current_students_last_coc_is_agree === 0 ? false : true,
   };
 
   const yupSchema = Yup.object({});
@@ -82,13 +70,15 @@ const StudentCodeOfConduct = ({
                     } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
                   >
                     <div className="flex items-center gap-2">
-                      <button
-                        className="btn btn--accent"
-                        type="submit"
-                        disabled={mutation.isPending || !props.dirty}
-                      >
-                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
-                      </button>
+                      {dataItem.current_students_last_coc_is_agree === 0 && (
+                        <button
+                          className="btn btn--accent"
+                          type="submit"
+                          disabled={mutation.isPending || !props.dirty}
+                        >
+                          {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                        </button>
+                      )}
                       <button
                         className="btn btn--cancel"
                         type="button"
@@ -99,6 +89,7 @@ const StudentCodeOfConduct = ({
                       </button>
                     </div>
                   </div>
+
                   <div className="mb-14 text-xs">
                     <h3 className="mb-3">Code of Conduct</h3>
                     <p>

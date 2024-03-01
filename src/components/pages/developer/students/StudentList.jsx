@@ -19,7 +19,7 @@ import { FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 
-const StudentList = ({ gradeLevel, setIsViewInfo, setData, dataItem }) => {
+const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
 

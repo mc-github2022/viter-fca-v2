@@ -12,9 +12,9 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
     if (array_key_exists("studentSyId", $_GET)) {
 
-        $payment_scheme->school_year_students_aid = $_GET['studentSyId'];
+        $payment_scheme->students_aid = $_GET['studentSyId'];
 
-        checkId($payment_scheme->school_year_students_aid);
+        checkId($payment_scheme->students_aid);
         $query = checkReadByCurrentSyStudentAid($payment_scheme);
 
         http_response_code(200);

@@ -16,10 +16,12 @@ import { useNavigate } from "react-router-dom";
 import ModalAddStudent from "../../developer/clients/student-info/modal-student/ModalAddStudent";
 import ModalRequirements from "../../developer/clients/student-info/requirement/ModalRequirements";
 import Navigation from "../Navigation";
+import ModalEditStudent from "../../developer/students/StudentEdit/ModalEditStudent";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [viewRequirements, setViewRequirements] = React.useState(false);
+  const [isViewInfo, setIsViewInfo] = React.useState(false);
   const [itemEdit, setItemEdit] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
@@ -65,8 +67,6 @@ const Student = () => {
     "get", // method
     "mystudent" // key
   );
-
-  console.log(store.credentials.data.parents_aid);
 
   const {
     isLoading: parentIsLoading,
@@ -124,7 +124,7 @@ const Student = () => {
             </div>
 
             <div className="max-w-[620px] w-full gap-4 mb-5 ">
-              {isLoading || (isFetching && <TableLoading />)}
+              {(isLoading || isFetching) && <TableLoading />}
               {mystudent?.data.length === 0 ? (
                 <NoData />
               ) : (
@@ -202,11 +202,7 @@ const Student = () => {
       )}
 
       {store.isAdd && (
-        <ModalAddStudent
-          itemEdit={itemEdit}
-          parent={parent}
-          schoolYear={schoolYear}
-        />
+        <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={itemEdit} />
       )}
 
       {store.isDelete && (

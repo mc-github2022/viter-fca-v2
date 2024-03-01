@@ -1,7 +1,7 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { numberWithCommasToFixed } from "@/components/helpers/functions-general.jsx";
 import TableLoading from "@/components/partials/TableLoading";
-import { setSettingIsConfirm } from "@/components/store/StoreAction";
+import { setIsAdd, setSettingIsConfirm } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
 import { BiSolidCheckCircle } from "react-icons/bi";
@@ -22,10 +22,11 @@ const StudentPaymentScheme = ({
   dataItem,
   setIsSavePaymentScheme,
   setItemData,
+  handleClose,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [selectItem, setSelectItem] = React.useState(
-    Number(dataItem.school_year_students_schedule_fees_id)
+    Number(dataItem.current_students_schedule_fees_id)
   );
 
   const { data: primaryDiscount } = useQueryData(
@@ -36,7 +37,7 @@ const StudentPaymentScheme = ({
 
   const primaryDiscountData = getPrimaryPercentDiscount(
     primaryDiscount,
-    dataItem.school_year_students_primary_discount_id
+    dataItem.current_students_primary_discount_id
   );
 
   const { isLoading: loadingListOfScheme, data: listOfScheme } = useQueryData(
@@ -45,18 +46,14 @@ const StudentPaymentScheme = ({
     "read-by-tuition-scheme", // key
     {
       gradeId: dataItem?.grade_level_aid,
-      categoryId: dataItem?.school_year_students_rate_id,
+      categoryId: dataItem?.current_students_rate_id,
     },
     dataItem?.grade_level_aid,
-    dataItem?.school_year_students_rate_id
+    dataItem?.current_students_rate_id
   );
 
-  const handleClose = () => {
-    setIsViewInfo(false);
-  };
-
   const handleSelectScheme = (listItem) => {
-    if (dataItem.school_year_students_is_accept_payment === 0) {
+    if (dataItem.current_students_is_accept_payment === 0) {
       setSelectItem(listItem.tuition_fee_aid);
     }
     if (typeof listItem.tuition_fee_aid === "undefined") {
@@ -66,14 +63,22 @@ const StudentPaymentScheme = ({
 
   const handleSave = (tuitionItem) => {
     dispatch(setSettingIsConfirm(true));
-    setItemData({ ...tuitionItem });
+    setItemData({
+      ...tuitionItem,
+      current_students_sy_id: dataItem.current_students_sy_id,
+      students_aid: dataItem.students_aid,
+    });
     setIsSavePaymentScheme(true);
     setSelectItem(tuitionItem.tuition_fee_aid);
   };
 
   const handleRevert = (tuitionItem) => {
     dispatch(setSettingIsConfirm(true));
-    setItemData({ ...tuitionItem });
+    setItemData({
+      ...tuitionItem,
+      current_students_sy_id: dataItem.current_students_sy_id,
+      students_aid: dataItem.students_aid,
+    });
     setIsSavePaymentScheme(false);
   };
 
@@ -91,7 +96,7 @@ const StudentPaymentScheme = ({
             <div className="flex items-center gap-2">
               {(store.credentials.data.role_is_admin === 1 ||
                 store.credentials.data.role_is_developer === 1) &&
-                dataItem.school_year_students_is_accept_payment === 1 && (
+                dataItem.current_students_is_accept_payment === 1 && (
                   <button
                     className="btn btn--accent"
                     type="submit"
@@ -102,8 +107,8 @@ const StudentPaymentScheme = ({
                     Request Revert Payment
                   </button>
                 )}
-              {dataItem.school_year_students_is_accept_payment === 0 &&
-                dataItem.school_year_students_schedule_fees_id === 0 && (
+              {dataItem.current_students_is_accept_payment === 0 &&
+                dataItem.current_students_schedule_fees_id === 0 && (
                   <button
                     className="btn btn--accent"
                     type="submit"
@@ -166,7 +171,7 @@ const StudentPaymentScheme = ({
 
                         {selectItem === listItem.tuition_fee_aid ? (
                           <>
-                            {dataItem?.school_year_students_schedule_fees_id !==
+                            {dataItem?.current_students_schedule_fees_id !==
                             0 ? (
                               <BiSolidCheckCircle className="h-[38px] w-[38px] fill-accent my-2 opacity-[0.6] cursor-not-allowed" />
                             ) : (
@@ -177,15 +182,13 @@ const StudentPaymentScheme = ({
                             )}
                           </>
                         ) : (
-                          dataItem?.school_year_students_is_accept_payment ===
-                            0 &&
-                          dataItem?.school_year_students_schedule_fees_id ===
-                            0 && (
+                          dataItem?.current_students_is_accept_payment === 0 &&
+                          dataItem?.current_students_schedule_fees_id === 0 && (
                             <button
                               className="btn btn--accent my-2"
                               onClick={() => handleSelectScheme(listItem)}
                               disabled={
-                                dataItem.school_year_students_is_accept_payment ===
+                                dataItem.current_students_is_accept_payment ===
                                 0
                                   ? false
                                   : true
@@ -215,7 +218,7 @@ const StudentPaymentScheme = ({
 
           {!loadingListOfScheme &&
             listOfScheme?.data.length > 0 &&
-            dataItem.school_year_students_primary_discount_id !== 0 && (
+            dataItem.current_students_primary_discount_id !== 0 && (
               <>
                 <div className=" grid grid-cols-4 mt-5 ">
                   <div className="col-header flex items-center p-2">
@@ -271,6 +274,23 @@ const StudentPaymentScheme = ({
             )}
         </div>
       </div>
+
+      {(store.credentials.data.role_is_admin === 0 ||
+        store.credentials.data.role_is_developer === 0) &&
+        Number(dataItem.current_students_schedule_fees_id) > 0 &&
+        dataItem.current_students_is_accept_payment === 0 && (
+          <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 w-full z-10 ">
+            selected scheme submitted for assessment
+          </p>
+        )}
+
+      {(store.credentials.data.role_is_admin === 0 ||
+        store.credentials.data.role_is_developer === 0) &&
+        dataItem.current_students_is_accept_payment === 1 && (
+          <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-blue-100 mb-0 h-10 w-full z-10 ">
+            payment acceptted for selected scheme
+          </p>
+        )}
     </>
   );
 };
