@@ -1,4 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -16,15 +17,22 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [index, setIndex] = React.useState(1);
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: gradeLevel,
-  } = useQueryData(
+  const { error, data: gradeLevel } = useQueryData(
     "/v2/dev-grade-level", // endpoint
     "get", // method
     "gradeLevel" // key
+  );
+
+  const {
+    isLoading,
+    isFetching,
+    data: studentByCurrentSyId,
+  } = useQueryData(
+    `/v2/dev-students-payment-scheme/read-student-by-current-sy-id/${
+      itemEdit ? itemEdit?.students_aid : 0
+    }`, // endpoint
+    "get", // method
+    "read-student-by-current-sy-id-parent" // key
   );
 
   const handleClose = () => {
@@ -159,56 +167,81 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                     {parent?.data[0].parents_lname}
                   </span>
                 </span>
-                {index === 1 && (
-                  <StudentProfileForm
-                    index={index}
-                    showSideNav={showSideNav}
-                    itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
-                    schoolYear={schoolYear}
-                  />
-                )}
-                {index === 2 && (
-                  <StudentCodeOfConduct
-                    index={index}
-                    showSideNav={showSideNav}
-                    itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
-                    schoolYear={schoolYear}
-                  />
-                )}
-                {index === 3 && (
-                  <StudentParentDeclaration
-                    index={index}
-                    showSideNav={showSideNav}
-                    itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
-                  />
-                )}
-                {index === 4 && (
-                  <StudentParentConsent
-                    index={index}
-                    showSideNav={showSideNav}
-                    itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
-                  />
-                )}
-                {index === 5 && (
-                  <StudentParentCommitment
-                    index={index}
-                    showSideNav={showSideNav}
-                    itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
-                  />
-                )}
 
-                {index === 6 && (
-                  <StudentPaymentScheme
-                    index={index}
-                    showSideNav={showSideNav}
-                    itemEdit={itemEdit}
-                    gradeLevel={gradeLevel}
-                  />
+                {isLoading || isFetching ? (
+                  <TableSpinner />
+                ) : (
+                  <>
+                    {index === 1 && (
+                      <StudentProfileForm
+                        index={index}
+                        showSideNav={showSideNav}
+                        itemEdit={{
+                          ...itemEdit,
+                          ...studentByCurrentSyId?.data[0],
+                        }}
+                        gradeLevel={gradeLevel}
+                        schoolYear={schoolYear}
+                      />
+                    )}
+                    {index === 2 && (
+                      <StudentCodeOfConduct
+                        index={index}
+                        showSideNav={showSideNav}
+                        itemEdit={{
+                          ...itemEdit,
+                          ...studentByCurrentSyId?.data[0],
+                        }}
+                        gradeLevel={gradeLevel}
+                        schoolYear={schoolYear}
+                      />
+                    )}
+                    {index === 3 && (
+                      <StudentParentDeclaration
+                        index={index}
+                        showSideNav={showSideNav}
+                        itemEdit={{
+                          ...itemEdit,
+                          ...studentByCurrentSyId?.data[0],
+                        }}
+                        gradeLevel={gradeLevel}
+                      />
+                    )}
+                    {index === 4 && (
+                      <StudentParentConsent
+                        index={index}
+                        showSideNav={showSideNav}
+                        itemEdit={{
+                          ...itemEdit,
+                          ...studentByCurrentSyId?.data[0],
+                        }}
+                        gradeLevel={gradeLevel}
+                      />
+                    )}
+                    {index === 5 && (
+                      <StudentParentCommitment
+                        index={index}
+                        showSideNav={showSideNav}
+                        itemEdit={{
+                          ...itemEdit,
+                          ...studentByCurrentSyId?.data[0],
+                        }}
+                        gradeLevel={gradeLevel}
+                      />
+                    )}
+
+                    {index === 6 && (
+                      <StudentPaymentScheme
+                        index={index}
+                        showSideNav={showSideNav}
+                        itemEdit={{
+                          ...itemEdit,
+                          ...studentByCurrentSyId?.data[0],
+                        }}
+                        gradeLevel={gradeLevel}
+                      />
+                    )}
+                  </>
                 )}
               </main>
             </div>

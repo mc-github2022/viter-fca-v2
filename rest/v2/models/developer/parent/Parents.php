@@ -28,7 +28,8 @@ class Parents
     public $tblParents;
     public $tblUserOther;
     public $tblStudents;
-    public $tblStudentsSY;
+    public $tblSyStudents;
+    public $tblSyStudentsCurrent;
     public $tblGradeLevel;
     public $tblSchoolYear;
 
@@ -38,7 +39,8 @@ class Parents
         $this->tblParents = "fcav2_parents";
         $this->tblStudents = "fcav2_students";
         $this->tblUserOther = "fcav2_settings_user_other";
-        $this->tblStudentsSY = "fcav2_school_year_students";
+        $this->tblSyStudents = "fcav2_school_year_students";
+        $this->tblSyStudentsCurrent = "fcav2_school_year_students_current";
         $this->tblGradeLevel = "fcav2_settings_grade_level";
         $this->tblSchoolYear = "fcav2_settings_school_year";
     }
@@ -172,20 +174,18 @@ class Parents
     public function readStudentById()
     {
         try {
-            $sql = "select *, max(students_sy.school_year_students_sy_id) from {$this->tblStudents} as students, ";
+            $sql = "select * from {$this->tblStudents} as students, ";
             $sql .= "{$this->tblParents} as parents, ";
-            $sql .= "{$this->tblStudentsSY} as students_sy, ";
+            $sql .= "{$this->tblSyStudentsCurrent} as syStudentCurrent, ";
             $sql .= "{$this->tblGradeLevel} as grade_level, ";
             $sql .= "{$this->tblSchoolYear} as school_year ";
             $sql .= "where students.students_parent_id = parents.parents_aid ";
-            $sql .= "and students_sy.school_year_students_student_id = students.students_aid ";
-            $sql .= "and students_sy.school_year_students_sy_id = school_year.school_year_aid ";
-            $sql .= "and students_sy.school_year_students_grade_level_id = grade_level.grade_level_aid ";
+            $sql .= "and syStudentCurrent.current_students_student_id = students.students_aid ";
+            $sql .= "and syStudentCurrent.current_students_sy_id = school_year.school_year_aid ";
+            $sql .= "and syStudentCurrent.current_students_grade_level_id = grade_level.grade_level_aid ";
             $sql .= "and students.students_parent_id = :parents_aid ";
-            // $sql .= "and students_sy.school_year_students_sy_id in (select max(school_year_aid) from {$this->tblSchoolYear}) ";
-            // $sql .= "and students_sy.school_year_students_sy_id = (select max(school_year_students_sy_id) from {$this->tblStudentsSY} group by school_year_students_student_id) ";
-            $sql .= "group by students_sy.school_year_students_student_id ";
-            $sql .= "order by students_sy.school_year_students_student_id desc ";
+            $sql .= "group by syStudentCurrent.current_students_student_id ";
+            $sql .= "order by syStudentCurrent.current_students_student_id desc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "parents_aid" => $this->parents_aid,

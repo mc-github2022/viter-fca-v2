@@ -33,7 +33,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         $query = checkUpdateSchoolYearStudentCommitmentForm($student);
         checkUpdateSchoolYearStudentCommitmentFormCurrent($student);
     } else {
-        returnError("Error. You must agree first on Code of Conduct, Parent Declaration, and Parent Consent.");
+        returnError("You must agree first on Code of Conduct, Parent Declaration, and Parent Consent.");
     }
 
     // return success

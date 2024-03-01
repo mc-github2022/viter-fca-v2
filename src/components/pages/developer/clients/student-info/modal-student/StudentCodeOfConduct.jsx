@@ -32,9 +32,12 @@ const StudentCodeOfConduct = ({
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["mystudent"] });
+      queryClient.invalidateQueries({
+        queryKey: ["read-student-by-current-sy-id-parent"],
+      });
       // show error box
       if (data.success) {
-        dispatch(setIsAdd(false));
+        // dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
         dispatch(setMessage("Record successfully updated."));
       }
@@ -45,19 +48,17 @@ const StudentCodeOfConduct = ({
     },
   });
 
-  console.log(itemEdit);
+  // console.log(itemEdit);
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
   };
 
   const initVal = {
-    school_year_students_aid: itemEdit.school_year_students_aid,
-    school_year_students_last_coc_is_agree:
-      itemEdit.school_year_students_last_coc_is_agree === "" ||
-      itemEdit.school_year_students_last_coc_is_agree === 0
-        ? false
-        : true,
+    students_aid: itemEdit.students_aid,
+    current_students_sy_id: itemEdit.current_students_sy_id,
+    current_students_last_coc_is_agree:
+      itemEdit.current_students_last_coc_is_agree === 0 ? false : true,
   };
 
   const yupSchema = Yup.object({});
@@ -81,7 +82,7 @@ const StudentCodeOfConduct = ({
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <div className="flex items-center gap-2">
                       <button
@@ -228,8 +229,8 @@ const StudentCodeOfConduct = ({
                       <InputCheckbox
                         label="I agree and undestand this code of conduct"
                         type="checkbox"
-                        name="school_year_students_last_coc_is_agree"
-                        id="school_year_students_last_coc_is_agree"
+                        name="current_students_last_coc_is_agree"
+                        id="current_students_last_coc_is_agree"
                       />
                     </div>
                   </div>

@@ -1,32 +1,28 @@
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import NoData from "@/components/partials/NoData.jsx";
-import Pills from "@/components/partials/Pills.jsx";
 import SearchBar from "@/components/partials/SearchBar";
 import ServerError from "@/components/partials/ServerError";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
-import ModalReset from "@/components/partials/modals/ModalReset.jsx";
-import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
 import {
   setError,
-  setIsAdd,
   setIsConfirm,
   setIsDelete,
   setMessage,
   setSuccess,
 } from "@/components/store/StoreAction";
 
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import { queryData } from "@/components/helpers/queryData";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
-import { CiViewList } from "react-icons/ci";
-import { FiFilePlus, FiTrash } from "react-icons/fi";
+import { CiSquarePlus, CiViewList } from "react-icons/ci";
+import { FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 import ModalEditStudent from "../students/StudentEdit/ModalEditStudent";
@@ -41,6 +37,9 @@ const AllStudentList = ({ gradeLevel, isOngoing }) => {
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
   const [onSearch, setOnSearch] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const queryClient = useQueryClient();
+
   let counter = 1;
 
   const {
@@ -70,6 +69,12 @@ const AllStudentList = ({ gradeLevel, isOngoing }) => {
     refetchOnWindowFocus: false,
   });
 
+  const { data: schoolYear } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "school-year" // key
+  );
+
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
     setId(item.students_aid);
@@ -96,6 +101,9 @@ const AllStudentList = ({ gradeLevel, isOngoing }) => {
   };
 
   const handleEnroll = async (item) => {
+    // console.log(item);
+    setLoading(true);
+
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
       dispatch(setMessage("There's no enrollment yet."));
@@ -104,15 +112,19 @@ const AllStudentList = ({ gradeLevel, isOngoing }) => {
 
     const enroll = await queryData("/v2/dev-client-student/enroll", "post", {
       ...item,
+      current_students_sy_id: schoolYear?.data[0].school_year_aid,
     });
 
     if (enroll.success) {
+      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
+      setLoading(false);
       dispatch(setSuccess(true));
       dispatch(setMessage("Successfully enrolled."));
     }
     if (!enroll.success) {
       dispatch(setError(true));
       dispatch(setMessage(enroll.error));
+      setLoading(false);
     }
   };
 
@@ -135,16 +147,15 @@ const AllStudentList = ({ gradeLevel, isOngoing }) => {
         onSearch={onSearch}
       />
       <div className="main__table relative">
-        {isFetching && !isFetchingNextPage && status !== "loading" && (
-          <FetchingSpinner />
-        )}
+        {((isFetching && !isFetchingNextPage && status !== "loading") ||
+          loading) && <FetchingSpinner />}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th className="w-20">Status</th>
+                  {/* <th className="w-20">Status</th> */}
                   <th>Name</th>
                   <th>Grade Level</th>
                   <th>S.Y</th>
@@ -179,7 +190,7 @@ const AllStudentList = ({ gradeLevel, isOngoing }) => {
                     {page.data.map((item, key) => (
                       <tr key={key}>
                         <td>{counter++}.</td>
-                        <td>
+                        {/* <td>
                           <Pills
                             bg="bg-gray-200"
                             label={
@@ -193,7 +204,7 @@ const AllStudentList = ({ gradeLevel, isOngoing }) => {
                                 : "text-gray-500"
                             }
                           />
-                        </td>
+                        </td> */}
                         <td>{item.student_fullname}</td>
                         <td>{item.grade_level_name}</td>
                         <td>{item.school_year}</td>
@@ -201,13 +212,15 @@ const AllStudentList = ({ gradeLevel, isOngoing }) => {
                         <td>
                           {item.students_is_active === 1 ? (
                             <div className="flex gap-2 justify-end">
-                              <button
-                                className="tooltip text-base"
-                                data-tooltip="Enroll"
-                                onClick={() => handleEnroll(item)}
-                              >
-                                <FiFilePlus />
-                              </button>
+                              {isOngoing === 1 && (
+                                <button
+                                  className="tooltip text-base"
+                                  data-tooltip="Enroll"
+                                  onClick={() => handleEnroll(item)}
+                                >
+                                  <CiSquarePlus />
+                                </button>
+                              )}
 
                               <button
                                 className="tooltip text-base"

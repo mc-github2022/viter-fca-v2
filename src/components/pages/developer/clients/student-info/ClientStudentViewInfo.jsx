@@ -9,6 +9,7 @@ import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
+import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import {
   setError,
   setIsAdd,
@@ -17,6 +18,7 @@ import {
   setSuccess,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
+import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { FaAngleLeft, FaPlus } from "react-icons/fa";
 import { FiEdit2, FiFilePlus, FiTrash } from "react-icons/fi";
@@ -32,7 +34,9 @@ const ClientStudentViewInfo = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
   const cid = getUrlParam().get("cid");
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { data: schoolYear } = useQueryData(
@@ -93,6 +97,9 @@ const ClientStudentViewInfo = () => {
   );
 
   const handleEnroll = async (item) => {
+    // console.log(item);
+    setLoading(true);
+
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
       dispatch(setMessage("There's no enrollment yet."));
@@ -101,16 +108,19 @@ const ClientStudentViewInfo = () => {
 
     const enroll = await queryData("/v2/dev-client-student/enroll", "post", {
       ...item,
-      school_year_students_sy_id: schoolYear?.data[0].school_year_aid,
+      current_students_sy_id: schoolYear?.data[0].school_year_aid,
     });
 
     if (enroll.success) {
+      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
+      setLoading(false);
       dispatch(setSuccess(true));
       dispatch(setMessage("Successfully enrolled."));
     }
     if (!enroll.success) {
       dispatch(setError(true));
       dispatch(setMessage(enroll.error));
+      setLoading(false);
     }
   };
 
@@ -164,7 +174,7 @@ const ClientStudentViewInfo = () => {
               </div>
 
               <button
-                className="btn btn--sm mt-1 border-0 border-b rounded-none hover:border-b border-white hover:border-accent"
+                className="btn btn--sm mt-1 hover:underline"
                 data-tooltip="New"
                 onClick={handleAddStudent}
               >
@@ -172,9 +182,11 @@ const ClientStudentViewInfo = () => {
               </button>
             </div>
 
-            <div className="max-w-[620px] w-full gap-4 mb-5 ">
-              {isLoading || (isFetching && <TableLoading />)}
-              {mystudent?.data.length === 0 ? (
+            <div className="max-w-[620px] w-full gap-4 mb-5 relative">
+              {(loading || isFetching) && <TableSpinner />}
+              {isLoading ? (
+                <TableLoading />
+              ) : mystudent?.data.length === 0 ? (
                 <NoData />
               ) : (
                 mystudent?.data.map((item, key) => {
@@ -216,13 +228,15 @@ const ClientStudentViewInfo = () => {
                       </button>
 
                       <div className="card__action absolute top-5 right-5 flex gap-2">
-                        <button
-                          className=" tooltip"
-                          data-tooltip="Enroll"
-                          onClick={() => handleEnroll(item)}
-                        >
-                          <FiFilePlus />
-                        </button>
+                        {isOngoing === 1 && (
+                          <button
+                            className=" tooltip"
+                            data-tooltip="Enroll"
+                            onClick={() => handleEnroll(item)}
+                          >
+                            <FiFilePlus />
+                          </button>
+                        )}
                         <button
                           className=" tooltip"
                           data-tooltip="Edit"

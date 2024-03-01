@@ -7,10 +7,24 @@ function checkCreateStudentSchoolYearByParent($object)
     return $query;
 }
 
+function checkCreateStudentSchoolYearByParentCurrent($object)
+{
+    $query = $object->createStudentSchoolYearByParentCurrent();
+    checkQuery($query, "There's a problem processing your request. (Create student school year by parent current)");
+    return $query;
+}
+
 function checkEnrollStudent($object)
 {
     $query = $object->enrollStudent();
     checkQuery($query, "There's a problem processing your request. (enroll student)");
+    return $query;
+}
+
+function checkUpdateSchoolYearStudentCurrent($object)
+{
+    $query = $object->updateSchoolYearStudentCurrent();
+    checkQuery($query, "There's a problem processing your request. (update school year student student)");
     return $query;
 }
 

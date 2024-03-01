@@ -32,48 +32,60 @@ const StudentProfileForm = ({
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const cid = getUrlParam().get("cid");
+  const queryClient = useQueryClient();
 
-  const {
-    isLoading,
-    error,
-    data: parentGuardian,
-  } = useQueryData(
+  const { error, data: parentGuardian } = useQueryData(
     "/v2/dev-students/parent-guardian", // endpoint
     "post", // method
     "parent-guardian", // key
     {
-      students_parent_id: itemEdit
-        ? itemEdit.students_parent_id
-        : store.credentials.data.role_is_parent === 1
-        ? store.credentials.data.parents_aid
-        : cid,
+      students_parent_id:
+        Object.keys(itemEdit).length > 0
+          ? itemEdit.students_parent_id
+          : store.credentials.data.role_is_parent === 1
+          ? store.credentials.data.parents_aid
+          : cid,
     },
     {
-      students_parent_id: itemEdit
-        ? itemEdit.students_parent_id
-        : store.credentials.data.role_is_parent === 1
-        ? store.credentials.data.parents_aid
-        : cid,
+      students_parent_id:
+        Object.keys(itemEdit).length > 0
+          ? itemEdit.students_parent_id
+          : store.credentials.data.role_is_parent === 1
+          ? store.credentials.data.parents_aid
+          : cid,
     }
   );
 
-  console.log(gradeLevel);
+  // console.log(parentGuardian);
+  // console.log({
+  //   students_parent_id:
+  //     Object.keys(itemEdit).length > 0
+  //       ? itemEdit.students_parent_id
+  //       : store.credentials.data.role_is_parent === 1
+  //       ? store.credentials.data.parents_aid
+  //       : cid,
+  // });
 
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/v2/dev-client-student/${itemEdit.students_aid}`
-          : `/v2/dev-client-student`,
-        itemEdit ? "put" : "post",
+        Object.keys(itemEdit).length > 0
+          ? `/v2/dev-students/${itemEdit.students_aid}/${itemEdit.school_year_aid}`
+          : // ? `/v2/dev-client-student/${itemEdit.students_aid}`
+            `/v2/dev-client-student`,
+        Object.keys(itemEdit).length > 0 ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
+
       // show error box
       if (data.success) {
-        dispatch(setIsAdd(false));
+        queryClient.invalidateQueries({ queryKey: ["mystudent"] });
+        queryClient.invalidateQueries({
+          queryKey: ["read-student-by-current-sy-id-parent"],
+        });
+        // dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
         dispatch(setMessage("Record successfully updated."));
       }
@@ -86,61 +98,65 @@ const StudentProfileForm = ({
 
   const syid = schoolYear?.data.find((item) => item.school_year_aid);
 
-  const queryClient = useQueryClient();
-
   const handleClose = () => {
     dispatch(setIsAdd(false));
   };
 
-  const initVal = itemEdit
-    ? { ...itemEdit, students_lrn_old: itemEdit ? itemEdit.students_lrn : "" }
-    : {
-        students_parent_id: itemEdit
-          ? itemEdit.students_parent_id
-          : store.credentials.data.role_is_parent === 1
-          ? store.credentials.data.parents_aid
-          : cid,
-        students_lrn: "",
-        students_fname: "",
-        students_lname: "",
-        students_mname: "",
-        students_gender: "",
-        students_birth_place: "",
-        students_birth_date: "",
-        students_email: "",
-        students_mobile: "",
-        students_landline: "",
-        students_address_id: "",
-        students_medical_remarks: "",
-        students_institutional_email: "",
-        students_family_doctor: "",
-        students_family_doctor_contact: "",
-        students_family_circumstances: "",
-        students_created: "",
-        students_datetime: "",
-        school_year_students_sy_id: syid.school_year_aid,
-        school_year_students_last_learning_type: "",
-        school_year_students_last_school_attended: "",
-        school_year_students_last_gpa: "",
-        school_year_students_grade_level_id: "",
-        school_year_students_last_school_address: "",
-        school_year_students_last_remarks: "",
-      };
+  const initVal =
+    Object.keys(itemEdit).length > 0
+      ? {
+          ...itemEdit,
+          students_lrn_old: itemEdit ? itemEdit.students_lrn : "",
+        }
+      : {
+          students_parent_id:
+            Object.keys(itemEdit).length > 0
+              ? itemEdit.students_parent_id
+              : store.credentials.data.role_is_parent === 1
+              ? store.credentials.data.parents_aid
+              : cid,
+          students_lrn: "",
+          students_fname: "",
+          students_lname: "",
+          students_mname: "",
+          students_gender: "",
+          students_birth_place: "",
+          students_birth_date: "",
+          students_email: "",
+          students_mobile: "",
+          students_landline: "",
+          students_address_id: "",
+          students_medical_remarks: "",
+          students_institutional_email: "",
+          students_family_doctor: "",
+          students_family_doctor_contact: "",
+          students_family_circumstances: "",
+          students_created: "",
+          students_datetime: "",
+          current_students_sy_id: syid.school_year_aid,
+          current_students_last_learning_type: "",
+          current_students_last_school_attended: "",
+          current_students_last_gpa: "",
+          current_students_grade_level_id: "",
+          current_students_last_school_address: "",
+          current_students_last_remarks: "",
+        };
 
   const yupSchema = Yup.object({
     students_fname: Yup.string().required("Required"),
     students_lname: Yup.string().required("Required"),
     students_gender: Yup.string().required("Required"),
-    students_birth_place: Yup.string().required("Required"),
+    current_students_grade_level_id: Yup.string().required("Required"),
+    // students_birth_place: Yup.string().required("Required"),
     students_birth_date: Yup.string().required("Required"),
     students_address_id: Yup.string().required("Required"),
-    school_year_students_last_learning_type: Yup.string().required("Required"),
-    school_year_students_last_school_attended:
-      Yup.string().required("Required"),
-    school_year_students_last_gpa: Yup.string().required("Required"),
-    school_year_students_last_grade_level_id: Yup.string().required("Required"),
-    school_year_students_last_school_address: Yup.string().required("Required"),
+    current_students_last_learning_type: Yup.string().required("Required"),
+    // current_students_last_school_attended: Yup.string().required("Required"),
+    // current_students_last_gpa: Yup.string().required("Required"),
+    // current_students_last_grade_level_id: Yup.string().required("Required"),
+    // current_students_last_school_address: Yup.string().required("Required"),
   });
+
   return (
     <>
       <Formik
@@ -160,7 +176,7 @@ const StudentProfileForm = ({
                       showSideNav
                         ? "max-w-[calc(1065px-0px)]"
                         : "max-w-[calc(1065px-200px)]"
-                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
+                    } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <button
                       className="btn btn--accent"
@@ -194,7 +210,7 @@ const StudentProfileForm = ({
                     <div className="form__wrap">
                       <InputSelect
                         label="Learning Type"
-                        name="school_year_students_last_learning_type"
+                        name="current_students_last_learning_type"
                         disabled={mutation.isPending}
                       >
                         <option value="" hidden></option>
@@ -215,7 +231,7 @@ const StudentProfileForm = ({
                     <div className="form__wrap">
                       <InputSelect
                         label="Grade Level"
-                        name="school_year_students_grade_level_id"
+                        name="current_students_grade_level_id"
                         disabled={mutation.isPending}
                       >
                         <option value="" hidden></option>
@@ -353,7 +369,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Last School Name"
                         type="text"
-                        name="school_year_students_last_school_attended"
+                        name="current_students_last_school_attended"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -361,14 +377,14 @@ const StudentProfileForm = ({
                       <InputText
                         label="GPA Last School Year"
                         type="text"
-                        name="school_year_students_last_gpa"
+                        name="current_students_last_gpa"
                         disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
                       <InputSelect
-                        label="Grade Level"
-                        name="school_year_students_last_grade_level_id"
+                        label="Last Grade Level"
+                        name="current_students_last_grade_level_id"
                         disabled
                       >
                         <option value="" hidden></option>
@@ -394,7 +410,7 @@ const StudentProfileForm = ({
                       <InputText
                         label="Last School Address"
                         type="text"
-                        name="school_year_students_last_school_address"
+                        name="current_students_last_school_address"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -405,7 +421,7 @@ const StudentProfileForm = ({
                       <InputTextArea
                         label="Was the student ever submitted to any form of disciplinary action? If so, why?"
                         type="text"
-                        name="school_year_students_last_remarks"
+                        name="current_students_last_remarks"
                         disabled={mutation.isPending}
                       />
                     </div>
@@ -454,7 +470,7 @@ const StudentProfileForm = ({
         }}
       </Formik>
 
-      {store.success && <ModalSuccess />}
+      {/* {store.success && <ModalSuccess />} */}
       {store.validate && <ModalValidate />}
     </>
   );

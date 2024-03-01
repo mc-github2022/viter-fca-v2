@@ -44,6 +44,31 @@ class ClientStudent
     public $school_year_students_created;
     public $school_year_students_datetime;
 
+    public $current_students_aid;
+    public $current_students_is_active;
+
+    public $current_students_last_learning_type;
+    public $current_students_sy_id;
+    public $current_students_grade_level_id;
+    public $current_students_last_grade_level_id;
+    public $current_students_student_id;
+    public $current_students_last_school_attended;
+    public $current_students_last_gpa;
+    public $current_students_last_school_address;
+    public $current_students_last_remarks;
+    public $current_students_last_coc_is_agree;
+    public $current_students_last_parent_declaration_is_agree;
+    public $current_students_last_parent_consent_is_agree;
+    public $current_students_last_parent_commitment_is_agree;
+    public $current_students_is_notify;
+    public $current_students_is_accept_payment;
+    public $current_students_schedule_fees_id;
+    public $current_students_rate_id;
+    public $current_students_primary_discount_id;
+    public $current_students_additional_discount_id;
+    public $current_students_created;
+    public $current_students_datetime;
+
     public $grade_level_order;
 
     public $connection;
@@ -55,6 +80,7 @@ class ClientStudent
     public $tblParent;
     public $tblStudent;
     public $tblSyStudent;
+    public $tblSyStudentCurrent;
     public $tblSchoolYear;
     public $tblGradeLevel;
     public $tblParentInfo;
@@ -68,6 +94,7 @@ class ClientStudent
         $this->tblParent = "fcav2_parents";
         $this->tblStudent = "fcav2_students";
         $this->tblSyStudent = "fcav2_school_year_students";
+        $this->tblSyStudentCurrent = "fcav2_school_year_students_current";
         $this->tblGradeLevel = "fcav2_settings_grade_level";
         $this->tblParentInfo = "fcav2_info_parent_guardian";
         $this->tblSchoolYear = "fcav2_settings_school_year";
@@ -376,13 +403,13 @@ class ClientStudent
     public function checkStudent()
     {
         try {
-            $sql = "select * from {$this->tblSyStudent} ";
-            $sql .= "where school_year_students_sy_id = :school_year_students_sy_id ";
-            $sql .= "and school_year_students_student_id = :school_year_students_student_id ";
+            $sql = "select * from {$this->tblSyStudentCurrent} ";
+            $sql .= "where current_students_sy_id = :current_students_sy_id ";
+            $sql .= "and current_students_student_id = :current_students_student_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "school_year_students_sy_id" => $this->school_year_students_sy_id,
-                "school_year_students_student_id" => $this->school_year_students_student_id,
+                "current_students_sy_id" => $this->current_students_sy_id,
+                "current_students_student_id" => $this->current_students_student_id,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -406,30 +433,77 @@ class ClientStudent
             $sql .= "school_year_students_last_remarks, ";
             $sql .= "school_year_students_created, ";
             $sql .= "school_year_students_datetime ) values ( ";
-            $sql .= ":school_year_students_is_active, ";
-            $sql .= ":school_year_students_sy_id, ";
-            $sql .= ":school_year_students_student_id, ";
-            $sql .= ":school_year_students_last_learning_type, ";
-            $sql .= ":school_year_students_last_school_attended, ";
-            $sql .= ":school_year_students_last_gpa, ";
-            $sql .= ":school_year_students_grade_level_id, ";
-            $sql .= ":school_year_students_last_school_address, ";
-            $sql .= ":school_year_students_last_remarks, ";
-            $sql .= ":school_year_students_created, ";
-            $sql .= ":school_year_students_datetime ) ";
+            $sql .= ":current_students_is_active, ";
+            $sql .= ":current_students_sy_id, ";
+            $sql .= ":current_students_student_id, ";
+            $sql .= ":current_students_last_learning_type, ";
+            $sql .= ":current_students_last_school_attended, ";
+            $sql .= ":current_students_last_gpa, ";
+            $sql .= ":current_students_grade_level_id, ";
+            $sql .= ":current_students_last_school_address, ";
+            $sql .= ":current_students_last_remarks, ";
+            $sql .= ":current_students_created, ";
+            $sql .= ":current_students_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "school_year_students_is_active" => $this->students_is_active,
-                "school_year_students_sy_id" => $this->school_year_students_sy_id,
-                "school_year_students_student_id" => $this->lastInsertedId,
-                "school_year_students_last_learning_type" => $this->school_year_students_last_learning_type,
-                "school_year_students_last_school_attended" => $this->school_year_students_last_school_attended,
-                "school_year_students_last_gpa" => $this->school_year_students_last_gpa,
-                "school_year_students_grade_level_id" => $this->school_year_students_grade_level_id,
-                "school_year_students_last_school_address" => $this->school_year_students_last_school_address,
-                "school_year_students_last_remarks" => $this->school_year_students_last_remarks,
-                "school_year_students_created" => $this->students_created,
-                "school_year_students_datetime" => $this->students_datetime
+                "current_students_is_active" => $this->students_is_active,
+                "current_students_sy_id" => $this->current_students_sy_id,
+                "current_students_student_id" => $this->lastInsertedId,
+                "current_students_last_learning_type" => $this->current_students_last_learning_type,
+                "current_students_last_school_attended" => $this->current_students_last_school_attended,
+                "current_students_last_gpa" => $this->current_students_last_gpa,
+                "current_students_grade_level_id" => $this->current_students_grade_level_id,
+                "current_students_last_school_address" => $this->current_students_last_school_address,
+                "current_students_last_remarks" => $this->current_students_last_remarks,
+                "current_students_created" => $this->students_created,
+                "current_students_datetime" => $this->students_datetime
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function createStudentSchoolYearByParentCurrent()
+    {
+        try {
+            $sql = "insert into {$this->tblSyStudentCurrent} ";
+            $sql .= "( ";
+            $sql .= "current_students_is_active, ";
+            $sql .= "current_students_sy_id, ";
+            $sql .= "current_students_student_id, ";
+            $sql .= "current_students_last_learning_type, ";
+            $sql .= "current_students_last_school_attended, ";
+            $sql .= "current_students_last_gpa, ";
+            $sql .= "current_students_grade_level_id, ";
+            $sql .= "current_students_last_school_address, ";
+            $sql .= "current_students_last_remarks, ";
+            $sql .= "current_students_created, ";
+            $sql .= "current_students_datetime ) values ( ";
+            $sql .= ":current_students_is_active, ";
+            $sql .= ":current_students_sy_id, ";
+            $sql .= ":current_students_student_id, ";
+            $sql .= ":current_students_last_learning_type, ";
+            $sql .= ":current_students_last_school_attended, ";
+            $sql .= ":current_students_last_gpa, ";
+            $sql .= ":current_students_grade_level_id, ";
+            $sql .= ":current_students_last_school_address, ";
+            $sql .= ":current_students_last_remarks, ";
+            $sql .= ":current_students_created, ";
+            $sql .= ":current_students_datetime ) ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "current_students_is_active" => $this->students_is_active,
+                "current_students_sy_id" => $this->current_students_sy_id,
+                "current_students_student_id" => $this->lastInsertedId,
+                "current_students_last_learning_type" => $this->current_students_last_learning_type,
+                "current_students_last_school_attended" => $this->current_students_last_school_attended,
+                "current_students_last_gpa" => $this->current_students_last_gpa,
+                "current_students_grade_level_id" => $this->current_students_grade_level_id,
+                "current_students_last_school_address" => $this->current_students_last_school_address,
+                "current_students_last_remarks" => $this->current_students_last_remarks,
+                "current_students_created" => $this->students_created,
+                "current_students_datetime" => $this->students_datetime
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -454,32 +528,66 @@ class ClientStudent
             $sql .= "school_year_students_last_remarks, ";
             $sql .= "school_year_students_created, ";
             $sql .= "school_year_students_datetime ) values ( ";
-            $sql .= ":school_year_students_is_active, ";
-            $sql .= ":school_year_students_sy_id, ";
-            $sql .= ":school_year_students_student_id, ";
-            $sql .= ":school_year_students_last_learning_type, ";
-            $sql .= ":school_year_students_last_school_attended, ";
-            $sql .= ":school_year_students_last_gpa, ";
-            $sql .= ":school_year_students_grade_level_id, ";
-            $sql .= ":school_year_students_last_grade_level_id, ";
-            $sql .= ":school_year_students_last_school_address, ";
-            $sql .= ":school_year_students_last_remarks, ";
-            $sql .= ":school_year_students_created, ";
-            $sql .= ":school_year_students_datetime ) ";
+            $sql .= ":current_students_is_active, ";
+            $sql .= ":current_students_sy_id, ";
+            $sql .= ":current_students_student_id, ";
+            $sql .= ":current_students_last_learning_type, ";
+            $sql .= ":current_students_last_school_attended, ";
+            $sql .= ":current_students_last_gpa, ";
+            $sql .= ":current_students_grade_level_id, ";
+            $sql .= ":current_students_last_grade_level_id, ";
+            $sql .= ":current_students_last_school_address, ";
+            $sql .= ":current_students_last_remarks, ";
+            $sql .= ":current_students_created, ";
+            $sql .= ":current_students_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "school_year_students_is_active" => $this->school_year_students_is_active,
-                "school_year_students_sy_id" => $this->school_year_students_sy_id,
-                "school_year_students_student_id" => $this->school_year_students_student_id,
-                "school_year_students_last_learning_type" => $this->school_year_students_last_learning_type,
-                "school_year_students_last_school_attended" => $this->school_year_students_last_school_attended,
-                "school_year_students_last_gpa" => $this->school_year_students_last_gpa,
-                "school_year_students_grade_level_id" => $this->school_year_students_grade_level_id,
-                "school_year_students_last_grade_level_id" => $this->school_year_students_last_grade_level_id,
-                "school_year_students_last_school_address" => $this->school_year_students_last_school_address,
-                "school_year_students_last_remarks" => $this->school_year_students_last_remarks,
-                "school_year_students_created" => $this->school_year_students_created,
-                "school_year_students_datetime" => $this->school_year_students_datetime
+                "current_students_is_active" => $this->current_students_is_active,
+                "current_students_sy_id" => $this->current_students_sy_id,
+                "current_students_student_id" => $this->current_students_student_id,
+                "current_students_last_learning_type" => $this->current_students_last_learning_type,
+                "current_students_last_school_attended" => $this->current_students_last_school_attended,
+                "current_students_last_gpa" => $this->current_students_last_gpa,
+                "current_students_grade_level_id" => $this->current_students_grade_level_id,
+                "current_students_last_grade_level_id" => $this->current_students_last_grade_level_id,
+                "current_students_last_school_address" => $this->current_students_last_school_address,
+                "current_students_last_remarks" => $this->current_students_last_remarks,
+                "current_students_created" => $this->current_students_created,
+                "current_students_datetime" => $this->current_students_datetime
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // update school year students current -> current record
+    public function updateSchoolYearStudentCurrent()
+    {
+        try {
+            $sql = "update {$this->tblSyStudentCurrent} set ";
+            $sql .= "current_students_sy_id = :current_students_sy_id, ";
+            $sql .= "current_students_grade_level_id = :current_students_grade_level_id, ";
+            $sql .= "current_students_last_grade_level_id = :current_students_last_grade_level_id, ";
+            $sql .= "current_students_is_notify = 0, ";
+            $sql .= "current_students_is_accept_payment = 0, ";
+            $sql .= "current_students_schedule_fees_id = 0, ";
+            $sql .= "current_students_rate_id = 0, ";
+            $sql .= "current_students_primary_discount_id = 0, ";
+            $sql .= "current_students_additional_discount_id = 0, ";
+            $sql .= "current_students_last_coc_is_agree = 0, ";
+            $sql .= "current_students_last_parent_declaration_is_agree = 0, ";
+            $sql .= "current_students_last_parent_consent_is_agree = 0, ";
+            $sql .= "current_students_last_parent_commitment_is_agree = 0, ";
+            $sql .= "current_students_datetime = :current_students_datetime ";
+            $sql .= "where current_students_student_id = :current_students_student_id  ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "current_students_sy_id" => $this->current_students_sy_id,
+                "current_students_grade_level_id" => $this->current_students_grade_level_id,
+                "current_students_last_grade_level_id" => $this->current_students_last_grade_level_id,
+                "current_students_datetime" => $this->current_students_datetime,
+                "current_students_student_id" => $this->current_students_student_id,
             ]);
         } catch (PDOException $ex) {
             $query = false;

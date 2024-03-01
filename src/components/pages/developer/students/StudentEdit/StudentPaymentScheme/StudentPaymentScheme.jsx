@@ -5,6 +5,7 @@ import { setIsAdd, setSettingIsConfirm } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
 import { BiSolidCheckCircle } from "react-icons/bi";
+import { FaExclamationCircle } from "react-icons/fa";
 import {
   getMonthlyFeeDiscountedAmount,
   getPrimaryPercentDiscount,
@@ -12,9 +13,8 @@ import {
   getTotalPaymentDiscountedAmount,
   getTotalPaymentWithComma,
 } from "../../../assessment/modal/functions-assessment";
-import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
-import { FaExclamationCircle } from "react-icons/fa";
 import { getStudentByCurrentSyId } from "../../functions-student";
+import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
 
 const StudentPaymentScheme = ({
   setIsViewInfo,
@@ -91,7 +91,7 @@ const StudentPaymentScheme = ({
               showSideNav
                 ? "max-w-[calc(1065px-0px)]"
                 : "max-w-[calc(1065px-200px)]"
-            } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] p-4 w-full `}
+            } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
           >
             <div className="flex items-center gap-2">
               {(store.credentials.data.role_is_admin === 1 ||
@@ -211,7 +211,7 @@ const StudentPaymentScheme = ({
             </>
           ) : (
             <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 w-full z-10 ">
-              <FaExclamationCircle className="h-6 w-6 fill-white bg-[#f09a02] rounded-full" />
+              <FaExclamationCircle className="h-5 w-5 fill-[#f09a02] rounded-full" />
               Pending From FCA Finance
             </p>
           )}

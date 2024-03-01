@@ -23,7 +23,6 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["students"] });
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
-      queryClient.invalidateQueries({ queryKey: ["students"] });
       queryClient.invalidateQueries({
         queryKey: ["read-student-by-current-sy-id"],
       });
@@ -221,6 +220,7 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
                         type="checkbox"
                         name="current_students_last_coc_is_agree"
                         id="current_students_last_coc_is_agree"
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>

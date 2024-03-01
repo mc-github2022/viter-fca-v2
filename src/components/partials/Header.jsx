@@ -108,7 +108,7 @@ const Header = ({ isLoading, schoolYear }) => {
               className={`uppercase text-base flex items-center justify-center gap-2 text-center ${
                 schoolYear?.count > 0 &&
                 schoolYear?.data[0].school_year_is_enrollment_open === 1
-                  ? "bg-blue-100"
+                  ? "bg-[#d2e3fc]"
                   : "bg-[#fff5c2]"
               }  mb-0 h-10 fixed w-full z-10 top-0`}
             >
@@ -116,7 +116,7 @@ const Header = ({ isLoading, schoolYear }) => {
               schoolYear?.data[0].school_year_is_enrollment_open === 1 ? (
                 <FaBullhorn className="h-5 w-5 fill-accent" />
               ) : (
-                <FaExclamationCircle className="h-6 w-6 fill-[#f09a02] rounded-full" />
+                <FaExclamationCircle className="h-5 w-5 fill-[#f09a02] rounded-full" />
               )}
               {schoolYear?.isGreaterThanEndYear ? (
                 <span>

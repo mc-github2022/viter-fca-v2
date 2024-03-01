@@ -45,8 +45,9 @@ const StudentParentDeclaration = ({ showSideNav, dataItem, handleClose }) => {
   });
 
   const initVal = {
-    school_year_students_aid: dataItem.school_year_students_aid,
-    school_year_students_last_parent_declaration_is_agree:
+    students_aid: dataItem.students_aid,
+    current_students_sy_id: dataItem.current_students_sy_id,
+    current_students_last_parent_declaration_is_agree:
       dataItem.current_students_last_parent_declaration_is_agree === 0
         ? false
         : true,
@@ -193,8 +194,9 @@ const StudentParentDeclaration = ({ showSideNav, dataItem, handleClose }) => {
                         label="I agree and undestand this code of conduct"
                         type="checkbox"
                         className="mb-0 !text-xs font-bold"
-                        name="school_year_students_last_parent_declaration_is_agree"
-                        id="school_year_students_last_parent_declaration_is_agree"
+                        name="current_students_last_parent_declaration_is_agree"
+                        id="current_students_last_parent_declaration_is_agree"
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>

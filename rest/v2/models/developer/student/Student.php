@@ -234,6 +234,7 @@ class Student
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
+            $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and (syStudentCurrent.current_students_last_coc_is_agree = 0 ";
@@ -268,6 +269,7 @@ class Student
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
+            $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and (syStudentCurrent.current_students_last_coc_is_agree = 0 ";
@@ -308,6 +310,7 @@ class Student
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
+            $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and (syStudentCurrent.current_students_last_coc_is_agree = 0 ";
@@ -737,7 +740,7 @@ class Student
             $sql .= "current_students_last_coc_is_agree, ";
             $sql .= "current_students_last_parent_declaration_is_agree, ";
             $sql .= "current_students_last_parent_consent_is_agree ";
-            $sql .= "from {$this->tblSyStudent} ";
+            $sql .= "from {$this->tblSyStudentCurrent} ";
             $sql .= "where current_students_student_id = :current_students_student_id ";
             $sql .= "and current_students_sy_id = :current_students_sy_id ";
             $query = $this->connection->prepare($sql);
