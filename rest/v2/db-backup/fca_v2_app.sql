@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 29, 2024 at 12:46 AM
+-- Generation Time: Mar 06, 2024 at 12:32 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -104,7 +104,7 @@ CREATE TABLE `fcav2_parents` (
 --
 
 INSERT INTO `fcav2_parents` (`parents_aid`, `parents_is_active`, `parents_email`, `parents_fname`, `parents_lname`, `parents_father_income`, `parents_mother_income`, `parents_financier_name`, `parents_financier_relationship`, `parents_financier_occupation`, `parents_financier_income`, `parents_datetime`, `parents_created`) VALUES
-(1, 1, 'macdet21@gmail.com', 'Patrick', 'Reyes', '', '', '', '', '', '', '2024-02-20 07:45:59', '2024-02-20 07:45:59');
+(1, 1, 'cyrenemlumabas@gmail.com', 'Patrick', 'Reyes', '', '', '', '', '', '', '2024-02-20 07:45:59', '2024-02-20 07:45:59');
 
 -- --------------------------------------------------------
 
@@ -143,9 +143,48 @@ CREATE TABLE `fcav2_school_year_students` (
 --
 
 INSERT INTO `fcav2_school_year_students` (`school_year_students_aid`, `school_year_students_is_active`, `school_year_students_sy_id`, `school_year_students_student_id`, `school_year_students_grade_level_id`, `school_year_students_last_learning_type`, `school_year_students_last_school_attended`, `school_year_students_last_gpa`, `school_year_students_last_grade_level_id`, `school_year_students_last_school_address`, `school_year_students_last_remarks`, `school_year_students_is_notify`, `school_year_students_is_accept_payment`, `school_year_students_schedule_fees_id`, `school_year_students_rate_id`, `school_year_students_primary_discount_id`, `school_year_students_additional_discount_id`, `school_year_students_last_coc_is_agree`, `school_year_students_last_parent_declaration_is_agree`, `school_year_students_last_parent_consent_is_agree`, `school_year_students_last_parent_commitment_is_agree`, `school_year_students_created`, `school_year_students_datetime`) VALUES
-(1, 1, 1, 1, 4, 'onsite', 'Ambray Elemantary School', '95', 0, 'San Pablo City, Laguna, Philippines 4000', 'N/a', 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, '2024-02-28 13:54:39', '0000-00-00 00:00:00'),
-(2, 1, 1, 2, 1, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 0, 'San Pablo City, Laguna, Philippines 4000', 'N/A', 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, '2024-02-28 14:01:43', '0000-00-00 00:00:00'),
-(8, 1, 2, 2, 2, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 1, 'San Pablo City, Laguna, Philippines 4000', 'N/A', 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, '2024-02-28 16:51:09', '0000-00-00 00:00:00');
+(1, 1, 2, 1, 1, 'online', 'Ambray Elemantary School', '95', 0, 'San Pablo City, Laguna, Philippines 4000', 'N/a', 0, 0, 13, 3, 3, 0, 1, 1, 1, 0, '2024-02-28 13:54:39', '2024-03-06 07:29:36'),
+(8, 1, 2, 2, 1, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 0, 'San Pablo City, Laguna, Philippines 4000', 'N/A', 1, 0, 0, 2, 3, 0, 1, 1, 1, 1, '2024-02-28 16:51:09', '2024-02-29 14:54:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fcav2_school_year_students_current`
+--
+
+CREATE TABLE `fcav2_school_year_students_current` (
+  `current_students_aid` int(11) NOT NULL,
+  `current_students_is_active` tinyint(1) NOT NULL,
+  `current_students_sy_id` int(11) NOT NULL,
+  `current_students_student_id` int(11) NOT NULL,
+  `current_students_grade_level_id` int(11) NOT NULL,
+  `current_students_last_learning_type` varchar(20) NOT NULL,
+  `current_students_last_school_attended` varchar(255) NOT NULL,
+  `current_students_last_gpa` varchar(20) NOT NULL,
+  `current_students_last_grade_level_id` int(11) NOT NULL,
+  `current_students_last_school_address` text NOT NULL,
+  `current_students_last_remarks` text NOT NULL,
+  `current_students_is_notify` tinyint(1) NOT NULL,
+  `current_students_is_accept_payment` tinyint(1) NOT NULL,
+  `current_students_schedule_fees_id` int(11) NOT NULL,
+  `current_students_rate_id` int(11) NOT NULL,
+  `current_students_primary_discount_id` int(11) NOT NULL,
+  `current_students_additional_discount_id` int(11) NOT NULL,
+  `current_students_last_coc_is_agree` tinyint(1) NOT NULL,
+  `current_students_last_parent_declaration_is_agree` tinyint(1) NOT NULL,
+  `current_students_last_parent_consent_is_agree` tinyint(1) NOT NULL,
+  `current_students_last_parent_commitment_is_agree` tinyint(1) NOT NULL,
+  `current_students_created` datetime NOT NULL,
+  `current_students_datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_school_year_students_current`
+--
+
+INSERT INTO `fcav2_school_year_students_current` (`current_students_aid`, `current_students_is_active`, `current_students_sy_id`, `current_students_student_id`, `current_students_grade_level_id`, `current_students_last_learning_type`, `current_students_last_school_attended`, `current_students_last_gpa`, `current_students_last_grade_level_id`, `current_students_last_school_address`, `current_students_last_remarks`, `current_students_is_notify`, `current_students_is_accept_payment`, `current_students_schedule_fees_id`, `current_students_rate_id`, `current_students_primary_discount_id`, `current_students_additional_discount_id`, `current_students_last_coc_is_agree`, `current_students_last_parent_declaration_is_agree`, `current_students_last_parent_consent_is_agree`, `current_students_last_parent_commitment_is_agree`, `current_students_created`, `current_students_datetime`) VALUES
+(1, 1, 2, 1, 1, 'online', 'Ambray Elemantary School', '95', 0, 'San Pablo City, Laguna, Philippines 4000', 'n/a', 0, 0, 13, 3, 3, 0, 1, 1, 1, 1, '2024-03-01 00:41:40', '2024-03-06 07:29:36'),
+(8, 1, 2, 2, 1, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 0, 'San Pablo City, Laguna, Philippines 4000', 'n/a', 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, '2024-03-01 00:41:40', '2024-03-01 00:41:40');
 
 -- --------------------------------------------------------
 
@@ -163,6 +202,18 @@ CREATE TABLE `fcav2_school_year_students_requirements` (
   `students_requirements_created` datetime NOT NULL,
   `students_requirements_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_school_year_students_requirements`
+--
+
+INSERT INTO `fcav2_school_year_students_requirements` (`students_requirements_aid`, `students_requirements_is_active`, `students_requirements_sy_id`, `students_requirements_student_id`, `students_requirements_id`, `students_requirements_remarks`, `students_requirements_created`, `students_requirements_datetime`) VALUES
+(1, 1, 2, 2, 1, '', '2024-03-06 07:26:09', '2024-03-06 07:26:09'),
+(2, 1, 2, 2, 2, '', '2024-03-06 07:26:11', '2024-03-06 07:26:11'),
+(3, 1, 2, 2, 3, '', '2024-03-06 07:26:11', '2024-03-06 07:26:11'),
+(4, 1, 2, 2, 4, '', '2024-03-06 07:26:12', '2024-03-06 07:26:12'),
+(5, 1, 2, 2, 5, '', '2024-03-06 07:26:12', '2024-03-06 07:26:12'),
+(6, 1, 2, 2, 6, '', '2024-03-06 07:26:12', '2024-03-06 07:26:12');
 
 -- --------------------------------------------------------
 
@@ -213,7 +264,8 @@ CREATE TABLE `fcav2_settings_discount` (
 --
 
 INSERT INTO `fcav2_settings_discount` (`discount_aid`, `discount_category_id`, `discount_type`, `discount_is_active`, `discount_admission_fee`, `discount_tuition_fee`, `discount_qualification`, `discount_duration`, `discount_maintaining_grade`, `discount_requirement`, `discount_created`, `discount_updated`) VALUES
-(1, '1', '', 1, '20', '2', 'xcbb', 'cvn', '13', 'xcgn', '2024-02-19 16:05:33', '2024-02-20 06:48:00');
+(1, '1', 'Academic - Top 1&2 G4/G7', 1, '50', '50', 'Top 1/2  of class', 'Up to G6 or G10', '87', 'Cert from Prev School', '2024-02-19 16:05:33', '2024-02-29 08:07:36'),
+(3, '1', 'Pastor/Missionary Discount', 1, '30', '30', 'Child/ren of the qualified Pastor/Missionary', 'Duration of service at current church, or one (1) school year; whichever is longer.', '', 'Certification from church, and SEC Registration of church', '2024-02-29 08:07:57', '2024-02-29 08:07:57');
 
 -- --------------------------------------------------------
 
@@ -450,8 +502,9 @@ CREATE TABLE `fcav2_settings_scheme` (
 --
 
 INSERT INTO `fcav2_settings_scheme` (`scheme_aid`, `scheme_active`, `scheme_name`, `scheme_created`, `scheme_datetime`) VALUES
-(1, 1, 'test', '2024-02-26 15:22:59', '2024-02-26 15:22:59'),
-(2, 1, 'samp', '2024-02-26 15:25:17', '2024-02-26 15:25:17');
+(1, 1, 'Scheme A', '2024-02-26 15:22:59', '2024-02-29 07:49:01'),
+(2, 1, 'Scheme B', '2024-02-26 15:25:17', '2024-02-29 07:49:06'),
+(3, 1, 'Scheme C', '2024-02-29 07:48:56', '2024-02-29 07:49:09');
 
 -- --------------------------------------------------------
 
@@ -526,7 +579,7 @@ CREATE TABLE `fcav2_settings_system_mode` (
 --
 
 INSERT INTO `fcav2_settings_system_mode` (`system_mode_aid`, `system_mode_name`, `system_mode_is_on`, `system_mode_created`, `system_mode_updated`, `system_mode_is_maintenance`) VALUES
-(1, 'Maintenance', 1, '2024-02-15 13:53:53', '2024-02-29 07:45:15', 1);
+(1, 'Maintenance', 0, '2024-02-15 13:53:53', '2024-03-01 06:52:39', 1);
 
 -- --------------------------------------------------------
 
@@ -547,7 +600,9 @@ CREATE TABLE `fcav2_settings_tuition_category` (
 --
 
 INSERT INTO `fcav2_settings_tuition_category` (`tuition_category_aid`, `tuition_category_active`, `tuition_category_name`, `tuition_category_created`, `tuition_category_datetime`) VALUES
-(1, 1, 'test', '2024-02-26 15:22:56', '2024-02-26 15:22:56');
+(1, 1, 'Legacy', '2024-02-26 15:22:56', '2024-02-29 07:49:36'),
+(2, 1, 'Loyalty', '2024-02-29 07:49:46', '2024-02-29 07:49:46'),
+(3, 1, 'Regular', '2024-02-29 07:49:52', '2024-02-29 07:49:52');
 
 -- --------------------------------------------------------
 
@@ -580,11 +635,17 @@ CREATE TABLE `fcav2_settings_tuition_fee` (
 INSERT INTO `fcav2_settings_tuition_fee` (`tuition_fee_aid`, `tuition_fee_active`, `tuition_fee_category_id`, `tuition_fee_grade_id`, `tuition_fee_scheme_id`, `tuition_fee_miscellaneous`, `tuition_fee_tuition`, `tuition_fee_books`, `tuition_fee_admission`, `tuition_fee_upon_enrollment`, `tuition_fee_monthly`, `tuition_fee_how_many_months`, `tuition_fee_total_monthly`, `tuition_fee_created`, `tuition_fee_updated`) VALUES
 (1, 1, '5', '2', '2', '2000', '35000', '6320.79', '12000', '55320.79', '', '', '', '2024-02-20 00:00:00', '2024-02-26 14:19:20'),
 (2, 1, '5', '3', '2', '100', '400', '50', '300', '850', '', '', '', '2024-02-21 00:00:00', '2024-02-22 07:32:34'),
-(6, 1, '3', '2', '2', '20', '30', '40', '10', '100', '', '', '', '2024-02-26 00:00:00', '2024-02-26 10:06:47'),
+(6, 1, '2', '1', '3', '400', '6240', '1847.89', '2040', '10527.89', '4956.393', '9', '44607.537', '2024-02-26 00:00:00', '2024-02-29 08:00:07'),
 (7, 1, '5', '2', '3', '1000', '17500', '3160.40', '6000', '27660.4', '5707.078', '5', '28535.39', '2024-02-26 00:00:00', '2024-02-26 14:49:42'),
 (8, 1, '5', '2', '4', '400', '7000', '1264.16', '2400', '11064.16', '9411.326', '5', '47056.63', '2024-02-26 14:24:49', '2024-02-26 14:50:27'),
-(9, 1, '1', '3', '1', '200', '50', '200', '200', '650', '1000', '12', '12000', '2024-02-26 15:23:52', '2024-02-26 15:23:52'),
-(10, 1, '1', '3', '2', '123', '123', '123', '123', '492', '123', '12', '1476', '2024-02-26 15:25:31', '2024-02-26 15:25:31');
+(9, 1, '2', '1', '1', '2000', '31200', '9239.43', '10200', '52639.43', '', '', '0', '2024-02-26 15:23:52', '2024-02-29 07:51:07'),
+(10, 1, '2', '1', '2', '500', '7800', '2309.86', '2550', '13159.86', '13549.86', '3', '40649.58', '2024-02-26 15:25:31', '2024-02-29 07:51:59'),
+(11, 1, '3', '1', '1', '2000', '33000', '9239.43', '12000', '56239.43', '', '', '0', '2024-02-29 08:01:15', '2024-02-29 08:01:15'),
+(12, 1, '3', '1', '2', '500', '8250', '2309.86', '3000', '14059.86', '14472.356', '3', '43417.068', '2024-02-29 08:02:28', '2024-02-29 08:02:28'),
+(13, 1, '3', '1', '3', '400', '6600', '1847.89', '2400', '11247.89', '5292.393', '9', '47631.537', '2024-02-29 08:03:13', '2024-02-29 08:03:13'),
+(14, 1, '1', '1', '1', '1500', '27000', '11716.95', '8190', '48406.95', '', '', '0', '2024-02-29 08:04:41', '2024-02-29 08:04:41'),
+(15, 1, '1', '1', '2', '375.00', '6750.00', '2929.24', '2047.50', '12101.74', '12439.236', '3', '37317.708', '2024-02-29 08:06:23', '2024-02-29 08:06:23'),
+(16, 1, '1', '1', '3', '300', '5400', '2343.39', '1638', '9681.39', '4542.84', '9', '40885.56', '2024-02-29 08:06:57', '2024-02-29 08:06:57');
 
 -- --------------------------------------------------------
 
@@ -611,7 +672,7 @@ CREATE TABLE `fcav2_settings_user_other` (
 --
 
 INSERT INTO `fcav2_settings_user_other` (`user_other_aid`, `user_other_is_active`, `user_other_fname`, `user_other_lname`, `user_other_email`, `user_other_new_email`, `user_other_role_id`, `user_other_key`, `user_other_password`, `user_other_created`, `user_other_datetime`) VALUES
-(39, 1, 'Patrick', 'Reyes', 'macdet21@gmail.com', '', 4, '', '$2y$10$UGeHmWSHj4ri3vT/dDAQHuaGanPtRo0/tKAmhY0JTY27Hx1PfVkX2', '2024-02-19 13:52:56', '2024-02-19 15:50:13'),
+(39, 1, 'Cyrene', 'Lumabas', 'cyrenemlumabas@gmail.com', '', 4, '', '$2y$10$g/zE/UpZWrfsQ.mJ2KSkkOGezAwVvJSdgjeXknWI/VOyDoSl4/uLm', '2024-02-19 13:52:56', '2024-02-19 15:50:13'),
 (40, 1, 'Mac', 'Mac', 'merin.ryanmark@gmail.com', '', 2, '', '$2y$10$joJ4kHIyaroc/J5HzOXr3eZcEJtzdajKXCXd6vldDmqCEAiar3qkC', '2024-02-19 14:00:05', '2024-02-19 14:01:36');
 
 -- --------------------------------------------------------
@@ -639,7 +700,7 @@ CREATE TABLE `fcav2_settings_user_system` (
 --
 
 INSERT INTO `fcav2_settings_user_system` (`user_system_aid`, `user_system_is_active`, `user_system_fname`, `user_system_lname`, `user_system_email`, `user_system_new_email`, `user_system_role_id`, `user_system_key`, `user_system_password`, `user_system_created`, `user_system_datetime`) VALUES
-(1, 1, 'Mark Ryan', 'Merin', 'cyrenemlumabas@gmail.com', '', 1, '', '$2y$10$g/zE/UpZWrfsQ.mJ2KSkkOGezAwVvJSdgjeXknWI/VOyDoSl4/uLm', '2023-04-19 09:13:08', '2024-02-16 09:07:02'),
+(1, 1, 'Cyrene', 'Lumabas', 'cyrenemlumabas@gmail.com', '', 1, '', '$2y$10$g/zE/UpZWrfsQ.mJ2KSkkOGezAwVvJSdgjeXknWI/VOyDoSl4/uLm', '2023-04-19 09:13:08', '2024-02-16 09:07:02'),
 (17, 1, 'Monmon', 'Plaza', 'ramon.plaza@frontlinebusiness.com.ph', '', 1, '', '$2y$10$KXu/IEfKf4hytdeRfVYTY.gnzHrNbZytzMQepTtZdifr8Ct3DJ1w2', '2024-01-08 08:26:34', '2024-01-08 12:50:29');
 
 -- --------------------------------------------------------
@@ -677,7 +738,7 @@ CREATE TABLE `fcav2_students` (
 --
 
 INSERT INTO `fcav2_students` (`students_aid`, `students_is_active`, `students_parent_id`, `students_lrn`, `students_fname`, `students_mname`, `students_lname`, `students_gender`, `students_birth_date`, `students_birth_place`, `students_email`, `students_mobile`, `students_landline`, `students_address_id`, `students_institutional_email`, `students_family_doctor`, `students_family_doctor_contact`, `students_medical_remarks`, `students_family_circumstances`, `students_created`, `students_datetime`) VALUES
-(1, 1, 1, '109749060126', 'Mark Ryan', 'Bueno', 'Merin', 'm', '2000-09-24', 'San Gabriel, San Pablo City', 'macmerin24@gmail.com', '09491040057', '', 1, '', 'Dr. Jhonny Jose E. Dichoso', '09662993797', 'N/a', 'N/a', '2024-02-28 13:54:39', '2024-02-28 13:58:57'),
+(1, 1, 1, '109749060126', 'Mark Ryan', 'Bueno', 'Merin', 'm', '2000-09-24', 'San Gabriel, San Pablo City', 'macmerin24@gmail.com', '09491040057', '', 1, '', 'Dr. Jhonny Jose E. Dichoso', '09662993797', 'N/a', 'N/a', '2024-02-28 13:54:39', '2024-02-29 15:53:53'),
 (2, 1, 1, '109749060127', 'Cyrene', 'Mercado', 'Lumabas', 'f', '1999-02-28', 'San Pablo City, Laguna, Philippines 4000', 'cyrenemlumabas@gmail.com', '09495215414', '', 1, '', 'N/A', 'N/A', 'N/A', 'N/A', '2024-02-28 14:01:43', '2024-02-28 14:01:43');
 
 --
@@ -707,6 +768,12 @@ ALTER TABLE `fcav2_parents`
 --
 ALTER TABLE `fcav2_school_year_students`
   ADD PRIMARY KEY (`school_year_students_aid`);
+
+--
+-- Indexes for table `fcav2_school_year_students_current`
+--
+ALTER TABLE `fcav2_school_year_students_current`
+  ADD PRIMARY KEY (`current_students_aid`);
 
 --
 -- Indexes for table `fcav2_school_year_students_requirements`
@@ -869,10 +936,16 @@ ALTER TABLE `fcav2_school_year_students`
   MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `fcav2_school_year_students_current`
+--
+ALTER TABLE `fcav2_school_year_students_current`
+  MODIFY `current_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `fcav2_school_year_students_requirements`
 --
 ALTER TABLE `fcav2_school_year_students_requirements`
-  MODIFY `students_requirements_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `students_requirements_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_department`
@@ -884,7 +957,7 @@ ALTER TABLE `fcav2_settings_department`
 -- AUTO_INCREMENT for table `fcav2_settings_discount`
 --
 ALTER TABLE `fcav2_settings_discount`
-  MODIFY `discount_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `discount_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_discount_additional`
@@ -950,7 +1023,7 @@ ALTER TABLE `fcav2_settings_role`
 -- AUTO_INCREMENT for table `fcav2_settings_scheme`
 --
 ALTER TABLE `fcav2_settings_scheme`
-  MODIFY `scheme_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `scheme_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_school_year`
@@ -974,13 +1047,13 @@ ALTER TABLE `fcav2_settings_system_mode`
 -- AUTO_INCREMENT for table `fcav2_settings_tuition_category`
 --
 ALTER TABLE `fcav2_settings_tuition_category`
-  MODIFY `tuition_category_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tuition_category_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_tuition_fee`
 --
 ALTER TABLE `fcav2_settings_tuition_fee`
-  MODIFY `tuition_fee_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `tuition_fee_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_user_other`

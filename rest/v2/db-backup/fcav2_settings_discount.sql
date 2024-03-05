@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2024 at 12:44 AM
+-- Generation Time: Mar 06, 2024 at 12:31 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -47,7 +47,8 @@ CREATE TABLE `fcav2_settings_discount` (
 --
 
 INSERT INTO `fcav2_settings_discount` (`discount_aid`, `discount_category_id`, `discount_type`, `discount_is_active`, `discount_admission_fee`, `discount_tuition_fee`, `discount_qualification`, `discount_duration`, `discount_maintaining_grade`, `discount_requirement`, `discount_created`, `discount_updated`) VALUES
-(1, '1', '', 1, '20', '2', 'xcbb', 'cvn', '13', 'xcgn', '2024-02-19 16:05:33', '2024-02-20 06:48:00');
+(1, '1', 'Academic - Top 1&2 G4/G7', 1, '50', '50', 'Top 1/2  of class', 'Up to G6 or G10', '87', 'Cert from Prev School', '2024-02-19 16:05:33', '2024-02-29 08:07:36'),
+(3, '1', 'Pastor/Missionary Discount', 1, '30', '30', 'Child/ren of the qualified Pastor/Missionary', 'Duration of service at current church, or one (1) school year; whichever is longer.', '', 'Certification from church, and SEC Registration of church', '2024-02-29 08:07:57', '2024-02-29 08:07:57');
 
 --
 -- Indexes for dumped tables
@@ -67,7 +68,7 @@ ALTER TABLE `fcav2_settings_discount`
 -- AUTO_INCREMENT for table `fcav2_settings_discount`
 --
 ALTER TABLE `fcav2_settings_discount`
-  MODIFY `discount_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `discount_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

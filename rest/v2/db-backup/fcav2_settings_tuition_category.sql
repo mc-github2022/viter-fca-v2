@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2024 at 12:56 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Mar 06, 2024 at 12:30 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,15 @@ CREATE TABLE `fcav2_settings_tuition_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `fcav2_settings_tuition_category`
+--
+
+INSERT INTO `fcav2_settings_tuition_category` (`tuition_category_aid`, `tuition_category_active`, `tuition_category_name`, `tuition_category_created`, `tuition_category_datetime`) VALUES
+(1, 1, 'Legacy', '2024-02-26 15:22:56', '2024-02-29 07:49:36'),
+(2, 1, 'Loyalty', '2024-02-29 07:49:46', '2024-02-29 07:49:46'),
+(3, 1, 'Regular', '2024-02-29 07:49:52', '2024-02-29 07:49:52');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -53,7 +62,7 @@ ALTER TABLE `fcav2_settings_tuition_category`
 -- AUTO_INCREMENT for table `fcav2_settings_tuition_category`
 --
 ALTER TABLE `fcav2_settings_tuition_category`
-  MODIFY `tuition_category_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `tuition_category_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
