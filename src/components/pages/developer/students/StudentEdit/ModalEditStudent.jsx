@@ -1,5 +1,9 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import NoData from "@/components/partials/NoData.jsx";
+import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
+import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
+import { setIsAdd } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FaBars } from "react-icons/fa";
@@ -11,10 +15,6 @@ import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDe
 import ModalRevertOrSavePayment from "./StudentPaymentScheme/ModalRevertOrSavePayment.jsx";
 import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
-import { setIsAdd } from "@/components/store/StoreAction.jsx";
-import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
-import TableLoading from "@/components/partials/TableLoading.jsx";
-import NoData from "@/components/partials/NoData.jsx";
 
 const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -25,6 +25,8 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
   const [id, setId] = React.useState(null);
 
   const [index, setIndex] = React.useState(1);
+
+  console.log(dataItem);
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
@@ -48,6 +50,8 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
     "get", // method
     "read-student-by-current-sy-id" // key
   );
+
+  console.log(dataItem);
 
   return (
     <>
@@ -262,7 +266,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
       {store.success && <ModalSuccess />}
       {store.isSettingConfirm && (
         <ModalRevertOrSavePayment
-          mysqlApiRevertOrSavePayment={`/v2/dev-students-payment-scheme/${dataItem?.school_year_students_aid}`}
+          mysqlApiRevertOrSavePayment={`/v2/dev-students-payment-scheme/${dataItem?.current_students_student_id}`}
           msg={`Are you sure you want to ${
             isSavePaymentScheme ? "save" : "revert"
           } this record ?`}

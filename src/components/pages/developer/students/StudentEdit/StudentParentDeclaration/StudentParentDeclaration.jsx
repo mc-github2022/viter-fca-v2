@@ -97,7 +97,7 @@ const StudentParentDeclaration = ({ showSideNav, dataItem, handleClose }) => {
                       </button>
                     </div>
                   </div>
-                  <div className="mb-14 text-xs">
+                  <div className="mb-24 text-xs">
                     <h3 className="mb-3">Parent/Guardian Declaration</h3>
 
                     <p className="mb-4">I hereby declare that:</p>

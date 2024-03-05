@@ -194,274 +194,282 @@ const StudentProfileForm = ({
                       Discard
                     </button>
                   </div>
-                  <h3 className="mb-3">Profile</h3>
-                  <h6 className="mb-2 uppercase">Classification</h6>
-                  <div className="grid md:grid-cols-[120px_1fr_1fr_1fr] gap-x-3">
-                    <div className="form__wrap">
-                      <InputText
-                        label="School Year"
-                        type="text"
-                        name="school_year"
-                        value={`${syid.start_year}-${syid.end_year}`}
-                        disabled
-                      />
+                  <div className="mb-24">
+                    <h3 className="mb-3">Profile</h3>
+                    <h6 className="mb-2 uppercase">Classification</h6>
+                    <div className="grid md:grid-cols-[120px_1fr_1fr_1fr] gap-x-3">
+                      <div className="form__wrap">
+                        <InputText
+                          label="School Year"
+                          type="text"
+                          name="school_year"
+                          value={
+                            Object.keys(itemEdit).length > 0
+                              ? itemEdit.school_year
+                              : `${syid.start_year}-${syid.end_year}`
+                          }
+                          disabled
+                        />
+                      </div>
+
+                      <div className="form__wrap">
+                        <InputSelect
+                          label="Learning Type"
+                          name="current_students_last_learning_type"
+                          disabled={mutation.isPending}
+                        >
+                          <option value="" hidden></option>
+                          <option value="onsite">Face-to-Face</option>
+                          <option value="online">Online</option>
+                        </InputSelect>
+                      </div>
+
+                      <div className="form__wrap">
+                        <InputText
+                          label="Learning Reference No."
+                          type="text"
+                          name="students_lrn"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+
+                      <div className="form__wrap">
+                        <InputSelect
+                          label="Grade Level"
+                          name="current_students_grade_level_id"
+                          disabled={mutation.isPending}
+                        >
+                          <option value="" hidden></option>
+                          {gradeLevel?.count > 0 ? (
+                            gradeLevel?.data.map((item, key) => {
+                              return (
+                                <option value={item.grade_level_aid} key={key}>
+                                  {item.grade_level_name}
+                                </option>
+                              );
+                            })
+                          ) : (
+                            <option value="" disabled>
+                              No data
+                            </option>
+                          )}
+                        </InputSelect>
+                      </div>
                     </div>
 
-                    <div className="form__wrap">
-                      <InputSelect
-                        label="Learning Type"
-                        name="current_students_last_learning_type"
-                        disabled={mutation.isPending}
-                      >
-                        <option value="" hidden></option>
-                        <option value="onsite">Face-to-Face</option>
-                        <option value="online">Online</option>
-                      </InputSelect>
+                    <h6 className="mb-2 uppercase">Profile</h6>
+                    <div className="grid md:grid-cols-3 gap-x-3">
+                      <div className="form__wrap">
+                        <InputText
+                          label="Last Name (Suffix)"
+                          type="text"
+                          name="students_lname"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="First Name"
+                          type="text"
+                          name="students_fname"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Middle Name "
+                          type="text"
+                          name="students_mname"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputSelect
+                          label="Gender"
+                          name="students_gender"
+                          disabled={mutation.isPending}
+                        >
+                          <option value="" hidden></option>
+                          <option value="m">Male</option>
+                          <option value="f">Female</option>
+                        </InputSelect>
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Birth Date "
+                          type="date"
+                          name="students_birth_date"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Birth Place"
+                          type="text"
+                          name="students_birth_place"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Email"
+                          type="text"
+                          name="students_email"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Mobile"
+                          type="text"
+                          name="students_mobile"
+                          maxLength="11"
+                          onKeyPress={handleNumOnly}
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Landline "
+                          type="text"
+                          name="students_landline"
+                          maxLength="11"
+                          onKeyPress={handleNumOnly}
+                          disabled={mutation.isPending}
+                        />
+                      </div>
                     </div>
 
-                    <div className="form__wrap">
-                      <InputText
-                        label="Learning Reference No."
-                        type="text"
-                        name="students_lrn"
-                        disabled={mutation.isPending}
-                      />
+                    <h6 className="mb-2 uppercase">Address</h6>
+                    <div className="grid grid-cols-1 gap-x-3">
+                      <div className="form__wrap">
+                        <InputSelect
+                          label="Current Adress"
+                          name="students_address_id"
+                          disabled={mutation.isPending}
+                        >
+                          <option value="" hidden></option>
+                          {parentGuardian?.count > 0 ? (
+                            parentGuardian?.data.map((item, key) => {
+                              return (
+                                <option value={item.guardian_aid} key={key}>
+                                  {item.guardian_address}{" "}
+                                  {item.guardian_province}{" "}
+                                  {item.guardian_province} {item.guardian_city}{" "}
+                                  {item.guardian_zipcode}{" "}
+                                  {item.guardian_country}
+                                </option>
+                              );
+                            })
+                          ) : (
+                            <option value="" disabled>
+                              No data
+                            </option>
+                          )}
+                        </InputSelect>
+                      </div>
                     </div>
 
-                    <div className="form__wrap">
-                      <InputSelect
-                        label="Grade Level"
-                        name="current_students_grade_level_id"
-                        disabled={mutation.isPending}
-                      >
-                        <option value="" hidden></option>
-                        {gradeLevel?.count > 0 ? (
-                          gradeLevel?.data.map((item, key) => {
-                            return (
-                              <option value={item.grade_level_aid} key={key}>
-                                {item.grade_level_name}
-                              </option>
-                            );
-                          })
-                        ) : (
-                          <option value="" disabled>
-                            No data
-                          </option>
-                        )}
-                      </InputSelect>
+                    <h6 className="mb-2 uppercase">Last School</h6>
+                    <div className="grid md:grid-cols-[400px_1fr_1fr] gap-x-3">
+                      <div className="form__wrap">
+                        <InputText
+                          label="Last School Name"
+                          type="text"
+                          name="current_students_last_school_attended"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="GPA Last School Year"
+                          type="text"
+                          name="current_students_last_gpa"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputSelect
+                          label="Last Grade Level"
+                          name="current_students_last_grade_level_id"
+                          disabled
+                        >
+                          <option value="" hidden></option>
+                          {gradeLevel?.count > 0 ? (
+                            gradeLevel?.data.map((item, key) => {
+                              return (
+                                <option value={item.grade_level_aid} key={key}>
+                                  {item.grade_level_name}
+                                </option>
+                              );
+                            })
+                          ) : (
+                            <option value="" disabled>
+                              No data
+                            </option>
+                          )}
+                        </InputSelect>
+                      </div>
                     </div>
-                  </div>
 
-                  <h6 className="mb-2 uppercase">Profile</h6>
-                  <div className="grid md:grid-cols-3 gap-x-3">
-                    <div className="form__wrap">
-                      <InputText
-                        label="Last Name (Suffix)"
-                        type="text"
-                        name="students_lname"
-                        disabled={mutation.isPending}
-                      />
+                    <div className="grid grid-cols-1 gap-x-3">
+                      <div className="form__wrap">
+                        <InputText
+                          label="Last School Address"
+                          type="text"
+                          name="current_students_last_school_address"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
                     </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="First Name"
-                        type="text"
-                        name="students_fname"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="Middle Name "
-                        type="text"
-                        name="students_mname"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                    <div className="form__wrap">
-                      <InputSelect
-                        label="Gender"
-                        name="students_gender"
-                        disabled={mutation.isPending}
-                      >
-                        <option value="" hidden></option>
-                        <option value="m">Male</option>
-                        <option value="f">Female</option>
-                      </InputSelect>
-                    </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="Birth Date "
-                        type="date"
-                        name="students_birth_date"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="Birth Place"
-                        type="text"
-                        name="students_birth_place"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="Email"
-                        type="text"
-                        name="students_email"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="Mobile"
-                        type="text"
-                        name="students_mobile"
-                        maxLength="11"
-                        onKeyPress={handleNumOnly}
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="Landline "
-                        type="text"
-                        name="students_landline"
-                        maxLength="11"
-                        onKeyPress={handleNumOnly}
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                  </div>
 
-                  <h6 className="mb-2 uppercase">Address</h6>
-                  <div className="grid grid-cols-1 gap-x-3">
-                    <div className="form__wrap">
-                      <InputSelect
-                        label="Current Adress"
-                        name="students_address_id"
-                        disabled={mutation.isPending}
-                      >
-                        <option value="" hidden></option>
-                        {parentGuardian?.count > 0 ? (
-                          parentGuardian?.data.map((item, key) => {
-                            return (
-                              <option value={item.guardian_aid} key={key}>
-                                {item.guardian_address} {item.guardian_province}{" "}
-                                {item.guardian_province} {item.guardian_city}{" "}
-                                {item.guardian_zipcode} {item.guardian_country}
-                              </option>
-                            );
-                          })
-                        ) : (
-                          <option value="" disabled>
-                            No data
-                          </option>
-                        )}
-                      </InputSelect>
+                    <div className="grid grid-cols-1 gap-x-3">
+                      <div className="form__wrap">
+                        <InputTextArea
+                          label="Was the student ever submitted to any form of disciplinary action? If so, why?"
+                          type="text"
+                          name="current_students_last_remarks"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <h6 className="mb-2 uppercase">Last School</h6>
-                  <div className="grid md:grid-cols-[400px_1fr_1fr] gap-x-3">
-                    <div className="form__wrap">
-                      <InputText
-                        label="Last School Name"
-                        type="text"
-                        name="current_students_last_school_attended"
-                        disabled={mutation.isPending}
-                      />
+                    <h6 className="mb-2 uppercase">Medical Information</h6>
+                    <div className="grid md:grid-cols-2 gap-x-3">
+                      <div className="form__wrap">
+                        <InputText
+                          label="Pediatrician/Family Doctor "
+                          type="text"
+                          name="students_family_doctor"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Contact Name "
+                          type="text"
+                          name="students_family_doctor_contact"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
                     </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="GPA Last School Year"
-                        type="text"
-                        name="current_students_last_gpa"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                    <div className="form__wrap">
-                      <InputSelect
-                        label="Last Grade Level"
-                        name="current_students_last_grade_level_id"
-                        disabled
-                      >
-                        <option value="" hidden></option>
-                        {gradeLevel?.count > 0 ? (
-                          gradeLevel?.data.map((item, key) => {
-                            return (
-                              <option value={item.grade_level_aid} key={key}>
-                                {item.grade_level_name}
-                              </option>
-                            );
-                          })
-                        ) : (
-                          <option value="" disabled>
-                            No data
-                          </option>
-                        )}
-                      </InputSelect>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-x-3">
-                    <div className="form__wrap">
-                      <InputText
-                        label="Last School Address"
-                        type="text"
-                        name="current_students_last_school_address"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-x-3">
                     <div className="form__wrap">
                       <InputTextArea
-                        label="Was the student ever submitted to any form of disciplinary action? If so, why?"
+                        label="Are there any serious medical conditions about which you wish the school to be aware? Please indicate below:"
                         type="text"
-                        name="current_students_last_remarks"
+                        name="students_medical_remarks"
                         disabled={mutation.isPending}
                       />
                     </div>
-                  </div>
 
-                  <h6 className="mb-2 uppercase">Medical Information</h6>
-                  <div className="grid md:grid-cols-2 gap-x-3">
-                    <div className="form__wrap">
-                      <InputText
-                        label="Pediatrician/Family Doctor "
+                    <div className="form__wrap mb-14">
+                      <InputTextArea
+                        label="Are there any family circumstances about which you wish the school to be aware? Please indicate below:"
                         type="text"
-                        name="students_family_doctor"
+                        name="students_family_circumstances"
                         disabled={mutation.isPending}
                       />
                     </div>
-                    <div className="form__wrap">
-                      <InputText
-                        label="Contact Name "
-                        type="text"
-                        name="students_family_doctor_contact"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
-                  </div>
-                  <div className="form__wrap">
-                    <InputTextArea
-                      label="Are there any serious medical conditions about which you wish the school to be aware? Please indicate below:"
-                      type="text"
-                      name="students_medical_remarks"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-
-                  <div className="form__wrap mb-14">
-                    <InputTextArea
-                      label="Are there any family circumstances about which you wish the school to be aware? Please indicate below:"
-                      type="text"
-                      name="students_family_circumstances"
-                      disabled={mutation.isPending}
-                    />
                   </div>
                 </div>
               </Form>

@@ -31,7 +31,7 @@ const Assestment = () => {
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
-      <section className="main__wrap flex flex-col relative">
+      <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation
             menu="assessment"
@@ -41,16 +41,18 @@ const Assestment = () => {
           />
 
           <main
-            className={`main__content translate-y-[35px] relative ${
+            className={`main__content pl-0 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center  ">
-              <div>
-                <h1 className="text-clampH1 mb-0">Assessment</h1>
-                <p className="mb-4 text-xs hidden lg:block">
-                  List of all student that need for assessment
-                </p>
+            <div className="main__header flex justify-between items-start lg:items-center my-2 ">
+              <div className="mt-[55px] flex items-start justify-between w-full">
+                <div>
+                  <h1 className="text-clampH1 mb-0">Assessment</h1>
+                  <p className="mb-4 text-xs hidden lg:block">
+                    List of all student that need for assessment
+                  </p>
+                </div>
               </div>
             </div>
             <AssessmentList

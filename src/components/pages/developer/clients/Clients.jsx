@@ -46,23 +46,25 @@ const Clients = () => {
           />
 
           <main
-            className={`main__content px-[13.5px] md:px-0 relative ${
+            className={`main__content pl-0 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header flex justify-between items-start lg:items-center my-2 ">
-              <div className="mt-[60px]">
-                <h1 className="text-clampH1 mb-0">Parent List</h1>
-                <p className="mb-4 text-xs hidden lg:block">
-                  List of clients/parents registered on the system.
-                </p>
+              <div className="mt-[55px] flex items-start justify-between w-full">
+                <div>
+                  <h1 className="text-clampH1 mb-0">Parent List</h1>
+                  <p className="mb-4 text-xs hidden lg:block">
+                    List of clients/parents registered on the system.
+                  </p>
+                </div>
+                <button
+                  className="btn btn--accent btn--sm mt-1"
+                  onClick={handleAdd}
+                >
+                  <FaPlus /> Add
+                </button>
               </div>
-              <button
-                className="btn btn--accent btn--sm mt-1"
-                onClick={handleAdd}
-              >
-                <FaPlus /> Add
-              </button>
             </div>
 
             <ClientList setItemEdit={setItemEdit} />

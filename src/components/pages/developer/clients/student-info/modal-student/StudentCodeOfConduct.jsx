@@ -48,8 +48,6 @@ const StudentCodeOfConduct = ({
     },
   });
 
-  // console.log(itemEdit);
-
   const handleClose = () => {
     dispatch(setIsAdd(false));
   };

@@ -1,9 +1,5 @@
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import React from "react";
-import { FiEdit2 } from "react-icons/fi";
-import { PiMegaphoneLight } from "react-icons/pi";
 import RequirementRegistrarEdit from "./RequirementRegistrarEdit.jsx";
-import RequirementRegistrarView from "./RequirementRegistrarView.jsx";
 
 const RequirementRegistrar = ({
   itemEdit,
@@ -26,15 +22,6 @@ const RequirementRegistrar = ({
         payment details.
       </p>
 
-      {/* {!isEdit && (
-        <RequirementRegistrarView
-          isLoading={isLoading}
-          registrarRequirements={registrarRequirements}
-          setIsEdit={setIsEdit}
-          studentRequirement={studentRequirement}
-        />
-      )} */}
-      {/* {isEdit && ( */}
       <RequirementRegistrarEdit
         isLoading={isLoading}
         registrarRequirements={registrarRequirements}
@@ -45,7 +32,6 @@ const RequirementRegistrar = ({
         reqLoading={reqLoading}
         reqFetching={reqFetching}
       />
-      {/* )} */}
     </div>
   );
 };

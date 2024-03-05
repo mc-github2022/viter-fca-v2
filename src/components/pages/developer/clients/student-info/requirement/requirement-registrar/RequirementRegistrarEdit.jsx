@@ -1,9 +1,6 @@
-import { InputCheckbox, InputTextArea } from "@/components/helpers/FormInputs";
+import { InputCheckbox } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import NoData from "@/components/partials/NoData";
-import TableLoading from "@/components/partials/TableLoading";
-import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
-import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setMessage,
@@ -14,8 +11,6 @@ import { StoreContext } from "@/components/store/StoreContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
-import { AiOutlineSave } from "react-icons/ai";
-import { LiaTimesSolid } from "react-icons/lia";
 import * as Yup from "yup";
 
 const RequirementRegistrarEdit = ({

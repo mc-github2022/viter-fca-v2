@@ -94,67 +94,73 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                     </button>
                   </li>
 
-                  <li
-                    className={`${index === 6 ? "bg-accent text-primary" : ""}`}
-                  >
-                    <button
-                      onClick={() => handleChangeProfile(6)}
-                      className="p-1 pl-4 "
-                    >
-                      Payment Scheme
-                    </button>
-                  </li>
-                  <li
-                    className={` ${
-                      index === 2 ? "bg-accent text-primary" : ""
-                    }`}
-                  >
-                    <button
-                      onClick={() => handleChangeProfile(2)}
-                      className="p-1 pl-4 "
-                    >
-                      Code of Conduct
-                    </button>
-                  </li>
+                  {itemEdit && (
+                    <>
+                      <li
+                        className={`${
+                          index === 6 ? "bg-accent text-primary" : ""
+                        }`}
+                      >
+                        <button
+                          onClick={() => handleChangeProfile(6)}
+                          className="p-1 pl-4 "
+                        >
+                          Payment Scheme
+                        </button>
+                      </li>
+                      <li
+                        className={` ${
+                          index === 2 ? "bg-accent text-primary" : ""
+                        }`}
+                      >
+                        <button
+                          onClick={() => handleChangeProfile(2)}
+                          className="p-1 pl-4 "
+                        >
+                          Code of Conduct
+                        </button>
+                      </li>
 
-                  <li
-                    className={` ${
-                      index === 3 ? "bg-accent text-primary" : ""
-                    }`}
-                  >
-                    <button
-                      onClick={() => handleChangeProfile(3)}
-                      className="p-1 pl-4 "
-                    >
-                      Parent Declaration
-                    </button>
-                  </li>
+                      <li
+                        className={` ${
+                          index === 3 ? "bg-accent text-primary" : ""
+                        }`}
+                      >
+                        <button
+                          onClick={() => handleChangeProfile(3)}
+                          className="p-1 pl-4 "
+                        >
+                          Parent Declaration
+                        </button>
+                      </li>
 
-                  <li
-                    className={` ${
-                      index === 4 ? "bg-accent text-primary" : ""
-                    }`}
-                  >
-                    <button
-                      onClick={() => handleChangeProfile(4)}
-                      className="p-1 pl-4 "
-                    >
-                      Parent Consent
-                    </button>
-                  </li>
+                      <li
+                        className={` ${
+                          index === 4 ? "bg-accent text-primary" : ""
+                        }`}
+                      >
+                        <button
+                          onClick={() => handleChangeProfile(4)}
+                          className="p-1 pl-4 "
+                        >
+                          Parent Consent
+                        </button>
+                      </li>
 
-                  <li
-                    className={` ${
-                      index === 5 ? "bg-accent text-primary" : ""
-                    }`}
-                  >
-                    <button
-                      onClick={() => handleChangeProfile(5)}
-                      className="p-1 pl-4 "
-                    >
-                      Commitment Form
-                    </button>
-                  </li>
+                      <li
+                        className={` ${
+                          index === 5 ? "bg-accent text-primary" : ""
+                        }`}
+                      >
+                        <button
+                          onClick={() => handleChangeProfile(5)}
+                          className="p-1 pl-4 "
+                        >
+                          Commitment Form
+                        </button>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </aside>
               <main
@@ -184,62 +190,66 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                         schoolYear={schoolYear}
                       />
                     )}
-                    {index === 2 && (
-                      <StudentCodeOfConduct
-                        index={index}
-                        showSideNav={showSideNav}
-                        itemEdit={{
-                          ...itemEdit,
-                          ...studentByCurrentSyId?.data[0],
-                        }}
-                        gradeLevel={gradeLevel}
-                        schoolYear={schoolYear}
-                      />
-                    )}
-                    {index === 3 && (
-                      <StudentParentDeclaration
-                        index={index}
-                        showSideNav={showSideNav}
-                        itemEdit={{
-                          ...itemEdit,
-                          ...studentByCurrentSyId?.data[0],
-                        }}
-                        gradeLevel={gradeLevel}
-                      />
-                    )}
-                    {index === 4 && (
-                      <StudentParentConsent
-                        index={index}
-                        showSideNav={showSideNav}
-                        itemEdit={{
-                          ...itemEdit,
-                          ...studentByCurrentSyId?.data[0],
-                        }}
-                        gradeLevel={gradeLevel}
-                      />
-                    )}
-                    {index === 5 && (
-                      <StudentParentCommitment
-                        index={index}
-                        showSideNav={showSideNav}
-                        itemEdit={{
-                          ...itemEdit,
-                          ...studentByCurrentSyId?.data[0],
-                        }}
-                        gradeLevel={gradeLevel}
-                      />
-                    )}
+                    {itemEdit && (
+                      <>
+                        {index === 2 && (
+                          <StudentCodeOfConduct
+                            index={index}
+                            showSideNav={showSideNav}
+                            itemEdit={{
+                              ...itemEdit,
+                              ...studentByCurrentSyId?.data[0],
+                            }}
+                            gradeLevel={gradeLevel}
+                            schoolYear={schoolYear}
+                          />
+                        )}
+                        {index === 3 && (
+                          <StudentParentDeclaration
+                            index={index}
+                            showSideNav={showSideNav}
+                            itemEdit={{
+                              ...itemEdit,
+                              ...studentByCurrentSyId?.data[0],
+                            }}
+                            gradeLevel={gradeLevel}
+                          />
+                        )}
+                        {index === 4 && (
+                          <StudentParentConsent
+                            index={index}
+                            showSideNav={showSideNav}
+                            itemEdit={{
+                              ...itemEdit,
+                              ...studentByCurrentSyId?.data[0],
+                            }}
+                            gradeLevel={gradeLevel}
+                          />
+                        )}
+                        {index === 5 && (
+                          <StudentParentCommitment
+                            index={index}
+                            showSideNav={showSideNav}
+                            itemEdit={{
+                              ...itemEdit,
+                              ...studentByCurrentSyId?.data[0],
+                            }}
+                            gradeLevel={gradeLevel}
+                          />
+                        )}
 
-                    {index === 6 && (
-                      <StudentPaymentScheme
-                        index={index}
-                        showSideNav={showSideNav}
-                        itemEdit={{
-                          ...itemEdit,
-                          ...studentByCurrentSyId?.data[0],
-                        }}
-                        gradeLevel={gradeLevel}
-                      />
+                        {index === 6 && (
+                          <StudentPaymentScheme
+                            index={index}
+                            showSideNav={showSideNav}
+                            itemEdit={{
+                              ...itemEdit,
+                              ...studentByCurrentSyId?.data[0],
+                            }}
+                            gradeLevel={gradeLevel}
+                          />
+                        )}
+                      </>
                     )}
                   </>
                 )}

@@ -56,6 +56,24 @@ class Registrar
         return $query;
     }
 
+    public function readAll()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "students_requirements_aid, ";
+            $sql .= "students_requirements_is_active, ";
+            $sql .= "students_requirements_student_id, ";
+            $sql .= "students_requirements_sy_id, ";
+            $sql .= "COUNT(students_requirements_id) as total_requirements ";
+            $sql .= "from {$this->tblRequirement} ";
+            $sql .= "group by students_requirements_student_id ";
+            $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function readById()
     {
         try {

@@ -56,23 +56,26 @@ const Students = () => {
           />
 
           <main
-            className={`main__content px-[13.5px] md:px-0 relative ${
+            className={`main__content pl-0 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header flex justify-between items-start lg:items-center my-2 ">
-              <div>
-                <h1 className="text-clampH1 mb-0">Student List</h1>
-                <p className="text-xs opacity-75 hidden md:block">
-                  List of students registered on the system.
-                </p>
+              <div className="mt-[55px] flex items-start justify-between w-full">
+                <div>
+                  <h1 className="text-clampH1 mb-0">Enrollment List</h1>
+                  <p className="mb-4 text-xs hidden lg:block">
+                    List of students enrolled in the current school year.
+                  </p>
+                </div>
+
+                <button
+                  className="btn btn--accent btn--sm mt-1"
+                  onClick={handleAdd}
+                >
+                  <FaPlus /> Add
+                </button>
               </div>
-              <button
-                className="btn btn--accent btn--sm mt-1 "
-                onClick={handleAdd}
-              >
-                <FaPlus /> Add
-              </button>
             </div>
 
             <StudentList

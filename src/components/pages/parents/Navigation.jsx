@@ -59,13 +59,8 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
         >
           <ul className="pt-3  h-screen ">
             <li
-              className={`nav__link ${menu === "" ? "active" : ""} ${
-                schoolYear?.isGreaterThanEndYear ||
-                getOngoingSchoolYear?.length === 0
-                  ? "border-alert cursor-pointer tooltip h-[unset] w-[unset] hover:!bg-[unset] hover:underline hover:decoration-[#af1818]"
-                  : ""
-              }`}
-              data-tooltip="Invalid S.Y."
+              className={`nav__link ${menu === "" ? "active" : ""}`}
+              // data-tooltip="Invalid S.Y."
             >
               <Link
                 // to={`${devNavUrl}/admin/students`}

@@ -121,19 +121,19 @@ const Header = ({ isLoading, schoolYear }) => {
               {schoolYear?.isGreaterThanEndYear ? (
                 <span>
                   School Year is not updated.{" "}
-                  {store.credentials.data.role_is_admin === 1 ||
-                    (store.credentials.data.role_is_developer === 1 && (
-                      <span>
-                        Go to{" "}
-                        <span
-                          className="underline cursor-pointer"
-                          onClick={handleShowSettings}
-                        >
-                          settings
-                        </span>{" "}
-                        and add new S.Y
-                      </span>
-                    ))}
+                  {(store.credentials.data.role_is_admin === 1 ||
+                    store.credentials.data.role_is_developer === 1) && (
+                    <span>
+                      Go to{" "}
+                      <span
+                        className="underline cursor-pointer"
+                        onClick={handleShowSettings}
+                      >
+                        settings
+                      </span>{" "}
+                      and add new S.Y
+                    </span>
+                  )}
                 </span>
               ) : (
                 "Enrollment is On-going"
@@ -141,7 +141,9 @@ const Header = ({ isLoading, schoolYear }) => {
             </p>
             <p
               className={
-                schoolYear?.data[0].school_year_is_enrollment_open === 1
+                (schoolYear?.count > 0 &&
+                  schoolYear?.data[0].school_year_is_enrollment_open === 1) ||
+                schoolYear?.isGreaterThanEndYear
                   ? "mb-10"
                   : "hidden"
               }

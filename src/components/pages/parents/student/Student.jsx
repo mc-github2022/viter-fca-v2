@@ -1,18 +1,29 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
+import { queryData } from "@/components/helpers/queryData";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
 import NoData from "@/components/partials/NoData";
-import TableLoading from "@/components/partials/TableLoading";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd, setIsDelete } from "@/components/store/StoreAction.jsx";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
+import {
+  setError,
+  setIsAdd,
+  setIsDelete,
+  setMessage,
+  setSuccess,
+} from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
+import { CiEdit, CiSquarePlus, CiTrash } from "react-icons/ci";
 import { FaAngleLeft, FaPlus } from "react-icons/fa";
-import { FiEdit2, FiTrash } from "react-icons/fi";
 import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
+import {
+  getRequirementsStatus,
+  getStudentStatus,
+} from "../../developer/all-students/functions-all-students";
 import ModalAddStudent from "../../developer/clients/student-info/modal-student/ModalAddStudent";
 import ModalRequirements from "../../developer/clients/student-info/requirement/ModalRequirements";
 import ModalEditStudent from "../../developer/students/StudentEdit/ModalEditStudent";
@@ -26,14 +37,20 @@ const Student = () => {
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(false);
 
   const handleAddStudent = () => {
+    if (isOngoing === 0 || !isOngoing) {
+      dispatch(setError(true));
+      dispatch(setMessage("There's no enrollment yet."));
+      return;
+    }
     setItemEdit(null);
     dispatch(setIsAdd(true));
   };
 
   const handleEdit = (item) => {
-    dispatch(setIsAdd(true));
+    setIsViewInfo(true);
     setItemEdit(item);
   };
 
@@ -57,6 +74,22 @@ const Student = () => {
   const isOngoing =
     schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
+  const getCurrentSchoolYear = schoolYear?.data.find(
+    (item) => item.school_year_is_active === 1
+  );
+
+  const { data: studentRequirement } = useQueryData(
+    `/v2/dev-students-requirement`, // endpoint
+    "get", // method
+    "students-requirements" // key
+  );
+
+  const { data: registrarRequirement } = useQueryData(
+    "/v2/dev-requirement-registrar", // endpoint
+    "get", // method
+    "registrar-all-student" // key
+  );
+
   const {
     isLoading,
     isFetching,
@@ -68,16 +101,45 @@ const Student = () => {
     "mystudent" // key
   );
 
-  const {
-    isLoading: parentIsLoading,
-    isFetching: parentIsFetching,
-    error: parentIsError,
-    data: parent,
-  } = useQueryData(
+  const { data: parent } = useQueryData(
     `/v2/dev-parents/${store.credentials.data.parents_aid}`, // endpoint
     "get", // method
     "parent" // key
   );
+
+  const { data: gradeLevel } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
+
+  const handleEnroll = async (item) => {
+    // console.log(item);
+    setLoading(true);
+
+    if (isOngoing === 0 || !isOngoing) {
+      dispatch(setError(true));
+      dispatch(setMessage("There's no enrollment yet."));
+      return;
+    }
+
+    const enroll = await queryData("/v2/dev-client-student/enroll", "post", {
+      ...item,
+      current_students_sy_id: schoolYear?.data[0].school_year_aid,
+    });
+
+    if (enroll.success) {
+      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
+      setLoading(false);
+      dispatch(setSuccess(true));
+      dispatch(setMessage("Successfully enrolled."));
+    }
+    if (!enroll.success) {
+      dispatch(setError(true));
+      dispatch(setMessage(enroll.error));
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -115,7 +177,7 @@ const Student = () => {
                 </p>
               </div>
               <button
-                className="btn btn--sm mt-1"
+                className="btn btn--sm mt-1 hover:underline"
                 data-tooltip="New"
                 onClick={handleAddStudent}
               >
@@ -124,7 +186,7 @@ const Student = () => {
             </div>
 
             <div className="max-w-[620px] w-full gap-4 mb-5 ">
-              {(isLoading || isFetching) && <TableLoading />}
+              {(loading || isFetching) && <TableSpinner />}
               {mystudent?.data.length === 0 ? (
                 <NoData />
               ) : (
@@ -137,7 +199,12 @@ const Student = () => {
                       <h5>
                         {item.students_fname} {item.students_lname} -{" "}
                         <span className="text-accentLight font-bold">
-                          Enrolled
+                          {getStudentStatus(
+                            item,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement
+                          )}
                         </span>
                       </h5>
 
@@ -156,7 +223,13 @@ const Student = () => {
 
                       <p className="text-xs my-2">
                         Requirement Status:{" "}
-                        <span className="text-accentLight ">Complete</span>
+                        <span className="text-accentLight ">
+                          {getRequirementsStatus(
+                            item,
+                            studentRequirement,
+                            registrarRequirement
+                          )}
+                        </span>
                       </p>
 
                       <button
@@ -167,20 +240,29 @@ const Student = () => {
                       </button>
 
                       <div className="card__action absolute top-5 right-5 flex gap-2">
+                        {isOngoing === 1 && (
+                          <button
+                            className="tooltip"
+                            data-tooltip="Enroll"
+                            onClick={() => handleEnroll(item)}
+                          >
+                            <CiSquarePlus />
+                          </button>
+                        )}
                         <button
-                          className=" tooltip"
+                          className="tooltip"
                           data-tooltip="Edit"
                           onClick={() => handleEdit(item)}
                         >
-                          <FiEdit2 />
+                          <CiEdit />
                         </button>
 
                         <button
-                          className=" tooltip"
+                          className="tooltip"
                           data-tooltip="Delete"
                           onClick={() => handleDelete(item)}
                         >
-                          <FiTrash />
+                          <CiTrash />
                         </button>
                       </div>
                     </div>
@@ -201,8 +283,20 @@ const Student = () => {
         />
       )}
 
+      {isViewInfo && (
+        <ModalEditStudent
+          setIsViewInfo={setIsViewInfo}
+          dataItem={itemEdit}
+          gradeLevel={gradeLevel}
+        />
+      )}
+
       {store.isAdd && (
-        <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={itemEdit} />
+        <ModalAddStudent
+          itemEdit={itemEdit}
+          parent={parent}
+          schoolYear={schoolYear}
+        />
       )}
 
       {store.isDelete && (

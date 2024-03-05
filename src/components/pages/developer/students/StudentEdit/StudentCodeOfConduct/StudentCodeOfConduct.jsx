@@ -71,7 +71,9 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
                     } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <div className="flex items-center gap-2">
-                      {/* {dataItem.current_students_last_coc_is_agree === 0 && ( */}
+                      {/* {dataItem.current_students_last_coc_is_agree === 1 &&
+                        (store.credentials.data.role_is_developer === 1 ||
+                          store.credentials.data.role_is_admin === 1) && ( */}
                       <button
                         className="btn btn--accent"
                         type="submit"
@@ -91,7 +93,7 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
                     </div>
                   </div>
 
-                  <div className="mb-14 text-xs">
+                  <div className="mb-24 text-xs">
                     <h3 className="mb-3">Code of Conduct</h3>
                     <p>
                       Frontline Christian Academy (FCA) strives to set a
@@ -220,7 +222,12 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
                         type="checkbox"
                         name="current_students_last_coc_is_agree"
                         id="current_students_last_coc_is_agree"
-                        disabled={mutation.isPending}
+                        disabled={
+                          mutation.isPending ||
+                          (dataItem.current_students_last_coc_is_agree === 1 &&
+                            (store.credentials.data.role_is_developer === 1 ||
+                              store.credentials.data.role_is_admin === 1))
+                        }
                       />
                     </div>
                   </div>

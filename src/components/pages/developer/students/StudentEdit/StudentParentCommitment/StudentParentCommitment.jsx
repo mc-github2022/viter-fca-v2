@@ -97,7 +97,7 @@ const StudentParentCommitment = ({ showSideNav, dataItem, handleClose }) => {
                       </button>
                     </div>
                   </div>
-                  <div className="mb-14 text-xs">
+                  <div className="mb-24 text-xs">
                     <h3 className="mb-3">Parent Commitment Form</h3>
                     <p className="mb-4">
                       As a partner of the school in the education of my child, I

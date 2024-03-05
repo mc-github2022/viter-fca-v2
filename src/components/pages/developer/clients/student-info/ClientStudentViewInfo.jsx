@@ -20,11 +20,16 @@ import {
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
+import { CiEdit, CiSquarePlus, CiTrash } from "react-icons/ci";
 import { FaAngleLeft, FaPlus } from "react-icons/fa";
-import { FiEdit2, FiFilePlus, FiTrash } from "react-icons/fi";
 import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import Navigation from "../../Navigation.jsx";
+import {
+  getRequirementsStatus,
+  getStudentStatus,
+} from "../../all-students/functions-all-students.jsx";
+import ModalEditStudent from "../../students/StudentEdit/ModalEditStudent.jsx";
 import ModalAddStudent from "./modal-student/ModalAddStudent.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
 
@@ -38,6 +43,7 @@ const ClientStudentViewInfo = () => {
   const cid = getUrlParam().get("cid");
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [isViewInfo, setIsViewInfo] = React.useState(false);
 
   const { data: schoolYear } = useQueryData(
     "/v2/dev-school-year", // endpoint
@@ -45,8 +51,30 @@ const ClientStudentViewInfo = () => {
     "school-year" // key
   );
 
+  const { data: gradeLevel } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
+
   const isOngoing =
     schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
+
+  const getCurrentSchoolYear = schoolYear?.data.find(
+    (item) => item.school_year_is_active === 1
+  );
+
+  const { data: studentRequirement } = useQueryData(
+    `/v2/dev-students-requirement`, // endpoint
+    "get", // method
+    "students-requirements" // key
+  );
+
+  const { data: registrarRequirement } = useQueryData(
+    "/v2/dev-requirement-registrar", // endpoint
+    "get", // method
+    "registrar-all-student" // key
+  );
 
   const handleAddStudent = () => {
     if (isOngoing === 0 || !isOngoing) {
@@ -59,8 +87,9 @@ const ClientStudentViewInfo = () => {
   };
 
   const handleEdit = (item) => {
-    dispatch(setIsAdd(true));
+    // dispatch(setIsAdd(true));
     setItemEdit(item);
+    setIsViewInfo(true);
   };
 
   const handleDelete = (item) => {
@@ -198,7 +227,12 @@ const ClientStudentViewInfo = () => {
                       <h5>
                         {item.students_fname} {item.students_lname} -{" "}
                         <span className="text-accentLight font-bold">
-                          Enrolled
+                          {getStudentStatus(
+                            item,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement
+                          )}
                         </span>
                       </h5>
 
@@ -217,11 +251,17 @@ const ClientStudentViewInfo = () => {
 
                       <p className="text-xs my-2">
                         Requirement Status:{" "}
-                        <span className="text-accentLight ">Complete</span>
+                        <span className="text-accentLight ">
+                          {getRequirementsStatus(
+                            item,
+                            studentRequirement,
+                            registrarRequirement
+                          )}
+                        </span>
                       </p>
 
                       <button
-                        className="block text-xs mb-2 text-accent"
+                        className="block text-xs mb-2 text-accent underline"
                         onClick={() => handleViewInfoRequirements(item)}
                       >
                         View Requirement
@@ -234,7 +274,7 @@ const ClientStudentViewInfo = () => {
                             data-tooltip="Enroll"
                             onClick={() => handleEnroll(item)}
                           >
-                            <FiFilePlus />
+                            <CiSquarePlus />
                           </button>
                         )}
                         <button
@@ -242,7 +282,7 @@ const ClientStudentViewInfo = () => {
                           data-tooltip="Edit"
                           onClick={() => handleEdit(item)}
                         >
-                          <FiEdit2 />
+                          <CiEdit />
                         </button>
 
                         <button
@@ -250,7 +290,7 @@ const ClientStudentViewInfo = () => {
                           data-tooltip="Delete"
                           onClick={() => handleDelete(item)}
                         >
-                          <FiTrash />
+                          <CiTrash />
                         </button>
                       </div>
                     </div>
@@ -268,6 +308,14 @@ const ClientStudentViewInfo = () => {
           setViewRequirements={setViewRequirements}
           itemEdit={itemEdit}
           schoolYear={schoolYear}
+        />
+      )}
+
+      {isViewInfo && (
+        <ModalEditStudent
+          setIsViewInfo={setIsViewInfo}
+          dataItem={itemEdit}
+          gradeLevel={gradeLevel}
         />
       )}
 

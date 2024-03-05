@@ -86,7 +86,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
                       Registrar
                     </button>
                   </li>
-                  <li
+                  {/* <li
                     className={` ${
                       index === 2 ? "bg-accent text-primary" : ""
                     }`}
@@ -110,7 +110,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
                     >
                       Information Technology
                     </button>
-                  </li>
+                  </li> */}
                 </ul>
               </aside>
               <main
