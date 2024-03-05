@@ -233,7 +233,7 @@ const Student = () => {
                       </p>
 
                       <button
-                        className="block text-xs mb-2 text-accent"
+                        className="block text-xs mb-2 text-accent underline"
                         onClick={() => handleViewInfoRequirements(item)}
                       >
                         View Requirement

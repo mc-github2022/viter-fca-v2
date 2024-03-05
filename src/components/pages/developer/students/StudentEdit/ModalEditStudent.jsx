@@ -72,7 +72,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                   Student Information{" "}
                   <span className="hidden md:inline"> - </span>
                   <span className="font-bold block md:inline">
-                    {dataItem.student_fullname}
+                    {dataItem.students_fname} {dataItem.students_lname}
                   </span>
                 </h5>
               </div>

@@ -6,7 +6,7 @@ export const getStudentStatus = (
   studentRequirement,
   registrarRequirement
 ) => {
-  let label = "INC";
+  let label = "Incomplete";
   let color = "text-[#ea4335]";
 
   let isCompleteRequirement = studentRequirement?.data.filter(
@@ -82,7 +82,7 @@ export const getRequirementsStatus = (
   studentRequirement,
   registrarRequirement
 ) => {
-  let label = "INC";
+  let label = "Incomplete";
   let color = "text-[#ea4335]";
 
   let isCompleteRequirement = studentRequirement?.data.filter(
