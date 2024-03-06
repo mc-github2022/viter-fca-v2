@@ -6,10 +6,11 @@ UPLOAD
  => models/developer/student/PaymentScheme.php
  => models/developer/student/Student.php
 
+ - Uploaded to Prod 2:47pm
 
 
 
-NEW UPLOAD
+ NEW UPLOAD REVISION 4PM
  ==> rest/v2/controllers/developer/students/functions.php
  ==> rest/v2/controllers/developer/students/remove-from-enrollment.php
  ==> rest/v2/models/developer/student/Student.php

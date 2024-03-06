@@ -65,6 +65,8 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
     refetchOnWindowFocus: false,
   });
 
+  console.log(result);
+
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
     setId(item.students_aid);

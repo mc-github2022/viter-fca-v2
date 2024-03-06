@@ -10,19 +10,19 @@ import { StoreContext } from "../store/StoreContext.jsx";
 export const urlPathFca = `https://app.fca.edu.ph`;
 export const imgUrlPathFca = `https://app.fca.edu.ph/img`;
 
-// // Local Dev and Online Dev URL
-export const devApiUrl = `${urlPathFca}/rest`;
-export const devBaseUrl = `${urlPathFca}`;
-export const devBaseImgUrl = `${imgUrlPathFca}`;
-export const devNavUrl = "/v2";
+// // // Local Dev and Online Dev URL
+// export const devApiUrl = `${urlPathFca}/rest`;
+// export const devBaseUrl = `${urlPathFca}`;
+// export const devBaseImgUrl = `${imgUrlPathFca}`;
+// export const devNavUrl = "/v2";
 
 // ONLINE PRODUCTION START HERE //
 
 // // Online URL prod hris
-// export const devApiUrl = "https://app.fca.edu.ph/rest";
-// export const devBaseUrl = "https://app.fca.edu.ph";
-// export const devBaseImgUrl = "https://app.fca.edu.ph/img";
-// export const devNavUrl = "/v2";
+export const devApiUrl = "https://app.fca.edu.ph/rest";
+export const devBaseUrl = "https://app.fca.edu.ph";
+export const devBaseImgUrl = "https://app.fca.edu.ph/img";
+export const devNavUrl = "/v2";
 
 export const devKey =
   "$2a$12$47wDvbLInZif/PVS8B6P3.7WxyJvUpBzZAWCsnWJUKq3nrn4qgmeO";
