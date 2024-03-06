@@ -197,8 +197,7 @@ class UserSystem
             $sql .= "user.user_system_lname, ";
             $sql .= "user.user_system_email, ";
             $sql .= "user.user_system_password, ";
-            $sql .= "role.role_is_developer, ";
-            $sql .= "role.role_name ";
+            $sql .= "role.* ";
             $sql .= "from {$this->tblUserSystem} as user, ";
             $sql .= "{$this->tblRole} as role ";
             $sql .= "where user.user_system_role_id = role.role_aid ";

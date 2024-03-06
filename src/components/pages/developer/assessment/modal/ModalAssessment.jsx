@@ -12,16 +12,16 @@ import { LiaTimesSolid } from "react-icons/lia";
 import AssessmentAdditionalDiscountList from "./AssessmentAdditionalDiscountList";
 import AssessmentPrimaryDiscountList from "./AssessmentPrimaryDiscountList";
 import AssessmentRateList from "./AssessmentRateList";
+import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 import {
-  getSectedScheme,
   getMonthlyFeeDiscountedAmount,
+  getNotifyAcceptParentInitVal,
   getPrimaryPercentDiscount,
+  getSectedScheme,
+  getSelectedRate,
   getTotalPaymentDiscountedAmount,
   getTotalPaymentWithComma,
-  getSelectedRate,
-  getNotifyAcceptParentInitVal,
 } from "./functions-assessment";
-import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 
 const ModalAssessment = ({ setShowAssessment, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -131,6 +131,8 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     categoryId
   );
 
+  console.log(item);
+
   return (
     <>
       <div
@@ -142,8 +144,10 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <h5 className="mb-0 font-normal">
-                  Student Assessment{" "}
-                  {/* {`${itemEdit.student_info_fname}, ${itemEdit.student_info_lname}`} */}
+                  Student Assessment -{" "}
+                  <span className="font-bold">
+                    {item.students_fname} {item.students_lname}
+                  </span>
                 </h5>
               </div>
               <button onClick={handleClose}>
@@ -151,12 +155,12 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
               </button>
             </div>
             <div
-              className={`flex gap-3 h-full  bg-white overflow-hidden relative`}
+              className={`flex gap-3 h-full  bg-white overflow-hidden relative `}
             >
               <main
-                className={` p-5 py-3 flex flex-col overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
+                className={`px-7 py-8 flex flex-col overflow-y-auto max-h-[100%] h-full custom__scroll w-full transition-all `}
               >
-                <div className="grow">
+                <div className="grow mb-24">
                   <h3>
                     {item.students_fname} {item.students_lname}
                   </h3>
@@ -164,7 +168,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
                   <div className="grid grid-cols-4 gap-2 mt-3  text-xs">
                     <form action="" className="">
-                      <div className="form__wrap">
+                      <div className="form__wrap !mb-0">
                         <label
                           htmlFor=""
                           className="font-bold opacity-100 text-black uppercase"
@@ -278,7 +282,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                           <TableLoading count={20} cols={3} />
                         ) : (
                           <div className="min-h-250px flex items-end opacity-[0.8] ml-3 ">
-                            <p className="font-bold text-base">
+                            <p className="font-bold text-base mb-0">
                               No Rate Selected
                             </p>
                           </div>
@@ -310,7 +314,11 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                   />
                 </div>
 
-                <div className="flex justify-end items-center gap-2">
+                {/* <div className="flex justify-end items-center gap-2"></div> */}
+
+                <div
+                  className={`absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 pr-7 py-8 w-full `}
+                >
                   {item.current_students_is_accept_payment === 1 && (
                     <button
                       className="btn btn--accent"

@@ -307,7 +307,7 @@ class Assessment
             $sql = "select ";
             $sql .= "* ";
             $sql .= "from ";
-            $sql .= " {$this->tblDiscountAdditional} ";
+            $sql .= "{$this->tblDiscountAdditional} ";
             $sql .= "order by discount_additional_is_active desc, ";
             $sql .= "discount_additional_name asc ";
             $query = $this->connection->query($sql);

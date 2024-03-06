@@ -64,7 +64,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
             >
               <Link
                 // to={`${devNavUrl}/admin/students`}
-                className={`flex gap-3 items-center uppercase w-full cursor-default pointer-events-none ${
+                className={`flex gap-3 items-center uppercase p-1 w-full cursor-default pointer-events-none ${
                   schoolYear?.isGreaterThanEndYear ||
                   getOngoingSchoolYear?.length === 0
                     ? "text-alert"

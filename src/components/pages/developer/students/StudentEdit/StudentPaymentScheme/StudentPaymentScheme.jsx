@@ -92,19 +92,17 @@ const StudentPaymentScheme = ({
             } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
           >
             <div className="flex items-center gap-2">
-              {(store.credentials.data.role_is_admin === 1 ||
-                store.credentials.data.role_is_developer === 1) &&
-                dataItem.current_students_is_accept_payment === 1 && (
-                  <button
-                    className="btn btn--accent"
-                    type="submit"
-                    onClick={() =>
-                      handleRevert(getSectedScheme(listOfScheme, selectItem))
-                    }
-                  >
-                    Request Revert Payment
-                  </button>
-                )}
+              {dataItem.current_students_is_accept_payment === 1 && (
+                <button
+                  className="btn btn--accent"
+                  type="submit"
+                  onClick={() =>
+                    handleRevert(getSectedScheme(listOfScheme, selectItem))
+                  }
+                >
+                  Request Revert Payment
+                </button>
+              )}
               {dataItem.current_students_is_accept_payment === 0 &&
                 dataItem.current_students_schedule_fees_id === 0 && (
                   <button

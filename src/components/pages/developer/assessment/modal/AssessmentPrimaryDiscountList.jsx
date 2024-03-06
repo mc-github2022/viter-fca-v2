@@ -15,7 +15,7 @@ const AssessmentPrimaryDiscountList = ({
   return (
     <>
       <div className="grid grid-cols-[250px_1fr] mb-8 mt-5 gap-5">
-        <div className="form__wrap ">
+        <div className="form__wrap !mb-0">
           <label
             htmlFor=""
             className="font-bold opacity-100 text-black uppercase"
@@ -52,7 +52,9 @@ const AssessmentPrimaryDiscountList = ({
 
         {Number(primaryDiscountId) === 0 && (
           <div className="min-h-250px flex items-end opacity-[0.8]">
-            <p className="font-bold text-base">No Primary Discount Selected</p>
+            <p className="font-bold text-base mb-0">
+              No Primary Discount Selected
+            </p>
           </div>
         )}
         {Number(primaryDiscountId) > 0 && (

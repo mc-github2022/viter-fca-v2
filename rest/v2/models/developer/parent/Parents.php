@@ -174,7 +174,9 @@ class Parents
     public function readStudentById()
     {
         try {
-            $sql = "select * from {$this->tblStudents} as students, ";
+            $sql = "select *, ";
+            $sql .= "CONCAT(YEAR(school_year.school_year_start_date), '-', YEAR(school_year.school_year_end_date)) as school_year ";
+            $sql .= "from {$this->tblStudents} as students, ";
             $sql .= "{$this->tblParents} as parents, ";
             $sql .= "{$this->tblSyStudentsCurrent} as syStudentCurrent, ";
             $sql .= "{$this->tblGradeLevel} as grade_level, ";

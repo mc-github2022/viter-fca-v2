@@ -362,20 +362,19 @@ class Student
     {
         try {
             $sql = "select ";
-            $sql .= "guardian.guardian_aid, ";
-            $sql .= "guardian.guardian_address, ";
-            $sql .= "guardian.guardian_province, ";
-            $sql .= "guardian.guardian_city, ";
-            $sql .= "guardian.guardian_zipcode, ";
-            $sql .= "guardian.guardian_country ";
-            $sql .= "from {$this->tblStudent} as students, ";
-            $sql .= "{$this->tblGuardian} as guardian ";
-            $sql .= "where students.students_parent_id = :students_parent_id ";
-            $sql .= "and students.students_parent_id = guardian.guardian_parent_id ";
-            $sql .= "group by guardian.guardian_aid ";
+            $sql .= "guardian_aid, ";
+            $sql .= "guardian_address, ";
+            $sql .= "guardian_province, ";
+            $sql .= "guardian_city, ";
+            $sql .= "guardian_zipcode, ";
+            $sql .= "guardian_country ";
+            $sql .= "from ";
+            $sql .= "{$this->tblGuardian} ";
+            $sql .= "where guardian_parent_id = :guardian_parent_id ";
+            $sql .= "group by guardian_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "students_parent_id" => $this->students_parent_id
+                "guardian_parent_id" => $this->students_parent_id
             ]);
         } catch (PDOException $ex) {
             $query = false;

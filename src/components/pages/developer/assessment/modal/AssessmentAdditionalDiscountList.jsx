@@ -1,6 +1,6 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { getGetAdditionalDiscount } from "./functions-assessment";
 import { isItemEmpty } from "@/components/helpers/functions-general";
+import { getGetAdditionalDiscount } from "./functions-assessment";
 
 const AssessmentAdditionalDiscountList = ({
   additionalDiscountId,
@@ -25,7 +25,7 @@ const AssessmentAdditionalDiscountList = ({
   return (
     <>
       <div className="grid grid-cols-[250px_1fr] gap-5">
-        <div className="form__wrap">
+        <div className="form__wrap !mb-0">
           <label
             htmlFor=""
             className="font-bold opacity-100 text-black uppercase"
@@ -63,7 +63,7 @@ const AssessmentAdditionalDiscountList = ({
         {Number(additionalDiscountId) === 0 && (
           // <div className="min-h-250px grid place-content-center border border-line">
           <div className="min-h-250px flex items-end opacity-[0.8]">
-            <p className="font-bold text-base">
+            <p className="font-bold text-base mb-0">
               No Additional Discount Selected
             </p>
           </div>
