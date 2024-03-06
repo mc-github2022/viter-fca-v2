@@ -18,6 +18,8 @@ const AssessmentAdditionalDiscountList = ({
     "addtional-discount" // key
   );
 
+  console.log(additionalDiscount);
+
   const handleChangeAdditionalDiscount = (e) => {
     setAdditionalDiscountId(e.target.value);
   };

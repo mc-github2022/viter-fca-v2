@@ -27,6 +27,8 @@ const StudentPaymentScheme = ({
     Number(dataItem.current_students_schedule_fees_id)
   );
 
+  console.log(dataItem.current_students_is_accept_payment === 1);
+
   const { data: primaryDiscount } = useQueryData(
     "/v2/dev-assessment/read-primary-discount", // endpoint
     "get", // method
@@ -128,7 +130,7 @@ const StudentPaymentScheme = ({
           </div>
         )}
 
-        <div className="mb-14 text-xs">
+        <div className="mb-4 text-xs">
           <h3 className="mb-3">Payment Scheme</h3>
 
           {loadingListOfScheme ? (
