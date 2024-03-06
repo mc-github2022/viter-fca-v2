@@ -186,6 +186,7 @@ class AllStudents
         return $query;
     }
 
+
     public function search()
     {
         try {

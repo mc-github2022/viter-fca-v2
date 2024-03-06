@@ -89,6 +89,7 @@ const Students = () => {
       </section>
       {store.isAdd && <ModalAddStudent schoolYear={schoolYear} />}
       {store.success && <ModalSuccess />}
+      {store.validate && <ModalValidate />}
 
       {isViewInfo && (
         <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={dataItem} />
