@@ -18,6 +18,8 @@ import { CiViewList } from "react-icons/ci";
 import { FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
+import ModalValidate from "@/components/partials/modals/ModalValidate";
 
 const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -91,6 +93,8 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
     }
   }, [inView]);
 
+  console.log("result", result?.pages[0]);
+
   return (
     <>
       <SearchBar
@@ -121,7 +125,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
               </thead>
 
               <tbody>
-                {(status === "loading" ||
+                {/* {(status === "loading" ||
                   result?.pages[0].data.length === 0) && (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
@@ -140,14 +144,28 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                       <ServerError />
                     </td>
                   </tr>
-                )}
-
-                {result?.pages.map((page, key) => (
-                  <React.Fragment key={key}>
-                    {page.data.map((item, key) => (
-                      <tr key={key}>
-                        <td>{counter++}.</td>
-                        {/* <td>
+                )} */}
+                {result?.success === false ? (
+                  <ModalInvalidRequestError />
+                ) : status === "loading" || result?.count === 0 ? (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      {status === "loading" ? (
+                        <TableLoading count={20} cols={3} />
+                      ) : (
+                        <NoData />
+                      )}
+                    </td>
+                  </tr>
+                ) : (
+                  status !== "loading" &&
+                  result?.success === true &&
+                  result?.pages.map((page, key) => (
+                    <React.Fragment key={key}>
+                      {page.data.map((item, key) => (
+                        <tr key={key}>
+                          <td>{counter++}.</td>
+                          {/* <td>
                           <Pills
                             bg="bg-gray-200"
                             label={
@@ -162,60 +180,64 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                             }
                           />
                         </td> */}
-                        <td>{item.student_fullname}</td>
-                        <td>{item.grade_level_name}</td>
-                        <td>{item.school_year}</td>
+                          <td>{item.student_fullname}</td>
+                          <td>{item.grade_level_name}</td>
+                          <td>{item.school_year}</td>
 
-                        <td>
-                          {item.students_is_active === 1 ? (
-                            <div className="flex gap-2 justify-end pr-2">
-                              <button
-                                className="tooltip text-base"
-                                data-tooltip="Info"
-                                onClick={() => handleViewInfo(item)}
-                              >
-                                <CiViewList />
-                              </button>
+                          <td>
+                            {item.students_is_active === 1 ? (
+                              <div className="flex gap-2 justify-end pr-2">
+                                <button
+                                  className="tooltip text-base"
+                                  data-tooltip="Info"
+                                  onClick={() => handleViewInfo(item)}
+                                >
+                                  <CiViewList />
+                                </button>
 
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Archive"
-                                onClick={() => handleArchive(item)}
-                              >
-                                <BsArchive />
-                              </button>
-                            </div>
-                          ) : (
-                            <div className="flex gap-2 justify-end">
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Restore"
-                                onClick={() => handleRestore(item)}
-                              >
-                                <MdOutlineRestore />
-                              </button>
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Delete"
-                                onClick={() => handleDelete(item)}
-                              >
-                                <FiTrash />
-                              </button>
-                            </div>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </React.Fragment>
-                ))}
+                                <button
+                                  type="button"
+                                  className="tooltip"
+                                  data-tooltip="Archive"
+                                  onClick={() => handleArchive(item)}
+                                >
+                                  <BsArchive />
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="flex gap-2 justify-end">
+                                <button
+                                  type="button"
+                                  className="tooltip"
+                                  data-tooltip="Restore"
+                                  onClick={() => handleRestore(item)}
+                                >
+                                  <MdOutlineRestore />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="tooltip"
+                                  data-tooltip="Delete"
+                                  onClick={() => handleDelete(item)}
+                                >
+                                  <FiTrash />
+                                </button>
+                              </div>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </React.Fragment>
+                  ))
+                )}
               </tbody>
             </table>
             <div className="flex justify-between mt-10">
               <h6>
-                Count: <span>{result?.pages[0].data.length}</span>
+                Count:{" "}
+                <span>
+                  {result?.success === true && result?.pages[0].data.length}
+                </span>
               </h6>
               <Loadmore
                 fetchNextPage={fetchNextPage}

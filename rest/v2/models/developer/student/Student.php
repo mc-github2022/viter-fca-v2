@@ -283,7 +283,7 @@ class Student
             $sql .= "student.students_lname, ";
             $sql .= "student.students_fname ";
             $sql .= "limit :start, ";
-            $sql .= ":total ";
+            $sql .= ":total "; // comment ni cy
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "start" => $this->students_start - 1,
