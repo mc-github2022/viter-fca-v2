@@ -26,7 +26,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
 
   const [index, setIndex] = React.useState(1);
 
-  console.log(dataItem);
+  console.log("098", dataItem);
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
@@ -266,7 +266,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
       {store.success && <ModalSuccess />}
       {store.isSettingConfirm && (
         <ModalRevertOrSavePayment
-          mysqlApiRevertOrSavePayment={`/v2/dev-students-payment-scheme/${dataItem?.current_students_student_id}`}
+          mysqlApiRevertOrSavePayment={`/v2/dev-students-payment-scheme/${dataItem?.current_students_aid}`}
           msg={`Are you sure you want to ${
             isSavePaymentScheme ? "save" : "revert"
           } this record ?`}

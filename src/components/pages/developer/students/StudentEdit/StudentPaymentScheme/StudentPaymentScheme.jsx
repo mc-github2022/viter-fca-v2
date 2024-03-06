@@ -27,8 +27,6 @@ const StudentPaymentScheme = ({
     Number(dataItem.current_students_schedule_fees_id)
   );
 
-  console.log(dataItem.current_students_is_accept_payment === 1);
-
   const { data: primaryDiscount } = useQueryData(
     "/v2/dev-assessment/read-primary-discount", // endpoint
     "get", // method
