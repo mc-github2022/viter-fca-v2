@@ -132,7 +132,6 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   );
 
   console.log(item);
-
   return (
     <>
       <div
@@ -319,14 +318,6 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                 <div
                   className={`absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 pr-7 py-8 w-full `}
                 >
-                  {item.current_students_is_accept_payment === 1 && (
-                    <button
-                      className="btn btn--accent"
-                      // onClick={handleNotifyParent}
-                    >
-                      Revert Payment
-                    </button>
-                  )}
                   {item.current_students_is_accept_payment === 0 && (
                     <>
                       {listOfScheme?.count > 0 && selectItem === 0 && (
