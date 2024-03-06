@@ -18,7 +18,7 @@ const Department = ({ index, isGreaterThanEndYear }) => {
     setItemEdit(null);
   };
 
-  if (index === 1 && !isGreaterThanEndYear) {
+  if (index === 1) {
     return (
       <>
         <div className="">

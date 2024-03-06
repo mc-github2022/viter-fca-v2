@@ -29,7 +29,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const { store, dispatch } = React.useContext(StoreContext);
 
-  const [index, setIndex] = React.useState(1);
+  const [index, setIndex] = React.useState(isGreaterThanEndYear ? 17 : 1);
   const [indexInner, setIndexInner] = React.useState(1);
 
   const handleShowSideNav = () => {
@@ -49,6 +49,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
       // }
     }, 200);
   };
+
   return (
     <>
       <div

@@ -43,7 +43,7 @@ const SchoolYear = ({ index, isGreaterThanEndYear }) => {
     setItemEdit(null);
   };
 
-  if (index === 17 || isGreaterThanEndYear) {
+  if (index === 17 || (index === 17 && isGreaterThanEndYear)) {
     return (
       <>
         <div className="">
