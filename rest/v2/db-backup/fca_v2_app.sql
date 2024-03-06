@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2024 at 12:32 AM
+-- Generation Time: Mar 06, 2024 at 05:26 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -69,14 +69,6 @@ CREATE TABLE `fcav2_guardian` (
   `guardian_created` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `fcav2_guardian`
---
-
-INSERT INTO `fcav2_guardian` (`guardian_aid`, `guardian_active`, `guardian_relationship_id`, `guardian_parent_id`, `guardian_is_reside`, `guardian_salutation`, `guardian_fname`, `guardian_mname`, `guardian_maiden_name`, `guardian_lname`, `guardian_email`, `guardian_mobile`, `guardian_landline`, `guardian_address`, `guardian_province`, `guardian_city`, `guardian_zipcode`, `guardian_country`, `guardian_religion`, `guardian_occupation`, `guardian_datetime`, `guardian_created`) VALUES
-(1, 0, 1, 1, 1, 'mr', 'Ramon', 0, '', 'Plaza', 'macmerin32@gmail.com', '09491040057', '', 'Block 8 Lot 6, Batubalani Subdivision Sitio 10', 'Laguna', 'San Pablo City', '4000', 'Philippines', 'Christian', 'I.T', '2024-02-27 13:31:35', '2024-02-27 13:31:35'),
-(2, 0, 2, 1, 1, 'mrs', 'Bhea', 0, '', 'Del Monte', 'bhea@gmail.com', '09662993797', '', 'Brgy. Santo Nino, Frontline Campus', 'Laguna', 'San Pablo City', '4000', 'Philippines', 'Christian', 'Accounting', '2024-02-27 13:35:05', '2024-02-27 13:35:05');
-
 -- --------------------------------------------------------
 
 --
@@ -98,13 +90,6 @@ CREATE TABLE `fcav2_parents` (
   `parents_datetime` varchar(20) NOT NULL,
   `parents_created` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `fcav2_parents`
---
-
-INSERT INTO `fcav2_parents` (`parents_aid`, `parents_is_active`, `parents_email`, `parents_fname`, `parents_lname`, `parents_father_income`, `parents_mother_income`, `parents_financier_name`, `parents_financier_relationship`, `parents_financier_occupation`, `parents_financier_income`, `parents_datetime`, `parents_created`) VALUES
-(1, 1, 'cyrenemlumabas@gmail.com', 'Patrick', 'Reyes', '', '', '', '', '', '', '2024-02-20 07:45:59', '2024-02-20 07:45:59');
 
 -- --------------------------------------------------------
 
@@ -138,14 +123,6 @@ CREATE TABLE `fcav2_school_year_students` (
   `school_year_students_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `fcav2_school_year_students`
---
-
-INSERT INTO `fcav2_school_year_students` (`school_year_students_aid`, `school_year_students_is_active`, `school_year_students_sy_id`, `school_year_students_student_id`, `school_year_students_grade_level_id`, `school_year_students_last_learning_type`, `school_year_students_last_school_attended`, `school_year_students_last_gpa`, `school_year_students_last_grade_level_id`, `school_year_students_last_school_address`, `school_year_students_last_remarks`, `school_year_students_is_notify`, `school_year_students_is_accept_payment`, `school_year_students_schedule_fees_id`, `school_year_students_rate_id`, `school_year_students_primary_discount_id`, `school_year_students_additional_discount_id`, `school_year_students_last_coc_is_agree`, `school_year_students_last_parent_declaration_is_agree`, `school_year_students_last_parent_consent_is_agree`, `school_year_students_last_parent_commitment_is_agree`, `school_year_students_created`, `school_year_students_datetime`) VALUES
-(1, 1, 2, 1, 1, 'online', 'Ambray Elemantary School', '95', 0, 'San Pablo City, Laguna, Philippines 4000', 'N/a', 0, 0, 13, 3, 3, 0, 1, 1, 1, 0, '2024-02-28 13:54:39', '2024-03-06 07:29:36'),
-(8, 1, 2, 2, 1, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 0, 'San Pablo City, Laguna, Philippines 4000', 'N/A', 1, 0, 0, 2, 3, 0, 1, 1, 1, 1, '2024-02-28 16:51:09', '2024-02-29 14:54:57');
-
 -- --------------------------------------------------------
 
 --
@@ -178,14 +155,6 @@ CREATE TABLE `fcav2_school_year_students_current` (
   `current_students_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `fcav2_school_year_students_current`
---
-
-INSERT INTO `fcav2_school_year_students_current` (`current_students_aid`, `current_students_is_active`, `current_students_sy_id`, `current_students_student_id`, `current_students_grade_level_id`, `current_students_last_learning_type`, `current_students_last_school_attended`, `current_students_last_gpa`, `current_students_last_grade_level_id`, `current_students_last_school_address`, `current_students_last_remarks`, `current_students_is_notify`, `current_students_is_accept_payment`, `current_students_schedule_fees_id`, `current_students_rate_id`, `current_students_primary_discount_id`, `current_students_additional_discount_id`, `current_students_last_coc_is_agree`, `current_students_last_parent_declaration_is_agree`, `current_students_last_parent_consent_is_agree`, `current_students_last_parent_commitment_is_agree`, `current_students_created`, `current_students_datetime`) VALUES
-(1, 1, 2, 1, 1, 'online', 'Ambray Elemantary School', '95', 0, 'San Pablo City, Laguna, Philippines 4000', 'n/a', 0, 0, 13, 3, 3, 0, 1, 1, 1, 1, '2024-03-01 00:41:40', '2024-03-06 07:29:36'),
-(8, 1, 2, 2, 1, 'onsite', 'San Pablo City, Laguna, Philippines 4000', '99', 0, 'San Pablo City, Laguna, Philippines 4000', 'n/a', 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, '2024-03-01 00:41:40', '2024-03-01 00:41:40');
-
 -- --------------------------------------------------------
 
 --
@@ -202,18 +171,6 @@ CREATE TABLE `fcav2_school_year_students_requirements` (
   `students_requirements_created` datetime NOT NULL,
   `students_requirements_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `fcav2_school_year_students_requirements`
---
-
-INSERT INTO `fcav2_school_year_students_requirements` (`students_requirements_aid`, `students_requirements_is_active`, `students_requirements_sy_id`, `students_requirements_student_id`, `students_requirements_id`, `students_requirements_remarks`, `students_requirements_created`, `students_requirements_datetime`) VALUES
-(1, 1, 2, 2, 1, '', '2024-03-06 07:26:09', '2024-03-06 07:26:09'),
-(2, 1, 2, 2, 2, '', '2024-03-06 07:26:11', '2024-03-06 07:26:11'),
-(3, 1, 2, 2, 3, '', '2024-03-06 07:26:11', '2024-03-06 07:26:11'),
-(4, 1, 2, 2, 4, '', '2024-03-06 07:26:12', '2024-03-06 07:26:12'),
-(5, 1, 2, 2, 5, '', '2024-03-06 07:26:12', '2024-03-06 07:26:12'),
-(6, 1, 2, 2, 6, '', '2024-03-06 07:26:12', '2024-03-06 07:26:12');
 
 -- --------------------------------------------------------
 
@@ -524,14 +481,6 @@ CREATE TABLE `fcav2_settings_school_year` (
   `school_year_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `fcav2_settings_school_year`
---
-
-INSERT INTO `fcav2_settings_school_year` (`school_year_aid`, `school_year_is_active`, `school_year_start_date`, `school_year_end_date`, `school_year_enrollment_start_date`, `school_year_enrollment_end_date`, `school_year_is_enrollment_open`, `school_year_created`, `school_year_datetime`) VALUES
-(1, 0, '2024-02-28', '2025-02-28', '', '', 0, '2024-02-28 13:52:56', '0000-00-00 00:00:00'),
-(2, 1, '2025-02-28', '2026-02-28', '', '', 1, '2024-02-28 15:52:38', '2024-02-28 15:53:07');
-
 -- --------------------------------------------------------
 
 --
@@ -734,14 +683,6 @@ CREATE TABLE `fcav2_students` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `fcav2_students`
---
-
-INSERT INTO `fcav2_students` (`students_aid`, `students_is_active`, `students_parent_id`, `students_lrn`, `students_fname`, `students_mname`, `students_lname`, `students_gender`, `students_birth_date`, `students_birth_place`, `students_email`, `students_mobile`, `students_landline`, `students_address_id`, `students_institutional_email`, `students_family_doctor`, `students_family_doctor_contact`, `students_medical_remarks`, `students_family_circumstances`, `students_created`, `students_datetime`) VALUES
-(1, 1, 1, '109749060126', 'Mark Ryan', 'Bueno', 'Merin', 'm', '2000-09-24', 'San Gabriel, San Pablo City', 'macmerin24@gmail.com', '09491040057', '', 1, '', 'Dr. Jhonny Jose E. Dichoso', '09662993797', 'N/a', 'N/a', '2024-02-28 13:54:39', '2024-02-29 15:53:53'),
-(2, 1, 1, '109749060127', 'Cyrene', 'Mercado', 'Lumabas', 'f', '1999-02-28', 'San Pablo City, Laguna, Philippines 4000', 'cyrenemlumabas@gmail.com', '09495215414', '', 1, '', 'N/A', 'N/A', 'N/A', 'N/A', '2024-02-28 14:01:43', '2024-02-28 14:01:43');
-
---
 -- Indexes for dumped tables
 --
 
@@ -933,13 +874,13 @@ ALTER TABLE `fcav2_parents`
 -- AUTO_INCREMENT for table `fcav2_school_year_students`
 --
 ALTER TABLE `fcav2_school_year_students`
-  MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `fcav2_school_year_students_current`
 --
 ALTER TABLE `fcav2_school_year_students_current`
-  MODIFY `current_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `current_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `fcav2_school_year_students_requirements`
@@ -1071,7 +1012,7 @@ ALTER TABLE `fcav2_settings_user_system`
 -- AUTO_INCREMENT for table `fcav2_students`
 --
 ALTER TABLE `fcav2_students`
-  MODIFY `students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
