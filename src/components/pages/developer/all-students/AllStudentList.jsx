@@ -183,7 +183,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  {/* <th className="w-20">Status</th> */}
+                  <th className="w-20">Status</th>
                   <th>Name</th>
                   <th>Grade Level</th>
                   <th>S.Y</th>
@@ -294,7 +294,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                 )}
               </tbody>
             </table>
-            <div className="flex justify-between mt-10">
+            <div className="flex justify-center mt-10">
               <Loadmore
                 fetchNextPage={fetchNextPage}
                 isFetchingNextPage={isFetchingNextPage}

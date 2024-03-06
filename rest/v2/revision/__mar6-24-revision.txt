@@ -1,8 +1,16 @@
 UPLOAD
-
  => models/developer/all-students/AllStudents.php
  => models/developer/assessment/Assessment.php
  => models/developer/client/client-student/ClientStudent.php
  => models/developer/parent/Parents.php
  => models/developer/student/PaymentScheme.php
  => models/developer/student/Student.php
+
+
+
+
+NEW UPLOAD
+ ==> rest/v2/controllers/developer/students/functions.php
+ ==> rest/v2/controllers/developer/students/remove-from-enrollment.php
+ ==> rest/v2/models/developer/student/Student.php
+ ==> rest/v2/.htaccess

@@ -126,3 +126,11 @@ function checkReadGuardianByParentId($object)
     checkQuery($query, "There's a problem processing your request. (read guardian by parent id)");
     return $query;
 }
+
+// Active 
+function checkUpdateSYCurrentSchoolYear($object)
+{
+    $query = $object->updateSYCurrentSchoolYear();
+    checkQuery($query, "There's a problem processing your request. (active)");
+    return $query;
+}

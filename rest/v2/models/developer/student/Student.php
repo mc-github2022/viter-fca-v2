@@ -219,6 +219,7 @@ class Student
         return $query;
     }
 
+
     public function readAll()
     {
         try {
@@ -241,7 +242,7 @@ class Student
             $sql .= "or syStudentCurrent.current_students_last_parent_declaration_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_consent_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_commitment_is_agree = 0) ";
-            $sql .= "and schoolYear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
+            $sql .= "and schoolYear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year 
             $sql .= "group by ";
             $sql .= "student.students_aid ";
             $sql .= "order by ";
@@ -277,7 +278,7 @@ class Student
             $sql .= "or syStudentCurrent.current_students_last_parent_declaration_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_consent_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_commitment_is_agree = 0) ";
-            $sql .= "and schoolYear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
+            $sql .= "and schoolYear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year 
             $sql .= "group by ";
             $sql .= "student.students_aid ";
             $sql .= "order by ";
@@ -402,6 +403,25 @@ class Student
         return $query;
     }
 
+    public function updateSYCurrentSchoolYear()
+    {
+        try {
+            $sql = "update {$this->tblSyStudentCurrent} set ";
+            $sql .= "current_students_sy_id = :current_students_sy_id, ";
+            $sql .= "current_students_datetime = :current_students_datetime ";
+            $sql .= "where current_students_student_id = :current_students_student_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "current_students_sy_id" => $this->current_students_sy_id,
+                "current_students_datetime" => $this->students_datetime,
+                "current_students_student_id" => $this->students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
 
     // delete
     public function delete()
@@ -503,6 +523,7 @@ class Student
         }
         return $query;
     }
+
 
     // update school year students current -> current record
     public function updateSchoolYearStudentCurrent()
@@ -747,6 +768,50 @@ class Student
             $query->execute([
                 "current_students_student_id" => $this->students_aid,
                 "current_students_sy_id" => $this->current_students_sy_id,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function readCountSchoolYearStudentByStudentId()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "school_year_students_student_id, ";
+            $sql .= "count(school_year_students_student_id) as student_count ";
+            $sql .= "from {$this->tblSyStudent} ";
+            $sql .= "where school_year_students_student_id = :school_year_students_student_id ";
+            $sql .= "group by school_year_students_student_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "school_year_students_student_id" => $this->students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function readLastSchoolYearStudentByStudentId()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "school_year_students_student_id, ";
+            $sql .= "school_year_students_last_learning_type, ";
+            $sql .= "school_year_students_grade_level_id, ";
+            $sql .= "school_year_students_last_school_attended, ";
+            $sql .= "school_year_students_last_gpa, ";
+            $sql .= "school_year_students_last_school_address, ";
+            $sql .= "school_year_students_last_remarks ";
+            $sql .= "from {$this->tblSyStudent} ";
+            $sql .= "where school_year_students_student_id = :school_year_students_student_id ";
+            $sql .= "order by school_year_students_aid desc ";
+            $sql .= "limit 1 ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "school_year_students_student_id" => $this->students_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

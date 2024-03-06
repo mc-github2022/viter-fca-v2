@@ -26,8 +26,6 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
 
   const [index, setIndex] = React.useState(1);
 
-  console.log("098", dataItem);
-
   const handleClose = () => {
     dispatch(setIsAdd(false));
     setIsViewInfo(false);
@@ -50,9 +48,6 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
     "get", // method
     "read-student-by-current-sy-id" // key
   );
-
-  console.log("dataItem", dataItem);
-  console.log("studentByCurrentSyId", studentByCurrentSyId);
 
   return (
     <>

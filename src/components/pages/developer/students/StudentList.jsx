@@ -25,6 +25,7 @@ import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import ModalValidate from "@/components/partials/modals/ModalValidate";
+import ModalRemoveFromEnrollment from "./modals/ModalRemoveFromEnrollment";
 
 const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -123,7 +124,6 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  {/* <th className="w-20">Status</th> */}
                   <th>Name</th>
                   <th>Grade Level</th>
                   <th>S.Y</th>
@@ -160,7 +160,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                           <td>{item.grade_level_name}</td>
                           <td>{item.school_year}</td>
                           <td>
-                            {item.students_is_active === 1 ? (
+                            {item.students_is_active === 1 && (
                               <div className="flex gap-2 justify-end pr-2">
                                 <button
                                   className="tooltip text-base"
@@ -168,26 +168,6 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                                   onClick={() => handleViewInfo(item)}
                                 >
                                   <CiViewList />
-                                </button>
-
-                                <button
-                                  type="button"
-                                  className="tooltip"
-                                  data-tooltip="Archive"
-                                  onClick={() => handleArchive(item)}
-                                >
-                                  <BsArchive />
-                                </button>
-                              </div>
-                            ) : (
-                              <div className="flex gap-2 justify-end">
-                                <button
-                                  type="button"
-                                  className="tooltip"
-                                  data-tooltip="Restore"
-                                  onClick={() => handleRestore(item)}
-                                >
-                                  <MdOutlineRestore />
                                 </button>
                                 <button
                                   type="button"
@@ -207,7 +187,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                 )}
               </tbody>
             </table>
-            <div className="flex justify-between mt-10">
+            <div className="flex justify-center mt-10">
               <Loadmore
                 fetchNextPage={fetchNextPage}
                 isFetchingNextPage={isFetchingNextPage}
@@ -235,9 +215,9 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
       )}
 
       {store.isDelete && (
-        <ModalDelete
-          mysqlApiDelete={`/v2/dev-students/${id}/${dataItem.school_year_aid}`}
-          msg={"Are you sure you want to delete this record?"}
+        <ModalRemoveFromEnrollment
+          mysqlApiDelete={`/v2/dev-students/remove-from-enrollment/${id}/${dataItem.school_year_aid}`}
+          msg={"Are you sure you want to remove this record ?"}
           item={dataItem.student_fullname}
           queryKey={"students"}
         />
