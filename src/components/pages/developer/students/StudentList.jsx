@@ -5,7 +5,12 @@ import ServerError from "@/components/partials/ServerError";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
-import { setIsConfirm, setIsDelete } from "@/components/store/StoreAction";
+import {
+  setIsConfirm,
+  setIsDelete,
+  setMessage,
+  setValidate,
+} from "@/components/store/StoreAction";
 
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
@@ -89,9 +94,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
       setPage((prev) => prev + 1);
       fetchNextPage();
     }
-  }, [inView]);
-
-  console.log("result", result?.pages[0]);
+  }, [inView, result?.pages[0].success]);
 
   return (
     <>
@@ -143,9 +146,13 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                     </td>
                   </tr>
                 )} */}
-                {result?.success === false ? (
-                  <ModalInvalidRequestError />
-                ) : status === "loading" || result?.count === 0 ? (
+                {result?.pages[0].success === false ? (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      <ModalInvalidRequestError />
+                    </td>
+                  </tr>
+                ) : status === "loading" || result?.pages[0].count === 0 ? (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
                       {status === "loading" ? (
@@ -157,7 +164,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                   </tr>
                 ) : (
                   status !== "loading" &&
-                  result?.success === true &&
+                  result?.pages[0].success === true &&
                   result?.pages.map((page, key) => (
                     <React.Fragment key={key}>
                       {page.data.map((item, key) => (
@@ -251,7 +258,6 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
           </div>
         </div>
       </div>
-
       {store.isConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/dev-students/active/${id}`}
