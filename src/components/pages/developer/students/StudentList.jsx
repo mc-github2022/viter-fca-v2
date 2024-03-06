@@ -114,6 +114,12 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
           <FetchingSpinner />
         )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
+          <h6>
+            Count:
+            <span>
+              {result?.success === true && result?.pages[0].data.length}
+            </span>
+          </h6>
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm  ">
               <thead>
@@ -128,26 +134,6 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
               </thead>
 
               <tbody>
-                {/* {(status === "loading" ||
-                  result?.pages[0].data.length === 0) && (
-                  <tr className="text-center hover:bg-transparent ">
-                    <td colSpan="100%" className="p-10">
-                      {status === "loading" ? (
-                        <TableLoading count={20} cols={3} />
-                      ) : (
-                        <NoData />
-                      )}
-                    </td>
-                  </tr>
-                )}
-
-                {error && (
-                  <tr className="text-center hover:bg-transparent ">
-                    <td colSpan="100%" className="p-10">
-                      <ServerError />
-                    </td>
-                  </tr>
-                )} */}
                 {result?.pages[0].success === false ? (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
@@ -172,25 +158,9 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                       {page.data.map((item, key) => (
                         <tr key={key}>
                           <td>{counter++}.</td>
-                          {/* <td>
-                          <Pills
-                            bg="bg-gray-200"
-                            label={
-                              item.students_is_active === 1
-                                ? "Active"
-                                : "Inactive"
-                            }
-                            color={
-                              item.students_is_active === 1
-                                ? "text-green-500"
-                                : "text-gray-500"
-                            }
-                          />
-                        </td> */}
                           <td>{item.student_fullname}</td>
                           <td>{item.grade_level_name}</td>
                           <td>{item.school_year}</td>
-
                           <td>
                             {item.students_is_active === 1 ? (
                               <div className="flex gap-2 justify-end pr-2">
@@ -240,12 +210,6 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
               </tbody>
             </table>
             <div className="flex justify-between mt-10">
-              <h6>
-                Count:{" "}
-                <span>
-                  {result?.success === true && result?.pages[0].data.length}
-                </span>
-              </h6>
               <Loadmore
                 fetchNextPage={fetchNextPage}
                 isFetchingNextPage={isFetchingNextPage}

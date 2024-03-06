@@ -51,7 +51,8 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
     "read-student-by-current-sy-id" // key
   );
 
-  console.log(dataItem);
+  console.log("dataItem", dataItem);
+  console.log("studentByCurrentSyId", studentByCurrentSyId);
 
   return (
     <>

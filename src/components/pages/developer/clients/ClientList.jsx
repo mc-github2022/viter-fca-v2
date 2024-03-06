@@ -117,6 +117,9 @@ const ClientList = ({ setItemEdit }) => {
           <FetchingSpinner />
         )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
+          <h6>
+            Count: <span>{result?.pages[0].data.length}</span>
+          </h6>
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm">
               <thead>
@@ -129,8 +132,13 @@ const ClientList = ({ setItemEdit }) => {
               </thead>
 
               <tbody>
-                {(status === "loading" ||
-                  result?.pages[0].data.length === 0) && (
+                {result?.pages[0].success === false ? (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      <ModalInvalidRequestError />
+                    </td>
+                  </tr>
+                ) : status === "loading" || result?.pages[0].count === 0 ? (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
                       {status === "loading" ? (
@@ -140,109 +148,100 @@ const ClientList = ({ setItemEdit }) => {
                       )}
                     </td>
                   </tr>
+                ) : (
+                  status !== "loading" &&
+                  result?.pages[0].success === true &&
+                  result?.pages.map((page, key) => (
+                    <React.Fragment key={key}>
+                      {page.data.map((item, key) => (
+                        <tr key={key}>
+                          <td>{counter++}.</td>
+
+                          <td>
+                            <Pills
+                              bg="bg-gray-200"
+                              label={
+                                item.parents_is_active === 1
+                                  ? "Active"
+                                  : "Inactive"
+                              }
+                              color={
+                                item.parents_is_active === 1
+                                  ? "text-green-500"
+                                  : "text-gray-500"
+                              }
+                            />
+                          </td>
+                          <td>
+                            {item.parents_fname} {item.parents_lname}
+                          </td>
+                          <td>
+                            {item.parents_is_active === 1 ? (
+                              <div className="table-action flex gap-2 justify-end">
+                                <Link
+                                  to={`${devNavUrl}/${link}/clients/students?cid=${item.parents_aid}`}
+                                  className="tooltip text-base"
+                                  data-tooltip="Student"
+                                >
+                                  <PiStudentLight />
+                                </Link>
+
+                                <Link
+                                  to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
+                                  className="tooltip text-base"
+                                  data-tooltip="Info"
+                                >
+                                  <CiViewList />
+                                </Link>
+
+                                <button
+                                  type="button"
+                                  className="tooltip "
+                                  data-tooltip="Edit"
+                                  onClick={() => handleEdit(item)}
+                                >
+                                  <FiEdit2 />
+                                </button>
+
+                                <button
+                                  type="button"
+                                  className="tooltip"
+                                  data-tooltip="Archive"
+                                  onClick={() => handleArchive(item)}
+                                >
+                                  <BsArchive />
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="flex gap-2 justify-end">
+                                <button
+                                  type="button"
+                                  className="tooltip"
+                                  data-tooltip="Restore"
+                                  onClick={() => handleRestore(item)}
+                                >
+                                  <MdOutlineRestore />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="tooltip"
+                                  data-tooltip="Delete"
+                                  onClick={() => handleDelete(item)}
+                                >
+                                  <FiTrash />
+                                </button>
+                              </div>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </React.Fragment>
+                  ))
                 )}
-
-                {error && (
-                  <tr className="text-center hover:bg-transparent ">
-                    <td colSpan="100%" className="p-10">
-                      <ServerError />
-                    </td>
-                  </tr>
-                )}
-
-                {result?.pages.map((page, key) => (
-                  <React.Fragment key={key}>
-                    {page.data.map((item, key) => (
-                      <tr key={key}>
-                        <td>{counter++}.</td>
-
-                        <td>
-                          <Pills
-                            bg="bg-gray-200"
-                            label={
-                              item.parents_is_active === 1
-                                ? "Active"
-                                : "Inactive"
-                            }
-                            color={
-                              item.parents_is_active === 1
-                                ? "text-green-500"
-                                : "text-gray-500"
-                            }
-                          />
-                        </td>
-                        <td>
-                          {item.parents_fname} {item.parents_lname}
-                        </td>
-                        <td>
-                          {item.parents_is_active === 1 ? (
-                            <div className="table-action flex gap-2 justify-end">
-                              <Link
-                                to={`${devNavUrl}/${link}/clients/students?cid=${item.parents_aid}`}
-                                className="tooltip text-base"
-                                data-tooltip="Student"
-                              >
-                                <PiStudentLight />
-                              </Link>
-
-                              <Link
-                                to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
-                                className="tooltip text-base"
-                                data-tooltip="Info"
-                              >
-                                <CiViewList />
-                              </Link>
-
-                              <button
-                                type="button"
-                                className="tooltip "
-                                data-tooltip="Edit"
-                                onClick={() => handleEdit(item)}
-                              >
-                                <FiEdit2 />
-                              </button>
-
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Archive"
-                                onClick={() => handleArchive(item)}
-                              >
-                                <BsArchive />
-                              </button>
-                            </div>
-                          ) : (
-                            <div className="flex gap-2 justify-end">
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Restore"
-                                onClick={() => handleRestore(item)}
-                              >
-                                <MdOutlineRestore />
-                              </button>
-                              <button
-                                type="button"
-                                className="tooltip"
-                                data-tooltip="Delete"
-                                onClick={() => handleDelete(item)}
-                              >
-                                <FiTrash />
-                              </button>
-                            </div>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </React.Fragment>
-                ))}
               </tbody>
             </table>
 
             <div className="flex justify-between mt-10">
-              <h6>
-                Count: <span>{result?.pages[0].data.length}</span>
-              </h6>
               <Loadmore
                 fetchNextPage={fetchNextPage}
                 isFetchingNextPage={isFetchingNextPage}

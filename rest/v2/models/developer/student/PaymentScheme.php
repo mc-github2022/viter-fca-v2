@@ -106,7 +106,7 @@ class PaymentScheme
             $sql .= "and student.students_aid = currentSyStudent.current_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = currentSyStudent.current_students_grade_level_id ";
-            $sql .= "and schoolyear.school_year_aid = currentSyStudent.current_students_sy_id ";
+            $sql .= "and schoolYear.school_year_aid = currentSyStudent.current_students_sy_id ";
             $sql .= "order by ";
             $sql .= "student.students_lname, ";
             $sql .= "student.students_fname ";

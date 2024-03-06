@@ -241,7 +241,7 @@ class Student
             $sql .= "or syStudentCurrent.current_students_last_parent_declaration_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_consent_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_commitment_is_agree = 0) ";
-            $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
+            $sql .= "and schoolYear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "group by ";
             $sql .= "student.students_aid ";
             $sql .= "order by ";
@@ -253,6 +253,7 @@ class Student
         }
         return $query;
     }
+
 
     public function readLimit()
     {
@@ -276,7 +277,7 @@ class Student
             $sql .= "or syStudentCurrent.current_students_last_parent_declaration_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_consent_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_commitment_is_agree = 0) ";
-            $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
+            $sql .= "and schoolYear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "group by ";
             $sql .= "student.students_aid ";
             $sql .= "order by ";
@@ -317,7 +318,7 @@ class Student
             $sql .= "or syStudentCurrent.current_students_last_parent_declaration_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_consent_is_agree = 0 ";
             $sql .= "or syStudentCurrent.current_students_last_parent_commitment_is_agree = 0) ";
-            $sql .= "and schoolyear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
+            $sql .= "and schoolYear.school_year_is_active = 1 "; // only get or show all the student in the current or ongoing school year
             $sql .= "and ";
             $sql .= "( ";
             $sql .= "student.students_fname like :students_fname ";

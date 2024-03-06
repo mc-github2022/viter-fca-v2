@@ -71,6 +71,9 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
           <FetchingSpinner />
         )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
+          <h6>
+            Count: <span>{result?.pages[0].data.length}</span>
+          </h6>
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm">
               <thead>
@@ -83,8 +86,13 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
               </thead>
 
               <tbody>
-                {(status === "loading" ||
-                  result?.pages[0].data.length === 0) && (
+                {result?.pages[0].success === false ? (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      <ModalInvalidRequestError />
+                    </td>
+                  </tr>
+                ) : status === "loading" || result?.pages[0].count === 0 ? (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
                       {status === "loading" ? (
@@ -94,54 +102,38 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
                       )}
                     </td>
                   </tr>
+                ) : (
+                  status !== "loading" &&
+                  result?.pages[0].success === true &&
+                  result?.pages.map((page, key) => (
+                    <React.Fragment key={key}>
+                      {page.data.map((item, key) => (
+                        <tr key={key}>
+                          <td>{counter++}.</td>
+
+                          <td>{item.student_fullname}</td>
+                          <td>{item.grade_level_name}</td>
+                          <td>
+                            <div className="flex gap-2 justify-end mr-5">
+                              <button
+                                type="button"
+                                className="tooltip "
+                                data-tooltip="View"
+                                onClick={() => handleAssessment(item)}
+                              >
+                                <CiViewList />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </React.Fragment>
+                  ))
                 )}
-
-                {error && (
-                  <tr className="text-center hover:bg-transparent ">
-                    <td colSpan="100%" className="p-10">
-                      <ServerError />
-                    </td>
-                  </tr>
-                )}
-                {result?.pages.map((page, key) => (
-                  <React.Fragment key={key}>
-                    {page.data.map((item, key) => (
-                      <tr key={key}>
-                        <td>{counter++}.</td>
-
-                        <td>{item.student_fullname}</td>
-                        <td>{item.grade_level_name}</td>
-                        <td>
-                          <div className="flex gap-2 justify-end mr-5">
-                            {/* <Link
-                              // to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
-                              className="tooltip text-base"
-                              data-tooltip="Info"
-                            >
-                              <CiViewList />
-                            </Link> */}
-
-                            <button
-                              type="button"
-                              className="tooltip "
-                              data-tooltip="View"
-                              onClick={() => handleAssessment(item)}
-                            >
-                              <CiViewList />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </React.Fragment>
-                ))}
               </tbody>
             </table>
 
             <div className="flex justify-between mt-10">
-              <h6>
-                Count: <span>{result?.pages[0].data.length}</span>
-              </h6>
               <Loadmore
                 fetchNextPage={fetchNextPage}
                 isFetchingNextPage={isFetchingNextPage}
