@@ -3,14 +3,23 @@ import ModalSettings from "@/components/partials/header/modal-settings/ModalSett
 import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { BsCalendar2Week } from "react-icons/bs";
+import { BsCalendar2Week, BsChevronRight } from "react-icons/bs";
 import { PiListMagnifyingGlass, PiStudent } from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
-const Navigation = ({ menu, isLoading, error, schoolYear }) => {
+const Navigation = ({
+  menu,
+  isLoading,
+  error,
+  schoolYear,
+  subNavActive = "",
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
+  const [isShowReport, setIsShowReport] = React.useState(
+    menu === "reports" ? true : false
+  );
 
   const getOngoingSchoolYear =
     schoolYear?.count > 0 &&
@@ -35,6 +44,12 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
 
   const handleNavigateLink = () => {
     dispatch(setIsShow(false));
+    document.querySelector("body").classList.remove("no--scroll");
+  };
+
+  const handleShowAllReport = () => {
+    dispatch(setIsShow(false));
+    setIsShowReport(!isShowReport);
     document.querySelector("body").classList.remove("no--scroll");
   };
 
@@ -128,6 +143,75 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
               >
                 <PiStudent className="text-lg ml-4" /> Students
               </Link>
+            </li>
+
+            {/* <li className={`nav__link ${menu === "report" ? "active" : ""}`}>
+              <Link
+                to={`${devNavUrl}/system/report`}
+                className="flex gap-3 items-center uppercase  w-full"
+                onClick={handleNavigateLink}
+              >
+                <PiStudent className="text-lg ml-4" /> Report
+              </Link>
+            </li> */}
+
+            <li
+              className={`nav__link items-start  ${
+                menu === "reports" ? "active" : ""
+              }`}
+            >
+              <Link
+                className="p-1 pl-4"
+                to={`${devNavUrl}/system/report`}
+                onClick={handleShowAllReport}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="flex gap-3 items-center uppercase  w-full">
+                    <PiStudent className="text-lg " />
+                    <span>Report</span>
+                  </span>
+
+                  <BsChevronRight
+                    className={isShowReport ? "-rotate-90" : "rotate-90"}
+                  />
+                </div>
+              </Link>
+              <ol
+                className={`pl-[1.25rem] border-l-[1px] ${
+                  isShowReport ? "block " : "hidden "
+                } bg-white h ml-6`}
+              >
+                <li
+                  className={` ${
+                    subNavActive === "student"
+                      ? "border-l-2 border-[#123909]"
+                      : ""
+                  }`}
+                >
+                  <Link
+                    to={`${devNavUrl}/system/report`}
+                    className="flex gap-3 items-center uppercase ml-1 w-full text-[12px]"
+                    onClick={handleNavigateLink}
+                  >
+                    Students
+                  </Link>
+                </li>
+                {/* <li
+                  className={` ${
+                    subNavActive === "reports"
+                      ? "border-l-2 border-[#123909]"
+                      : "ml-1"
+                  }`}
+                >
+                  <Link
+                    to={`${devNavUrl}/system/report`}
+                    className="flex gap-3 items-center uppercase ml-1 w-full  text-[12px]"
+                    onClick={handleNavigateLink}
+                  >
+                    Parents
+                  </Link>
+                </li> */}
+              </ol>
             </li>
           </ul>
         </div>
