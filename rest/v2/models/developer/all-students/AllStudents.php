@@ -214,7 +214,6 @@ class AllStudents
             $query->execute([
                 "students_fname" => "%{$this->students_search}%",
                 "students_lname" => "%{$this->students_search}%",
-                "grade_level_name" => "%{$this->students_search}%",
             ]);
         } catch (PDOException $ex) {
             $query = false;

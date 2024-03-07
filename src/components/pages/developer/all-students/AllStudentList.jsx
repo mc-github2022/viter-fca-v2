@@ -160,7 +160,11 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
           loading) && <FetchingSpinner />}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <h6>
-            Count: <span>{result?.pages[0].data.length}</span>
+            Count:{" "}
+            <span>
+              {result?.pages[0].success === true &&
+                result?.pages[0].data.length}
+            </span>
           </h6>
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm">
