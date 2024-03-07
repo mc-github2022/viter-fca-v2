@@ -3,6 +3,7 @@
 require '../../../../core/header.php';
 // use needed functions
 require '../../../../core/functions.php';
+require 'functions.php';
 // use needed classes
 require '../../../../jwt/vendor/autoload.php';
 require '../../../../models/developer/settings/UserOther.php';
@@ -25,7 +26,13 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
     $key = "jwt_admin_ko_ito";
 
-    $result = checkLogin($user_other);
+    $isAdminAccount = getResultData($user_other->readAdminLogin());
+
+    if (count($isAdminAccount) > 0) {
+        $result = checkAdminLogin($user_other);
+    } else {
+        $result = checkLogin($user_other);
+    }
 
     $row = $result->fetch(PDO::FETCH_ASSOC);
     extract($row);

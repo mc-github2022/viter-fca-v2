@@ -1,0 +1,10 @@
+models
+1. rest/v2/models/developer/settings/UserOther.php 
+
+controllers
+1. rest/v2/controllers/developer/settings/other/token.php 
+2. rest/v2/controllers/developer/settings/other/login.php 
+3. rest/v2/controllers/developer/settings/other/functions.php
+
+core
+1. rest/v2/core/functions.php 

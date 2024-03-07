@@ -146,6 +146,38 @@ class UserOther
             $sql .= "and user.user_other_email = parent.parents_email ";
             $sql .= "and user.user_other_email = :user_other_email ";
             $sql .= "and user.user_other_is_active = 1 ";
+            $sql .= "and role.role_is_admin != 1 ";
+            $sql .= "and role.role_is_developer != 1 ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "user_other_email" => $this->user_other_email,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read login
+    public function readAdminLogin()
+    {
+        try {
+            $sql = "select user.user_other_aid, ";
+            $sql .= "user.user_other_is_active, ";
+            $sql .= "user.user_other_fname, ";
+            $sql .= "user.user_other_lname, ";
+            $sql .= "user.user_other_email, ";
+            $sql .= "user.user_other_password, ";
+            $sql .= "staff.settings_staff_aid, ";
+            $sql .= "role.* ";
+            $sql .= "from {$this->tblUserOther} as user, ";
+            $sql .= "{$this->tblRole} as role, ";
+            $sql .= "{$this->tblStaff} as staff ";
+            $sql .= "where user.user_other_role_id = role.role_aid ";
+            $sql .= "and user.user_other_email = staff.settings_staff_email ";
+            $sql .= "and user.user_other_email = :user_other_email ";
+            $sql .= "and user.user_other_is_active = 1 ";
+            $sql .= "and role.role_is_admin = 1 ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "user_other_email" => $this->user_other_email,
