@@ -86,7 +86,7 @@ const FormClientFinancierInfo = ({
 
   return (
     <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-md max-w-[620px] w-full mb-5 relative">
-      <h4 className="mb-5">Financer Information</h4>
+      <h4 className="mb-5">Financial Information</h4>
       <Formik
         initialValues={initVal}
         validationSchema={yupSchema}

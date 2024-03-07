@@ -14,10 +14,10 @@ const PageUnderMaintenance = () => {
             <LogoGreen />
           </div>
           <FaTools className="mx-auto text-6xl my-5 fill-secondary" />
-          <h2 className="font-bold text-2xl">Will be right back . . .</h2>
+          <h2 className="font-bold text-2xl">We'll be right back . . .</h2>
           <p className="font-bold mb-6">Thank you for your patience.</p>
           <p className="mb-6">
-            Our developer are working quickly to resolve the issue.
+            Our developers are working quickly to resolve the issue.
           </p>
         </div>
       </div>

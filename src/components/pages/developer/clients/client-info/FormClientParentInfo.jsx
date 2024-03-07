@@ -53,7 +53,7 @@ const FormClientParentInfo = ({
   );
 
   const activeRelationship = relationship?.data.filter(
-    (relationship) => relationship.relationship_active === 1
+    (relationship) => relationship.relationship_is_maiden === 1
   );
 
   const mutation = useMutation({
@@ -118,10 +118,6 @@ const FormClientParentInfo = ({
     guardian_is_reside: Yup.string().required("Required"),
     guardian_fname: Yup.string().required("Required"),
     guardian_lname: Yup.string().required("Required"),
-    guardian_maiden_name:
-      getRelationship === "Biological Mother"
-        ? Yup.string().required("Required")
-        : null,
     guardian_email: Yup.string().required("Required").email("Invalid email"),
     guardian_mobile: Yup.string().required("Required"),
     guardian_address: Yup.string().required("Required"),
@@ -195,20 +191,19 @@ const FormClientParentInfo = ({
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="form__wrap">
                   <InputSelect
-                    label="Parent Relationship"
+                    label="Parent/Guardian Relationship"
                     type="text"
                     name="guardian_relationship_id"
                     disabled={mutation.isLoading}
-                    onChange={(e) => handleChangeRelationship(e)}
                   >
                     <option value="" hidden></option>
 
                     {isLoading || isFetching ? (
                       <option>Loading...</option>
-                    ) : activeRelationship.length === 0 ? (
+                    ) : relationship?.data.length === 0 ? (
                       <option>No Data</option>
                     ) : (
-                      activeRelationship.map((item, key) => {
+                      relationship?.data.map((item, key) => {
                         return (
                           <option key={key} value={item.relationship_aid}>
                             {`${item.relationship_name}`}
@@ -293,9 +288,6 @@ const FormClientParentInfo = ({
                     label="Maiden Name"
                     type="text"
                     name="guardian_maiden_name"
-                    disabled={
-                      getRelationship === "Biological Mother" ? false : true
-                    }
                   />
                 </div>
               </div>
