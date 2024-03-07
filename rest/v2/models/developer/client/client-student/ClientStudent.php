@@ -247,6 +247,22 @@ class ClientStudent
         return $query;
     }
 
+    public function firstGradeLevel()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "grade_level_aid, ";
+            $sql .= "grade_level_order ";
+            $sql .= "from {$this->tblGradeLevel} ";
+            $sql .= "where grade_level_order = '1' ";
+            $sql .= "limit 1 ";
+            $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     public function readNextGradeLevel()
     {
         try {
@@ -403,13 +419,13 @@ class ClientStudent
     public function checkStudent()
     {
         try {
-            $sql = "select * from {$this->tblSyStudentCurrent} ";
-            $sql .= "where current_students_sy_id = :current_students_sy_id ";
-            $sql .= "and current_students_student_id = :current_students_student_id ";
+            $sql = "select * from {$this->tblSyStudent} ";
+            $sql .= "where school_year_students_sy_id = :school_year_students_sy_id ";
+            $sql .= "and school_year_students_student_id = :school_year_students_student_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "current_students_sy_id" => $this->current_students_sy_id,
-                "current_students_student_id" => $this->current_students_student_id,
+                "school_year_students_sy_id" => $this->current_students_sy_id,
+                "school_year_students_student_id" => $this->current_students_student_id,
             ]);
         } catch (PDOException $ex) {
             $query = false;

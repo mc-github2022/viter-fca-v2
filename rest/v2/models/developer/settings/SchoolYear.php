@@ -64,6 +64,7 @@ class SchoolYear
     {
         try {
             $sql = "select ";
+            $sql .= "CONCAT(YEAR(school_year_start_date), '-', YEAR(school_year_end_date)) as school_year, ";
             $sql .= "school_year_aid, ";
             $sql .= "school_year_is_active, ";
             $sql .= "YEAR(school_year_start_date) as start_year, ";
@@ -88,6 +89,7 @@ class SchoolYear
     {
         try {
             $sql = "select ";
+            $sql .= "CONCAT(YEAR(school_year_start_date), '-', YEAR(school_year_end_date)) as school_year, ";
             $sql .= "school_year_aid, ";
             $sql .= "school_year_is_active, ";
             $sql .= "YEAR(school_year_start_date) as start_year, ";
@@ -118,6 +120,7 @@ class SchoolYear
     {
         try {
             $sql = "select ";
+            $sql .= "CONCAT(YEAR(school_year_start_date), '-', YEAR(school_year_end_date)) as school_year, ";
             $sql .= "school_year_aid, ";
             $sql .= "school_year_is_active, ";
             $sql .= "YEAR(school_year_start_date) as start_year, ";

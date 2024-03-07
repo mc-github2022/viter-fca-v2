@@ -120,6 +120,7 @@ class AllStudents
         return $query;
     }
 
+
     public function readAll()
     {
         try {
@@ -131,13 +132,11 @@ class AllStudents
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParent} as parent, ";
-            $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
-            $sql .= "{$this->tblGradeLevel} as gradeLevel ";
+            $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
-            $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
+            $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "group by ";
             $sql .= "student.students_aid ";
             $sql .= "order by ";
@@ -161,13 +160,11 @@ class AllStudents
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParent} as parent, ";
-            $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
-            $sql .= "{$this->tblGradeLevel} as gradeLevel ";
+            $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
-            $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
+            $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "group by ";
             $sql .= "student.students_aid ";
             $sql .= "order by ";
@@ -198,18 +195,15 @@ class AllStudents
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParent} as parent, ";
-            $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
-            $sql .= "{$this->tblGradeLevel} as gradeLevel ";
+            $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
-            $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
+            $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and ";
             $sql .= "( ";
             $sql .= "student.students_fname like :students_fname ";
             $sql .= "or student.students_lname like :students_lname ";
-            $sql .= "or gradeLevel.grade_level_name like :grade_level_name ";
             $sql .= ") ";
             $sql .= "group by ";
             $sql .= "student.students_aid ";

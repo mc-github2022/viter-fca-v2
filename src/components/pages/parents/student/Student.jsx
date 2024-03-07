@@ -21,6 +21,7 @@ import { FaAngleLeft, FaPlus } from "react-icons/fa";
 import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import {
+  getGradeLevelOrderByStudentId,
   getRequirementsStatus,
   getStudentStatus,
 } from "../../developer/all-students/functions-all-students";
@@ -28,6 +29,7 @@ import ModalAddStudent from "../../developer/clients/student-info/modal-student/
 import ModalRequirements from "../../developer/clients/student-info/requirement/ModalRequirements";
 import ModalEditStudent from "../../developer/students/StudentEdit/ModalEditStudent";
 import Navigation from "../Navigation";
+import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -38,6 +40,7 @@ const Student = () => {
   const [dataItem, setData] = React.useState(null);
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
+  const [isEnroll, setIsEnroll] = React.useState(false);
 
   const handleAddStudent = () => {
     if (isOngoing === 0 || !isOngoing) {
@@ -114,33 +117,14 @@ const Student = () => {
   );
 
   const handleEnroll = async (item) => {
-    // console.log(item);
-    setLoading(true);
-
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
       dispatch(setMessage("There's no enrollment yet."));
       return;
     }
-
-    const enroll = await queryData("/v2/dev-client-student/enroll", "post", {
-      ...item,
-      current_students_sy_id: schoolYear?.data[0].school_year_aid,
-    });
-
-    if (enroll.success) {
-      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
-      setLoading(false);
-      dispatch(setSuccess(true));
-      dispatch(setMessage("Successfully enrolled."));
-    }
-    if (!enroll.success) {
-      dispatch(setError(true));
-      dispatch(setMessage(enroll.error));
-      setLoading(false);
-    }
+    setIsEnroll(true);
+    setData(item);
   };
-
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
@@ -274,7 +258,6 @@ const Student = () => {
         </div>
         <Footer />
       </section>
-
       {viewRequirements && (
         <ModalRequirements
           setViewRequirements={setViewRequirements}
@@ -282,15 +265,29 @@ const Student = () => {
           schoolYear={schoolYear}
         />
       )}
-
       {isViewInfo && (
         <ModalEditStudent
           setIsViewInfo={setIsViewInfo}
           dataItem={itemEdit}
           gradeLevel={gradeLevel}
         />
+      )}{" "}
+      {isEnroll && (
+        <ModalReEnrolling
+          mysqlApiEnroll={`/v2/dev-client-student/enroll`}
+          msg={`Are you sure you want to enroll this student ?`}
+          item={{
+            ...dataItem,
+            grade_level_order: getGradeLevelOrderByStudentId(
+              gradeLevel,
+              dataItem.current_students_grade_level_id
+            ),
+            current_students_sy_id: schoolYear?.data[0].school_year_aid,
+          }}
+          queryKey={"all-students"}
+          setIsEnroll={setIsEnroll}
+        />
       )}
-
       {store.isAdd && (
         <ModalAddStudent
           itemEdit={itemEdit}
@@ -298,7 +295,6 @@ const Student = () => {
           schoolYear={schoolYear}
         />
       )}
-
       {store.isDelete && (
         <ModalDelete
           mysqlApiDelete={`/v2/dev-students/${id}/${id}`}
@@ -307,7 +303,6 @@ const Student = () => {
           queryKey={"mystudent"}
         />
       )}
-
       {store.success && <ModalSuccess />}
       {store.error && <ModalError />}
     </>

@@ -73,6 +73,11 @@ export const getStudentStatus = (
       color = "text-[#137333]";
     }
 
+    if (item.current_students_grade_level_id === 0) {
+      label = "Active";
+      color = "text-[#137333]";
+    }
+
     // console.log(item);
 
     // console.log(item.school_year);
@@ -106,4 +111,43 @@ export const getRequirementsStatus = (
   }
 
   return <Pills label={label} color={color} />;
+};
+
+export const getSchoolYearByStudentId = (schoolYear, id) => {
+  let list = "";
+
+  if (schoolYear?.count > 0) {
+    const result = schoolYear?.data.filter(
+      (item) => item.school_year_aid === Number(id)
+    );
+    list = result?.length > 0 ? result[0]?.school_year : "Unenrolled";
+  }
+
+  return list;
+};
+
+export const getGradeLevelByStudentId = (gardeLevel, id) => {
+  let list = "";
+
+  if (gardeLevel?.count > 0) {
+    const result = gardeLevel?.data.filter(
+      (item) => item.grade_level_aid === Number(id)
+    );
+    list = result?.length > 0 ? result[0]?.grade_level_name : "Unspecified";
+  }
+
+  return list;
+};
+
+export const getGradeLevelOrderByStudentId = (gardeLevel, id) => {
+  let list = "";
+
+  if (gardeLevel?.count > 0) {
+    const result = gardeLevel?.data.filter(
+      (item) => item.grade_level_aid === Number(id)
+    );
+    list = result?.length > 0 ? result[0]?.grade_level_order : "";
+  }
+
+  return list;
 };

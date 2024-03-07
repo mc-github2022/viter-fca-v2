@@ -26,12 +26,15 @@ import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import Navigation from "../../Navigation.jsx";
 import {
+  getGradeLevelByStudentId,
+  getGradeLevelOrderByStudentId,
   getRequirementsStatus,
   getStudentStatus,
 } from "../../all-students/functions-all-students.jsx";
 import ModalEditStudent from "../../students/StudentEdit/ModalEditStudent.jsx";
 import ModalAddStudent from "./modal-student/ModalAddStudent.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
+import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling.jsx";
 
 const ClientStudentViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -44,6 +47,7 @@ const ClientStudentViewInfo = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isViewInfo, setIsViewInfo] = React.useState(false);
+  const [isEnroll, setIsEnroll] = React.useState(false);
 
   const { data: schoolYear } = useQueryData(
     "/v2/dev-school-year", // endpoint
@@ -126,31 +130,14 @@ const ClientStudentViewInfo = () => {
   );
 
   const handleEnroll = async (item) => {
-    // console.log(item);
-    setLoading(true);
-
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
       dispatch(setMessage("There's no enrollment yet."));
       return;
     }
 
-    const enroll = await queryData("/v2/dev-client-student/enroll", "post", {
-      ...item,
-      current_students_sy_id: schoolYear?.data[0].school_year_aid,
-    });
-
-    if (enroll.success) {
-      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
-      setLoading(false);
-      dispatch(setSuccess(true));
-      dispatch(setMessage("Successfully enrolled."));
-    }
-    if (!enroll.success) {
-      dispatch(setError(true));
-      dispatch(setMessage(enroll.error));
-      setLoading(false);
-    }
+    setIsEnroll(true);
+    setData(item);
   };
 
   return (
@@ -237,7 +224,11 @@ const ClientStudentViewInfo = () => {
                       </h5>
 
                       <small className="flex mb-2 ">
-                        {item.grade_level_name}
+                        {item.current_students_grade_level_id === 0 && "Grade "}
+                        {getGradeLevelByStudentId(
+                          gradeLevel,
+                          item.current_students_grade_level_id
+                        )}
 
                         {item.student_info_reference_no ? (
                           <>
@@ -319,6 +310,22 @@ const ClientStudentViewInfo = () => {
         />
       )}
 
+      {isEnroll && (
+        <ModalReEnrolling
+          mysqlApiEnroll={`/v2/dev-client-student/enroll`}
+          msg={`Are you sure you want to enroll this student ?`}
+          item={{
+            ...dataItem,
+            grade_level_order: getGradeLevelOrderByStudentId(
+              gradeLevel,
+              dataItem.current_students_grade_level_id
+            ),
+            current_students_sy_id: schoolYear?.data[0].school_year_aid,
+          }}
+          queryKey={"all-students"}
+          setIsEnroll={setIsEnroll}
+        />
+      )}
       {store.isAdd && (
         <ModalAddStudent
           itemEdit={itemEdit}
@@ -329,7 +336,7 @@ const ClientStudentViewInfo = () => {
 
       {store.isDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-students/${id}/${dataItem.school_year_students_sy_id}`}
+          mysqlApiDelete={`/v2/dev-students/${id}/${dataItem.current_students_sy_id}`}
           msg={"Are you sure you want to delete this record?"}
           item={`${dataItem.students_fname} ${dataItem.students_lname}`}
           queryKey={"mystudent"}

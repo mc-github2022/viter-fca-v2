@@ -7,6 +7,7 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import Navigation from "../Navigation.jsx";
 import AllStudentList from "./AllStudentList.jsx";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 
 const AllStudents = () => {
   const { store, dispatch } = React.useContext(StoreContext);

@@ -15,6 +15,7 @@ import Navigation from "../Navigation.jsx";
 import ModalAddStudent from "./ModalAddStudent.jsx";
 import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
 import StudentList from "./StudentList.jsx";
+import ModalError from "@/components/partials/modals/ModalError.jsx";
 
 const Students = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -70,10 +71,10 @@ const Students = () => {
                 </div>
 
                 <button
-                  className="btn btn--accent btn--sm mt-1"
+                  className="btn btn--accent btn--sm mt-1 pr-2"
                   onClick={handleAdd}
                 >
-                  <FaPlus /> Add
+                  <FaPlus /> New Student
                 </button>
               </div>
             </div>
@@ -89,7 +90,7 @@ const Students = () => {
       </section>
       {store.isAdd && <ModalAddStudent schoolYear={schoolYear} />}
       {store.success && <ModalSuccess />}
-      {store.validate && <ModalValidate />}
+      {store.error && <ModalError />}
 
       {isViewInfo && (
         <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={dataItem} />

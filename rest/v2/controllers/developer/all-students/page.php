@@ -14,7 +14,6 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
         $student->students_start = $_GET['start'];
         $student->students_total = 10;
-
         checkLimitId($student->students_start, $student->students_total);
 
         $query = checkReadLimit($student);

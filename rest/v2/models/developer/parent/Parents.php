@@ -179,12 +179,12 @@ class Parents
             $sql .= "from {$this->tblStudents} as students, ";
             $sql .= "{$this->tblParents} as parents, ";
             $sql .= "{$this->tblSyStudentsCurrent} as syStudentCurrent, ";
-            $sql .= "{$this->tblGradeLevel} as grade_level, ";
+            // $sql .= "{$this->tblGradeLevel} as grade_level, ";
             $sql .= "{$this->tblSchoolYear} as school_years ";
             $sql .= "where students.students_parent_id = parents.parents_aid ";
             $sql .= "and syStudentCurrent.current_students_student_id = students.students_aid ";
             $sql .= "and syStudentCurrent.current_students_sy_id = school_years.school_year_aid ";
-            $sql .= "and syStudentCurrent.current_students_grade_level_id = grade_level.grade_level_aid ";
+            // $sql .= "and syStudentCurrent.current_students_grade_level_id = grade_level.grade_level_aid ";
             $sql .= "and students.students_parent_id = :parents_aid ";
             $sql .= "group by syStudentCurrent.current_students_student_id ";
             $sql .= "order by syStudentCurrent.current_students_student_id desc ";

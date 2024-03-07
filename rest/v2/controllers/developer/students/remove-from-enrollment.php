@@ -16,47 +16,42 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         $student->students_aid = $_GET['studentid'];
         $student->school_year_students_sy_id = $_GET['syid'];
         $student->current_students_sy_id = $_GET['syid'];
+        $student->current_students_grade_level_id = 0;
         $student->students_datetime = date("Y-m-d H:i:s");
         checkId($student->students_aid);
         checkId($student->school_year_students_sy_id);
 
-
-        $syStudent = $student->readCountSchoolYearStudentByStudentId();
+        // get count of student in sy student table
+        $syStudent = getResultData($student->readCountSchoolYearStudentByStudentId());
 
         // if can't find any student id in sy student table
-        if ($syStudent->rowCount() == 0) {
+        if (count($syStudent) == 0) {
             returnError('Invalid Student ID.');
         }
 
         // if have student id in sy student table
-        if ($syStudent->rowCount() > 0) {
-            $row = $syStudent->fetch(PDO::FETCH_ASSOC);
-            extract($row);
-
+        if (count($syStudent) > 0) {
+            // delete current school year in SY student table
+            checkDeleteSchoolYearStudents($student);
             // if student id is only one
-            if ($student_count == 1) {
-                // checkUpdateSchoolYearStudent($student);
-                // checkUpdateSchoolYearStudentCurrent($student); 
-                $student->current_students_sy_id = 0;
+            if ($syStudent[0]["student_count"] == 1) {
                 $query = checkUpdateSYCurrentSchoolYear($student);
                 http_response_code(200);
                 returnSuccess($student, "Student", $query);
             }
+
             // if student is morethan one
-            if ($student_count > 1) {
-                // delete current school year in SY student table
-                checkDeleteSchoolYearStudents($student);
-                // get last school year attended
-                $lastSyStudent = $student->readLastSchoolYearStudentByStudentId();
+            if ($syStudent[0]["student_count"] > 1) {
+
+                // get count of student in sy student table
+                $lastSyStudent = getResultData($student->readLastSchoolYearStudentByStudentId());
                 // if can't find any student id in sy student table
-                if ($lastSyStudent->rowCount() == 0) {
-                    returnError('Invalid Student ID.');
+                if (count($lastSyStudent) == 0) {
+                    returnError('Invalid Last Student ID.');
                 }
                 // if can't find any student id in sy student table
-                if ($lastSyStudent->rowCount() > 0) {
-                    $lastSyStudentRow = $lastSyStudent->fetch(PDO::FETCH_ASSOC);
-                    extract($lastSyStudentRow);
-                    $student->current_students_sy_id = 0;
+                if (count($lastSyStudent) > 0) {
+                    $student->current_students_grade_level_id = $lastSyStudent[0]["school_year_students_grade_level_id"];
                     $query = checkUpdateSYCurrentSchoolYear($student);
                     http_response_code(200);
                     returnSuccess($student, "Student", $query);
@@ -64,9 +59,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
             }
         }
 
-
-        http_response_code(200);
-        returnSuccess($student, "Student", $query);
+        checkEndpoint();
     }
     checkEndpoint();
 }

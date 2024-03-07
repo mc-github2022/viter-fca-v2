@@ -233,9 +233,11 @@ class Student
             $sql .= "{$this->tblParent} as parent, ";
             $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
+            $sql .= "{$this->tblSyStudent} as syStudents, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
             $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
+            $sql .= "and syStudents.school_year_students_sy_id = syStudentCurrent.current_students_sy_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and (syStudentCurrent.current_students_last_coc_is_agree = 0 ";
@@ -269,9 +271,11 @@ class Student
             $sql .= "{$this->tblParent} as parent, ";
             $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
+            $sql .= "{$this->tblSyStudent} as syStudents, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
             $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
+            $sql .= "and syStudents.school_year_students_sy_id = syStudentCurrent.current_students_sy_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and (syStudentCurrent.current_students_last_coc_is_agree = 0 ";
@@ -310,9 +314,11 @@ class Student
             $sql .= "{$this->tblParent} as parent, ";
             $sql .= "{$this->tblSyStudentCurrent} as syStudentCurrent, ";
             $sql .= "{$this->tblSchoolYear} as schoolYear, ";
+            $sql .= "{$this->tblSyStudent} as syStudents, ";
             $sql .= "{$this->tblGradeLevel} as gradeLevel ";
             $sql .= "where student.students_aid = syStudentCurrent.current_students_student_id ";
             $sql .= "and schoolYear.school_year_aid = syStudentCurrent.current_students_sy_id ";
+            $sql .= "and syStudents.school_year_students_sy_id = syStudentCurrent.current_students_sy_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
             $sql .= "and gradeLevel.grade_level_aid = syStudentCurrent.current_students_grade_level_id ";
             $sql .= "and (syStudentCurrent.current_students_last_coc_is_agree = 0 ";
@@ -407,13 +413,17 @@ class Student
     {
         try {
             $sql = "update {$this->tblSyStudentCurrent} set ";
+            $sql .= "current_students_grade_level_id = :current_students_grade_level_id, ";
             $sql .= "current_students_sy_id = :current_students_sy_id, ";
             $sql .= "current_students_datetime = :current_students_datetime ";
             $sql .= "where current_students_student_id = :current_students_student_id ";
+            $sql .= "and current_students_sy_id = :old_sy_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "current_students_grade_level_id" => $this->current_students_grade_level_id,
                 "current_students_sy_id" => $this->current_students_sy_id,
                 "current_students_datetime" => $this->students_datetime,
+                "old_sy_id" => $this->school_year_students_sy_id,
                 "current_students_student_id" => $this->students_aid,
             ]);
         } catch (PDOException $ex) {
@@ -428,7 +438,7 @@ class Student
     {
         try {
             $sql = "delete from {$this->tblStudent} ";
-            $sql .= "where students_aid = :students_aid  ";
+            $sql .= "where students_aid = :students_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "students_aid" => $this->students_aid,
@@ -807,6 +817,7 @@ class Student
             $sql .= "school_year_students_last_remarks ";
             $sql .= "from {$this->tblSyStudent} ";
             $sql .= "where school_year_students_student_id = :school_year_students_student_id ";
+            $sql .= "group by school_year_students_student_id ";
             $sql .= "order by school_year_students_aid desc ";
             $sql .= "limit 1 ";
             $query = $this->connection->prepare($sql);
@@ -835,13 +846,31 @@ class Student
         return $query;
     }
 
-    // delete
+    // delete school year student
     public function deleteSchoolYearStudents()
     {
         try {
             $sql = "delete from {$this->tblSyStudent} ";
             $sql .= "where school_year_students_student_id = :students_aid ";
             $sql .= "and school_year_students_sy_id = :school_year_students_sy_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "students_aid" => $this->students_aid,
+                "school_year_students_sy_id" => $this->school_year_students_sy_id,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // delete school year current student
+    public function deleteSchoolYearCurrentStudents()
+    {
+        try {
+            $sql = "delete from {$this->tblSyStudentCurrent} ";
+            $sql .= "where current_students_student_id = :students_aid ";
+            $sql .= "and current_students_sy_id = :school_year_students_sy_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "students_aid" => $this->students_aid,

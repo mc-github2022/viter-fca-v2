@@ -81,6 +81,9 @@ const StudentProfileForm = ({
 
       // show error box
       if (data.success) {
+        if (Object.keys(itemEdit).length === 0) {
+          dispatch(setIsAdd(false));
+        }
         queryClient.invalidateQueries({ queryKey: ["mystudent"] });
         queryClient.invalidateQueries({
           queryKey: ["read-student-by-current-sy-id-parent"],

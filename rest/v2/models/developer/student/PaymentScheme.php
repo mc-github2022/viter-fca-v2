@@ -100,12 +100,10 @@ class PaymentScheme
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParents} as parent, ";
             $sql .= "{$this->tblCurrentSYStudent} as currentSyStudent, ";
-            $sql .= "{$this->tblSchoolYear} as schoolYear, ";
-            $sql .= "{$this->tblGradeLevel} as gradeLevel ";
+            $sql .= "{$this->tblSchoolYear} as schoolYear ";
             $sql .= "where currentSyStudent.current_students_student_id = :students_aid ";
             $sql .= "and student.students_aid = currentSyStudent.current_students_student_id ";
             $sql .= "and parent.parents_aid = student.students_parent_id ";
-            $sql .= "and gradeLevel.grade_level_aid = currentSyStudent.current_students_grade_level_id ";
             $sql .= "and schoolYear.school_year_aid = currentSyStudent.current_students_sy_id ";
             $sql .= "order by ";
             $sql .= "student.students_lname, ";

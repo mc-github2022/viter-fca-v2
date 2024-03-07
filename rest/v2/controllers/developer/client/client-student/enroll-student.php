@@ -27,16 +27,31 @@ $student->students_lname = $data["students_lname"];
 $student->current_students_created = date("Y-m-d H:i:s");
 $student->current_students_datetime = date("Y-m-d H:i:s");
 
-$student->grade_level_order = $data["grade_level_order"];
-
-$nextGradeLevel = getResultData($student->readNextGradeLevel());
-
-$student->current_students_grade_level_id = $nextGradeLevel[0]["grade_level_aid"];
+$student->grade_level_order = "";
 
 $fullname = "$student->students_fname $student->students_lname";
-
 // check if student is already enrolled
 isStudentExist($student, $fullname);
+
+// student that have previous record
+if ($student->current_students_last_grade_level_id > 0) {
+    $student->grade_level_order = $data["grade_level_order"];
+    $nextGradeLevel = getResultData($student->readNextGradeLevel());
+    if (count($nextGradeLevel) > 0) {
+        $student->current_students_grade_level_id = $nextGradeLevel[0]["grade_level_aid"];
+    } else {
+        returnError("Next grade level is not available for this moment");
+    }
+}
+
+// new student that don't have grade level
+if ($student->current_students_last_grade_level_id == 0) {
+    $nextGradeLevel = getResultData($student->firstGradeLevel());
+    $student->current_students_grade_level_id = $nextGradeLevel[0]["grade_level_aid"];
+    $student->grade_level_order = $nextGradeLevel[0]["grade_level_order"];
+}
+
+
 
 // for school year student -> repository // insert
 $query = checkEnrollStudent($student);

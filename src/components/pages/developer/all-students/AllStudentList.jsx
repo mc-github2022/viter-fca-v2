@@ -1,21 +1,18 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { queryData } from "@/components/helpers/queryData";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
-import Pills from "@/components/partials/Pills";
 import SearchBar from "@/components/partials/SearchBar";
-import ServerError from "@/components/partials/ServerError";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
+import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import {
   setError,
   setIsConfirm,
   setIsDelete,
   setMessage,
-  setSuccess,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
@@ -28,7 +25,11 @@ import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 import ModalRequirements from "../clients/student-info/requirement/ModalRequirements";
 import ModalEditStudent from "../students/StudentEdit/ModalEditStudent";
-import { getStudentStatus } from "./functions-all-students";
+import {
+  getGradeLevelByStudentId,
+  getGradeLevelOrderByStudentId,
+  getStudentStatus,
+} from "./functions-all-students";
 
 const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -36,6 +37,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   const [dataItem, setData] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
   const search = React.useRef({ value: "" });
+  const [isEnroll, setIsEnroll] = React.useState(false);
   const [isViewInfo, setIsViewInfo] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
@@ -125,32 +127,14 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   };
 
   const handleEnroll = async (item) => {
-    // console.log(item);
-    setLoading(true);
-
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
       dispatch(setMessage("There's no enrollment yet."));
       return;
     }
 
-    const enroll = await queryData("/v2/dev-client-student/enroll", "post", {
-      ...item,
-      current_students_sy_id: schoolYear?.data[0].school_year_aid,
-    });
-
-    if (enroll.success) {
-      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
-      queryClient.invalidateQueries({ queryKey: ["all-students"] });
-      setLoading(false);
-      dispatch(setSuccess(true));
-      dispatch(setMessage("Successfully enrolled."));
-    }
-    if (!enroll.success) {
-      dispatch(setError(true));
-      dispatch(setMessage(enroll.error));
-      setLoading(false);
-    }
+    setIsEnroll(true);
+    setData(item);
   };
 
   React.useEffect(() => {
@@ -225,7 +209,12 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                             )}
                           </td>
                           <td>{item.student_fullname}</td>
-                          <td>{item.grade_level_name}</td>
+                          <td>
+                            {getGradeLevelByStudentId(
+                              gradeLevel,
+                              item.current_students_grade_level_id
+                            )}
+                          </td>
                           <td>{item.school_year}</td>
 
                           <td>
@@ -323,6 +312,23 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
           setIsViewInfo={setIsViewInfo}
           dataItem={dataItem}
           gradeLevel={gradeLevel}
+        />
+      )}
+
+      {isEnroll && (
+        <ModalReEnrolling
+          mysqlApiEnroll={`/v2/dev-client-student/enroll`}
+          msg={`Are you sure you want to enroll this student ?`}
+          item={{
+            ...dataItem,
+            grade_level_order: getGradeLevelOrderByStudentId(
+              gradeLevel,
+              dataItem.current_students_grade_level_id
+            ),
+            current_students_sy_id: schoolYear?.data[0].school_year_aid,
+          }}
+          queryKey={"all-students"}
+          setIsEnroll={setIsEnroll}
         />
       )}
 

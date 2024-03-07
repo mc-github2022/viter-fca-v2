@@ -26,6 +26,7 @@ import { useInView } from "react-intersection-observer";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import ModalValidate from "@/components/partials/modals/ModalValidate";
 import ModalRemoveFromEnrollment from "./modals/ModalRemoveFromEnrollment";
+import useQueryData from "@/components/custom-hooks/useQueryData";
 
 const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -64,8 +65,6 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
     },
     refetchOnWindowFocus: false,
   });
-
-  console.log(result);
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));

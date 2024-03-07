@@ -40,6 +40,14 @@ function checkDeleteSchoolYearStudents($object)
     return $query;
 }
 
+// delete school year current student
+function checkDeleteSchoolYearCurrentStudents($object)
+{
+    $query = $object->deleteSchoolYearCurrentStudents();
+    checkQuery($query, "There's a problem processing your request. (delete school year current student)");
+    return $query;
+}
+
 // check lrn if already exist
 function isLrnExist($object, $lrn)
 {
@@ -124,6 +132,22 @@ function checkReadGuardianByParentId($object)
 {
     $query = $object->readGuardianByParentId();
     checkQuery($query, "There's a problem processing your request. (read guardian by parent id)");
+    return $query;
+}
+
+// read all school year
+function checkReadAllSchoolYear($object)
+{
+    $query = $object->readAllSchoolYear();
+    checkQuery($query, "There's a problem processing your request. (read all school year)");
+    return $query;
+}
+
+// read all grade level
+function checkReadAllGradeLevel($object)
+{
+    $query = $object->readAllGradeLevel();
+    checkQuery($query, "There's a problem processing your request. (read all grade level)");
     return $query;
 }
 
