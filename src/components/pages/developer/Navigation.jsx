@@ -190,7 +190,7 @@ const Navigation = ({
                 >
                   <Link
                     to={`${devNavUrl}/system/report`}
-                    className="flex gap-3 items-center uppercase ml-1 w-full text-[12px]"
+                    className="flex gap-3 items-center uppercase ml-1 w-full text-[12px] "
                     onClick={handleNavigateLink}
                   >
                     Students
