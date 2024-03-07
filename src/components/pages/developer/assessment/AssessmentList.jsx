@@ -90,25 +90,24 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
               </thead>
 
               <tbody>
+                {(status === "loading" || result?.pages[0].count === 0) && (
+                  <tr className="text-center hover:bg-transparent ">
+                    <td colSpan="100%" className="p-10">
+                      {status === "loading" && (
+                        <TableLoading count={20} cols={3} />
+                      )}
+                      <NoData />
+                    </td>
+                  </tr>
+                )}
                 {result?.pages[0].success === false ? (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
                       <ModalInvalidRequestError />
                     </td>
                   </tr>
-                ) : status === "loading" || result?.pages[0].count === 0 ? (
-                  <tr className="text-center hover:bg-transparent ">
-                    <td colSpan="100%" className="p-10">
-                      {status === "loading" ? (
-                        <TableLoading count={20} cols={3} />
-                      ) : (
-                        <NoData />
-                      )}
-                    </td>
-                  </tr>
                 ) : (
                   status !== "loading" &&
-                  result?.pages[0].success === true &&
                   result?.pages.map((page, key) => (
                     <React.Fragment key={key}>
                       {page.data.map((item, key) => (

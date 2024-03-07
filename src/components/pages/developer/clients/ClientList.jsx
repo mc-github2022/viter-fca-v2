@@ -145,11 +145,10 @@ const ClientList = ({ setItemEdit }) => {
                 ) : status === "loading" || result?.pages[0].count === 0 ? (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
-                      {status === "loading" ? (
+                      {status === "loading" && (
                         <TableLoading count={20} cols={3} />
-                      ) : (
-                        <NoData />
                       )}
+                      <NoData />
                     </td>
                   </tr>
                 ) : (
