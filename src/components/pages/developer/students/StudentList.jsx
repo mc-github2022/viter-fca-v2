@@ -1,32 +1,20 @@
 import NoData from "@/components/partials/NoData.jsx";
-import Pills from "@/components/partials/Pills.jsx";
 import SearchBar from "@/components/partials/SearchBar";
-import ServerError from "@/components/partials/ServerError";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
-import ModalDelete from "@/components/partials/modals/ModalDelete";
-import {
-  setIsConfirm,
-  setIsDelete,
-  setMessage,
-  setValidate,
-} from "@/components/store/StoreAction";
+import { setIsConfirm, setIsDelete } from "@/components/store/StoreAction";
 
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { BsArchive } from "react-icons/bs";
-import { CiViewList } from "react-icons/ci";
+import { FaWpforms } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
-import { MdOutlineRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
-import ModalValidate from "@/components/partials/modals/ModalValidate";
 import ModalRemoveFromEnrollment from "./modals/ModalRemoveFromEnrollment";
-import useQueryData from "@/components/custom-hooks/useQueryData";
 
 const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -168,7 +156,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                                   data-tooltip="Info"
                                   onClick={() => handleViewInfo(item)}
                                 >
-                                  <CiViewList />
+                                  <FaWpforms className="text-[17px]" />
                                 </button>
                                 <button
                                   type="button"
@@ -176,7 +164,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                                   data-tooltip="Delete"
                                   onClick={() => handleDelete(item)}
                                 >
-                                  <FiTrash />
+                                  <FiTrash className="text-[17px]" />
                                 </button>
                               </div>
                             )}

@@ -95,7 +95,7 @@ const CardClientFinancierInfo = ({
                     data-tooltip="Edit"
                     onClick={() => handleShowFinancierForm(item)}
                   >
-                    <FiEdit2 />
+                    <FiEdit2 className="text-[17px]" />
                   </button>
                 </div>
               </div>

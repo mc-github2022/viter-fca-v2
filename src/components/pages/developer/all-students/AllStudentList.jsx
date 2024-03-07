@@ -30,6 +30,7 @@ import {
   getGradeLevelOrderByStudentId,
   getStudentStatus,
 } from "./functions-all-students";
+import { FaWpforms } from "react-icons/fa";
 
 const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -229,7 +230,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                                   data-tooltip="Enroll"
                                   onClick={() => handleEnroll(item)}
                                 >
-                                  <CiSquarePlus />
+                                  <FaWpforms className="text-[17px]" />
                                 </button>
 
                                 <button
@@ -239,7 +240,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                                     handleViewInfoRequirements(item)
                                   }
                                 >
-                                  <LiaListAlt />
+                                  <LiaListAlt className="text-[20px]" />
                                 </button>
 
                                 <button
@@ -247,7 +248,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                                   data-tooltip="Info"
                                   onClick={() => handleViewInfo(item)}
                                 >
-                                  <CiViewList />
+                                  <CiViewList className="text-[20px]" />
                                 </button>
 
                                 <button
@@ -256,7 +257,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                                   data-tooltip="Archive"
                                   onClick={() => handleArchive(item)}
                                 >
-                                  <BsArchive />
+                                  <BsArchive className="text-[17px]" />
                                 </button>
                               </div>
                             ) : (
@@ -267,7 +268,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                                   data-tooltip="Restore"
                                   onClick={() => handleRestore(item)}
                                 >
-                                  <MdOutlineRestore />
+                                  <MdOutlineRestore className="text-[20px]" />
                                 </button>
                                 <button
                                   type="button"
@@ -275,7 +276,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                                   data-tooltip="Delete"
                                   onClick={() => handleDelete(item)}
                                 >
-                                  <FiTrash />
+                                  <FiTrash className="text-[17px]" />
                                 </button>
                               </div>
                             )}

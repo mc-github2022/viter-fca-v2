@@ -186,7 +186,7 @@ const ClientList = ({ setItemEdit }) => {
                                   className="tooltip text-base"
                                   data-tooltip="Student"
                                 >
-                                  <PiStudentLight />
+                                  <PiStudentLight className="text-[20px]" />
                                 </Link>
 
                                 <Link
@@ -194,7 +194,7 @@ const ClientList = ({ setItemEdit }) => {
                                   className="tooltip text-base"
                                   data-tooltip="Info"
                                 >
-                                  <CiViewList />
+                                  <CiViewList className="text-[20px]" />
                                 </Link>
 
                                 <button
@@ -203,7 +203,7 @@ const ClientList = ({ setItemEdit }) => {
                                   data-tooltip="Edit"
                                   onClick={() => handleEdit(item)}
                                 >
-                                  <FiEdit2 />
+                                  <FiEdit2 className="text-[17px]" />
                                 </button>
 
                                 <button
@@ -212,7 +212,7 @@ const ClientList = ({ setItemEdit }) => {
                                   data-tooltip="Archive"
                                   onClick={() => handleArchive(item)}
                                 >
-                                  <BsArchive />
+                                  <BsArchive className="text-[17px]" />
                                 </button>
                               </div>
                             ) : (

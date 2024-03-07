@@ -108,7 +108,7 @@ const Header = ({ isLoading, schoolYear }) => {
               className={`uppercase text-base flex items-center justify-center gap-2 text-center ${
                 schoolYear?.count > 0 &&
                 schoolYear?.data[0].school_year_is_enrollment_open === 1
-                  ? "bg-[#d2e3fc]"
+                  ? "bg-[#f3f4f6]"
                   : "bg-[#fff5c2]"
               }  mb-0 h-10 fixed w-full z-10 top-0`}
             >

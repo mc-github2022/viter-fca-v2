@@ -92,7 +92,7 @@ const CardClientParentInfo = ({
                       data-tooltip="Edit"
                       onClick={() => handleShowGuardianForm(item)}
                     >
-                      <FiEdit2 />
+                      <FiEdit2 className="text-[17px]" />
                     </button>
 
                     <button
@@ -100,7 +100,7 @@ const CardClientParentInfo = ({
                       data-tooltip="Delete"
                       onClick={() => handleDeleteGuardianCard(item)}
                     >
-                      <FiTrash />
+                      <FiTrash className="text-[17px]" />
                     </button>
                   </div>
                 </div>

@@ -124,7 +124,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
                                 data-tooltip="View"
                                 onClick={() => handleAssessment(item)}
                               >
-                                <CiViewList />
+                                <CiViewList className="text-[20px]" />
                               </button>
                             </div>
                           </td>

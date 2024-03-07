@@ -1,6 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { getUrlParam } from "@/components/helpers/functions-general.jsx";
-import { queryData } from "@/components/helpers/queryData.jsx";
 import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
@@ -8,6 +7,7 @@ import NoData from "@/components/partials/NoData.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
+import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import {
@@ -15,13 +15,12 @@ import {
   setIsAdd,
   setIsDelete,
   setMessage,
-  setSuccess,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { CiEdit, CiSquarePlus, CiTrash } from "react-icons/ci";
-import { FaAngleLeft, FaPlus } from "react-icons/fa";
+import { FaAngleLeft, FaPlus, FaWpforms } from "react-icons/fa";
+import { FiEdit2, FiTrash } from "react-icons/fi";
 import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import Navigation from "../../Navigation.jsx";
@@ -34,7 +33,6 @@ import {
 import ModalEditStudent from "../../students/StudentEdit/ModalEditStudent.jsx";
 import ModalAddStudent from "./modal-student/ModalAddStudent.jsx";
 import ModalRequirements from "./requirement/ModalRequirements.jsx";
-import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling.jsx";
 
 const ClientStudentViewInfo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -181,7 +179,7 @@ const ClientStudentViewInfo = () => {
               </div>
             </div>
 
-            <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
+            <div className=" max-w-[620px] w-full ">
               <div>
                 <h3 className="">Student</h3>
                 <p className="text-xs opacity-75">
@@ -190,11 +188,11 @@ const ClientStudentViewInfo = () => {
               </div>
 
               <button
-                className="btn btn--sm mt-1 hover:underline"
+                className="btn btn--sm mt-3 hover:underline"
                 data-tooltip="New"
                 onClick={handleAddStudent}
               >
-                <FaPlus /> <span>Add</span>
+                <FaPlus /> <span className="text-[14px]">Add</span>
               </button>
             </div>
 
@@ -265,7 +263,7 @@ const ClientStudentViewInfo = () => {
                             data-tooltip="Enroll"
                             onClick={() => handleEnroll(item)}
                           >
-                            <CiSquarePlus />
+                            <FaWpforms className="text-[17px]" />
                           </button>
                         )}
                         <button
@@ -273,7 +271,7 @@ const ClientStudentViewInfo = () => {
                           data-tooltip="Edit"
                           onClick={() => handleEdit(item)}
                         >
-                          <CiEdit />
+                          <FiEdit2 className="text-[17px]" />
                         </button>
 
                         <button
@@ -281,7 +279,7 @@ const ClientStudentViewInfo = () => {
                           data-tooltip="Delete"
                           onClick={() => handleDelete(item)}
                         >
-                          <CiTrash />
+                          <FiTrash className="text-[17px]" />
                         </button>
                       </div>
                     </div>

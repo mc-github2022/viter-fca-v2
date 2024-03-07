@@ -103,7 +103,7 @@ const CardClientContactInfo = ({
                     data-tooltip="Edit"
                     onClick={() => handleShowContactForm(item)}
                   >
-                    <FiEdit2 />
+                    <FiEdit2 className="text-[17px]" />
                   </button>
 
                   <button
@@ -111,7 +111,7 @@ const CardClientContactInfo = ({
                     data-tooltip="Delete"
                     onClick={() => handleDeleteContactCard(item)}
                   >
-                    <FiTrash />
+                    <FiTrash className="text-[17px]" />
                   </button>
                 </div>
               </div>

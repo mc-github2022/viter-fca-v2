@@ -37,8 +37,9 @@ const Students = () => {
 
   const handleAdd = () => {
     if (isOngoing === 0 || !isOngoing) {
+      console.log("123");
       dispatch(setValidate(true));
-      dispatch(setMessage(" There's no enrollment yet."));
+      dispatch(setMessage("There's no enrollment yet."));
       return;
     }
     dispatch(setIsAdd(true));
@@ -91,6 +92,7 @@ const Students = () => {
       {store.isAdd && <ModalAddStudent schoolYear={schoolYear} />}
       {store.success && <ModalSuccess />}
       {store.error && <ModalError />}
+      {store.validate && <ModalValidate />}
 
       {isViewInfo && (
         <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={dataItem} />
