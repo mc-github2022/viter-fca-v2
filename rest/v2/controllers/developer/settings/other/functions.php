@@ -82,6 +82,7 @@ function tokenOther(
             $decoded = JWT::decode($token, $key, array('HS256'));
             $object->user_other_email = $decoded->data->email;
 
+
             $adminLoginData = getResultData($object->readAdminLogin());
 
             if (count($adminLoginData) > 0) {

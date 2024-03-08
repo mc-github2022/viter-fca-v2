@@ -1,27 +1,21 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
-import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
-import {
-  setIsAdd,
-  setMessage,
-  setValidate,
-} from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { FaPlus } from "react-icons/fa";
+import AllStudentList from "../../developer/all-students/AllStudentList.jsx";
 import Navigation from "../Navigation.jsx";
 
-import ModalError from "@/components/partials/modals/ModalError.jsx";
-import ModalAddStudent from "../../developer/students/ModalAddStudent.jsx";
-import ModalEditStudent from "../../developer/students/StudentEdit/ModalEditStudent.jsx";
-import StudentList from "../../developer/students/StudentList.jsx";
-
-const Students = () => {
+const AllStudents = () => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [isViewInfo, setIsViewInfo] = React.useState(false);
-  const [dataItem, setData] = React.useState(null);
+
+  const { data: gradeLevel } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
 
   const {
     isLoading,
@@ -36,23 +30,13 @@ const Students = () => {
   const isOngoing =
     schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
-  const handleAdd = () => {
-    if (isOngoing === 0 || !isOngoing) {
-      console.log("123");
-      dispatch(setValidate(true));
-      dispatch(setMessage("There's no enrollment yet."));
-      return;
-    }
-    dispatch(setIsAdd(true));
-  };
-
   return (
-    <>
+    <div>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
       <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation
-            menu="enrollment"
+            menu="students"
             isLoading={isLoading}
             error={error}
             schoolYear={schoolYear}
@@ -66,40 +50,28 @@ const Students = () => {
             <div className="main__header flex justify-between items-start lg:items-center my-2 ">
               <div className="mt-[55px] flex items-start justify-between w-full">
                 <div>
-                  <h1 className="text-clampH1 mb-0">Enrollment List</h1>
+                  <h1 className="text-clampH1 mb-0">All Student List</h1>
                   <p className="mb-4 text-xs hidden lg:block">
-                    List of students enrolled in the current school year.
+                    List of students registered on the system.
                   </p>
                 </div>
-
-                <button
-                  className="btn btn--accent btn--sm mt-1 pr-2"
-                  onClick={handleAdd}
-                >
-                  <FaPlus /> New Student
-                </button>
               </div>
             </div>
 
-            <StudentList
-              setIsViewInfo={setIsViewInfo}
-              setData={setData}
-              dataItem={dataItem}
+            <AllStudentList
+              gradeLevel={gradeLevel}
+              isOngoing={isOngoing}
+              schoolYear={schoolYear}
             />
           </main>
         </div>
         <Footer />
       </section>
-      {store.isAdd && <ModalAddStudent schoolYear={schoolYear} />}
+
       {store.success && <ModalSuccess />}
       {store.error && <ModalError />}
-      {store.validate && <ModalValidate />}
-
-      {isViewInfo && (
-        <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={dataItem} />
-      )}
-    </>
+    </div>
   );
 };
 
-export default Students;
+export default AllStudents;

@@ -225,7 +225,11 @@ const ModalSettingsNav = ({
             </button>
           </li>
 
-          <li className={`${index === 14 ? "active" : ""}`}>
+          <li
+            className={`${index === 14 ? "active" : ""} ${
+              userRole === "developer" ? "" : "hidden"
+            }`}
+          >
             <button
               onClick={(e) => handleChangeSetting(14, e)}
               className="p-1 pl-4"

@@ -6,14 +6,12 @@ import {
 } from "@/components/helpers/functions-general";
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
-import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
 import {
   setCredentials,
-  setError,
   setIsLogin,
   setMessage,
   setValidate,

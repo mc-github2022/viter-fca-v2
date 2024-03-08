@@ -7,6 +7,7 @@ import {
   setIsDelete,
   setIsSettingAdd,
   setSettingIsConfirm,
+  setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
@@ -14,10 +15,10 @@ import { BsArchive } from "react-icons/bs";
 import NoData from "@/components/partials/NoData.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 const RolesList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);

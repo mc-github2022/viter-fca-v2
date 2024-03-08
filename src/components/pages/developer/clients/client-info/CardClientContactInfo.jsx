@@ -55,11 +55,11 @@ const CardClientContactInfo = ({
         </div>
 
         <button
-          className="tooltip"
+          className="btn btn--sm mt-3 hover:underline hover:!bg-[unset] tooltip"
           data-tooltip="New"
           onClick={handleAddContact}
         >
-          <FaPlus />
+          <FaPlus /> Add
         </button>
       </div>
 

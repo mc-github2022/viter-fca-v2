@@ -17,7 +17,6 @@ import {
   setMessage,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { FaAngleLeft, FaPlus, FaWpforms } from "react-icons/fa";
 import { FiEdit2, FiTrash } from "react-icons/fi";
@@ -42,7 +41,6 @@ const ClientStudentViewInfo = () => {
   const [dataItem, setData] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const cid = getUrlParam().get("cid");
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isViewInfo, setIsViewInfo] = React.useState(false);
   const [isEnroll, setIsEnroll] = React.useState(false);
@@ -78,6 +76,28 @@ const ClientStudentViewInfo = () => {
     "registrar-all-student" // key
   );
 
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: mystudent,
+  } = useQueryData(
+    `/v2/dev-read-students/${cid}`, // endpoint
+    "get", // method
+    "mystudent" // key
+  );
+
+  const {
+    isLoading: parentIsLoading,
+    isFetching: parentIsFetching,
+    error: parentIsError,
+    data: parent,
+  } = useQueryData(
+    `/v2/dev-parents/${cid}`, // endpoint
+    "get", // method
+    "parent" // key
+  );
+
   const handleAddStudent = () => {
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
@@ -105,28 +125,6 @@ const ClientStudentViewInfo = () => {
     setViewRequirements(true);
   };
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: mystudent,
-  } = useQueryData(
-    `/v2/dev-read-students/${cid}`, // endpoint
-    "get", // method
-    "mystudent" // key
-  );
-
-  const {
-    isLoading: parentIsLoading,
-    isFetching: parentIsFetching,
-    error: parentIsError,
-    data: parent,
-  } = useQueryData(
-    `/v2/dev-parents/${cid}`, // endpoint
-    "get", // method
-    "parent" // key
-  );
-
   const handleEnroll = async (item) => {
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
@@ -141,8 +139,8 @@ const ClientStudentViewInfo = () => {
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
-      <section className="main__wrap flex flex-col relative h-[100vh] ">
-        <div className={`grow ${store.isMenuExpand ? "expand" : ""}`}>
+      <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
+        <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation
             menu="clients"
             isLoading={isLoading}
@@ -150,50 +148,48 @@ const ClientStudentViewInfo = () => {
             schoolYear={schoolYear}
           />
           <main
-            className={`main__content mt-[35px]  relative ${
+            className={`main__content pl-0 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center">
-              <div>
+            <div className="main__header flex justify-between items-start lg:items-center ">
+              <div className=" max-w-[620px] mt-[55px] flex items-start justify-between w-full">
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="flex gap-1 items-center lg:hidden"
+                  >
+                    <FaAngleLeft /> Back
+                  </button>
+                  <BreadCrumbs />
+                  <h1 className="text-clampH1 mb-2">
+                    {parentIsLoading || parentIsFetching ? (
+                      <p>Loading...</p>
+                    ) : (
+                      <>
+                        <span className="pr-2">
+                          {parent?.data[0].parents_fname}
+                        </span>
+                        <span>{parent?.data[0].parents_lname}</span>
+                      </>
+                    )}
+                  </h1>
+
+                  <h3 className="mb-0">Student List</h3>
+                  <p className="mb-4 text-xs hidden lg:block">
+                    List of clients/parents registered on the system.
+                  </p>
+                </div>
+
                 <button
-                  type="button"
-                  onClick={() => navigate(-1)}
-                  className="flex gap-1 items-center lg:hidden"
+                  className="btn btn--sm mt-3 hover:underline"
+                  data-tooltip="New"
+                  onClick={handleAddStudent}
                 >
-                  <FaAngleLeft /> Back
+                  <FaPlus /> <span className="text-[14px]">Add</span>
                 </button>
-                <BreadCrumbs />
-                <h1 className="text-clampH1 mb-2">
-                  {parentIsLoading || parentIsFetching ? (
-                    <p>Loading...</p>
-                  ) : (
-                    <>
-                      <span className="pr-2">
-                        {parent?.data[0].parents_fname}
-                      </span>
-                      <span>{parent?.data[0].parents_lname}</span>
-                    </>
-                  )}
-                </h1>
               </div>
-            </div>
-
-            <div className=" max-w-[620px] w-full ">
-              <div>
-                <h3 className="">Student</h3>
-                <p className="text-xs opacity-75">
-                  List of client student enrolled for this school year
-                </p>
-              </div>
-
-              <button
-                className="btn btn--sm mt-3 hover:underline"
-                data-tooltip="New"
-                onClick={handleAddStudent}
-              >
-                <FaPlus /> <span className="text-[14px]">Add</span>
-              </button>
             </div>
 
             <div className="max-w-[620px] w-full gap-4 mb-5 relative">

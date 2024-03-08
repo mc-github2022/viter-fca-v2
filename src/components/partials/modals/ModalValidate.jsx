@@ -1,3 +1,4 @@
+import { GetFocus } from "@/components/helpers/functions-general";
 import { setValidate } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -7,6 +8,7 @@ import Modal from "../wrapper/Modal";
 const ModalValidate = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const handleClose = () => dispatch(setValidate(false));
+  GetFocus("btnClose");
   return (
     <>
       <Modal>
@@ -19,7 +21,11 @@ const ModalValidate = () => {
         <div className=" text-center">
           <p>{store.message}</p>
           <div className=" flex !justify-center  mt-8">
-            <button className="btn bg-warning text-white" onClick={handleClose}>
+            <button
+              className="btn bg-warning text-white"
+              onClick={handleClose}
+              id="btnClose"
+            >
               Close
             </button>
           </div>

@@ -4,7 +4,6 @@ import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { devNavUrl } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData.jsx";
-import TableSpinner from "../../../partials/spinners/TableSpinner";
 import {
   setCredentials,
   setMessage,
