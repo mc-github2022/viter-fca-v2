@@ -144,6 +144,13 @@ export const setIsSearch = (val) => {
   };
 };
 
+export const setIsFilter = (val) => {
+  return {
+    type: "IS_FILTER",
+    payload: val,
+  };
+};
+
 export const setStartIndex = (val) => {
   return {
     type: "START_INDEX",

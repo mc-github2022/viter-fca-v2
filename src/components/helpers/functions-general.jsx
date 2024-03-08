@@ -203,3 +203,22 @@ export const isItemEmpty = (item, name = "") => {
   }
   return result;
 };
+
+export const getLastAndCurrentSchoolYear = (schoolYear) => {
+  let lastSY = "";
+  let currentSY = "";
+
+  if (schoolYear?.count > 0) {
+    const current = schoolYear?.data.filter(
+      (item) => item.school_year_is_active === 1
+    );
+
+    const last = schoolYear?.data.filter(
+      (item) => item.school_year_is_active === 1
+    );
+
+    currentSY = current[0]?.school_year;
+    lastSY = last[0]?.school_year;
+  }
+  return { currentSY, lastSY };
+};

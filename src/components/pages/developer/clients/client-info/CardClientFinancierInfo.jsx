@@ -37,7 +37,7 @@ const CardClientFinancierInfo = ({
     <div>
       <div className="flex justify-between items-center max-w-[620px] w-full mb-5 relative">
         <div>
-          <h3 className="">Financer</h3>
+          <h3 className="">Financial Information</h3>
           <p className="text-xs opacity-75">
             Setup student financier information
           </p>
