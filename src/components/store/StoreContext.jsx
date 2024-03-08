@@ -20,6 +20,7 @@ const initVal = {
   isView: false,
   isFeedback: false,
   isSearch: false,
+  isFilter: false,
   startIndex: 0,
   indexItem: 0,
   isCreatePassSuccess: false,

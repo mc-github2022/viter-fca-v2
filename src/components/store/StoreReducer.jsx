@@ -125,6 +125,12 @@ export const StoreReducer = (state, action) => {
         isSearch: action.payload,
       };
 
+    case "IS_FILTER":
+      return {
+        ...state,
+        isFilter: action.payload,
+      };
+
     case "START_INDEX":
       return {
         ...state,

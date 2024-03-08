@@ -1,6 +1,10 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
-import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
+import {
+  setIsFilter,
+  setIsSettingsOpen,
+  setIsShow,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { BsCalendar2Week, BsChevronRight } from "react-icons/bs";
@@ -44,11 +48,13 @@ const Navigation = ({
 
   const handleNavigateLink = () => {
     dispatch(setIsShow(false));
+    dispatch(setIsFilter(false));
     document.querySelector("body").classList.remove("no--scroll");
   };
 
   const handleShowAllReport = () => {
     dispatch(setIsShow(false));
+    dispatch(setIsFilter(false));
     setIsShowReport(!isShowReport);
     document.querySelector("body").classList.remove("no--scroll");
   };
@@ -145,17 +151,7 @@ const Navigation = ({
               </Link>
             </li>
 
-            {/* <li className={`nav__link ${menu === "report" ? "active" : ""}`}>
-              <Link
-                to={`${devNavUrl}/system/report`}
-                className="flex gap-3 items-center uppercase  w-full"
-                onClick={handleNavigateLink}
-              >
-                <PiStudent className="text-lg ml-4" /> Report
-              </Link>
-            </li> */}
-
-            <li
+            {/* <li
               className={`nav__link items-start  ${
                 menu === "reports" ? "active" : ""
               }`}
@@ -190,29 +186,14 @@ const Navigation = ({
                 >
                   <Link
                     to={`${devNavUrl}/system/report`}
-                    className="flex gap-3 items-center uppercase ml-1 w-full text-[12px] "
+                    className="flex gap-3 items-center uppercase ml-1 w-full text-[12px] !pb-0 my-[7px]"
                     onClick={handleNavigateLink}
                   >
                     Students
                   </Link>
                 </li>
-                {/* <li
-                  className={` ${
-                    subNavActive === "reports"
-                      ? "border-l-2 border-[#123909]"
-                      : "ml-1"
-                  }`}
-                >
-                  <Link
-                    to={`${devNavUrl}/system/report`}
-                    className="flex gap-3 items-center uppercase ml-1 w-full  text-[12px]"
-                    onClick={handleNavigateLink}
-                  >
-                    Parents
-                  </Link>
-                </li> */}
               </ol>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>

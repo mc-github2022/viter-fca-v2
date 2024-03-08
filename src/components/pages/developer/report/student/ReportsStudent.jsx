@@ -6,7 +6,8 @@ import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import Navigation from "../Navigation.jsx";
+import Navigation from "../../Navigation";
+import ReportsStudentList from "./ReportsStudentList";
 
 const ReportsStudent = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -30,7 +31,7 @@ const ReportsStudent = () => {
       <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
           <Navigation
-            menu="Student"
+            menu="reports"
             isLoading={isLoading}
             error={error}
             schoolYear={schoolYear}
@@ -52,7 +53,7 @@ const ReportsStudent = () => {
                 </div>
               </div>
             </div>
-            <p>we'll be right back</p>
+            <ReportsStudentList />
           </main>
         </div>
         <Footer />
