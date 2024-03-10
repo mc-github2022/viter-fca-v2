@@ -1,12 +1,14 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ProtectedRouteOther from "@/components/pages/access/other/ProtectedRouteOther.jsx";
 import Profile from "@/components/pages/admin/account/Profile.jsx";
-import StudentViewInfo from "@/components/pages/admin/students/student-info/StudentViewInfo.jsx";
+import AllStudents from "@/components/pages/admin/all-students/AllStudents";
+import Assestment from "@/components/pages/admin/assessment/Assestment";
 import Clients from "@/components/pages/admin/clients/Clients.jsx";
+import ClientStudentViewInfo from "@/components/pages/admin/clients/student-info/ClientStudentViewInfo.jsx";
+import Students from "@/components/pages/admin/students/Students";
+import StudentViewInfo from "@/components/pages/admin/students/student-info/StudentViewInfo.jsx";
 import StudentView from "@/components/pages/developer/clients/StudentView";
 import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
-import ClientStudentViewInfo from "@/components/pages/developer/clients/student-info/ClientStudentViewInfo.jsx";
-import Students from "@/components/pages/admin/students/Students";
 
 export const routesAdmin = [
   {
@@ -53,7 +55,7 @@ export const routesAdmin = [
     ),
   },
   {
-    path: `${devNavUrl}/admin/students`,
+    path: `${devNavUrl}/admin/enrollment`,
     element: (
       <ProtectedRouteOther>
         <Students />
@@ -65,6 +67,26 @@ export const routesAdmin = [
     element: (
       <ProtectedRouteOther>
         <StudentViewInfo />
+      </ProtectedRouteOther>
+    ),
+  },
+
+  // All students
+  {
+    path: `${devNavUrl}/admin/students`,
+    element: (
+      <ProtectedRouteOther>
+        <AllStudents />
+      </ProtectedRouteOther>
+    ),
+  },
+
+  // Assessment
+  {
+    path: `${devNavUrl}/admin/assessment`,
+    element: (
+      <ProtectedRouteOther>
+        <Assestment />
       </ProtectedRouteOther>
     ),
   },

@@ -74,7 +74,6 @@ const Clients = () => {
       </section>
 
       {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}
-
       {store.success && <ModalSuccess />}
       {store.validate && <ModalValidate />}
     </>

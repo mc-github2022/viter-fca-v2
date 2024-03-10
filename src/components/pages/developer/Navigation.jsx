@@ -1,13 +1,9 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
-import {
-  setIsFilter,
-  setIsSettingsOpen,
-  setIsShow,
-} from "@/components/store/StoreAction";
+import { setIsFilter, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { BsCalendar2Week, BsChevronRight } from "react-icons/bs";
+import { BsCalendar2Week } from "react-icons/bs";
 import { PiListMagnifyingGlass, PiStudent } from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -28,19 +24,6 @@ const Navigation = ({
   const getOngoingSchoolYear =
     schoolYear?.count > 0 &&
     schoolYear?.data.filter((item) => item.school_year_is_active === 1);
-
-  const handleToggleMenu = () => {
-    dispatch(setIsShow(!store.isShow));
-    if (store.isShow) {
-      document.querySelector("body").classList.add("no--scroll");
-    } else {
-      document.querySelector("body").classList.remove("no--scroll");
-    }
-  };
-
-  const handleDropDownSetting = () => {
-    dispatch(setIsSettingsOpen(!store.isSettingsOpen));
-  };
 
   const handleShowSettings = () => {
     setIsShowSettings(true);
@@ -88,7 +71,6 @@ const Navigation = ({
               }
             >
               <Link
-                // to={`${devNavUrl}/admin/students`}
                 className={`flex gap-3 items-center uppercase w-full cursor-default pointer-events-none ${
                   schoolYear?.isGreaterThanEndYear ||
                   getOngoingSchoolYear?.length === 0
@@ -104,9 +86,6 @@ const Navigation = ({
                   : getOngoingSchoolYear?.length > 0
                   ? `S.Y ${getOngoingSchoolYear[0]?.start_year}-${getOngoingSchoolYear[0]?.end_year}`
                   : "S.Y not set"}
-                {/* {schoolYear?.isGreaterThanEndYear && (
-                  <span className="text-[10px]"></span>
-                )} */}
               </Link>
             </li>
             <li
@@ -127,7 +106,7 @@ const Navigation = ({
                 className="flex gap-3 items-center uppercase  w-full"
                 onClick={handleNavigateLink}
               >
-                <RiParentLine className="text-lg ml-4" /> Parents
+                <RiParentLine className="text-lg ml-4" /> Clients
               </Link>
             </li>
             <li

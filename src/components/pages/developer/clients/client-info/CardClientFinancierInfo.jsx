@@ -45,11 +45,11 @@ const CardClientFinancierInfo = ({
 
         {financierInfo.data[0].parents_financier_name === "" && (
           <button
-            className="tooltip"
+            className="btn btn--sm mt-3 hover:underline hover:!bg-[unset] tooltip"
             data-tooltip="New"
             onClick={handleShowFinancierForm}
           >
-            <FaPlus />
+            <FaPlus /> Add
           </button>
         )}
       </div>
@@ -77,7 +77,7 @@ const CardClientFinancierInfo = ({
                   <span className="flex gap-2 mb-2 md:mb-0">
                     <SlPeople className="text-base" />
                     {item.parents_financier_relationship
-                      ? item.parents_financier_occupation
+                      ? item.parents_financier_relationship
                       : "unspecified"}
                   </span>
                   <LuDot className="text-xl hidden md:block" />{" "}
@@ -85,7 +85,7 @@ const CardClientFinancierInfo = ({
                     <PiCoinsLight className="text-base" />
                     {pesoSign}
                     {item.parents_financier_income
-                      ? numberWithCommas(item.parents_financier_income)
+                      ? numberWithCommas(Number(item.parents_financier_income))
                       : "unspecified"}
                   </span>
                 </p>

@@ -158,7 +158,7 @@ class UserOther
         return $query;
     }
 
-    // read login
+    // read admin login
     public function readAdminLogin()
     {
         try {

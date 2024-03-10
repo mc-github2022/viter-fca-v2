@@ -1,5 +1,5 @@
+import useOtherLogin from "@/components/custom-hooks/useOtherLogin";
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import useSystemLogin from "@/components/custom-hooks/useSystemLogin.jsx";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import {
   devNavUrl,
@@ -8,15 +8,12 @@ import {
 import { checkRoleToRedirect } from "@/components/helpers/login-functions.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import PageUnderMaintenance from "@/components/partials/PageUnderMaintenance";
-import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
-import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import LogoGreen from "@/components/partials/svg/LogoGreen.jsx";
 import {
   setCredentials,
-  setError,
   setIsLogin,
   setMessage,
   setValidate,
@@ -33,7 +30,7 @@ const OtherLogin = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [passwordShown, setPasswordShown] = React.useState(false);
   const navigate = useNavigate();
-  const { loginLoading } = useSystemLogin(navigate);
+  const { loginLoading } = useOtherLogin(navigate);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -52,7 +49,7 @@ const OtherLogin = () => {
           delete data.data[0].role_created;
           delete data.data[0].role_datetime;
 
-          setStorageRoute(data.data[1], true);
+          setStorageRoute(data.data[1], false);
           dispatch(setCredentials(data.data[0]));
           dispatch(setIsLogin(false));
           checkRoleToRedirect(navigate, data.data[0]);

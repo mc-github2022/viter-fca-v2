@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { devNavUrl } from "./components/helpers/functions-general.jsx";
 
+import React from "react";
+import { queryData } from "./components/helpers/queryData.jsx";
 import OtherCreateAccount from "./components/pages/access/other/OtherCreateAccount.jsx";
 import OtherCreatePassword from "./components/pages/access/other/OtherCreatePassword.jsx";
 import OtherForgotPassword from "./components/pages/access/other/OtherForgotPassword.jsx";
@@ -15,6 +17,20 @@ import { routesSystem } from "./routes/RoutesSystem.jsx";
 
 function App() {
   const queryClient = new QueryClient();
+  // const fcatoken = JSON.parse(localStorage.getItem("fcatoken"));
+
+  // FUTURE CODE REFERENCE FOR ROUTING USING ROLE FOR REDIRECTION
+  // const checkLogin = async () => {
+  //   const login = await queryData(`/v2/user-other/token`, "post", {
+  //     token: fcatoken.token,
+  //   });
+
+  //   console.log(login);
+  // };
+
+  // React.useEffect(() => {
+  //   checkLogin();
+  // }, []);
 
   return (
     <>

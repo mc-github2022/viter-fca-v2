@@ -32,8 +32,6 @@ const CardClientParentInfo = ({
   const [guardianId, setGuardianId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
 
-  const id = getUrlParam().get("cid");
-
   const handleShowGuardianForm = (item) => {
     setItemEdit(item);
     setShowParentForm(true);
@@ -51,20 +49,20 @@ const CardClientParentInfo = ({
   };
 
   return (
-    <div>
+    <>
       <div className="flex justify-between items-center max-w-[620px] w-full mb-3 ">
         <div>
-          <h3 className="">Parent - Guardian</h3>
+          <h3 className="">Guardian List</h3>
           <p className="text-xs opacity-75">
             List all parent and guardian information for the student
           </p>
         </div>
         <button
-          className="tooltip"
+          className="btn btn--sm mt-3 hover:underline hover:!bg-[unset] tooltip"
           data-tooltip="New"
           onClick={handleAddGuardianInfo}
         >
-          <FaPlus />
+          <FaPlus /> Add
         </button>
       </div>
 
@@ -155,7 +153,7 @@ const CardClientParentInfo = ({
       )}
       {store.success && <ModalSuccess />}
       {store.error && <ModalError />}
-    </div>
+    </>
   );
 };
 

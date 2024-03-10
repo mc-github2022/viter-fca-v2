@@ -59,39 +59,70 @@ const ClientViewInfo = () => {
     "financierInfo" // key
   );
 
+  const {
+    isLoading,
+    error,
+    data: schoolYear,
+  } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "school-year" // key
+  );
+
+  const {
+    isLoading: parentIsLoading,
+    isFetching: parentIsFetching,
+    error: parentIsError,
+    data: parent,
+  } = useQueryData(
+    `/v2/dev-parents/${cid}`, // endpoint
+    "get", // method
+    "parent" // key
+  );
+
+  const isOngoing =
+    schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
+
   return (
     <>
-      <Header />
-      <section className="main__wrap flex flex-col relative h-[100vh]">
-        <div className="grow">
-          <Navigation menu="clients" />
+      <Header isLoading={isLoading} schoolYear={schoolYear} />
+      <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
+        <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
+          <Navigation
+            menu="clients"
+            isLoading={isLoading}
+            error={error}
+            schoolYear={schoolYear}
+          />
           <main
-            className={`main__content mt-[35px]  ${
+            className={`main__content pl-0 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
-            }`}
+            } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center">
-              <div>
-                <button
-                  type="button"
-                  onClick={() => navigate(-1)}
-                  className="flex gap-1 items-center lg:hidden"
-                >
-                  <FaAngleLeft /> Back
-                </button>
-                <BreadCrumbs />
-                <h1 className="text-clampH1 ">
-                  {/* {parentIsLoading || parentIsFetching ? (
-                    <p>Loading</p>
-                  ) : (
-                    <>
-                      <span className="pr-2 capitalize">
-                        {parentInfo?.data[0].parents_fname}{" "}
-                        {parentInfo?.data[0].parents_lname}
-                      </span>
-                    </>
-                  )} */}
-                </h1>
+            <div className="main__header flex justify-between items-start lg:items-center ">
+              <div className=" max-w-[620px] mt-[55px] flex items-start justify-between w-full">
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="flex gap-1 items-center lg:hidden"
+                  >
+                    <FaAngleLeft /> Back
+                  </button>
+                  <BreadCrumbs />
+                  <h1 className="text-clampH1 mb-2">
+                    {parentIsLoading || parentIsFetching ? (
+                      <p>Loading...</p>
+                    ) : (
+                      <>
+                        <span className="pr-2">
+                          {parent?.data[0].parents_fname}
+                        </span>
+                        <span>{parent?.data[0].parents_lname}</span>
+                      </>
+                    )}
+                  </h1>
+                </div>
               </div>
             </div>
 
@@ -101,7 +132,7 @@ const ClientViewInfo = () => {
               ) : (
                 !showParentForm && (
                   <div
-                    className={`bg-primary p-4 max-w-[620px] w-full rounded-md   relative mb-2 ${
+                    className={`bg-primary py-4 max-w-[620px] w-full rounded-md relative mb-2 ${
                       showContactForm || showFinancierForm
                         ? "pointer-events-none opacity-60"
                         : ""
@@ -134,7 +165,7 @@ const ClientViewInfo = () => {
               ) : (
                 !showContactForm && (
                   <div
-                    className={`bg-primary p-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
+                    className={`bg-primary py-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
                       showParentForm || showFinancierForm
                         ? "pointer-events-none opacity-60"
                         : ""
@@ -166,7 +197,7 @@ const ClientViewInfo = () => {
               ) : (
                 !showFinancierForm && (
                   <div
-                    className={`bg-primary p-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
+                    className={`bg-primary py-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
                       showParentForm || showContactForm
                         ? "pointer-events-none opacity-60"
                         : ""

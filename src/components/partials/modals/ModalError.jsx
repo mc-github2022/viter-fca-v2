@@ -1,11 +1,13 @@
 import React from "react";
 
+import { GetFocus } from "@/components/helpers/functions-general";
+import { setError } from "@/components/store/StoreAction";
+import { StoreContext } from "@/components/store/StoreContext";
 import { MdOutlineError } from "react-icons/md";
 import Modal from "../wrapper/Modal";
-import { StoreContext } from "@/components/store/StoreContext";
-import { setError } from "@/components/store/StoreAction";
 const ModalError = ({ setChangePassword }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  GetFocus("btnClose");
 
   const handleClose = () => {
     dispatch(setError(false));
@@ -28,6 +30,7 @@ const ModalError = ({ setChangePassword }) => {
             <button
               className="btn bg-warning text-white "
               onClick={handleClose}
+              id="btnClose"
             >
               Close
             </button>

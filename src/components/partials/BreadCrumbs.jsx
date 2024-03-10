@@ -6,10 +6,14 @@ import { setIsSearch, setStartIndex } from "../store/StoreAction";
 import { StoreContext } from "../store/StoreContext.jsx";
 
 const BreadCrumbs = ({ param = "" }) => {
-  const { dispatch } = React.useContext(StoreContext);
+  const { store, dispatch } = React.useContext(StoreContext);
   const location = useLocation();
   // const urlRolePath = getUserType();
-  const urlRolePath = `${devNavUrl}/system`;
+  const urlRolePath = `${devNavUrl}/${
+    store.credentials.data.role_name.toLowerCase() === "developer"
+      ? "system"
+      : store.credentials.data.role_name.toLowerCase()
+  }`;
   const navigate = useNavigate();
 
   let currentLink = "";
@@ -27,7 +31,7 @@ const BreadCrumbs = ({ param = "" }) => {
 
   return (
     <>
-      <div className="breadcrumbs hidden lg:block">
+      <div className="breadcrumbs hidden lg:block pt-3">
         <ul
           className={`${
             crumbs.length > 2 ? "hidden" : "flex"
