@@ -1,4 +1,7 @@
-import { handleEscape } from "@/components/helpers/functions-general";
+import {
+  devNavUrl,
+  handleEscape,
+} from "@/components/helpers/functions-general";
 import { queryData } from "@/components/helpers/queryData";
 import ModalWrapper from "@/components/partials/modals/ModalWrapper";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
@@ -36,6 +39,7 @@ const ModalConfirmPasswordChange = ({ initVal, setChangePassword }) => {
         );
         dispatch(setIsAccountUpdated(true));
         localStorage.removeItem("fcatoken");
+        window.location.replace(`${devNavUrl}/system/login`);
         return;
       }
       // show error box
