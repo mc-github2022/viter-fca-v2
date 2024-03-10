@@ -3,7 +3,7 @@ import ModalSettings from "@/components/partials/header/modal-settings/ModalSett
 import { setIsFilter, setIsShow } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
-import { BsCalendar2Week } from "react-icons/bs";
+import { BsCalendar2Week, BsChevronRight } from "react-icons/bs";
 import { PiListMagnifyingGlass, PiStudent } from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -130,7 +130,7 @@ const Navigation = ({
               </Link>
             </li>
 
-            {/* <li
+            <li
               className={`nav__link items-start  ${
                 menu === "reports" ? "active" : ""
               }`}
@@ -172,7 +172,7 @@ const Navigation = ({
                   </Link>
                 </li>
               </ol>
-            </li> */}
+            </li>
           </ul>
         </div>
       </nav>
