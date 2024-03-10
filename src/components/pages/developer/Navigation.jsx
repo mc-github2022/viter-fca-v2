@@ -151,7 +151,7 @@ const Navigation = ({
               </Link>
             </li>
 
-            {/* <li
+            <li
               className={`nav__link items-start  ${
                 menu === "reports" ? "active" : ""
               }`}
@@ -193,7 +193,7 @@ const Navigation = ({
                   </Link>
                 </li>
               </ol>
-            </li> */}
+            </li>
           </ul>
         </div>
       </nav>
