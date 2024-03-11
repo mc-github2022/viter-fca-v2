@@ -1,10 +1,18 @@
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import ModalSettings from "@/components/partials/header/modal-settings/ModalSettings";
-import { setIsFilter, setIsShow } from "@/components/store/StoreAction";
+import {
+  setIsFilter,
+  setIsSearch,
+  setIsShow,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { BsCalendar2Week, BsChevronRight } from "react-icons/bs";
-import { PiListMagnifyingGlass, PiStudent } from "react-icons/pi";
+import {
+  PiListMagnifyingGlass,
+  PiNewspaperBold,
+  PiStudent,
+} from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
@@ -27,9 +35,11 @@ const Navigation = ({
 
   const handleShowSettings = () => {
     setIsShowSettings(true);
+    dispatch(setIsSearch(false));
   };
 
   const handleNavigateLink = () => {
+    dispatch(setIsSearch(false));
     dispatch(setIsShow(false));
     dispatch(setIsFilter(false));
     document.querySelector("body").classList.remove("no--scroll");
@@ -135,14 +145,14 @@ const Navigation = ({
                 menu === "reports" ? "active" : ""
               }`}
             >
-              <Link
+              {/* <Link
                 className="p-1 pl-4"
                 to={`${devNavUrl}/system/report`}
                 onClick={handleShowAllReport}
               >
                 <div className="flex items-center justify-between">
                   <span className="flex gap-3 items-center uppercase  w-full">
-                    <PiStudent className="text-lg " />
+                    <PiNewspaperBold className="text-lg " />
                     <span>Report</span>
                   </span>
 
@@ -150,28 +160,45 @@ const Navigation = ({
                     className={isShowReport ? "-rotate-90" : "rotate-90"}
                   />
                 </div>
-              </Link>
-              <ol
-                className={`pl-[1.25rem] border-l-[1px] ${
-                  isShowReport ? "block " : "hidden "
-                } bg-white h ml-6`}
+              </Link> */}
+
+              <Link
+                to={`${devNavUrl}/system/report`}
+                onClick={handleShowAllReport}
+                className="p-1 pl-4"
               >
-                <li
+                <div className="flex items-center justify-between">
+                  <span className="flex gap-3 items-center uppercase  w-full">
+                    <PiNewspaperBold className="text-lg " />
+                    <span>Report</span>
+                  </span>
+                  <BsChevronRight
+                    className={` ${isShowReport ? "-rotate-90" : "rotate-90"}`}
+                  />
+                </div>
+              </Link>
+
+              <ul
+                className={`${
+                  isShowReport ? "!block" : "hidden"
+                } bg-white border-0`}
+              >
+                <span
                   className={` ${
                     subNavActive === "student"
                       ? "border-l-2 border-[#123909]"
                       : ""
-                  }`}
+                  } text-gray-600 p-1 border-l-2 border-[#123909]`}
                 >
                   <Link
                     to={`${devNavUrl}/system/report`}
-                    className="flex gap-3 items-center uppercase ml-1 w-full text-[12px] !pb-0 my-[7px]"
                     onClick={handleNavigateLink}
+                    className={`!bg-[unset] !text-gray-600 border-l-2 border-transparent`}
                   >
-                    Students
+                    <span className="ml-2">Students</span>
                   </Link>
-                </li>
-              </ol>
+                </span>
+              </ul>
             </li>
           </ul>
         </div>

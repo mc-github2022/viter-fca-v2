@@ -1,9 +1,10 @@
 import React from "react";
+import { FaCaretDown } from "react-icons/fa";
 import useQueryData from "../custom-hooks/useQueryData";
+import { getLastAndCurrentSchoolYear } from "../helpers/functions-general";
 import { setIsFilter, setIsSearch } from "../store/StoreAction";
 import { StoreContext } from "../store/StoreContext";
 import TableSpinner from "./spinners/TableSpinner";
-import { getLastAndCurrentSchoolYear } from "../helpers/functions-general";
 
 const FilterSchooYearBar = ({
   setFilterValue,
@@ -44,13 +45,18 @@ const FilterSchooYearBar = ({
 
   return (
     <div className="pb-2 items-center overflow-hidden mb-2">
-      <input
-        type="search"
-        className="text-[12px]"
-        value={filterText}
-        onChange={(e) => handleChange(e)}
-        onClick={handleClick}
-      />
+      <div className="relative w-full">
+        <input
+          type="search"
+          className="text-[12px]"
+          value={filterText}
+          onChange={(e) => handleChange(e)}
+          onClick={handleClick}
+        />
+        <span className="absolute right-2 top-1/2 -translate-y-1/2">
+          <FaCaretDown className="h-4 w-4 fill-gray-600" />
+        </span>
+      </div>
       {store.isFilter && (
         <ul className="absolute z-50 max-h-[7rem] overflow-y-auto top-8 w-full bg-primary shadow-3xl rounded-md h-[30rem] border border-t-0  ">
           {isLoading ? (

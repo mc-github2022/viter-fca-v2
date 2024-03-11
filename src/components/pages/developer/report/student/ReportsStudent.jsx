@@ -53,14 +53,14 @@ const ReportsStudent = () => {
                 </div>
               </div>
             </div>
-            <ReportsStudentList />
+            <ReportsStudentList schoolYear={schoolYear} />
           </main>
         </div>
         <Footer />
       </section>
+
       {store.success && <ModalSuccess />}
       {store.error && <ModalError />}
-      {store.validate && <ModalValidate />}
     </>
   );
 };
