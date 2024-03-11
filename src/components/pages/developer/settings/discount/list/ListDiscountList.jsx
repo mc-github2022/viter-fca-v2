@@ -64,7 +64,7 @@ const ListDiscountList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Primary List</h5>
 
-      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto max-h-[530px] lg:!max-h-[530px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px] relative">
+      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto h-[530px] lg:!max-h-[530px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px] relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && discount.success === false ? (
