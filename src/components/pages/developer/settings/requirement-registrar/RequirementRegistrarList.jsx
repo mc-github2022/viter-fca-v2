@@ -15,10 +15,10 @@ import { BsArchive } from "react-icons/bs";
 import NoData from "@/components/partials/NoData.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 const RequirementRegistrarList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -67,7 +67,7 @@ const RequirementRegistrarList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto max-h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px]">
+      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px] relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && registrar.success === false ? (
