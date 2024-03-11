@@ -224,7 +224,7 @@ const ClientList = ({ setItemEdit }) => {
                                   data-tooltip="Restore"
                                   onClick={() => handleRestore(item)}
                                 >
-                                  <MdOutlineRestore />
+                                  <MdOutlineRestore className="text-[20px]" />
                                 </button>
                                 <button
                                   type="button"
@@ -232,7 +232,7 @@ const ClientList = ({ setItemEdit }) => {
                                   data-tooltip="Delete"
                                   onClick={() => handleDelete(item)}
                                 >
-                                  <FiTrash />
+                                  <FiTrash className="text-[17px]" />
                                 </button>
                               </div>
                             )}

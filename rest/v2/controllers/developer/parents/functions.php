@@ -23,9 +23,10 @@ function checkReadStudentByParentId($object)
     return $query;
 }
 
-
-
-
-
-
-
+// delete from guardian
+function checkDeleteGuardian($object)
+{
+    $query = $object->deleteGuardian();
+    checkQuery($query, "There's a problem processing your request. (delete from guardian)");
+    return $query;
+}

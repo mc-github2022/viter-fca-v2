@@ -16,6 +16,7 @@ class Parents
     public $parents_datetime;
 
     public $parents_email_old;
+    public $student_aid;
 
     public $user_other_key;
 
@@ -25,6 +26,7 @@ class Parents
     public $parents_total;
     public $parents_search;
 
+    public $tblGuardian;
     public $tblParents;
     public $tblUserOther;
     public $tblStudents;
@@ -36,6 +38,7 @@ class Parents
     public function __construct($db)
     {
         $this->connection = $db;
+        $this->tblGuardian = "fcav2_guardian";
         $this->tblParents = "fcav2_parents";
         $this->tblStudents = "fcav2_students";
         $this->tblUserOther = "fcav2_settings_user_other";
@@ -329,6 +332,21 @@ class Parents
         return $query;
     }
 
+    public function deleteGuardian()
+    {
+        try {
+            $sql = "delete from {$this->tblGuardian} ";
+            $sql .= "where guardian_parent_id = :parents_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_aid" => $this->parents_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     // validatior 
 
     // email
@@ -356,6 +374,38 @@ class Parents
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "parents_email_old" => "{$this->parents_email_old}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // email
+    public function readSyStudents()
+    {
+        try {
+            $sql = "select students_parent_id from {$this->tblStudents} ";
+            $sql .= "where students_parent_id = :parents_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_aid" => $this->parents_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // email
+    public function readUserOtherAccount()
+    {
+        try {
+            $sql = "select user_other_email from {$this->tblUserOther} ";
+            $sql .= "where user_other_email = :parents_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_email" => "{$this->parents_email}",
             ]);
         } catch (PDOException $ex) {
             $query = false;
