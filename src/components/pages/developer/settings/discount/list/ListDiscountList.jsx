@@ -1,23 +1,23 @@
 import React from "react";
 
+import useQueryData from "@/components/custom-hooks/useQueryData";
+import { isItemEmpty } from "@/components/helpers/functions-general";
+import NoData from "@/components/partials/NoData";
+import TableLoading from "@/components/partials/TableLoading";
+import ModalConfirm from "@/components/partials/modals/ModalConfirm";
+import ModalDelete from "@/components/partials/modals/ModalDelete";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setIsSettingAdd,
   setSettingIsConfirm,
   setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import { FaListUl } from "react-icons/fa";
-import useQueryData from "@/components/custom-hooks/useQueryData";
-import TableSpinner from "@/components/partials/spinners/TableSpinner";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
-import TableLoading from "@/components/partials/TableLoading";
-import NoData from "@/components/partials/NoData";
-import { FiEdit2, FiTrash } from "react-icons/fi";
 import { BsArchive } from "react-icons/bs";
+import { FaListUl } from "react-icons/fa";
+import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-import ModalConfirm from "@/components/partials/modals/ModalConfirm";
-import ModalDelete from "@/components/partials/modals/ModalDelete";
-import { isItemEmpty } from "@/components/helpers/functions-general";
 
 const ListDiscountList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -64,7 +64,7 @@ const ListDiscountList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Primary List</h5>
 
-      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto max-h-[530px] lg:!max-h-[530px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px]">
+      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto max-h-[530px] lg:!max-h-[530px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px] relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && discount.success === false ? (

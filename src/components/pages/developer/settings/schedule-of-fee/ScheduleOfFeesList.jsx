@@ -28,7 +28,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist max-w-[810px] w-[810px] overflow-x-hidden overflow-y-auto max-h-[610px] lg:max-h-[520px] custom__scroll ">
+      <div className="datalist max-w-[810px] w-[810px] overflow-x-hidden overflow-y-auto max-h-[610px] lg:max-h-[520px] custom__scroll relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && scheduleOfFees.success === false ? (
