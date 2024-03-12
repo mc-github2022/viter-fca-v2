@@ -11,7 +11,7 @@ import Clients from "@/components/pages/developer/clients/Clients.jsx";
 import StudentView from "@/components/pages/developer/clients/StudentView";
 import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
 import ClientStudentViewInfo from "@/components/pages/developer/clients/student-info/ClientStudentViewInfo.jsx";
-import ReportsStudent from "@/components/pages/developer/report/student/ReportsStudent";
+import ReportsStudent from "@/components/pages/developer/report/ReportsStudent";
 import Discount from "@/components/pages/developer/settings/discount/Discount";
 import Students from "@/components/pages/developer/students/Students";
 import StudentViewInfo from "@/components/pages/developer/students/student-info/StudentViewInfo.jsx";

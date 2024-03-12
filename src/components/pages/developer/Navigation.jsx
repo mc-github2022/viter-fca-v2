@@ -172,13 +172,13 @@ const Navigation = ({
                     <PiNewspaperBold className="text-lg " />
                     <span>Report</span>
                   </span>
-                  <BsChevronRight
+                  {/* <BsChevronRight
                     className={` ${isShowReport ? "-rotate-90" : "rotate-90"}`}
-                  />
+                  /> */}
                 </div>
               </Link>
 
-              <ul
+              {/* <ul
                 className={`${
                   isShowReport ? "!block" : "hidden"
                 } bg-white border-0`}
@@ -198,7 +198,7 @@ const Navigation = ({
                     <span className="ml-2">Students</span>
                   </Link>
                 </span>
-              </ul>
+              </ul> */}
             </li>
           </ul>
         </div>
