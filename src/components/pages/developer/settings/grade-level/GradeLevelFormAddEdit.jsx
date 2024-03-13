@@ -18,7 +18,12 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const GradeLevelFormAddEdit = ({ itemEdit }) => {
+const GradeLevelFormAddEdit = ({
+  itemEdit,
+  isLoading,
+  isFetching,
+  gradelevel,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 

@@ -36,12 +36,11 @@ const Students = () => {
     schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
   const handleAdd = () => {
-    // if (isOngoing === 0 || !isOngoing) {
-    //   console.log("123");
-    //   dispatch(setValidate(true));
-    //   dispatch(setMessage("There's no enrollment yet."));
-    //   return;
-    // }
+    if (isOngoing === 0 || !isOngoing) {
+      dispatch(setValidate(true));
+      dispatch(setMessage("There's no enrollment yet."));
+      return;
+    }
     dispatch(setIsAdd(true));
   };
 

@@ -232,7 +232,6 @@ const ClientViewInfo = () => {
       </section>
 
       {store.validate && <ModalValidate />}
-      {store.error && <ModalError />}
     </>
   );
 };

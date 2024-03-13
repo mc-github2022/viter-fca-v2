@@ -16,22 +16,11 @@ import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidR
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-const GradeLevelList = ({ setItemEdit }) => {
+const GradeLevelList = ({ setItemEdit, isLoading, isFetching, gradelevel }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
-
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: gradelevel,
-  } = useQueryData(
-    "/v2/dev-grade-level", // endpoint
-    "get", // method
-    "gradelevel" // key
-  );
 
   const handleEdit = (item) => {
     dispatch(setIsSettingAdd(true));
@@ -62,7 +51,7 @@ const GradeLevelList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto h-[450px] lg:max-h-[580px] custom__scroll  poco:max-h-[640px] lg:poco:max-h-[400px] relative">
+      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto h-[500px] custom__scroll  relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && gradelevel.success === false ? (
@@ -77,7 +66,7 @@ const GradeLevelList = ({ setItemEdit }) => {
           gradelevel?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "datalist__item text-xs flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
               }
               key={key}
             >
@@ -86,7 +75,7 @@ const GradeLevelList = ({ setItemEdit }) => {
                   item.grade_level_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <p className="mb-1">{item.grade_level_name}</p>
+                <p className="mb-0">{item.grade_level_name}</p>
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">
@@ -146,7 +135,7 @@ const GradeLevelList = ({ setItemEdit }) => {
             isArchive ? "restore" : "archive"
           } this record?`}
           item={dataItem.grade_level_name}
-          queryKey={"gradelevel"}
+          queryKey={"grade-level"}
           isArchive={isArchive}
         />
       )}
@@ -156,7 +145,7 @@ const GradeLevelList = ({ setItemEdit }) => {
           mysqlApiDelete={`/v2/dev-grade-level/${id}`}
           msg={"Are you sure you want to delete this record?"}
           item={dataItem.grade_level_name}
-          queryKey={"gradelevel"}
+          queryKey={"grade-level"}
         />
       )}
     </>
