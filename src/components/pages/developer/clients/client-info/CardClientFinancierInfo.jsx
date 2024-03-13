@@ -35,17 +35,15 @@ const CardClientFinancierInfo = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center max-w-[620px] w-full mb-5 relative">
-        <div>
-          <h3 className="">Financial Information</h3>
-          <p className="text-xs opacity-75">
-            Setup student financier information
-          </p>
-        </div>
+      <div className="max-w-[620px] w-full mb-5 relative">
+        <h3 className="">Financial Information</h3>
+        <p className="text-xs opacity-75">
+          Setup student financier information
+        </p>
 
         {financierInfo.data[0].parents_financier_name === "" && (
           <button
-            className="btn btn--sm mt-3 hover:underline hover:!bg-[unset] tooltip"
+            className="btn btn--sm mt-3 hover:underline hover:!bg-[unset] tooltip text-[14px]"
             data-tooltip="New"
             onClick={handleShowFinancierForm}
           >
@@ -64,32 +62,37 @@ const CardClientFinancierInfo = ({
         ) : (
           financierInfo.data.map((item, key) => (
             <React.Fragment key={key}>
-              <div className="card bg-primary rounded-sm ">
-                <h5 className="mb-1">{item.parents_financier_name}</h5>
-                <p className="md:flex gap-2 text-xs items-center ">
-                  <span className="flex gap-2 mb-2 md:mb-0">
-                    <PiBriefcase className="text-base" />{" "}
+              <div className="card bg-primary rounded-sm grid grid-cols-[1fr,5rem] items-center">
+                <ul>
+                  <li className="mb-1">{item.parents_financier_name}</li>
+
+                  <li className="md:flex gap-2 text-xs items-center mb-2 ">
+                    <PiBriefcase className="text-base" />
                     {item.parents_financier_occupation
                       ? item.parents_financier_occupation
                       : "unspecified"}
-                  </span>
-                  <LuDot className="text-xl hidden md:block" />{" "}
-                  <span className="flex gap-2 mb-2 md:mb-0">
+                  </li>
+
+                  <li className="md:flex gap-2 text-xs items-center mb-2 ">
                     <SlPeople className="text-base" />
                     {item.parents_financier_relationship
                       ? item.parents_financier_relationship
                       : "unspecified"}
-                  </span>
-                  <LuDot className="text-xl hidden md:block" />{" "}
-                  <span className="flex gap-2 mb-2 md:mb-0">
+                  </li>
+
+                  <li className="md:flex gap-2 text-xs items-center mb-2 ">
                     <PiCoinsLight className="text-base" />
-                    {pesoSign}
-                    {item.parents_financier_income
-                      ? numberWithCommas(Number(item.parents_financier_income))
-                      : "unspecified"}
-                  </span>
-                </p>
-                <div className="card__action absolute bottom-5 right-5  flex gap-2 ">
+                    <span>
+                      {pesoSign}
+                      {item.parents_financier_income
+                        ? numberWithCommas(
+                            Number(item.parents_financier_income)
+                          )
+                        : "unspecified"}
+                    </span>
+                  </li>
+                </ul>
+                <div className="card__action bottom-5 right-0 justify-end flex gap-2 ">
                   <button
                     className=" tooltip"
                     data-tooltip="Edit"

@@ -46,16 +46,14 @@ const CardClientContactInfo = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
-        <div>
-          <h3 className="">Contacts</h3>
-          <p className="text-xs opacity-75">
-            List all emergency contact person for the student
-          </p>
-        </div>
+      <div className="max-w-[620px] w-full mb-3">
+        <h3 className="">Contacts</h3>
+        <p className="text-xs opacity-75">
+          List all emergency contact person for the student
+        </p>
 
         <button
-          className="btn btn--sm mt-3 hover:underline hover:!bg-[unset] tooltip"
+          className="btn btn--sm mt-3 hover:underline hover:!bg-[unset] tooltip text-[14px]"
           data-tooltip="New"
           onClick={handleAddContact}
         >
@@ -73,31 +71,29 @@ const CardClientContactInfo = ({
         ) : (
           contactInfo.data.map((item, key) => (
             <React.Fragment key={key}>
-              <div className="card bg-primary border-b border-line rounded-sm relative mb-2 last:mb-0 ">
-                <h5 className="capitalize">{item.emergency_contact_level}</h5>
-                <p className="md:flex gap-2 text-xs items-center ">
-                  <span className="capitalize text-xs  flex">
-                    <PiUser className="text-base mr-1.5" />{" "}
+              <div className="card bg-primary border-b border-line rounded-sm relative mb-2 last:mb-0 grid grid-cols-[1fr,5rem] items-center">
+                <ul>
+                  <li className="flex gap-3 items-center mb-3 capitalize font-bold">
+                    {item.emergency_contact_level}
+                  </li>
+                  <li className="md:flex gap-2 text-xs items-center mb-2 capitalize flex">
+                    <PiUser className="text-base " />
                     {item.emergency_contact_name}
-                  </span>
-                </p>
-                <p className="md:flex gap-2 text-xs items-center mb-2">
-                  <span className="flex mb-2 md:mb-0">
-                    <HiOutlineEnvelope className="text-base mr-1.5" />{" "}
+                  </li>
+                  <li className="md:flex gap-2 text-xs items-center mb-2">
+                    <HiOutlineEnvelope className="text-base " />{" "}
                     {item.emergency_contact_email}
-                  </span>
-                  <LuDot className="text-xl hidden md:block" />
-                  <span className="flex mb-2 md:mb-0">
-                    <CiMobile3 className="text-base mr-1.5" />
+                  </li>
+                  <li className="md:flex gap-2 text-xs items-center mb-2">
+                    <CiMobile3 className="text-base " />
                     {formatMobileNumber(item.emergency_contact_mobile)}
-                  </span>
-                  <LuDot className="text-xl hidden md:block" />{" "}
-                  <span className="flex ">
-                    <PiPhoneThin className="text-base mr-1.5" />
+                  </li>
+                  <li className="md:flex gap-2 text-xs items-center mb-2">
+                    <PiPhoneThin className="text-base " />
                     {formatLandlineNumber(item.emergency_contact_landline)}
-                  </span>
-                </p>
-                <div className="card__action absolute bottom-5 right-0  flex gap-2 ">
+                  </li>
+                </ul>
+                <div className="card__action bottom-5 right-0 justify-end flex gap-2 ">
                   <button
                     className=" tooltip"
                     data-tooltip="Edit"
