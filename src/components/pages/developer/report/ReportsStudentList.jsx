@@ -1,3 +1,4 @@
+import { formatDateMonth } from "@/components/helpers/functions-general";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
@@ -17,6 +18,10 @@ const ReportsStudentList = ({ schoolYear }) => {
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
   const [onSearch, setOnSearch] = React.useState(false);
+  const [gender, setGender] = React.useState("");
+  const [withLrn, setWithLrn] = React.useState(0);
+  const [gradeLevel, setGradeLevel] = React.useState({});
+  const [birthDate, setBirthDate] = React.useState("");
 
   let counter = 1;
 
@@ -48,9 +53,6 @@ const ReportsStudentList = ({ schoolYear }) => {
     },
     refetchOnWindowFocus: false,
   });
-
-  // console.log(schoolYear);
-
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -60,12 +62,20 @@ const ReportsStudentList = ({ schoolYear }) => {
 
   return (
     <>
-      <div className="w-full flex items-center justify-between flex-wrap mb-7">
+      <div className="w-full flex items-center justify-between flex-wrap">
         <FilterBar
           error={error}
           isFetching={isFetching}
           isLoading={isLoading}
           schoolYear={schoolYear}
+          gender={gender}
+          setGender={setGender}
+          withLrn={withLrn}
+          setWithLrn={setWithLrn}
+          gradeLevel={gradeLevel}
+          setGradeLevel={setGradeLevel}
+          birthDate={birthDate}
+          setBirthDate={setBirthDate}
         />
 
         <SearchBarFilterReportStudents
@@ -78,6 +88,32 @@ const ReportsStudentList = ({ schoolYear }) => {
           onSearch={onSearch}
         />
       </div>
+
+      <ul className="my-2">
+        <li className="flex items-center gap-1">
+          {gender !== "" && (
+            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
+              {gender === "m" ? "Male" : "Female"}
+            </span>
+          )}
+          {Object.keys(gradeLevel).length > 0 && (
+            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
+              {gradeLevel.grade}
+            </span>
+          )}
+          {withLrn === 1 && (
+            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
+              With LRN
+            </span>
+          )}
+          {birthDate !== "" && (
+            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
+              {formatDateMonth(birthDate)}
+            </span>
+          )}
+        </li>
+      </ul>
+
       <div className="main__table">
         {isFetching && !isFetchingNextPage && status !== "loading" && (
           <FetchingSpinner />

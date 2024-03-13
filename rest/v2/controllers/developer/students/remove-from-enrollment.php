@@ -32,7 +32,7 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
         // if have student id in sy student table
         if (count($syStudent) > 0) {
             // delete current school year in SY student table
-            checkDeleteSchoolYearStudents($student);
+            checkRemoveSchoolYearStudents($student);
             // if student id is only one
             if ($syStudent[0]["student_count"] == 1) {
                 $query = checkUpdateSYCurrentSchoolYear($student);

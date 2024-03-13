@@ -1,6 +1,7 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import {
@@ -15,7 +16,6 @@ import Navigation from "../Navigation.jsx";
 import ModalAddStudent from "./ModalAddStudent.jsx";
 import ModalEditStudent from "./StudentEdit/ModalEditStudent.jsx";
 import StudentList from "./StudentList.jsx";
-import ModalError from "@/components/partials/modals/ModalError.jsx";
 
 const Students = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -58,7 +58,7 @@ const Students = () => {
           />
 
           <main
-            className={`main__content pl-0 md:pr-[13.5px] relative ${
+            className={`main__content pl-4 lg:pl-0 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >

@@ -32,6 +32,14 @@ function checkUpdateSchoolYearStudentCurrent($object)
     return $query;
 }
 
+// remove school year student
+function checkRemoveSchoolYearStudents($object)
+{
+    $query = $object->removeSchoolYearStudents();
+    checkQuery($query, "There's a problem processing your request. (remove school year student)");
+    return $query;
+}
+
 // delete school year student
 function checkDeleteSchoolYearStudents($object)
 {

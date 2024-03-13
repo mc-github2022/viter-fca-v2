@@ -3,12 +3,12 @@ import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
 // Mac // Mc // Mon // Cy
-const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
-const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
+// const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
+// const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
 
 // // // Patrick
-// export const urlPathFca = `https://app.fca.edu.ph`;
-// export const imgUrlPathFca = `https://app.fca.edu.ph/img`;
+export const urlPathFca = `https://app.fca.edu.ph`;
+export const imgUrlPathFca = `https://app.fca.edu.ph/img`;
 
 // // // Local Dev and Online Dev URL
 export const devApiUrl = `${urlPathFca}/rest`;
@@ -83,6 +83,30 @@ export const formatDate = (dateVal) => {
   ];
 
   return `${months[month]} ${date}, ${year}`;
+};
+
+// formatting date by type month
+export const formatDateMonth = (dateVal) => {
+  const d = new Date(dateVal);
+  const year = d.getFullYear();
+
+  const month = d.getMonth();
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  return `${months[month]} ${year}`;
 };
 
 // get focus on a button

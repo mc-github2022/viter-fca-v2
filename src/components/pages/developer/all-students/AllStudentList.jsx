@@ -1,4 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
+import { queryData } from "@/components/helpers/queryData";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
@@ -19,6 +20,7 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { BsArchive } from "react-icons/bs";
 import { CiSquarePlus, CiViewList } from "react-icons/ci";
+import { FaWpforms } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { LiaListAlt } from "react-icons/lia";
 import { MdOutlineRestore } from "react-icons/md";
@@ -30,7 +32,6 @@ import {
   getGradeLevelOrderByStudentId,
   getStudentStatus,
 } from "./functions-all-students";
-import { FaWpforms } from "react-icons/fa";
 
 const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -128,12 +129,46 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   };
 
   const handleEnroll = async (item) => {
+    setLoading(true);
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
       dispatch(setMessage("There's no enrollment yet."));
+      setLoading(false);
       return;
     }
 
+    if (item.current_students_sy_id === schoolYear?.data[0].school_year_aid) {
+      const data = await queryData(
+        "/v2/dev-client-student/already-enrolled",
+        "post",
+        {
+          ...item,
+          grade_level_order: getGradeLevelOrderByStudentId(
+            gradeLevel,
+            item.current_students_grade_level_id
+          ),
+          current_students_sy_id: schoolYear?.data[0].school_year_aid,
+        }
+      );
+
+      console.log(data);
+
+      if (data.success) {
+        setLoading(false);
+        setIsEnroll(true);
+        setData(item);
+        return;
+      }
+
+      if (!data.success) {
+        dispatch(setError(true));
+        dispatch(setMessage(data.error));
+        setLoading(false);
+        return;
+      }
+    }
+
+    setLoading(false);
     setIsEnroll(true);
     setData(item);
   };

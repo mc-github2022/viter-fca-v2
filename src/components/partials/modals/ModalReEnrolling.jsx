@@ -23,6 +23,7 @@ const ModalReEnrolling = ({
   setIsEnroll,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -80,15 +81,15 @@ const ModalReEnrolling = ({
         <div className="modal__action flex justify-end mt-2 gap-2">
           <button
             className="btn btn--accent"
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleYes}
             type="submit"
           >
-            {mutation.isLoading ? <ButtonSpinner /> : "Confirm"}
+            {mutation.isPending ? <ButtonSpinner /> : "Confirm"}
           </button>
           <button
             className="btn btn--cancel"
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleClose}
             type="button"
           >

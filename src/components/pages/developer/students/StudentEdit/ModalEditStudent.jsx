@@ -1,4 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import { devNavUrl } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
@@ -8,6 +9,7 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
 import StudentCodeOfConduct from "./StudentCodeOfConduct/StudentCodeOfConduct.jsx";
 import StudentParentCommitment from "./StudentParentCommitment/StudentParentCommitment.jsx";
 import StudentParentConsent from "./StudentParentConsent/StudentParentConsent.jsx";
@@ -38,6 +40,11 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
   const handleChangeProfile = (index) => {
     setIndex(index);
   };
+
+  let link =
+    store.credentials.data.role_name.toLowerCase() === "developer"
+      ? "system"
+      : store.credentials.data.role_name.toLowerCase();
 
   const {
     isLoading,
@@ -169,9 +176,15 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                   store.credentials.data.role_is_developer === 1) && (
                   <span className="block mb-3 uppercase text-accent font-normal text-[20px]">
                     Parent Account <span className="hidden md:inline">- </span>
-                    <span className="block md:inline">
+                    <Link
+                      to={`${devNavUrl}/${link}/clients/students?cid=${dataItem.parents_aid}`}
+                      className="underline hover:bg-transparent block md:inline"
+                      title={`Go to ${dataItem.parent_fullname} students`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {dataItem.parent_fullname}
-                    </span>
+                    </Link>
                   </span>
                 )}
 

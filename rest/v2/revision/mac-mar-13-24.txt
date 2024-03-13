@@ -1,0 +1,9 @@
+models
+1. rest/v2/models/developer/student/Student.php 
+
+controllers
+1. rest/v2/controllers/developer/students/remove-from-enrollment.php 
+2. rest/v2/controllers/developer/students/functions.php 
+3. rest/v2/controllers/developer/client/client-student/already-enrolled.php
+
+rest/v2/.htaccess 

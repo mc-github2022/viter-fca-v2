@@ -2,65 +2,65 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-const FilterBar = ({ error, isFetching, isLoading, schoolYear }) => {
+const FilterBar = ({
+  error,
+  isFetching,
+  isLoading,
+  schoolYear,
+  gender,
+  setGender,
+  withLrn,
+  setWithLrn,
+  gradeLevel,
+  setGradeLevel,
+  birthDate,
+  setBirthDate,
+}) => {
   const [onFocus, setOnFocus] = React.useState(false);
-  const [gender, setGender] = React.useState("");
   const refFilter = React.useRef();
 
-  const { data: gradeLevel } = useQueryData(
+  const { data: gradeLevelData } = useQueryData(
     "/v2/dev-grade-level", // endpoint
     "get", // method
     "grade-level" // key
   );
 
-  const getCurrentSchoolYear =
-    schoolYear?.count > 0 &&
-    schoolYear?.data.filter((item) => item.school_year_is_active === 1);
-
   const handleSelectGender = (e) => {
-    // if (gender !== "" && gender === "m") {
-    //   setGender("");
-    //   return;
-    // }
-    // if (gender !== "" && gender === "f") {
-    //   setGender("");
-    //   return;
-    // }
-
     if (gender === "m" && e.target.value === "m") {
       setGender("");
       return;
     }
 
-    // if (gender !== "" && gender === "m" && e.target.value === "f") {
-    //   setGender(e.target.value);
-    //   return;
-    // }
-    // if (gender !== "" && e.target.value === "f" && e.target.value !== "m") {
-    //   setGender("");
-    //   return;
-    // }
+    if (gender === "f" && e.target.value === "f") {
+      setGender("");
+      return;
+    }
 
     setGender(e.target.value);
   };
 
   const handleSelectLevel = (e) => {
-    console.log(e.target.value);
+    let item = JSON.parse(e.target.value);
+
+    setGradeLevel({ id: item.grade_level_aid, grade: item.grade_level_name });
   };
 
-  const handleSelectLrn = (e) => {
-    console.log(e.target.value);
+  const handleSelectLrn = () => {
+    if (withLrn === 1) {
+      setWithLrn(0);
+      return;
+    }
+
+    setWithLrn(1);
   };
 
   const handleSelectBirthDate = (e) => {
-    console.log(e.target.value);
+    setBirthDate(e.target.value);
   };
 
   const handleSelectSy = (e) => {
     console.log(e.target.value);
   };
-
-  console.log(gender);
 
   const handleClickOutside = (e) => {
     if (
@@ -129,7 +129,9 @@ const FilterBar = ({ error, isFetching, isLoading, schoolYear }) => {
                 <span className="flex items-center gap-2 w-full mb-2 outline-none">
                   <button
                     type="button"
-                    className="text-xs py-1 border rounded-md w-1/2 hover:bg-gray-200"
+                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-[#f3f4f6] ${
+                      gender === "m" && "bg-[#f3f4f6] border-gray-300"
+                    }`}
                     value="m"
                     onClick={(e) => handleSelectGender(e)}
                   >
@@ -137,7 +139,9 @@ const FilterBar = ({ error, isFetching, isLoading, schoolYear }) => {
                   </button>
                   <button
                     type="button"
-                    className="text-xs py-1 border rounded-md w-1/2 hover:bg-gray-200"
+                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-[#f3f4f6] ${
+                      gender === "f" && "bg-[#f3f4f6] border-gray-300"
+                    }`}
                     value="f"
                     onClick={(e) => handleSelectGender(e)}
                   >
@@ -151,7 +155,7 @@ const FilterBar = ({ error, isFetching, isLoading, schoolYear }) => {
                     className="!border-gray-200 text-[12px]"
                     onChange={(e) => handleSelectLevel(e)}
                   >
-                    <option value="all">All</option>
+                    <option value="0">All</option>
 
                     {error ? (
                       <option hidden disabled>
@@ -163,11 +167,11 @@ const FilterBar = ({ error, isFetching, isLoading, schoolYear }) => {
                       </option>
                     )}
 
-                    {gradeLevel?.count > 0 ? (
+                    {gradeLevelData?.count > 0 ? (
                       <>
-                        {gradeLevel?.data.map((item, key) => {
+                        {gradeLevelData?.data.map((item, key) => {
                           return (
-                            <option key={key} value={item.grade_level_aid}>
+                            <option key={key} value={JSON.stringify(item)}>
                               {item.grade_level_name}
                             </option>
                           );
@@ -182,9 +186,10 @@ const FilterBar = ({ error, isFetching, isLoading, schoolYear }) => {
                 <span className=" text-xs mb-1 text-accent">With</span>
                 <span className="flex items-center gap-2 w-full mb-2 outline-none ">
                   <button
-                    className="text-xs py-1 border rounded-md w-1/2 hover:bg-gray-200 active:bg-gray-200 focus-within:bg-gray-200"
-                    value="with-lrn"
-                    onClick={(e) => handleSelectLrn(e)}
+                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-[#f3f4f6] ${
+                      withLrn === 1 && "bg-[#f3f4f6] border-gray-300"
+                    }`}
+                    onClick={() => handleSelectLrn()}
                   >
                     LRN
                   </button>
@@ -200,23 +205,6 @@ const FilterBar = ({ error, isFetching, isLoading, schoolYear }) => {
             </ul>
           )}
         </div>
-
-        <ul className="absolute top-10">
-          <li className="flex items-center gap-1">
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
-              Male
-            </span>
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
-              Grade 1
-            </span>
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
-              With LRN
-            </span>
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
-              September 2024
-            </span>
-          </li>
-        </ul>
       </div>
     </form>
   );

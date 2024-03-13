@@ -30,6 +30,8 @@ const SchoolYearFormEditEnrollment = ({ itemEdit, setIsEditEnrollment }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["school-year"] });
+      queryClient.invalidateQueries({ queryKey: ["header-school-year"] });
+      queryClient.invalidateQueries({ queryKey: ["nav-school-year"] });
 
       // show error box
       if (!data.success) {
