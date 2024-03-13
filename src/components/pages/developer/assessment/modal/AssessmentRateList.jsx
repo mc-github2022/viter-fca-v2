@@ -13,6 +13,8 @@ const AssessmentRateList = ({
   primaryDiscountData,
   loadingListOfScheme,
   primaryDiscountId,
+  additionalDiscountId,
+  totalAdditionalDiscount,
 }) => {
   return (
     <>
@@ -208,7 +210,8 @@ const AssessmentRateList = ({
             </ul>
           </div>
 
-          {Number(primaryDiscountId) > 0 && (
+          {(Number(primaryDiscountId) > 0 ||
+            Number(additionalDiscountId) > 0) && (
             <div className="grid grid-cols-4 gap-2 mt-3 text-xs items-center">
               <h4 className="uppercase">Discounted Total Amount</h4>
               {listOfScheme?.data.map((listItem, key) => {
@@ -224,12 +227,14 @@ const AssessmentRateList = ({
                         {getTotalPaymentDiscountedAmount(
                           listOfScheme,
                           primaryDiscountData,
-                          listItem
+                          listItem,
+                          totalAdditionalDiscount
                         ) !== 0 &&
                           `${getTotalPaymentDiscountedAmount(
                             listOfScheme,
                             primaryDiscountData,
-                            listItem
+                            listItem,
+                            totalAdditionalDiscount
                           )}`}
                       </p>
 
@@ -238,13 +243,15 @@ const AssessmentRateList = ({
                           {getMonthlyFeeDiscountedAmount(
                             listOfScheme,
                             primaryDiscountData,
-                            listItem
+                            listItem,
+                            totalAdditionalDiscount
                           ).isDiscounted > 0
                             ? `${
                                 getMonthlyFeeDiscountedAmount(
                                   listOfScheme,
                                   primaryDiscountData,
-                                  listItem
+                                  listItem,
+                                  totalAdditionalDiscount
                                 ).monthlyFeeDiscounted
                               }`
                             : "0.00"}

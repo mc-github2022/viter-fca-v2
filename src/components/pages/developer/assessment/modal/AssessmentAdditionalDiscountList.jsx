@@ -1,11 +1,19 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { isItemEmpty } from "@/components/helpers/functions-general";
-import { getGetAdditionalDiscount } from "./functions-assessment";
+import {
+  isItemEmpty,
+  numberWithCommasToFixed,
+} from "@/components/helpers/functions-general";
+import {
+  getGetAdditionalDiscount,
+  getTotalAdditionalDiscount,
+} from "./functions-assessment";
 
 const AssessmentAdditionalDiscountList = ({
   additionalDiscountId,
   setAdditionalDiscountId,
   item,
+  listOfScheme,
+  setTotalAdditionalDiscount,
 }) => {
   const {
     isLoading,
@@ -20,7 +28,25 @@ const AssessmentAdditionalDiscountList = ({
 
   const handleChangeAdditionalDiscount = (e) => {
     setAdditionalDiscountId(e.target.value);
+    const additionalDisc = getGetAdditionalDiscount(
+      additionalDiscount,
+      e.target.value
+    );
+
+    setTotalAdditionalDiscount(
+      getTotalAdditionalDiscount(listOfScheme, additionalDisc)
+    );
   };
+
+  const additionalDisc = getGetAdditionalDiscount(
+    additionalDiscount,
+    additionalDiscountId
+  );
+
+  const getFinalAdditionalDiscount = getTotalAdditionalDiscount(
+    listOfScheme,
+    additionalDisc
+  );
 
   return (
     <>
@@ -41,6 +67,8 @@ const AssessmentAdditionalDiscountList = ({
           >
             {isLoading || isFetching ? (
               <option hidden>Loading...</option>
+            ) : error ? (
+              <option hidden>Error</option>
             ) : additionalDiscount?.data.length === 0 ? (
               <option hidden>No Data</option>
             ) : (
@@ -51,7 +79,7 @@ const AssessmentAdditionalDiscountList = ({
                 {additionalDiscount?.data.map((pItem, key) => {
                   return (
                     <option key={key} value={pItem.discount_additional_aid}>
-                      {`${pItem.discount_additional_name})`}
+                      {`${pItem.discount_additional_name}`}
                     </option>
                   );
                 })}
@@ -83,12 +111,7 @@ const AssessmentAdditionalDiscountList = ({
               <ul className="flex gap-2 mb-2 text-xs">
                 <li className="font-bold">Amount: </li>
                 <li>
-                  {
-                    getGetAdditionalDiscount(
-                      additionalDiscount,
-                      additionalDiscountId
-                    )[0]?.discount_additional_amount
-                  }
+                  {isItemEmpty(additionalDisc[0]?.discount_additional_amount)}
                 </li>
               </ul>
 
@@ -96,12 +119,16 @@ const AssessmentAdditionalDiscountList = ({
                 <li className="font-bold">Percent: </li>
                 <li>
                   {isItemEmpty(
-                    getGetAdditionalDiscount(
-                      additionalDiscount,
-                      additionalDiscountId
-                    )[0]?.discount_additional_percent,
+                    additionalDisc[0]?.discount_additional_percent,
                     "%"
                   )}
+                </li>
+              </ul>
+
+              <ul className="flex gap-2 mb-2 text-xs">
+                <li className="font-bold">Additional Discount: </li>
+                <li>
+                  {numberWithCommasToFixed(getFinalAdditionalDiscount, 2)}
                 </li>
               </ul>
             </div>

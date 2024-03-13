@@ -34,6 +34,9 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   const [additionalDiscountId, setAdditionalDiscountId] = React.useState(
     Number(item.current_students_additional_discount_id)
   );
+  const [totalAdditionalDiscount, setTotalAdditionalDiscount] = React.useState(
+    Number(item.current_students_additional_discount_id)
+  );
   const [selectItem, setSelectItem] = React.useState(
     Number(item.current_students_schedule_fees_id)
   );
@@ -47,6 +50,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     "get", // method
     "primary-discount" // key
   );
+
   const primaryDiscountData = getPrimaryPercentDiscount(
     primaryDiscount,
     primaryDiscountId
@@ -131,7 +135,6 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     categoryId
   );
 
-  console.log(item);
   return (
     <>
       <div
@@ -296,6 +299,8 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     primaryDiscountData={primaryDiscountData}
                     loadingListOfScheme={loadingListOfScheme}
                     primaryDiscountId={primaryDiscountId}
+                    additionalDiscountId={additionalDiscountId}
+                    totalAdditionalDiscount={totalAdditionalDiscount}
                   />
 
                   <AssessmentPrimaryDiscountList
@@ -310,6 +315,8 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     additionalDiscountId={additionalDiscountId}
                     setAdditionalDiscountId={setAdditionalDiscountId}
                     item={item}
+                    listOfScheme={listOfScheme}
+                    setTotalAdditionalDiscount={setTotalAdditionalDiscount}
                   />
                 </div>
 
