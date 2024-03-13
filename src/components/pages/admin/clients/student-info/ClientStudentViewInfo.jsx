@@ -1,10 +1,12 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import { getUrlParam } from "@/components/helpers/functions-general.jsx";
+import { queryData } from "@/components/helpers/queryData.jsx";
 import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling.jsx";
@@ -13,14 +15,17 @@ import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import {
   setError,
   setIsAdd,
+  setIsConfirm,
   setIsDelete,
   setMessage,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
+import { BsArchive } from "react-icons/bs";
 import { FaAngleLeft, FaPlus, FaWpforms } from "react-icons/fa";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { LuDot } from "react-icons/lu";
+import { MdOutlineRestore } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import {
   getGradeLevelByStudentId,
@@ -43,6 +48,9 @@ const ClientStudentViewInfo = () => {
   const navigate = useNavigate();
   const [isViewInfo, setIsViewInfo] = React.useState(false);
   const [isEnroll, setIsEnroll] = React.useState(false);
+  const [isArchive, setIsArchive] = React.useState(1);
+  const [loading, setLoading] = React.useState(false);
+
   const { data: schoolYear } = useQueryData(
     "/v2/dev-school-year", // endpoint
     "get", // method
@@ -73,6 +81,20 @@ const ClientStudentViewInfo = () => {
     "get", // method
     "registrar-all-student" // key
   );
+
+  const handleArchive = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.students_aid);
+    setData(item);
+    setIsArchive(0);
+  };
+
+  const handleRestore = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.students_aid);
+    setData(item);
+    setIsArchive(1);
+  };
 
   const handleAddStudent = () => {
     if (isOngoing === 0 || !isOngoing) {
@@ -124,12 +146,45 @@ const ClientStudentViewInfo = () => {
   );
 
   const handleEnroll = async (item) => {
+    setLoading(true);
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
       dispatch(setMessage("There's no enrollment yet."));
       return;
     }
 
+    if (item.current_students_sy_id === schoolYear?.data[0].school_year_aid) {
+      const data = await queryData(
+        "/v2/dev-client-student/already-enrolled",
+        "post",
+        {
+          ...item,
+          grade_level_order: getGradeLevelOrderByStudentId(
+            gradeLevel,
+            item.current_students_grade_level_id
+          ),
+          current_students_sy_id: schoolYear?.data[0].school_year_aid,
+        }
+      );
+
+      console.log(data);
+
+      if (data.success) {
+        setLoading(false);
+        setIsEnroll(true);
+        setData(item);
+        return;
+      }
+
+      if (!data.success) {
+        dispatch(setError(true));
+        dispatch(setMessage(data.error));
+        setLoading(false);
+        return;
+      }
+    }
+
+    setLoading(false);
     setIsEnroll(true);
     setData(item);
   };
@@ -146,7 +201,7 @@ const ClientStudentViewInfo = () => {
             schoolYear={schoolYear}
           />
           <main
-            className={`main__content pl-0 md:pr-[13.5px] relative ${
+            className={`main__content px-[13.5px] md:px-0 relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
@@ -184,6 +239,7 @@ const ClientStudentViewInfo = () => {
                   className="btn btn--sm mt-3 hover:underline"
                   data-tooltip="New"
                   onClick={handleAddStudent}
+                  disabled={isFetching || loading}
                 >
                   <FaPlus /> <span className="text-[14px]">Add</span>
                 </button>
@@ -191,7 +247,7 @@ const ClientStudentViewInfo = () => {
             </div>
 
             <div className="max-w-[620px] w-full gap-4 mb-5 relative">
-              {isFetching && <TableSpinner />}
+              {(isFetching || loading) && <TableSpinner />}
               {isLoading ? (
                 <TableLoading />
               ) : mystudent?.data.length === 0 ? (
@@ -200,7 +256,7 @@ const ClientStudentViewInfo = () => {
                 mystudent?.data.map((item, key) => {
                   return (
                     <div
-                      className="card border-b border-line p-4 relative mb-2 bg-primary"
+                      className="card border-b border-line py-4 relative mb-2 bg-primary"
                       key={key}
                     >
                       <h5>
@@ -268,13 +324,32 @@ const ClientStudentViewInfo = () => {
                           <FiEdit2 className="text-[17px]" />
                         </button>
 
-                        <button
-                          className=" tooltip"
-                          data-tooltip="Delete"
-                          onClick={() => handleDelete(item)}
-                        >
-                          <FiTrash className="text-[17px]" />
-                        </button>
+                        {item.students_is_active === 1 ? (
+                          <button
+                            className="tooltip"
+                            data-tooltip="Archive"
+                            onClick={() => handleArchive(item)}
+                          >
+                            <BsArchive className="text-[17px]" />
+                          </button>
+                        ) : (
+                          <>
+                            <button
+                              className=" tooltip"
+                              data-tooltip="Restore"
+                              onClick={() => handleRestore(item)}
+                            >
+                              <MdOutlineRestore className="text-[17px]" />
+                            </button>
+                            <button
+                              className=" tooltip"
+                              data-tooltip="Delete"
+                              onClick={() => handleDelete(item)}
+                            >
+                              <FiTrash className="text-[17px]" />
+                            </button>
+                          </>
+                        )}
                       </div>
                     </div>
                   );
@@ -323,6 +398,18 @@ const ClientStudentViewInfo = () => {
           itemEdit={itemEdit}
           parent={parent}
           schoolYear={schoolYear}
+        />
+      )}
+
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/v2/dev-students/active/${id}`}
+          msg={`Are you sure you want to ${
+            isArchive ? "restore" : "archive"
+          } this record?`}
+          item={`${dataItem.students_fname} ${dataItem.students_lname}`}
+          queryKey={"mystudent"}
+          isArchive={isArchive}
         />
       )}
 

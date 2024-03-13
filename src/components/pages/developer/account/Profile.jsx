@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import { InputText } from "@/components/helpers/FormInputs";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
@@ -22,6 +23,19 @@ const Profile = () => {
   const [showNewPassword, setShowNewPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [changePassword, setChangePassword] = React.useState(false);
+
+  const {
+    isLoading,
+    error,
+    data: schoolYear,
+  } = useQueryData(
+    "/v2/dev-school-year", // endpoint
+    "get", // method
+    "school-year" // key
+  );
+
+  const isOngoing =
+    schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
   const handleShowSubMenu = () => {
     setShow(!show);
@@ -91,18 +105,23 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
-      <section className="main__wrap flex flex-col relative h-screen">
+      <Header isLoading={isLoading} schoolYear={schoolYear} />
+      <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)] ">
         <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
-          <Navigation menu="student" />
+          <Navigation
+            menu="student"
+            isLoading={isLoading}
+            error={error}
+            schoolYear={schoolYear}
+          />
 
           <main
-            className={`main__content lg:pl-0 mt-[35px] flex flex-col h-[calc(100vh-35px)] ${
+            className={`main__content pl-4 lg:pl-0 md:pr-[13.5px] relative  ${
               store.isMenuExpand ? "expand" : ""
-            }`}
+            } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="mt-4 bg-primary rounded-md max-w-[430px]  relative pb-4 grow">
-              <div className="main__header  pt-[10px] flex justify-between items-start lg:items-center">
+            <div className="main__header pt-[10px] flex justify-between items-start lg:items-center">
+              <div className="mt-[55px] flex items-start justify-between w-full">
                 <div>
                   <h1 className="text-clampH1 mb-0">User Account</h1>
                   <p className="mb-4 text-xs hidden lg:block">
@@ -110,123 +129,123 @@ const Profile = () => {
                   </p>
                 </div>
               </div>
+            </div>
 
-              <div className="mb-8 pb-5">
-                <h6 className="mb-5 text-sm">Profile</h6>
-                <p className="grid grid-cols-[80px,200px]">
-                  <span className="font-bold mr-2 block">First Name:</span>
-                  {store.credentials.data.user_system_fname}
-                </p>
-                <p className="grid grid-cols-[80px,200px]">
-                  <span className="font-bold mr-2">Last Name:</span>
-                  {store.credentials.data.user_system_lname}
-                </p>
-                <p className="grid grid-cols-[80px,200px]">
-                  <span className="font-bold mr-2">Email:</span>
-                  {store.credentials.data.user_system_email}
-                </p>
-              </div>
+            <div className="mb-8 pb-5">
+              <h6 className="mb-5 text-sm">Profile</h6>
+              <p className="grid grid-cols-[80px,200px]">
+                <span className="font-bold mr-2 block">First Name:</span>
+                {store.credentials.data.user_system_fname}
+              </p>
+              <p className="grid grid-cols-[80px,200px]">
+                <span className="font-bold mr-2">Last Name:</span>
+                {store.credentials.data.user_system_lname}
+              </p>
+              <p className="grid grid-cols-[80px,200px]">
+                <span className="font-bold mr-2">Email:</span>
+                {store.credentials.data.user_system_email}
+              </p>
+            </div>
 
-              <div className=" pl-0  md:flex md:gap-5">
-                <div className="w-full">
-                  <div className="profile__block min-h-[300px] w-full ">
-                    <h6 className="mb-5 text-sm">Change Password</h6>
+            <div className=" pl-0  md:flex md:gap-5">
+              <div className="w-full">
+                <div className="profile__block min-h-[300px] w-1/3 ">
+                  <h6 className="mb-5 text-sm">Change Password</h6>
 
-                    <Formik
-                      initialValues={initVal}
-                      validationSchema={yupSchema}
-                      onSubmit={async (
-                        values,
-                        { setSubmitting, resetForm }
-                      ) => {}}
-                    >
-                      {(props) => {
-                        return (
-                          <Form>
-                            <div className="form__wrap">
-                              <InputText
-                                type={showCurrentPassword ? "text" : "password"}
-                                name="current_password"
-                                className="account_password"
-                                label="Current password"
-                              />
-                              {props.values.current_password && (
-                                <button
-                                  type="button"
-                                  className="absolute top-7 text-base text-gray-400 right-3"
-                                  onClick={handleShowCurrentPassword}
-                                >
-                                  {showCurrentPassword ? (
-                                    <FaEyeSlash />
-                                  ) : (
-                                    <FaEye />
-                                  )}
-                                </button>
-                              )}
-                            </div>
-
-                            <div className="form__wrap">
-                              <InputText
-                                type={showNewPassword ? "text" : "password"}
-                                name="new_password"
-                                className="account_password"
-                                label="New password"
-                              />
-
-                              {props.values.new_password && (
-                                <button
-                                  type="button"
-                                  className="absolute top-7  text-base text-gray-400 right-3"
-                                  onClick={handleShowNewPassword}
-                                >
-                                  {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-                                </button>
-                              )}
-                            </div>
-
-                            <div className="form__wrap">
-                              <InputText
-                                type={showConfirmPassword ? "text" : "password"}
-                                name="confirm_password"
-                                className="account_password"
-                                label="Confirm New password"
-                              />
-                              {props.values.confirm_password && (
-                                <button
-                                  type="button"
-                                  className="absolute top-7 text-base text-gray-400 right-3"
-                                  onClick={handleShowConfirmPassword}
-                                >
-                                  {showConfirmPassword ? (
-                                    <FaEyeSlash />
-                                  ) : (
-                                    <FaEye />
-                                  )}
-                                </button>
-                              )}
-                            </div>
-
-                            <div className="flex  gap-3 mt-8">
+                  <Formik
+                    initialValues={initVal}
+                    validationSchema={yupSchema}
+                    onSubmit={async (
+                      values,
+                      { setSubmitting, resetForm }
+                    ) => {}}
+                  >
+                    {(props) => {
+                      return (
+                        <Form>
+                          <div className="form__wrap">
+                            <InputText
+                              type={showCurrentPassword ? "text" : "password"}
+                              name="current_password"
+                              className="account_password"
+                              label="Current password"
+                            />
+                            {props.values.current_password && (
                               <button
-                                className="btn btn--accent"
                                 type="button"
-                                onClick={() => handleChangePassword(props)}
-                                disabled={
-                                  props.values.current_password === "" ||
-                                  props.values.new_password === "" ||
-                                  props.values.confirm_password === "" ||
-                                  props.values.new_password !==
-                                    props.values.confirm_password
-                                }
+                                className="absolute top-7 text-base text-gray-400 right-3"
+                                onClick={handleShowCurrentPassword}
                               >
-                                Update
+                                {showCurrentPassword ? (
+                                  <FaEyeSlash />
+                                ) : (
+                                  <FaEye />
+                                )}
                               </button>
-                            </div>
-                          </Form>
-                        );
-                      }}
-                    </Formik>
-                  </div>
+                            )}
+                          </div>
+
+                          <div className="form__wrap">
+                            <InputText
+                              type={showNewPassword ? "text" : "password"}
+                              name="new_password"
+                              className="account_password"
+                              label="New password"
+                            />
+
+                            {props.values.new_password && (
+                              <button
+                                type="button"
+                                className="absolute top-7  text-base text-gray-400 right-3"
+                                onClick={handleShowNewPassword}
+                              >
+                                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                              </button>
+                            )}
+                          </div>
+
+                          <div className="form__wrap">
+                            <InputText
+                              type={showConfirmPassword ? "text" : "password"}
+                              name="confirm_password"
+                              className="account_password"
+                              label="Confirm New password"
+                            />
+                            {props.values.confirm_password && (
+                              <button
+                                type="button"
+                                className="absolute top-7 text-base text-gray-400 right-3"
+                                onClick={handleShowConfirmPassword}
+                              >
+                                {showConfirmPassword ? (
+                                  <FaEyeSlash />
+                                ) : (
+                                  <FaEye />
+                                )}
+                              </button>
+                            )}
+                          </div>
+
+                          <div className="flex  gap-3 mt-8">
+                            <button
+                              className="btn btn--accent"
+                              type="button"
+                              onClick={() => handleChangePassword(props)}
+                              disabled={
+                                props.values.current_password === "" ||
+                                props.values.new_password === "" ||
+                                props.values.confirm_password === "" ||
+                                props.values.new_password !==
+                                  props.values.confirm_password
+                              }
+                            >
+                              Update
+                            </button>
+                          </div>
+                        </Form>
+                      );
+                    }}
+                  </Formik>
                 </div>
               </div>
             </div>

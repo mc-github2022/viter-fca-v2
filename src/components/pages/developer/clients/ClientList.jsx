@@ -8,6 +8,7 @@ import ServerError from "@/components/partials/ServerError";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import {
   setIsAdd,
@@ -118,7 +119,7 @@ const ClientList = ({ setItemEdit }) => {
         )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <h6>
-            Count:
+            Count:{" "}
             <span>
               {result?.pages[0].success === true &&
                 result?.pages[0].data.length}
@@ -223,7 +224,7 @@ const ClientList = ({ setItemEdit }) => {
                                   data-tooltip="Restore"
                                   onClick={() => handleRestore(item)}
                                 >
-                                  <MdOutlineRestore />
+                                  <MdOutlineRestore className="text-[20px]" />
                                 </button>
                                 <button
                                   type="button"
@@ -231,7 +232,7 @@ const ClientList = ({ setItemEdit }) => {
                                   data-tooltip="Delete"
                                   onClick={() => handleDelete(item)}
                                 >
-                                  <FiTrash />
+                                  <FiTrash className="text-[17px]" />
                                 </button>
                               </div>
                             )}

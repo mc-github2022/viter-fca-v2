@@ -1,11 +1,15 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
+import { queryData } from "@/components/helpers/queryData";
+import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
 import NoData from "@/components/partials/NoData";
+import Pills from "@/components/partials/Pills";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setError,
@@ -21,6 +25,7 @@ import { FiEdit2, FiTrash } from "react-icons/fi";
 import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import {
+  getGradeLevelByStudentId,
   getGradeLevelOrderByStudentId,
   getRequirementsStatus,
   getStudentStatus,
@@ -116,11 +121,45 @@ const Student = () => {
   );
 
   const handleEnroll = async (item) => {
+    setLoading(true);
     if (isOngoing === 0 || !isOngoing) {
       dispatch(setError(true));
       dispatch(setMessage("There's no enrollment yet."));
       return;
     }
+
+    if (item.current_students_sy_id === schoolYear?.data[0].school_year_aid) {
+      const data = await queryData(
+        "/v2/dev-client-student/already-enrolled",
+        "post",
+        {
+          ...item,
+          grade_level_order: getGradeLevelOrderByStudentId(
+            gradeLevel,
+            item.current_students_grade_level_id
+          ),
+          current_students_sy_id: schoolYear?.data[0].school_year_aid,
+        }
+      );
+
+      console.log(data);
+
+      if (data.success) {
+        setLoading(false);
+        setIsEnroll(true);
+        setData(item);
+        return;
+      }
+
+      if (!data.success) {
+        dispatch(setError(true));
+        dispatch(setMessage(data.error));
+        setLoading(false);
+        return;
+      }
+    }
+
+    setLoading(false);
     setIsEnroll(true);
     setData(item);
   };
@@ -136,63 +175,63 @@ const Student = () => {
             schoolYear={schoolYear}
           />
           <main
-            className={`main__content px-[13.5px] md:px-0 relative ${
+            className={`main__content px-[13.5px] md:px-0 w-[620px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="main__header flex justify-between items-start lg:items-center my-2 pt-[44px] ">
-              <div>
+            <div className="main__header flex justify-between items-start lg:items-center ">
+              <div className=" mt-[55px] flex items-start justify-between w-full">
+                <div>
+                  <h1 className="text-clampH1 mb-2 pt-2">My Student</h1>
+                  <p className="mb-4 text-xs hidden lg:block">
+                    List of clients/parents registered on the system.
+                  </p>
+                </div>
+
                 <button
-                  type="button"
-                  onClick={() => navigate(-1)}
-                  className="flex gap-1 items-center lg:hidden"
+                  className="btn btn--sm mt-3 hover:underline"
+                  data-tooltip="New"
+                  onClick={handleAddStudent}
                 >
-                  <FaAngleLeft /> Back
+                  <FaPlus /> <span className="text-[14px]">Add</span>
                 </button>
               </div>
             </div>
 
-            <div className=" max-w-[620px] w-full">
-              <div className="">
-                <h1 className="text-clampH1 mb-2">My Students</h1>
-                <p className="text-xs opacity-75 hidden md:block">
-                  List of students
-                </p>
-              </div>
-              <button
-                className="btn btn--sm mt-3 hover:underline"
-                data-tooltip="New"
-                onClick={handleAddStudent}
-              >
-                <FaPlus /> <span className="text-[14px]">Add</span>
-              </button>
-            </div>
-
-            <div className="max-w-[620px] w-full gap-4 mb-5 ">
-              {(loading || isFetching) && <TableSpinner />}
+            <div className="w-full gap-4 mb-5 ">
+              {(loading || isFetching) && <FetchingSpinner />}
               {mystudent?.data.length === 0 ? (
                 <NoData />
               ) : (
                 mystudent?.data.map((item, key) => {
+                  console.log(item);
                   return (
                     <div
-                      className="card border-b border-line p-4 relative mb-2 bg-primary"
+                      className="card border-b border-line py-4 relative mb-2 bg-primary"
                       key={key}
                     >
                       <h5>
                         {item.students_fname} {item.students_lname} -{" "}
                         <span className="text-accentLight font-bold">
-                          {getStudentStatus(
-                            item,
-                            getCurrentSchoolYear,
-                            studentRequirement,
-                            registrarRequirement
+                          {item.students_is_active === 0 ? (
+                            <Pills label="Inactive" color="text-disable" />
+                          ) : (
+                            getStudentStatus(
+                              item,
+                              getCurrentSchoolYear,
+                              studentRequirement,
+                              registrarRequirement
+                            )
                           )}
                         </span>
                       </h5>
 
                       <small className="flex mb-2 ">
-                        {item.grade_level_name}
+                        {item.current_students_grade_level_id === 0 && "Grade "}
+                        {getGradeLevelByStudentId(
+                          gradeLevel,
+                          item.current_students_grade_level_id
+                        )}
 
                         {item.student_info_reference_no ? (
                           <>
@@ -215,39 +254,41 @@ const Student = () => {
                         </span>
                       </p>
 
-                      <button
+                      {/* <button
                         className="block text-xs mb-2 text-accent underline"
                         onClick={() => handleViewInfoRequirements(item)}
                       >
                         View Requirement
-                      </button>
+                      </button> */}
 
-                      <div className="card__action absolute top-5 right-5 flex gap-2">
-                        {isOngoing === 1 && (
+                      {item.students_is_active === 1 && (
+                        <div className="card__action absolute top-5 right-5 flex gap-2">
+                          {isOngoing === 1 && (
+                            <button
+                              className="tooltip"
+                              data-tooltip="Enroll"
+                              onClick={() => handleEnroll(item)}
+                            >
+                              <FaWpforms className="text-[17px]" />
+                            </button>
+                          )}
                           <button
                             className="tooltip"
-                            data-tooltip="Enroll"
-                            onClick={() => handleEnroll(item)}
+                            data-tooltip="Edit"
+                            onClick={() => handleEdit(item)}
                           >
-                            <FaWpforms className="text-[17px]" />
+                            <FiEdit2 className="text-[17px]" />
                           </button>
-                        )}
-                        <button
-                          className="tooltip"
-                          data-tooltip="Edit"
-                          onClick={() => handleEdit(item)}
-                        >
-                          <FiEdit2 className="text-[17px]" />
-                        </button>
 
-                        <button
+                          {/* <button
                           className="tooltip"
                           data-tooltip="Delete"
                           onClick={() => handleDelete(item)}
                         >
                           <FiTrash className="text-[17px]" />
-                        </button>
-                      </div>
+                        </button> */}
+                        </div>
+                      )}
                     </div>
                   );
                 })

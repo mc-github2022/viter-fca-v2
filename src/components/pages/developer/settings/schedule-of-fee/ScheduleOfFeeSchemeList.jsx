@@ -9,15 +9,15 @@ import {
 import { StoreContext } from "@/components/store/StoreContext";
 import { BsArchive } from "react-icons/bs";
 
+import {
+  numberWithCommas,
+  pesoSign,
+} from "@/components/helpers/functions-general";
 import NoData from "@/components/partials/NoData.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-import {
-  numberWithCommas,
-  pesoSign,
-} from "@/components/helpers/functions-general";
 const ScheduleOfFeeSchemeList = ({
   setItemEdit,
   val,
@@ -72,7 +72,7 @@ const ScheduleOfFeeSchemeList = ({
 
   return (
     <>
-      {isFetching && !isLoading && <TableSpinner />}
+      {/* {isFetching && !isLoading && <TableSpinner />} */}
 
       {!isLoading && scheme.success === false ? (
         <ModalInvalidRequestError />
@@ -90,7 +90,7 @@ const ScheduleOfFeeSchemeList = ({
             } w-full mr-1`}
             key={key}
           >
-            <ul className="grid grid-cols-[4rem,6rem,6rem,6rem,6rem,6rem,6rem,6rem,5rem] items-center w-full text-right">
+            <ul className="grid grid-cols-[4rem,6rem,6rem,6rem,6rem,6rem,6rem,6rem,5rem] items-center w-full text-right ">
               <li>{sItem.scheme_name}</li>
               <li>
                 {pesoSign}

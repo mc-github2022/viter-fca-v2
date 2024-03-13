@@ -3,7 +3,11 @@ import { FaBars, FaBullhorn, FaExclamationCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LiaCogSolid } from "react-icons/lia";
 import { RiEdit2Line } from "react-icons/ri";
-import { setIsMenuExpand, setIsShow } from "../store/StoreAction.jsx";
+import {
+  setIsMenuExpand,
+  setIsSearch,
+  setIsShow,
+} from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 import LogoTextOnly from "./svg/LogoTextOnly.jsx";
 
@@ -32,6 +36,7 @@ const Header = ({ isLoading, schoolYear }) => {
 
   const handleToggleMenu = () => {
     dispatch(setIsShow(!store.isShow));
+    dispatch(setIsSearch(false));
     if (store.isShow) {
       document.querySelector("body").classList.remove("no--scroll");
     } else {
@@ -41,6 +46,7 @@ const Header = ({ isLoading, schoolYear }) => {
 
   const handleShowSettings = () => {
     setIsShowSettings(true);
+    dispatch(setIsSearch(false));
     if (!isShowSetting) {
       document.querySelector("body").classList.add("no--scroll");
     } else {
@@ -202,7 +208,10 @@ const Header = ({ isLoading, schoolYear }) => {
                     className="absolute top-3 right-2 tooltip"
                     data-tooltip="Account"
                   >
-                    <Link to={`${devNavUrl}/${link}/profile`}>
+                    <Link
+                      to={`${devNavUrl}/${link}/profile`}
+                      onClick={() => dispatch(setIsSearch(false))}
+                    >
                       <RiEdit2Line />
                     </Link>
                   </button>

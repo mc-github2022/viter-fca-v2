@@ -3,7 +3,11 @@ import { BsCalendar2Week, BsGear, BsPeople } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
-import { setIsSettingsOpen, setIsShow } from "@/components/store/StoreAction";
+import {
+  setIsSearch,
+  setIsSettingsOpen,
+  setIsShow,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { PiListMagnifyingGlass, PiStudent } from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
@@ -17,9 +21,11 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
 
   const handleShowSettings = () => {
     setIsShowSettings(true);
+    dispatch(setIsSearch(false));
   };
 
   const handleNavigateLink = () => {
+    dispatch(setIsSearch(false));
     dispatch(setIsShow(false));
     document.querySelector("body").classList.remove("no--scroll");
   };

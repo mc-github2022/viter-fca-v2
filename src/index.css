@@ -213,7 +213,7 @@
   input,
   textarea,
   select {
-    @apply w-full border-line border p-[5px] rounded-md outline-none bg-primary;
+    @apply w-full border-line border p-[5px] h-[35px] rounded-md outline-none bg-primary;
   }
 
   textarea {
@@ -221,7 +221,7 @@
   }
 
   select {
-    @apply text-xs h-[34.75px];
+    @apply text-xs h-[35px];
   }
 
   input:disabled,

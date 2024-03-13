@@ -846,8 +846,9 @@ class Student
         return $query;
     }
 
-    // delete school year student
-    public function deleteSchoolYearStudents()
+
+    // remove school year student
+    public function removeSchoolYearStudents()
     {
         try {
             $sql = "delete from {$this->tblSyStudent} ";
@@ -864,17 +865,35 @@ class Student
         return $query;
     }
 
+    // delete school year student
+    public function deleteSchoolYearStudents()
+    {
+        try {
+            $sql = "delete from {$this->tblSyStudent} ";
+            $sql .= "where school_year_students_student_id = :students_aid ";
+            // $sql .= "and school_year_students_sy_id = :school_year_students_sy_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "students_aid" => $this->students_aid,
+                // "school_year_students_sy_id" => $this->school_year_students_sy_id,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     // delete school year current student
     public function deleteSchoolYearCurrentStudents()
     {
         try {
             $sql = "delete from {$this->tblSyStudentCurrent} ";
             $sql .= "where current_students_student_id = :students_aid ";
-            $sql .= "and current_students_sy_id = :school_year_students_sy_id ";
+            // $sql .= "and current_students_sy_id = :school_year_students_sy_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "students_aid" => $this->students_aid,
-                "school_year_students_sy_id" => $this->school_year_students_sy_id,
+                // "school_year_students_sy_id" => $this->school_year_students_sy_id,
             ]);
         } catch (PDOException $ex) {
             $query = false;

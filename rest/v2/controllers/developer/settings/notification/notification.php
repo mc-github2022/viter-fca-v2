@@ -1,7 +1,7 @@
 <?php
 require '../../../../core/header.php';
 require '../../../../core/functions.php';
-require '../../../../models/developer/settings/notification.php';
+require '../../../../models/developer/settings/Notification.php';
 
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
