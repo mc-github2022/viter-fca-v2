@@ -5,5 +5,8 @@ controllers
 1. rest/v2/controllers/developer/students/remove-from-enrollment.php 
 2. rest/v2/controllers/developer/students/functions.php 
 3. rest/v2/controllers/developer/client/client-student/already-enrolled.php
+4. rest/v2/controllers/developer/students/update.php
 
 rest/v2/.htaccess 
+
+

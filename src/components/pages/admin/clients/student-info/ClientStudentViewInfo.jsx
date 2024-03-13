@@ -97,11 +97,11 @@ const ClientStudentViewInfo = () => {
   };
 
   const handleAddStudent = () => {
-    if (isOngoing === 0 || !isOngoing) {
-      dispatch(setError(true));
-      dispatch(setMessage("There's no enrollment yet."));
-      return;
-    }
+    // if (isOngoing === 0 || !isOngoing) {
+    //   dispatch(setError(true));
+    //   dispatch(setMessage("There's no enrollment yet."));
+    //   return;
+    // }
     setItemEdit(null);
     dispatch(setIsAdd(true));
   };
@@ -201,7 +201,7 @@ const ClientStudentViewInfo = () => {
             schoolYear={schoolYear}
           />
           <main
-            className={`main__content px-[13.5px] md:px-0 relative ${
+            className={`main__content pl-4 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >

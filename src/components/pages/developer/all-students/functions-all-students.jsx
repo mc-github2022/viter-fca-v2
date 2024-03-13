@@ -9,6 +9,8 @@ export const getStudentStatus = (
   let label = "Incomplete";
   let color = "text-[#ea4335]";
 
+  console.log(item);
+
   let isCompleteRequirement = studentRequirement?.data.filter(
     (reqItem) =>
       Number(item.students_aid) ===

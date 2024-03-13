@@ -36,6 +36,7 @@ if (array_key_exists("studentid", $_GET)) {
     $student->current_students_grade_level_id = $data["current_students_grade_level_id"];
     $student->current_students_last_school_attended = $data["current_students_last_school_attended"];
     $student->current_students_last_gpa = $data["current_students_last_gpa"];
+    $student->current_students_last_grade_level_id = $data["current_students_last_grade_level_id"];
     $student->current_students_last_school_address = $data["current_students_last_school_address"];
     $student->current_students_last_remarks = $data["current_students_last_remarks"];
 

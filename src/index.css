@@ -394,7 +394,7 @@
   }
 
   .main__content.expand {
-    @apply lg:max-w-[calc(100%-260px)] lg:ml-[260px];
+    @apply lg:max-w-[calc(100%-260px)] lg:ml-[240px];
   }
 
   /* MODAL */

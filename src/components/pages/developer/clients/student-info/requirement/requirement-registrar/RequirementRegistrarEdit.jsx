@@ -11,6 +11,7 @@ import { StoreContext } from "@/components/store/StoreContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
+import { FaCheck } from "react-icons/fa";
 import * as Yup from "yup";
 
 const RequirementRegistrarEdit = ({
@@ -137,12 +138,17 @@ const RequirementRegistrarEdit = ({
                                   type="checkbox"
                                   name={item.requirement_registrar_aid}
                                   id={item.requirement_registrar_aid}
-                                  disabled={mutation.isPending}
+                                  disabled={
+                                    mutation.isPending ||
+                                    store.credentials.data.role_is_parent === 1
+                                  }
                                   onClick={(e) =>
-                                    handleCheck(
-                                      e,
-                                      item.requirement_registrar_aid
-                                    )
+                                    store.credentials.data.role_is_parent === 1
+                                      ? null
+                                      : handleCheck(
+                                          e,
+                                          item.requirement_registrar_aid
+                                        )
                                   }
                                 />
                               </div>
