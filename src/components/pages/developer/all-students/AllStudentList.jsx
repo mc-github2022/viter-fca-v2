@@ -3,6 +3,7 @@ import { queryData } from "@/components/helpers/queryData";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
+import Pills from "@/components/partials/Pills";
 import SearchBar from "@/components/partials/SearchBar";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
@@ -241,11 +242,15 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                         <tr key={key}>
                           <td>{counter++}.</td>
                           <td>
-                            {getStudentStatus(
-                              item,
-                              getCurrentSchoolYear,
-                              studentRequirement,
-                              registrarRequirement
+                            {item.students_is_active === 0 ? (
+                              <Pills label="Inactive" color="text-disable" />
+                            ) : (
+                              getStudentStatus(
+                                item,
+                                getCurrentSchoolYear,
+                                studentRequirement,
+                                registrarRequirement
+                              )
                             )}
                           </td>
                           <td>{item.student_fullname}</td>
@@ -260,14 +265,15 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                           <td>
                             {item.students_is_active === 1 ? (
                               <div className="flex gap-2 justify-end">
-                                <button
-                                  className="tooltip text-base"
-                                  data-tooltip="Enroll"
-                                  onClick={() => handleEnroll(item)}
-                                >
-                                  <FaWpforms className="text-[17px]" />
-                                </button>
-
+                                {isOngoing === 1 && (
+                                  <button
+                                    className="tooltip text-base"
+                                    data-tooltip="Enroll"
+                                    onClick={() => handleEnroll(item)}
+                                  >
+                                    <FaWpforms className="text-[17px]" />
+                                  </button>
+                                )}
                                 <button
                                   className="tooltip text-base"
                                   data-tooltip="Requirements"

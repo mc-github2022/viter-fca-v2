@@ -97,14 +97,14 @@ const ModalSettingsNav = ({
             </button>
           </li>
 
-          <li className={` ${index === 5 ? "active" : ""}`}>
+          {/* <li className={` ${index === 5 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(5, e)}
               className="p-1 pl-4"
             >
               Learning Type
             </button>
-          </li>
+          </li> */}
 
           <li className={` ${index === 6 ? "active" : ""}`}>
             <button

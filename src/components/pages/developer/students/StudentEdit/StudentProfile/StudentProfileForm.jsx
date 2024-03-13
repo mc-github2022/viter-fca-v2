@@ -158,7 +158,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Learning Reference No."
                           type="text"
                           name="students_lrn"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
 
@@ -196,7 +199,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Last Name (Suffix)"
                           type="text"
                           name="students_lname"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
 
@@ -205,7 +211,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="First Name"
                           type="text"
                           name="students_fname"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
 
@@ -214,7 +223,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Middle Name "
                           type="text"
                           name="students_mname"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
 
@@ -222,7 +234,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                         <InputSelect
                           label="Gender"
                           name="students_gender"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         >
                           <option value="" hidden></option>
                           <option value="m">Male</option>
@@ -235,7 +250,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Birth Date "
                           type="date"
                           name="students_birth_date"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
 
@@ -244,7 +262,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Birth Place"
                           type="text"
                           name="students_birth_place"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                       <div className="form__wrap">
@@ -252,7 +273,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Email"
                           type="text"
                           name="students_email"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                       <div className="form__wrap">
@@ -260,7 +284,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Mobile"
                           type="text"
                           name="students_mobile"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                       <div className="form__wrap">
@@ -268,7 +295,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Landline "
                           type="text"
                           name="students_landline"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                     </div>
@@ -279,7 +309,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                         <InputSelect
                           label="Adress"
                           name="students_address_id"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         >
                           <option value="" hidden></option>
                           {parentGuardian?.count > 0 ? (
@@ -310,7 +343,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Last School Name"
                           type="text"
                           name="current_students_last_school_attended"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                       <div className="form__wrap">
@@ -318,16 +354,20 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="GPA Last School Year"
                           type="text"
                           name="current_students_last_gpa"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                       <div className="form__wrap">
                         <InputSelect
                           label="Last Grade Level"
                           name="current_students_last_grade_level_id"
-                          disabled
+                          disabled={store.credentials.data.role_is_parent === 1}
                         >
                           <option value="" hidden></option>
+                          <option value="0">None</option>
                           {gradeLevel?.count > 0 ? (
                             gradeLevel?.data.map((item, key) => {
                               return (
@@ -351,7 +391,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Last School Address"
                           type="text"
                           name="current_students_last_school_address"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                     </div>
@@ -362,7 +405,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Was the student ever submitted to any form of disciplinary action? If so, why?"
                           type="text"
                           name="current_students_last_remarks"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                     </div>
@@ -374,7 +420,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Pediatrician/Family Doctor "
                           type="text"
                           name="students_family_doctor"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                       <div className="form__wrap">
@@ -382,7 +431,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                           label="Contact Number"
                           type="text"
                           name="students_family_doctor_contact"
-                          disabled={mutation.isPending}
+                          disabled={
+                            mutation.isPending ||
+                            store.credentials.data.role_is_parent === 1
+                          }
                         />
                       </div>
                     </div>
@@ -391,7 +443,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                         label="Are there any serious medical conditions about which you wish the school to be aware? Please indicate below:"
                         type="text"
                         name="students_medical_remarks"
-                        disabled={mutation.isPending}
+                        disabled={
+                          mutation.isPending ||
+                          store.credentials.data.role_is_parent === 1
+                        }
                       />
                     </div>
 
@@ -400,7 +455,10 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                         label="Are there any family circumstances about which you wish the school to be aware? Please indicate below:"
                         type="text"
                         name="students_family_circumstances"
-                        disabled={mutation.isPending}
+                        disabled={
+                          mutation.isPending ||
+                          store.credentials.data.role_is_parent === 1
+                        }
                       />
                     </div>
                   </div>

@@ -47,6 +47,8 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
       dataItem.current_students_last_coc_is_agree === 0 ? false : true,
   };
 
+  console.log(dataItem.current_students_last_coc_is_agree);
+
   const yupSchema = Yup.object({});
 
   return (
@@ -71,13 +73,16 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
                     } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <div className="flex items-center gap-2">
-                      <button
-                        className="btn btn--accent"
-                        type="submit"
-                        disabled={mutation.isPending || !props.dirty}
-                      >
-                        {mutation.isPending ? <ButtonSpinner /> : "Save"}
-                      </button>
+                      {(store.credentials.data.role_is_parent !== 1 ||
+                        dataItem.current_students_last_coc_is_agree === 0) && (
+                        <button
+                          className="btn btn--accent"
+                          type="submit"
+                          disabled={mutation.isPending || !props.dirty}
+                        >
+                          {mutation.isPending ? <ButtonSpinner /> : "Save"}
+                        </button>
+                      )}
                       <button
                         className="btn btn--cancel"
                         type="button"
@@ -218,7 +223,11 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
                         type="checkbox"
                         name="current_students_last_coc_is_agree"
                         id="current_students_last_coc_is_agree"
-                        disabled={mutation.isPending}
+                        disabled={
+                          mutation.isPending ||
+                          (store.credentials.data.role_is_parent === 1 &&
+                            dataItem.current_students_last_coc_is_agree === 1)
+                        }
                       />
                     </div>
                   </div>

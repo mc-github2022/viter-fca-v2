@@ -175,12 +175,12 @@ const Student = () => {
             schoolYear={schoolYear}
           />
           <main
-            className={`main__content px-[13.5px] md:px-0 w-[620px] relative ${
+            className={`main__content pl-4 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header flex justify-between items-start lg:items-center ">
-              <div className=" mt-[55px] flex items-start justify-between w-full">
+              <div className="max-w-[620px] mt-[55px] flex items-start justify-between w-full">
                 <div>
                   <h1 className="text-clampH1 mb-2 pt-2">My Student</h1>
                   <p className="mb-4 text-xs hidden lg:block">
@@ -198,13 +198,12 @@ const Student = () => {
               </div>
             </div>
 
-            <div className="w-full gap-4 mb-5 ">
+            <div className="max-w-[620px] w-full gap-4 mb-5 ">
               {(loading || isFetching) && <FetchingSpinner />}
               {mystudent?.data.length === 0 ? (
                 <NoData />
               ) : (
                 mystudent?.data.map((item, key) => {
-                  console.log(item);
                   return (
                     <div
                       className="card border-b border-line py-4 relative mb-2 bg-primary"
@@ -254,12 +253,12 @@ const Student = () => {
                         </span>
                       </p>
 
-                      {/* <button
+                      <button
                         className="block text-xs mb-2 text-accent underline"
                         onClick={() => handleViewInfoRequirements(item)}
                       >
                         View Requirement
-                      </button> */}
+                      </button>
 
                       {item.students_is_active === 1 && (
                         <div className="card__action absolute top-5 right-5 flex gap-2">

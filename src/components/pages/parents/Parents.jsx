@@ -94,10 +94,8 @@ const Parents = () => {
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
-      {/* <ModalEditStudent /> */}
-      <section className="main__wrap flex flex-col relative ">
-        <div className={`grow ${store.isMenuExpand ? "" : "expand"}`}>
-          {/* <ParentNavigation menu="clients" /> */}
+      <section className="main__wrap flex flex-col relative h-[calc(100vh-40px)]">
+        <div className={`grow ${store.isMenuExpand ? "expand" : ""}`}>
           <Navigation
             menu="my-info"
             isLoading={isLoading}
@@ -106,26 +104,29 @@ const Parents = () => {
           />
 
           <main
-            className={`main__content mt-[60px] px-[13.5px] md:px-0 ${
+            className={`main__content pl-4 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
-            }  ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
+            } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
-            <div className="flex justify-between items-center max-w-[620px] w-full mb-3">
-              <div>
-                <h1 className="text-clampH1 mb-2">My Information</h1>
-                <p className="text-xs opacity-75">
-                  View information about your students, parents and emergency
-                  contact list.
-                </p>
+            <div className="main__header flex justify-between items-start lg:items-center ">
+              <div className="max-w-[620px] mt-[55px] flex items-start justify-between w-full">
+                <div>
+                  <h1 className="text-clampH1 mb-2">My Information</h1>
+                  <p className="text-xs opacity-75">
+                    View information about your students, parents and emergency
+                    contact list.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="main__cardlist">
+
+            <div className="max-w-[620px] w-full gap-4 mb-5 ">
               {isLoading ? (
                 <TableLoading />
               ) : (
                 !showParentForm && (
                   <div
-                    className={`bg-primary md:p-4 max-w-[620px] w-full rounded-md   relative mb-2 ${
+                    className={`bg-primary md:py-4 max-w-[620px] w-full rounded-md   relative mb-2 ${
                       showContactForm || showFinancierForm
                         ? "pointer-events-none opacity-60"
                         : ""
@@ -155,7 +156,7 @@ const Parents = () => {
               ) : (
                 !showContactForm && (
                   <div
-                    className={`bg-primary md:p-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
+                    className={`bg-primary md:py-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
                       showParentForm || showFinancierForm
                         ? "pointer-events-none opacity-60"
                         : ""
@@ -182,7 +183,7 @@ const Parents = () => {
               ) : (
                 !showFinancierForm && (
                   <div
-                    className={`bg-primary md:p-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
+                    className={`bg-primary md:py-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
                       showParentForm || showContactForm
                         ? "pointer-events-none opacity-60"
                         : ""

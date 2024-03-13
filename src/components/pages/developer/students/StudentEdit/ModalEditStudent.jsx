@@ -96,76 +96,56 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
               >
                 <ul className="mt-2 ">
                   <li
-                    className={`${index === 1 ? "bg-accent text-primary" : ""}`}
+                    className={`${
+                      index === 1 ? "bg-accent text-primary" : ""
+                    } cursor-pointer`}
+                    onClick={() => handleChangeProfile(1)}
                   >
-                    <button
-                      onClick={() => handleChangeProfile(1)}
-                      className="p-1 pl-4 "
-                    >
-                      Profile
-                    </button>
+                    <button className="p-1 pl-4 ">Profile</button>
                   </li>
 
                   <li
-                    className={`${index === 6 ? "bg-accent text-primary" : ""}`}
+                    className={`${
+                      index === 6 ? "bg-accent text-primary" : ""
+                    } cursor-pointer`}
+                    onClick={() => handleChangeProfile(6)}
                   >
-                    <button
-                      onClick={() => handleChangeProfile(6)}
-                      className="p-1 pl-4 "
-                    >
-                      Payment Scheme
-                    </button>
+                    <button className="p-1 pl-4 ">Payment Scheme</button>
                   </li>
                   <li
                     className={` ${
                       index === 2 ? "bg-accent text-primary" : ""
-                    }`}
+                    } cursor-pointer`}
+                    onClick={() => handleChangeProfile(2)}
                   >
-                    <button
-                      onClick={() => handleChangeProfile(2)}
-                      className="p-1 pl-4 "
-                    >
-                      Code of Conduct
-                    </button>
+                    <button className="p-1 pl-4 ">Code of Conduct</button>
                   </li>
 
                   <li
                     className={` ${
                       index === 3 ? "bg-accent text-primary" : ""
-                    }`}
+                    } cursor-pointer`}
+                    onClick={() => handleChangeProfile(3)}
                   >
-                    <button
-                      onClick={() => handleChangeProfile(3)}
-                      className="p-1 pl-4 "
-                    >
-                      Parent Declaration
-                    </button>
+                    <button className="p-1 pl-4 ">Parent Declaration</button>
                   </li>
 
                   <li
                     className={` ${
                       index === 4 ? "bg-accent text-primary" : ""
-                    }`}
+                    } cursor-pointer`}
+                    onClick={() => handleChangeProfile(4)}
                   >
-                    <button
-                      onClick={() => handleChangeProfile(4)}
-                      className="p-1 pl-4 "
-                    >
-                      Parent Consent
-                    </button>
+                    <button className="p-1 pl-4 ">Parent Consent</button>
                   </li>
 
                   <li
                     className={` ${
                       index === 5 ? "bg-accent text-primary" : ""
-                    }`}
+                    } cursor-pointer`}
+                    onClick={() => handleChangeProfile(5)}
                   >
-                    <button
-                      onClick={() => handleChangeProfile(5)}
-                      className="p-1 pl-4 "
-                    >
-                      Commitment Form
-                    </button>
+                    <button className="p-1 pl-4 ">Commitment Form</button>
                   </li>
                 </ul>
               </aside>
@@ -179,11 +159,11 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                     <Link
                       to={`${devNavUrl}/${link}/clients/students?cid=${dataItem.parents_aid}`}
                       className="underline hover:bg-transparent block md:inline"
-                      title={`Go to ${dataItem.parent_fullname} students`}
+                      title={`Go to ${dataItem.parents_fname} ${dataItem.parents_lname} students`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {dataItem.parent_fullname}
+                      {dataItem.parents_fname} {dataItem.parents_lname}
                     </Link>
                   </span>
                 )}
