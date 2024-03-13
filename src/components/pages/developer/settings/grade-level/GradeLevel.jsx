@@ -2,6 +2,7 @@ import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
@@ -12,6 +13,16 @@ const GradeLevel = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const [itemEdit, setItemEdit] = React.useState(null);
+
+  const {
+    isLoading,
+    isFetching,
+    data: gradelevel,
+  } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
 
   const handleAdd = () => {
     dispatch(setIsSettingAdd(true));
@@ -39,8 +50,22 @@ const GradeLevel = ({ index }) => {
             </button>
           )}
 
-          {store.isSettingAdd && <GradeLevelFormAddEdit itemEdit={itemEdit} />}
-          {!store.isSettingAdd && <GradeLevelList setItemEdit={setItemEdit} />}
+          {store.isSettingAdd && (
+            <GradeLevelFormAddEdit
+              itemEdit={itemEdit}
+              isLoading={isLoading}
+              isFetching={isFetching}
+              gradelevel={gradelevel}
+            />
+          )}
+          {!store.isSettingAdd && (
+            <GradeLevelList
+              setItemEdit={setItemEdit}
+              isLoading={isLoading}
+              isFetching={isFetching}
+              gradelevel={gradelevel}
+            />
+          )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>
