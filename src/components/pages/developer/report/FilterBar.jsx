@@ -40,6 +40,11 @@ const FilterBar = ({
   };
 
   const handleSelectLevel = (e) => {
+    if (e.target.value === "0") {
+      setGradeLevel({ id: 0, grade: 0 });
+      return;
+    }
+
     let item = JSON.parse(e.target.value);
 
     setGradeLevel({ id: item.grade_level_aid, grade: item.grade_level_name });
@@ -155,6 +160,11 @@ const FilterBar = ({
                     className="!border-gray-200 text-[12px]"
                     onChange={(e) => handleSelectLevel(e)}
                   >
+                    {Object.keys(gradeLevel).length > 0 && (
+                      <option value={gradeLevel} hidden>
+                        {gradeLevel.grade}
+                      </option>
+                    )}
                     <option value="0">All</option>
 
                     {error ? (
@@ -199,6 +209,7 @@ const FilterBar = ({
                 <input
                   type="month"
                   className="text-xs"
+                  value={birthDate}
                   onChange={(e) => handleSelectBirthDate(e)}
                 />
               </div>
