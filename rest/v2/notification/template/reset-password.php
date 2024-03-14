@@ -43,7 +43,7 @@ function getHtmlResetPassword(
     <div style="padding: 10px 10px 0px">
       <div style="text-align: left">
         <img
-        src="' . $IMAGES_URL . '/FCALogo.png"
+        src="' . $IMAGES_URL . '/fca-email-logo.png"
         alt="fca-logo"
       />
       </div>
