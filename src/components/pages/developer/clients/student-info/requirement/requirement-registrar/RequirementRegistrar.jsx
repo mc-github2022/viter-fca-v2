@@ -9,6 +9,7 @@ const RequirementRegistrar = ({
   schoolYear,
   reqLoading,
   reqFetching,
+  gradeLevel,
 }) => {
   const [isEdit, setIsEdit] = React.useState(false);
 
@@ -31,6 +32,7 @@ const RequirementRegistrar = ({
         schoolYear={schoolYear}
         reqLoading={reqLoading}
         reqFetching={reqFetching}
+        gradeLevel={gradeLevel}
       />
     </div>
   );

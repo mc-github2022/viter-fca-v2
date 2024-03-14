@@ -94,9 +94,9 @@ const FormClientContactInfo = ({
                     className="text-2xl tooltip"
                     data-tooltip="Save"
                     type="submit"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
-                    {mutation.isLoading ? <ButtonSpinner /> : <AiOutlineSave />}
+                    {mutation.isPending ? <ButtonSpinner /> : <AiOutlineSave />}
                   </button>
                 )}
 
@@ -119,7 +119,7 @@ const FormClientContactInfo = ({
                   label="Full Name"
                   type="text"
                   name="contact_name"
-                  disabled={mutation.isLoading}
+                  disabled={mutation.isPending}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -128,7 +128,7 @@ const FormClientContactInfo = ({
                     label="Email"
                     type="email"
                     name="contact_email"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -138,7 +138,7 @@ const FormClientContactInfo = ({
                     name="contact_mobile"
                     maxLength="11"
                     onKeyPress={handleNumOnly}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -148,7 +148,7 @@ const FormClientContactInfo = ({
                     name="contact_landline"
                     maxLength="11"
                     onKeyPress={handleNumOnly}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -157,7 +157,7 @@ const FormClientContactInfo = ({
                     label="Prioriry Level?"
                     type="text"
                     name="contact_level"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Option">

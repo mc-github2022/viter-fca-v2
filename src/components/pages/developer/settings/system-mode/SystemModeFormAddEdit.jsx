@@ -75,13 +75,13 @@ const SystemModeFormAddEdit = ({ itemEdit }) => {
                     label="Name"
                     type="text"
                     name="system_mode_name"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -93,7 +93,7 @@ const SystemModeFormAddEdit = ({ itemEdit }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

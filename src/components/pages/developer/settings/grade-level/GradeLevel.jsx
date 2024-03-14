@@ -41,7 +41,7 @@ const GradeLevel = ({ index }) => {
             </p>
           </div>
 
-          {!store.isAdd && (
+          {!store.isSettingAdd && (
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}

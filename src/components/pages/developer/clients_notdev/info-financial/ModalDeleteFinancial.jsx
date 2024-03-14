@@ -71,15 +71,15 @@ const ModalDeleteFinancial = ({
         <div className="modal__action flex justify-end mt-2  !pr-0">
           <button
             className="btn btn--cancel "
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleYes}
             type="submit"
           >
-            {mutation.isLoading ? <ButtonSpinner /> : "Confirm"}
+            {mutation.isPending ? <ButtonSpinner /> : "Confirm"}
           </button>
           <button
             className="btn btn--alert text-white"
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleClose}
             type="button"
           >

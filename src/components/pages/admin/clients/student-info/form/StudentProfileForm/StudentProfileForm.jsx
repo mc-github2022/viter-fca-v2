@@ -201,7 +201,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="School Year"
                         type="text"
                         name="department_name"
-                        // disabled={mutation.isLoading}
+                        // disabled={mutation.isPending}
                       />
                     </div>
 
@@ -210,7 +210,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Learning Type"
                         type="text"
                         name="student_info_learning_type"
-                        //disabled={mutation.isLoading}
+                        //disabled={mutation.isPending}
                         onChange={(e) => e}
                       >
                         <option value="" hidden></option>
@@ -237,7 +237,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         type="text"
                         name="student_info_reference_no"
                         onKeyPress={handleNumOnly}
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -246,7 +246,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Grade Level"
                         type="text"
                         name="student_info_grade_id"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                         onChange={(e) => e}
                       >
                         <option value="" hidden></option>
@@ -275,7 +275,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Last Name (Suffix)"
                         type="text"
                         name="student_info_lname"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -284,7 +284,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="First Name"
                         type="text"
                         name="student_info_fname"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -293,7 +293,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Middle Name"
                         type="text"
                         name="student_info_mname"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -302,7 +302,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Gender"
                         type="text"
                         name="student_info_gender"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -311,7 +311,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Birthday"
                         type="text"
                         name="student_info_bday"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
 
@@ -320,7 +320,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Birth Place"
                         type="text"
                         name="student_info_birth_place"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
@@ -328,7 +328,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Email"
                         type="text"
                         name="student_info_institutional_email"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
@@ -337,7 +337,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         type="text"
                         name="student_info_mobile"
                         onKeyPress={handleNumOnly}
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
@@ -346,7 +346,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         type="text"
                         name="student_info_landline"
                         onKeyPress={handleNumOnly}
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -358,7 +358,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Current Address"
                         type="text"
                         name="student_info_adress_id"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                         onChange={(e) => e}
                       >
                         <option value="" hidden></option>
@@ -390,7 +390,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Last School Name"
                         type="text"
                         name="student_info_last_school"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
@@ -399,7 +399,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         type="text"
                         name="student_info_last_gpa"
                         onKeyPress={handleNumOnly}
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
@@ -407,7 +407,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label=" Level Last School Year"
                         type="text"
                         name="student_info_last_grade"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -418,7 +418,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="School Address"
                         type="text"
                         name="student_info_school_address"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -429,7 +429,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Was the student ever submitted to any form of disciplinary action? If so, why?"
                         type="text"
                         name="student_info_school_other"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -441,7 +441,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Pediatrician/Family Doctor: (optional)"
                         type="text"
                         name="student_info_medical_doctor"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                     <div className="form__wrap">
@@ -449,7 +449,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                         label="Contact Name: (optional)"
                         type="text"
                         name="student_info_medical_contact"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                       />
                     </div>
                   </div>
@@ -458,7 +458,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                       label="Are there any serious medical conditions about which you wish the school to be aware? Please indicate below:"
                       type="text"
                       name="student_info_medical_notes"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
 
@@ -467,7 +467,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                       label="Are there any family circumstances about which you wish the school to be aware? Please indicate below:"
                       type="text"
                       name="student_info_family_circumstances"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                 </div>

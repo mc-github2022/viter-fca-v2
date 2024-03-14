@@ -1,5 +1,3 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Form, Formik } from "formik";
 import { InputText, InputTextArea } from "@/components/helpers/FormInputs";
 import ModalWrapper from "@/components/partials/modals/ModalWrapper";
 import {
@@ -9,10 +7,12 @@ import {
   setValidate,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import { queryData } from "../../../../helpers/queryData";
-import * as Yup from "yup";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+import * as Yup from "yup";
+import { queryData } from "../../../../helpers/queryData";
 
 const ModalAddDepartment = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -89,7 +89,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
                       label="Department Name"
                       type="text"
                       name="department_name"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <div className="relative form__wrap">
@@ -97,16 +97,16 @@ const ModalAddDepartment = ({ itemEdit }) => {
                       label="Description"
                       type="text"
                       name="department_description"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <div className="modal__action flex justify-end mt-6 gap-2 ">
                     <button
                       className="btn btn--primary"
                       type="submit"
-                      disabled={mutation.isLoading || !props.dirty}
+                      disabled={mutation.isPending || !props.dirty}
                     >
-                      {mutation.isLoading ? (
+                      {mutation.isPending ? (
                         <ButtonSpinner />
                       ) : itemEdit ? (
                         "Save"
@@ -117,7 +117,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
                     <button
                       type="button"
                       className="btn btn--cancel"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                       onClick={handleClose}
                     >
                       Cancel

@@ -88,7 +88,7 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
                     label="Fullname"
                     type="text"
                     name="notification_name"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -97,7 +97,7 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
                     label="Email"
                     type="email"
                     name="notification_email"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -105,7 +105,7 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
                   <InputSelect
                     label="Department"
                     name="notification_department_id"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Department">
@@ -129,7 +129,7 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -141,7 +141,7 @@ const NotificationsFormAddEdit = ({ itemEdit, department }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

@@ -1,5 +1,6 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { InputSelect, InputText } from "@/components/helpers/FormInputs";
+import { numberWithCommas } from "@/components/helpers/functions-general";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -18,7 +19,6 @@ import {
   getTotalPayment,
   getUponEnrollment,
 } from "./functions-schedule-of-fee";
-import { numberWithCommas } from "@/components/helpers/functions-general";
 
 const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -165,7 +165,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       label="Category"
                       type="text"
                       name="tuition_fee_category_id"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                       onChange={(e) => handleCategory(e)}
                     >
                       <option value="" hidden>
@@ -192,7 +192,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       label="Grade"
                       type="text"
                       name="tuition_fee_grade_id"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                       onChange={(e) => handleGrade(e)}
                     >
                       <option value="" hidden>
@@ -223,7 +223,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       label="Scheme"
                       type="text"
                       name="tuition_fee_scheme_id"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                       onChange={(e) => handleScheme(e)}
                     >
                       <option value="" hidden>
@@ -255,7 +255,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       type="text"
                       number="number"
                       name="tuition_fee_admission"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
 
@@ -265,7 +265,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       type="text"
                       number="number"
                       name="tuition_fee_miscellaneous"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
 
@@ -275,7 +275,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       type="text"
                       number="number"
                       name="tuition_fee_tuition"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
 
@@ -285,7 +285,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       type="text"
                       number="number"
                       name="tuition_fee_books"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <p className="text-accent font-bold ">
@@ -300,7 +300,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       type="text"
                       number="number"
                       name="tuition_fee_monthly"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <div className="form__wrap text-xs mb-3">
@@ -309,7 +309,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                       type="text"
                       number="number"
                       name="tuition_fee_how_many_months"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <p className="text-accent font-bold ">
@@ -327,7 +327,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                 </div>
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -339,7 +339,7 @@ const ScheduleOfFeesFormAddEdit = ({ itemEdit }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

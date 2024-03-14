@@ -4,8 +4,8 @@ class RequirementRegistrar
     public $requirement_registrar_aid;
     public $requirement_registrar_active;
     public $requirement_registrar_department_id;
-
     public $requirement_registrar_name;
+    public $requirement_registrar_is_for_pre_school;
     public $requirement_registrar_created;
     public $requirement_registrar_datetime;
 
@@ -31,19 +31,22 @@ class RequirementRegistrar
             $sql = "insert into {$this->tblRequirementRegistrar} ";
             $sql .= "( requirement_registrar_active, ";
             $sql .= "requirement_registrar_name, ";
-            $sql .= "requirement_registrar_department_id, ";
+            $sql .= "requirement_registrar_is_for_pre_school, ";
+            // $sql .= "requirement_registrar_department_id, ";
             $sql .= "requirement_registrar_created, ";
             $sql .= "requirement_registrar_datetime ) values ( ";
             $sql .= ":requirement_registrar_active, ";
             $sql .= ":requirement_registrar_name, ";
-            $sql .= ":requirement_registrar_department_id, ";
+            $sql .= ":requirement_registrar_is_for_pre_school, ";
+            // $sql .= ":requirement_registrar_department_id, ";
             $sql .= ":requirement_registrar_created, ";
             $sql .= ":requirement_registrar_datetime ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "requirement_registrar_active" => $this->requirement_registrar_active,
                 "requirement_registrar_name" => $this->requirement_registrar_name,
-                "requirement_registrar_department_id" => $this->requirement_registrar_department_id,
+                "requirement_registrar_is_for_pre_school" => $this->requirement_registrar_is_for_pre_school,
+                // // "requirement_registrar_department_id" => $this->requirement_registrar_department_id,
                 "requirement_registrar_created" => $this->requirement_registrar_created,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
             ]);
@@ -58,10 +61,8 @@ class RequirementRegistrar
     {
         try {
             $sql = "select * ";
-
-            $sql .= "from {$this->tblRequirementRegistrar} as registrar, ";
-            $sql .= "{$this->tblDepartment} as dept ";
-            $sql .= "where registrar.requirement_registrar_department_id = dept.department_aid ";
+            $sql .= "from {$this->tblRequirementRegistrar} ";
+            // $sql .= "{$this->tblDepartment} as dept ";
             $sql .= "order by requirement_registrar_aid ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
@@ -74,14 +75,16 @@ class RequirementRegistrar
     {
         try {
             $sql = "update {$this->tblRequirementRegistrar} set ";
-            $sql .= "requirement_registrar_department_id = :requirement_registrar_department_id, ";
+            // $sql .= "requirement_registrar_department_id = :requirement_registrar_department_id, ";
             $sql .= "requirement_registrar_name = :requirement_registrar_name, ";
+            $sql .= "requirement_registrar_is_for_pre_school = :requirement_registrar_is_for_pre_school, ";
             $sql .= "requirement_registrar_datetime = :requirement_registrar_datetime ";
             $sql .= "where requirement_registrar_aid = :requirement_registrar_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "requirement_registrar_department_id" => $this->requirement_registrar_department_id,
+                // // "requirement_registrar_department_id" => $this->requirement_registrar_department_id,
                 "requirement_registrar_name" => $this->requirement_registrar_name,
+                "requirement_registrar_is_for_pre_school" => $this->requirement_registrar_is_for_pre_school,
                 "requirement_registrar_datetime" => $this->requirement_registrar_datetime,
                 "requirement_registrar_aid" => $this->requirement_registrar_aid,
             ]);
@@ -135,25 +138,6 @@ class RequirementRegistrar
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "requirement_registrar_name" => "{$this->requirement_registrar_name}",
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
-    // validator
-    public function checkAssociation()
-    {
-        try {
-            $sql = "select employee_last_name, ";
-            $sql .= "employee_first_name, ";
-            $sql .= "employee_aid ";
-            $sql .= "from {$this->tblEmployee} ";
-            $sql .= "where employee_requirement_registrar_id = :requirement_registrar_aid ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "requirement_registrar_aid" => $this->requirement_registrar_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

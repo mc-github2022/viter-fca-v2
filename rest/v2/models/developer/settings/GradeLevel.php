@@ -137,9 +137,12 @@ class GradeLevel
         try {
             $sql = "select grade_level_name from {$this->tblGradeLevel} ";
             $sql .= "where grade_level_name = :grade_level_name ";
+            $sql .= "or grade_level_order = :grade_level_order ";
+            $sql .= "group by grade_level_aid";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "grade_level_name" => "{$this->grade_level_name}",
+                "grade_level_order" => "{$this->grade_level_order}",
             ]);
         } catch (PDOException $ex) {
             $query = false;

@@ -71,11 +71,11 @@ const ModalArchive = ({ mysqlApiArchive, item, queryKey, isActive }) => {
           <div className="modal__action flex justify-end gap-4 mt-8">
             <button
               className="btn btn--warning"
-              disabled={mutation.isLoading}
+              disabled={mutation.isPending}
               onClick={handleYes}
               type="submit"
             >
-              {mutation.isLoading ? (
+              {mutation.isPending ? (
                 <ButtonSpinner />
               ) : isActive ? (
                 "Restore"
@@ -85,7 +85,7 @@ const ModalArchive = ({ mysqlApiArchive, item, queryKey, isActive }) => {
             </button>
             <button
               className="btn btn--cancel"
-              disabled={mutation.isLoading}
+              disabled={mutation.isPending}
               onClick={handleClose}
               type="button"
             >

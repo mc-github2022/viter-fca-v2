@@ -103,9 +103,9 @@ const FormClientFinancierInfo = ({
                     className="text-2xl tooltip"
                     data-tooltip="Save"
                     type="submit"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
-                    {mutation.isLoading ? <ButtonSpinner /> : <AiOutlineSave />}
+                    {mutation.isPending ? <ButtonSpinner /> : <AiOutlineSave />}
                   </button>
                 )}
 
@@ -126,7 +126,7 @@ const FormClientFinancierInfo = ({
                     type="text"
                     name="parents_father_income"
                     onKeyPress={handleNumOnly}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -135,7 +135,7 @@ const FormClientFinancierInfo = ({
                     type="text"
                     name="parents_mother_income"
                     onKeyPress={handleNumOnly}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -143,7 +143,7 @@ const FormClientFinancierInfo = ({
                     label="Financer Name"
                     type="text"
                     name="parents_financier_name"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -152,7 +152,7 @@ const FormClientFinancierInfo = ({
                     type="text"
                     onKeyPress={handleNumOnly}
                     name="parents_financier_income"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -160,7 +160,7 @@ const FormClientFinancierInfo = ({
                     label="Financier Relationship"
                     type="text"
                     name="parents_financier_relationship"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -168,7 +168,7 @@ const FormClientFinancierInfo = ({
                     label="Financier Occupation"
                     type="text"
                     name="parents_financier_occupation"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>

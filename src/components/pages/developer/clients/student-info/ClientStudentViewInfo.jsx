@@ -190,8 +190,6 @@ const ClientStudentViewInfo = () => {
     setData(item);
   };
 
-  console.log(parent);
-
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
@@ -272,7 +270,8 @@ const ClientStudentViewInfo = () => {
                               item,
                               getCurrentSchoolYear,
                               studentRequirement,
-                              registrarRequirement
+                              registrarRequirement,
+                              gradeLevel
                             )
                           )}
                         </span>
@@ -301,7 +300,8 @@ const ClientStudentViewInfo = () => {
                           {getRequirementsStatus(
                             item,
                             studentRequirement,
-                            registrarRequirement
+                            registrarRequirement,
+                            gradeLevel
                           )}
                         </span>
                       </p>
@@ -373,6 +373,7 @@ const ClientStudentViewInfo = () => {
           setViewRequirements={setViewRequirements}
           itemEdit={itemEdit}
           schoolYear={schoolYear}
+          gradeLevel={gradeLevel}
         />
       )}
 

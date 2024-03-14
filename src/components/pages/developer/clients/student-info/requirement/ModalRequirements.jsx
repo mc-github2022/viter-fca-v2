@@ -5,7 +5,12 @@ import { FiEdit2, FiPlus } from "react-icons/fi";
 import { LiaTimesSolid } from "react-icons/lia";
 import RequirementRegistrar from "./requirement-registrar/RequirementRegistrar.jsx";
 
-const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
+const ModalRequirements = ({
+  setViewRequirements,
+  itemEdit,
+  schoolYear,
+  gradeLevel,
+}) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
   const [index, setIndex] = React.useState(1);
 
@@ -125,6 +130,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit, schoolYear }) => {
                     schoolYear={schoolYear}
                     reqLoading={reqLoading}
                     reqFetching={reqFetching}
+                    gradeLevel={gradeLevel}
                   />
                 )}
               </main>

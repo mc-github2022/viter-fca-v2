@@ -248,7 +248,8 @@ const Student = () => {
                           {getRequirementsStatus(
                             item,
                             studentRequirement,
-                            registrarRequirement
+                            registrarRequirement,
+                            gradeLevel
                           )}
                         </span>
                       </p>
@@ -302,6 +303,7 @@ const Student = () => {
           setViewRequirements={setViewRequirements}
           itemEdit={itemEdit}
           schoolYear={schoolYear}
+          gradeLevel={gradeLevel}
         />
       )}
       {isViewInfo && (

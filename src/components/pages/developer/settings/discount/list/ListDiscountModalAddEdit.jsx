@@ -102,7 +102,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       label="Category"
                       type="text"
                       name="discount_category_id"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                       onChange={(e) => e}
                     >
                       <option value="" hidden>
@@ -131,7 +131,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       label="Type"
                       type="text"
                       name="discount_type"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <div>
@@ -142,7 +142,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                           type="text"
                           number="number"
                           name="discount_admission_fee"
-                          disabled={mutation.isLoading}
+                          disabled={mutation.isPending}
                         />
                       </div>
                       <div className="form__wrap text-xs mb-3">
@@ -151,7 +151,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                           type="text"
                           number="number"
                           name="discount_tuition_fee"
-                          disabled={mutation.isLoading}
+                          disabled={mutation.isPending}
                         />
                       </div>
                     </div>
@@ -161,7 +161,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       label="Qualification"
                       type="text"
                       name="discount_qualification"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <div className="form__wrap text-xs mb-3">
@@ -169,7 +169,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       label="Duration"
                       type="text"
                       name="discount_duration"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <div className="form__wrap text-xs mb-3">
@@ -178,7 +178,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       type="text"
                       number="number"
                       name="discount_maintaining_grade"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                   <div className="form__wrap text-xs mb-3">
@@ -186,14 +186,14 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                       label="Requirement"
                       type="text"
                       name="discount_requirement"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                 </div>
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -205,7 +205,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

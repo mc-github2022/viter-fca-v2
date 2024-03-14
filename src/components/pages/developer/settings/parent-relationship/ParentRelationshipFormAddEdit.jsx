@@ -77,7 +77,7 @@ const ParentRelationshipFormAddEdit = ({ itemEdit }) => {
                     label="Name"
                     type="text"
                     name="relationship_name"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -85,7 +85,7 @@ const ParentRelationshipFormAddEdit = ({ itemEdit }) => {
                   <InputSelect
                     label="Select yes if biological mother"
                     name="relationship_is_maiden"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Option">
@@ -100,7 +100,7 @@ const ParentRelationshipFormAddEdit = ({ itemEdit }) => {
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -112,7 +112,7 @@ const ParentRelationshipFormAddEdit = ({ itemEdit }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

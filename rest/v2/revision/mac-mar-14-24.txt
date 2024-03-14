@@ -1,0 +1,12 @@
+models
+1. rest/v2/models/developer/settings/RequirementRegistrar.php 
+2. rest/v2/models/developer/settings/GradeLevel.php 
+
+controllers
+1. rest/v2/controllers/developer/settings/requirement-registrar/update.php 
+2. rest/v2/controllers/developer/settings/requirement-registrar/create.php 
+3. rest/v2/controllers/developer/settings/grade-level/create.php
+
+db-backup
+1. rest/v2/db-backup/fcav2_settings_requirement_registrar.sql
+    - added new column `requirement_registrar_is_for_pre_school` tinyint(1) NOT NULL,
