@@ -1,5 +1,6 @@
 import { numberWithCommasToFixed } from "@/components/helpers/functions-general";
 import {
+  getAdditonalDiscount,
   getAdmissionDiscountedAmount,
   getMonthlyFeeDiscountedAmount,
   getTuitionDiscountedAmount,
@@ -10,6 +11,7 @@ const StudentPaymentSchemeList = ({
   selectItem,
   listOfScheme,
   primaryDiscountData,
+  totalAdditionalDiscountData,
 }) => {
   return (
     <div>
@@ -71,10 +73,16 @@ const StudentPaymentSchemeList = ({
               >
                 {numberWithCommasToFixed(listItem.tuition_fee_tuition, 2)}{" "}
                 <span className="text-accent font-bold">
-                  {Number(primaryDiscountData.tuitionFeePercent) > 0 &&
+                  {(Number(primaryDiscountData.tuitionFeePercent) > 0 ||
+                    Number(totalAdditionalDiscountData?.percent) > 0 ||
+                    Number(totalAdditionalDiscountData?.amount) > 0) &&
                     `(Disc. ${getTuitionDiscountedAmount(
                       primaryDiscountData,
-                      listItem
+                      listItem,
+                      getAdditonalDiscount(
+                        totalAdditionalDiscountData,
+                        listItem
+                      )?.amount
                     )})`}
                 </span>
               </li>
@@ -101,7 +109,7 @@ const StudentPaymentSchemeList = ({
         </ul>
 
         <ul className="grid grid-cols-4 hover:bg-gray-100 border-b border-line">
-          <li>Enrollment</li>
+          <li>Upon Enrollment</li>
           {listOfScheme?.data.map((listItem, key) => {
             return (
               <li
@@ -118,11 +126,17 @@ const StudentPaymentSchemeList = ({
                 )}{" "}
                 <span className="text-accent font-bold">
                   {(Number(primaryDiscountData.tuitionFeePercent) > 0 ||
-                    Number(primaryDiscountData.admissionFeePercent) > 0) &&
+                    Number(primaryDiscountData.admissionFeePercent) > 0 ||
+                    Number(totalAdditionalDiscountData?.percent) > 0 ||
+                    Number(totalAdditionalDiscountData?.amount) > 0) &&
                     `(Disc. ${numberWithCommasToFixed(
                       getUponEnrollmentDiscountedAmount(
                         primaryDiscountData,
-                        listItem
+                        listItem,
+                        getAdditonalDiscount(
+                          totalAdditionalDiscountData,
+                          listItem
+                        )?.amount
                       ),
                       2
                     )})`}
@@ -149,13 +163,15 @@ const StudentPaymentSchemeList = ({
                   {getMonthlyFeeDiscountedAmount(
                     listOfScheme,
                     primaryDiscountData,
-                    listItem
+                    listItem,
+                    totalAdditionalDiscountData
                   ).isDiscounted > 0 &&
                     ` (Disc. ${
                       getMonthlyFeeDiscountedAmount(
                         listOfScheme,
                         primaryDiscountData,
-                        listItem
+                        listItem,
+                        totalAdditionalDiscountData
                       ).monthlyFeeDiscounted
                     })`}
                 </span>
@@ -180,13 +196,15 @@ const StudentPaymentSchemeList = ({
                   {getMonthlyFeeDiscountedAmount(
                     listOfScheme,
                     primaryDiscountData,
-                    listItem
+                    listItem,
+                    totalAdditionalDiscountData
                   ).isDiscounted > 0 &&
                     ` (Disc. ${numberWithCommasToFixed(
                       getMonthlyFeeDiscountedAmount(
                         listOfScheme,
                         primaryDiscountData,
-                        listItem
+                        listItem,
+                        totalAdditionalDiscountData
                       ).totalMonthlyFeeDiscounted,
                       2
                     )})`}

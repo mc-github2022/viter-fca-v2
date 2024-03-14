@@ -13,7 +13,7 @@ const AssessmentAdditionalDiscountList = ({
   setAdditionalDiscountId,
   item,
   listOfScheme,
-  setTotalAdditionalDiscountData,
+  totalAdditionalDiscountData,
 }) => {
   const {
     isLoading,
@@ -33,8 +33,9 @@ const AssessmentAdditionalDiscountList = ({
       e.target.value
     );
 
-    setTotalAdditionalDiscountData(
-      getTotalAdditionalDiscount(listOfScheme, additionalDisc)
+    totalAdditionalDiscountData = getTotalAdditionalDiscount(
+      listOfScheme,
+      additionalDisc
     );
   };
 

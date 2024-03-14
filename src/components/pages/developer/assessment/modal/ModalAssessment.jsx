@@ -14,11 +14,13 @@ import AssessmentPrimaryDiscountList from "./AssessmentPrimaryDiscountList";
 import AssessmentRateList from "./AssessmentRateList";
 import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 import {
+  getGetAdditionalDiscount,
   getMonthlyFeeDiscountedAmount,
   getNotifyAcceptParentInitVal,
   getPrimaryPercentDiscount,
   getSectedScheme,
   getSelectedRate,
+  getTotalAdditionalDiscount,
   getTotalPaymentDiscountedAmount,
   getTotalPaymentWithComma,
   handleAssessmentRemarks,
@@ -35,13 +37,13 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   const [additionalDiscountId, setAdditionalDiscountId] = React.useState(
     Number(item.current_students_additional_discount_id)
   );
-  const [totalAdditionalDiscountData, setTotalAdditionalDiscountData] =
-    React.useState(Number(item.current_students_additional_discount_id));
+
   const [selectItem, setSelectItem] = React.useState(
     Number(item.current_students_schedule_fees_id)
   );
-  const [assessmentRemarks, setAssessmentRemarks] = React.useState("");
-
+  const [assessmentRemarks, setAssessmentRemarks] = React.useState(
+    item.current_students_assessment_remarks
+  );
   const {
     isLoading: isLoadingPrimaryDiscount,
     isFetching: isFetchingPrimaryDiscount,
@@ -55,6 +57,12 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   const primaryDiscountData = getPrimaryPercentDiscount(
     primaryDiscount,
     primaryDiscountId
+  );
+
+  const { data: additionalDiscount } = useQueryData(
+    "/v2/dev-assessment/read-additional-discount", // endpoint
+    "get", // method
+    "addtional-discount" // key
   );
 
   // accept or notify parent
@@ -136,6 +144,11 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     { gradeId: item.grade_level_aid, categoryId },
     item.grade_level_aid,
     categoryId
+  );
+
+  const totalAdditionalDiscountData = getTotalAdditionalDiscount(
+    listOfScheme,
+    getGetAdditionalDiscount(additionalDiscount, additionalDiscountId)
   );
 
   return (
@@ -319,9 +332,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     setAdditionalDiscountId={setAdditionalDiscountId}
                     item={item}
                     listOfScheme={listOfScheme}
-                    setTotalAdditionalDiscountData={
-                      setTotalAdditionalDiscountData
-                    }
+                    totalAdditionalDiscountData={totalAdditionalDiscountData}
                   />
                   {(selectItem > 0 || listOfScheme?.count > 0) && (
                     <div className="grid grid-cols-[250px_1fr] mb-8 mt-5 gap-5">

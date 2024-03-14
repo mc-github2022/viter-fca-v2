@@ -12,6 +12,7 @@ class Assessment
     public $current_students_rate_id;
     public $current_students_primary_discount_id;
     public $current_students_additional_discount_id;
+    public $current_students_assessment_remarks;
     public $current_students_datetime;
 
     public $connection;
@@ -66,6 +67,7 @@ class Assessment
             $sql .= "currentSyStudent.current_students_rate_id, ";
             $sql .= "currentSyStudent.current_students_primary_discount_id, ";
             $sql .= "currentSyStudent.current_students_additional_discount_id, ";
+            $sql .= "currentSyStudent.current_students_assessment_remarks, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
@@ -110,6 +112,7 @@ class Assessment
             $sql .= "currentSyStudent.current_students_rate_id, ";
             $sql .= "currentSyStudent.current_students_primary_discount_id, ";
             $sql .= "currentSyStudent.current_students_additional_discount_id, ";
+            $sql .= "currentSyStudent.current_students_assessment_remarks, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
@@ -159,6 +162,7 @@ class Assessment
             $sql .= "currentSyStudent.current_students_rate_id, ";
             $sql .= "currentSyStudent.current_students_primary_discount_id, ";
             $sql .= "currentSyStudent.current_students_additional_discount_id, ";
+            $sql .= "currentSyStudent.current_students_assessment_remarks, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
@@ -329,6 +333,7 @@ class Assessment
             $sql .= "current_students_rate_id = :current_students_rate_id, ";
             $sql .= "current_students_primary_discount_id = :current_students_primary_discount_id, ";
             $sql .= "current_students_additional_discount_id = :current_students_additional_discount_id, ";
+            $sql .= "current_students_assessment_remarks = :current_students_assessment_remarks, ";
             $sql .= "current_students_datetime = :current_students_datetime ";
             $sql .= "where current_students_aid = :current_students_aid ";
             $query = $this->connection->prepare($sql);
@@ -339,6 +344,7 @@ class Assessment
                 "current_students_rate_id" => $this->current_students_rate_id,
                 "current_students_primary_discount_id" => $this->current_students_primary_discount_id,
                 "current_students_additional_discount_id" => $this->current_students_additional_discount_id,
+                "current_students_assessment_remarks" => $this->current_students_assessment_remarks,
                 "current_students_datetime" => $this->current_students_datetime,
                 "current_students_aid" => $this->current_students_aid,
             ]);
@@ -359,6 +365,7 @@ class Assessment
             $sql .= "school_year_students_rate_id = :school_year_students_rate_id, ";
             $sql .= "school_year_students_primary_discount_id = :school_year_students_primary_discount_id, ";
             $sql .= "school_year_students_additional_discount_id = :school_year_students_additional_discount_id, ";
+            $sql .= "school_year_students_assessment_remarks = :school_year_students_assessment_remarks, ";
             $sql .= "school_year_students_datetime = :school_year_students_datetime ";
             $sql .= "where school_year_students_sy_id = :school_year_students_sy_id ";
             $sql .= "and school_year_students_student_id = :school_year_students_student_id ";
@@ -370,6 +377,7 @@ class Assessment
                 "school_year_students_rate_id" => $this->current_students_rate_id,
                 "school_year_students_primary_discount_id" => $this->current_students_primary_discount_id,
                 "school_year_students_additional_discount_id" => $this->current_students_additional_discount_id,
+                "school_year_students_assessment_remarks" => $this->current_students_assessment_remarks,
                 "school_year_students_datetime" => $this->current_students_datetime,
                 "school_year_students_sy_id" => $this->current_students_sy_id,
                 "school_year_students_student_id" => $this->students_aid,

@@ -49,7 +49,12 @@ export const getPrimaryPercentDiscount = (
       Number(primaryDiscountRowData[0]?.discount_tuition_fee) / 100;
   }
 
-  return { admissionFeePercent, tuitionFeePercent };
+  const val = {
+    admissionFeePercent,
+    tuitionFeePercent,
+  };
+
+  return { ...val };
 };
 
 // PRIMARY DISCOUNT
@@ -111,13 +116,16 @@ export const getTuitionDiscountedAmount = (
 // GET TOTAL OF UPON ENROLLMENT
 export const getUponEnrollmentDiscountedAmount = (
   primaryDiscountData,
-  listItem
+  listItem,
+  additionalDiscount
 ) => {
   let result = "";
 
   if (
-    !isNaN(primaryDiscountData.tuitionFeePercent) ||
-    !isNaN(primaryDiscountData.admissionFeePercent)
+    (!isNaN(primaryDiscountData.tuitionFeePercent) ||
+      !isNaN(primaryDiscountData.admissionFeePercent)) &&
+    (Number(primaryDiscountData.tuitionFeePercent) > 0 ||
+      Number(primaryDiscountData.admissionFeePercent) > 0)
   ) {
     const discountedAdmissionFeeAmount =
       Number(listItem.tuition_fee_admission) *
@@ -135,56 +143,111 @@ export const getUponEnrollmentDiscountedAmount = (
 
     result = amount;
   }
+
+  if (
+    Number(additionalDiscount) > 0 &&
+    (!isNaN(primaryDiscountData.tuitionFeePercent) ||
+      !isNaN(primaryDiscountData.admissionFeePercent)) &&
+    (Number(primaryDiscountData.tuitionFeePercent) > 0 ||
+      Number(primaryDiscountData.admissionFeePercent) > 0)
+  ) {
+    const discountedAdmissionFeeAmount =
+      Number(listItem.tuition_fee_admission) *
+      Number(primaryDiscountData.admissionFeePercent);
+
+    const discountedTuitionFeeAmount =
+      Number(listItem.tuition_fee_tuition) *
+      Number(primaryDiscountData.tuitionFeePercent);
+
+    const amount =
+      Number(discountedAdmissionFeeAmount) +
+      Number(listItem.tuition_fee_miscellaneous) +
+      Number(discountedTuitionFeeAmount) +
+      Number(listItem.tuition_fee_books) -
+      Number(additionalDiscount);
+
+    result = amount;
+  }
+
+  if (
+    Number(additionalDiscount) > 0 &&
+    (Number(primaryDiscountData.tuitionFeePercent) === 0 ||
+      Number(primaryDiscountData.admissionFeePercent) === 0)
+  ) {
+    const discountedTuitionFeeAmount =
+      Number(listItem.tuition_fee_tuition) - Number(additionalDiscount);
+
+    const amount =
+      Number(listItem.tuition_fee_admission) +
+      Number(listItem.tuition_fee_miscellaneous) +
+      Number(discountedTuitionFeeAmount) +
+      Number(listItem.tuition_fee_books);
+
+    result = amount;
+  }
+
   return result;
 };
 
 // PRIMARY DISCOUNT
 // GET TOTAL OF UPON ENROLLMENT
 export const getTotalPaymentDiscountedAmount = (
-  listOfScheme,
-  primaryDiscountData,
-  listItem,
-  totalAdditionalDiscount
+  uponEnrollment,
+  totalMonthly
 ) => {
-  let result = 0;
-  let newListOfSchemeData = [];
-  let amount =
-    Number(listItem.tuition_fee_upon_enrollment) +
-    Number(listItem.tuition_fee_total_monthly) -
-    Number(totalAdditionalDiscount);
+  const amount = Number(uponEnrollment) + Number(totalMonthly);
 
-  if (listOfScheme?.count > 0) {
-    newListOfSchemeData = listOfScheme?.data.filter(
-      (acItem) => acItem.tuition_fee_monthly === ""
-    );
-  }
-
-  if (Number(primaryDiscountData.tuitionFeePercent) > 0) {
-    const uponEnrollmentDiscountedAmount =
-      getUponEnrollmentDiscountedAmount(primaryDiscountData, listItem) -
-      Number(totalAdditionalDiscount);
-    const monthlyFeeDiscountedAmount = getMonthlyFeeDiscountedAmount(
-      listOfScheme,
-      primaryDiscountData,
-      listItem
-    ).totalMonthlyFeeDiscounted;
-
-    amount =
-      Number(uponEnrollmentDiscountedAmount) +
-      Number(monthlyFeeDiscountedAmount);
-  }
-
-  result = numberWithCommasToFixed(amount, 2);
+  const result = numberWithCommasToFixed(amount, 2);
 
   return result;
 };
+// // PRIMARY DISCOUNT
+// // GET TOTAL OF UPON ENROLLMENT
+// export const getTotalPaymentDiscountedAmount = (
+//   listOfScheme,
+//   primaryDiscountData,
+//   listItem
+// ) => {
+//   let result = 0;
+//   let newListOfSchemeData = [];
+//   let amount =
+//     Number(listItem.tuition_fee_upon_enrollment) +
+//     Number(listItem.tuition_fee_total_monthly);
+
+//   if (listOfScheme?.count > 0) {
+//     newListOfSchemeData = listOfScheme?.data.filter(
+//       (acItem) => acItem.tuition_fee_monthly === ""
+//     );
+//   }
+
+//   if (Number(primaryDiscountData.tuitionFeePercent) > 0) {
+//     const uponEnrollmentDiscountedAmount = getUponEnrollmentDiscountedAmount(
+//       primaryDiscountData,
+//       listItem
+//     );
+//     const monthlyFeeDiscountedAmount = getMonthlyFeeDiscountedAmount(
+//       listOfScheme,
+//       primaryDiscountData,
+//       listItem
+//     ).totalMonthlyFeeDiscounted;
+
+//     amount =
+//       Number(uponEnrollmentDiscountedAmount) +
+//       Number(monthlyFeeDiscountedAmount);
+//   }
+
+//   result = numberWithCommasToFixed(amount, 2);
+
+//   return result;
+// };
 
 // PRIMARY DISCOUNT
 // GET TOTAL OF MONTHLY FEE
 export const getMonthlyFeeDiscountedAmount = (
   listOfScheme,
   primaryDiscountData,
-  listItem
+  listItem,
+  totalAdditionalDiscountData
 ) => {
   let monthlyFeeDiscounted = "";
   let totalMonthlyFeeDiscounted = "";
@@ -196,16 +259,24 @@ export const getMonthlyFeeDiscountedAmount = (
   let finalAmount = 0;
   let isDiscounted = 1;
 
+  let totalAdditionalDiscount = getAdditonalDiscount(
+    totalAdditionalDiscountData,
+    listItem
+  );
+
   if (listOfScheme?.count > 0) {
     newListOfSchemeData = listOfScheme?.data.filter(
       (acItem) => acItem.tuition_fee_monthly === ""
     );
   }
+
+  // for primary discount only
   if (
-    ((Number(primaryDiscountData?.tuitionFeePercent) > 0 ||
+    Number(totalAdditionalDiscount?.amount) === 0 &&
+    (Number(primaryDiscountData?.tuitionFeePercent) > 0 ||
       Number(primaryDiscountData?.admissionFeePercent) > 0) &&
-      !isNaN(primaryDiscountData?.tuitionFeePercent)) ||
-    !isNaN(primaryDiscountData?.admissionFeePercent)
+    (!isNaN(primaryDiscountData?.tuitionFeePercent) ||
+      !isNaN(primaryDiscountData?.admissionFeePercent))
   ) {
     if (newListOfSchemeData?.length > 0) {
       schemeADiscountedAdmissionFeeAmount =
@@ -257,11 +328,138 @@ export const getMonthlyFeeDiscountedAmount = (
     monthlyFeeDiscounted = numberWithCommasToFixed(finalAmount, 2);
     totalMonthlyFeeDiscounted = amount;
   }
+
+  // for additional discount only
+  if (
+    Number(totalAdditionalDiscount?.amount) > 0 &&
+    (Number(primaryDiscountData?.tuitionFeePercent) === 0 ||
+      Number(primaryDiscountData?.admissionFeePercent) === 0 ||
+      isNaN(primaryDiscountData?.tuitionFeePercent) ||
+      isNaN(primaryDiscountData?.admissionFeePercent))
+  ) {
+    if (newListOfSchemeData?.length > 0) {
+      schemeADiscountedAdmissionFeeAmount = Number(
+        newListOfSchemeData[0]?.tuition_fee_admission
+      );
+
+      schemeADiscountedTuitionFeeAmount = Number(
+        newListOfSchemeData[0]?.tuition_fee_tuition -
+          getAdditonalDiscount(
+            totalAdditionalDiscountData,
+            newListOfSchemeData[0]
+          )?.amount
+      );
+
+      schemeAMisc = Number(newListOfSchemeData[0]?.tuition_fee_miscellaneous);
+      schemeABooks = Number(newListOfSchemeData[0]?.tuition_fee_books);
+    }
+
+    const discountedAdmissionFeeAmount = Number(listItem.tuition_fee_admission);
+
+    const discountedTuitionFeeAmount =
+      Number(listItem.tuition_fee_tuition) -
+      Number(totalAdditionalDiscount?.amount);
+
+    // COMPUTION START HERE
+    const finalAdimissionFee =
+      schemeADiscountedAdmissionFeeAmount - discountedAdmissionFeeAmount;
+
+    const finalMiscFee =
+      schemeAMisc - Number(listItem.tuition_fee_miscellaneous);
+
+    const finalTuitionFee =
+      schemeADiscountedTuitionFeeAmount - discountedTuitionFeeAmount;
+
+    const finalTuitionFeeAmount = finalTuitionFee * 0.05;
+
+    const finalBooksFee = schemeABooks - Number(listItem.tuition_fee_books);
+
+    const amount =
+      Number(finalAdimissionFee) +
+      Number(finalMiscFee) +
+      Number(finalTuitionFee) +
+      finalTuitionFeeAmount +
+      Number(finalBooksFee);
+
+    if (Number(listItem.tuition_fee_how_many_months) > 0) {
+      finalAmount =
+        Number(amount) / Number(listItem.tuition_fee_how_many_months);
+    }
+
+    monthlyFeeDiscounted = numberWithCommasToFixed(finalAmount, 2);
+    totalMonthlyFeeDiscounted = amount;
+  }
+
+  // for primary and additional discount
+  if (
+    Number(totalAdditionalDiscount?.amount) > 0 &&
+    (Number(primaryDiscountData?.tuitionFeePercent) > 0 ||
+      Number(primaryDiscountData?.admissionFeePercent) > 0) &&
+    (!isNaN(primaryDiscountData?.tuitionFeePercent) ||
+      !isNaN(primaryDiscountData?.admissionFeePercent))
+  ) {
+    if (newListOfSchemeData?.length > 0) {
+      schemeADiscountedAdmissionFeeAmount =
+        Number(newListOfSchemeData[0]?.tuition_fee_admission) *
+        Number(primaryDiscountData.admissionFeePercent);
+
+      schemeADiscountedTuitionFeeAmount =
+        Number(newListOfSchemeData[0]?.tuition_fee_tuition) *
+          Number(primaryDiscountData.tuitionFeePercent) -
+        getAdditonalDiscount(
+          totalAdditionalDiscountData,
+          newListOfSchemeData[0]
+        )?.amount;
+
+      schemeAMisc = Number(newListOfSchemeData[0]?.tuition_fee_miscellaneous);
+      schemeABooks = Number(newListOfSchemeData[0]?.tuition_fee_books);
+    }
+
+    const discountedAdmissionFeeAmount =
+      Number(listItem.tuition_fee_admission) *
+      Number(primaryDiscountData.admissionFeePercent);
+
+    const discountedTuitionFeeAmount =
+      Number(listItem.tuition_fee_tuition) *
+      Number(primaryDiscountData.tuitionFeePercent);
+
+    // COMPUTION START HERE
+    const finalAdimissionFee =
+      schemeADiscountedAdmissionFeeAmount - discountedAdmissionFeeAmount;
+
+    const finalMiscFee =
+      schemeAMisc - Number(listItem.tuition_fee_miscellaneous);
+
+    const finalTuitionFee =
+      schemeADiscountedTuitionFeeAmount - discountedTuitionFeeAmount;
+
+    const finalTuitionFeeAmount = finalTuitionFee * 0.05;
+
+    const finalBooksFee = schemeABooks - Number(listItem.tuition_fee_books);
+
+    const amount =
+      Number(finalAdimissionFee) +
+      Number(finalMiscFee) +
+      Number(finalTuitionFee) +
+      finalTuitionFeeAmount +
+      Number(finalBooksFee);
+
+    if (Number(listItem.tuition_fee_how_many_months) > 0) {
+      finalAmount =
+        Number(amount) / Number(listItem.tuition_fee_how_many_months);
+    }
+
+    monthlyFeeDiscounted = numberWithCommasToFixed(finalAmount, 2);
+    totalMonthlyFeeDiscounted = amount;
+  }
   if (
     finalAmount === 0 ||
     Number(primaryDiscountData.tuitionFeePercent) === 0
   ) {
     isDiscounted = 0;
+  }
+  if (Number(totalAdditionalDiscount?.amount) > 0) {
+    isDiscounted = 1;
   }
 
   return { monthlyFeeDiscounted, totalMonthlyFeeDiscounted, isDiscounted };
@@ -304,6 +502,7 @@ export const getAdditonalDiscount = (totalAdditionalDiscount, listItem) => {
       monthly = Number(amount) / Number(listItem.tuition_fee_how_many_months);
     }
   }
+
   return { monthly, amount };
 };
 
@@ -439,7 +638,12 @@ export const getTotalAdditionalDiscount = (listOfScheme, additionalDisc) => {
     }
   }
 
-  return { amount, percent };
+  const val = {
+    amount,
+    percent,
+  };
+
+  return { ...val };
 };
 
 // if use filter
