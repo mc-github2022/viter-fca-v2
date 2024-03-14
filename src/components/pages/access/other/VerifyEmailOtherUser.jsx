@@ -6,7 +6,7 @@ import {
 import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import LogoGreen from "@/components/partials/svg/LogoGreen";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { FaSquareCheck } from "react-icons/fa6";
 
 const VerifyEmailOtherUser = () => {
   const key = getUrlParam().get("key");
@@ -20,8 +20,6 @@ const VerifyEmailOtherUser = () => {
     "get", // method
     "change-email" // key
   );
-
-  console.log(changeEmail);
 
   return (
     <>
@@ -51,8 +49,8 @@ const VerifyEmailOtherUser = () => {
                 <div className="flex justify-center">
                   <LogoGreen />
                 </div>
-                <AiFillCheckCircle className="text-5xl fill-accent mx-auto mt-10 mb-2" />
-                <h2 className="mb-4 mt-2 text-lg text-center">Success</h2>
+                <FaSquareCheck className="text-5xl fill-accent mx-auto mt-10 mb-2" />
+                <h2 className="mb-4 mt-2 text-lg text-center">Success!</h2>
                 <p className="text-sm mb-6">
                   Your email has been successfully changed! You can now login
                   using your new email.

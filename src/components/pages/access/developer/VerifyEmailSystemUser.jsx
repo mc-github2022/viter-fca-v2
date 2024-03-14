@@ -6,7 +6,7 @@ import {
 import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import LogoGreen from "@/components/partials/svg/LogoGreen";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { FaSquareCheck } from "react-icons/fa6";
 
 const VerifyEmailSystemUser = () => {
   const key = getUrlParam().get("key");
@@ -23,7 +23,7 @@ const VerifyEmailSystemUser = () => {
 
   return (
     <>
-      {changeEmail?.count === 0 || key === null || key === "" || error ? (
+      {changeEmail?.count === 0 && key === null && key === "" && error ? (
         <>
           {isLoading && (
             <div className="absolute top-0 right-0 bottom-0 left-0 bg-white z-50">
@@ -45,7 +45,7 @@ const VerifyEmailSystemUser = () => {
                 <div className="flex justify-center">
                   <LogoGreen />
                 </div>
-                <AiFillCheckCircle className="text-5xl fill-accent mx-auto mt-10 mb-2" />
+                <FaSquareCheck className="text-5xl fill-accent mx-auto mt-10 mb-2" />
                 <h2 className="mb-4 mt-2 text-lg text-center">Success</h2>
                 <p className="text-sm mb-6">
                   Your email has been successfully changed! You can now login

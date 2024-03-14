@@ -22,8 +22,16 @@ $user_other->user_other_key = $encrypt->doHash(rand());
 $user_other->user_other_created = date("Y-m-d H:i:s");
 $user_other->user_other_datetime = date("Y-m-d H:i:s");
 $password_link = "/create-password";
+$queryParentAccount = $user_other->checkEmailForParentd();
+
 // check email
 isEmailExist($user_other, $user_other->user_other_email);
+
+// check email for parent if exist
+if ($queryParentAccount->rowCount() == 0) {
+    returnError("Invalid account. Please use a registered one.");
+}
+
 // send email notification
 sendEmail(
     $password_link,
