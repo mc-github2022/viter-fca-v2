@@ -60,6 +60,8 @@ const ReportsStudentList = ({ schoolYear }) => {
     }
   }, [inView]);
 
+  console.log(gender, gradeLevel.grade, withLrn, birthDate);
+
   return (
     <>
       <div className="w-full flex items-center justify-between flex-wrap">
@@ -96,7 +98,7 @@ const ReportsStudentList = ({ schoolYear }) => {
               {gender === "m" ? "Male" : "Female"}
             </span>
           )}
-          {Object.keys(gradeLevel).length > 0 && (
+          {Object.keys(gradeLevel).length > 0 && gradeLevel.grade !== 0 && (
             <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
               {gradeLevel.grade}
             </span>
