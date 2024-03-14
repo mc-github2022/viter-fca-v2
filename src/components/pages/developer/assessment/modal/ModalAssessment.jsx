@@ -294,7 +294,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                       </>
                     )}
 
-                    {(!loadingListOfScheme || listOfScheme?.count === 0) && (
+                    {!loadingListOfScheme && listOfScheme?.count === 0 && (
                       <>
                         <div className="min-h-250px flex items-end opacity-[0.8] ml-3 ">
                           <p className="font-bold text-base mb-0">
