@@ -15,6 +15,7 @@ import { FaWpforms } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { useInView } from "react-intersection-observer";
 import ModalRemoveFromEnrollment from "./modals/ModalRemoveFromEnrollment";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 
 const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -51,7 +52,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
       }
       return;
     },
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   const handleArchive = (item) => {
@@ -99,7 +100,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
       />
       <div className="main__table relative">
         {isFetching && !isFetchingNextPage && status !== "loading" && (
-          <FetchingSpinner />
+          <TableSpinner />
         )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <h6>

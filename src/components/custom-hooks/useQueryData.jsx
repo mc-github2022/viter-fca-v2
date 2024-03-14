@@ -8,13 +8,14 @@ const useQueryData = (
   key = "",
   fd = {},
   id = null,
-  item = null
+  item = null,
+  isRefresh
 ) => {
   return useQuery({
     queryKey: [key, id, item],
     queryFn: () => queryData(endpoint, method, fd),
     // retry: false,
-    // refetchOnWindowFocus: false,
+    refetchOnWindowFocus: isRefresh,
     // cacheTime: 200,
   });
 };

@@ -24,6 +24,7 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
+import EmailTemplates from "@/components/pages/developer/settings/email-templates/EmailTemplates";
 
 const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
@@ -92,6 +93,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
                   isGreaterThanEndYear={isGreaterThanEndYear}
                 />
                 <Notifications index={index} />
+                <EmailTemplates index={index} />
                 <ParentRelationship index={index} />
                 <GradeLevel index={index} />
                 <LearningType index={index} />

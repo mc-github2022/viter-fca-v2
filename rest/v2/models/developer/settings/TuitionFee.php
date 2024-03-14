@@ -300,7 +300,7 @@ class TuitionFee
             $sql .= "grade_level_name ";
             $sql .= "from {$this->tblGradeLevel} ";
             $sql .= "where grade_level_active = '1' ";
-            $sql .= "order by grade_level_name asc ";
+            $sql .= "order by grade_level_order asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;

@@ -123,14 +123,16 @@ const CardClientParentInfo = ({
                   >
                     <FiEdit2 className="text-[17px]" />
                   </button>
-
-                  <button
-                    className=" tooltip"
-                    data-tooltip="Delete"
-                    onClick={() => handleDeleteGuardianCard(item)}
-                  >
-                    <FiTrash className="text-[17px]" />
-                  </button>
+                  {(store.credentials.data.role_is_developer === 1 ||
+                    store.credentials.data.role_is_admin === 1) && (
+                    <button
+                      className=" tooltip"
+                      data-tooltip="Delete"
+                      onClick={() => handleDeleteGuardianCard(item)}
+                    >
+                      <FiTrash className="text-[17px]" />
+                    </button>
+                  )}
                 </div>
               </div>
             </React.Fragment>
