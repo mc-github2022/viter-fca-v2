@@ -149,14 +149,17 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                     <button className="p-1 pl-4 ">Commitment Form</button>
                   </li>
 
-                  <li
-                    className={` ${
-                      index === 7 ? "bg-accent text-primary" : ""
-                    } cursor-pointer`}
-                    onClick={() => handleChangeProfile(7)}
-                  >
-                    <button className="p-1 pl-4 ">Payment Remarks</button>
-                  </li>
+                  {(store.credentials.data.role_is_developer === 1 ||
+                    store.credentials.data.role_is_admin === 1) && (
+                    <li
+                      className={` ${
+                        index === 7 ? "bg-accent text-primary" : ""
+                      } cursor-pointer`}
+                      onClick={() => handleChangeProfile(7)}
+                    >
+                      <button className="p-1 pl-4 ">Payment Remarks</button>
+                    </li>
+                  )}
                 </ul>
               </aside>
               <main
