@@ -14,13 +14,16 @@ import AssessmentPrimaryDiscountList from "./AssessmentPrimaryDiscountList";
 import AssessmentRateList from "./AssessmentRateList";
 import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 import {
+  getGetAdditionalDiscount,
   getMonthlyFeeDiscountedAmount,
   getNotifyAcceptParentInitVal,
   getPrimaryPercentDiscount,
   getSectedScheme,
   getSelectedRate,
+  getTotalAdditionalDiscount,
   getTotalPaymentDiscountedAmount,
   getTotalPaymentWithComma,
+  handleAssessmentRemarks,
 } from "./functions-assessment";
 
 const ModalAssessment = ({ setShowAssessment, item }) => {
@@ -34,13 +37,13 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   const [additionalDiscountId, setAdditionalDiscountId] = React.useState(
     Number(item.current_students_additional_discount_id)
   );
-  const [totalAdditionalDiscount, setTotalAdditionalDiscount] = React.useState(
-    Number(item.current_students_additional_discount_id)
-  );
+
   const [selectItem, setSelectItem] = React.useState(
     Number(item.current_students_schedule_fees_id)
   );
-
+  const [assessmentRemarks, setAssessmentRemarks] = React.useState(
+    item.current_students_assessment_remarks
+  );
   const {
     isLoading: isLoadingPrimaryDiscount,
     isFetching: isFetchingPrimaryDiscount,
@@ -54,6 +57,12 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   const primaryDiscountData = getPrimaryPercentDiscount(
     primaryDiscount,
     primaryDiscountId
+  );
+
+  const { data: additionalDiscount } = useQueryData(
+    "/v2/dev-assessment/read-additional-discount", // endpoint
+    "get", // method
+    "addtional-discount" // key
   );
 
   // accept or notify parent
@@ -104,7 +113,8 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
         tuitionItem,
         primaryDiscountId,
         additionalDiscountId,
-        item
+        item,
+        assessmentRemarks
       ),
       tuition_fee_aid: 0,
     });
@@ -120,7 +130,8 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
         tuitionItem,
         primaryDiscountId,
         additionalDiscountId,
-        item
+        item,
+        assessmentRemarks
       )
     );
     setIsNotify(false);
@@ -133,6 +144,11 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     { gradeId: item.grade_level_aid, categoryId },
     item.grade_level_aid,
     categoryId
+  );
+
+  const totalAdditionalDiscountData = getTotalAdditionalDiscount(
+    listOfScheme,
+    getGetAdditionalDiscount(additionalDiscount, additionalDiscountId)
   );
 
   return (
@@ -278,20 +294,24 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                       </>
                     )}
 
-                    {(loadingListOfScheme || listOfScheme?.count === 0) && (
+                    {(!loadingListOfScheme || listOfScheme?.count === 0) && (
                       <>
-                        {loadingListOfScheme ? (
-                          <TableLoading count={20} cols={3} />
-                        ) : (
-                          <div className="min-h-250px flex items-end opacity-[0.8] ml-3 ">
-                            <p className="font-bold text-base mb-0">
-                              No Rate Selected
-                            </p>
-                          </div>
-                        )}
+                        <div className="min-h-250px flex items-end opacity-[0.8] ml-3 ">
+                          <p className="font-bold text-base mb-0">
+                            No Rate Selected
+                          </p>
+                        </div>
                       </>
                     )}
                   </div>
+
+                  {loadingListOfScheme && (
+                    <>
+                      {loadingListOfScheme && (
+                        <TableLoading count={20} cols={3} />
+                      )}
+                    </>
+                  )}
 
                   <AssessmentRateList
                     listOfScheme={listOfScheme}
@@ -300,7 +320,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     loadingListOfScheme={loadingListOfScheme}
                     primaryDiscountId={primaryDiscountId}
                     additionalDiscountId={additionalDiscountId}
-                    totalAdditionalDiscount={totalAdditionalDiscount}
+                    totalAdditionalDiscountData={totalAdditionalDiscountData}
                   />
 
                   <AssessmentPrimaryDiscountList
@@ -316,11 +336,31 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     setAdditionalDiscountId={setAdditionalDiscountId}
                     item={item}
                     listOfScheme={listOfScheme}
-                    setTotalAdditionalDiscount={setTotalAdditionalDiscount}
+                    totalAdditionalDiscountData={totalAdditionalDiscountData}
+                    loadingListOfScheme={loadingListOfScheme}
                   />
-                </div>
+                  {(selectItem > 0 || listOfScheme?.count > 0) && (
+                    <div className="grid grid-cols-[250px_1fr] mb-8 mt-5 gap-5">
+                      <label
+                        htmlFor=""
+                        className="font-bold opacity-100 text-black uppercase text-[12px]"
+                      >
+                        Remarks
+                      </label>
 
-                {/* <div className="flex justify-end items-center gap-2"></div> */}
+                      <div className="form__wrap !mb-0">
+                        <textarea
+                          type="text"
+                          placeholder="Type here..."
+                          onChange={(e) =>
+                            handleAssessmentRemarks(e, setAssessmentRemarks)
+                          }
+                          value={assessmentRemarks}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 <div
                   className={`absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 pr-7 py-8 w-full `}

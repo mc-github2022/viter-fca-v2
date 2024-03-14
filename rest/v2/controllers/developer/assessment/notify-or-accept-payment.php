@@ -22,6 +22,7 @@ if (array_key_exists("studentSyId", $_GET)) {
     $assessment_list->current_students_rate_id = checkIndex($data, "tuition_category_aid");
     $assessment_list->current_students_primary_discount_id = $data["primaryDiscountId"];
     $assessment_list->current_students_additional_discount_id = $data["additionalDiscountId"];
+    $assessment_list->current_students_assessment_remarks = $data["assessmentRemarks"];
     $assessment_list->students_aid = $data["students_aid"];
     $assessment_list->current_students_sy_id = $data["current_students_sy_id"];
     $assessment_list->current_students_datetime = date("Y-m-d H:i:s");

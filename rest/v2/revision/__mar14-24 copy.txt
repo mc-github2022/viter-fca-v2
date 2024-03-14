@@ -1,0 +1,10 @@
+UPLOAD 
+ 
+ *CONTROLLERS
+ ==> rest/v2/controllers/developer/students/payment-scheme/functions.php
+ ==> rest/v2/controllers/developer/students/payment-scheme/update-payment-remarks.php
+
+*MODELS 
+ ==> rest/v2/models/developer/student/PaymentScheme.php
+ 
+   

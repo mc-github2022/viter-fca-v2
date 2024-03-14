@@ -1,5 +1,8 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { numberWithCommasToFixed } from "@/components/helpers/functions-general.jsx";
+import {
+  consoleLog,
+  numberWithCommasToFixed,
+} from "@/components/helpers/functions-general.jsx";
 import TableLoading from "@/components/partials/TableLoading";
 import { setSettingIsConfirm } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
@@ -7,11 +10,16 @@ import React from "react";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { FaExclamationCircle } from "react-icons/fa";
 import {
+  getAdditonalDiscount,
+  getGetAdditionalDiscount,
   getMonthlyFeeDiscountedAmount,
   getPrimaryPercentDiscount,
   getSectedScheme,
+  getTotalAdditionalDiscount,
   getTotalPaymentDiscountedAmount,
   getTotalPaymentWithComma,
+  getUponEnrollmentDiscountedAmount,
+  handleAssessmentRemarks,
 } from "../../../assessment/modal/functions-assessment";
 import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
 import NoData from "@/components/partials/NoData";
@@ -24,14 +32,30 @@ const StudentPaymentScheme = ({
   handleClose,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const [assessmentRemarks, setAssessmentRemarks] = React.useState(
+    dataItem.current_students_assessment_remarks
+  );
+
   const [selectItem, setSelectItem] = React.useState(
     Number(dataItem.current_students_schedule_fees_id)
   );
-
+  const isChangeRemarks =
+    assessmentRemarks !== dataItem.current_students_assessment_remarks;
   const { data: primaryDiscount } = useQueryData(
     "/v2/dev-assessment/read-primary-discount", // endpoint
     "get", // method
     "primary-discount" // key
+  );
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: additionalDiscount,
+  } = useQueryData(
+    "/v2/dev-assessment/read-additional-discount", // endpoint
+    "get", // method
+    "addtional-discount" // key
   );
 
   const primaryDiscountData = getPrimaryPercentDiscount(
@@ -51,6 +75,13 @@ const StudentPaymentScheme = ({
     dataItem?.current_students_rate_id
   );
 
+  const totalAdditionalDiscountData = getTotalAdditionalDiscount(
+    listOfScheme,
+    getGetAdditionalDiscount(
+      additionalDiscount,
+      dataItem.current_students_additional_discount_id
+    )
+  );
   const handleSelectScheme = (listItem) => {
     if (dataItem.current_students_is_accept_payment === 0) {
       setSelectItem(listItem.tuition_fee_aid);
@@ -66,6 +97,7 @@ const StudentPaymentScheme = ({
       ...tuitionItem,
       current_students_sy_id: dataItem.current_students_sy_id,
       students_aid: dataItem.students_aid,
+      assessmentRemarks,
     });
     setIsSavePaymentScheme(true);
     setSelectItem(tuitionItem.tuition_fee_aid);
@@ -77,6 +109,7 @@ const StudentPaymentScheme = ({
       ...tuitionItem,
       current_students_sy_id: dataItem.current_students_sy_id,
       students_aid: dataItem.students_aid,
+      assessmentRemarks,
     });
     setIsSavePaymentScheme(false);
   };
@@ -111,7 +144,13 @@ const StudentPaymentScheme = ({
                       <button
                         className="btn btn--accent"
                         type="submit"
-                        disabled={selectItem > 0 ? false : true}
+                        disabled={
+                          selectItem > 0
+                            ? false
+                            : isChangeRemarks
+                            ? false
+                            : true
+                        }
                         onClick={() =>
                           handleSave(getSectedScheme(listOfScheme, selectItem))
                         }
@@ -208,6 +247,7 @@ const StudentPaymentScheme = ({
                     selectItem={selectItem}
                     listOfScheme={listOfScheme}
                     primaryDiscountData={primaryDiscountData}
+                    totalAdditionalDiscountData={totalAdditionalDiscountData}
                   />
                 </>
               ) : (
@@ -219,7 +259,8 @@ const StudentPaymentScheme = ({
 
               {!loadingListOfScheme &&
                 listOfScheme?.data.length > 0 &&
-                dataItem.current_students_primary_discount_id !== 0 && (
+                (dataItem.current_students_primary_discount_id !== 0 ||
+                  dataItem.current_students_additional_discount_id !== 0) && (
                   <>
                     <div className=" grid grid-cols-4 mt-5 ">
                       <div className="col-header flex items-center p-2">
@@ -239,28 +280,36 @@ const StudentPaymentScheme = ({
                               <p className="text-xl !mb-0 !leading-none font-bold">
                                 <span className="text-accent ">
                                   {getTotalPaymentDiscountedAmount(
-                                    listOfScheme,
-                                    primaryDiscountData,
-                                    listItem
-                                  ) !== 0 &&
-                                    `${getTotalPaymentDiscountedAmount(
+                                    getUponEnrollmentDiscountedAmount(
+                                      primaryDiscountData,
+                                      listItem,
+                                      getAdditonalDiscount(
+                                        totalAdditionalDiscountData,
+                                        listItem
+                                      )?.amount
+                                    ),
+                                    getMonthlyFeeDiscountedAmount(
                                       listOfScheme,
                                       primaryDiscountData,
-                                      listItem
-                                    )}`}
+                                      listItem,
+                                      totalAdditionalDiscountData
+                                    ).totalMonthlyFeeDiscounted
+                                  )}
                                 </span>
                               </p>
                               <p className="text-sm !mt-2 !leading-none">
                                 {getMonthlyFeeDiscountedAmount(
                                   listOfScheme,
                                   primaryDiscountData,
-                                  listItem
+                                  listItem,
+                                  totalAdditionalDiscountData
                                 ).isDiscounted > 0
                                   ? `${
                                       getMonthlyFeeDiscountedAmount(
                                         listOfScheme,
                                         primaryDiscountData,
-                                        listItem
+                                        listItem,
+                                        totalAdditionalDiscountData
                                       ).monthlyFeeDiscounted
                                     }`
                                   : "0.00"}

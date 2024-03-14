@@ -13,7 +13,8 @@ const AssessmentAdditionalDiscountList = ({
   setAdditionalDiscountId,
   item,
   listOfScheme,
-  setTotalAdditionalDiscount,
+  totalAdditionalDiscountData,
+  loadingListOfScheme,
 }) => {
   const {
     isLoading,
@@ -33,8 +34,9 @@ const AssessmentAdditionalDiscountList = ({
       e.target.value
     );
 
-    setTotalAdditionalDiscount(
-      getTotalAdditionalDiscount(listOfScheme, additionalDisc)
+    totalAdditionalDiscountData = getTotalAdditionalDiscount(
+      listOfScheme,
+      additionalDisc
     );
   };
 
@@ -88,7 +90,7 @@ const AssessmentAdditionalDiscountList = ({
           </select>
         </div>
 
-        {Number(additionalDiscountId) === 0 && (
+        {(loadingListOfScheme || Number(additionalDiscountId) === 0) && (
           // <div className="min-h-250px grid place-content-center border border-line">
           <div className="min-h-250px flex items-end opacity-[0.8]">
             <p className="font-bold text-base mb-0">
@@ -111,7 +113,11 @@ const AssessmentAdditionalDiscountList = ({
               <ul className="flex gap-2 mb-2 text-xs">
                 <li className="font-bold">Amount: </li>
                 <li>
-                  {isItemEmpty(additionalDisc[0]?.discount_additional_amount)}
+                  {/* {isItemEmpty(additionalDisc[0]?.discount_additional_amount)} */}
+                  {numberWithCommasToFixed(
+                    getFinalAdditionalDiscount?.amount,
+                    2
+                  )}
                 </li>
               </ul>
 
@@ -121,14 +127,13 @@ const AssessmentAdditionalDiscountList = ({
                   {isItemEmpty(
                     additionalDisc[0]?.discount_additional_percent,
                     "%"
+                  )}{" "}
+                  (
+                  {numberWithCommasToFixed(
+                    getFinalAdditionalDiscount?.percent,
+                    2
                   )}
-                </li>
-              </ul>
-
-              <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Additional Discount: </li>
-                <li>
-                  {numberWithCommasToFixed(getFinalAdditionalDiscount, 2)}
+                  )
                 </li>
               </ul>
             </div>

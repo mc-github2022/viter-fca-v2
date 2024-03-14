@@ -7,8 +7,8 @@ import { StoreContext } from "../store/StoreContext.jsx";
 // const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
 
 // // // Patrick
-// export const urlPathFca = `https://app.fca.edu.ph`;
-// export const imgUrlPathFca = `https://app.fca.edu.ph/img`;
+export const urlPathFca = `https://app.fca.edu.ph`;
+export const imgUrlPathFca = `https://app.fca.edu.ph/img`;
 
 // // // Local Dev and Online Dev URL
 // export const devApiUrl = `${urlPathFca}/rest`;
