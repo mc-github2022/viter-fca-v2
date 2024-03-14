@@ -14,6 +14,7 @@ const AssessmentAdditionalDiscountList = ({
   item,
   listOfScheme,
   totalAdditionalDiscountData,
+  loadingListOfScheme,
 }) => {
   const {
     isLoading,
@@ -89,7 +90,7 @@ const AssessmentAdditionalDiscountList = ({
           </select>
         </div>
 
-        {Number(additionalDiscountId) === 0 && (
+        {(loadingListOfScheme || Number(additionalDiscountId) === 0) && (
           // <div className="min-h-250px grid place-content-center border border-line">
           <div className="min-h-250px flex items-end opacity-[0.8]">
             <p className="font-bold text-base mb-0">

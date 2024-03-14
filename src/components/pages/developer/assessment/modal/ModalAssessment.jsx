@@ -294,20 +294,24 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                       </>
                     )}
 
-                    {(loadingListOfScheme || listOfScheme?.count === 0) && (
+                    {(!loadingListOfScheme || listOfScheme?.count === 0) && (
                       <>
-                        {loadingListOfScheme ? (
-                          <TableLoading count={20} cols={3} />
-                        ) : (
-                          <div className="min-h-250px flex items-end opacity-[0.8] ml-3 ">
-                            <p className="font-bold text-base mb-0">
-                              No Rate Selected
-                            </p>
-                          </div>
-                        )}
+                        <div className="min-h-250px flex items-end opacity-[0.8] ml-3 ">
+                          <p className="font-bold text-base mb-0">
+                            No Rate Selected
+                          </p>
+                        </div>
                       </>
                     )}
                   </div>
+
+                  {loadingListOfScheme && (
+                    <>
+                      {loadingListOfScheme && (
+                        <TableLoading count={20} cols={3} />
+                      )}
+                    </>
+                  )}
 
                   <AssessmentRateList
                     listOfScheme={listOfScheme}
@@ -333,6 +337,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     item={item}
                     listOfScheme={listOfScheme}
                     totalAdditionalDiscountData={totalAdditionalDiscountData}
+                    loadingListOfScheme={loadingListOfScheme}
                   />
                   {(selectItem > 0 || listOfScheme?.count > 0) && (
                     <div className="grid grid-cols-[250px_1fr] mb-8 mt-5 gap-5">
