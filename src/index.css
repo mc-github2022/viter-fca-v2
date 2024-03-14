@@ -217,7 +217,7 @@
   }
 
   textarea {
-    @apply resize-none min-h-[120px];
+    @apply min-h-[120px];
   }
 
   select {

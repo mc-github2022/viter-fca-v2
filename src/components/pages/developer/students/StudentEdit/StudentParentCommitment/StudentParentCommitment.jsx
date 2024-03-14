@@ -16,7 +16,12 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const StudentParentCommitment = ({ showSideNav, dataItem, handleClose }) => {
+const StudentParentCommitment = ({
+  showSideNav,
+  dataItem,
+  handleClose,
+  setIsEnrolled,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -27,6 +32,7 @@ const StudentParentCommitment = ({ showSideNav, dataItem, handleClose }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
       queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
       queryClient.invalidateQueries({
         queryKey: ["read-student-by-current-sy-id"],
       });
@@ -34,8 +40,8 @@ const StudentParentCommitment = ({ showSideNav, dataItem, handleClose }) => {
       // show error box
       if (data.success) {
         // setIsViewInfo(false);
-        dispatch(setSuccess(true));
-        dispatch(setMessage("Record successfully updated."));
+        setIsEnrolled(true);
+        dispatch(setMessage("Please wait for payment scheme from finance."));
       }
       if (!data.success) {
         dispatch(setValidate(true));

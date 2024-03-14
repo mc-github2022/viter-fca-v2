@@ -1,0 +1,25 @@
+SELECT
+parent_guardian_info_aid
+,parent_guardian_info_aid /* is active */
+,parent_guardian_info_relationship_id
+,parent_guardian_info_user_id
+,parent_guardian_info_reside
+,parent_guardian_info_salutation
+,parent_guardian_info_fname
+,parent_guardian_info_mname
+,parent_guardian_info_maiden_name
+,parent_guardian_info_lname
+,parent_guardian_info_email
+,parent_guardian_info_mobile
+,parent_guardian_info_landline
+,parent_guardian_info_address
+,parent_guardian_info_province
+,parent_guardian_info_city
+,parent_guardian_info_zipcode
+,parent_guardian_info_zipcode /* country */
+,parent_guardian_info_religion
+,parent_guardian_info_occupation
+,parent_guardian_info_created
+,parent_guardian_info_datetime
+FROM
+dbpzz0guc0yztg.fca_parent_guardian_info;

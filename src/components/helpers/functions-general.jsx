@@ -1,4 +1,5 @@
 import React from "react";
+import Scheme from "../pages/developer/settings/scheme/Scheme.jsx";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
@@ -23,6 +24,8 @@ export const devNavUrl = "/v2";
 // export const devBaseUrl = "https://app.fca.edu.ph";
 // export const devBaseImgUrl = "https://app.fca.edu.ph/img";
 // export const devNavUrl = "/v2";
+
+export const schemeCId = 3;
 
 export const devKey =
   "$2a$12$47wDvbLInZif/PVS8B6P3.7WxyJvUpBzZAWCsnWJUKq3nrn4qgmeO";

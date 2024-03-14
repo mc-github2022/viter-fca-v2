@@ -24,6 +24,7 @@ const CardClientContactInfo = ({
   isLoading,
   isFetching,
 }) => {
+  const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
   const [deleteContact, setDeleteContact] = React.useState(false);
@@ -74,7 +75,11 @@ const CardClientContactInfo = ({
               <div className="card bg-primary border-b border-line rounded-sm relative mb-2 last:mb-0 grid grid-cols-[1fr,5rem] items-center">
                 <ul>
                   <li className="flex gap-3 items-center mb-3 capitalize font-bold">
-                    {item.emergency_contact_level}
+                    {item.emergency_contact_level === "1"
+                      ? "Primary"
+                      : item.emergency_contact_level === "2"
+                      ? "Secondary"
+                      : "Other"}
                   </li>
                   <li className="md:flex gap-2 text-xs items-center mb-2 capitalize flex">
                     <PiUser className="text-base " />
@@ -102,13 +107,16 @@ const CardClientContactInfo = ({
                     <FiEdit2 className="text-[17px]" />
                   </button>
 
-                  <button
-                    className=" tooltip"
-                    data-tooltip="Delete"
-                    onClick={() => handleDeleteContactCard(item)}
-                  >
-                    <FiTrash className="text-[17px]" />
-                  </button>
+                  {(store.credentials.data.role_is_developer === 1 ||
+                    store.credentials.data.role_is_admin === 1) && (
+                    <button
+                      className=" tooltip"
+                      data-tooltip="Delete"
+                      onClick={() => handleDeleteContactCard(item)}
+                    >
+                      <FiTrash className="text-[17px]" />
+                    </button>
+                  )}
                 </div>
               </div>
             </React.Fragment>

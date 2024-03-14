@@ -23,6 +23,7 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["students"] });
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
+      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
       queryClient.invalidateQueries({
         queryKey: ["read-student-by-current-sy-id"],
       });
@@ -47,8 +48,6 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
       dataItem.current_students_last_coc_is_agree === 0 ? false : true,
   };
 
-  console.log(dataItem.current_students_last_coc_is_agree);
-
   const yupSchema = Yup.object({});
 
   return (
@@ -64,7 +63,7 @@ const StudentCodeOfConduct = ({ showSideNav, dataItem, handleClose }) => {
           return (
             <>
               <Form>
-                <div className="overflow-y-auto custom__scroll  z-30 modal__article">
+                <div className="overflow-y-auto custom__scroll z-30 modal__article">
                   <div
                     className={` ${
                       showSideNav

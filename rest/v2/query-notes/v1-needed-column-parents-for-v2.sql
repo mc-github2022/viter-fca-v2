@@ -1,19 +1,19 @@
 SELECT 
-parent_guardian_info_aid
-,parent_guardian_info_aid /* is active */
-,parent_guardian_info_email
-,parent_guardian_info_fname
-,parent_guardian_info_lname
+settings_users_aid
+,settings_users_aid /* is active */
+,settings_users_email
+,settings_users_fname
+,settings_users_lname
 ,financial_info_father_income
 ,financial_info_mother_income
 ,financial_info_financier_full_name
 ,financial_info_financier_relationship
 ,financial_info_financier_occupation
 ,financial_info_financier_income
-,parent_guardian_info_created
-,parent_guardian_info_datetime
+,settings_users_created
+,settings_users_datetime
 FROM 
-dbpzz0guc0yztg.fca_parent_guardian_info as parent
-,dbpzz0guc0yztg.fca_financial_info as financial 
+dbpzz0guc0yztg.fca_financial_info as financial
+,dbpzz0guc0yztg.fca_settings_users 
 where
-parent_guardian_info_user_id = financial_info_user_id;
+financial_info_user_id = settings_users_aid

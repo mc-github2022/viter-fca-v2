@@ -92,7 +92,8 @@ class Parents
             $sql .= "parents_email ";
             $sql .= "from {$this->tblParents} ";
             $sql .= "order by parents_is_active desc, ";
-            $sql .= "parents_fname ";
+            $sql .= "parents_lname asc, ";
+            $sql .= "parents_fname asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -112,7 +113,8 @@ class Parents
             $sql .= "parents_email ";
             $sql .= "from {$this->tblParents} ";
             $sql .= "order by parents_is_active desc, ";
-            $sql .= "parents_fname ";
+            $sql .= "parents_lname asc, ";
+            $sql .= "parents_fname asc ";
             $sql .= "limit :start, ";
             $sql .= ":total ";
             $query = $this->connection->prepare($sql);
@@ -143,7 +145,8 @@ class Parents
             $sql .= "or parents_email like :parents_email ";
             $sql .= ") ";
             $sql .= "order by parents_is_active desc, ";
-            $sql .= "parents_fname ";
+            $sql .= "parents_lname asc, ";
+            $sql .= "parents_fname asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "parents_fname" => "%{$this->parents_search}%",

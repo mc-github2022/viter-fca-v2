@@ -30,6 +30,7 @@ const ModalRevertOrSavePayment = ({
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
       queryClient.invalidateQueries({ queryKey: ["students"] });
+      queryClient.invalidateQueries({ queryKey: ["mystudent"] });
       queryClient.invalidateQueries({
         queryKey: ["read-student-by-current-sy-id"],
       });

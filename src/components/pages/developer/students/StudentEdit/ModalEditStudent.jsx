@@ -18,10 +18,12 @@ import ModalRevertOrSavePayment from "./StudentPaymentScheme/ModalRevertOrSavePa
 import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
 import StudentPaymentRemarks from "./StudentPaymentRemarks/StudentPaymentRemarks.jsx";
+import ModalSuccessfullyEnrolled from "./StudentParentCommitment/ModalSuccessfullyEnrolled.jsx";
 
 const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [showSideNav, setShowSideNav] = React.useState(false);
+  const [isEnrolled, setIsEnrolled] = React.useState(false);
   // accept or notify parent
   const [isSavePaymentScheme, setIsSavePaymentScheme] = React.useState(true);
   const [itemData, setItemData] = React.useState(null);
@@ -149,14 +151,17 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                     <button className="p-1 pl-4 ">Commitment Form</button>
                   </li>
 
-                  <li
-                    className={` ${
-                      index === 7 ? "bg-accent text-primary" : ""
-                    } cursor-pointer`}
-                    onClick={() => handleChangeProfile(7)}
-                  >
-                    <button className="p-1 pl-4 ">Payment Remarks</button>
-                  </li>
+                  {(store.credentials.data.role_is_developer === 1 ||
+                    store.credentials.data.role_is_admin === 1) && (
+                    <li
+                      className={` ${
+                        index === 7 ? "bg-accent text-primary" : ""
+                      } cursor-pointer`}
+                      onClick={() => handleChangeProfile(7)}
+                    >
+                      <button className="p-1 pl-4 ">Payment Remarks</button>
+                    </li>
+                  )}
                 </ul>
               </aside>
               <main
@@ -241,6 +246,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                           ...studentByCurrentSyId?.data[0],
                         }}
                         handleClose={handleClose}
+                        setIsEnrolled={setIsEnrolled}
                       />
                     )}
                     {index === 6 && (
@@ -277,6 +283,9 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
         </div>
       </div>
       {store.success && <ModalSuccess />}
+      {isEnrolled && (
+        <ModalSuccessfullyEnrolled setIsEnrolled={setIsEnrolled} />
+      )}
       {store.isSettingConfirm && (
         <ModalRevertOrSavePayment
           mysqlApiRevertOrSavePayment={`/v2/dev-students-payment-scheme/${dataItem?.current_students_aid}`}
