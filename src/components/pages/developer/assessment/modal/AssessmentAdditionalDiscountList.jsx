@@ -13,7 +13,7 @@ const AssessmentAdditionalDiscountList = ({
   setAdditionalDiscountId,
   item,
   listOfScheme,
-  setTotalAdditionalDiscount,
+  setTotalAdditionalDiscountData,
 }) => {
   const {
     isLoading,
@@ -33,7 +33,7 @@ const AssessmentAdditionalDiscountList = ({
       e.target.value
     );
 
-    setTotalAdditionalDiscount(
+    setTotalAdditionalDiscountData(
       getTotalAdditionalDiscount(listOfScheme, additionalDisc)
     );
   };
@@ -111,7 +111,11 @@ const AssessmentAdditionalDiscountList = ({
               <ul className="flex gap-2 mb-2 text-xs">
                 <li className="font-bold">Amount: </li>
                 <li>
-                  {isItemEmpty(additionalDisc[0]?.discount_additional_amount)}
+                  {/* {isItemEmpty(additionalDisc[0]?.discount_additional_amount)} */}
+                  {numberWithCommasToFixed(
+                    getFinalAdditionalDiscount?.amount,
+                    2
+                  )}
                 </li>
               </ul>
 
@@ -121,14 +125,13 @@ const AssessmentAdditionalDiscountList = ({
                   {isItemEmpty(
                     additionalDisc[0]?.discount_additional_percent,
                     "%"
+                  )}{" "}
+                  (
+                  {numberWithCommasToFixed(
+                    getFinalAdditionalDiscount?.percent,
+                    2
                   )}
-                </li>
-              </ul>
-
-              <ul className="flex gap-2 mb-2 text-xs">
-                <li className="font-bold">Additional Discount: </li>
-                <li>
-                  {numberWithCommasToFixed(getFinalAdditionalDiscount, 2)}
+                  )
                 </li>
               </ul>
             </div>

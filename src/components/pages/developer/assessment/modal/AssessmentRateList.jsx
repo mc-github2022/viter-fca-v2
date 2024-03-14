@@ -1,5 +1,6 @@
 import { numberWithCommasToFixed } from "@/components/helpers/functions-general";
 import {
+  getAdditonalDiscount,
   getAdmissionDiscountedAmount,
   getMonthlyFeeDiscountedAmount,
   getTotalPaymentDiscountedAmount,
@@ -14,7 +15,7 @@ const AssessmentRateList = ({
   loadingListOfScheme,
   primaryDiscountId,
   additionalDiscountId,
-  totalAdditionalDiscount,
+  totalAdditionalDiscountData,
 }) => {
   return (
     <>
@@ -81,10 +82,15 @@ const AssessmentRateList = ({
                   >
                     {numberWithCommasToFixed(listItem.tuition_fee_tuition, 2)}{" "}
                     <span className="text-accent font-bold">
-                      {Number(primaryDiscountData.tuitionFeePercent) > 0 &&
+                      {(Number(primaryDiscountData?.tuitionFeePercent) > 0 ||
+                        Number(totalAdditionalDiscountData?.percent) > 0) &&
                         `(Disc. ${getTuitionDiscountedAmount(
                           primaryDiscountData,
-                          listItem
+                          listItem,
+                          getAdditonalDiscount(
+                            totalAdditionalDiscountData,
+                            listItem
+                          )?.amount
                         )})`}
                     </span>
                   </li>
@@ -227,14 +233,16 @@ const AssessmentRateList = ({
                         {getTotalPaymentDiscountedAmount(
                           listOfScheme,
                           primaryDiscountData,
-                          listItem,
-                          totalAdditionalDiscount
+                          listItem
                         ) !== 0 &&
                           `${getTotalPaymentDiscountedAmount(
                             listOfScheme,
                             primaryDiscountData,
                             listItem,
-                            totalAdditionalDiscount
+                            getAdditonalDiscount(
+                              totalAdditionalDiscountData,
+                              listItem
+                            )?.amount
                           )}`}
                       </p>
 
@@ -243,15 +251,13 @@ const AssessmentRateList = ({
                           {getMonthlyFeeDiscountedAmount(
                             listOfScheme,
                             primaryDiscountData,
-                            listItem,
-                            totalAdditionalDiscount
+                            listItem
                           ).isDiscounted > 0
                             ? `${
                                 getMonthlyFeeDiscountedAmount(
                                   listOfScheme,
                                   primaryDiscountData,
-                                  listItem,
-                                  totalAdditionalDiscount
+                                  listItem
                                 ).monthlyFeeDiscounted
                               }`
                             : "0.00"}
