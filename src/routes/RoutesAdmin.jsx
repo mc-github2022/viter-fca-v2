@@ -4,11 +4,10 @@ import Profile from "@/components/pages/admin/account/Profile.jsx";
 import AllStudents from "@/components/pages/admin/all-students/AllStudents";
 import Assestment from "@/components/pages/admin/assessment/Assestment";
 import Clients from "@/components/pages/admin/clients/Clients.jsx";
+import ClientViewInfo from "@/components/pages/admin/clients/client-info/ClientViewInfo";
 import ClientStudentViewInfo from "@/components/pages/admin/clients/student-info/ClientStudentViewInfo.jsx";
 import Students from "@/components/pages/admin/students/Students";
 import StudentViewInfo from "@/components/pages/admin/students/student-info/StudentViewInfo.jsx";
-import StudentView from "@/components/pages/developer/clients/StudentView";
-import ClientViewInfo from "@/components/pages/developer/clients/client-info/ClientViewInfo";
 
 export const routesAdmin = [
   {
@@ -46,14 +45,6 @@ export const routesAdmin = [
 
   //student Card
 
-  {
-    path: `/${devNavUrl}/admin/clients/view/student-list`,
-    element: (
-      <ProtectedRouteOther>
-        <StudentView />
-      </ProtectedRouteOther>
-    ),
-  },
   {
     path: `${devNavUrl}/admin/enrollment`,
     element: (

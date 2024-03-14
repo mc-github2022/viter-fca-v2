@@ -42,14 +42,6 @@ export const routesSystem = [
     ),
   },
   {
-    path: `/${devNavUrl}/system/discount`,
-    element: (
-      <ProtectedRouteSystem>
-        <Discount />
-      </ProtectedRouteSystem>
-    ),
-  },
-  {
     path: `/${devNavUrl}/system/clients`,
     element: (
       <ProtectedRouteSystem>
@@ -76,14 +68,6 @@ export const routesSystem = [
 
   //student Card
 
-  {
-    path: `/${devNavUrl}/system/clients/view/student-list`,
-    element: (
-      <ProtectedRouteSystem>
-        <StudentView />
-      </ProtectedRouteSystem>
-    ),
-  },
   {
     path: `${devNavUrl}/system/enrollment`,
     element: (

@@ -5,6 +5,7 @@ import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import NoData from "@/components/partials/NoData.jsx";
+import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import Pills from "@/components/partials/Pills.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
@@ -189,6 +190,12 @@ const ClientStudentViewInfo = () => {
     setIsEnroll(true);
     setData(item);
   };
+
+  const isDev = JSON.parse(localStorage.getItem("fcatoken")).isDev;
+
+  if (store.credentials.data.role_is_developer !== 1 || !isDev) {
+    return <PageNotFound />;
+  }
 
   return (
     <>

@@ -1,6 +1,7 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
@@ -90,6 +91,10 @@ const Parents = () => {
 
     checkRelationshipExist(guardianInfo);
   }, [isLoading]);
+
+  if (store.credentials.data.role_is_parent !== 1) {
+    return <PageNotFound />;
+  }
 
   return (
     <>

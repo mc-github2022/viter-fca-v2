@@ -1,6 +1,7 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
@@ -30,6 +31,11 @@ const AllStudents = () => {
   const isOngoing =
     schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
 
+  const isDev = JSON.parse(localStorage.getItem("fcatoken")).isDev;
+
+  if (store.credentials.data.role_is_admin !== 1 || isDev) {
+    return <PageNotFound />;
+  }
   return (
     <div>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
