@@ -249,7 +249,8 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                                 item,
                                 getCurrentSchoolYear,
                                 studentRequirement,
-                                registrarRequirement
+                                registrarRequirement,
+                                gradeLevel
                               )
                             )}
                           </td>
@@ -350,6 +351,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
           setViewRequirements={setViewRequirements}
           itemEdit={itemEdit}
           schoolYear={schoolYear}
+          gradeLevel={gradeLevel}
         />
       )}
 

@@ -2,6 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
+import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
+import { queryData } from "../../../../helpers/queryData";
+import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 import {
   setIsAdd,
   setMessage,
@@ -10,9 +13,6 @@ import {
   setValidate,
 } from "../../../../store/StoreAction";
 import { StoreContext } from "../../../../store/StoreContext";
-import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
-import { queryData } from "../../../../helpers/queryData";
-import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 
 const QuickEditDepartment = ({ endpoint, dataItem, setData, queryKey, id }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -81,7 +81,7 @@ const QuickEditDepartment = ({ endpoint, dataItem, setData, queryKey, id }) => {
                     type="text"
                     name="department_name"
                     className="w-44 h-7"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="relative form__wrap">
@@ -89,16 +89,16 @@ const QuickEditDepartment = ({ endpoint, dataItem, setData, queryKey, id }) => {
                     label="Description"
                     type="text"
                     name="department_description"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="modal__action flex justify-start mt-4 gap-2">
                   <button
                     className="btn btn--primary btn--sm"
                     type="submit"
-                    disabled={mutation.isLoading || !props.dirty}
+                    disabled={mutation.isPending || !props.dirty}
                   >
-                    {mutation.isLoading && <ButtonSpinner />}
+                    {mutation.isPending && <ButtonSpinner />}
                     Update
                   </button>
                   <button

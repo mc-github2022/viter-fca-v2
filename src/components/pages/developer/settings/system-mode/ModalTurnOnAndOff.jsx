@@ -1,5 +1,7 @@
 import { handleEscape } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ModalWrapper from "@/components/partials/modals/ModalWrapper";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
 import {
   setIsConfirm,
   setMessage,
@@ -11,8 +13,6 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { LiaInfoCircleSolid } from "react-icons/lia";
-import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner.jsx";
-import ModalWrapper from "@/components/partials/modals/ModalWrapper";
 
 const ModalTurnOnAndOff = ({ mysqlApiArchive, msg, queryKey, isArchive }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -80,15 +80,15 @@ const ModalTurnOnAndOff = ({ mysqlApiArchive, msg, queryKey, isArchive }) => {
         <div className="modal__action flex justify-end mt-2 gap-2">
           <button
             className="btn btn--accent"
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleYes}
             type="submit"
           >
-            {mutation.isLoading ? <ButtonSpinner /> : "Confirm"}
+            {mutation.isPending ? <ButtonSpinner /> : "Confirm"}
           </button>
           <button
             className="btn btn--cancel"
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleClose}
             type="button"
           >

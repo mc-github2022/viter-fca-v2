@@ -88,7 +88,7 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
                     label="Name"
                     type="text"
                     name="discount_additional_name"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap text-xs mb-3">
@@ -97,7 +97,7 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
                     type="text"
                     number="number"
                     name="discount_additional_percent"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap text-xs mb-3">
@@ -106,13 +106,13 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
                     type="text"
                     number="number"
                     name="discount_additional_amount"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -124,7 +124,7 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

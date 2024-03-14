@@ -94,6 +94,11 @@ const RequirementRegistrarList = ({ setItemEdit }) => {
                 } `}
               >
                 <p className="mb-1">{item.requirement_registrar_name}</p>
+                {item.requirement_registrar_is_for_pre_school === 1 && (
+                  <p className="mb-1 bg-success w-fit text-white px-2 rounded-md text-[10px]">
+                    For Pre-School
+                  </p>
+                )}
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">

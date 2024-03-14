@@ -1,6 +1,3 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
 import {
   setError,
   setIsRestore,
@@ -9,6 +6,9 @@ import {
   setValidate,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React from "react";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { handleEscape } from "../../helpers/functions-general";
 import { queryData } from "../../helpers/queryData";
 import ButtonSpinner from "../spinners/ButtonSpinner";
@@ -79,15 +79,15 @@ const ModalDeleteAndRestore = ({
         <div className="modal__action flex justify-end mt-6 gap-2">
           <button
             className="btn btn--primary bg-[#41613a] text-white"
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleYes}
             type="submit"
           >
-            {mutation.isLoading ? <ButtonSpinner /> : "Confirm"}
+            {mutation.isPending ? <ButtonSpinner /> : "Confirm"}
           </button>
           <button
             className="btn btn--cancel"
-            disabled={mutation.isLoading}
+            disabled={mutation.isPending}
             onClick={handleClose}
             type="button"
           >

@@ -167,9 +167,9 @@ const FormClientParentInfo = ({
                     className="text-2xl tooltip"
                     data-tooltip="Save"
                     type="submit"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
-                    {mutation.isLoading ? <ButtonSpinner /> : <AiOutlineSave />}
+                    {mutation.isPending ? <ButtonSpinner /> : <AiOutlineSave />}
                   </button>
                 )}
 
@@ -194,7 +194,7 @@ const FormClientParentInfo = ({
                     label="Parent/Guardian Relationship"
                     type="text"
                     name="guardian_relationship_id"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     <option value="" hidden></option>
 
@@ -218,7 +218,7 @@ const FormClientParentInfo = ({
                     label="Resided with Child?"
                     type="text"
                     name="guardian_is_reside"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Option">
@@ -242,7 +242,7 @@ const FormClientParentInfo = ({
                   <InputSelect
                     label="Title"
                     name="guardian_salutation"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Option">
@@ -261,7 +261,7 @@ const FormClientParentInfo = ({
                     label="First Name"
                     type="text"
                     name="guardian_fname"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -269,7 +269,7 @@ const FormClientParentInfo = ({
                     label="Last Name"
                     type="text"
                     name="guardian_lname"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>
@@ -279,7 +279,7 @@ const FormClientParentInfo = ({
                     label="Middle Name"
                     type="text"
                     name="guardian_mname"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -301,7 +301,7 @@ const FormClientParentInfo = ({
                   label="Email"
                   type="email"
                   name="guardian_email"
-                  disabled={mutation.isLoading}
+                  disabled={mutation.isPending}
                 />
               </div>
               <div className="grid md:grid-cols-2 gap-4">
@@ -312,7 +312,7 @@ const FormClientParentInfo = ({
                     name="guardian_mobile"
                     maxLength="11"
                     onKeyPress={handleNumOnly}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -322,7 +322,7 @@ const FormClientParentInfo = ({
                     maxLength="7"
                     onKeyPress={handleNumOnly}
                     name="guardian_landline"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>
@@ -336,7 +336,7 @@ const FormClientParentInfo = ({
                   label="Address"
                   type="text"
                   name="guardian_address"
-                  disabled={mutation.isLoading}
+                  disabled={mutation.isPending}
                 />
               </div>
               <div className="grid md:grid-cols-2 gap-4">
@@ -345,7 +345,7 @@ const FormClientParentInfo = ({
                     label="City"
                     type="text"
                     name="guardian_city"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -353,7 +353,7 @@ const FormClientParentInfo = ({
                     label="Province"
                     type="text"
                     name="guardian_province"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -363,7 +363,7 @@ const FormClientParentInfo = ({
                     maxLength="4"
                     onKeyPress={handleNumOnly}
                     name="guardian_zipcode"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -371,7 +371,7 @@ const FormClientParentInfo = ({
                     label="Country"
                     type="text"
                     name="guardian_country"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>
@@ -387,7 +387,7 @@ const FormClientParentInfo = ({
                     label="Religion"
                     type="text"
                     name="guardian_religion"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -395,7 +395,7 @@ const FormClientParentInfo = ({
                     label="Occupation"
                     type="text"
                     name="guardian_occupation"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>

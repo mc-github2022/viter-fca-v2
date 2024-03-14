@@ -4,19 +4,42 @@ export const getStudentStatus = (
   item,
   getCurrentSchoolYear,
   studentRequirement,
-  registrarRequirement
+  registrarRequirement,
+  gradeLevel
 ) => {
   let label = "Incomplete";
   let color = "text-[#ea4335]";
+  let isCompleteRequirement = 0;
 
-  console.log(item);
-
-  let isCompleteRequirement = studentRequirement?.data.filter(
-    (reqItem) =>
-      Number(item.students_aid) ===
-        Number(reqItem.students_requirements_student_id) &&
-      Number(reqItem.total_requirements) === registrarRequirement?.count
+  const getGradeLevel = gradeLevel?.data.filter(
+    (levelItem) =>
+      Number(levelItem.grade_level_aid) ===
+      Number(item.current_students_grade_level_id)
   );
+
+  const getPreSchoolRequirement = registrarRequirement?.data.filter(
+    (levelItem) =>
+      Number(levelItem.requirement_registrar_is_for_pre_school) === 1
+  );
+
+  if (
+    getGradeLevel?.length > 0 &&
+    getGradeLevel[0]?.grade_level_is_pre_school === 1
+  ) {
+    isCompleteRequirement = studentRequirement?.data.filter(
+      (reqItem) =>
+        Number(item.students_aid) ===
+          Number(reqItem.students_requirements_student_id) &&
+        Number(reqItem.total_requirements) === getPreSchoolRequirement?.length
+    );
+  } else {
+    isCompleteRequirement = studentRequirement?.data.filter(
+      (reqItem) =>
+        Number(item.students_aid) ===
+          Number(reqItem.students_requirements_student_id) &&
+        Number(reqItem.total_requirements) === registrarRequirement?.count
+    );
+  }
 
   if (item.students_is_active === 1) {
     label = "Active";
@@ -95,17 +118,42 @@ export const getStudentStatus = (
 export const getRequirementsStatus = (
   item,
   studentRequirement,
-  registrarRequirement
+  registrarRequirement,
+  gradeLevel
 ) => {
   let label = "Incomplete";
   let color = "text-[#ea4335]";
+  let isCompleteRequirement = 0;
 
-  let isCompleteRequirement = studentRequirement?.data.filter(
-    (reqItem) =>
-      Number(item.students_aid) ===
-        Number(reqItem.students_requirements_student_id) &&
-      Number(reqItem.total_requirements) === registrarRequirement?.count
+  const getGradeLevel = gradeLevel?.data.filter(
+    (levelItem) =>
+      Number(levelItem.grade_level_aid) ===
+      Number(item.current_students_grade_level_id)
   );
+
+  const getPreSchoolRequirement = registrarRequirement?.data.filter(
+    (levelItem) =>
+      Number(levelItem.requirement_registrar_is_for_pre_school) === 1
+  );
+
+  if (
+    getGradeLevel?.length > 0 &&
+    getGradeLevel[0]?.grade_level_is_pre_school === 1
+  ) {
+    isCompleteRequirement = studentRequirement?.data.filter(
+      (reqItem) =>
+        Number(item.students_aid) ===
+          Number(reqItem.students_requirements_student_id) &&
+        Number(reqItem.total_requirements) === getPreSchoolRequirement?.length
+    );
+  } else {
+    isCompleteRequirement = studentRequirement?.data.filter(
+      (reqItem) =>
+        Number(item.students_aid) ===
+          Number(reqItem.students_requirements_student_id) &&
+        Number(reqItem.total_requirements) === registrarRequirement?.count
+    );
+  }
 
   if (isCompleteRequirement?.length > 0) {
     label = "Completed";

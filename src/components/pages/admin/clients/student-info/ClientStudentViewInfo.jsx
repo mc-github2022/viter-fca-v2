@@ -5,6 +5,7 @@ import BreadCrumbs from "@/components/partials/BreadCrumbs.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import NoData from "@/components/partials/NoData.jsx";
+import Pills from "@/components/partials/Pills.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
@@ -262,11 +263,16 @@ const ClientStudentViewInfo = () => {
                       <h5>
                         {item.students_fname} {item.students_lname} -{" "}
                         <span className="text-accentLight font-bold">
-                          {getStudentStatus(
-                            item,
-                            getCurrentSchoolYear,
-                            studentRequirement,
-                            registrarRequirement
+                          {item.students_is_active === 0 ? (
+                            <Pills label="Inactive" color="text-disable" />
+                          ) : (
+                            getStudentStatus(
+                              item,
+                              getCurrentSchoolYear,
+                              studentRequirement,
+                              registrarRequirement,
+                              gradeLevel
+                            )
                           )}
                         </span>
                       </h5>
@@ -294,7 +300,8 @@ const ClientStudentViewInfo = () => {
                           {getRequirementsStatus(
                             item,
                             studentRequirement,
-                            registrarRequirement
+                            registrarRequirement,
+                            gradeLevel
                           )}
                         </span>
                       </p>
@@ -366,6 +373,7 @@ const ClientStudentViewInfo = () => {
           setViewRequirements={setViewRequirements}
           itemEdit={itemEdit}
           schoolYear={schoolYear}
+          gradeLevel={gradeLevel}
         />
       )}
 

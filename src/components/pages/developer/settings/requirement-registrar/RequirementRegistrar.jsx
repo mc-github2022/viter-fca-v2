@@ -18,17 +18,6 @@ const RequirementRegistrar = ({ index }) => {
     setItemEdit(null);
   };
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: department,
-  } = useQueryData(
-    "/v2/dev-department", // endpoint
-    "get", // method
-    "department" // key
-  );
-
   if (index === 6) {
     return (
       <>
@@ -51,10 +40,7 @@ const RequirementRegistrar = ({ index }) => {
           )}
 
           {store.isSettingAdd && (
-            <RequirementRegistrarFormAddEdit
-              itemEdit={itemEdit}
-              department={department}
-            />
+            <RequirementRegistrarFormAddEdit itemEdit={itemEdit} />
           )}
           {!store.isSettingAdd && (
             <RequirementRegistrarList setItemEdit={setItemEdit} />

@@ -115,23 +115,23 @@ const ModalSettingsNav = ({
             </button>
           </li>
 
-          <li className={` ${index === 7 ? "active" : ""}`}>
+          {/* <li className={` ${index === 7 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(7, e)}
               className="p-1 pl-4"
             >
               Requirement - Finance
             </button>
-          </li>
+          </li> */}
 
-          <li className={` ${index === 8 ? "active" : ""}`}>
+          {/* <li className={` ${index === 8 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(8, e)}
               className="p-1 pl-4"
             >
               Requirement - IT
             </button>
-          </li>
+          </li> */}
 
           <li className={` ${index === 9 ? "active" : ""}`}>
             <button

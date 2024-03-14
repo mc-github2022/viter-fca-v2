@@ -71,6 +71,7 @@ const AllStudents = () => {
 
       {store.success && <ModalSuccess />}
       {store.error && <ModalError />}
+      {store.validate && <ModalValidate />}
     </div>
   );
 };

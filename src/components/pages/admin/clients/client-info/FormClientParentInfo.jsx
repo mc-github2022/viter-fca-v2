@@ -179,9 +179,9 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     className="text-2xl tooltip"
                     data-tooltip="Save"
                     type="submit"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
-                    {mutation.isLoading ? <ButtonSpinner /> : <AiOutlineSave />}
+                    {mutation.isPending ? <ButtonSpinner /> : <AiOutlineSave />}
                   </button>
                 )}
 
@@ -206,7 +206,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="Client Relationship"
                     type="text"
                     name="parent_guardian_info_relationship_id"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => handleChangeRelationship(e)}
                   >
                     <option value="" hidden></option>
@@ -231,7 +231,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="Resided with Child?"
                     type="text"
                     name="parent_guardian_info_reside"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Option">
@@ -255,7 +255,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   <InputSelect
                     label="Title"
                     name="parent_guardian_info_salutation"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Option">
@@ -274,7 +274,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="First Name"
                     type="text"
                     name="parent_guardian_info_fname"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -282,7 +282,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="Last Name"
                     type="text"
                     name="parent_guardian_info_lname"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>
@@ -292,7 +292,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="Middle Name"
                     type="text"
                     name="parent_guardian_info_mname"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -317,7 +317,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   label="Email"
                   type="email"
                   name="parent_guardian_info_email"
-                  disabled={mutation.isLoading}
+                  disabled={mutation.isPending}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -328,7 +328,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     name="parent_guardian_info_mobile"
                     maxLength="11"
                     onKeyPress={handleNumOnly}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -338,7 +338,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     maxLength="11"
                     onKeyPress={handleNumOnly}
                     name="parent_guardian_info_landline"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>
@@ -352,7 +352,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   label="Address"
                   type="text"
                   name="parent_guardian_info_address"
-                  disabled={mutation.isLoading}
+                  disabled={mutation.isPending}
                 />
               </div>
               <div className="grid grid-cols-[1fr_1fr_100px] gap-4">
@@ -361,7 +361,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="City"
                     type="text"
                     name="parent_guardian_info_city"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -369,7 +369,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="Province"
                     type="text"
                     name="parent_guardian_info_province"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -379,7 +379,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     maxLength="4"
                     onKeyPress={handleNumOnly}
                     name="parent_guardian_info_zipcode"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>
@@ -395,7 +395,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="Religion"
                     type="text"
                     name="parent_guardian_info_religion"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
                 <div className="form__wrap">
@@ -403,7 +403,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                     label="Occupation"
                     type="text"
                     name="parent_guardian_info_occupation"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
               </div>

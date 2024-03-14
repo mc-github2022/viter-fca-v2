@@ -93,7 +93,7 @@ const GradeLevelFormAddEdit = ({
                     label="Grade Level Order"
                     type="number"
                     name="grade_level_order"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -102,7 +102,7 @@ const GradeLevelFormAddEdit = ({
                     label="Name"
                     type="text"
                     name="grade_level_name"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -112,7 +112,7 @@ const GradeLevelFormAddEdit = ({
                     type="checkbox"
                     name="grade_level_is_pre_school"
                     id="grade_level_is_pre_school"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -120,9 +120,9 @@ const GradeLevelFormAddEdit = ({
                   <button
                     className="btn btn--accent"
                     type="submit"
-                    disabled={mutation.isLoading || !props.dirty}
+                    disabled={mutation.isPending || !props.dirty}
                   >
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -134,7 +134,7 @@ const GradeLevelFormAddEdit = ({
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

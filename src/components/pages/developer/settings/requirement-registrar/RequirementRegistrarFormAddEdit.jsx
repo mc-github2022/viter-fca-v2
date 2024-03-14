@@ -1,4 +1,8 @@
-import { InputSelect, InputText } from "@/components/helpers/FormInputs";
+import {
+  InputCheckbox,
+  InputSelect,
+  InputText,
+} from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -13,7 +17,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const RequirementRegistrarFormAddEdit = ({ itemEdit, department }) => {
+const RequirementRegistrarFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -48,18 +52,19 @@ const RequirementRegistrarFormAddEdit = ({ itemEdit, department }) => {
     },
   });
 
-  const getActiveDepartment = department?.data.filter(
-    (item) => item.department_active === 1
-  );
-
   const initVal = {
     requirement_registar_aid: itemEdit ? itemEdit.requirement_registar_aid : "",
     requirement_registrar_name: itemEdit
       ? itemEdit.requirement_registrar_name
       : "",
-    requirement_registrar_department_id: itemEdit
-      ? itemEdit.requirement_registrar_department_id
-      : "",
+    // requirement_registrar_department_id: itemEdit
+    //   ? itemEdit.requirement_registrar_department_id
+    //   : "",
+    requirement_registrar_is_for_pre_school: itemEdit
+      ? itemEdit.requirement_registrar_is_for_pre_school === 1
+        ? true
+        : false
+      : false,
     requirement_registrar_name_old: itemEdit
       ? itemEdit.requirement_registrar_name
       : "",
@@ -87,15 +92,15 @@ const RequirementRegistrarFormAddEdit = ({ itemEdit, department }) => {
                     label="Title"
                     type="text"
                     name="requirement_registrar_name"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
-                <div className="form__wrap text-xs mb-3">
+                {/* <div className="form__wrap text-xs mb-3">
                   <InputSelect
                     label="Department"
                     name="requirement_registrar_department_id"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Department">
@@ -115,11 +120,21 @@ const RequirementRegistrarFormAddEdit = ({ itemEdit, department }) => {
                       )}
                     </optgroup>
                   </InputSelect>
+                </div> */}
+
+                <div className="form__wrap text-xs mb-3">
+                  <InputCheckbox
+                    label="Mark check if for Pre-School"
+                    type="checkbox"
+                    name="requirement_registrar_is_for_pre_school"
+                    id="requirement_registrar_is_for_pre_school"
+                    disabled={mutation.isPending}
+                  />
                 </div>
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -131,7 +146,7 @@ const RequirementRegistrarFormAddEdit = ({ itemEdit, department }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

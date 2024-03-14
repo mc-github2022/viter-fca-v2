@@ -23,6 +23,7 @@ const RequirementRegistrarEdit = ({
   schoolYear,
   reqLoading,
   reqFetching,
+  gradeLevel,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
@@ -47,6 +48,17 @@ const RequirementRegistrarEdit = ({
   });
 
   const syId = schoolYear?.count > 0 && schoolYear?.data[0].school_year_aid;
+
+  const getPreSchoolRequirement = registrarRequirements?.data.filter(
+    (levelItem) =>
+      Number(levelItem.requirement_registrar_is_for_pre_school) === 1
+  );
+
+  const getGradeLevel = gradeLevel?.data.filter(
+    (levelItem) =>
+      Number(levelItem.grade_level_aid) ===
+      Number(itemEdit.current_students_grade_level_id)
+  );
 
   const handleCheck = async (e, requirementId) => {
     mutation.isPending = true;
@@ -125,7 +137,44 @@ const RequirementRegistrarEdit = ({
 
                     <div className="max-w-[600px] relative">
                       {mutation.isPending && <TableSpinner />}
-                      {registrarRequirements?.count > 0 ? (
+                      {getGradeLevel?.length > 0 &&
+                      getGradeLevel[0]?.grade_level_is_pre_school === 1 ? (
+                        getPreSchoolRequirement?.length > 0 ? (
+                          getPreSchoolRequirement?.map((item, key) => {
+                            return (
+                              <div
+                                className="list flex justify-between items-center py-2 border-b border-line"
+                                key={key}
+                              >
+                                <div className="form__wrap flex items-center mt-3 gap-2 ">
+                                  <InputCheckbox
+                                    label={item.requirement_registrar_name}
+                                    type="checkbox"
+                                    name={item.requirement_registrar_aid}
+                                    id={item.requirement_registrar_aid}
+                                    disabled={
+                                      mutation.isPending ||
+                                      store.credentials.data.role_is_parent ===
+                                        1
+                                    }
+                                    onClick={(e) =>
+                                      store.credentials.data.role_is_parent ===
+                                      1
+                                        ? null
+                                        : handleCheck(
+                                            e,
+                                            item.requirement_registrar_aid
+                                          )
+                                    }
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <NoData />
+                        )
+                      ) : registrarRequirements?.count > 0 ? (
                         registrarRequirements?.data.map((item, key) => {
                           return (
                             <div

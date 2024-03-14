@@ -85,7 +85,7 @@ const RolesFormAddEdit = ({ itemEdit }) => {
                       label="Name"
                       type="text"
                       name="role_name"
-                      disabled={mutation.isLoading}
+                      disabled={mutation.isPending}
                     />
                   </div>
                 )}
@@ -94,13 +94,13 @@ const RolesFormAddEdit = ({ itemEdit }) => {
                   <InputTextArea
                     label="Description"
                     name="role_description"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -112,7 +112,7 @@ const RolesFormAddEdit = ({ itemEdit }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>

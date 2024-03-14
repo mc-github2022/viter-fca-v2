@@ -13,7 +13,7 @@ $grade_level->grade_level_active = 1;
 $grade_level->grade_level_created = date("Y-m-d H:i:s");
 $grade_level->grade_level_datetime = date("Y-m-d H:i:s");
 
-isNameExist($grade_level, $grade_level->grade_level_name);
+isNameExist($grade_level, "$grade_level->grade_level_name or Order $grade_level->grade_level_order");
 
 $query = checkCreate($grade_level);
 returnSuccess($grade_level, "Grade Level", $query);

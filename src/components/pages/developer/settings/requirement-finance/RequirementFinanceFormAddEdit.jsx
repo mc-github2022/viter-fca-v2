@@ -84,7 +84,7 @@ const RequirementFinanceFormAddEdit = ({ itemEdit, department }) => {
                     label="Title"
                     type="text"
                     name="requirement_finance_name"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   />
                 </div>
 
@@ -92,7 +92,7 @@ const RequirementFinanceFormAddEdit = ({ itemEdit, department }) => {
                   <InputSelect
                     label="Department"
                     name="requirement_finance_department_id"
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                     onChange={(e) => e}
                   >
                     <optgroup label="Select Department">
@@ -116,7 +116,7 @@ const RequirementFinanceFormAddEdit = ({ itemEdit, department }) => {
 
                 <div className={` settings__actions flex gap-2 mt-4`}>
                   <button className="btn btn--accent" type="submit">
-                    {mutation.isLoading ? (
+                    {mutation.isPending ? (
                       <ButtonSpinner />
                     ) : itemEdit ? (
                       "Save"
@@ -128,7 +128,7 @@ const RequirementFinanceFormAddEdit = ({ itemEdit, department }) => {
                     className="btn btn--cancel"
                     type="button"
                     onClick={handleClose}
-                    disabled={mutation.isLoading}
+                    disabled={mutation.isPending}
                   >
                     Discard
                   </button>
