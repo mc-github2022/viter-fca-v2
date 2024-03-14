@@ -13,6 +13,7 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import Navigation from "../Navigation.jsx";
 
+import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalAddStudent from "../../developer/students/ModalAddStudent.jsx";
 import ModalEditStudent from "../../developer/students/StudentEdit/ModalEditStudent.jsx";
@@ -45,6 +46,12 @@ const Students = () => {
     }
     dispatch(setIsAdd(true));
   };
+
+  const isDev = JSON.parse(localStorage.getItem("fcatoken")).isDev;
+
+  if (store.credentials.data.role_is_admin !== 1 || isDev) {
+    return <PageNotFound />;
+  }
 
   return (
     <>

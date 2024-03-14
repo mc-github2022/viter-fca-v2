@@ -17,6 +17,22 @@ function checkUpdateCurrentPaymentSchemeSaveOrRevert($object)
     return $query;
 }
 
+// Update 
+function checkUpdatePaymentRemarks($object)
+{
+    $query = $object->updatePaymentRemarks();
+    checkQuery($query, "There's a problem processing your request. (update assessment remarks)");
+    return $query;
+}
+
+// Update Current
+function checkUpdateCurrentPaymentRemarks($object)
+{
+    $query = $object->updateCurrentPaymentRemarks();
+    checkQuery($query, "There's a problem processing your request. (update current assessment remarks)");
+    return $query;
+}
+
 // Read all
 function checkReadByCurrentSyStudentAid($object)
 {

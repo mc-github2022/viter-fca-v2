@@ -2,6 +2,7 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import { InputText } from "@/components/helpers/FormInputs";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import PageNotFound from "@/components/partials/PageNotFound";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setError, setMessage } from "@/components/store/StoreAction";
@@ -101,6 +102,12 @@ const Profile = () => {
       return;
     }
   };
+
+  const isDev = JSON.parse(localStorage.getItem("fcatoken")).isDev;
+
+  if (store.credentials.data.role_is_admin !== 1 || isDev) {
+    return <PageNotFound />;
+  }
 
   return (
     <>

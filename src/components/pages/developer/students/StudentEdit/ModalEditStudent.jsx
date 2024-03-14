@@ -17,6 +17,7 @@ import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDe
 import ModalRevertOrSavePayment from "./StudentPaymentScheme/ModalRevertOrSavePayment.jsx";
 import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
+import StudentPaymentRemarks from "./StudentPaymentRemarks/StudentPaymentRemarks.jsx";
 
 const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -147,6 +148,15 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                   >
                     <button className="p-1 pl-4 ">Commitment Form</button>
                   </li>
+
+                  <li
+                    className={` ${
+                      index === 7 ? "bg-accent text-primary" : ""
+                    } cursor-pointer`}
+                    onClick={() => handleChangeProfile(7)}
+                  >
+                    <button className="p-1 pl-4 ">Payment Remarks</button>
+                  </li>
                 </ul>
               </aside>
               <main
@@ -245,6 +255,20 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                         handleClose={handleClose}
                       />
                     )}
+                    {index === 7 &&
+                      (store.credentials.data.role_is_developer === 1 ||
+                        store.credentials.data.role_is_admin === 1) && (
+                        <StudentPaymentRemarks
+                          index={index}
+                          showSideNav={showSideNav}
+                          dataItem={{
+                            ...studentByCurrentSyId?.data[0],
+                          }}
+                          setIsSavePaymentScheme={setIsSavePaymentScheme}
+                          setItemData={setItemData}
+                          handleClose={handleClose}
+                        />
+                      )}
                   </>
                 )}
               </main>

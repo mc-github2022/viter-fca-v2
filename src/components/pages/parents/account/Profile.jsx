@@ -1,6 +1,7 @@
 import { InputText } from "@/components/helpers/FormInputs";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setError, setMessage } from "@/components/store/StoreAction";
@@ -88,6 +89,10 @@ const Profile = () => {
       return;
     }
   };
+
+  if (store.credentials.data.role_is_parent !== 1) {
+    return <PageNotFound />;
+  }
 
   return (
     <>

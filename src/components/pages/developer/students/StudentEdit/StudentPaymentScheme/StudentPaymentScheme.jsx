@@ -1,5 +1,8 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { numberWithCommasToFixed } from "@/components/helpers/functions-general.jsx";
+import {
+  consoleLog,
+  numberWithCommasToFixed,
+} from "@/components/helpers/functions-general.jsx";
 import TableLoading from "@/components/partials/TableLoading";
 import { setSettingIsConfirm } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
@@ -36,7 +39,8 @@ const StudentPaymentScheme = ({
   const [selectItem, setSelectItem] = React.useState(
     Number(dataItem.current_students_schedule_fees_id)
   );
-
+  const isChangeRemarks =
+    assessmentRemarks !== dataItem.current_students_assessment_remarks;
   const { data: primaryDiscount } = useQueryData(
     "/v2/dev-assessment/read-primary-discount", // endpoint
     "get", // method
@@ -93,6 +97,7 @@ const StudentPaymentScheme = ({
       ...tuitionItem,
       current_students_sy_id: dataItem.current_students_sy_id,
       students_aid: dataItem.students_aid,
+      assessmentRemarks,
     });
     setIsSavePaymentScheme(true);
     setSelectItem(tuitionItem.tuition_fee_aid);
@@ -104,6 +109,7 @@ const StudentPaymentScheme = ({
       ...tuitionItem,
       current_students_sy_id: dataItem.current_students_sy_id,
       students_aid: dataItem.students_aid,
+      assessmentRemarks,
     });
     setIsSavePaymentScheme(false);
   };
@@ -138,7 +144,13 @@ const StudentPaymentScheme = ({
                       <button
                         className="btn btn--accent"
                         type="submit"
-                        disabled={selectItem > 0 ? false : true}
+                        disabled={
+                          selectItem > 0
+                            ? false
+                            : isChangeRemarks
+                            ? false
+                            : true
+                        }
                         onClick={() =>
                           handleSave(getSectedScheme(listOfScheme, selectItem))
                         }
@@ -311,28 +323,6 @@ const StudentPaymentScheme = ({
                   </>
                 )}
             </div>
-
-            {/* {store. && (
-              <div className="grid grid-cols-[50px_1fr] mb-[5rem] mt-5 gap-5">
-                <label
-                  htmlFor=""
-                  className="font-bold opacity-100 text-black uppercase text-[12px]"
-                >
-                  Remarks
-                </label>
-
-                <div className="form__wrap !mb-0">
-                  <textarea
-                    type="text"
-                    placeholder="Type here..."
-                    onChange={(e) =>
-                      handleAssessmentRemarks(e, setAssessmentRemarks)
-                    }
-                    value={assessmentRemarks}
-                  />
-                </div>
-              </div>
-            )} */}
           </div>
 
           {Number(dataItem.current_students_schedule_fees_id) > 0 &&

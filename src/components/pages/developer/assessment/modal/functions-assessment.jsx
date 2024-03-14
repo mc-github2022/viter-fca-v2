@@ -252,12 +252,14 @@ export const getMonthlyFeeDiscountedAmount = (
   let monthlyFeeDiscounted = "";
   let totalMonthlyFeeDiscounted = "";
   let newListOfSchemeData = [];
+  let schemeBData = [];
   let schemeADiscountedAdmissionFeeAmount = "";
   let schemeADiscountedTuitionFeeAmount = "";
   let schemeAMisc = "";
   let schemeABooks = "";
   let finalAmount = 0;
   let isDiscounted = 1;
+  let isMultifySchemeB = 0.05;
 
   let totalAdditionalDiscount = getAdditonalDiscount(
     totalAdditionalDiscountData,
@@ -268,6 +270,18 @@ export const getMonthlyFeeDiscountedAmount = (
     newListOfSchemeData = listOfScheme?.data.filter(
       (acItem) => acItem.tuition_fee_monthly === ""
     );
+  }
+
+  if (listOfScheme?.count > 0) {
+    schemeBData = listOfScheme?.data.filter(
+      (acItem) => acItem.tuition_fee_how_many_months === "9"
+    );
+    if (
+      schemeBData?.length > 0 &&
+      schemeBData[0]?.tuition_fee_scheme_id === listItem.tuition_fee_scheme_id
+    ) {
+      isMultifySchemeB = 0.1;
+    }
   }
 
   // for primary discount only
@@ -309,7 +323,9 @@ export const getMonthlyFeeDiscountedAmount = (
     const finalTuitionFee =
       schemeADiscountedTuitionFeeAmount - discountedTuitionFeeAmount;
 
-    const finalTuitionFeeAmount = finalTuitionFee * 0.05;
+    const finalTuitionFeeAmount = finalTuitionFee * Number(isMultifySchemeB);
+
+    console.log("isMultifySchemeB", isMultifySchemeB);
 
     const finalBooksFee = schemeABooks - Number(listItem.tuition_fee_books);
 
@@ -370,7 +386,7 @@ export const getMonthlyFeeDiscountedAmount = (
     const finalTuitionFee =
       schemeADiscountedTuitionFeeAmount - discountedTuitionFeeAmount;
 
-    const finalTuitionFeeAmount = finalTuitionFee * 0.05;
+    const finalTuitionFeeAmount = finalTuitionFee * Number(isMultifySchemeB);
 
     const finalBooksFee = schemeABooks - Number(listItem.tuition_fee_books);
 
@@ -433,7 +449,7 @@ export const getMonthlyFeeDiscountedAmount = (
     const finalTuitionFee =
       schemeADiscountedTuitionFeeAmount - discountedTuitionFeeAmount;
 
-    const finalTuitionFeeAmount = finalTuitionFee * 0.05;
+    const finalTuitionFeeAmount = finalTuitionFee * Number(isMultifySchemeB);
 
     const finalBooksFee = schemeABooks - Number(listItem.tuition_fee_books);
 

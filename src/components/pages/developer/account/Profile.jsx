@@ -2,6 +2,7 @@ import useQueryData from "@/components/custom-hooks/useQueryData";
 import { InputText } from "@/components/helpers/FormInputs";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
+import PageNotFound from "@/components/partials/PageNotFound";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setError, setMessage } from "@/components/store/StoreAction";
@@ -23,6 +24,7 @@ const Profile = () => {
   const [showNewPassword, setShowNewPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [changePassword, setChangePassword] = React.useState(false);
+  const isDev = JSON.parse(localStorage.getItem("fcatoken")).isDev;
 
   const {
     isLoading,
@@ -102,6 +104,10 @@ const Profile = () => {
       return;
     }
   };
+
+  if (store.credentials.data.role_is_developer !== 1 || !isDev) {
+    return <PageNotFound />;
+  }
 
   return (
     <>

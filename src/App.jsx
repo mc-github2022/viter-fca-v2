@@ -18,14 +18,13 @@ import { routesSystem } from "./routes/RoutesSystem.jsx";
 function App() {
   const queryClient = new QueryClient();
   // const fcatoken = JSON.parse(localStorage.getItem("fcatoken"));
-
-  // FUTURE CODE REFERENCE FOR ROUTING USING ROLE FOR REDIRECTION
+  // // FUTURE CODE REFERENCE FOR ROUTING USING ROLE FOR REDIRECTION
   // const checkLogin = async () => {
-  //   const login = await queryData(`/v2/user-other/token`, "post", {
+  //   const login = await queryData(`/v2/dev-user-system/token`, "post", {
   //     token: fcatoken.token,
   //   });
 
-  //   console.log(login);
+  //   return login;
   // };
 
   // React.useEffect(() => {

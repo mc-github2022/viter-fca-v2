@@ -3,6 +3,7 @@ import { getUrlParam } from "@/components/helpers/functions-general";
 import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
+import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
@@ -82,6 +83,12 @@ const ClientViewInfo = () => {
 
   const isOngoing =
     schoolYear?.count > 0 && schoolYear?.data[0].school_year_is_enrollment_open;
+
+  const isDev = JSON.parse(localStorage.getItem("fcatoken")).isDev;
+
+  if (store.credentials.data.role_is_developer !== 1 || !isDev) {
+    return <PageNotFound />;
+  }
 
   return (
     <>

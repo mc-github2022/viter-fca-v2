@@ -1,16 +1,15 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import { queryData } from "@/components/helpers/queryData";
-import BreadCrumbs from "@/components/partials/BreadCrumbs";
 import Footer from "@/components/partials/Footer";
 import Header from "@/components/partials/Header";
 import NoData from "@/components/partials/NoData";
+import PageNotFound from "@/components/partials/PageNotFound";
 import Pills from "@/components/partials/Pills";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
-import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setError,
   setIsAdd,
@@ -19,9 +18,8 @@ import {
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext";
 import React from "react";
-import { CiSquarePlus } from "react-icons/ci";
-import { FaAngleLeft, FaPlus, FaWpforms } from "react-icons/fa";
-import { FiEdit2, FiTrash } from "react-icons/fi";
+import { FaPlus, FaWpforms } from "react-icons/fa";
+import { FiEdit2 } from "react-icons/fi";
 import { LuDot } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import {
@@ -163,6 +161,11 @@ const Student = () => {
     setIsEnroll(true);
     setData(item);
   };
+
+  if (store.credentials.data.role_is_parent !== 1) {
+    return <PageNotFound />;
+  }
+
   return (
     <>
       <Header isLoading={isLoading} schoolYear={schoolYear} />
