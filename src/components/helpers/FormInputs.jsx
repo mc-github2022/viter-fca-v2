@@ -3,7 +3,12 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { NumericFormat } from "react-number-format";
 
-export const InputTextArea = ({ label, onChange = null, ...props }) => {
+export const InputTextArea = ({
+  label,
+  className = null,
+  onChange = null,
+  ...props
+}) => {
   const [field, meta] = useField(props);
 
   return (
@@ -15,7 +20,9 @@ export const InputTextArea = ({ label, onChange = null, ...props }) => {
         {label}
       </label>
       <textarea
-        className={meta.touched && meta.error ? "error-show" : null}
+        className={`${
+          meta.touched && meta.error ? "error-show" : null
+        } ${className}`}
         {...field}
         {...props}
         autoComplete="off"

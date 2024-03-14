@@ -1,6 +1,7 @@
 import React from "react";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
+import Scheme from "../pages/developer/settings/scheme/Scheme.jsx";
 
 // Mac // Mc // Mon // Cy
 // const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
@@ -23,6 +24,8 @@ export const devApiUrl = "https://app.fca.edu.ph/rest";
 export const devBaseUrl = "https://app.fca.edu.ph";
 export const devBaseImgUrl = "https://app.fca.edu.ph/img";
 export const devNavUrl = "/v2";
+
+export const schemeCId = 3;
 
 export const devKey =
   "$2a$12$47wDvbLInZif/PVS8B6P3.7WxyJvUpBzZAWCsnWJUKq3nrn4qgmeO";

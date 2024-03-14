@@ -1,6 +1,9 @@
 // PRIMARY DISCOUNT
 
-import { numberWithCommasToFixed } from "@/components/helpers/functions-general";
+import {
+  numberWithCommasToFixed,
+  schemeCId,
+} from "@/components/helpers/functions-general";
 
 //  list of Primary discount for UI purpose
 export const getPrimaryDiscount = (primaryDiscount, primaryDiscountId) => {
@@ -274,7 +277,7 @@ export const getMonthlyFeeDiscountedAmount = (
 
   if (listOfScheme?.count > 0) {
     schemeBData = listOfScheme?.data.filter(
-      (acItem) => acItem.tuition_fee_how_many_months === "9"
+      (acItem) => Number(acItem.tuition_fee_scheme_id) === Number(schemeCId)
     );
     if (
       schemeBData?.length > 0 &&

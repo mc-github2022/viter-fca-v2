@@ -78,6 +78,14 @@ const ModalSettingsNav = ({
               Notification
             </button>
           </li>
+          <li className={` ${index === 19 ? "active" : ""}`}>
+            <button
+              onClick={(e) => handleChangeSetting(19, e)}
+              className="p-1 pl-4"
+            >
+              Email Templates
+            </button>
+          </li>
 
           <li className={` ${index === 3 ? "active" : ""}`}>
             <button
