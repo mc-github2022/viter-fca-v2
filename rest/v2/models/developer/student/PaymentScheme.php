@@ -9,6 +9,7 @@ class PaymentScheme
     public $current_students_is_accept_payment;
     public $current_students_is_notify;
     public $current_students_schedule_fees_id;
+    public $current_students_assessment_remarks;
     public $current_students_rate_id;
     public $current_students_datetime;
 
@@ -45,6 +46,7 @@ class PaymentScheme
             $sql .= "school_year_students_is_notify = :school_year_students_is_notify, ";
             $sql .= "school_year_students_schedule_fees_id = :school_year_students_schedule_fees_id, ";
             $sql .= "school_year_students_rate_id = :school_year_students_rate_id, ";
+            $sql .= "school_year_students_assessment_remarks = :school_year_students_assessment_remarks, ";
             $sql .= "school_year_students_datetime = :school_year_students_datetime ";
             $sql .= "where school_year_students_sy_id = :school_year_students_sy_id ";
             $sql .= "and school_year_students_student_id = :school_year_students_student_id ";
@@ -54,6 +56,7 @@ class PaymentScheme
                 "school_year_students_is_notify" => $this->current_students_is_notify,
                 "school_year_students_schedule_fees_id" => $this->current_students_schedule_fees_id,
                 "school_year_students_rate_id" => $this->current_students_rate_id,
+                "school_year_students_assessment_remarks" => $this->current_students_assessment_remarks,
                 "school_year_students_datetime" => $this->current_students_datetime,
                 "school_year_students_sy_id" => $this->current_students_sy_id,
                 "school_year_students_student_id" => $this->students_aid,
@@ -81,6 +84,48 @@ class PaymentScheme
                 "current_students_is_notify" => $this->current_students_is_notify,
                 "current_students_schedule_fees_id" => $this->current_students_schedule_fees_id,
                 "current_students_rate_id" => $this->current_students_rate_id,
+                "current_students_datetime" => $this->current_students_datetime,
+                "current_students_aid" => $this->current_students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // update accept payment
+    public function updatePaymentRemarks()
+    {
+        try {
+            $sql = "update {$this->tblSYStudent} set ";
+            $sql .= "school_year_students_assessment_remarks = :school_year_students_assessment_remarks, ";
+            $sql .= "school_year_students_datetime = :school_year_students_datetime ";
+            $sql .= "where school_year_students_sy_id = :school_year_students_sy_id ";
+            $sql .= "and school_year_students_student_id = :school_year_students_student_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "school_year_students_assessment_remarks" => $this->current_students_assessment_remarks,
+                "school_year_students_datetime" => $this->current_students_datetime,
+                "school_year_students_sy_id" => $this->current_students_sy_id,
+                "school_year_students_student_id" => $this->students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // update accept payment
+    public function updateCurrentPaymentRemarks()
+    {
+        try {
+            $sql = "update {$this->tblCurrentSYStudent} set ";
+            $sql .= "current_students_assessment_remarks = :current_students_assessment_remarks, ";
+            $sql .= "current_students_datetime = :current_students_datetime ";
+            $sql .= "where current_students_aid = :current_students_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "current_students_assessment_remarks" => $this->current_students_assessment_remarks,
                 "current_students_datetime" => $this->current_students_datetime,
                 "current_students_aid" => $this->current_students_aid,
             ]);

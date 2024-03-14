@@ -221,6 +221,7 @@ RewriteRule ^dev-all-students/search$ controllers/developer/all-students/search.
   
 # STUDENTS PAYMENT SCHEME
 RewriteRule ^dev-students-payment-scheme/([0-9]+)$ controllers/developer/students/payment-scheme/update-payment-scheme.php?studentSyId=$1 [L] 
+RewriteRule ^dev-students-payment-scheme/payment-remarks/([0-9]+)$ controllers/developer/students/payment-scheme/update-payment-remarks.php?studentSyId=$1 [L] 
 RewriteRule ^dev-students-payment-scheme/read-student-by-current-sy-id/([0-9]+)$ controllers/developer/students/payment-scheme/read-student-by-current-sy-id.php?studentSyId=$1 [L] 
 
 # STUDENTS REQUIREMENT

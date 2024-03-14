@@ -83,12 +83,12 @@ const ModalRevertOrSavePayment = ({
           </h3>
         </div>
         <h3 className=" text-[14px] mb-0 font-normal">{msg}</h3>
-        <p className="mt-3 ">
+        {/* <p className="mt-3 ">
           <span className="font-bold">
             " {item.tuitionName}{" "}
             {!isSavePaymentScheme && `(${item.scheme_name})`} "
           </span>
-        </p>
+        </p> */}
 
         <div className="modal__action flex justify-end mt-2 gap-2">
           <button
