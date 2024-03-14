@@ -67,7 +67,7 @@ const ClientList = ({ setItemEdit }) => {
       }
       return;
     },
-    refetchOnWindowFocus: false,
+    // refetchOnWindowFocus: true,
   });
 
   const handleEdit = (item) => {

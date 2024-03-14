@@ -18,10 +18,12 @@ import ModalRevertOrSavePayment from "./StudentPaymentScheme/ModalRevertOrSavePa
 import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
 import StudentPaymentRemarks from "./StudentPaymentRemarks/StudentPaymentRemarks.jsx";
+import ModalSuccessfullyEnrolled from "./StudentParentCommitment/ModalSuccessfullyEnrolled.jsx";
 
 const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [showSideNav, setShowSideNav] = React.useState(false);
+  const [isEnrolled, setIsEnrolled] = React.useState(false);
   // accept or notify parent
   const [isSavePaymentScheme, setIsSavePaymentScheme] = React.useState(true);
   const [itemData, setItemData] = React.useState(null);
@@ -244,6 +246,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                           ...studentByCurrentSyId?.data[0],
                         }}
                         handleClose={handleClose}
+                        setIsEnrolled={setIsEnrolled}
                       />
                     )}
                     {index === 6 && (
@@ -280,6 +283,9 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
         </div>
       </div>
       {store.success && <ModalSuccess />}
+      {isEnrolled && (
+        <ModalSuccessfullyEnrolled setIsEnrolled={setIsEnrolled} />
+      )}
       {store.isSettingConfirm && (
         <ModalRevertOrSavePayment
           mysqlApiRevertOrSavePayment={`/v2/dev-students-payment-scheme/${dataItem?.current_students_aid}`}

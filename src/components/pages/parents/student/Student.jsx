@@ -32,6 +32,7 @@ import ModalAddStudent from "../../developer/clients/student-info/modal-student/
 import ModalRequirements from "../../developer/clients/student-info/requirement/ModalRequirements";
 import ModalEditStudent from "../../developer/students/StudentEdit/ModalEditStudent";
 import Navigation from "../Navigation";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -183,7 +184,7 @@ const Student = () => {
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >
             <div className="main__header flex justify-between items-start lg:items-center ">
-              <div className="max-w-[620px] mt-[55px] flex items-start justify-between w-full">
+              <div className="max-w-[620px] mt-[55px] w-full">
                 <div>
                   <h1 className="text-clampH1 mb-2 pt-2">My Student</h1>
                   <p className="mb-4 text-xs hidden lg:block">
@@ -202,7 +203,7 @@ const Student = () => {
             </div>
 
             <div className="max-w-[620px] w-full gap-4 mb-5 ">
-              {(loading || isFetching) && <FetchingSpinner />}
+              {(loading || isFetching) && <TableSpinner />}
               {mystudent?.data.length === 0 ? (
                 <NoData />
               ) : (
