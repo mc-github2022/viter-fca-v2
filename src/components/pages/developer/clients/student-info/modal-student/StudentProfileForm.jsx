@@ -367,7 +367,7 @@ const StudentProfileForm = ({
                             })
                           ) : (
                             <option value="" disabled>
-                              No data
+                              Pleace specify guardian information address
                             </option>
                           )}
                         </InputSelect>
