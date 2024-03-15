@@ -23,14 +23,19 @@ $user_other->user_other_created = date("Y-m-d H:i:s");
 $user_other->user_other_datetime = date("Y-m-d H:i:s");
 $password_link = "/create-password";
 $queryParentAccount = $user_other->checkEmailForParentd();
+$queryRoleById = getResultData($user_other->readRoleById());
 
 // check email
 isEmailExist($user_other, $user_other->user_other_email);
 
-// check email for parent if exist
-if ($queryParentAccount->rowCount() == 0) {
-    returnError("Invalid account. Please use a registered one.");
+// only if role is parent
+if ($queryRoleById[0]["role_is_parent"] == 1) {
+    // check email for parent if exist
+    if ($queryParentAccount->rowCount() == 0) {
+        returnError("Invalid account. Please use a registered one.");
+    }
 }
+
 
 // send email notification
 sendEmail(
