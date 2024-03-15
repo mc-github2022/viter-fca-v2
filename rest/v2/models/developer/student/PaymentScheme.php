@@ -46,7 +46,6 @@ class PaymentScheme
             $sql .= "school_year_students_is_notify = :school_year_students_is_notify, ";
             $sql .= "school_year_students_schedule_fees_id = :school_year_students_schedule_fees_id, ";
             $sql .= "school_year_students_rate_id = :school_year_students_rate_id, ";
-            $sql .= "school_year_students_assessment_remarks = :school_year_students_assessment_remarks, ";
             $sql .= "school_year_students_datetime = :school_year_students_datetime ";
             $sql .= "where school_year_students_sy_id = :school_year_students_sy_id ";
             $sql .= "and school_year_students_student_id = :school_year_students_student_id ";
@@ -56,7 +55,6 @@ class PaymentScheme
                 "school_year_students_is_notify" => $this->current_students_is_notify,
                 "school_year_students_schedule_fees_id" => $this->current_students_schedule_fees_id,
                 "school_year_students_rate_id" => $this->current_students_rate_id,
-                "school_year_students_assessment_remarks" => $this->current_students_assessment_remarks,
                 "school_year_students_datetime" => $this->current_students_datetime,
                 "school_year_students_sy_id" => $this->current_students_sy_id,
                 "school_year_students_student_id" => $this->students_aid,
