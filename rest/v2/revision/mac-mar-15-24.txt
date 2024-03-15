@@ -7,3 +7,11 @@ controllers
 2. rest/v2/controllers/developer/client/client-student/create.php
 
 Uploaded 8:16am
+
+TO UPLOAD 10:55am
+
+models
+1.rest/v2/models/developer/settings/UserOther.php 
+
+controllers
+1.rest/v2/controllers/developer/settings/other/create.php
