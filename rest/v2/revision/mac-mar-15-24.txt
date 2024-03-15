@@ -1,0 +1,5 @@
+models
+1. rest/v2/models/developer/settings/UserOther.php 
+
+controllers
+1. rest/v2/controllers/developer/settings/other/create.php

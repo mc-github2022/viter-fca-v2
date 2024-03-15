@@ -515,4 +515,20 @@ class UserOther
         }
         return $query;
     }
+
+    // check email for parent if exist
+    public function checkEmailForParentd()
+    {
+        try {
+            $sql = "select parents_email from {$this->tblParents} ";
+            $sql .= "where parents_email = :parents_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "parents_email" => "{$this->user_other_email}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 }

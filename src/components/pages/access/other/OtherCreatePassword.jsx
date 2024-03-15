@@ -12,9 +12,9 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
-import { AiFillCheckCircle } from "react-icons/ai";
 import { BsCheckCircleFill } from "react-icons/bs/index.js";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaSquareCheck } from "react-icons/fa6";
 import * as Yup from "yup";
 
 const OtherCreatePassword = () => {
@@ -134,7 +134,7 @@ const OtherCreatePassword = () => {
                 <div className="flex justify-center">
                   <LogoGreen />
                 </div>
-                <AiFillCheckCircle className="text-5xl fill-accent mx-auto mt-10 mb-2" />
+                <FaSquareCheck className="text-5xl fill-accent mx-auto mt-10 mb-2" />
                 <h2 className="mb-4 mt-2 text-lg text-center">Success</h2>
                 <p className="text-sm mb-6">
                   Your new password is set and ready to use. Click the button
@@ -220,7 +220,7 @@ const OtherCreatePassword = () => {
                         )}
                       </div>
 
-                      <div className="p-3 rounded-sm bg-gray-50 mb-6 border border-solid border-gray-200">
+                      <div className="p-3 rounded-sm mb-6">
                         <h5 className="text-[12px] text-body mb-2">
                           Password Requirement
                         </h5>

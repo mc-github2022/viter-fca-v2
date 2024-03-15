@@ -66,9 +66,14 @@ const OtherForgotPassword = () => {
       <>
         <div className="h-screen w-full relative">
           <div className="login w-full max-w-[380px] border border-gray-200 py-10 px-8 moveTop rounded-md shadow-sm absolute left-[50%] translate-x-[-50%] bg-primary">
+            <div className=" mb-10">
+              <div className="flex justify-center">
+                <LogoGreen />
+              </div>
+            </div>
             {isSuccess ? (
               <>
-                <MdMarkEmailRead className="text-5xl fill-accent mx-auto mt-10 mb-2" />
+                <MdMarkEmailRead className="text-5xl fill-accent mx-auto mb-2" />
                 <h2 className="mb-4 mt-2 text-lg text-center">
                   Instruction Sent!
                 </h2>
@@ -87,16 +92,6 @@ const OtherForgotPassword = () => {
               </>
             ) : (
               <>
-                <div className=" mb-4">
-                  <div className="flex justify-center">
-                    <LogoGreen />
-                  </div>
-                  <h1 className="mt-8 font-normal mb-1 text-[27px]">
-                    Reset Password
-                  </h1>
-                  <p className="mb-8 ">Please enter your registered email</p>
-                </div>
-
                 <Formik
                   initialValues={initVal}
                   validationSchema={yupSchema}
