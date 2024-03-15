@@ -23,7 +23,8 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
     "/v2/dev-tuition-fee/read-all-group-by-category-grade", // endpoint
     "post", // method
     "group-by-category-grade", // key
-    { gradeId }
+    { gradeId },
+    gradeId
   );
 
   const {
@@ -44,7 +45,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div>
+      <div className="mt-3">
         <label className="text-[12px]">Filter by grade</label>
         <select
           className="max-w-[10rem]"
@@ -52,13 +53,13 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
           onChange={(e) => handleChangeCategory(e)}
           disabled={isFetching || isLoading}
         >
-          <option value={0} hidden>
-            {loadingGrade || fetchingGrade
-              ? "Loading..."
-              : errorGrade
-              ? "Error"
-              : "All"}
-          </option>
+          {loadingGrade || fetchingGrade || errorGrade ? (
+            <option hidden>
+              {loadingGrade || fetchingGrade ? "Loading..." : "Error"}
+            </option>
+          ) : (
+            <option value={0}>All</option>
+          )}
 
           {(!loadingGrade || !fetchingGrade) && grade?.data.length === 0 ? (
             <option>No Data</option>

@@ -30,7 +30,6 @@ const EmailTemplatesFormAddEdit = ({
     dispatch(setIsSettingAdd(false));
     setAddIndex(null);
   };
-
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
@@ -68,6 +67,7 @@ const EmailTemplatesFormAddEdit = ({
   );
 
   const initVal = {
+    email_template_aid: itemEdit ? itemEdit.email_template_aid : "",
     email_template_name: itemEdit ? itemEdit.email_template_name : "",
     email_template_content: itemEdit ? itemEdit.email_template_content : "",
     email_template_receiver: itemEdit
