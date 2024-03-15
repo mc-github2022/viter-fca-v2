@@ -291,6 +291,26 @@ class UserOther
         return $query;
     }
 
+    // read role
+    public function readRoleById()
+    {
+        try {
+            $sql = "select * from {$this->tblRole} ";
+            $sql .= "where role_is_active = 1 ";
+            $sql .= "and role_is_developer = 0 ";
+            $sql .= "and role_aid = :user_other_role_id ";
+            $sql .= "order by role_is_active desc, ";
+            $sql .= "role_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "user_other_role_id" => $this->user_other_role_id,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     // read staff
     public function readStaff()
     {
