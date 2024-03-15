@@ -1,5 +1,9 @@
 models
 1. rest/v2/models/developer/settings/UserOther.php 
+2. rest/v2/models/developer/client/client-student/ClientStudent.php  
 
 controllers
 1. rest/v2/controllers/developer/settings/other/create.php
+2. rest/v2/controllers/developer/client/client-student/create.php
+
+Uploaded 8:16am

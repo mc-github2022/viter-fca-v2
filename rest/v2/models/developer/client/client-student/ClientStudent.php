@@ -444,6 +444,7 @@ class ClientStudent
             $sql .= "school_year_students_last_learning_type, ";
             $sql .= "school_year_students_last_school_attended, ";
             $sql .= "school_year_students_last_gpa, ";
+            $sql .= "school_year_students_last_grade_level_id, ";
             $sql .= "school_year_students_grade_level_id, ";
             $sql .= "school_year_students_last_school_address, ";
             $sql .= "school_year_students_last_remarks, ";
@@ -455,6 +456,7 @@ class ClientStudent
             $sql .= ":current_students_last_learning_type, ";
             $sql .= ":current_students_last_school_attended, ";
             $sql .= ":current_students_last_gpa, ";
+            $sql .= ":current_students_last_grade_level_id, ";
             $sql .= ":current_students_grade_level_id, ";
             $sql .= ":current_students_last_school_address, ";
             $sql .= ":current_students_last_remarks, ";
@@ -468,6 +470,7 @@ class ClientStudent
                 "current_students_last_learning_type" => $this->current_students_last_learning_type,
                 "current_students_last_school_attended" => $this->current_students_last_school_attended,
                 "current_students_last_gpa" => $this->current_students_last_gpa,
+                "current_students_last_grade_level_id" => $this->current_students_last_grade_level_id,
                 "current_students_grade_level_id" => $this->current_students_grade_level_id,
                 "current_students_last_school_address" => $this->current_students_last_school_address,
                 "current_students_last_remarks" => $this->current_students_last_remarks,
@@ -491,6 +494,7 @@ class ClientStudent
             $sql .= "current_students_last_learning_type, ";
             $sql .= "current_students_last_school_attended, ";
             $sql .= "current_students_last_gpa, ";
+            $sql .= "current_students_last_grade_level_id, ";
             $sql .= "current_students_grade_level_id, ";
             $sql .= "current_students_last_school_address, ";
             $sql .= "current_students_last_remarks, ";
@@ -502,6 +506,7 @@ class ClientStudent
             $sql .= ":current_students_last_learning_type, ";
             $sql .= ":current_students_last_school_attended, ";
             $sql .= ":current_students_last_gpa, ";
+            $sql .= ":current_students_last_grade_level_id, ";
             $sql .= ":current_students_grade_level_id, ";
             $sql .= ":current_students_last_school_address, ";
             $sql .= ":current_students_last_remarks, ";
@@ -515,6 +520,7 @@ class ClientStudent
                 "current_students_last_learning_type" => $this->current_students_last_learning_type,
                 "current_students_last_school_attended" => $this->current_students_last_school_attended,
                 "current_students_last_gpa" => $this->current_students_last_gpa,
+                "current_students_last_grade_level_id" => $this->current_students_last_grade_level_id,
                 "current_students_grade_level_id" => $this->current_students_grade_level_id,
                 "current_students_last_school_address" => $this->current_students_last_school_address,
                 "current_students_last_remarks" => $this->current_students_last_remarks,
