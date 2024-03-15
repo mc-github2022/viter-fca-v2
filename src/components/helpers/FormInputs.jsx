@@ -40,6 +40,7 @@ export const InputTextArea = ({
 
 export const InputText = ({
   label,
+  className = "",
   onChange = null,
   refVal = null,
   ...props
@@ -80,7 +81,9 @@ export const InputText = ({
       <input
         {...field}
         {...props}
-        className={meta.touched && meta.error ? "error-show" : null}
+        className={`${
+          meta.touched && meta.error ? "error-show" : null
+        } ${className}`}
         autoComplete="off"
         onChange={(e) => {
           onChange !== null && onChange(e);

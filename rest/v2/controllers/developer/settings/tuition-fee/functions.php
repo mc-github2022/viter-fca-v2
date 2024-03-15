@@ -46,3 +46,11 @@ function checkReadAllGroupBYCategoryGrade($object)
     checkQuery($query, "Empty records. (group by category and grade)");
     return $query;
 }
+
+// Read all category
+function checkReadAllGroupBYCategoryGradeId($object)
+{
+    $query = $object->readAllGroupBYCategoryGradeId();
+    checkQuery($query, "Empty records. (group by category and grade id)");
+    return $query;
+}

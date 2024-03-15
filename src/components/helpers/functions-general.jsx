@@ -1,5 +1,4 @@
 import React from "react";
-import Scheme from "../pages/developer/settings/scheme/Scheme.jsx";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 

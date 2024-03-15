@@ -5,26 +5,25 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import { setIsAdd, setIsSettingAdd } from "@/components/store/StoreAction";
+import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import EmailTemplatesFormAddEdit from "./EmailTemplatesFormAddEdit";
 import EmailTemplatesList from "./EmailTemplatesList";
+import EmailTemplatesFormAddEdit from "./modals/EmailTemplatesFormAddEdit";
+import EmailTemplatesPreview from "./modals/EmailTemplatesPreview";
 const EmailTemplates = ({ index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
   const [itemEdit, setItemEdit] = React.useState(null);
+  const [addIndex, setAddIndex] = React.useState(null);
+  const [previewData, setPreviewData] = React.useState(null);
 
   const handleAdd = () => {
     dispatch(setIsSettingAdd(true));
     setItemEdit(null);
+    setAddIndex(1);
   };
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: department,
-  } = useQueryData(
+  const { data: department } = useQueryData(
     "/v2/dev-department", // endpoint
     "get", // method
     "department" // key
@@ -51,14 +50,28 @@ const EmailTemplates = ({ index }) => {
             </button>
           )}
 
-          {store.isSettingAdd && (
+          {store.isSettingAdd && addIndex === 1 && (
             <EmailTemplatesFormAddEdit
               itemEdit={itemEdit}
               department={department}
+              setAddIndex={setAddIndex}
+              setPreviewData={setPreviewData}
             />
           )}
+
+          {store.isSettingAdd && addIndex === 2 && (
+            <EmailTemplatesPreview
+              previewData={previewData}
+              setAddIndex={setAddIndex}
+              setItemEdit={setItemEdit}
+            />
+          )}
+
           {!store.isSettingAdd && (
-            <EmailTemplatesList setItemEdit={setItemEdit} />
+            <EmailTemplatesList
+              setItemEdit={setItemEdit}
+              setAddIndex={setAddIndex}
+            />
           )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

@@ -62,7 +62,11 @@ const OtherCreateAccount = () => {
       }
       if (!data.success) {
         dispatch(setError(true));
-        dispatch(setMessage(data.error));
+        dispatch(
+          setMessage(
+            "Invalid account. For more information, please contact us through this email info@fca.edu.ph or visit us on our website at fca.edu.ph"
+          )
+        );
       }
     },
   });
@@ -86,7 +90,8 @@ const OtherCreateAccount = () => {
 
               <a
                 className="btn btn--accent text-xs block text-center mt-6"
-                href={`${devNavUrl}/login`}>
+                href={`${devNavUrl}/login`}
+              >
                 Back to Login
               </a>
             </div>
@@ -111,7 +116,8 @@ const OtherCreateAccount = () => {
                   ...values,
                   user_other_role_id: roleId[0].role_aid,
                 });
-              }}>
+              }}
+            >
               {(props) => {
                 return (
                   <Form>
@@ -143,7 +149,8 @@ const OtherCreateAccount = () => {
                       <button
                         type="submit"
                         disabled={mutation.isPending || !props.dirty}
-                        className="btn btn--accent w-full relative">
+                        className="btn btn--accent w-full relative"
+                      >
                         {mutation.isPending ? (
                           <ButtonSpinner />
                         ) : (
@@ -158,7 +165,8 @@ const OtherCreateAccount = () => {
 
             <Link
               to={`${devNavUrl}/login`}
-              className="block text-center mt-5 text-xs hover:underline">
+              className="block text-center mt-5 text-xs hover:underline"
+            >
               Back to Login
             </Link>
           </div>
