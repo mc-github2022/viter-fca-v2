@@ -19,11 +19,12 @@ import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidR
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-const EmailTemplatesList = ({ setItemEdit }) => {
+const EmailTemplatesList = ({ setItemEdit, setAddIndex }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
+  let counter = 1;
 
   const {
     isLoading,
@@ -31,35 +32,34 @@ const EmailTemplatesList = ({ setItemEdit }) => {
     error,
     data: notification,
   } = useQueryData(
-    "/v2/dev-notification", // endpoint
+    "/v2/dev-email-template", // endpoint
     "get", // method
-    "notification" // key
+    "email-template" // key
   );
 
   const handleEdit = (item) => {
     dispatch(setIsSettingAdd(true));
     setItemEdit(item);
+    setAddIndex(1);
   };
 
   const handleArchive = (item) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.notification_aid);
+    setId(item.email_template_aid);
     setData(item);
     setIsArchive(0);
-    console.log(isArchive);
   };
 
   const handleRestore = (item) => {
     dispatch(setSettingIsConfirm(true));
-    setId(item.notification_aid);
+    setId(item.email_template_aid);
     setData(item);
     setIsArchive(1);
-    console.log(isArchive);
   };
 
   const handleDelete = (item) => {
     dispatch(setSettingIsDelete(true));
-    setId(item.notification_aid);
+    setId(item.email_template_aid);
     setData(item);
   };
 
@@ -88,18 +88,19 @@ const EmailTemplatesList = ({ setItemEdit }) => {
             >
               <div
                 className={`grow text-left ${
-                  item.notification_active ? "opacity-100" : "opacity-40"
+                  item.email_template_is_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <div className="flex flex-col lg:flex-row gap-1 w-[80%] justify-between">
-                  <p className="mb-1">{item.notification_name}</p>
-                  <p className="mb-1">{item.notification_email}</p>
-                  <p className="mb-1">{item.department_name}</p>
+                <div className="grid grid-cols-[1rem,1fr,1fr,1fr] lg:flex-row gap-1 w-[80%] ">
+                  <p className="mb-1">{counter++}.</p>
+                  <p className="mb-1">{item.email_template_name}</p>
+                  <p className="mb-1">{item.email_template_receiver}</p>
+                  <p className="mb-1">{item.email_template_category}</p>
                 </div>
               </div>
 
               <ul className="datalist__action flex items-center gap-1 pr-3 ">
-                {item.notification_active === 1 ? (
+                {item.email_template_is_active === 1 ? (
                   <>
                     <li className=" ">
                       <button
@@ -150,22 +151,22 @@ const EmailTemplatesList = ({ setItemEdit }) => {
 
       {store.isSettingConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/dev-notification/active/${id}`}
+          mysqlApiArchive={`/v2/dev-email-template/active/${id}`}
           msg={`Are you sure you want to ${
             isArchive ? "restore" : "archive"
           } this record?`}
-          item={dataItem.notification_name}
-          queryKey={"notification"}
+          item={dataItem.email_template_name}
+          queryKey={"email-template"}
           isArchive={isArchive}
         />
       )}
 
       {store.isSettingDelete && (
         <ModalDelete
-          mysqlApiDelete={`/v2/dev-notification/${id}`}
+          mysqlApiDelete={`/v2/dev-email-template/${id}`}
           msg={"Are you sure you want to delete this record?"}
-          item={dataItem.notification_name}
-          queryKey={"notification"}
+          item={dataItem.email_template_name}
+          queryKey={"email-template"}
         />
       )}
     </>

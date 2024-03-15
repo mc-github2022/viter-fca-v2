@@ -20,6 +20,11 @@ RewriteRule ^dev-department$ controllers/developer/settings/department/departmen
 RewriteRule ^dev-department/([0-9]+)$ controllers/developer/settings/department/department.php?departmentid=$1 [L]
 RewriteRule ^dev-department/active/([0-9]+)$ controllers/developer/settings/department/active.php?departmentid=$1 [L]
 
+#EMAIL TEMPLATE
+RewriteRule ^dev-email-template$ controllers/developer/settings/email-template/email-template.php [L]
+RewriteRule ^dev-email-template/([0-9]+)$ controllers/developer/settings/email-template/email-template.php?emailTemplateId=$1 [L]
+RewriteRule ^dev-email-template/active/([0-9]+)$ controllers/developer/settings/email-template/active.php?emailTemplateId=$1 [L]
+
 #RELATIONSHIP
 RewriteRule ^dev-relationship$ controllers/developer/settings/relationship/relationship.php [L]
 RewriteRule ^dev-relationship/([0-9]+)$ controllers/developer/settings/relationship/relationship.php?relationshipid=$1 [L]

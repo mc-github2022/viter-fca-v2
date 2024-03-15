@@ -24,10 +24,47 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
     "group-by-category-grade" // key
   );
 
+  const {
+    isLoading: loadingGrade,
+    isFetching: fetchingGrade,
+    error: errorGrade,
+    data: grade,
+  } = useQueryData(
+    "/v2/dev-tuition-fee/read-all-grade", // endpoint
+    "get", // method
+    "read-all-grade" // key
+  );
+
   return (
     <>
       <h5 className="text-sm">List</h5>
 
+      <div>
+        <label className="text-[12px]">Filter by grade</label>
+        <select className="max-w-[10rem]">
+          <option value="all">All</option>
+
+          <option value="" hidden>
+            {(loadingGrade || fetchingGrade) && "Loading..."}
+          </option>
+
+          {(!loadingGrade || !fetchingGrade) && grade?.data.length === 0 ? (
+            <option>No Data</option>
+          ) : (
+            grade?.data.map((item, key) => {
+              return (
+                <option
+                  key={key}
+                  value={item.grade_level_aid}
+                  id={item.grade_level_name}
+                >
+                  {`${item.grade_level_name}`}
+                </option>
+              );
+            })
+          )}
+        </select>
+      </div>
       <div className="datalist max-w-[810px] w-[810px] overflow-x-hidden overflow-y-auto h-[610px] lg:max-h-[520px] custom__scroll relative">
         {isFetching && !isLoading && <TableSpinner />}
 
