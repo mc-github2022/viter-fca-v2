@@ -17,3 +17,8 @@ controllers
 1.rest/v2/controllers/developer/settings/other/create.php
 
 Uploaded 11:06am
+
+TO UPLOAD 12:30pm
+
+controllers
+1. rest/v2/controllers/developer/settings/other/reset-password.php
