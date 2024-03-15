@@ -33,6 +33,7 @@ import {
   getGradeLevelOrderByStudentId,
   getStudentStatus,
 } from "./functions-all-students";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 
 const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -194,7 +195,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
       />
       <div className="main__table relative">
         {((isFetching && !isFetchingNextPage && status !== "loading") ||
-          loading) && <FetchingSpinner />}
+          loading) && <TableSpinner />}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <h6>
             Count:{" "}

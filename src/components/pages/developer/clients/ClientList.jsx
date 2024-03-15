@@ -177,7 +177,7 @@ const ClientList = ({ setItemEdit }) => {
                             />
                           </td>
                           <td>
-                            {item.parents_lname} {item.parents_fname}
+                            {item.parents_lname}, {item.parents_fname}
                           </td>
                           <td>
                             {item.parents_is_active === 1 ? (

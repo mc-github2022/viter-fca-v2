@@ -1,8 +1,4 @@
-import {
-  InputCheckbox,
-  InputText,
-  InputTextArea,
-} from "@/components/helpers/FormInputs.jsx";
+import { InputCheckbox } from "@/components/helpers/FormInputs.jsx";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import {
@@ -28,7 +24,7 @@ const StudentParentCommitment = ({
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(`/v2/dev-students/update-commitment-form`, "put", values),
-    onSuccess: (data) => {
+    onSuccess: (data, values) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["all-students"] });
       queryClient.invalidateQueries({ queryKey: ["students"] });
@@ -38,10 +34,17 @@ const StudentParentCommitment = ({
       });
 
       // show error box
-      if (data.success) {
-        // setIsViewInfo(false);
-        setIsEnrolled(true);
-        dispatch(setMessage("Please wait for payment scheme from finance."));
+      if ((data.success, values)) {
+        if (values?.current_students_last_parent_commitment_is_agree === true) {
+          setIsEnrolled(true);
+          dispatch(setMessage("Please wait for payment scheme from finance."));
+        }
+        if (
+          values?.current_students_last_parent_commitment_is_agree === false
+        ) {
+          dispatch(setSuccess(true));
+          dispatch(setMessage("Record successfully updated."));
+        }
       }
       if (!data.success) {
         dispatch(setValidate(true));
