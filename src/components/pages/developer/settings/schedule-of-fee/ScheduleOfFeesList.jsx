@@ -45,7 +45,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div>
+      <div className="mt-3">
         <label className="text-[12px]">Filter by grade</label>
         <select
           className="max-w-[10rem]"
