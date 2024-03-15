@@ -12,6 +12,7 @@ import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalError from "@/components/partials/modals/ModalError.jsx";
 import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
+import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import TableSpinner from "@/components/partials/spinners/TableSpinner.jsx";
 import {
   setError,
@@ -432,6 +433,7 @@ const ClientStudentViewInfo = () => {
 
       {store.success && <ModalSuccess />}
       {store.error && <ModalError />}
+      {store.validate && <ModalValidate />}
     </>
   );
 };
