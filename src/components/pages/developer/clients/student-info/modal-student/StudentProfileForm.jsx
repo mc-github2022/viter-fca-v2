@@ -140,6 +140,7 @@ const StudentProfileForm = ({
           current_students_last_learning_type: "",
           current_students_last_school_attended: "",
           current_students_last_gpa: "",
+          current_students_last_grade_level_id: "",
           current_students_grade_level_id: "",
           current_students_last_school_address: "",
           current_students_last_remarks: "",
@@ -395,7 +396,7 @@ const StudentProfileForm = ({
                         <InputSelect
                           label="Last Grade Level"
                           name="current_students_last_grade_level_id"
-                          disabled
+                          // disabled
                         >
                           <option value="" hidden></option>
                           {gradeLevel?.count > 0 ? (
