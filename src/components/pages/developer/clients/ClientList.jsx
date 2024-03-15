@@ -132,6 +132,7 @@ const ClientList = ({ setItemEdit }) => {
                   <th>#</th>
                   <th className="w-20">Status</th>
                   <th>Name</th>
+                  <th>Email</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
               </thead>
@@ -179,6 +180,7 @@ const ClientList = ({ setItemEdit }) => {
                           <td>
                             {item.parents_lname}, {item.parents_fname}
                           </td>
+                          <td>{item.parents_email}</td>
                           <td>
                             {item.parents_is_active === 1 ? (
                               <div className="table-action flex gap-2 justify-end">

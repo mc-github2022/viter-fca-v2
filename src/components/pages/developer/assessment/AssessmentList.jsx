@@ -84,6 +84,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
+                  <th>Email</th>
                   <th>Grade</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
@@ -115,6 +116,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
                           <td>{counter++}.</td>
 
                           <td>{item.student_fullname}</td>
+                          <td>{item.students_institutional_email}</td>
                           <td>{item.grade_level_name}</td>
                           <td>
                             <div className="flex gap-2 justify-end mr-5">
