@@ -15,11 +15,17 @@ function checkUpdateFinancier($object)
     return $query;
 }
 
-
 function checkReadStudentByParentId($object)
 {
     $query = $object->readStudentById();
     checkQuery($query, "There's a problem processing your request. (Read by student id)");
+    return $query;
+}
+
+function checkReadUserOtherAccount($object)
+{
+    $query = $object->readUserOtherAccount();
+    checkQuery($query, "There's a problem processing your request. (read parent user other)");
     return $query;
 }
 

@@ -7,7 +7,7 @@ import {
   setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import { BsArchive } from "react-icons/bs";
+import { TbUserOff } from "react-icons/tb";
 
 import NoData from "@/components/partials/NoData.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
@@ -18,6 +18,7 @@ import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
 import { PiPasswordLight } from "react-icons/pi";
+import ModalSuspend from "./ModalSuspend";
 const UserSystemList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -41,7 +42,7 @@ const UserSystemList = ({ setItemEdit }) => {
     setItemEdit(item);
   };
 
-  const handleArchive = (item) => {
+  const handleSuspend = (item) => {
     dispatch(setSettingIsConfirm(true));
     setId(item.user_system_aid);
     setData(item);
@@ -129,10 +130,10 @@ const UserSystemList = ({ setItemEdit }) => {
                     <li>
                       <button
                         className="tooltip"
-                        data-tooltip="Archive"
-                        onClick={() => handleArchive(item)}
+                        data-tooltip="Suspend"
+                        onClick={() => handleSuspend(item)}
                       >
-                        <BsArchive />
+                        <TbUserOff />
                       </button>
                     </li>
                   </>
@@ -175,12 +176,12 @@ const UserSystemList = ({ setItemEdit }) => {
       )}
 
       {store.isSettingConfirm && (
-        <ModalConfirm
+        <ModalSuspend
           mysqlApiArchive={`/v2/dev-user-system/active/${id}`}
           msg={`Are you sure you want to ${
-            isArchive ? "restore" : "archive"
+            isArchive ? "restore" : "suspend"
           } this record?`}
-          item={`${dataItem.user_system_fname} ${dataItem.user_system_lname}`}
+          item={dataItem.user_system_email}
           queryKey={"system"}
           isArchive={isArchive}
         />

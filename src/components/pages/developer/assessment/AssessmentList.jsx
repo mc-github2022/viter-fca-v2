@@ -4,6 +4,7 @@ import NoData from "@/components/partials/NoData.jsx";
 import SearchBar from "@/components/partials/SearchBar.jsx";
 import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError.jsx";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -84,6 +85,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
+                  <th>Email</th>
                   <th>Grade</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
@@ -115,6 +117,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
                           <td>{counter++}.</td>
 
                           <td>{item.student_fullname}</td>
+                          <td>{item.students_institutional_email}</td>
                           <td>{item.grade_level_name}</td>
                           <td>
                             <div className="flex gap-2 justify-end mr-5">

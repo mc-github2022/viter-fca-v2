@@ -19,6 +19,7 @@ class Parents
     public $student_aid;
 
     public $user_other_key;
+    public $user_other_email;
 
     public $connection;
     public $lastInsertedId;
@@ -210,14 +211,14 @@ class Parents
             $sql = "update {$this->tblParents} set ";
             $sql .= "parents_fname = :parents_fname, ";
             $sql .= "parents_lname = :parents_lname, ";
-            // $sql .= "parents_email = :parents_email, ";
+            $sql .= "parents_email = :parents_email, ";
             $sql .= "parents_datetime = :parents_datetime ";
             $sql .= "where parents_aid  = :parents_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "parents_fname" => $this->parents_fname,
                 "parents_lname" => $this->parents_lname,
-                // "parents_email" => $this->parents_email,
+                "parents_email" => $this->parents_email,
                 "parents_datetime" => $this->parents_datetime,
                 "parents_aid" => $this->parents_aid,
             ]);
@@ -405,10 +406,10 @@ class Parents
     {
         try {
             $sql = "select user_other_email from {$this->tblUserOther} ";
-            $sql .= "where user_other_email = :parents_email ";
+            $sql .= "where user_other_email = :user_other_email ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "parents_email" => "{$this->parents_email}",
+                "user_other_email" => "{$this->user_other_email}",
             ]);
         } catch (PDOException $ex) {
             $query = false;

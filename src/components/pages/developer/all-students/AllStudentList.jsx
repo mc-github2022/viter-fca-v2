@@ -211,6 +211,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                   <th>#</th>
                   <th className="w-20">Status</th>
                   <th>Name</th>
+                  <th>Email</th>
                   <th>Grade Level</th>
                   <th>S.Y</th>
                   <th className="text-right pr-2">Action</th>
@@ -256,6 +257,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                             )}
                           </td>
                           <td>{item.student_fullname}</td>
+                          <td>{item.students_institutional_email}</td>
                           <td>
                             {getGradeLevelByStudentId(
                               gradeLevel,

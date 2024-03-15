@@ -33,7 +33,13 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     $user_other->user_other_email = trim($data["item"]);
     $password_link = "/create-password";
 
-    $query = $user_other->readLogin();
+    $isAdminAccount = getResultData($user_other->readAdminLogin());
+
+    if (count($isAdminAccount) > 0) {
+        $query = $user_other->readAdminLogin();
+    } else {
+        $query = $user_other->readLogin();
+    }
 
     if ($query->rowCount() == 0) {
         returnError("Invalid email. Please use a registered one.");

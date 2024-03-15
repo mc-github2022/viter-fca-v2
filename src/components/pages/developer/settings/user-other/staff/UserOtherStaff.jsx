@@ -1,14 +1,19 @@
-import React from "react";
-import { AiOutlinePlus } from "react-icons/ai";
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import ModalError from "@/components/partials/modals/ModalError";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
+import ModalValidate from "@/components/partials/modals/ModalValidate";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import UserParentList from "./UserOtherStaffList";
-import UserParentFormAddEdit from "./UserOtherStaffFormAddEdit";
-import UserOtherParentList from "./UserOtherStaffList";
-import UserOtherParentFormAddEdit from "./UserOtherStaffFormAddEdit";
+import React from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import {
+  default as UserOtherParentFormAddEdit,
+  default as UserParentFormAddEdit,
+} from "./UserOtherStaffFormAddEdit";
+import {
+  default as UserOtherParentList,
+  default as UserParentList,
+} from "./UserOtherStaffList";
 const UserOtherStaff = ({ indexInner, index }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);

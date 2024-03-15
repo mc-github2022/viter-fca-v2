@@ -15,3 +15,24 @@ models
 
 controllers
 1.rest/v2/controllers/developer/settings/other/create.php
+
+Uploaded 11:06am
+
+TO UPLOAD 12:30pm
+
+controllers
+1. rest/v2/controllers/developer/settings/other/reset-password.php
+
+TO UPLOAD 2:24pm
+
+models
+1. rest/v2/models/developer/parent/Parents.php 
+
+controllers
+1. rest/v2/controllers/developer/parents/update.php 
+2. rest/v2/controllers/developer/parents/parent-user-other.php 
+3. rest/v2/controllers/developer/parents/functions.php
+
+rest/v2/.htaccess 
+
+Uploaded 2:43pm

@@ -116,6 +116,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
+                  <th>Email</th>
                   <th>Grade Level</th>
                   <th>S.Y</th>
                   <th className="text-right pr-2">Action</th>
@@ -147,6 +148,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
                         <tr key={key}>
                           <td>{counter++}.</td>
                           <td>{item.student_fullname}</td>
+                          <td>{item.students_institutional_email}</td>
                           <td>{item.grade_level_name}</td>
                           <td>{item.school_year}</td>
                           <td>

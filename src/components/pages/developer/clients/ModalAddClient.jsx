@@ -1,6 +1,9 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import { InputText } from "@/components/helpers/FormInputs.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setIsAdd,
   setIsShowModal,
@@ -18,6 +21,18 @@ import * as Yup from "yup";
 const ModalAddClient = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
+
+  const {
+    isLoading,
+    isFetching,
+    data: parentWithUserAccount,
+  } = useQueryData(
+    "/v2/dev-parents/parent-user-other", // endpoint
+    "post", // method
+    "dev-parents-parent-user-other", // key
+    { email: itemEdit ? itemEdit.parents_email : "" },
+    { email: itemEdit ? itemEdit.parents_email : "" }
+  );
 
   const handleClose = () => {
     dispatch(setIsShowModal(false));
@@ -92,9 +107,15 @@ const ModalAddClient = ({ itemEdit }) => {
             }}
           >
             {(props) => {
+              if (itemEdit && parentWithUserAccount?.count > 0) {
+                props.values.parents_email = itemEdit.parents_email;
+              }
               return (
                 <Form className="flex flex-col h-full max-h-[1200px] overflow-y-auto">
                   <div className="modal__body custom__scroll">
+                    {itemEdit && (isLoading || isFetching) && (
+                      <FetchingSpinner />
+                    )}
                     <div className="form__wrap">
                       <InputText
                         label="First Name"
@@ -118,9 +139,19 @@ const ModalAddClient = ({ itemEdit }) => {
                         label="Email"
                         type="email"
                         name="parents_email"
-                        disabled={mutation.isPending}
+                        disabled={
+                          mutation.isPending ||
+                          (parentWithUserAccount?.count > 0 && itemEdit)
+                        }
                       />
                     </div>
+                    {parentWithUserAccount?.count > 0 && (
+                      <span className="text-xs leading-normal p-2 bg-[#fffde7] block">
+                        <span className="text-accent font-bold">NOTE:</span>{" "}
+                        Email editing is unavailable. This parent has a user
+                        account already.
+                      </span>
+                    )}
                   </div>
                   <div className="modal__action ">
                     <button

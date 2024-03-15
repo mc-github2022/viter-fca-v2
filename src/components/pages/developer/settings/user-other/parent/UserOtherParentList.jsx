@@ -21,6 +21,8 @@ import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore, MdPassword } from "react-icons/md";
 import { PiPasswordLight } from "react-icons/pi";
+import { TbUserOff } from "react-icons/tb";
+import ModalSuspend from "../ModalSuspend";
 const UserOtherParentList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -46,7 +48,7 @@ const UserOtherParentList = ({ setItemEdit }) => {
     setItemEdit(item);
   };
 
-  const handleArchive = (item) => {
+  const handleSuspend = (item) => {
     dispatch(setSettingIsConfirm(true));
     setId(item.user_other_aid);
     setData(item);
@@ -133,10 +135,10 @@ const UserOtherParentList = ({ setItemEdit }) => {
                     <li>
                       <button
                         className="tooltip"
-                        data-tooltip="Archive"
-                        onClick={() => handleArchive(item)}
+                        data-tooltip="Suspend"
+                        onClick={() => handleSuspend(item)}
                       >
-                        <BsArchive />
+                        <TbUserOff />
                       </button>
                     </li>
                   </>
@@ -179,12 +181,12 @@ const UserOtherParentList = ({ setItemEdit }) => {
       )}
 
       {store.isSettingConfirm && (
-        <ModalConfirm
+        <ModalSuspend
           mysqlApiArchive={`/v2/user-other/active/${id}`}
           msg={`Are you sure you want to ${
-            isArchive ? "restore" : "archive"
+            isArchive ? "restore" : "suspend"
           } this record?`}
-          item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
+          item={dataItem.user_other_email}
           queryKey={"other"}
           isArchive={isArchive}
         />

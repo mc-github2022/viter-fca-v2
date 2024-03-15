@@ -271,7 +271,7 @@ const OtherCreatePassword = () => {
                       <div className="flex items-center gap-1 pt-3">
                         <button
                           type="submit"
-                          disabled={mutation.isPending || !validateComplete}
+                          disabled={mutation.isPending || !props.dirty}
                           className="btn btn--accent w-full relative"
                         >
                           {mutation.isPending ? (

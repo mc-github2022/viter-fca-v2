@@ -1,6 +1,8 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import { InputText } from "@/components/helpers/FormInputs";
 import { queryData } from "@/components/helpers/queryData";
 import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
+import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
 import {
   setError,
   setIsSettingAdd,
@@ -16,6 +18,20 @@ import * as Yup from "yup";
 const StaffFormAddEdit = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
+
+  const {
+    isLoading,
+    isFetching,
+    data: staffWithUserAccount,
+  } = useQueryData(
+    "/v2/dev-parents/parent-user-other", // endpoint
+    "post", // method
+    "dev-parents-parent-user-other", // key
+    { email: itemEdit ? itemEdit.settings_staff_email : "" },
+    { email: itemEdit ? itemEdit.settings_staff_email : "" }
+  );
+
+  console.log(staffWithUserAccount);
 
   const handleClose = () => {
     dispatch(setIsSettingAdd(false));
@@ -66,7 +82,9 @@ const StaffFormAddEdit = ({ itemEdit }) => {
 
   return (
     <>
-      <div className="settings__addEdit mb-8 max-w-[350px] w-full">
+      <div className="settings__addEdit mb-8 max-w-[350px] w-full relative">
+        {itemEdit && (isLoading || isFetching) && <FetchingSpinner />}
+
         <Formik
           initialValues={initVal}
           validationSchema={yupSchema}
@@ -75,6 +93,9 @@ const StaffFormAddEdit = ({ itemEdit }) => {
           }}
         >
           {(props) => {
+            if (itemEdit && staffWithUserAccount?.count > 0) {
+              props.values.settings_staff_email = itemEdit.settings_staff_email;
+            }
             return (
               <Form>
                 <div className="form__wrap text-xs mb-3">
@@ -100,8 +121,19 @@ const StaffFormAddEdit = ({ itemEdit }) => {
                     label="Email"
                     type="email"
                     name="settings_staff_email"
-                    disabled={mutation.isPending}
+                    disabled={
+                      mutation.isPending ||
+                      (staffWithUserAccount?.count > 0 && itemEdit)
+                    }
                   />
+
+                  {staffWithUserAccount?.count > 0 && (
+                    <span className="text-xs leading-normal p-2 bg-[#fffde7] block mt-2">
+                      <span className="text-accent font-bold">NOTE:</span> Email
+                      editing is unavailable. This staff has a user account
+                      already.
+                    </span>
+                  )}
                 </div>
 
                 <div className={`settings__actions flex gap-2 mt-4`}>

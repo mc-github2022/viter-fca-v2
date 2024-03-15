@@ -17,10 +17,13 @@ import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
 import ModalDelete from "@/components/partials/modals/ModalDelete.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import ModalReset from "@/components/partials/modals/ModalReset";
+import ModalValidate from "@/components/partials/modals/ModalValidate";
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore, MdPassword } from "react-icons/md";
 import { PiPasswordLight } from "react-icons/pi";
+import { TbUserOff } from "react-icons/tb";
+import ModalSuspend from "../ModalSuspend";
 const UserOtherStaffList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
@@ -46,7 +49,7 @@ const UserOtherStaffList = ({ setItemEdit }) => {
     setItemEdit(item);
   };
 
-  const handleArchive = (item) => {
+  const handleSuspend = (item) => {
     dispatch(setSettingIsConfirm(true));
     setId(item.user_other_aid);
     setData(item);
@@ -133,10 +136,10 @@ const UserOtherStaffList = ({ setItemEdit }) => {
                     <li>
                       <button
                         className="tooltip"
-                        data-tooltip="Archive"
-                        onClick={() => handleArchive(item)}
+                        data-tooltip="Suspend"
+                        onClick={() => handleSuspend(item)}
                       >
-                        <BsArchive />
+                        <TbUserOff />
                       </button>
                     </li>
                   </>
@@ -179,12 +182,12 @@ const UserOtherStaffList = ({ setItemEdit }) => {
       )}
 
       {store.isSettingConfirm && (
-        <ModalConfirm
+        <ModalSuspend
           mysqlApiArchive={`/v2/user-other/active/${id}`}
           msg={`Are you sure you want to ${
-            isArchive ? "restore" : "archive"
+            isArchive ? "restore" : "suspend"
           } this record?`}
-          item={`${dataItem.user_other_fname} ${dataItem.user_other_lname}`}
+          item={dataItem.user_other_email}
           queryKey={"other"}
           isArchive={isArchive}
         />
@@ -198,6 +201,8 @@ const UserOtherStaffList = ({ setItemEdit }) => {
           queryKey={"other"}
         />
       )}
+
+      {store.validate && <ModalValidate />}
     </>
   );
 };
