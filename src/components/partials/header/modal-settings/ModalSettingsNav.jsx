@@ -220,31 +220,35 @@ const ModalSettingsNav = ({
             </ul>
           </li>
 
-          <li
-            className={` ${index === 13 ? "active" : ""} ${
-              userRole === "developer" ? "" : "hidden"
-            }`}
-          >
-            <button
-              onClick={(e) => handleChangeSetting(13, e)}
-              className="p-1 pl-4"
-            >
-              Developer
-            </button>
-          </li>
+          {store.credentials.data.role_is_developer === 1 && (
+            <>
+              <li
+                className={` ${index === 13 ? "active" : ""} ${
+                  userRole === "developer" ? "" : "hidden"
+                }`}
+              >
+                <button
+                  onClick={(e) => handleChangeSetting(13, e)}
+                  className="p-1 pl-4"
+                >
+                  Developer
+                </button>
+              </li>
 
-          <li
-            className={`${index === 14 ? "active" : ""} ${
-              userRole === "developer" ? "" : "hidden"
-            }`}
-          >
-            <button
-              onClick={(e) => handleChangeSetting(14, e)}
-              className="p-1 pl-4"
-            >
-              Roles
-            </button>
-          </li>
+              <li
+                className={`${index === 14 ? "active" : ""} ${
+                  userRole === "developer" ? "" : "hidden"
+                }`}
+              >
+                <button
+                  onClick={(e) => handleChangeSetting(14, e)}
+                  className="p-1 pl-4"
+                >
+                  Roles
+                </button>
+              </li>
+            </>
+          )}
 
           <li className={` ${index === 15 ? "active" : ""}`}>
             {/* {console.log(index)} */}
@@ -341,14 +345,16 @@ const ModalSettingsNav = ({
               School Year
             </button>
           </li>
-          <li className={` ${index === 18 ? "active" : ""}`}>
-            <button
-              onClick={(e) => handleChangeSetting(18, e)}
-              className="p-1 pl-4"
-            >
-              System Mode
-            </button>
-          </li>
+          {store.credentials.data.role_is_developer === 1 && (
+            <li className={` ${index === 18 ? "active" : ""}`}>
+              <button
+                onClick={(e) => handleChangeSetting(18, e)}
+                className="p-1 pl-4"
+              >
+                System Mode
+              </button>
+            </li>
+          )}
         </ul>
       </aside>
     </>

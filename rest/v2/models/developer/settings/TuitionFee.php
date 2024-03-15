@@ -335,4 +335,35 @@ class TuitionFee
         }
         return $query;
     }
+
+    public function readAllGroupBYCategoryGradeId()
+    {
+        try {
+            $sql = "select fee.tuition_fee_category_id, ";
+            $sql .= "fee.tuition_fee_grade_id, ";
+            $sql .= "fee.tuition_fee_aid, ";
+            $sql .= "category.tuition_category_name, ";
+            $sql .= "grade.grade_level_name, ";
+            $sql .= "scheme.scheme_name ";
+            $sql .= "from {$this->tblTuitionFee} as fee, ";
+            $sql .= "{$this->tblTuitionCategory} as category, ";
+            $sql .= "{$this->tblGradeLevel} as grade, ";
+            $sql .= "{$this->tblScheme} as scheme ";
+            $sql .= "where fee.tuition_fee_category_id = category.tuition_category_aid ";
+            $sql .= "and fee.tuition_fee_grade_id = grade.grade_level_aid ";
+            $sql .= "and fee.tuition_fee_scheme_id = scheme.scheme_aid ";
+            $sql .= "group by fee.tuition_fee_category_id, ";
+            $sql .= "fee.tuition_fee_grade_id ";
+            $sql .= "order by fee.tuition_fee_active desc, ";
+            $sql .= "category.tuition_category_name asc, ";
+            $sql .= "grade.grade_level_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "tuition_fee_grade_id" => $this->tuition_fee_grade_id,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 }

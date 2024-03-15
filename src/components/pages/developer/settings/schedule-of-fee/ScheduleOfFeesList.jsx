@@ -11,6 +11,7 @@ import ScheduleOfFeeSchemeList from "./ScheduleOfFeeSchemeList";
 const ScheduleOfFeesList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
+  const [gradeId, setGradeId] = React.useState(0);
   const [id, setId] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
   const {
@@ -20,8 +21,9 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
     data: scheduleOfFees,
   } = useQueryData(
     "/v2/dev-tuition-fee/read-all-group-by-category-grade", // endpoint
-    "get", // method
-    "group-by-category-grade" // key
+    "post", // method
+    "group-by-category-grade", // key
+    { gradeId }
   );
 
   const {
@@ -32,20 +34,30 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
   } = useQueryData(
     "/v2/dev-tuition-fee/read-all-grade", // endpoint
     "get", // method
-    "read-all-grade" // key
+    "read-all-grade" //key
   );
 
+  const handleChangeCategory = (e) => {
+    setGradeId(e.target.value);
+  };
   return (
     <>
       <h5 className="text-sm">List</h5>
 
       <div>
         <label className="text-[12px]">Filter by grade</label>
-        <select className="max-w-[10rem]">
-          <option value="all">All</option>
-
-          <option value="" hidden>
-            {(loadingGrade || fetchingGrade) && "Loading..."}
+        <select
+          className="max-w-[10rem]"
+          value={gradeId}
+          onChange={(e) => handleChangeCategory(e)}
+          disabled={isFetching || isLoading}
+        >
+          <option value={0} hidden>
+            {loadingGrade || fetchingGrade
+              ? "Loading..."
+              : errorGrade
+              ? "Error"
+              : "All"}
           </option>
 
           {(!loadingGrade || !fetchingGrade) && grade?.data.length === 0 ? (
