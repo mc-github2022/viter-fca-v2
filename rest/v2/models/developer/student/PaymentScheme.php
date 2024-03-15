@@ -25,6 +25,9 @@ class PaymentScheme
     public $tblSYStudent;
     public $tblSchoolYear;
     public $tblGradeLevel;
+    public $tblEmailTemplate;
+    public $tblNotification;
+    public $tblDepartment;
 
     public function __construct($db)
     {
@@ -35,6 +38,9 @@ class PaymentScheme
         $this->tblSYStudent = "fcav2_school_year_students";
         $this->tblSchoolYear = "fcav2_settings_school_year";
         $this->tblGradeLevel = "fcav2_settings_grade_level";
+        $this->tblEmailTemplate = "fcav2_settings_email_template";
+        $this->tblNotification = "fcav2_settings_notification";
+        $this->tblDepartment = "fcav2_settings_department";
     }
 
     // update accept payment
@@ -155,6 +161,35 @@ class PaymentScheme
             $query->execute([
                 "students_aid" => $this->students_aid,
             ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read by id
+    public function readTemplateForAssessmentNotifyFinance()
+    {
+        try {
+            $sql = "select email_templates.email_template_aid, ";
+            $sql .= "email_templates.email_template_is_active, ";
+            $sql .= "email_templates.email_template_name, ";
+            $sql .= "email_templates.email_template_subject, ";
+            $sql .= "email_templates.email_template_content, ";
+            $sql .= "email_templates.email_template_receiver_id, ";
+            $sql .= "email_templates.email_template_category, ";
+            $sql .= "email_templates.email_template_cc_email, ";
+            $sql .= "email_templates.email_template_cc_email_two, ";
+            $sql .= "notif.notification_email, ";
+            $sql .= "dept.department_name ";
+            $sql .= "from {$this->tblEmailTemplate} as email_templates, ";
+            $sql .= "{$this->tblNotification} as notif, ";
+            $sql .= "{$this->tblDepartment} as dept ";
+            $sql .= "where notif.notification_department_id = dept.department_aid ";
+            $sql .= "and notif.notification_aid = email_templates.email_template_receiver_id ";
+            $sql .= "and email_templates.email_template_category = 'assessment-notify-finance' ";
+            $sql .= "order by email_templates.email_template_is_active desc ";
+            $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
         }

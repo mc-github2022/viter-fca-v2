@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import {
   InputSelect,
   InputText,
@@ -62,16 +63,19 @@ const EmailTemplatesFormAddEdit = ({
     setPreviewData(propsValues);
   };
 
-  const getActiveDepartment = department?.data.filter(
-    (item) => item.department_active === 1
+  const { data: notification } = useQueryData(
+    "/v2/dev-notification", // endpoint
+    "get", // method
+    "notification" // key
   );
 
   const initVal = {
     email_template_aid: itemEdit ? itemEdit.email_template_aid : "",
     email_template_name: itemEdit ? itemEdit.email_template_name : "",
+    email_template_subject: itemEdit ? itemEdit.email_template_subject : "",
     email_template_content: itemEdit ? itemEdit.email_template_content : "",
-    email_template_receiver: itemEdit
-      ? itemEdit.email_template_receiver
+    email_template_receiver_id: itemEdit
+      ? itemEdit.email_template_receiver_id
       : "client",
     email_template_category: itemEdit ? itemEdit.email_template_category : "",
     email_template_cc_email: itemEdit ? itemEdit.email_template_cc_email : "",
@@ -83,8 +87,11 @@ const EmailTemplatesFormAddEdit = ({
 
   const yupSchema = Yup.object({
     email_template_name: Yup.string().required("Required"),
+    email_template_subject: Yup.string().required("Required"),
     email_template_content: Yup.string().required("Required"),
     email_template_category: Yup.string().required("Required"),
+    email_template_cc_email: Yup.string().email("Invalid email"),
+    email_template_cc_email_two: Yup.string().email("Invalid email"),
   });
   return (
     <>
@@ -105,6 +112,14 @@ const EmailTemplatesFormAddEdit = ({
                       label="Template Name"
                       type="text"
                       name="email_template_name"
+                      disabled={mutation.isPending}
+                    />
+                  </div>
+                  <div className="form__wrap text-xs mb-3 max-w-[20rem]">
+                    <InputText
+                      label="Subject"
+                      type="text"
+                      name="email_template_subject"
                       disabled={mutation.isPending}
                     />
                   </div>
@@ -131,25 +146,21 @@ const EmailTemplatesFormAddEdit = ({
                   <div className="form__wrap text-xs mb-3 max-w-[20rem]">
                     <InputSelect
                       label="Receiver"
-                      name="email_template_receiver"
+                      name="email_template_receiver_id"
                       disabled={mutation.isPending}
                       onChange={(e) => e}
                     >
                       <optgroup label="Select Receiver">
-                        <option value="client">Client</option>
-                        {getActiveDepartment?.length > 0 ? (
-                          getActiveDepartment?.map((item, key) => {
+                        <option value="0">Client</option>
+                        {notification?.data.length > 0 &&
+                          notification?.data.map((item, key) => {
                             return (
-                              <option key={key} value={item.department_aid}>
-                                {item.department_name}
+                              <option key={key} value={item.notification_aid}>
+                                {item.notification_name} (
+                                {item.notification_email})
                               </option>
                             );
-                          })
-                        ) : (
-                          <option value="" disabled>
-                            No data
-                          </option>
-                        )}
+                          })}
                       </optgroup>
                     </InputSelect>
                   </div>
@@ -162,8 +173,15 @@ const EmailTemplatesFormAddEdit = ({
                     >
                       <optgroup label="Select Category">
                         <option value="" hidden></option>
-                        <option value="assessment">Assessment</option>
-                        <option value="registerar">Registerar</option>
+                        <option value="assessment-notify-parents">
+                          Assessment (notify parents)
+                        </option>
+                        <option value="assessment-accept-payment">
+                          Assessment (accept payment)
+                        </option>
+                        <option value="assessment-notify-finance">
+                          Assessment (notify finance)
+                        </option>
                       </optgroup>
                     </InputSelect>
                   </div>

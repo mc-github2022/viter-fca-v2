@@ -4,15 +4,26 @@ UPLOAD
            ==> controllers/developer/settings/tuition-fee/functions.php
            ==> controllers/developer/settings/tuition-fee/read-all-group-by-category-grade.php
  All Files ==> controllers/developer/settings/email-template 
+           ==> controllers/developer/assessment/notify-or-accept-payment.php
+           ==> controllers/developer/client/info-contact/create.php
+           ==> controllers/developer/client/info-contact/update.php 
+           ==> controllers/developer/students/payment-scheme/update-payment-scheme.php
 
 
 *MODELS   
- ==> models/developer/settings/TuitionFee.php 
- ==> models/developer/settings/EmailTemplate.php
+        ==> models/developer/settings/TuitionFee.php 
+        ==> models/developer/settings/EmailTemplate.php
+        ==> models/developer/assessment/Assessment.php 
+        ==> models/developer/student/PaymentScheme.php
  
 
 *DB BACKUP
- ==> 
+ All Files ==> fcav2_settings_email_template.sql
+ 
+
+*OTHER 
+        ==> notification/assessment/notify-parent.php
+        ==> notification/template/assessment
  
 
    

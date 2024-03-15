@@ -23,6 +23,7 @@ const ClientViewInfo = () => {
   const [showContactForm, setShowContactForm] = React.useState(false);
   const [showFinancierForm, setShowFinancierForm] = React.useState(false);
   const [itemEdit, setItemEdit] = React.useState(null);
+  const [hideForm, setHideForm] = React.useState(false);
 
   const cid = getUrlParam().get("cid");
   const navigate = useNavigate();
@@ -133,29 +134,26 @@ const ClientViewInfo = () => {
               </div>
             </div>
 
-            <div className="main__cardlist">
+            <div className="main__cardlist ">
               {guardianIsLoading ? (
                 <TableLoading />
               ) : (
-                !showParentForm && (
-                  <div
-                    className={`bg-primary py-4 max-w-[620px] w-full rounded-md relative mb-2 ${
-                      showContactForm || showFinancierForm
-                        ? "pointer-events-none opacity-60"
-                        : ""
-                    }`}
-                  >
-                    <CardClientParentInfo
-                      guardianInfo={guardianInfo}
-                      itemEdit={itemEdit}
-                      setItemEdit={setItemEdit}
-                      setShowParentForm={setShowParentForm}
-                      error={guardianIsError}
-                      isLoading={guardianIsLoading}
-                      isFetching={guardianIsFetching}
-                    />
-                  </div>
-                )
+                <div
+                  className={`bg-primary py-4 max-w-[620px] w-full rounded-md relative mb-2 ${
+                    hideForm && " hidden"
+                  }`}
+                >
+                  <CardClientParentInfo
+                    guardianInfo={guardianInfo}
+                    itemEdit={itemEdit}
+                    setItemEdit={setItemEdit}
+                    setShowParentForm={setShowParentForm}
+                    error={guardianIsError}
+                    isLoading={guardianIsLoading}
+                    isFetching={guardianIsFetching}
+                    setHideForm={setHideForm}
+                  />
+                </div>
               )}
 
               {showParentForm && (
@@ -164,31 +162,29 @@ const ClientViewInfo = () => {
                   itemEdit={itemEdit}
                   setShowParentForm={setShowParentForm}
                   setItemEdit={setItemEdit}
+                  setHideForm={setHideForm}
                 />
               )}
 
               {contactIsLoading || contactIsFetching ? (
                 <TableLoading />
               ) : (
-                !showContactForm && (
-                  <div
-                    className={`bg-primary py-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
-                      showParentForm || showFinancierForm
-                        ? "pointer-events-none opacity-60"
-                        : ""
-                    }`}
-                  >
-                    <CardClientContactInfo
-                      contactInfo={contactInfo}
-                      itemEdit={itemEdit}
-                      setItemEdit={setItemEdit}
-                      setShowContactForm={setShowContactForm}
-                      error={contactIsError}
-                      isLoading={contactIsLoading}
-                      isFetching={contactIsFetching}
-                    />
-                  </div>
-                )
+                <div
+                  className={`bg-primary py-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
+                    hideForm && " hidden"
+                  }`}
+                >
+                  <CardClientContactInfo
+                    contactInfo={contactInfo}
+                    itemEdit={itemEdit}
+                    setItemEdit={setItemEdit}
+                    setShowContactForm={setShowContactForm}
+                    error={contactIsError}
+                    isLoading={contactIsLoading}
+                    isFetching={contactIsFetching}
+                    setHideForm={setHideForm}
+                  />
+                </div>
               )}
 
               {showContactForm && (
@@ -196,31 +192,29 @@ const ClientViewInfo = () => {
                   itemEdit={itemEdit}
                   setShowContactForm={setShowContactForm}
                   setItemEdit={setItemEdit}
+                  setHideForm={setHideForm}
                 />
               )}
 
               {financierIsLoading || financierIsFetching ? (
                 <TableLoading />
               ) : (
-                !showFinancierForm && (
-                  <div
-                    className={`bg-primary py-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
-                      showParentForm || showContactForm
-                        ? "pointer-events-none opacity-60"
-                        : ""
-                    }`}
-                  >
-                    <CardClientFinancierInfo
-                      financierInfo={financierInfo}
-                      itemEdit={itemEdit}
-                      setShowFinancierForm={setShowFinancierForm}
-                      setItemEdit={setItemEdit}
-                      error={financierIsError}
-                      isLoading={financierIsLoading}
-                      isFetching={financierIsFetching}
-                    />
-                  </div>
-                )
+                <div
+                  className={`bg-primary py-4 max-w-[620px] w-full rounded-md relative mb-10 ${
+                    hideForm && " hidden"
+                  }`}
+                >
+                  <CardClientFinancierInfo
+                    financierInfo={financierInfo}
+                    itemEdit={itemEdit}
+                    setShowFinancierForm={setShowFinancierForm}
+                    setItemEdit={setItemEdit}
+                    error={financierIsError}
+                    isLoading={financierIsLoading}
+                    isFetching={financierIsFetching}
+                    setHideForm={setHideForm}
+                  />
+                </div>
               )}
 
               {showFinancierForm && (
@@ -229,6 +223,7 @@ const ClientViewInfo = () => {
                   setShowFinancierForm={setShowFinancierForm}
                   setItemEdit={setItemEdit}
                   financierInfo={financierInfo}
+                  setHideForm={setHideForm}
                 />
               )}
             </div>

@@ -6,7 +6,7 @@ $infoContact = new InfoContact($conn);
 checkPayload($data);
 $infoContact->emergency_contact_parent_id = checkIndex($data, "emergency_contact_parent_id");
 $infoContact->emergency_contact_name = checkIndex($data, "emergency_contact_name");
-$infoContact->emergency_contact_email = checkIndex($data, "emergency_contact_email");
+$infoContact->emergency_contact_email = $data["emergency_contact_email"];
 $infoContact->emergency_contact_mobile = checkIndex($data, "emergency_contact_mobile");
 $infoContact->emergency_contact_landline = $data["emergency_contact_landline"];
 $infoContact->emergency_contact_level = checkIndex($data, "emergency_contact_level");

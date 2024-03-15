@@ -91,11 +91,12 @@ const EmailTemplatesList = ({ setItemEdit, setAddIndex }) => {
                   item.email_template_is_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <div className="grid grid-cols-[1rem,1fr,1fr,1fr] lg:flex-row gap-1 w-[80%] ">
+                <div className="grid grid-cols-[1rem,1fr,1fr] lg:flex-row gap-1 w-[80%] ">
                   <p className="mb-1">{counter++}.</p>
                   <p className="mb-1">{item.email_template_name}</p>
-                  <p className="mb-1">{item.email_template_receiver}</p>
-                  <p className="mb-1">{item.email_template_category}</p>
+                  <p className="mb-1 capitalize">
+                    {item.email_template_category.replaceAll("-", " ")}
+                  </p>
                 </div>
               </div>
 

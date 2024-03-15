@@ -26,7 +26,12 @@ import { RiProfileLine } from "react-icons/ri";
 import { TfiLocationPin } from "react-icons/tfi";
 import * as Yup from "yup";
 
-const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
+const FormClientParentInfo = ({
+  itemEdit,
+  setShowParentForm,
+  setItemEdit,
+  setHideForm,
+}) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [getRelationship, setGetRelationship] = React.useState("");
   const id = getUrlParam().get("cid");
@@ -159,6 +164,10 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
     setGetRelationship(selectedRelationship);
   };
 
+  const handleClose = () => {
+    setHideForm(false);
+    setShowParentForm(false);
+  };
   return (
     <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-md max-w-[620px] w-full mb-5 relative">
       <h4 className="mb-5">Parent Information</h4>
@@ -189,7 +198,7 @@ const FormClientParentInfo = ({ itemEdit, setShowParentForm, setItemEdit }) => {
                   className="text-2xl tooltip"
                   data-tooltip="Dismiss"
                   type="button"
-                  onClick={() => setShowParentForm(false)}
+                  onClick={handleClose}
                 >
                   <LiaTimesSolid />
                 </button>

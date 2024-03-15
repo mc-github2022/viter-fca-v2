@@ -171,11 +171,8 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                   <span className="block mb-3 uppercase text-accent font-normal text-[20px]">
                     Parent Account <span className="hidden md:inline">- </span>
                     <Link
-                      to={`${devNavUrl}/${link}/clients/students?cid=${dataItem.parents_aid}`}
+                      to={`${devNavUrl}/${link}/clients/information?cid=${dataItem.parents_aid}`}
                       className="underline hover:bg-transparent block md:inline"
-                      title={`Go to ${dataItem.parents_fname} ${dataItem.parents_lname} students`}
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       {dataItem.parents_fname} {dataItem.parents_lname}
                     </Link>

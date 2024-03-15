@@ -21,8 +21,8 @@ const CardClientContactInfo = ({
   setItemEdit,
   setShowContactForm,
   error,
+  setHideForm,
   isLoading,
-  isFetching,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [id, setId] = React.useState(null);
@@ -32,6 +32,7 @@ const CardClientContactInfo = ({
   const handleShowContactForm = (item) => {
     setItemEdit(item);
     setShowContactForm(true);
+    setHideForm(true);
   };
 
   const handleDeleteContactCard = (item) => {
@@ -43,6 +44,7 @@ const CardClientContactInfo = ({
   const handleAddContact = () => {
     setShowContactForm(true);
     setItemEdit(null);
+    setHideForm(true);
   };
 
   return (

@@ -31,11 +31,9 @@ const FormClientParentInfo = ({
   itemEdit,
   setShowParentForm,
   setItemEdit,
-  hasBiologicalFather,
-  hasBiologicalMother,
+  setHideForm,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [getRelationship, setGetRelationship] = React.useState("");
 
   const id = getUrlParam().get("cid");
 
@@ -50,10 +48,6 @@ const FormClientParentInfo = ({
     "/v2/dev-relationship", // endpoint
     "get", // method
     "relationship" // key
-  );
-
-  const activeRelationship = relationship?.data.filter(
-    (relationship) => relationship.relationship_is_maiden === 1
   );
 
   const mutation = useMutation({
@@ -129,17 +123,9 @@ const FormClientParentInfo = ({
     guardian_occupation: Yup.string().required("Required"),
   });
 
-  const handleChangeRelationship = (e) => {
-    const selectedRelationship = e.target.options[e.target.selectedIndex].text;
-    // if (hasBiologicalMother) {
-    //   dispatch(setValidate(true));
-    //   dispatch(setMessage("You already selected a biological Mother"));
-    // } else if (hasBiologicalFather) {
-    //   dispatch(setValidate(true));
-    //   dispatch(setMessage("You already selected a biological Father"));
-    // }
-
-    setGetRelationship(selectedRelationship);
+  const handleClose = () => {
+    setHideForm(false);
+    setShowParentForm(false);
   };
 
   return (
@@ -177,7 +163,7 @@ const FormClientParentInfo = ({
                   className="text-2xl tooltip"
                   data-tooltip="Dismiss"
                   type="button"
-                  onClick={() => setShowParentForm(false)}
+                  onClick={handleClose}
                 >
                   <LiaTimesSolid />
                 </button>

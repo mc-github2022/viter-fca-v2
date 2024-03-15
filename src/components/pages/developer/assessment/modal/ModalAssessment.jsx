@@ -15,13 +15,11 @@ import AssessmentRateList from "./AssessmentRateList";
 import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 import {
   getGetAdditionalDiscount,
-  getMonthlyFeeDiscountedAmount,
   getNotifyAcceptParentInitVal,
   getPrimaryPercentDiscount,
   getSectedScheme,
   getSelectedRate,
   getTotalAdditionalDiscount,
-  getTotalPaymentDiscountedAmount,
   getTotalPaymentWithComma,
   handleAssessmentRemarks,
 } from "./functions-assessment";
@@ -104,7 +102,6 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     setCatgeoryId(e.target.value);
     setSelectItem(0);
   };
-
   const handleNotifyParent = (tuitionItem) => {
     dispatch(setSettingIsConfirm(true));
     setId(item.current_students_aid);
@@ -116,6 +113,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
         item,
         assessmentRemarks
       ),
+      // emailParent:item.
       tuition_fee_aid: 0,
     });
     setIsNotify(true);
@@ -368,16 +366,18 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                   {item.current_students_is_accept_payment === 0 && (
                     <>
                       {listOfScheme?.count > 0 && selectItem === 0 && (
-                        <button
-                          className="btn btn--accent"
-                          onClick={() =>
-                            handleNotifyParent(
-                              getSelectedRate(schemeByGrade, categoryId)
-                            )
-                          }
-                        >
-                          Notify Parent
-                        </button>
+                        <>
+                          <button
+                            className="btn btn--accent"
+                            onClick={() =>
+                              handleNotifyParent(
+                                getSelectedRate(schemeByGrade, categoryId)
+                              )
+                            }
+                          >
+                            Notify Parent
+                          </button>
+                        </>
                       )}
 
                       {listOfScheme?.count > 0 && selectItem > 0 && (
@@ -407,8 +407,8 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
       {store.isSettingConfirm && (
         <ModalNotifyOrAcceptPayment
           mysqlApiNotifyOrAcceptPayment={`/v2/dev-assessment/notify-or-accept-payment/${id}`}
-          msg={`Are you sure you want to ${
-            isNotify ? "notify parent" : "accept payment"
+          msg={`Are you sure you want to send email ${
+            isNotify ? " parent" : "accept payment"
           } ?`}
           item={dataItem}
           queryKey={"assessment"}

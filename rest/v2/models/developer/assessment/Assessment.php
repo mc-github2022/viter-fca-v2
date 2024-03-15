@@ -15,6 +15,8 @@ class Assessment
     public $current_students_assessment_remarks;
     public $current_students_datetime;
 
+    public $email_template_category;
+
     public $connection;
     public $lastInsertedId;
     public $student_start;
@@ -34,6 +36,7 @@ class Assessment
     public $tblDiscountCategory;
     public $tblDiscountAdditional;
     public $tblSYStudent;
+    public $tblEmailTemplate;
 
     public function __construct($db)
     {
@@ -51,6 +54,7 @@ class Assessment
         $this->tblDiscountCategory = "fcav2_settings_discount_category";
         $this->tblDiscountAdditional = "fcav2_settings_discount_additional";
         $this->tblSYStudent = "fcav2_school_year_students";
+        $this->tblEmailTemplate = "fcav2_settings_email_template";
     }
 
 
@@ -72,6 +76,7 @@ class Assessment
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
             $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
+            $sql .= "parent.parents_email, ";
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParents} as parent, ";
@@ -117,6 +122,7 @@ class Assessment
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
             $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
+            $sql .= "parent.parents_email, ";
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParents} as parent, ";
@@ -167,6 +173,7 @@ class Assessment
             $sql .= "gradeLevel.grade_level_name, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
             $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
+            $sql .= "parent.parents_email, ";
             $sql .= "CONCAT(YEAR(schoolYear.school_year_start_date), '-', YEAR(schoolYear.school_year_end_date)) as school_year ";
             $sql .= "from {$this->tblStudent} as student, ";
             $sql .= "{$this->tblParents} as parent, ";
@@ -381,6 +388,32 @@ class Assessment
                 "school_year_students_datetime" => $this->current_students_datetime,
                 "school_year_students_sy_id" => $this->current_students_sy_id,
                 "school_year_students_student_id" => $this->students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read by id
+    public function readTemplateForAssessment()
+    {
+        try {
+            $sql = "select email_template_aid, ";
+            $sql .= "email_template_is_active, ";
+            $sql .= "email_template_name, ";
+            $sql .= "email_template_subject, ";
+            $sql .= "email_template_content, ";
+            $sql .= "email_template_receiver_id, ";
+            $sql .= "email_template_category, ";
+            $sql .= "email_template_cc_email, ";
+            $sql .= "email_template_cc_email_two ";
+            $sql .= "from {$this->tblEmailTemplate} ";
+            $sql .= "where email_template_category = :email_template_category ";
+            $sql .= "order by email_template_is_active desc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "email_template_category" => $this->email_template_category,
             ]);
         } catch (PDOException $ex) {
             $query = false;

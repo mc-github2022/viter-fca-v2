@@ -23,6 +23,7 @@ const FormClientContactInfo = ({
   itemEdit,
   setShowContactForm,
   setItemEdit,
+  setHideForm,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const id = getUrlParam().get("cid");
@@ -72,13 +73,15 @@ const FormClientContactInfo = ({
 
   const yupSchema = Yup.object({
     emergency_contact_name: Yup.string().required("Required"),
-    emergency_contact_email: Yup.string()
-      .required("Required")
-      .email("Invalid Email"),
+    emergency_contact_email: Yup.string().email("Invalid Email"),
     emergency_contact_mobile: Yup.string().required("Required"),
     emergency_contact_level: Yup.string().required("Required"),
   });
 
+  const handleClose = () => {
+    setHideForm(false);
+    setShowContactForm(false);
+  };
   return (
     <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-md max-w-[620px] w-full mb-5 relative">
       <h4 className="mb-5">Emergency Contact</h4>
@@ -112,7 +115,7 @@ const FormClientContactInfo = ({
                   className="text-2xl tooltip"
                   data-tooltip="Dismiss"
                   type="button"
-                  onClick={() => setShowContactForm(false)}
+                  onClick={handleClose}
                 >
                   <LiaTimesSolid />
                 </button>

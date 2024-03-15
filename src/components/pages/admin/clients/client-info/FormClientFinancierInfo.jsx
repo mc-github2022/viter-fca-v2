@@ -1,4 +1,4 @@
-import { InputSelect, InputText } from "@/components/helpers/FormInputs";
+import { InputText } from "@/components/helpers/FormInputs";
 import {
   getUrlParam,
   handleNumOnly,
@@ -16,13 +16,13 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { AiOutlineSave } from "react-icons/ai";
 import { LiaTimesSolid } from "react-icons/lia";
-import { MdOutlineContactEmergency } from "react-icons/md";
 import * as Yup from "yup";
 
 const FormClientFinancierInfo = ({
   itemEdit,
   setShowFinancierForm,
   setItemEdit,
+  setHideForm,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const id = getUrlParam().get("cid");
@@ -85,6 +85,10 @@ const FormClientFinancierInfo = ({
 
   const yupSchema = Yup.object({});
 
+  const handleClose = () => {
+    setHideForm(false);
+    setShowFinancierForm(false);
+  };
   return (
     <div className="clientinfo__block mt-3 p-4 bg-primary border border-line shadow-sm rounded-md max-w-[620px] w-full mb-5 relative">
       <h4 className="mb-5">Financer Information</h4>
@@ -114,7 +118,7 @@ const FormClientFinancierInfo = ({
                   className="text-2xl tooltip"
                   data-tooltip="Dismiss"
                   type="button"
-                  onClick={() => setShowFinancierForm(false)}
+                  onClick={handleClose}
                 >
                   <LiaTimesSolid />
                 </button>

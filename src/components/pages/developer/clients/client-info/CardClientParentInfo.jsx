@@ -24,9 +24,9 @@ const CardClientParentInfo = ({
   setItemEdit,
   setShowParentForm,
   guardianInfo,
-  isFetching,
   isLoading,
   error,
+  setHideForm,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [guardianId, setGuardianId] = React.useState(null);
@@ -35,6 +35,7 @@ const CardClientParentInfo = ({
   const handleShowGuardianForm = (item) => {
     setItemEdit(item);
     setShowParentForm(true);
+    setHideForm(true);
   };
 
   const handleDeleteGuardianCard = (item) => {
@@ -46,6 +47,7 @@ const CardClientParentInfo = ({
   const handleAddGuardianInfo = () => {
     setShowParentForm(true);
     setItemEdit(null);
+    setHideForm(true);
   };
 
   return (

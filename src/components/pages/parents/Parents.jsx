@@ -8,12 +8,9 @@ import React from "react";
 import CardClientContactInfo from "../developer/clients/client-info/CardClientContactInfo.jsx";
 import CardClientFinancierInfo from "../developer/clients/client-info/CardClientFinancierInfo.jsx";
 import CardClientParentInfo from "../developer/clients/client-info/CardClientParentInfo.jsx";
-import ClientViewInfo from "../developer/clients/client-info/ClientViewInfo.jsx";
 import FormClientContactInfo from "../developer/clients/client-info/FormClientContactInfo.jsx";
 import FormClientFinancierInfo from "../developer/clients/client-info/FormClientFinancierInfo.jsx";
 import FormClientParentInfo from "../developer/clients/client-info/FormClientParentInfo.jsx";
-import ModalEditStudent from "../developer/students/StudentEdit/ModalEditStudent.jsx";
-import StudentProfileForm from "../developer/students/StudentEdit/StudentProfile/StudentProfileForm.jsx";
 import Navigation from "./Navigation.jsx";
 // import ParentNavigation from "./ParentNavigation.jsx";
 
@@ -23,14 +20,13 @@ const Parents = () => {
   const [showContactForm, setShowContactForm] = React.useState(false);
   const [showFinancierForm, setShowFinancierForm] = React.useState(false);
   const [itemEdit, setItemEdit] = React.useState(null);
-  const [parentID, setParentID] = React.useState(null);
+  const [hideForm, setHideForm] = React.useState(false);
 
   const [hasBiologicalMother, setHasBiologicalMother] = React.useState(false);
   const [hasBiologicalFather, setHasBiologicalFather] = React.useState(false);
 
   const {
     isLoading,
-    isFetching,
     error,
     data: guardianInfo,
   } = useQueryData(
@@ -39,12 +35,7 @@ const Parents = () => {
     "guardianInfo" // key
   );
 
-  const {
-    isLoading: isLoadingSY,
-    isFetching: isFetchingSY,
-    error: errorSY,
-    data: schoolYear,
-  } = useQueryData(
+  const { data: schoolYear } = useQueryData(
     "/v2/dev-school-year", // endpoint
     "get", // method
     "header-school-year" // key
@@ -132,9 +123,7 @@ const Parents = () => {
                 !showParentForm && (
                   <div
                     className={`bg-primary md:py-4 max-w-[620px] w-full rounded-md   relative mb-2 ${
-                      showContactForm || showFinancierForm
-                        ? "pointer-events-none opacity-60"
-                        : ""
+                      hideForm && " hidden"
                     }`}
                   >
                     <CardClientParentInfo
@@ -143,6 +132,7 @@ const Parents = () => {
                       setItemEdit={setItemEdit}
                       setShowParentForm={setShowParentForm}
                       error={error}
+                      setHideForm={setHideForm}
                     />
                   </div>
                 )
@@ -154,6 +144,7 @@ const Parents = () => {
                   setItemEdit={setItemEdit}
                   hasBiologicalMother={hasBiologicalMother}
                   hasBiologicalFather={hasBiologicalFather}
+                  setHideForm={setHideForm}
                 />
               )}
               {contactIsLoading || contactIsFetching ? (
@@ -162,9 +153,7 @@ const Parents = () => {
                 !showContactForm && (
                   <div
                     className={`bg-primary md:py-4 max-w-[620px] w-full rounded-md  relative mb-2 ${
-                      showParentForm || showFinancierForm
-                        ? "pointer-events-none opacity-60"
-                        : ""
+                      hideForm && " hidden"
                     }`}
                   >
                     <CardClientContactInfo
@@ -172,6 +161,7 @@ const Parents = () => {
                       itemEdit={itemEdit}
                       setShowContactForm={setShowContactForm}
                       setItemEdit={setItemEdit}
+                      setHideForm={setHideForm}
                     />
                   </div>
                 )
@@ -181,6 +171,7 @@ const Parents = () => {
                   itemEdit={itemEdit}
                   setShowContactForm={setShowContactForm}
                   setItemEdit={setItemEdit}
+                  setHideForm={setHideForm}
                 />
               )}{" "}
               {financierIsLoading || financierIsFetching ? (
@@ -189,9 +180,7 @@ const Parents = () => {
                 !showFinancierForm && (
                   <div
                     className={`bg-primary md:py-4 max-w-[620px] w-full rounded-md  relative mb-10 ${
-                      showParentForm || showContactForm
-                        ? "pointer-events-none opacity-60"
-                        : ""
+                      hideForm && " hidden"
                     }`}
                   >
                     <CardClientFinancierInfo
@@ -199,6 +188,7 @@ const Parents = () => {
                       itemEdit={itemEdit}
                       setShowFinancierForm={setShowFinancierForm}
                       setItemEdit={setItemEdit}
+                      setHideForm={setHideForm}
                     />
                   </div>
                 )
@@ -208,6 +198,7 @@ const Parents = () => {
                   itemEdit={itemEdit}
                   setShowFinancierForm={setShowFinancierForm}
                   setItemEdit={setItemEdit}
+                  setHideForm={setHideForm}
                 />
               )}
             </div>

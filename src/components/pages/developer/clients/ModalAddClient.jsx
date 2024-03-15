@@ -58,8 +58,6 @@ const ModalAddClient = ({ itemEdit }) => {
     },
   });
 
-  console.log(itemEdit);
-
   const initVal = {
     parents_fname: itemEdit ? itemEdit.parents_fname : "",
     parents_lname: itemEdit ? itemEdit.parents_lname : "",

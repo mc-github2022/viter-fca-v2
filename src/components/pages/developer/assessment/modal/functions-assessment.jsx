@@ -553,7 +553,7 @@ export const getNotifyAcceptParentInitVal = (
     primaryDiscountId,
     additionalDiscountId,
     students_aid: item.students_aid,
-    current_students_sy_id: item.current_students_sy_id,
+    ...item,
     assessmentRemarks,
   };
 

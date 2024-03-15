@@ -1,17 +1,13 @@
 import {
-  getPesoSign,
   numberWithCommas,
   pesoSign,
 } from "@/components/helpers/functions-general.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError.jsx";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-import { FiEdit2, FiTrash } from "react-icons/fi";
-import { LiaHardHatSolid } from "react-icons/lia";
-import { LuDot } from "react-icons/lu";
+import { FiEdit2 } from "react-icons/fi";
 import { PiBriefcase, PiCoinsLight } from "react-icons/pi";
 import { SlPeople } from "react-icons/sl";
 import ModalDeleteInfoCard from "./ModalDeleteInfoCard.jsx";
@@ -21,8 +17,8 @@ const CardClientFinancierInfo = ({
   setItemEdit,
   setShowFinancierForm,
   error,
+  setHideForm,
   isLoading,
-  isFetching,
 }) => {
   const [cardId, setCardId] = React.useState(null);
   const [dataItem, setData] = React.useState(null);
@@ -31,6 +27,7 @@ const CardClientFinancierInfo = ({
   const handleShowFinancierForm = (item) => {
     setItemEdit(item);
     setShowFinancierForm(true);
+    setHideForm(true);
   };
 
   return (

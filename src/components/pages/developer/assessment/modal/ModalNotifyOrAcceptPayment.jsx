@@ -57,10 +57,11 @@ const ModalNotifyOrAcceptPayment = ({
     },
   });
 
-  const handleYes = async () => {
+  const handleYes = async (val) => {
     // mutate data
     mutation.mutate({
       ...item,
+      isNotifyParent: val,
       is_notify: isNotify ? 1 : 0,
       is_accept_payment: isNotify ? 0 : 1,
     });
@@ -82,7 +83,7 @@ const ModalNotifyOrAcceptPayment = ({
         <div className="modal__header flex items-center gap-2">
           <LiaInfoCircleSolid className="fill-accent text-3xl" />
           <h3 className="text-[16px] mb-0">
-            {isNotify ? "Notify Parent" : "Accept Payment"}
+            {isNotify ? "Email Parent" : "Accept Payment"}
           </h3>
         </div>
         <h3 className=" text-[14px] mb-0 font-normal">{msg}</h3>
@@ -94,12 +95,20 @@ const ModalNotifyOrAcceptPayment = ({
 
         <div className="modal__action flex justify-end mt-2 gap-2">
           <button
-            className="btn btn--accent"
+            className="btn btn--accent w-[6rem]"
             disabled={mutation.isPending}
-            onClick={handleYes}
+            onClick={() => handleYes(true)}
             type="submit"
           >
-            {mutation.isPending ? <ButtonSpinner /> : "Confirm"}
+            {mutation.isPending ? <ButtonSpinner /> : "Send email"}
+          </button>
+          <button
+            className="btn btn--accent w-[6rem]"
+            disabled={mutation.isPending}
+            onClick={() => handleYes(false)}
+            type="submit"
+          >
+            {mutation.isPending ? <ButtonSpinner /> : "Save only"}
           </button>
           <button
             className="btn btn--cancel"
