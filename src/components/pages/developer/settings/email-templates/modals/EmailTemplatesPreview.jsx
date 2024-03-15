@@ -26,10 +26,12 @@ const EmailTemplatesPreview = ({ previewData, setAddIndex, setItemEdit }) => {
             Close
           </button>
         </div>
-        <div
-          className="modal__body !max-h-[80vh] overflow-auto "
-          dangerouslySetInnerHTML={{ __html: html }}
-        ></div>
+        <pre>
+          <div
+            className="modal__body !max-h-[80vh] overflow-auto "
+            dangerouslySetInnerHTML={{ __html: html }}
+          ></div>
+        </pre>
       </div>
     </>
   );
