@@ -227,7 +227,12 @@ const Header = ({ isLoading, schoolYear }) => {
                     </li>
                     <li className="mb-3 items-center flex gap-2">
                       <MdOutlineMailOutline className="text-base" />
-                      <p className="truncate w-[26ch]">{credentials().email}</p>
+                      <p
+                        className="truncate w-[26ch]"
+                        title={credentials().email}
+                      >
+                        {credentials().email}
+                      </p>
                     </li>
                     <li className="">
                       <button

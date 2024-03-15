@@ -7,7 +7,7 @@ import {
   setSettingIsDelete,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
-import { BsArchive } from "react-icons/bs";
+import { TbUserOff } from "react-icons/tb";
 
 import NoData from "@/components/partials/NoData.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm.jsx";
@@ -133,7 +133,7 @@ const UserSystemList = ({ setItemEdit }) => {
                         data-tooltip="Suspend"
                         onClick={() => handleSuspend(item)}
                       >
-                        <BsArchive />
+                        <TbUserOff />
                       </button>
                     </li>
                   </>
@@ -179,7 +179,7 @@ const UserSystemList = ({ setItemEdit }) => {
         <ModalSuspend
           mysqlApiArchive={`/v2/dev-user-system/active/${id}`}
           msg={`Are you sure you want to ${
-            isArchive ? "restore" : "archive"
+            isArchive ? "restore" : "suspend"
           } this record?`}
           item={dataItem.user_system_email}
           queryKey={"system"}

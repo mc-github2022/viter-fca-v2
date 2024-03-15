@@ -90,7 +90,7 @@ const ModalSuspend = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
         <div className="modal__header flex items-center gap-2">
           <LiaInfoCircleSolid className="fill-accent text-3xl" />
           <h3 className="text-[16px] mb-0">
-            {isArchive ? "Restore" : "Archive"} Record
+            {isArchive ? "Restore" : "Suspend"} Record
           </h3>
         </div>
         <h3 className=" text-[14px] mb-0 font-normal">

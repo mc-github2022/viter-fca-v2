@@ -22,6 +22,7 @@ import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore, MdPassword } from "react-icons/md";
 import { PiPasswordLight } from "react-icons/pi";
+import { TbUserOff } from "react-icons/tb";
 import ModalSuspend from "../ModalSuspend";
 const UserOtherStaffList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -138,7 +139,7 @@ const UserOtherStaffList = ({ setItemEdit }) => {
                         data-tooltip="Suspend"
                         onClick={() => handleSuspend(item)}
                       >
-                        <BsArchive />
+                        <TbUserOff />
                       </button>
                     </li>
                   </>
@@ -184,7 +185,7 @@ const UserOtherStaffList = ({ setItemEdit }) => {
         <ModalSuspend
           mysqlApiArchive={`/v2/user-other/active/${id}`}
           msg={`Are you sure you want to ${
-            isArchive ? "restore" : "archive"
+            isArchive ? "restore" : "suspend"
           } this record?`}
           item={dataItem.user_other_email}
           queryKey={"other"}
