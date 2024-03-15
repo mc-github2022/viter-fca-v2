@@ -399,6 +399,7 @@ const StudentProfileForm = ({
                           // disabled
                         >
                           <option value="" hidden></option>
+                          <option value="0">Not Applicable</option>
                           {gradeLevel?.count > 0 ? (
                             gradeLevel?.data.map((item, key) => {
                               return (
