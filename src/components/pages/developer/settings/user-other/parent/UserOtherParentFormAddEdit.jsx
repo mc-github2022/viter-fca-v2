@@ -247,14 +247,16 @@ const UserOtherParentFormAddEdit = ({ itemEdit }) => {
                       />
                     </div>
 
-                    <div className="form__wrap text-xs mb-3">
-                      <InputText
-                        label="Email"
-                        type="text"
-                        name="user_other_email"
-                        disabled={mutation.isPending}
-                      />
-                    </div>
+                    {!itemEdit && (
+                      <div className="form__wrap text-xs mb-3">
+                        <InputText
+                          label="Email"
+                          type="text"
+                          name="user_other_email"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                    )}
                   </>
                 )}
 

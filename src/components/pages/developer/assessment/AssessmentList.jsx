@@ -4,6 +4,7 @@ import NoData from "@/components/partials/NoData.jsx";
 import SearchBar from "@/components/partials/SearchBar.jsx";
 import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError.jsx";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
