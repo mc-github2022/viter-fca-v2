@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2024 at 05:26 AM
+-- Generation Time: Mar 18, 2024 at 01:54 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -31,12 +31,21 @@ CREATE TABLE `fcav2_emergency_contact` (
   `emergency_contact_aid` int(11) NOT NULL,
   `emergency_contact_parent_id` int(11) NOT NULL,
   `emergency_contact_name` varchar(100) NOT NULL,
+  `emergency_contact_email` varchar(255) NOT NULL,
   `emergency_contact_mobile` varchar(30) NOT NULL,
   `emergency_contact_landline` varchar(30) NOT NULL,
   `emergency_contact_level` varchar(30) NOT NULL,
   `emergency_contact_created` varchar(20) NOT NULL,
   `emergency_contact_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_emergency_contact`
+--
+
+INSERT INTO `fcav2_emergency_contact` (`emergency_contact_aid`, `emergency_contact_parent_id`, `emergency_contact_name`, `emergency_contact_email`, `emergency_contact_mobile`, `emergency_contact_landline`, `emergency_contact_level`, `emergency_contact_created`, `emergency_contact_datetime`) VALUES
+(1, 2, 'Ronaldo Soalibio Lumabas', 'ronaldo@gmail.com', '3456345633', '3563456', 'primary', '2024-03-13 14:36:21', '2024-03-14 07:49:56'),
+(2, 2, 'ccc', 'ronaldo@gmail.com', '345456', '', 'primary', '2024-03-15 13:00:53', '2024-03-15 13:00:53');
 
 -- --------------------------------------------------------
 
@@ -51,10 +60,10 @@ CREATE TABLE `fcav2_guardian` (
   `guardian_parent_id` int(11) NOT NULL,
   `guardian_is_reside` tinyint(1) NOT NULL,
   `guardian_salutation` varchar(10) NOT NULL,
-  `guardian_fname` varchar(50) NOT NULL,
-  `guardian_mname` int(20) NOT NULL,
-  `guardian_maiden_name` varchar(20) NOT NULL,
-  `guardian_lname` varchar(50) NOT NULL,
+  `guardian_fname` varchar(100) NOT NULL,
+  `guardian_mname` varchar(100) NOT NULL,
+  `guardian_maiden_name` varchar(100) NOT NULL,
+  `guardian_lname` varchar(100) NOT NULL,
   `guardian_email` varchar(100) NOT NULL,
   `guardian_mobile` varchar(30) NOT NULL,
   `guardian_landline` varchar(30) NOT NULL,
@@ -68,6 +77,13 @@ CREATE TABLE `fcav2_guardian` (
   `guardian_datetime` varchar(20) NOT NULL,
   `guardian_created` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_guardian`
+--
+
+INSERT INTO `fcav2_guardian` (`guardian_aid`, `guardian_active`, `guardian_relationship_id`, `guardian_parent_id`, `guardian_is_reside`, `guardian_salutation`, `guardian_fname`, `guardian_mname`, `guardian_maiden_name`, `guardian_lname`, `guardian_email`, `guardian_mobile`, `guardian_landline`, `guardian_address`, `guardian_province`, `guardian_city`, `guardian_zipcode`, `guardian_country`, `guardian_religion`, `guardian_occupation`, `guardian_datetime`, `guardian_created`) VALUES
+(3, 0, 4, 2, 1, 'mr', 'Ronaldo', 'sdfsdfsd', 'zcxv', 'Lumabas', 'ronaldo@gmail.com', '0995632145', '', 'Brgy, San Cristobal', 'Laguna', 'San Pablo City', '4000', 'Philippines', 'catholic', 'farmer', '2024-03-07 10:28:28', '');
 
 -- --------------------------------------------------------
 
@@ -91,6 +107,13 @@ CREATE TABLE `fcav2_parents` (
   `parents_created` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `fcav2_parents`
+--
+
+INSERT INTO `fcav2_parents` (`parents_aid`, `parents_is_active`, `parents_email`, `parents_fname`, `parents_lname`, `parents_father_income`, `parents_mother_income`, `parents_financier_name`, `parents_financier_relationship`, `parents_financier_occupation`, `parents_financier_income`, `parents_datetime`, `parents_created`) VALUES
+(2, 1, 'cyrene.lumabas@frontlinebusiness.com.ph', 'Ronaldo', 'Lumabas', '354645', '46', 'zxcv', 'zxcv', 'zxccv', '456', '2024-03-15 14:18:26', '2024-03-06 15:01:45');
+
 -- --------------------------------------------------------
 
 --
@@ -113,6 +136,7 @@ CREATE TABLE `fcav2_school_year_students` (
   `school_year_students_is_accept_payment` tinyint(1) NOT NULL,
   `school_year_students_schedule_fees_id` int(11) NOT NULL,
   `school_year_students_rate_id` int(11) NOT NULL,
+  `school_year_students_assessment_remarks` text NOT NULL,
   `school_year_students_primary_discount_id` int(11) NOT NULL,
   `school_year_students_additional_discount_id` int(11) NOT NULL,
   `school_year_students_last_coc_is_agree` tinyint(1) NOT NULL,
@@ -122,6 +146,15 @@ CREATE TABLE `fcav2_school_year_students` (
   `school_year_students_created` datetime NOT NULL,
   `school_year_students_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_school_year_students`
+--
+
+INSERT INTO `fcav2_school_year_students` (`school_year_students_aid`, `school_year_students_is_active`, `school_year_students_sy_id`, `school_year_students_student_id`, `school_year_students_grade_level_id`, `school_year_students_last_learning_type`, `school_year_students_last_school_attended`, `school_year_students_last_gpa`, `school_year_students_last_grade_level_id`, `school_year_students_last_school_address`, `school_year_students_last_remarks`, `school_year_students_is_notify`, `school_year_students_is_accept_payment`, `school_year_students_schedule_fees_id`, `school_year_students_rate_id`, `school_year_students_assessment_remarks`, `school_year_students_primary_discount_id`, `school_year_students_additional_discount_id`, `school_year_students_last_coc_is_agree`, `school_year_students_last_parent_declaration_is_agree`, `school_year_students_last_parent_consent_is_agree`, `school_year_students_last_parent_commitment_is_agree`, `school_year_students_created`, `school_year_students_datetime`) VALUES
+(38, 1, 6, 14, 1, 'onsite', '', '', 0, '', '', 0, 0, 0, 2, '', 1, 3, 1, 1, 1, 1, '2024-03-07 10:35:03', '2024-03-07 10:36:16'),
+(40, 1, 6, 11, 1, 'online', '', '', 0, '', '', 0, 0, 10, 2, 'hi cy you paid full', 0, 5, 1, 1, 1, 1, '2024-03-07 10:56:25', '2024-03-15 15:38:52'),
+(41, 1, 6, 15, 2, 'onsite', '', '', 0, '', '', 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '2024-03-07 12:29:02', '2024-03-07 12:29:02');
 
 -- --------------------------------------------------------
 
@@ -145,6 +178,7 @@ CREATE TABLE `fcav2_school_year_students_current` (
   `current_students_is_accept_payment` tinyint(1) NOT NULL,
   `current_students_schedule_fees_id` int(11) NOT NULL,
   `current_students_rate_id` int(11) NOT NULL,
+  `current_students_assessment_remarks` text NOT NULL,
   `current_students_primary_discount_id` int(11) NOT NULL,
   `current_students_additional_discount_id` int(11) NOT NULL,
   `current_students_last_coc_is_agree` tinyint(1) NOT NULL,
@@ -154,6 +188,15 @@ CREATE TABLE `fcav2_school_year_students_current` (
   `current_students_created` datetime NOT NULL,
   `current_students_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_school_year_students_current`
+--
+
+INSERT INTO `fcav2_school_year_students_current` (`current_students_aid`, `current_students_is_active`, `current_students_sy_id`, `current_students_student_id`, `current_students_grade_level_id`, `current_students_last_learning_type`, `current_students_last_school_attended`, `current_students_last_gpa`, `current_students_last_grade_level_id`, `current_students_last_school_address`, `current_students_last_remarks`, `current_students_is_notify`, `current_students_is_accept_payment`, `current_students_schedule_fees_id`, `current_students_rate_id`, `current_students_assessment_remarks`, `current_students_primary_discount_id`, `current_students_additional_discount_id`, `current_students_last_coc_is_agree`, `current_students_last_parent_declaration_is_agree`, `current_students_last_parent_consent_is_agree`, `current_students_last_parent_commitment_is_agree`, `current_students_created`, `current_students_datetime`) VALUES
+(18, 1, 6, 11, 1, 'online', '', '', 0, '', '', 0, 0, 10, 2, 'hi cy you paid full', 0, 5, 1, 1, 1, 1, '2024-03-07 10:29:06', '2024-03-15 15:38:52'),
+(21, 1, 6, 14, 1, 'onsite', '', '', 0, '', '', 1, 0, 0, 2, '', 1, 3, 1, 1, 1, 1, '2024-03-07 10:35:03', '2024-03-07 10:36:16'),
+(22, 1, 6, 15, 2, 'onsite', '', '', 0, '', '', 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '2024-03-07 12:29:02', '2024-03-07 12:29:02');
 
 -- --------------------------------------------------------
 
@@ -234,6 +277,7 @@ CREATE TABLE `fcav2_settings_discount_additional` (
   `discount_additional_aid` int(11) NOT NULL,
   `discount_additional_is_active` tinyint(1) NOT NULL,
   `discount_additional_name` varchar(200) NOT NULL,
+  `requirement_registrar_is_for_pre_school` tinyint(1) NOT NULL,
   `discount_additional_percent` varchar(20) NOT NULL,
   `discount_additional_amount` varchar(20) NOT NULL,
   `discount_additional_created` datetime NOT NULL,
@@ -244,10 +288,12 @@ CREATE TABLE `fcav2_settings_discount_additional` (
 -- Dumping data for table `fcav2_settings_discount_additional`
 --
 
-INSERT INTO `fcav2_settings_discount_additional` (`discount_additional_aid`, `discount_additional_is_active`, `discount_additional_name`, `discount_additional_percent`, `discount_additional_amount`, `discount_additional_created`, `discount_additional_updated`) VALUES
-(1, 1, 'Enable Full Payment Discount?', '10', '', '2024-02-23 09:06:00', '2024-02-23 09:06:00'),
-(2, 1, 'Enable New Student Promo?', '', '1500', '2024-02-23 09:06:36', '2024-02-23 09:06:36'),
-(3, 1, 'Enable Early Bird Promo?', '', '', '2024-02-23 09:07:43', '2024-02-23 09:07:43');
+INSERT INTO `fcav2_settings_discount_additional` (`discount_additional_aid`, `discount_additional_is_active`, `discount_additional_name`, `requirement_registrar_is_for_pre_school`, `discount_additional_percent`, `discount_additional_amount`, `discount_additional_created`, `discount_additional_updated`) VALUES
+(1, 1, 'Enable Full Payment Discount?', 0, '10', '', '2024-02-23 09:06:00', '2024-02-23 09:06:00'),
+(2, 1, 'Enable New Student Promo?', 0, '', '1500', '2024-02-23 09:06:36', '2024-02-23 09:06:36'),
+(3, 1, 'Enable Early Bird Promo?', 0, '', '', '2024-02-23 09:07:43', '2024-02-23 09:07:43'),
+(4, 1, 'Enable Re-Enrolling Promo?', 0, '0', '1000', '2024-03-13 15:31:28', '2024-03-13 15:31:28'),
+(5, 1, 'Enable Loyalty Discount?', 0, '30', '', '2024-03-13 15:46:41', '2024-03-13 15:46:41');
 
 -- --------------------------------------------------------
 
@@ -270,6 +316,35 @@ CREATE TABLE `fcav2_settings_discount_category` (
 INSERT INTO `fcav2_settings_discount_category` (`discount_category_aid`, `discount_category_name`, `discount_category_is_active`, `discount_category_created`, `discount_category_updated`) VALUES
 (1, 'Legacy & Loyalty', 1, '2024-02-19 15:00:23', '2024-02-19 15:03:30'),
 (2, 'Regular', 1, '2024-02-19 15:03:39', '2024-02-19 15:04:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fcav2_settings_email_template`
+--
+
+CREATE TABLE `fcav2_settings_email_template` (
+  `email_template_aid` int(11) NOT NULL,
+  `email_template_name` varchar(200) NOT NULL,
+  `email_template_subject` varchar(200) NOT NULL,
+  `email_template_is_active` tinyint(1) NOT NULL,
+  `email_template_content` text NOT NULL,
+  `email_template_receiver_id` varchar(20) NOT NULL,
+  `email_template_category` varchar(200) NOT NULL,
+  `email_template_cc_email` varchar(200) NOT NULL,
+  `email_template_cc_email_two` varchar(200) NOT NULL,
+  `email_template_created` datetime NOT NULL,
+  `email_template_updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_settings_email_template`
+--
+
+INSERT INTO `fcav2_settings_email_template` (`email_template_aid`, `email_template_name`, `email_template_subject`, `email_template_is_active`, `email_template_content`, `email_template_receiver_id`, `email_template_category`, `email_template_cc_email`, `email_template_cc_email_two`, `email_template_created`, `email_template_updated`) VALUES
+(3, 'Assessment (notify parent)', 'Assessment (notify parent)', 1, 'Hi Cyrene\n\nThis is Notify Parent.\nPlease choose SCHEME.\n\nThanks.', '0', 'assessment-notify-parents', '', '', '2024-03-15 12:23:40', '2024-03-15 12:27:32'),
+(4, 'Assessment Accept Payment', 'Assessment Accept Payment', 1, 'Hi Cyrene\n\nThis is Accept Payment. \n\nThanks.', 'client', 'assessment-accept-payment', '', '', '2024-03-15 12:26:51', '2024-03-15 12:27:36'),
+(5, 'Assessment notify finance', 'Assessment notify finance', 1, 'Hi this is client\n\n\nI already sent to you the Sheme I choose.', '1', 'assessment-notify-finance', 'a@gmail.com', 'a@gmail.com', '2024-03-15 14:40:32', '2024-03-15 14:41:19');
 
 -- --------------------------------------------------------
 
@@ -297,7 +372,8 @@ INSERT INTO `fcav2_settings_grade_level` (`grade_level_aid`, `grade_level_active
 (3, 1, 3, 'Grade 3', 0, '2024-02-23 08:15:37', '2024-02-23 08:15:37'),
 (4, 1, 4, 'Grade 4', 0, '2024-02-28 10:25:18', '2024-02-28 10:25:18'),
 (5, 1, 5, 'Grade 5', 0, '2024-02-28 10:25:29', '2024-02-28 10:25:29'),
-(6, 1, 6, 'Grade 6', 0, '2024-02-28 10:25:36', '2024-02-28 10:25:36');
+(6, 1, 6, 'Grade 6', 0, '2024-02-28 10:25:36', '2024-02-28 10:25:36'),
+(7, 1, 0, 'Grade 7', 0, '2024-03-14 15:58:27', '2024-03-14 15:58:34');
 
 -- --------------------------------------------------------
 
@@ -329,6 +405,13 @@ CREATE TABLE `fcav2_settings_notification` (
   `notification_datetime` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `fcav2_settings_notification`
+--
+
+INSERT INTO `fcav2_settings_notification` (`notification_aid`, `notification_active`, `notification_department_id`, `notification_email`, `notification_name`, `notification_created`, `notification_datetime`) VALUES
+(1, 1, 3, 'cyrenemlumabas@gmail.com', 'cycy', '2024-03-15 12:16:05', '2024-03-15 14:37:37');
+
 -- --------------------------------------------------------
 
 --
@@ -349,10 +432,10 @@ CREATE TABLE `fcav2_settings_relationship` (
 --
 
 INSERT INTO `fcav2_settings_relationship` (`relationship_aid`, `relationship_active`, `relationship_name`, `relationship_is_maiden`, `relationship_created`, `relationship_datetime`) VALUES
-(1, 1, 'Father', 1, '2024-02-27 13:29:06', '2024-02-27 13:29:06'),
+(1, 1, 'Father', 0, '2024-02-27 13:29:06', '2024-03-07 15:02:22'),
 (2, 1, 'Mother', 1, '2024-02-27 13:29:14', '2024-02-27 13:29:14'),
-(3, 1, 'Grandfather', 1, '2024-02-27 13:29:23', '2024-02-27 13:29:23'),
-(4, 1, 'Grandmother', 1, '2024-02-27 13:29:31', '2024-02-27 13:29:31');
+(3, 1, 'Grandfather', 0, '2024-02-27 13:29:23', '2024-03-07 15:02:29'),
+(4, 1, 'Grandmother', 0, '2024-02-27 13:29:31', '2024-03-07 15:02:31');
 
 -- --------------------------------------------------------
 
@@ -404,7 +487,7 @@ CREATE TABLE `fcav2_settings_requirement_registrar` (
 --
 
 INSERT INTO `fcav2_settings_requirement_registrar` (`requirement_registrar_aid`, `requirement_registrar_active`, `requirement_registrar_department_id`, `requirement_registrar_name`, `requirement_registrar_created`, `requirement_registrar_datetime`) VALUES
-(1, 1, 1, 'Certificate of Clearance (Financial and Property Responsibility)', '2024-02-26 14:46:25', '2024-02-26 14:46:25'),
+(1, 1, 1, 'Certificate of Clearance (Financial and Property Responsibility)', '2024-02-26 14:46:25', '2024-03-15 09:28:45'),
 (2, 1, 1, 'Form 137/SF10', '2024-02-26 14:46:39', '2024-02-26 14:46:39'),
 (3, 1, 1, 'Good Moral Certificate', '2024-02-26 14:46:46', '2024-02-26 14:46:46'),
 (4, 1, 1, 'LCR / Local Civil Registry Birth Certificate (Temporary Enrollment Only) OR', '2024-02-26 14:46:52', '2024-02-26 14:46:52'),
@@ -480,6 +563,13 @@ CREATE TABLE `fcav2_settings_school_year` (
   `school_year_created` datetime NOT NULL,
   `school_year_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_settings_school_year`
+--
+
+INSERT INTO `fcav2_settings_school_year` (`school_year_aid`, `school_year_is_active`, `school_year_start_date`, `school_year_end_date`, `school_year_enrollment_start_date`, `school_year_enrollment_end_date`, `school_year_is_enrollment_open`, `school_year_created`, `school_year_datetime`) VALUES
+(6, 1, '2023-09-07', '2024-03-07', '', '', 1, '2024-03-07 09:18:28', '2024-03-07 12:25:12');
 
 -- --------------------------------------------------------
 
@@ -594,7 +684,10 @@ INSERT INTO `fcav2_settings_tuition_fee` (`tuition_fee_aid`, `tuition_fee_active
 (13, 1, '3', '1', '3', '400', '6600', '1847.89', '2400', '11247.89', '5292.393', '9', '47631.537', '2024-02-29 08:03:13', '2024-02-29 08:03:13'),
 (14, 1, '1', '1', '1', '1500', '27000', '11716.95', '8190', '48406.95', '', '', '0', '2024-02-29 08:04:41', '2024-02-29 08:04:41'),
 (15, 1, '1', '1', '2', '375.00', '6750.00', '2929.24', '2047.50', '12101.74', '12439.236', '3', '37317.708', '2024-02-29 08:06:23', '2024-02-29 08:06:23'),
-(16, 1, '1', '1', '3', '300', '5400', '2343.39', '1638', '9681.39', '4542.84', '9', '40885.56', '2024-02-29 08:06:57', '2024-02-29 08:06:57');
+(16, 1, '1', '1', '3', '300', '5400', '2343.39', '1638', '9681.39', '4542.84', '9', '40885.56', '2024-02-29 08:06:57', '2024-02-29 08:06:57'),
+(17, 1, '1', '2', '1', '12', '12', '12', '10', '46', '', '', '0', '2024-03-15 10:51:59', '2024-03-15 10:51:59'),
+(18, 1, '2', '5', '1', '13', '13', '13', '13', '52', '', '', '0', '2024-03-15 10:52:16', '2024-03-15 10:52:16'),
+(19, 1, '2', '2', '2', '13', '13', '13', '13', '52', '3', '13', '39', '2024-03-15 10:52:29', '2024-03-15 10:52:29');
 
 -- --------------------------------------------------------
 
@@ -621,7 +714,7 @@ CREATE TABLE `fcav2_settings_user_other` (
 --
 
 INSERT INTO `fcav2_settings_user_other` (`user_other_aid`, `user_other_is_active`, `user_other_fname`, `user_other_lname`, `user_other_email`, `user_other_new_email`, `user_other_role_id`, `user_other_key`, `user_other_password`, `user_other_created`, `user_other_datetime`) VALUES
-(39, 1, 'Cyrene', 'Lumabas', 'cyrenemlumabas@gmail.com', '', 4, '', '$2y$10$g/zE/UpZWrfsQ.mJ2KSkkOGezAwVvJSdgjeXknWI/VOyDoSl4/uLm', '2024-02-19 13:52:56', '2024-02-19 15:50:13'),
+(39, 1, 'Cyrene', 'Lumabas', 'cyrenemlumabas@gmail.com', 'cyren.lumabas@frontlinebusiness.com.ph', 4, 'b229183ab3053a78c44d8e21af7b5bfa8785af4f965e4030caaff9a83e66bf62', '$2y$10$g/zE/UpZWrfsQ.mJ2KSkkOGezAwVvJSdgjeXknWI/VOyDoSl4/uLm', '2024-02-19 13:52:56', '2024-03-15 14:18:26'),
 (40, 1, 'Mac', 'Mac', 'merin.ryanmark@gmail.com', '', 2, '', '$2y$10$joJ4kHIyaroc/J5HzOXr3eZcEJtzdajKXCXd6vldDmqCEAiar3qkC', '2024-02-19 14:00:05', '2024-02-19 14:01:36');
 
 -- --------------------------------------------------------
@@ -681,6 +774,14 @@ CREATE TABLE `fcav2_students` (
   `students_created` datetime NOT NULL,
   `students_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fcav2_students`
+--
+
+INSERT INTO `fcav2_students` (`students_aid`, `students_is_active`, `students_parent_id`, `students_lrn`, `students_fname`, `students_mname`, `students_lname`, `students_gender`, `students_birth_date`, `students_birth_place`, `students_email`, `students_mobile`, `students_landline`, `students_address_id`, `students_institutional_email`, `students_family_doctor`, `students_family_doctor_contact`, `students_medical_remarks`, `students_family_circumstances`, `students_created`, `students_datetime`) VALUES
+(11, 1, 2, '', 'Cyrene', '', 'Lumabas', 'f', '1999-09-09', '', '', '', '', 3, '', '', '', '', '', '2024-03-07 10:29:06', '2024-03-07 10:30:53'),
+(15, 1, 2, '', 'sdf', '', 'df', 'f', '2023-03-03', '', '', '', '', 0, '', '', '', '', '', '2024-03-07 12:29:02', '2024-03-07 12:30:22');
 
 --
 -- Indexes for dumped tables
@@ -745,6 +846,12 @@ ALTER TABLE `fcav2_settings_discount_additional`
 --
 ALTER TABLE `fcav2_settings_discount_category`
   ADD PRIMARY KEY (`discount_category_aid`);
+
+--
+-- Indexes for table `fcav2_settings_email_template`
+--
+ALTER TABLE `fcav2_settings_email_template`
+  ADD PRIMARY KEY (`email_template_aid`);
 
 --
 -- Indexes for table `fcav2_settings_grade_level`
@@ -856,37 +963,37 @@ ALTER TABLE `fcav2_students`
 -- AUTO_INCREMENT for table `fcav2_emergency_contact`
 --
 ALTER TABLE `fcav2_emergency_contact`
-  MODIFY `emergency_contact_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emergency_contact_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `fcav2_guardian`
 --
 ALTER TABLE `fcav2_guardian`
-  MODIFY `guardian_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `guardian_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fcav2_parents`
 --
 ALTER TABLE `fcav2_parents`
-  MODIFY `parents_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `parents_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `fcav2_school_year_students`
 --
 ALTER TABLE `fcav2_school_year_students`
-  MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `school_year_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `fcav2_school_year_students_current`
 --
 ALTER TABLE `fcav2_school_year_students_current`
-  MODIFY `current_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `current_students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `fcav2_school_year_students_requirements`
 --
 ALTER TABLE `fcav2_school_year_students_requirements`
-  MODIFY `students_requirements_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `students_requirements_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_department`
@@ -904,7 +1011,7 @@ ALTER TABLE `fcav2_settings_discount`
 -- AUTO_INCREMENT for table `fcav2_settings_discount_additional`
 --
 ALTER TABLE `fcav2_settings_discount_additional`
-  MODIFY `discount_additional_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `discount_additional_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_discount_category`
@@ -913,10 +1020,16 @@ ALTER TABLE `fcav2_settings_discount_category`
   MODIFY `discount_category_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `fcav2_settings_email_template`
+--
+ALTER TABLE `fcav2_settings_email_template`
+  MODIFY `email_template_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `fcav2_settings_grade_level`
 --
 ALTER TABLE `fcav2_settings_grade_level`
-  MODIFY `grade_level_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `grade_level_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_learning_type`
@@ -928,7 +1041,7 @@ ALTER TABLE `fcav2_settings_learning_type`
 -- AUTO_INCREMENT for table `fcav2_settings_notification`
 --
 ALTER TABLE `fcav2_settings_notification`
-  MODIFY `notification_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `notification_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_relationship`
@@ -970,7 +1083,7 @@ ALTER TABLE `fcav2_settings_scheme`
 -- AUTO_INCREMENT for table `fcav2_settings_school_year`
 --
 ALTER TABLE `fcav2_settings_school_year`
-  MODIFY `school_year_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `school_year_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_staff`
@@ -994,7 +1107,7 @@ ALTER TABLE `fcav2_settings_tuition_category`
 -- AUTO_INCREMENT for table `fcav2_settings_tuition_fee`
 --
 ALTER TABLE `fcav2_settings_tuition_fee`
-  MODIFY `tuition_fee_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `tuition_fee_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `fcav2_settings_user_other`
@@ -1012,7 +1125,7 @@ ALTER TABLE `fcav2_settings_user_system`
 -- AUTO_INCREMENT for table `fcav2_students`
 --
 ALTER TABLE `fcav2_students`
-  MODIFY `students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `students_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

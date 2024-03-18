@@ -2,7 +2,7 @@ import React from "react";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
-// Mac // Mc // Mon // Cy
+// // Mac // Mc // Mon // Cy
 // const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
 // const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
 
