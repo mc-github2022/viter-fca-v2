@@ -2,9 +2,8 @@ import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 
-import ModalError from "@/components/partials/modals/ModalError";
+import ModalErrorValidate from "@/components/partials/modals/ModalErrorValidate";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
-import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import ParentRelationshipFormAddEdit from "./ParentRelationshipFormAddEdit";
@@ -31,23 +30,22 @@ const ParentRelationship = ({ index }) => {
             </p>
           </div>
 
-          {!store.isSettingAdd && (
-            <button
-              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-              onClick={handleAdd}
-            >
-              <AiOutlinePlus /> Add New
-            </button>
-          )}
-
           {store.isSettingAdd && (
             <ParentRelationshipFormAddEdit itemEdit={itemEdit} />
           )}
           {!store.isSettingAdd && (
-            <ParentRelationshipList setItemEdit={setItemEdit} />
+            <div className="h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
+              <button
+                className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+                onClick={handleAdd}
+              >
+                <AiOutlinePlus /> Add New
+              </button>
+              <ParentRelationshipList setItemEdit={setItemEdit} />
+            </div>
           )}
           {store.success && <ModalSuccess />}
-          {store.validate && <ModalValidate />}
+          {store.error && <ModalErrorValidate />}
         </div>
       </>
     );

@@ -74,7 +74,10 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
                 <LiaTimesSolid />
               </button>
             </div>
-            <div className="wrapper flex gap-2 bg-primary p-2 lg:p-5 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-220px)]   overflow-x-hidden ">
+            <div
+              className={`wrapper lg:flex gap-2 bg-primary p-2 lg:p-5 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-220px)] overflow-hidden`}
+            >
+              {/* <div className="wrapper flex gap-2 bg-primary p-2 lg:p-5 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-220px)] overflow-x-hidden "> */}
               <ModalSettingsNav
                 showSideNav={showSideNav}
                 setIndex={setIndex}
@@ -86,7 +89,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
               <main
                 className={`${
                   showSideNav ? "lg:-left-[210px]" : "lg:left-[0px] "
-                } p-2 lg:px-5 lg:py-0 max-w-[600px] w-full relative transition-all duration-300 ease-timing-nav `}
+                } p-2 lg:pl-5 lg:py-0 w-full relative transition-all duration-300 ease-timing-nav`}
               >
                 <Department
                   index={index}

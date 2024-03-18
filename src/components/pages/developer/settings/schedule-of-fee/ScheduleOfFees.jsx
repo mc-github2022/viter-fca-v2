@@ -20,32 +20,29 @@ const ScheduleOfFees = ({ index }) => {
   if (index === 11) {
     return (
       <>
-        <div className="">
-          <div className="bg-primary">
-            <h2 className="mb-3">Schedule of Fees</h2>
-            <p className="text-xs mb-5">
-              Set list of schedule of fees that will be available to the current
-              school year
-            </p>
-          </div>
+        <div className="bg-primary">
+          <h2 className="mb-3">Schedule of Fees</h2>
+          <p className="text-xs mb-5">
+            Set list of schedule of fees that will be available to the current
+            school year
+          </p>
+        </div>
+        {store.isSettingAdd && (
+          <ScheduleOfFeesFormAddEdit itemEdit={itemEdit} />
+        )}
 
-          {!store.isSettingAdd && (
+        {!store.isSettingAdd && (
+          <div className="h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
             >
               <AiOutlinePlus /> Add New
             </button>
-          )}
-
-          {store.isSettingAdd && (
-            <ScheduleOfFeesFormAddEdit itemEdit={itemEdit} />
-          )}
-          {!store.isSettingAdd && (
             <ScheduleOfFeesList setItemEdit={setItemEdit} />
-          )}
-          {store.success && <ModalSuccess />}
-        </div>
+          </div>
+        )}
+        {store.success && <ModalSuccess />}
       </>
     );
   }

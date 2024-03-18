@@ -32,7 +32,7 @@ const EmailTemplates = ({ index }) => {
   if (index === 19) {
     return (
       <>
-        <div className="">
+        <div>
           <div className="bg-primary">
             <h2 className="mb-3">Email Templates</h2>
             <p className="text-xs mb-5">
@@ -40,16 +40,6 @@ const EmailTemplates = ({ index }) => {
               school year
             </p>
           </div>
-
-          {!store.isSettingAdd && (
-            <button
-              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-              onClick={handleAdd}
-            >
-              <AiOutlinePlus /> Add New
-            </button>
-          )}
-
           {store.isSettingAdd && addIndex === 1 && (
             <EmailTemplatesFormAddEdit
               itemEdit={itemEdit}
@@ -58,7 +48,6 @@ const EmailTemplates = ({ index }) => {
               setPreviewData={setPreviewData}
             />
           )}
-
           {store.isSettingAdd && addIndex === 2 && (
             <EmailTemplatesPreview
               previewData={previewData}
@@ -66,12 +55,19 @@ const EmailTemplates = ({ index }) => {
               setItemEdit={setItemEdit}
             />
           )}
-
           {!store.isSettingAdd && (
-            <EmailTemplatesList
-              setItemEdit={setItemEdit}
-              setAddIndex={setAddIndex}
-            />
+            <div className="h-[400px] xr:h-[640px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
+              <button
+                className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+                onClick={handleAdd}
+              >
+                <AiOutlinePlus /> Add New
+              </button>
+              <EmailTemplatesList
+                setItemEdit={setItemEdit}
+                setAddIndex={setAddIndex}
+              />
+            </div>
           )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

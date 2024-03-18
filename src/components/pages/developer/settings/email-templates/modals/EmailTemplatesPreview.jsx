@@ -16,7 +16,7 @@ const EmailTemplatesPreview = ({ previewData, setAddIndex, setItemEdit }) => {
       <div className="settings__addEdit mb-8  w-full">
         <div className="mb-5 flex items-center justify-between">
           <h3 className="mb-0">
-            {previewData ? previewData?.email_template_name : ""}
+            {previewData ? previewData?.email_template_subject : ""}
           </h3>
           <button
             className="text-[12px] underline mr-5 flex items-center"

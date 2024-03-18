@@ -78,7 +78,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
           )}
         </select>
       </div>
-      <div className="datalist max-w-[810px] w-[810px] overflow-x-hidden overflow-y-auto h-[610px] lg:max-h-[520px] custom__scroll relative">
+      <div className="datalist relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && scheduleOfFees.success === false ? (

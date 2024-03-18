@@ -32,43 +32,40 @@ const GradeLevel = ({ index }) => {
   if (index === 4) {
     return (
       <>
-        <div className="">
-          <div className="bg-primary">
-            <h2 className="mb-3">Grade Level</h2>
-            <p className="text-xs mb-5">
-              Set list of Grade Levels that will be available to the current
-              school year
-            </p>
-          </div>
-
-          {!store.isSettingAdd && (
+        <div className="bg-primary">
+          <h2 className="mb-3">Grade Level</h2>
+          <p className="text-xs mb-5">
+            Set list of Grade Levels that will be available to the current
+            school year
+          </p>
+        </div>
+        {store.isSettingAdd && (
+          <GradeLevelFormAddEdit
+            itemEdit={itemEdit}
+            isLoading={isLoading}
+            isFetching={isFetching}
+            gradelevel={gradelevel}
+          />
+        )}
+        {!store.isSettingAdd && (
+          <div className="h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
             >
               <AiOutlinePlus /> Add New
             </button>
-          )}
 
-          {store.isSettingAdd && (
-            <GradeLevelFormAddEdit
-              itemEdit={itemEdit}
-              isLoading={isLoading}
-              isFetching={isFetching}
-              gradelevel={gradelevel}
-            />
-          )}
-          {!store.isSettingAdd && (
             <GradeLevelList
               setItemEdit={setItemEdit}
               isLoading={isLoading}
               isFetching={isFetching}
               gradelevel={gradelevel}
             />
-          )}
-          {store.success && <ModalSuccess />}
-          {store.error && <ModalError />}
-        </div>
+          </div>
+        )}
+        {store.success && <ModalSuccess />}
+        {store.error && <ModalError />}
       </>
     );
   }

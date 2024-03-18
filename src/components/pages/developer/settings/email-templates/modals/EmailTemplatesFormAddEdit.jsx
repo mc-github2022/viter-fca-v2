@@ -95,7 +95,7 @@ const EmailTemplatesFormAddEdit = ({
   });
   return (
     <>
-      <div className="settings__addEdit mb-8 max-w-[650px] w-full">
+      <div className="settings__addEdit mb-8 ">
         <Formik
           initialValues={initVal}
           validationSchema={yupSchema}
@@ -105,101 +105,106 @@ const EmailTemplatesFormAddEdit = ({
         >
           {(props) => {
             return (
-              <Form className="flex flex-col h-full max-h-[calc(70vh-90px)] overflow-y-auto">
-                <div className="modal__body custom__scroll">
-                  <div className="form__wrap text-xs mb-3 max-w-[20rem]">
-                    <InputText
-                      label="Template Name"
-                      type="text"
-                      name="email_template_name"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="form__wrap text-xs mb-3 max-w-[20rem]">
-                    <InputText
-                      label="Subject"
-                      type="text"
-                      name="email_template_subject"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div>
-                    <label className="flex justify-between text-[12px]">
-                      Content
-                      <span
-                        className="underline cursor-pointer mr-2"
-                        onClick={(e) => handlePreview(props.values)}
-                      >
-                        Preview
-                      </span>
-                    </label>
-
-                    <div className="form__wrap text-xs mb-3">
-                      <InputTextArea
+              <Form>
+                <div className="h-[400px] xr:h-[520px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
+                  <div className="max-w-[540px]">
+                    <div className="form__wrap text-xs mb-3 max-w-[20rem]">
+                      <InputText
+                        label="Template Name"
                         type="text"
-                        name="email_template_content"
-                        className="h-[26rem] w-[34rem]"
+                        name="email_template_name"
                         disabled={mutation.isPending}
                       />
                     </div>
-                  </div>
-                  <div className="form__wrap text-xs mb-3 max-w-[20rem]">
-                    <InputSelect
-                      label="Receiver"
-                      name="email_template_receiver_id"
-                      disabled={mutation.isPending}
-                      onChange={(e) => e}
-                    >
-                      <optgroup label="Select Receiver">
-                        <option value="0">Client</option>
-                        {notification?.data.length > 0 &&
-                          notification?.data.map((item, key) => {
-                            return (
-                              <option key={key} value={item.notification_aid}>
-                                {item.notification_name} (
-                                {item.notification_email})
-                              </option>
-                            );
-                          })}
-                      </optgroup>
-                    </InputSelect>
-                  </div>
-                  <div className="form__wrap text-xs mb-3 max-w-[20rem]">
-                    <InputSelect
-                      label="Category"
-                      name="email_template_category"
-                      disabled={mutation.isPending}
-                      onChange={(e) => e}
-                    >
-                      <optgroup label="Select Category">
-                        <option value="" hidden></option>
-                        <option value="assessment-notify-parents">
-                          Assessment (notify parents)
-                        </option>
-                        <option value="assessment-accept-payment">
-                          Assessment (accept payment)
-                        </option>
-                        <option value="assessment-notify-finance">
-                          Assessment (notify finance)
-                        </option>
-                      </optgroup>
-                    </InputSelect>
-                  </div>
-                  <div className="form__wrap text-xs mb-3 max-w-[20rem]">
-                    <InputText
-                      label="CC Email (one)"
-                      type="text"
-                      name="email_template_cc_email"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="form__wrap text-xs mb-3 max-w-[20rem]">
-                    <InputText
-                      label="CC Email (two)"
-                      type="text"
-                      name="email_template_cc_email_two"
-                      disabled={mutation.isPending}
-                    />
+                    <div className="form__wrap text-xs mb-3 max-w-[20rem]">
+                      <InputText
+                        label="Subject"
+                        type="text"
+                        name="email_template_subject"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
+                    <div>
+                      <label className="flex justify-between text-[12px]">
+                        Content
+                        {props.values.email_template_content !== "" &&
+                          props.values.email_template_subject !== "" && (
+                            <span
+                              className="underline cursor-pointer mr-2"
+                              onClick={(e) => handlePreview(props.values)}
+                            >
+                              Preview
+                            </span>
+                          )}
+                      </label>
+
+                      <div className="form__wrap text-xs mb-3">
+                        <InputTextArea
+                          type="text"
+                          name="email_template_content"
+                          className="h-[26rem] w-[34rem]"
+                          disabled={mutation.isPending}
+                        />
+                      </div>
+                    </div>
+                    <div className="form__wrap text-xs mb-3 max-w-[20rem]">
+                      <InputSelect
+                        label="Receiver"
+                        name="email_template_receiver_id"
+                        disabled={mutation.isPending}
+                        onChange={(e) => e}
+                      >
+                        <optgroup label="Select Receiver">
+                          <option value="0">Client</option>
+                          {notification?.data.length > 0 &&
+                            notification?.data.map((item, key) => {
+                              return (
+                                <option key={key} value={item.notification_aid}>
+                                  {item.notification_name} (
+                                  {item.notification_email})
+                                </option>
+                              );
+                            })}
+                        </optgroup>
+                      </InputSelect>
+                    </div>
+                    <div className="form__wrap text-xs mb-3 max-w-[20rem]">
+                      <InputSelect
+                        label="Category"
+                        name="email_template_category"
+                        disabled={mutation.isPending}
+                        onChange={(e) => e}
+                      >
+                        <optgroup label="Select Category">
+                          <option value="" hidden></option>
+                          <option value="assessment-notify-parents">
+                            Assessment (notify parents)
+                          </option>
+                          <option value="assessment-accept-payment">
+                            Assessment (accept payment)
+                          </option>
+                          <option value="assessment-notify-finance">
+                            Assessment (notify finance)
+                          </option>
+                        </optgroup>
+                      </InputSelect>
+                    </div>
+                    <div className="form__wrap text-xs mb-3 max-w-[20rem]">
+                      <InputText
+                        label="CC Email (one)"
+                        type="text"
+                        name="email_template_cc_email"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
+                    <div className="form__wrap text-xs mb-3 max-w-[20rem]">
+                      <InputText
+                        label="CC Email (two)"
+                        type="text"
+                        name="email_template_cc_email_two"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="settings__actions flex gap-2 mt-4">
