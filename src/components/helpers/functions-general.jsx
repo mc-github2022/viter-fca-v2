@@ -6,7 +6,7 @@ import { StoreContext } from "../store/StoreContext.jsx";
 // const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
 // const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
 
-// // // Patrick
+// // // // Patrick
 export const urlPathFca = `https://app.fca.edu.ph`;
 export const imgUrlPathFca = `https://app.fca.edu.ph/img`;
 
