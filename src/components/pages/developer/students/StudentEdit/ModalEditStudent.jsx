@@ -11,14 +11,14 @@ import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
 import StudentCodeOfConduct from "./StudentCodeOfConduct/StudentCodeOfConduct.jsx";
+import ModalSuccessfullyEnrolled from "./StudentParentCommitment/ModalSuccessfullyEnrolled.jsx";
 import StudentParentCommitment from "./StudentParentCommitment/StudentParentCommitment.jsx";
 import StudentParentConsent from "./StudentParentConsent/StudentParentConsent.jsx";
 import StudentParentDeclaration from "./StudentParentDeclaration/StudentParentDeclaration.jsx";
+import StudentPaymentRemarks from "./StudentPaymentRemarks/StudentPaymentRemarks.jsx";
 import ModalRevertOrSavePayment from "./StudentPaymentScheme/ModalRevertOrSavePayment.jsx";
 import StudentPaymentScheme from "./StudentPaymentScheme/StudentPaymentScheme.jsx";
 import StudentProfileForm from "./StudentProfile/StudentProfileForm.jsx";
-import StudentPaymentRemarks from "./StudentPaymentRemarks/StudentPaymentRemarks.jsx";
-import ModalSuccessfullyEnrolled from "./StudentParentCommitment/ModalSuccessfullyEnrolled.jsx";
 
 const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -64,7 +64,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
       <div className="modal modal--settings show ">
         <div className="modal__backdrop bg-black bg-opacity-0"></div>
         <div className="z-50 h-full w-full flex justify-center items-center relative ">
-          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-150px)] h-full max-w-[1065px] mx-2 md:mx-7  w-full -translate-y-5">
+          <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-150px)] h-full max-w-[1065px] mx-4 md:mx-7  w-full -translate-y-5">
             <div className=" modal__settings__header p-2 uppercase flex justify-between border-b border-line z-30 bg-primary ">
               <div className="flex item-center gap-4">
                 <button

@@ -10,7 +10,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { FaAngleLeft, FaBars, FaEye, FaEyeSlash } from "react-icons/fa";
 import { TfiLock } from "react-icons/tfi";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Navigation from "../Navigation.jsx";
 import ModalConfirmPasswordChange from "./ModalConfirmPasswordChange";
@@ -23,6 +23,7 @@ const Profile = () => {
   const [showNewPassword, setShowNewPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [changePassword, setChangePassword] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleShowSubMenu = () => {
     setShow(!show);
@@ -102,7 +103,7 @@ const Profile = () => {
           <Navigation menu="student" />
 
           <main
-            className={`main__content lg:pl-0 mt-[35px] flex flex-col h-[calc(100vh-35px)] ${
+            className={`main__content lg:pl-0 mt-[35px] flex flex-col h-[calc(100vh-35px)] px-4 ${
               store.isMenuExpand ? "expand" : ""
             }`}
           >
@@ -111,7 +112,7 @@ const Profile = () => {
                 <div>
                   <button
                     type="button"
-                    onClick={() => Navigate(-1)}
+                    onClick={() => navigate(-1)}
                     className="flex gap-1 items-center lg:hidden"
                   >
                     <FaAngleLeft /> Back

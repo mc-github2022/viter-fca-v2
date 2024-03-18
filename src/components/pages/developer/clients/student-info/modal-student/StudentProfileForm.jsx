@@ -178,8 +178,8 @@ const StudentProfileForm = ({
                   <div
                     className={` ${
                       showSideNav
-                        ? "max-w-[calc(1065px-0px)]"
-                        : "max-w-[calc(1065px-200px)]"
+                        ? "!max-w-[calc(1065px-0px)]"
+                        : "!max-w-[calc(1065px-200px)]"
                     } absolute -bottom-1 right-0 flex items-center justify-end gap-x-2  bg-primary z-20 max-w-[calc(1065px-200px)] pr-7 py-8 w-full `}
                   >
                     <button
@@ -198,7 +198,7 @@ const StudentProfileForm = ({
                       Discard
                     </button>
                   </div>
-                  <div className="mb-24">
+                  <div className="mb-[50px]">
                     <h3 className="mb-3">Profile</h3>
                     <h6 className="mb-2 uppercase">Classification</h6>
                     <div className="grid md:grid-cols-[120px_1fr_1fr_1fr] gap-x-3">

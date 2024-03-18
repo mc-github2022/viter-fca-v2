@@ -41,6 +41,10 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
   const handleDropDownSetting = () => {
     dispatch(setIsSettingsOpen(!store.isSettingsOpen));
   };
+
+  const handleCloseBurger = () => {
+    console.log("123");
+  };
   return (
     <>
       <nav
@@ -48,7 +52,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
           store.isMenuExpand ? "expand" : ""
         }`}
       >
-        <div className="backdrop" onClick={() => setIsShow(false)}></div>
+        <div className="backdrop"></div>
         <div
           className={`${
             schoolYear?.data[0]?.school_year_is_enrollment_open === 1 ||

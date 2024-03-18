@@ -158,7 +158,7 @@ const Header = ({ isLoading, schoolYear }) => {
         )}
       {loading && <FetchingSpinner />}
 
-      <header className="pl-4 pr-8 fixed  w-full bg-primary border-gray-100 border-0 py-1 z-20 drop-shadow">
+      <header className="px-4 fixed  w-full bg-primary border-gray-100 border-0 py-1 z-20 drop-shadow">
         <div className="flex justify-between items-center">
           <div className="flex justify-center gap-2">
             <button className="lg:hidden" onClick={handleToggleMenu}>
