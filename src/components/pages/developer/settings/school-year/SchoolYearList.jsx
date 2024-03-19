@@ -107,7 +107,9 @@ const SchoolYearList = ({
             >
               <div>
                 <p className="mb-1 flex items-center">
-                  <span className="font-bold block w-[8rem]">S.Y Status:</span>{" "}
+                  <span className="font-bold pr-2 md:block md:w-[8rem]">
+                    S.Y Status:
+                  </span>{" "}
                   <Pills
                     bg="bg-gray-200"
                     label={
@@ -121,16 +123,21 @@ const SchoolYearList = ({
                   />
                 </p>
                 <p className="mb-1 flex items-center">
-                  <span className="font-bold block w-[8rem]">S.Y:</span>{" "}
+                  <span className="font-bold pr-2 md:block md:w-[8rem]">
+                    S.Y:
+                  </span>{" "}
                   {item.start_year} - {item.end_year}
                 </p>
                 <p className="mb-1 flex items-center">
-                  <span className="font-bold block w-[8rem]"> Date:</span>{" "}
+                  <span className="font-bold pr-2 md:block md:w-[8rem]">
+                    {" "}
+                    Date:
+                  </span>{" "}
                   {formatDate(item.school_year_start_date)} -{" "}
                   {formatDate(item.school_year_end_date)}
                 </p>
                 {/* <p className="mb-1 flex items-center">
-                  <span className="font-bold block w-[8rem]">Enrollment:</span>{" "}
+                  <span className="font-bold pr-2 md:block md:w-[8rem]">Enrollment:</span>{" "}
                   {item.school_year_enrollment_start_date === ""
                     ? "Not set"
                     : formatDate(item.school_year_enrollment_start_date)}{" "}
@@ -140,7 +147,7 @@ const SchoolYearList = ({
                     : formatDate(item.school_year_enrollment_end_date)}
                 </p> */}
                 <p className="mb-1 flex items-center">
-                  <span className="font-bold block w-[8rem]">
+                  <span className="font-bold pr-2 md:block md:w-[8rem]">
                     Enrollment Status:
                   </span>{" "}
                   <Pills

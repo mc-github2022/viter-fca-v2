@@ -30,6 +30,11 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
     document.querySelector("body").classList.remove("no--scroll");
   };
 
+  const handleBackDropClick = () => {
+    dispatch(setIsShow(false));
+    document.querySelector("body").classList.remove("no--scroll");
+  };
+
   return (
     <>
       <nav
@@ -42,7 +47,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
       >
         <div
           className={`backdrop ${store.isShow ? "" : "hidden"}`}
-          onClick={() => dispatch(setIsShow(false))}
+          onClick={() => handleBackDropClick(false)}
         ></div>
         <div className="flex flex-col justify-between h-[93%] py-2 pr-0 custom__scroll overflow-y-auto">
           <ul className="mt-3  h-[calc(100vh-48px)] pb-8">

@@ -85,7 +85,7 @@ const FilterBar = ({
   return (
     <form
       action=""
-      className="md:w-1/3"
+      className="md:w-3/4"
       onSubmit={(e) => e.preventDefault()}
       ref={refFilter}
     >

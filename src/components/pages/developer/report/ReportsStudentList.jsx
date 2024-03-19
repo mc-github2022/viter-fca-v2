@@ -64,8 +64,8 @@ const ReportsStudentList = ({ schoolYear }) => {
 
   return (
     <>
-      <div className="w-full flex flex-col md:flex-row items-center justify-between flex-wrap">
-        <div className="mb-3 w-full">
+      <div className="w-full flex flex-col md:flex-row items-center justify-between">
+        <div className="mb-3 md:mb-0 w-full">
           <FilterBar
             error={error}
             isFetching={isFetching}
@@ -81,7 +81,7 @@ const ReportsStudentList = ({ schoolYear }) => {
             setBirthDate={setBirthDate}
           />
         </div>
-        <div className="w-full">
+        <div className="w-full ">
           <SearchBarFilterReportStudents
             search={search}
             dispatch={dispatch}
