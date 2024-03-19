@@ -462,6 +462,10 @@
     @apply opacity-100  bg-black/30;
   }  */
 
+  .modal__center .modal__main {
+    @apply mx-4 max-w-[380px];
+  }
+
   .modal__center.show .modal__main {
     @apply opacity-100 scale-100;
   }

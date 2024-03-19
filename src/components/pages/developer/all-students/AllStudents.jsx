@@ -50,7 +50,7 @@ const AllStudents = () => {
           />
 
           <main
-            className={`main__content pl-4 md:pr-[13.5px] relative ${
+            className={`main__content px-4 md:pr-[13.5px] relative ${
               store.isMenuExpand ? "expand" : ""
             } ${isOngoing === 1 ? "customHeightOngoing" : "customHeight"}`}
           >

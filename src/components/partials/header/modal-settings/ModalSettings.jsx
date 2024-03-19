@@ -1,5 +1,6 @@
 import Department from "@/components/pages/developer/settings/Department/Department";
 import Discount from "@/components/pages/developer/settings/discount/Discount";
+import EmailTemplates from "@/components/pages/developer/settings/email-templates/EmailTemplates";
 import GradeLevel from "@/components/pages/developer/settings/grade-level/GradeLevel.jsx";
 import LearningType from "@/components/pages/developer/settings/learning-type/LearningType.jsx";
 import Notifications from "@/components/pages/developer/settings/notifications/Notifications";
@@ -24,7 +25,6 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import ModalSettingsNav from "./ModalSettingsNav";
-import EmailTemplates from "@/components/pages/developer/settings/email-templates/EmailTemplates";
 
 const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
   const [showSideNav, setShowSideNav] = React.useState(false);
@@ -88,7 +88,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
               />
               <main
                 className={`${
-                  showSideNav ? "lg:-left-[210px]" : "lg:left-[0px] "
+                  showSideNav ? "lg:-left-[170px]" : "lg:left-[0px] "
                 } p-2 lg:pl-5 lg:py-0 w-full relative transition-all duration-300 ease-timing-nav`}
               >
                 <Department

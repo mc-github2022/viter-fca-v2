@@ -85,13 +85,13 @@ const FilterBar = ({
   return (
     <form
       action=""
-      className="w-1/3"
+      className="md:w-1/3"
       onSubmit={(e) => e.preventDefault()}
       ref={refFilter}
     >
       <div className="relative w-full flex items-center gap-2">
         <select
-          className="!border-gray-200 text-[12px] w-1/2"
+          className="!border-gray-200 text-[12px] md:w-1/2"
           onChange={(e) => handleSelectSy(e)}
         >
           {error ? (
@@ -115,7 +115,7 @@ const FilterBar = ({
           )}
         </select>
 
-        <div className="relative w-1/2">
+        <div className="relative w-full md:w-1/2">
           <input
             type="text"
             className="text-[12px] caret-transparent"

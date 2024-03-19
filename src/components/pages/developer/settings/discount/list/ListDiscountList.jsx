@@ -92,7 +92,7 @@ const ListDiscountList = ({ setItemEdit }) => {
                   {item.discount_category_name}
                 </p>
                 <p className="mb-3">{item.discount_type}</p>
-                <ul className="flex gap-5">
+                <ul className="flex flex-col md:flex-row md:gap-5">
                   <li className="mb-1">
                     <span className="font-bold">Admission fee: </span>
                     {Number(item.discount_admission_fee)}%
@@ -110,9 +110,11 @@ const ListDiscountList = ({ setItemEdit }) => {
                   <li className="mb-1 font-bold mr-1">Qualification:</li>
                   <li className="mb-1"> {item.discount_qualification}</li>
                 </ul>
-                <ul className="flex">
+                <ul className="flex flex-wrap">
                   <li className="mb-1 font-bold mr-6">Duration:</li>
-                  <li className="mb-1"> {item.discount_duration}</li>
+                  <li className="mb-1 max-w-[280px]">
+                    {item.discount_duration}
+                  </li>
                 </ul>
               </div>
 

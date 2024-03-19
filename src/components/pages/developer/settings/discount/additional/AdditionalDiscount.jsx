@@ -1,9 +1,9 @@
 import React from "react";
 
-import { StoreContext } from "@/components/store/StoreContext";
-import AdditionalDiscountList from "./AdditionalDiscountList";
-import { AiOutlinePlus } from "react-icons/ai";
 import { setIsSettingAdd } from "@/components/store/StoreAction";
+import { StoreContext } from "@/components/store/StoreContext";
+import { AiOutlinePlus } from "react-icons/ai";
+import AdditionalDiscountList from "./AdditionalDiscountList";
 import AdditionalDiscountModalAddEdit from "./AdditionalDiscountModalAddEdit";
 
 const AdditionalDiscount = () => {
@@ -19,7 +19,7 @@ const AdditionalDiscount = () => {
   return (
     <>
       {!store.isSettingAdd && (
-        <div className="max-w-[800px]">
+        <div className="max-w-[800px] overflow-x-auto custom__scroll">
           <button
             className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
             onClick={handleAdd}

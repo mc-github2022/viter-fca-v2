@@ -64,31 +64,34 @@ const ReportsStudentList = ({ schoolYear }) => {
 
   return (
     <>
-      <div className="w-full flex items-center justify-between flex-wrap">
-        <FilterBar
-          error={error}
-          isFetching={isFetching}
-          isLoading={isLoading}
-          schoolYear={schoolYear}
-          gender={gender}
-          setGender={setGender}
-          withLrn={withLrn}
-          setWithLrn={setWithLrn}
-          gradeLevel={gradeLevel}
-          setGradeLevel={setGradeLevel}
-          birthDate={birthDate}
-          setBirthDate={setBirthDate}
-        />
-
-        <SearchBarFilterReportStudents
-          search={search}
-          dispatch={dispatch}
-          store={store}
-          result={result?.pages}
-          isFetching={isFetching}
-          setOnSearch={setOnSearch}
-          onSearch={onSearch}
-        />
+      <div className="w-full flex flex-col md:flex-row items-center justify-between flex-wrap">
+        <div className="mb-3 w-full">
+          <FilterBar
+            error={error}
+            isFetching={isFetching}
+            isLoading={isLoading}
+            schoolYear={schoolYear}
+            gender={gender}
+            setGender={setGender}
+            withLrn={withLrn}
+            setWithLrn={setWithLrn}
+            gradeLevel={gradeLevel}
+            setGradeLevel={setGradeLevel}
+            birthDate={birthDate}
+            setBirthDate={setBirthDate}
+          />
+        </div>
+        <div className="w-full">
+          <SearchBarFilterReportStudents
+            search={search}
+            dispatch={dispatch}
+            store={store}
+            result={result?.pages}
+            isFetching={isFetching}
+            setOnSearch={setOnSearch}
+            onSearch={onSearch}
+          />
+        </div>
       </div>
 
       <ul className="my-2">
