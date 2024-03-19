@@ -107,7 +107,7 @@ const Parents = () => {
             <div className="main__header flex justify-between items-start lg:items-center ">
               <div className="max-w-[620px] mt-[55px] flex items-start justify-between w-full">
                 <div>
-                  <h1 className="text-clampH1 mb-2">My Information</h1>
+                  <h1 className="text-clampH1 mb-2 mt-2">My Information</h1>
                   <p className="text-xs opacity-75">
                     View information about your students, parents and emergency
                     contact list.

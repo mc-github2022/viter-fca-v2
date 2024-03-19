@@ -164,7 +164,7 @@
   }
 
   nav .backdrop {
-    @apply absolute top-0 left-[238px] bg-transparent bg-opacity-0 h-full w-[100vw] transition-all delay-100 lg:hidden pointer-events-none;
+    @apply absolute top-0 left-[238px] bg-transparent bg-opacity-0 h-full w-[100vw] transition-all delay-100 lg:hidden;
   }
 
   table.table__sm thead tr td {
