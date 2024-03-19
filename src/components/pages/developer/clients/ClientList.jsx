@@ -14,6 +14,7 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsDelete,
+  setIsSearch,
 } from "@/components/store/StoreAction";
 
 import { StoreContext } from "@/components/store/StoreContext";
@@ -188,6 +189,7 @@ const ClientList = ({ setItemEdit }) => {
                                   to={`${devNavUrl}/${link}/clients/students?cid=${item.parents_aid}`}
                                   className="tooltip text-base"
                                   data-tooltip="Student"
+                                  onClick={() => dispatch(setIsSearch(false))}
                                 >
                                   <PiStudentLight className="text-[20px]" />
                                 </Link>
@@ -196,6 +198,7 @@ const ClientList = ({ setItemEdit }) => {
                                   to={`${devNavUrl}/${link}/clients/information?cid=${item.parents_aid}`}
                                   className="tooltip text-base"
                                   data-tooltip="Info"
+                                  onClick={() => dispatch(setIsSearch(false))}
                                 >
                                   <CiViewList className="text-[20px]" />
                                 </Link>
