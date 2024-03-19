@@ -34,6 +34,7 @@ import {
   getStudentStatus,
 } from "./functions-all-students";
 import TableSpinner from "@/components/partials/spinners/TableSpinner";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 
 const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
