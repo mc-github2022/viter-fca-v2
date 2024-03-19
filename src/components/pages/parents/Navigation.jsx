@@ -53,7 +53,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
         }`}
       >
         <div
-          className="backdrop"
+          className={`backdrop ${store.isShow ? "" : "hidden"}`}
           onClick={() => dispatch(setIsShow(false))}
         ></div>
         <div
