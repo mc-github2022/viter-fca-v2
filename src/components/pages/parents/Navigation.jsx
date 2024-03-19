@@ -52,7 +52,10 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
           store.isMenuExpand ? "expand" : ""
         }`}
       >
-        <div className="backdrop"></div>
+        <div
+          className="backdrop"
+          onClick={() => dispatch(setIsShow(false))}
+        ></div>
         <div
           className={`${
             schoolYear?.data[0]?.school_year_is_enrollment_open === 1 ||
