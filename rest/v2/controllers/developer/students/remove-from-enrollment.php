@@ -35,7 +35,9 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
             checkRemoveSchoolYearStudents($student);
             // if student id is only one
             if ($syStudent[0]["student_count"] == 1) {
-                $query = checkUpdateSYCurrentSchoolYear($student);
+                // $query = checkUpdateSYCurrentSchoolYear($student); 
+                checkDeleteSchoolYearCurrentStudents($student);
+                $query = checkDelete($student);
                 http_response_code(200);
                 returnSuccess($student, "Student", $query);
             }
@@ -52,6 +54,19 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
                 // if can't find any student id in sy student table
                 if (count($lastSyStudent) > 0) {
                     $student->current_students_grade_level_id = $lastSyStudent[0]["school_year_students_grade_level_id"];
+                    $student->current_students_sy_id = $lastSyStudent[0]["school_year_students_sy_id"];
+                    $student->current_students_last_grade_level_id = $lastSyStudent[0]["school_year_students_last_grade_level_id"];
+                    $student->current_students_is_notify = $lastSyStudent[0]["school_year_students_is_notify"];
+                    $student->current_students_is_accept_payment = $lastSyStudent[0]["school_year_students_is_accept_payment"];
+                    $student->current_students_schedule_fees_id = $lastSyStudent[0]["school_year_students_schedule_fees_id"];
+                    $student->current_students_rate_id = $lastSyStudent[0]["school_year_students_rate_id"];
+                    $student->current_students_assessment_remarks = $lastSyStudent[0]["school_year_students_assessment_remarks"];
+                    $student->current_students_primary_discount_id = $lastSyStudent[0]["school_year_students_primary_discount_id"];
+                    $student->current_students_additional_discount_id = $lastSyStudent[0]["school_year_students_additional_discount_id"];
+                    $student->current_students_last_coc_is_agree = $lastSyStudent[0]["school_year_students_last_coc_is_agree"];
+                    $student->current_students_last_parent_declaration_is_agree = $lastSyStudent[0]["school_year_students_last_parent_declaration_is_agree"];
+                    $student->current_students_last_parent_consent_is_agree = $lastSyStudent[0]["school_year_students_last_parent_consent_is_agree"];
+                    $student->current_students_last_parent_commitment_is_agree = $lastSyStudent[0]["school_year_students_last_parent_commitment_is_agree"];
                     $query = checkUpdateSYCurrentSchoolYear($student);
                     http_response_code(200);
                     returnSuccess($student, "Student", $query);

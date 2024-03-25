@@ -58,6 +58,13 @@ class Student
     public $current_students_last_parent_declaration_is_agree;
     public $current_students_last_parent_consent_is_agree;
     public $current_students_last_parent_commitment_is_agree;
+    public $current_students_is_notify;
+    public $current_students_is_accept_payment;
+    public $current_students_schedule_fees_id;
+    public $current_students_assessment_remarks;
+    public $current_students_primary_discount_id;
+    public $current_students_additional_discount_id;
+    public $current_students_rate_id;
     public $current_students_created;
     public $current_students_datetime;
 
@@ -415,15 +422,37 @@ class Student
             $sql = "update {$this->tblSyStudentCurrent} set ";
             $sql .= "current_students_grade_level_id = :current_students_grade_level_id, ";
             $sql .= "current_students_sy_id = :current_students_sy_id, ";
+            $sql .= "current_students_last_grade_level_id = :current_students_last_grade_level_id, ";
+            $sql .= "current_students_is_notify = :current_students_is_notify, ";
+            $sql .= "current_students_is_accept_payment = :current_students_is_accept_payment, ";
+            $sql .= "current_students_schedule_fees_id = :current_students_schedule_fees_id, ";
+            $sql .= "current_students_rate_id = :current_students_rate_id, ";
+            $sql .= "current_students_assessment_remarks = :current_students_assessment_remarks, ";
+            $sql .= "current_students_primary_discount_id = :current_students_primary_discount_id, ";
+            $sql .= "current_students_additional_discount_id = :current_students_additional_discount_id, ";
+            $sql .= "current_students_last_coc_is_agree = :current_students_last_coc_is_agree, ";
+            $sql .= "current_students_last_parent_declaration_is_agree = :current_students_last_parent_declaration_is_agree, ";
+            $sql .= "current_students_last_parent_consent_is_agree = :current_students_last_parent_consent_is_agree, ";
+            $sql .= "current_students_last_parent_commitment_is_agree = :current_students_last_parent_commitment_is_agree, ";
             $sql .= "current_students_datetime = :current_students_datetime ";
             $sql .= "where current_students_student_id = :current_students_student_id ";
-            $sql .= "and current_students_sy_id = :old_sy_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "current_students_grade_level_id" => $this->current_students_grade_level_id,
                 "current_students_sy_id" => $this->current_students_sy_id,
+                "current_students_last_grade_level_id" => $this->current_students_last_grade_level_id,
+                "current_students_is_notify" => $this->current_students_is_notify,
+                "current_students_is_accept_payment" => $this->current_students_is_accept_payment,
+                "current_students_schedule_fees_id" => $this->current_students_schedule_fees_id,
+                "current_students_rate_id" => $this->current_students_rate_id,
+                "current_students_assessment_remarks" => $this->current_students_assessment_remarks,
+                "current_students_primary_discount_id" => $this->current_students_primary_discount_id,
+                "current_students_additional_discount_id" => $this->current_students_additional_discount_id,
+                "current_students_last_coc_is_agree" => $this->current_students_last_coc_is_agree,
+                "current_students_last_parent_declaration_is_agree" => $this->current_students_last_parent_declaration_is_agree,
+                "current_students_last_parent_consent_is_agree" => $this->current_students_last_parent_consent_is_agree,
+                "current_students_last_parent_commitment_is_agree" => $this->current_students_last_parent_commitment_is_agree,
                 "current_students_datetime" => $this->students_datetime,
-                "old_sy_id" => $this->school_year_students_sy_id,
                 "current_students_student_id" => $this->students_aid,
             ]);
         } catch (PDOException $ex) {
@@ -812,13 +841,7 @@ class Student
     {
         try {
             $sql = "select ";
-            $sql .= "school_year_students_student_id, ";
-            $sql .= "school_year_students_last_learning_type, ";
-            $sql .= "school_year_students_grade_level_id, ";
-            $sql .= "school_year_students_last_school_attended, ";
-            $sql .= "school_year_students_last_gpa, ";
-            $sql .= "school_year_students_last_school_address, ";
-            $sql .= "school_year_students_last_remarks ";
+            $sql .= "* ";
             $sql .= "from {$this->tblSyStudent} ";
             $sql .= "where school_year_students_student_id = :school_year_students_student_id ";
             $sql .= "group by school_year_students_student_id ";
