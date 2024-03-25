@@ -83,20 +83,21 @@ const CardClientContactInfo = ({
                       ? "Secondary"
                       : "Other"}
                   </li>
-                  <li className="md:flex gap-2 text-xs items-center mb-2 capitalize flex">
+                  <li className="flex gap-2 text-xs items-center mb-2 capitalize ">
                     <PiUser className="text-base " />
                     {item.emergency_contact_name}
                   </li>
-                  <li className="md:flex gap-2 text-xs items-center mb-2">
+                  <li className="flex gap-2 text-xs items-center mb-2">
                     <HiOutlineEnvelope className="text-base " />{" "}
                     {item.emergency_contact_email}
                   </li>
-                  <li className="md:flex gap-2 text-xs items-center mb-2">
-                    <CiMobile3 className="text-base " />
+                  <li className="flex gap-2 text-xs items-center mb-2">
+                    <CiMobile3 className="text-base " />{" "}
                     {formatMobileNumber(item.emergency_contact_mobile)}
                   </li>
-                  <li className="md:flex gap-2 text-xs items-center mb-2">
+                  <li className="flex gap-2 text-xs items-center mb-2">
                     <PiPhoneThin className="text-base " />
+
                     {formatLandlineNumber(item.emergency_contact_landline)}
                   </li>
                 </ul>

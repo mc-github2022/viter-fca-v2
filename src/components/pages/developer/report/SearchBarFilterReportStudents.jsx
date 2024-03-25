@@ -36,7 +36,7 @@ const SearchBarFilterReportStudents = ({
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className="search-box relative w-1/2"
+      className="search-box relative md:w-full"
     >
       <div className="flex items-center overflow-hidden">
         <input

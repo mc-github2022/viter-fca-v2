@@ -64,7 +64,7 @@ const ListDiscountList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Primary List</h5>
 
-      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto h-[530px] lg:!max-h-[530px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px] relative">
+      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto  h-full max-h-[560px] lg:!max-h-[560px] custom__scroll relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && discount.success === false ? (
@@ -92,7 +92,7 @@ const ListDiscountList = ({ setItemEdit }) => {
                   {item.discount_category_name}
                 </p>
                 <p className="mb-3">{item.discount_type}</p>
-                <ul className="flex gap-5">
+                <ul className="flex flex-col md:flex-row md:gap-5">
                   <li className="mb-1">
                     <span className="font-bold">Admission fee: </span>
                     {Number(item.discount_admission_fee)}%
@@ -110,9 +110,11 @@ const ListDiscountList = ({ setItemEdit }) => {
                   <li className="mb-1 font-bold mr-1">Qualification:</li>
                   <li className="mb-1"> {item.discount_qualification}</li>
                 </ul>
-                <ul className="flex">
+                <ul className="flex flex-wrap">
                   <li className="mb-1 font-bold mr-6">Duration:</li>
-                  <li className="mb-1"> {item.discount_duration}</li>
+                  <li className="mb-1 max-w-[250px]">
+                    {item.discount_duration}
+                  </li>
                 </ul>
               </div>
 

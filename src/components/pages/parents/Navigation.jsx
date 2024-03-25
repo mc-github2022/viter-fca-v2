@@ -42,8 +42,9 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
     dispatch(setIsSettingsOpen(!store.isSettingsOpen));
   };
 
-  const handleCloseBurger = () => {
-    console.log("123");
+  const handleBackDropClick = () => {
+    dispatch(setIsShow(false));
+    document.querySelector("body").classList.remove("no--scroll");
   };
   return (
     <>
@@ -54,7 +55,7 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
       >
         <div
           className={`backdrop ${store.isShow ? "" : "hidden"}`}
-          onClick={() => dispatch(setIsShow(false))}
+          onClick={() => handleBackDropClick()}
         ></div>
         <div
           className={`${

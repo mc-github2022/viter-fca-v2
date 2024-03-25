@@ -63,21 +63,21 @@ const CardClientFinancierInfo = ({
                 <ul>
                   <li className="mb-1">{item.parents_financier_name}</li>
 
-                  <li className="md:flex gap-2 text-xs items-center mb-2 ">
+                  <li className="flex gap-2 text-xs items-center mb-2 ">
                     <PiBriefcase className="text-base" />
                     {item.parents_financier_occupation
                       ? item.parents_financier_occupation
                       : "unspecified"}
                   </li>
 
-                  <li className="md:flex gap-2 text-xs items-center mb-2 ">
+                  <li className="flex gap-2 text-xs items-center mb-2 ">
                     <SlPeople className="text-base" />
                     {item.parents_financier_relationship
                       ? item.parents_financier_relationship
                       : "unspecified"}
                   </li>
 
-                  <li className="md:flex gap-2 text-xs items-center mb-2 ">
+                  <li className="flex gap-2 text-xs items-center mb-2 ">
                     <PiCoinsLight className="text-base" />
                     <span>
                       {pesoSign}
