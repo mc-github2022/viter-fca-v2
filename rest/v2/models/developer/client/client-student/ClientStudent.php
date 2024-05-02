@@ -84,6 +84,7 @@ class ClientStudent
     public $tblSchoolYear;
     public $tblGradeLevel;
     public $tblParentInfo;
+    public $tblNotification;
 
     public $fullname;
 
@@ -98,6 +99,7 @@ class ClientStudent
         $this->tblGradeLevel = "fcav2_settings_grade_level";
         $this->tblParentInfo = "fcav2_info_parent_guardian";
         $this->tblSchoolYear = "fcav2_settings_school_year";
+        $this->tblNotification = "fcav2_settings_notification";
     }
 
     public function readAll()
@@ -694,6 +696,21 @@ class ClientStudent
                 "school_year_students_datetime" => $this->students_datetime,
                 "school_year_students_aid" => $this->school_year_students_aid,
             ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read all registrar notification
+    // read all the registrar department only with the id of 1
+    public function readRegistrarNotification()
+    {
+        try {
+            $sql = "select notification_email from {$this->tblNotification} ";
+            $sql .= "where notification_active = 1 ";
+            $sql .= "and notification_department_id = 1 ";
+            $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
         }

@@ -3,6 +3,8 @@ define("USERNAME", "noreply@lcss.frontlinebusiness.com.ph");
 define("PASSWORD", "~s1p32f19Pt@");
 define("FROM", "Frontline Christian Academy");
 define("VERIFY_ACCOUNT", "Account Verification");
+define("NEW_PARENT", "New Parent Registration");
+define("NEW_STUDENT", "New Student Registration");
 define("RESET_PASSWORD", "Reset Password");
 define("FEEDBACK_ASSIGNER", "Feedback From Assigner");
 define("TASK_CONTROL_DETAILS", "Task Control Details");

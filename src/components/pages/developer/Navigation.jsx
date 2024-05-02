@@ -43,14 +43,14 @@ const Navigation = ({
     dispatch(setIsSearch(false));
     dispatch(setIsShow(false));
     dispatch(setIsFilter(false));
-    document.querySelector("body").classList.remove("no--scroll");
+    window.document.querySelector("body").classList.remove("no--scroll");
   };
 
   const handleShowAllReport = () => {
     dispatch(setIsShow(false));
     dispatch(setIsFilter(false));
     setIsShowReport(!isShowReport);
-    document.querySelector("body").classList.remove("no--scroll");
+    window.document.querySelector("body").classList.remove("no--scroll");
   };
 
   const handleBackDropClick = () => {
@@ -112,7 +112,7 @@ const Navigation = ({
               <Link
                 to={`${devNavUrl}/system/enrollment`}
                 className="flex gap-3 items-center uppercase  w-full"
-                onClick={handleNavigateLink}
+                onClick={() => handleNavigateLink()}
               >
                 <PiStudent className="text-lg ml-4" /> Enrollment
               </Link>
@@ -122,7 +122,7 @@ const Navigation = ({
               <Link
                 to={`${devNavUrl}/system/clients`}
                 className="flex gap-3 items-center uppercase  w-full"
-                onClick={handleNavigateLink}
+                onClick={() => handleNavigateLink()}
               >
                 <RiParentLine className="text-lg ml-4" /> Clients
               </Link>
@@ -133,7 +133,7 @@ const Navigation = ({
               <Link
                 to={`${devNavUrl}/system/assessment`}
                 className="flex gap-3 items-center uppercase  w-full"
-                onClick={handleNavigateLink}
+                onClick={() => handleNavigateLink()}
               >
                 <PiListMagnifyingGlass className="text-lg ml-4" /> Assessment
               </Link>
@@ -142,7 +142,7 @@ const Navigation = ({
               <Link
                 to={`${devNavUrl}/system/students`}
                 className="flex gap-3 items-center uppercase  w-full"
-                onClick={handleNavigateLink}
+                onClick={() => handleNavigateLink()}
               >
                 <PiStudent className="text-lg ml-4" /> Students
               </Link>
@@ -200,7 +200,7 @@ const Navigation = ({
                 >
                   <Link
                     to={`${devNavUrl}/system/report`}
-                    onClick={handleNavigateLink}
+                    onClick={() => handleNavigateLink()}
                     className={`!bg-[unset] !text-gray-600 border-l-2 border-transparent`}
                   >
                     <span className="ml-2">Students</span>

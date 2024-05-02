@@ -105,7 +105,7 @@ const OtherCreateAccount = () => {
                 <LogoGreen />
               </div>
               <h1 className="mt-8 font-normal mb-1 text-[27px]">
-                Create Password
+                Create Account
               </h1>
             </div>
             <Formik

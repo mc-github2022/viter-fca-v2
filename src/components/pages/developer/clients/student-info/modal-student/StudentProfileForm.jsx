@@ -167,7 +167,7 @@ const StudentProfileForm = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate(values);
+          mutation.mutate({ ...values, ...store.credentials.data });
         }}
       >
         {(props) => {

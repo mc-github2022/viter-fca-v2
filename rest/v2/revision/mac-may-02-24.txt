@@ -1,0 +1,18 @@
+models
+1. rest/v2/models/developer/settings/UserOther.php 
+2. rest/v2/models/developer/client/client-student/ClientStudent.php 
+
+controllers
+1. rest/v2/controllers/developer/settings/other/create.php 
+2. rest/v2/controllers/developer/client/client-student/create.php
+
+notification
+1. rest/v2/notification/verify-account.php 
+2. rest/v2/notification/new-student.php 
+3. rest/v2/notification/mail-config.php 
+    -> added new constant
+        1. define("NEW_PARENT", "New Parent Registration") Line 6
+        2. define("NEW_STUDENT", "New Student Registration") Line 7
+
+4. rest/v2/notification/template/admin-notification-new-student.php 
+5. rest/v2/notification/template/admin-notification-new-parent.php 

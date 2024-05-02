@@ -26,6 +26,7 @@ class UserOther
     public $tblRole;
     public $tblParents;
     public $tblRelationship;
+    public $tblNotification;
 
     public function __construct($db)
     {
@@ -34,6 +35,7 @@ class UserOther
         $this->tblRole = "fcav2_settings_role";
         $this->tblStaff = "fcav2_settings_staff";
         $this->tblParents = "fcav2_parents";
+        $this->tblNotification = "fcav2_settings_notification";
     }
 
     // create
@@ -546,6 +548,21 @@ class UserOther
             $query->execute([
                 "parents_email" => "{$this->user_other_email}",
             ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read all registrar notification
+    // read all the registrar department only with the id of 1
+    public function readRegistrarNotification()
+    {
+        try {
+            $sql = "select notification_email from {$this->tblNotification} ";
+            $sql .= "where notification_active = 1 ";
+            $sql .= "and notification_department_id = 1 ";
+            $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
         }

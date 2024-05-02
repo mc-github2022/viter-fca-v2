@@ -10,6 +10,7 @@ require 'PHPMailer/Exception.php';
 
 include_once("mail-config.php");
 include_once("template/verify-account.php");
+include_once("template/admin-notification-new-parent.php");
 
 function sendEmail($password_link, $name, $email, $key)
 {
@@ -36,6 +37,51 @@ function sendEmail($password_link, $name, $email, $key)
 		);
 
 		$mail->addAddress($email);
+
+		if ($mail->Send()) {
+			return array(
+				"mail_success" => true
+			);
+		} else {
+			return array(
+				"send_error" => "Could not send email. Please contact support.",
+				"mail_success" => false
+			);
+		}
+	}
+	//catch exception
+	catch (Exception $e) {
+		return array(
+			"mail_error" => $e->getMessage(),
+			"error_message" => "Could not authenticate. Please make sure your email and password are correct.",
+			"mail_success" => false
+		);
+	}
+}
+
+function sendAdminEmail($parentName, $parentEmail, $adminEmail)
+{
+	//trigger exception in a "try" block
+	try {
+		$mail = new PHPMailer(true);
+		$mail->isSMTP();
+		$mail->Host = 'mail.frontlinebusiness.com.ph'; // if siteground
+		$mail->Port = 465;
+		$mail->SMTPSecure = "ssl";
+		$mail->SMTPAuth = true;
+		$mail->Username =  USERNAME; // if gmail use your gmail email
+		$mail->Password = PASSWORD; // if gmail use your email password
+		$mail->Subject = NEW_PARENT;
+		$mail->setFrom(USERNAME, FROM);
+		$mail->isHTML(true);
+		$mail->Body = getHtmlAdminNotification(
+			$parentName,
+			$parentEmail,
+			ROOT_DOMAIN,
+			IMAGES_URL
+		);
+
+		$mail->addAddress($adminEmail);
 
 		if ($mail->Send()) {
 			return array(

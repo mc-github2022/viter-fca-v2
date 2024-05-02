@@ -1,5 +1,7 @@
 <?php
 
+require '../../../../notification/new-student.php';
+
 $conn = null;
 $conn = checkDbConnection();
 $student = new ClientStudent($conn);
@@ -39,9 +41,26 @@ $student->current_students_grade_level_id = $data["current_students_grade_level_
 $student->current_students_last_school_address = $data["current_students_last_school_address"];
 $student->current_students_last_remarks = $data["current_students_last_remarks"];
 
+$queryRegistarNotification = getResultData($student->readRegistrarNotification());
 
 if ($student->students_lrn != "") {
     isLrnExist($student, $student->students_lrn);
+}
+
+// for parent protal only
+if ($data["role_is_parent"] == 1) {
+
+    // loop through notification and get all the registrar department
+    // to send email
+    for ($i = 0; $i < count($queryRegistarNotification); $i++) {
+        if ($queryRegistarNotification[$i]["notification_email"] == '') continue;
+
+        sendEmail(
+            $student->students_fname . ' ' . $student->students_lname,
+            $student->students_email,
+            $queryRegistarNotification[$i]["notification_email"],
+        );
+    }
 }
 
 $query = checkCreate($student);
