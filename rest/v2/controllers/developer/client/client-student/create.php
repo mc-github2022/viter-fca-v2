@@ -47,6 +47,11 @@ if ($student->students_lrn != "") {
     isLrnExist($student, $student->students_lrn);
 }
 
+$query = checkCreate($student);
+
+checkCreateStudentSchoolYearByParent($student);
+checkCreateStudentSchoolYearByParentCurrent($student);
+
 // for parent protal only
 if ($data["role_is_parent"] == 1) {
 
@@ -55,17 +60,17 @@ if ($data["role_is_parent"] == 1) {
     for ($i = 0; $i < count($queryRegistarNotification); $i++) {
         if ($queryRegistarNotification[$i]["notification_email"] == '') continue;
 
-        sendEmail(
+        $mailData = sendEmail(
             $student->students_fname . ' ' . $student->students_lname,
             $student->students_email,
             $queryRegistarNotification[$i]["notification_email"],
         );
+
+        // failed sending email
+        if ($mailData["mail_success"] == false) {
+            returnError($mailData["error"]);
+        }
     }
 }
-
-$query = checkCreate($student);
-
-checkCreateStudentSchoolYearByParent($student);
-checkCreateStudentSchoolYearByParentCurrent($student);
 
 returnSuccess($student, "Student", $query);

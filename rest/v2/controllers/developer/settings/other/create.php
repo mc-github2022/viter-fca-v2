@@ -37,14 +37,18 @@ if ($queryRoleById[0]["role_is_parent"] == 1) {
     if ($queryParentAccount->rowCount() == 0) {
         returnError("Invalid account. Please use a registered one.");
     }
+}
 
+$query = checkCreate($user_other);
 
+// only if role is parent
+if ($queryRoleById[0]["role_is_parent"] == 1) {
     // loop through notification and get all the registrar department
     // to send email
     for ($i = 0; $i < count($queryRegistarNotification); $i++) {
         if ($queryRegistarNotification[$i]["notification_email"] == '') continue;
 
-        sendAdminEmail(
+        $mailDataAdmin = sendAdminEmail(
             $user_other->user_other_fname . ' ' . $user_other->user_other_lname,
             $user_other->user_other_email,
             $queryRegistarNotification[$i]["notification_email"],
@@ -53,13 +57,23 @@ if ($queryRoleById[0]["role_is_parent"] == 1) {
 }
 
 // send email notification for user other account
-sendEmail(
+$mailData = sendEmail(
     $password_link,
     $user_other->user_other_fname,
     $user_other->user_other_email,
     $user_other->user_other_key
 );
 
+// failed sending email
+if ($mailData["mail_success"] == false) {
+    returnError($mailData["error"]);
+}
+
+// failed sending email
+if ($mailDataAdmin["mail_success"] == false) {
+    returnError($mailDataAdmin["error"]);
+}
+
 // create
-$query = checkCreate($user_other);
+
 returnSuccess($user_other, "User Other", $query);

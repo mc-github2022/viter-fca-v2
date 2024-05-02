@@ -133,11 +133,11 @@ class Notification
     public function checkName()
     {
         try {
-            $sql = "select notification_name from {$this->tblNotification} ";
-            $sql .= "where notification_name = :notification_name ";
+            $sql = "select notification_email from {$this->tblNotification} ";
+            $sql .= "where notification_email = :notification_email ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "notification_name" => "{$this->notification_name}",
+                "notification_email" => "{$this->notification_email}",
             ]);
         } catch (PDOException $ex) {
             $query = false;

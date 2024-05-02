@@ -41,7 +41,7 @@ function sendEmail($studentName, $studentEmail, $adminEmail)
 			);
 		} else {
 			return array(
-				"send_error" => "Could not send email. Please contact support.",
+				"error" => "Could not send email. Please contact support.",
 				"mail_success" => false
 			);
 		}
@@ -50,7 +50,7 @@ function sendEmail($studentName, $studentEmail, $adminEmail)
 	catch (Exception $e) {
 		return array(
 			"mail_error" => $e->getMessage(),
-			"error_message" => "Could not authenticate. Please make sure your email and password are correct.",
+			"error" => "Could not authenticate. Please make sure your email and password are correct.",
 			"mail_success" => false
 		);
 	}

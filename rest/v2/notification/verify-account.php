@@ -44,7 +44,7 @@ function sendEmail($password_link, $name, $email, $key)
 			);
 		} else {
 			return array(
-				"send_error" => "Could not send email. Please contact support.",
+				"error" => "Could not send email. Please contact support.",
 				"mail_success" => false
 			);
 		}
@@ -53,7 +53,7 @@ function sendEmail($password_link, $name, $email, $key)
 	catch (Exception $e) {
 		return array(
 			"mail_error" => $e->getMessage(),
-			"error_message" => "Could not authenticate. Please make sure your email and password are correct.",
+			"error" => "Could not authenticate. Please make sure your email and password are correct.",
 			"mail_success" => false
 		);
 	}

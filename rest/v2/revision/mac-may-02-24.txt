@@ -16,3 +16,18 @@ notification
 
 4. rest/v2/notification/template/admin-notification-new-student.php 
 5. rest/v2/notification/template/admin-notification-new-parent.php 
+
+
+
+TO UPLOAD 10:52AM
+
+models
+1. rest/v2/models/developer/settings/Notification.php 
+
+controllers
+1. rest/v2/controllers/developer/settings/other/create.php 
+2. rest/v2/controllers/developer/client/client-student/create.php
+
+notification
+1. rest/v2/notification/verify-account.php 
+2. rest/v2/notification/new-student.php 
