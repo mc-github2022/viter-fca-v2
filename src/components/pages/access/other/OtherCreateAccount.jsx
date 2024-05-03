@@ -46,8 +46,8 @@ const OtherCreateAccount = () => {
     user_other_email: "",
   };
   const yupSchema = Yup.object({
-    user_other_fname: Yup.string().required("Required"),
-    user_other_lname: Yup.string().required("Required"),
+    // user_other_fname: Yup.string().required("Required"),
+    // user_other_lname: Yup.string().required("Required"),
     user_other_email: Yup.string().required("Required").email("Invalid email"),
   });
 
@@ -64,7 +64,7 @@ const OtherCreateAccount = () => {
         dispatch(setError(true));
         dispatch(
           setMessage(
-            "Invalid account. For more information, please contact us through this email info@fca.edu.ph or visit us on our website at fca.edu.ph"
+            "For more information, please contact us through this email info@fca.edu.ph or visit us on our website at fca.edu.ph"
           )
         );
       }
@@ -121,7 +121,7 @@ const OtherCreateAccount = () => {
               {(props) => {
                 return (
                   <Form>
-                    <div className="form__wrap">
+                    {/* <div className="form__wrap">
                       <InputText
                         label="First Name"
                         type="text"
@@ -135,13 +135,14 @@ const OtherCreateAccount = () => {
                         type="text"
                         name="user_other_lname"
                       />
-                    </div>
+                    </div> */}
 
                     <div className="form__wrap">
                       <InputText
                         label="Email"
                         type="email"
                         name="user_other_email"
+                        disabled={mutation.isPending}
                       />
                     </div>
 

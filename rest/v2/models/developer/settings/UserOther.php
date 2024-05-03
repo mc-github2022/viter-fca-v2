@@ -539,10 +539,14 @@ class UserOther
     }
 
     // check email for parent if exist
-    public function checkEmailForParentd()
+    public function checkEmailForParent()
     {
         try {
-            $sql = "select parents_email from {$this->tblParents} ";
+            $sql = "select ";
+            $sql .= "parents_email, ";
+            $sql .= "parents_fname, ";
+            $sql .= "parents_lname ";
+            $sql .= "from {$this->tblParents} ";
             $sql .= "where parents_email = :parents_email ";
             $query = $this->connection->prepare($sql);
             $query->execute([

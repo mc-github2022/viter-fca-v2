@@ -13,8 +13,8 @@ if (array_key_exists("userotherid", $_GET)) {
 // check data
 checkPayload($data);
 // get data
-$user_other->user_other_fname = checkIndex($data, "user_other_fname");
-$user_other->user_other_lname = checkIndex($data, "user_other_lname");
+$user_other->user_other_fname = $data["user_other_fname"];
+$user_other->user_other_lname = $data["user_other_lname"];
 $user_other->user_other_email = checkIndex($data, "user_other_email");
 $user_other->user_other_role_id = checkIndex($data, "user_other_role_id");
 $user_other->user_other_is_active = 1;
@@ -22,7 +22,7 @@ $user_other->user_other_key = $encrypt->doHash(rand());
 $user_other->user_other_created = date("Y-m-d H:i:s");
 $user_other->user_other_datetime = date("Y-m-d H:i:s");
 $password_link = "/create-password";
-$queryParentAccount = $user_other->checkEmailForParentd();
+$queryParentAccount = getResultData($user_other->checkEmailForParent());
 $queryRoleById = getResultData($user_other->readRoleById());
 
 $queryRegistarNotification = getResultData($user_other->readRegistrarNotification());
@@ -33,10 +33,14 @@ isEmailExist($user_other, $user_other->user_other_email);
 
 // only if role is parent
 if ($queryRoleById[0]["role_is_parent"] == 1) {
+
     // check email for parent if exist
-    if ($queryParentAccount->rowCount() == 0) {
+    if (count($queryParentAccount) == 0) {
         returnError("Invalid account. Please use a registered one.");
     }
+
+    $user_other->user_other_fname = $queryParentAccount[0]["parents_fname"];
+    $user_other->user_other_lname = $queryParentAccount[0]["parents_lname"];
 }
 
 $query = checkCreate($user_other);
