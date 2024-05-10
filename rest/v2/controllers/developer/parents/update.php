@@ -30,7 +30,15 @@ if (array_key_exists("parentsid", $_GET)) {
     $parents->parents_email_old = checkIndex($data, "parents_email_old");
 
     // only if email is changed, then check if already exist
-    compareEmail($parents, $parents->parents_email_old, $parents->parents_email);
+    compareEmail($parents, $parents->parents_email_old, $parents->parents_email);;
+
+
+    // check if the email exist on the user other table
+    if (strtolower($parents->parents_email_old) != strtolower($parents->parents_email)) {
+        if (count(getResultData($parents->checkUserOtherEmail())) > 0) {
+            returnError("{$parents->parents_email} already exist.");
+        }
+    }
 
     // $userOther = getResultData($parents->checkUserOtherAccount($parents));
 

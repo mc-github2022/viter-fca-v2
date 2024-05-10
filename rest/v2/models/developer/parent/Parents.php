@@ -370,6 +370,22 @@ class Parents
     }
 
     // email
+    public function checkUserOtherEmail()
+    {
+        try {
+            $sql = "select user_other_email from {$this->tblUserOther} ";
+            $sql .= "where user_other_email = :user_other_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "user_other_email" => "{$this->parents_email}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // email
     public function checkUserOtherAccount()
     {
         try {
