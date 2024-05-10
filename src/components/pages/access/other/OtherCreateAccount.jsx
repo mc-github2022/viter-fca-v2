@@ -63,9 +63,10 @@ const OtherCreateAccount = () => {
       if (!data.success) {
         dispatch(setError(true));
         dispatch(
-          setMessage(
-            "For more information, please contact us through this email info@fca.edu.ph or visit us on our website at fca.edu.ph"
-          )
+          setMessage(data.error)
+          // setMessage(
+          //   "For more information, please contact us through this email info@fca.edu.ph or visit us on our website at fca.edu.ph"
+          // )
         );
       }
     },

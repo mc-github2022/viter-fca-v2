@@ -12,6 +12,7 @@ if (array_key_exists("userotherid", $_GET)) {
 }
 // check data
 checkPayload($data);
+
 // get data
 $user_other->user_other_fname = $data["user_other_fname"];
 $user_other->user_other_lname = $data["user_other_lname"];
@@ -57,6 +58,11 @@ if ($queryRoleById[0]["role_is_parent"] == 1) {
             $user_other->user_other_email,
             $queryRegistarNotification[$i]["notification_email"],
         );
+
+        // failed sending email
+        if ($mailDataAdmin["mail_success"] == false) {
+            returnError($mailDataAdmin["error"]);
+        }
     }
 }
 
@@ -73,10 +79,6 @@ if ($mailData["mail_success"] == false) {
     returnError($mailData["error"]);
 }
 
-// failed sending email
-if ($mailDataAdmin["mail_success"] == false) {
-    returnError($mailDataAdmin["error"]);
-}
 
 // create
 
