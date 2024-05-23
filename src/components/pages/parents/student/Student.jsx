@@ -10,6 +10,7 @@ import ModalError from "@/components/partials/modals/ModalError";
 import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setError,
   setIsAdd,
@@ -32,7 +33,6 @@ import ModalAddStudent from "../../developer/clients/student-info/modal-student/
 import ModalRequirements from "../../developer/clients/student-info/requirement/ModalRequirements";
 import ModalEditStudent from "../../developer/students/StudentEdit/ModalEditStudent";
 import Navigation from "../Navigation";
-import TableSpinner from "@/components/partials/spinners/TableSpinner";
 
 const Student = () => {
   const { store, dispatch } = React.useContext(StoreContext);

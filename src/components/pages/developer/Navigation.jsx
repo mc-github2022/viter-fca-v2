@@ -6,7 +6,6 @@ import {
   setIsShow,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { document } from "postcss";
 import React from "react";
 import { BsCalendar2Week, BsChevronRight } from "react-icons/bs";
 import {

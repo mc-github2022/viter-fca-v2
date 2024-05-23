@@ -59,7 +59,7 @@ function sendEmail($password_link, $name, $email, $key)
 	}
 }
 
-function sendAdminEmail($parentName, $parentEmail, $adminEmail)
+function sendAdminEmail($subject, $html_code, $email, $ccEmail)
 {
 	//trigger exception in a "try" block
 	try {
@@ -71,25 +71,32 @@ function sendAdminEmail($parentName, $parentEmail, $adminEmail)
 		$mail->SMTPAuth = true;
 		$mail->Username =  USERNAME; // if gmail use your gmail email
 		$mail->Password = PASSWORD; // if gmail use your email password
-		$mail->Subject = NEW_PARENT;
+		$mail->Subject = $subject;
 		$mail->setFrom(USERNAME, FROM);
 		$mail->isHTML(true);
 		$mail->Body = getHtmlAdminNotification(
-			$parentName,
-			$parentEmail,
-			ROOT_DOMAIN,
-			IMAGES_URL
+			$html_code
 		);
 
-		$mail->addAddress($adminEmail);
+		$mail->addAddress($email);
+
+		// cc emails
+		// loop though all the cc email
+		for ($i = 0; $i < count($ccEmail); $i++) {
+			// skip all the blank or empty cc email 
+			if ($ccEmail[$i] == '') continue;
+			// send to cc email
+			$mail->addCC($ccEmail[$i]);
+		}
 
 		if ($mail->Send()) {
 			return array(
-				"mail_success" => true
+				"mail_success" => true,
+				"error" => "No Error.",
 			);
 		} else {
 			return array(
-				"send_error" => "Could not send email. Please contact support.",
+				"error" => "Could not send email. Please refresh your page and try again.",
 				"mail_success" => false
 			);
 		}

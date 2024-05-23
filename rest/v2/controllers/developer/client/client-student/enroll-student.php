@@ -3,6 +3,7 @@ require '../../../../core/header.php';
 require '../../../../core/functions.php';
 require 'functions.php';
 require '../../../../models/developer/client/client-student/ClientStudent.php';
+require '../../../../notification/re-enroll-student.php';
 
 $conn = null;
 $conn = checkDbConnection();
@@ -30,6 +31,9 @@ $student->current_students_datetime = date("Y-m-d H:i:s");
 $student->grade_level_order = "";
 
 $fullname = "$student->students_fname $student->students_lname";
+
+$queryRegistarNotification = $student->readTemplateForReEnrollNotifyRegistrar();
+
 // check if student is already enrolled
 isStudentExist($student, $fullname);
 
@@ -58,6 +62,51 @@ $query = checkEnrollStudent($student);
 
 // for school year student current -> current // update
 checkUpdateSchoolYearStudentCurrent($student);
+
+// for parent protal only
+if ($data["role_is_parent"] == 1) {
+
+    if ($queryRegistarNotification->rowCount() == 0) {
+        returnError('No Email Template, Please check the email template.');
+    }
+
+    $row = $queryRegistarNotification->fetch(PDO::FETCH_ASSOC);
+    extract($row);
+
+    if ($queryRegistarNotification->rowCount() > 0) {
+        $ccEmail = [
+            $email_template_cc_email,
+            $email_template_cc_email_two
+        ];
+
+        $notifyRegistrar = sendEmail(
+            $email_template_subject,
+            $email_template_content,
+            trim($notification_email),
+            $ccEmail
+        );
+        if ($notifyRegistrar["mail_success"] == false) {
+            returnError($notifyRegistrar["error_message"]);
+        }
+    }
+
+    // // loop through notification and get all the registrar department
+    // // to send email
+    // for ($i = 0; $i < count($queryRegistarNotification); $i++) {
+    //     if ($queryRegistarNotification[$i]["notification_email"] == '') continue;
+
+    //     $mailData = sendEmail(
+    //         $student->students_fname . ' ' . $student->students_lname,
+    //         $student->students_email,
+    //         $queryRegistarNotification[$i]["notification_email"],
+    //     );
+
+    //     // failed sending email
+    //     if ($mailData["mail_success"] == false) {
+    //         returnError($mailData["error"]);
+    //     }
+    // }
+}
 
 returnSuccess($student, "Parent", $query);
 

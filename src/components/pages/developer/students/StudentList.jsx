@@ -8,6 +8,7 @@ import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import { StoreContext } from "@/components/store/StoreContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
@@ -15,7 +16,6 @@ import { FaWpforms } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { useInView } from "react-intersection-observer";
 import ModalRemoveFromEnrollment from "./modals/ModalRemoveFromEnrollment";
-import TableSpinner from "@/components/partials/spinners/TableSpinner";
 
 const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
   const { store, dispatch } = React.useContext(StoreContext);

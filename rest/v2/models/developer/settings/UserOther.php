@@ -27,6 +27,8 @@ class UserOther
     public $tblParents;
     public $tblRelationship;
     public $tblNotification;
+    public $tblEmailTemplate;
+    public $tblDepartment;
 
     public function __construct($db)
     {
@@ -36,6 +38,8 @@ class UserOther
         $this->tblStaff = "fcav2_settings_staff";
         $this->tblParents = "fcav2_parents";
         $this->tblNotification = "fcav2_settings_notification";
+        $this->tblEmailTemplate = "fcav2_settings_email_template";
+        $this->tblDepartment = "fcav2_settings_department";
     }
 
     // create
@@ -558,14 +562,28 @@ class UserOther
         return $query;
     }
 
-    // read all registrar notification
-    // read all the registrar department only with the id of 1
-    public function readRegistrarNotification()
+    // read template of registrar when new parent signed up
+    public function readTemplateForSignupNotifyRegistrar()
     {
         try {
-            $sql = "select notification_email from {$this->tblNotification} ";
-            $sql .= "where notification_active = 1 ";
-            $sql .= "and notification_department_id = 1 ";
+            $sql = "select email_templates.email_template_aid, ";
+            $sql .= "email_templates.email_template_is_active, ";
+            $sql .= "email_templates.email_template_name, ";
+            $sql .= "email_templates.email_template_subject, ";
+            $sql .= "email_templates.email_template_content, ";
+            $sql .= "email_templates.email_template_receiver_id, ";
+            $sql .= "email_templates.email_template_category, ";
+            $sql .= "email_templates.email_template_cc_email, ";
+            $sql .= "email_templates.email_template_cc_email_two, ";
+            $sql .= "notif.notification_email, ";
+            $sql .= "dept.department_name ";
+            $sql .= "from {$this->tblEmailTemplate} as email_templates, ";
+            $sql .= "{$this->tblNotification} as notif, ";
+            $sql .= "{$this->tblDepartment} as dept ";
+            $sql .= "where notif.notification_department_id = dept.department_aid ";
+            $sql .= "and notif.notification_aid = email_templates.email_template_receiver_id ";
+            $sql .= "and email_templates.email_template_category = 'signup-notify-registrar' ";
+            $sql .= "order by email_templates.email_template_is_active desc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;

@@ -1,8 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import { data } from "autoprefixer";
 import React from "react";
-import SelectRegistrarRequirementList from "./SelectRegistrarRequirementList.jsx";
-import TableRegistrarRequirement from "./TableRegistrarRequirement.jsx";
 
 const RequirementFinance = ({ itemEdit }) => {
   const [showRequirement, setShowRequirement] = React.useState(false);

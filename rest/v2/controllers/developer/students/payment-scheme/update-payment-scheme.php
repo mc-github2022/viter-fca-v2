@@ -24,30 +24,33 @@ if (array_key_exists("studentSyId", $_GET)) {
     $payment_scheme->students_aid = checkIndex($data, "students_aid");
     $payment_scheme->current_students_datetime = date("Y-m-d H:i:s");
 
-    // $query = $payment_scheme->readTemplateForAssessmentNotifyFinance();
+    $query = $payment_scheme->readTemplateForAssessmentNotifyFinance();
 
-    // if ($query->rowCount() == 0) {
-    //     returnError('No Email Template, Please check the email template.');
-    // }
-    // $row = $query->fetch(PDO::FETCH_ASSOC);
-    // extract($row);
+    if ($query->rowCount() == 0) {
+        returnError('No Email Template, Please check the email template.');
+    }
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    extract($row);
 
-    // if ($query->rowCount() > 0) {
-    //     $ccEmail = [
-    //         $email_template_cc_email,
-    //         $email_template_cc_email_two
-    //     ];
+    // returnError($row);
 
-    //     $notifyParent = sendNotifyParent(
-    //         $email_template_subject,
-    //         $email_template_content,
-    //         trim($notification_email),
-    //         $ccEmail
-    //     );
-    //     if ($notifyParent["mail_success"] == false) {
-    //         returnError($notifyParent["error_message"]);
-    //     }
-    // }
+    if ($query->rowCount() > 0) {
+        $ccEmail = [
+            $email_template_cc_email,
+            $email_template_cc_email_two
+        ];
+
+        $notifyParent = sendNotifyParent(
+            $email_template_subject,
+            $email_template_content,
+            trim($notification_email),
+            $ccEmail
+        );
+        if ($notifyParent["mail_success"] == false) {
+            returnError($notifyParent["error_message"]);
+        }
+    }
+
     // // use this update with no email if parent has account
     checkUpdatePaymentSchemeSaveOrRevert($payment_scheme);
     $query = checkUpdateCurrentPaymentSchemeSaveOrRevert($payment_scheme);

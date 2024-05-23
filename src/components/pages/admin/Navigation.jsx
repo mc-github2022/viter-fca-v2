@@ -3,6 +3,7 @@ import { BsCalendar2Week, BsGear, BsPeople } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 import { devNavUrl } from "@/components/helpers/functions-general.jsx";
+import { queryData } from "@/components/helpers/queryData";
 import {
   setIsSearch,
   setIsSettingsOpen,
@@ -14,6 +15,7 @@ import { RiParentLine } from "react-icons/ri";
 const Navigation = ({ menu, isLoading, error, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isShowSetting, setIsShowSettings] = React.useState(false);
+  const [count, setCount] = React.useState({});
 
   const getOngoingSchoolYear =
     schoolYear?.count > 0 &&
@@ -34,6 +36,35 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
     dispatch(setIsShow(false));
     document.querySelector("body").classList.remove("no--scroll");
   };
+
+  const getCount = async () => {
+    const dataClient = await queryData(`/v2/dev-parents/page/${1}`, "get", {});
+    const dataEnrollment = await queryData(
+      `/v2/dev-students/page/${1}`,
+      "get",
+      {}
+    );
+    const dataAssesment = await queryData(
+      `/v2/dev-assessment/page/${1}`,
+      "get",
+      {}
+    );
+    const dataStudent = await queryData(
+      `/v2/dev-all-students/page/${1}`,
+      "get",
+      {}
+    );
+    setCount({
+      assesmentCount: dataAssesment?.total,
+      enrollmentCount: dataEnrollment?.total,
+      clientCount: dataClient?.total,
+      studentCount: dataStudent?.total,
+    });
+  };
+
+  React.useEffect(() => {
+    getCount();
+  }, []);
 
   return (
     <>
@@ -89,20 +120,26 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
             >
               <Link
                 to={`${devNavUrl}/admin/enrollment`}
-                className="flex gap-3 items-center uppercase  w-full"
+                className="flex gap-3 items-center uppercase relative w-full"
                 onClick={handleNavigateLink}
               >
                 <PiStudent className="text-lg ml-4" /> Enrollment
+                <span className="text-xs absolute right-3 top-1/2 -translate-y-1/2">
+                  {count?.enrollmentCount}
+                </span>
               </Link>
             </li>
 
             <li className={`nav__link ${menu === "clients" ? "active" : ""}`}>
               <Link
                 to={`${devNavUrl}/admin/clients`}
-                className="flex gap-3 items-center uppercase  w-full"
+                className="flex gap-3 items-center uppercase relative w-full"
                 onClick={handleNavigateLink}
               >
                 <RiParentLine className="text-lg ml-4" /> Clients
+                <span className="text-xs absolute right-3 top-1/2 -translate-y-1/2">
+                  {count?.clientCount}
+                </span>
               </Link>
             </li>
             <li
@@ -110,19 +147,25 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
             >
               <Link
                 to={`${devNavUrl}/admin/assessment`}
-                className="flex gap-3 items-center uppercase  w-full"
+                className="flex gap-3 items-center uppercase relative w-full"
                 onClick={handleNavigateLink}
               >
-                <PiListMagnifyingGlass className="text-lg ml-4" /> Assessment
+                <PiListMagnifyingGlass className="text-lg ml-4" /> Assessment{" "}
+                <span className="text-xs absolute right-3 top-1/2 -translate-y-1/2">
+                  {count?.assesmentCount}
+                </span>
               </Link>
             </li>
             <li className={`nav__link ${menu === "students" ? "active" : ""}`}>
               <Link
                 to={`${devNavUrl}/admin/students`}
-                className="flex gap-3 items-center uppercase  w-full"
+                className="flex gap-3 items-center uppercase relative w-full"
                 onClick={handleNavigateLink}
               >
                 <PiStudent className="text-lg ml-4" /> Students
+                <span className="text-xs absolute right-3 top-1/2 -translate-y-1/2">
+                  {count?.studentCount}
+                </span>
               </Link>
             </li>
           </ul>

@@ -26,7 +26,7 @@ $password_link = "/create-password";
 $queryParentAccount = getResultData($user_other->checkEmailForParent());
 $queryRoleById = getResultData($user_other->readRoleById());
 
-$queryRegistarNotification = getResultData($user_other->readRegistrarNotification());
+$queryRegistarNotification = $user_other->readTemplateForSignupNotifyRegistrar();
 
 
 // check email
@@ -48,22 +48,47 @@ $query = checkCreate($user_other);
 
 // only if role is parent
 if ($queryRoleById[0]["role_is_parent"] == 1) {
-    // loop through notification and get all the registrar department
-    // to send email
-    for ($i = 0; $i < count($queryRegistarNotification); $i++) {
-        if ($queryRegistarNotification[$i]["notification_email"] == '') continue;
+    if ($queryRegistarNotification->rowCount() == 0) {
+        returnError('No Email Template, Please check the email template.');
+    }
 
-        $mailDataAdmin = sendAdminEmail(
-            $user_other->user_other_fname . ' ' . $user_other->user_other_lname,
-            $user_other->user_other_email,
-            $queryRegistarNotification[$i]["notification_email"],
+    $row = $queryRegistarNotification->fetch(PDO::FETCH_ASSOC);
+    extract($row);
+
+    if ($queryRegistarNotification->rowCount() > 0) {
+        $ccEmail = [
+            $email_template_cc_email,
+            $email_template_cc_email_two
+        ];
+
+        $notifyRegistrar = sendAdminEmail(
+            $email_template_subject,
+            $email_template_content,
+            trim($notification_email),
+            $ccEmail
         );
-
-        // failed sending email
-        if ($mailDataAdmin["mail_success"] == false) {
-            returnError($mailDataAdmin["error"]);
+        if ($notifyRegistrar["mail_success"] == false) {
+            returnError($notifyRegistrar["error_message"]);
         }
     }
+
+
+    // loop through notification and get all the registrar department
+    // to send email
+    // for ($i = 0; $i < count($queryRegistarNotification); $i++) {
+    //     if ($queryRegistarNotification[$i]["notification_email"] == '') continue;
+
+    //     $mailDataAdmin = sendAdminEmail(
+    //         $user_other->user_other_fname . ' ' . $user_other->user_other_lname,
+    //         $user_other->user_other_email,
+    //         $queryRegistarNotification[$i]["notification_email"],
+    //     );
+
+    //     // failed sending email
+    //     if ($mailDataAdmin["mail_success"] == false) {
+    //         returnError($mailDataAdmin["error"]);
+    //     }
+    // }
 }
 
 // send email notification for user other account

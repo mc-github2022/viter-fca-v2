@@ -106,7 +106,7 @@ const EmailTemplatesFormAddEdit = ({
           {(props) => {
             return (
               <Form>
-                <div className="h-[400px] xr:h-[520px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
+                <div className="h-[400px] xr:h-[580px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
                   <div className="max-w-[540px]">
                     <div className="form__wrap text-xs mb-3 max-w-[20rem]">
                       <InputText
@@ -186,6 +186,15 @@ const EmailTemplatesFormAddEdit = ({
                           <option value="assessment-notify-finance">
                             Assessment (notify finance)
                           </option>
+                          <option value="signup-notify-registrar">
+                            Sign-up (notify registrar)
+                          </option>
+                          <option value="new-student-notify-registrar">
+                            Student Add (notify registrar)
+                          </option>
+                          <option value="re-enroll-notify-registrar">
+                            Re-enroll (notify registrar)
+                          </option>
                         </optgroup>
                       </InputSelect>
                     </div>
@@ -206,29 +215,30 @@ const EmailTemplatesFormAddEdit = ({
                       />
                     </div>
                   </div>
-                </div>
-                <div className="settings__actions flex gap-2 mt-4">
-                  <button
-                    className="btn btn--accent"
-                    type="submit"
-                    disabled={mutation.isPending || !props.dirty}
-                  >
-                    {mutation.isPending ? (
-                      <ButtonSpinner />
-                    ) : itemEdit ? (
-                      "Save"
-                    ) : (
-                      "Add"
-                    )}
-                  </button>
-                  <button
-                    className="btn btn--cancel"
-                    type="button"
-                    onClick={handleClose}
-                    disabled={mutation.isPending}
-                  >
-                    Discard
-                  </button>
+
+                  <div className="settings__actions flex gap-2 mt-4">
+                    <button
+                      className="btn btn--accent"
+                      type="submit"
+                      disabled={mutation.isPending || !props.dirty}
+                    >
+                      {mutation.isPending ? (
+                        <ButtonSpinner />
+                      ) : itemEdit ? (
+                        "Save"
+                      ) : (
+                        "Add"
+                      )}
+                    </button>
+                    <button
+                      className="btn btn--cancel"
+                      type="button"
+                      onClick={handleClose}
+                      disabled={mutation.isPending}
+                    >
+                      Discard
+                    </button>
+                  </div>
                 </div>
               </Form>
             );

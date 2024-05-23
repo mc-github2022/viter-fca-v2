@@ -3,6 +3,7 @@ import {
   consoleLog,
   numberWithCommasToFixed,
 } from "@/components/helpers/functions-general.jsx";
+import NoData from "@/components/partials/NoData";
 import TableLoading from "@/components/partials/TableLoading";
 import { setSettingIsConfirm } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
@@ -22,7 +23,6 @@ import {
   handleAssessmentRemarks,
 } from "../../../assessment/modal/functions-assessment";
 import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
-import NoData from "@/components/partials/NoData";
 
 const StudentPaymentScheme = ({
   showSideNav,

@@ -9,7 +9,7 @@ require 'PHPMailer/SMTP.php';
 require 'PHPMailer/Exception.php';
 
 include_once("mail-config.php");
-include_once("template/admin-notification-new-student.php");
+include_once("template/admin-notification-re-enroll-student.php");
 
 function sendEmail($subject, $html_code, $email, $ccEmail)
 {
@@ -26,7 +26,7 @@ function sendEmail($subject, $html_code, $email, $ccEmail)
 		$mail->Subject = $subject;
 		$mail->setFrom(USERNAME, FROM);
 		$mail->isHTML(true);
-		$mail->Body = getHtmlAdminNotificationNewStudent(
+		$mail->Body = getHtmlAdminNotificationReEnrollStudent(
 			$html_code
 		);
 

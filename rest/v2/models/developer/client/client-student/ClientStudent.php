@@ -85,6 +85,8 @@ class ClientStudent
     public $tblGradeLevel;
     public $tblParentInfo;
     public $tblNotification;
+    public $tblEmailTemplate;
+    public $tblDepartment;
 
     public $fullname;
 
@@ -100,6 +102,8 @@ class ClientStudent
         $this->tblParentInfo = "fcav2_info_parent_guardian";
         $this->tblSchoolYear = "fcav2_settings_school_year";
         $this->tblNotification = "fcav2_settings_notification";
+        $this->tblEmailTemplate = "fcav2_settings_email_template";
+        $this->tblDepartment = "fcav2_settings_department";
     }
 
     public function readAll()
@@ -702,14 +706,57 @@ class ClientStudent
         return $query;
     }
 
-    // read all registrar notification
-    // read all the registrar department only with the id of 1
-    public function readRegistrarNotification()
+    // read template of registrar when new student added
+    public function readTemplateForNewStudentNotifyRegistrar()
     {
         try {
-            $sql = "select notification_email from {$this->tblNotification} ";
-            $sql .= "where notification_active = 1 ";
-            $sql .= "and notification_department_id = 1 ";
+            $sql = "select email_templates.email_template_aid, ";
+            $sql .= "email_templates.email_template_is_active, ";
+            $sql .= "email_templates.email_template_name, ";
+            $sql .= "email_templates.email_template_subject, ";
+            $sql .= "email_templates.email_template_content, ";
+            $sql .= "email_templates.email_template_receiver_id, ";
+            $sql .= "email_templates.email_template_category, ";
+            $sql .= "email_templates.email_template_cc_email, ";
+            $sql .= "email_templates.email_template_cc_email_two, ";
+            $sql .= "notif.notification_email, ";
+            $sql .= "dept.department_name ";
+            $sql .= "from {$this->tblEmailTemplate} as email_templates, ";
+            $sql .= "{$this->tblNotification} as notif, ";
+            $sql .= "{$this->tblDepartment} as dept ";
+            $sql .= "where notif.notification_department_id = dept.department_aid ";
+            $sql .= "and notif.notification_aid = email_templates.email_template_receiver_id ";
+            $sql .= "and email_templates.email_template_category = 'new-student-notify-registrar' ";
+            $sql .= "order by email_templates.email_template_is_active desc ";
+            $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read template of registrar when re-enroll student
+    public function readTemplateForReEnrollNotifyRegistrar()
+    {
+        try {
+            $sql = "select email_templates.email_template_aid, ";
+            $sql .= "email_templates.email_template_is_active, ";
+            $sql .= "email_templates.email_template_name, ";
+            $sql .= "email_templates.email_template_subject, ";
+            $sql .= "email_templates.email_template_content, ";
+            $sql .= "email_templates.email_template_receiver_id, ";
+            $sql .= "email_templates.email_template_category, ";
+            $sql .= "email_templates.email_template_cc_email, ";
+            $sql .= "email_templates.email_template_cc_email_two, ";
+            $sql .= "notif.notification_email, ";
+            $sql .= "dept.department_name ";
+            $sql .= "from {$this->tblEmailTemplate} as email_templates, ";
+            $sql .= "{$this->tblNotification} as notif, ";
+            $sql .= "{$this->tblDepartment} as dept ";
+            $sql .= "where notif.notification_department_id = dept.department_aid ";
+            $sql .= "and notif.notification_aid = email_templates.email_template_receiver_id ";
+            $sql .= "and email_templates.email_template_category = 're-enroll-notify-registrar' ";
+            $sql .= "order by email_templates.email_template_is_active desc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
