@@ -1,7 +1,9 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import { formatDateMonth } from "@/components/helpers/functions-general";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
+import Pills from "@/components/partials/Pills";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
@@ -11,6 +13,7 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 import FilterBar from "./FilterBar";
 import SearchBarFilterReportStudents from "./SearchBarFilterReportStudents";
+import { getRecord, getStudentStatus } from "./functions-report";
 
 const ReportsStudentList = ({ schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -19,6 +22,7 @@ const ReportsStudentList = ({ schoolYear }) => {
   const { ref, inView } = useInView();
   const [onSearch, setOnSearch] = React.useState(false);
   const [gender, setGender] = React.useState("");
+  const [syId, setSyId] = React.useState(0);
   const [withLrn, setWithLrn] = React.useState(0);
   const [gradeLevel, setGradeLevel] = React.useState({});
   const [birthDate, setBirthDate] = React.useState("");
@@ -37,13 +41,30 @@ const ReportsStudentList = ({ schoolYear }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["all-students", onSearch, store.isSearch],
+    queryKey: [
+      "report",
+      onSearch,
+      store.isSearch,
+      gender,
+      syId,
+      withLrn,
+      gradeLevel,
+      birthDate,
+    ],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/dev-all-students/search`, // search endpoint
-        `/v2/dev-all-students/page/${pageParam}`, // list endpoint
+        `/v2/dev-report/search`, // search endpoint
+        `/v2/dev-report/page/${pageParam}`, // list endpoint
         store.isSearch, // search boolean
-        { searchValue: search.current.value }
+        {
+          searchValue: search.current.value,
+          gender,
+          gradeLevelId: gradeLevel.id === undefined ? 0 : gradeLevel.id,
+          withLrn,
+          birthDate,
+          syId,
+        },
+        "post"
       ),
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.total) {
@@ -53,6 +74,29 @@ const ReportsStudentList = ({ schoolYear }) => {
     },
     refetchOnWindowFocus: false,
   });
+
+  const { data: gradeLevelData } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
+
+  const { data: studentRequirement } = useQueryData(
+    `/v2/dev-students-requirement`, // endpoint
+    "get", // method
+    "students-requirements" // key
+  );
+
+  const { data: registrarRequirement } = useQueryData(
+    "/v2/dev-requirement-registrar", // endpoint
+    "get", // method
+    "registrar-all-student" // key
+  );
+
+  const getCurrentSchoolYear = schoolYear?.data.find(
+    (item) => item.school_year_is_active === 1
+  );
+
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -60,7 +104,24 @@ const ReportsStudentList = ({ schoolYear }) => {
     }
   }, [inView]);
 
-  console.log(gender, gradeLevel.grade, withLrn, birthDate);
+  console.log(
+    "Gender:",
+    gender,
+    "Grade ID:",
+    gradeLevel.id,
+    "With LRN:",
+    withLrn,
+    "Birthdate:",
+    birthDate,
+    "SY:",
+    syId
+  );
+
+  console.log(counter);
+
+  React.useEffect(() => {
+    setSyId(schoolYear?.data[0].school_year_aid);
+  }, [schoolYear]);
 
   return (
     <>
@@ -79,6 +140,7 @@ const ReportsStudentList = ({ schoolYear }) => {
             setGradeLevel={setGradeLevel}
             birthDate={birthDate}
             setBirthDate={setBirthDate}
+            setSyId={setSyId}
           />
         </div>
         <div className="w-full ">
@@ -97,7 +159,7 @@ const ReportsStudentList = ({ schoolYear }) => {
       <ul className="my-2">
         <li className="flex items-center gap-1">
           {gender !== "" && (
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
+            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md capitalize">
               {gender === "m" ? "Male" : "Female"}
             </span>
           )}
@@ -150,7 +212,12 @@ const ReportsStudentList = ({ schoolYear }) => {
                       <ModalInvalidRequestError />
                     </td>
                   </tr>
-                ) : status === "loading" || result?.pages[0].count === 0 ? (
+                ) : status === "loading" ||
+                  result?.pages[0].count === 0 ||
+                  (gender === "" &&
+                    (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+                    withLrn === 0 &&
+                    birthDate === "") ? (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
                       {status === "loading" ? (
@@ -165,44 +232,366 @@ const ReportsStudentList = ({ schoolYear }) => {
                   result?.pages[0].success === true &&
                   result?.pages.map((page, key) => (
                     <React.Fragment key={key}>
-                      {page.data.map((item, key) => (
-                        <tr key={key}>
-                          <td>{counter++}.</td>
-                          <td>
-                            {/* {getStudentStatus(
-                              item,
-                              getCurrentSchoolYear,
-                              studentRequirement,
-                              registrarRequirement
-                            )} */}
-                          </td>
-                          <td>{item.student_fullname}</td>
-                          <td>
-                            {/* {getGradeLevelByStudentId(
-                              gradeLevel,
-                              item.current_students_grade_level_id
-                            )} */}
-                          </td>
-                          <td>{item.school_year}</td>
-                        </tr>
-                      ))}
+                      {page.data.map((item, key) => {
+                        // if gender only
+                        if (
+                          gender !== "" &&
+                          item.students_gender === gender &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn === 0 &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if gender and level
+                        if (
+                          gender !== "" &&
+                          item.students_gender === gender &&
+                          (gradeLevel.id !== 0 ||
+                            gradeLevel.id !== undefined) &&
+                          item.grade_level_aid === gradeLevel.id &&
+                          withLrn === 0 &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if gender, level and with LRN
+                        if (
+                          gender !== "" &&
+                          item.students_gender === gender &&
+                          (gradeLevel.id !== 0 ||
+                            gradeLevel.id !== undefined) &&
+                          item.grade_level_aid === gradeLevel.id &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if gender, level, with LRN, and birthdate
+                        if (
+                          gender !== "" &&
+                          item.students_gender === gender &&
+                          (gradeLevel.id !== 0 ||
+                            gradeLevel.id !== undefined) &&
+                          item.grade_level_aid === gradeLevel.id &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate !== "" &&
+                          `${item.students_birth_date.split("-")[0]}-${
+                            item.students_birth_date.split("-")[1]
+                          }` === birthDate
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if level only
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id !== 0 ||
+                            gradeLevel.id !== undefined) &&
+                          item.grade_level_aid === gradeLevel.id &&
+                          withLrn === 0 &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if level and with LRN
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id !== 0 ||
+                            gradeLevel.id !== undefined) &&
+                          item.grade_level_aid === gradeLevel.id &&
+                          withLrn === 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if level, with LRN and birthdate
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id !== 0 ||
+                            gradeLevel.id !== undefined) &&
+                          item.grade_level_aid === gradeLevel.id &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate !== "" &&
+                          `${item.students_birth_date.split("-")[0]}-${
+                            item.students_birth_date.split("-")[1]
+                          }` === birthDate
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if with LRN only
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if with LRN and birthdate
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate !== "" &&
+                          `${item.students_birth_date.split("-")[0]}-${
+                            item.students_birth_date.split("-")[1]
+                          }` === birthDate
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if birthdate only
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn === 0 &&
+                          birthDate !== "" &&
+                          `${item.students_birth_date.split("-")[0]}-${
+                            item.students_birth_date.split("-")[1]
+                          }` === birthDate
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if gender and with LRN
+                        if (
+                          gender !== "" &&
+                          item.students_gender === gender &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if gender, with LRN, and birthdate
+                        if (
+                          gender !== "" &&
+                          item.students_gender === gender &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate !== "" &&
+                          `${item.students_birth_date.split("-")[0]}-${
+                            item.students_birth_date.split("-")[1]
+                          }` === birthDate
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if gender and birthdate
+                        if (
+                          gender !== "" &&
+                          item.students_gender === gender &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn === 0 &&
+                          birthDate !== "" &&
+                          `${item.students_birth_date.split("-")[0]}-${
+                            item.students_birth_date.split("-")[1]
+                          }` === birthDate
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if level and birthdate
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id !== 0 ||
+                            gradeLevel.id !== undefined) &&
+                          item.grade_level_aid === gradeLevel.id &&
+                          withLrn === 0 &&
+                          birthDate !== "" &&
+                          `${item.students_birth_date.split("-")[0]}-${
+                            item.students_birth_date.split("-")[1]
+                          }` === birthDate
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if with LRN only
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                        // if with LRN and birthdate
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn !== 0 &&
+                          item.students_lrn !== "" &&
+                          birthDate !== "" &&
+                          `${item.students_birth_date.split("-")[0]}-${
+                            item.students_birth_date.split("-")[1]
+                          }` === birthDate
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
+                      })}
                     </React.Fragment>
                   ))
                 )}
               </tbody>
             </table>
-            <div className="flex justify-center mt-10">
-              <Loadmore
-                fetchNextPage={fetchNextPage}
-                isFetchingNextPage={isFetchingNextPage}
-                hasNextPage={hasNextPage}
-                result={result?.pages[0]}
-                setPage={setPage}
-                page={page}
-                refView={ref}
-              />
-              <span></span>
-            </div>
+            {(gender !== "" ||
+              (gradeLevel.id !== 0 && gradeLevel.id !== undefined) ||
+              withLrn !== 0 ||
+              birthDate !== "") && (
+              <div className="flex justify-center mt-10">
+                <Loadmore
+                  fetchNextPage={fetchNextPage}
+                  isFetchingNextPage={isFetchingNextPage}
+                  hasNextPage={hasNextPage}
+                  result={result?.pages[0]}
+                  setPage={setPage}
+                  page={page}
+                  refView={ref}
+                />
+                <span></span>
+              </div>
+            )}
           </div>
         </div>
       </div>

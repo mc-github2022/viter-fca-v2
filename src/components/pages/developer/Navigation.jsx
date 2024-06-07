@@ -46,6 +46,7 @@ const Navigation = ({
   };
 
   const handleShowAllReport = () => {
+    dispatch(setIsSearch(false));
     dispatch(setIsShow(false));
     dispatch(setIsFilter(false));
     setIsShowReport(!isShowReport);

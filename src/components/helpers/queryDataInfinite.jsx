@@ -1,9 +1,15 @@
 import { queryData } from "./queryData";
 
-export const queryDataInfinite = (urlSearch, urlList, isSearch, fd = {}) => {
+export const queryDataInfinite = (
+  urlSearch,
+  urlList,
+  isSearch,
+  fd = {},
+  method = "get"
+) => {
   return queryData(
     isSearch ? urlSearch : urlList,
-    isSearch ? "post" : "get",
+    isSearch ? "post" : method,
     fd
   );
 };

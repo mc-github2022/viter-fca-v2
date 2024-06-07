@@ -1,11 +1,14 @@
 <?php
 require '../../../core/header.php';
 require '../../../core/functions.php';
-require '../../../models/developer/student/Student.php';
+require '../../../models/developer/report/Report.php';
 
 $conn = null;
 $conn = checkDbConnection();
-$student = new Student($conn);
+$student = new Report($conn);
+
+$body = file_get_contents("php://input");
+$data = json_decode($body, true);
 
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     checkApiKey();
@@ -14,11 +17,12 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
         $student->students_start = $_GET['start'];
         $student->students_total = 10;
-
+        $student->school_year_students_sy_id = $data["syId"];
         checkLimitId($student->students_start, $student->students_total);
 
         $query = checkReadLimit($student);
         $total_result = checkReadAll($student);
+
         http_response_code(200);
         checkReadQuery(
             $query,

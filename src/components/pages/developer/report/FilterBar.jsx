@@ -15,6 +15,7 @@ const FilterBar = ({
   setGradeLevel,
   birthDate,
   setBirthDate,
+  setSyId,
 }) => {
   const [onFocus, setOnFocus] = React.useState(false);
   const refFilter = React.useRef();
@@ -64,7 +65,7 @@ const FilterBar = ({
   };
 
   const handleSelectSy = (e) => {
-    console.log(e.target.value);
+    setSyId(e.target.value);
   };
 
   const handleClickOutside = (e) => {
@@ -90,36 +91,41 @@ const FilterBar = ({
       ref={refFilter}
     >
       <div className="relative w-full flex items-center gap-2">
-        <select
-          className="!border-gray-200 text-[12px] md:w-1/2"
-          onChange={(e) => handleSelectSy(e)}
-        >
-          {error ? (
-            <option hidden disabled>
-              Error
-            </option>
-          ) : (
-            (isFetching || isLoading) && <option hidden>Loading...</option>
-          )}
-
-          {schoolYear?.count > 0 ? (
-            schoolYear?.data.map((item, key) => {
-              return (
-                <option key={key} value={item.school_year_aid}>
-                  {item.school_year}
+        <div className="relative w-full md:w-1/2">
+          <select
+            className="!border-gray-200 text-[12px] "
+            onChange={(e) => handleSelectSy(e)}
+          >
+            <optgroup label="Select SY">
+              {error ? (
+                <option hidden disabled>
+                  Error
                 </option>
-              );
-            })
-          ) : (
-            <option disabled>No Data</option>
-          )}
-        </select>
+              ) : (
+                (isFetching || isLoading) && <option hidden>Loading...</option>
+              )}
+
+              {schoolYear?.count > 0 ? (
+                schoolYear?.data.map((item, key) => {
+                  return (
+                    <option key={key} value={item.school_year_aid}>
+                      {item.school_year}
+                    </option>
+                  );
+                })
+              ) : (
+                <option disabled>No Data</option>
+              )}
+            </optgroup>
+          </select>
+        </div>
 
         <div className="relative w-full md:w-1/2">
           <input
             type="text"
             className="text-[12px] caret-transparent"
             onFocus={() => setOnFocus(true)}
+            // onClick={() => setOnFocus(!onFocus)}
             value="All"
             onChange={(e) => e}
           />
@@ -134,8 +140,9 @@ const FilterBar = ({
                 <span className="flex items-center gap-2 w-full mb-2 outline-none">
                   <button
                     type="button"
-                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-[#f3f4f6] ${
-                      gender === "m" && "bg-[#f3f4f6] border-gray-300"
+                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-accentLight hover:text-white ${
+                      gender === "m" &&
+                      "bg-accentLight text-white border-gray-300"
                     }`}
                     value="m"
                     onClick={(e) => handleSelectGender(e)}
@@ -144,8 +151,9 @@ const FilterBar = ({
                   </button>
                   <button
                     type="button"
-                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-[#f3f4f6] ${
-                      gender === "f" && "bg-[#f3f4f6] border-gray-300"
+                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-accentLight hover:text-white ${
+                      gender === "f" &&
+                      "bg-accentLight text-white border-gray-300"
                     }`}
                     value="f"
                     onClick={(e) => handleSelectGender(e)}
@@ -196,8 +204,9 @@ const FilterBar = ({
                 <span className=" text-xs mb-1 text-accent">With</span>
                 <span className="flex items-center gap-2 w-full mb-2 outline-none ">
                   <button
-                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-[#f3f4f6] ${
-                      withLrn === 1 && "bg-[#f3f4f6] border-gray-300"
+                    className={`text-xs py-1 border rounded-md w-1/2 hover:bg-accentLight hover:text-white ${
+                      withLrn === 1 &&
+                      "bg-accentLight text-white border-gray-300"
                     }`}
                     onClick={() => handleSelectLrn()}
                   >

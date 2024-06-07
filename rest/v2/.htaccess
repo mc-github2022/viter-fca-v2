@@ -240,6 +240,8 @@ RewriteRule ^student/parent-address/([0-9]+)$ controllers/developer/students/rea
 # READ STUDENT BY PARENT ID
 RewriteRule ^student-parent-id/([0-9]+)$ controllers/developer/students/readStudentByParentId.php?parentid=$1 [L]
 
-
+# REPORT
+RewriteRule ^dev-report/page/([0-9]+)$ controllers/developer/report/page.php?start=$1 [L]
+RewriteRule ^dev-report/search$ controllers/developer/report/search.php [L]
 
 
