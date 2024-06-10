@@ -26,8 +26,10 @@ const ReportsStudentList = ({ schoolYear }) => {
   const [withLrn, setWithLrn] = React.useState(0);
   const [gradeLevel, setGradeLevel] = React.useState({});
   const [birthDate, setBirthDate] = React.useState("");
+  const [totalCount, setTotalCount] = React.useState(0);
 
   let counter = 1;
+  let total = 0;
 
   // console.log(getCurrentSchoolYear[0]?.school_year);
 
@@ -48,7 +50,7 @@ const ReportsStudentList = ({ schoolYear }) => {
       gender,
       syId,
       withLrn,
-      gradeLevel,
+      gradeLevel?.id,
       birthDate,
     ],
     queryFn: async ({ pageParam = 1 }) =>
@@ -59,7 +61,10 @@ const ReportsStudentList = ({ schoolYear }) => {
         {
           searchValue: search.current.value,
           gender,
-          gradeLevelId: gradeLevel.id === undefined ? 0 : gradeLevel.id,
+          gradeLevelId:
+            gradeLevel.id === 0 || gradeLevel.id === undefined
+              ? 0
+              : gradeLevel.id,
           withLrn,
           birthDate,
           syId,
@@ -97,6 +102,12 @@ const ReportsStudentList = ({ schoolYear }) => {
     (item) => item.school_year_is_active === 1
   );
 
+  const getCount = (count) => {
+    if (count !== 0) {
+      setTotalCount((i) => i + count);
+    }
+  };
+
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -104,24 +115,28 @@ const ReportsStudentList = ({ schoolYear }) => {
     }
   }, [inView]);
 
-  console.log(
-    "Gender:",
-    gender,
-    "Grade ID:",
-    gradeLevel.id,
-    "With LRN:",
-    withLrn,
-    "Birthdate:",
-    birthDate,
-    "SY:",
-    syId
-  );
+  // console.log(
+  //   "Gender:",
+  //   gender,
+  //   "Grade ID:",
+  //   gradeLevel.id,
+  //   "With LRN:",
+  //   withLrn,
+  //   "Birthdate:",
+  //   birthDate,
+  //   "SY:",
+  //   syId
+  // );
 
-  console.log(counter);
+  console.log(typeof gradeLevel.id);
 
   React.useEffect(() => {
     setSyId(schoolYear?.data[0].school_year_aid);
   }, [schoolYear]);
+
+  // React.useEffect(() => {
+  //   setTotalCount(0);
+  // }, [totalCount]);
 
   return (
     <>
@@ -233,6 +248,24 @@ const ReportsStudentList = ({ schoolYear }) => {
                   result?.pages.map((page, key) => (
                     <React.Fragment key={key}>
                       {page.data.map((item, key) => {
+                        // if all student of SY
+                        if (
+                          gender === "" &&
+                          (gradeLevel.id === 0 ||
+                            gradeLevel.id === undefined) &&
+                          withLrn === 0 &&
+                          birthDate === ""
+                        ) {
+                          return getRecord(
+                            counter++,
+                            item,
+                            key,
+                            getCurrentSchoolYear,
+                            studentRequirement,
+                            registrarRequirement,
+                            gradeLevelData
+                          );
+                        }
                         // if gender only
                         if (
                           gender !== "" &&
