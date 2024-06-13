@@ -3,7 +3,6 @@ import { formatDateMonth } from "@/components/helpers/functions-general";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
-import Pills from "@/components/partials/Pills";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
@@ -13,7 +12,7 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 import FilterBar from "./FilterBar";
 import SearchBarFilterReportStudents from "./SearchBarFilterReportStudents";
-import { getRecord, getStudentStatus } from "./functions-report";
+import { getCount, getRecord } from "./functions-report";
 
 const ReportsStudentList = ({ schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -29,7 +28,7 @@ const ReportsStudentList = ({ schoolYear }) => {
   const [totalCount, setTotalCount] = React.useState(0);
 
   let counter = 1;
-  let total = 0;
+  let total = [];
 
   // console.log(getCurrentSchoolYear[0]?.school_year);
 
@@ -102,12 +101,6 @@ const ReportsStudentList = ({ schoolYear }) => {
     (item) => item.school_year_is_active === 1
   );
 
-  const getCount = (count) => {
-    if (count !== 0) {
-      setTotalCount((i) => i + count);
-    }
-  };
-
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -128,15 +121,11 @@ const ReportsStudentList = ({ schoolYear }) => {
   //   syId
   // );
 
-  console.log(typeof gradeLevel.id);
+  console.log(getCount(result, gender, gradeLevel, withLrn, birthDate));
 
   React.useEffect(() => {
     setSyId(schoolYear?.data[0].school_year_aid);
   }, [schoolYear]);
-
-  // React.useEffect(() => {
-  //   setTotalCount(0);
-  // }, [totalCount]);
 
   return (
     <>
@@ -205,7 +194,7 @@ const ReportsStudentList = ({ schoolYear }) => {
             Count:{" "}
             <span>
               {result?.pages[0].success === true &&
-                result?.pages[0].data.length}
+                getCount(result, gender, gradeLevel, withLrn, birthDate)}
             </span>
           </h6>
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
@@ -229,10 +218,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                   </tr>
                 ) : status === "loading" ||
                   result?.pages[0].count === 0 ||
-                  (gender === "" &&
-                    (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
-                    withLrn === 0 &&
-                    birthDate === "") ? (
+                  getCount(result, gender, gradeLevel, withLrn, birthDate) ===
+                    0 ? (
                   <tr className="text-center hover:bg-transparent ">
                     <td colSpan="100%" className="p-10">
                       {status === "loading" ? (

@@ -6,6 +6,7 @@ import Assestment from "@/components/pages/admin/assessment/Assestment";
 import Clients from "@/components/pages/admin/clients/Clients.jsx";
 import ClientViewInfo from "@/components/pages/admin/clients/client-info/ClientViewInfo";
 import ClientStudentViewInfo from "@/components/pages/admin/clients/student-info/ClientStudentViewInfo.jsx";
+import ReportsStudent from "@/components/pages/admin/report/ReportsStudent";
 import Students from "@/components/pages/admin/students/Students";
 import StudentViewInfo from "@/components/pages/admin/students/student-info/StudentViewInfo.jsx";
 
@@ -78,6 +79,16 @@ export const routesAdmin = [
     element: (
       <ProtectedRouteOther>
         <Assestment />
+      </ProtectedRouteOther>
+    ),
+  },
+
+  // Report
+  {
+    path: `${devNavUrl}/admin/report`,
+    element: (
+      <ProtectedRouteOther>
+        <ReportsStudent />
       </ProtectedRouteOther>
     ),
   },

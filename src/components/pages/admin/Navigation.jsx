@@ -10,7 +10,11 @@ import {
   setIsShow,
 } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { PiListMagnifyingGlass, PiStudent } from "react-icons/pi";
+import {
+  PiListMagnifyingGlass,
+  PiNewspaperBold,
+  PiStudent,
+} from "react-icons/pi";
 import { RiParentLine } from "react-icons/ri";
 const Navigation = ({ menu, isLoading, error, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -166,6 +170,18 @@ const Navigation = ({ menu, isLoading, error, schoolYear }) => {
                 <span className="text-xs absolute right-3 top-1/2 -translate-y-1/2">
                   {count?.studentCount}
                 </span>
+              </Link>
+            </li>
+            <li className={`nav__link ${menu === "reports" ? "active" : ""}`}>
+              <Link
+                to={`${devNavUrl}/admin/report`}
+                className="flex gap-3 items-center uppercase relative w-full"
+                onClick={handleNavigateLink}
+              >
+                <PiNewspaperBold className="text-lg ml-4" /> Report
+                {/* <span className="text-xs absolute right-3 top-1/2 -translate-y-1/2">
+                  {count?.studentCount}
+                </span> */}
               </Link>
             </li>
           </ul>

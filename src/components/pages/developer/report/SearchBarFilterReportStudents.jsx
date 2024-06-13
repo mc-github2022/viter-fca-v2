@@ -54,11 +54,11 @@ const SearchBarFilterReportStudents = ({
           <FaSearch />
         </button>
       </div>
-      {store.isSearch && (
+      {/* {store.isSearch && (
         <p className="absolute top-[9px] right-20 text-xs">
           Result: {isFetching ? "Searching..." : result?.[0].count}
         </p>
-      )}
+      )} */}
     </form>
   );
 };

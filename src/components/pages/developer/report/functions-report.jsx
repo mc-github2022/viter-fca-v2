@@ -146,3 +146,227 @@ export const getRecord = (
     </tr>
   );
 };
+
+export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
+  let count = 0;
+
+  result?.pages[0].data.map((item) => {
+    // if all student of SY
+    if (
+      gender === "" &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn === 0 &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+    // if gender only
+    if (
+      gender !== "" &&
+      item.students_gender === gender &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn === 0 &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+    // if gender and level
+    if (
+      gender !== "" &&
+      item.students_gender === gender &&
+      (gradeLevel.id !== 0 || gradeLevel.id !== undefined) &&
+      item.grade_level_aid === gradeLevel.id &&
+      withLrn === 0 &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+
+    // if gender, level and with LRN
+    if (
+      gender !== "" &&
+      item.students_gender === gender &&
+      (gradeLevel.id !== 0 || gradeLevel.id !== undefined) &&
+      item.grade_level_aid === gradeLevel.id &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+
+    // if gender, level, with LRN, and birthdate
+    if (
+      gender !== "" &&
+      item.students_gender === gender &&
+      (gradeLevel.id !== 0 || gradeLevel.id !== undefined) &&
+      item.grade_level_aid === gradeLevel.id &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate !== "" &&
+      `${item.students_birth_date.split("-")[0]}-${
+        item.students_birth_date.split("-")[1]
+      }` === birthDate
+    ) {
+      count++;
+    }
+
+    // if level only
+    if (
+      gender === "" &&
+      (gradeLevel.id !== 0 || gradeLevel.id !== undefined) &&
+      item.grade_level_aid === gradeLevel.id &&
+      withLrn === 0 &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+
+    // if level and with LRN
+    if (
+      gender === "" &&
+      (gradeLevel.id !== 0 || gradeLevel.id !== undefined) &&
+      item.grade_level_aid === gradeLevel.id &&
+      withLrn === 0 &&
+      item.students_lrn !== "" &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+
+    // if level, with LRN and birthdate
+    if (
+      gender === "" &&
+      (gradeLevel.id !== 0 || gradeLevel.id !== undefined) &&
+      item.grade_level_aid === gradeLevel.id &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate !== "" &&
+      `${item.students_birth_date.split("-")[0]}-${
+        item.students_birth_date.split("-")[1]
+      }` === birthDate
+    ) {
+      count++;
+    }
+
+    // if with LRN only
+    if (
+      gender === "" &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+
+    // if with LRN and birthdate
+    if (
+      gender === "" &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate !== "" &&
+      `${item.students_birth_date.split("-")[0]}-${
+        item.students_birth_date.split("-")[1]
+      }` === birthDate
+    ) {
+      count++;
+    }
+
+    // if birthdate only
+    if (
+      gender === "" &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn === 0 &&
+      birthDate !== "" &&
+      `${item.students_birth_date.split("-")[0]}-${
+        item.students_birth_date.split("-")[1]
+      }` === birthDate
+    ) {
+      count++;
+    }
+
+    // if gender and with LRN
+    if (
+      gender !== "" &&
+      item.students_gender === gender &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+
+    // if gender, with LRN, and birthdate
+    if (
+      gender !== "" &&
+      item.students_gender === gender &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate !== "" &&
+      `${item.students_birth_date.split("-")[0]}-${
+        item.students_birth_date.split("-")[1]
+      }` === birthDate
+    ) {
+      count++;
+    }
+
+    // if gender and birthdate
+    if (
+      gender !== "" &&
+      item.students_gender === gender &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn === 0 &&
+      birthDate !== "" &&
+      `${item.students_birth_date.split("-")[0]}-${
+        item.students_birth_date.split("-")[1]
+      }` === birthDate
+    ) {
+      count++;
+    }
+
+    // if level and birthdate
+    if (
+      gender === "" &&
+      (gradeLevel.id !== 0 || gradeLevel.id !== undefined) &&
+      item.grade_level_aid === gradeLevel.id &&
+      withLrn === 0 &&
+      birthDate !== "" &&
+      `${item.students_birth_date.split("-")[0]}-${
+        item.students_birth_date.split("-")[1]
+      }` === birthDate
+    ) {
+      count++;
+    }
+
+    // if with LRN only
+    if (
+      gender === "" &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate === ""
+    ) {
+      count++;
+    }
+
+    // if with LRN and birthdate
+    if (
+      gender === "" &&
+      (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
+      withLrn !== 0 &&
+      item.students_lrn !== "" &&
+      birthDate !== "" &&
+      `${item.students_birth_date.split("-")[0]}-${
+        item.students_birth_date.split("-")[1]
+      }` === birthDate
+    ) {
+      count++;
+    }
+  });
+
+  return count;
+};
