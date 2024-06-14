@@ -160,31 +160,6 @@ const ReportsStudentList = ({ schoolYear }) => {
         </div>
       </div>
 
-      <ul className="my-2">
-        <li className="flex items-center gap-1">
-          {gender !== "" && (
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md capitalize">
-              {gender === "m" ? "Male" : "Female"}
-            </span>
-          )}
-          {Object.keys(gradeLevel).length > 0 && gradeLevel.grade !== 0 && (
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
-              {gradeLevel.grade}
-            </span>
-          )}
-          {withLrn === 1 && (
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
-              With LRN
-            </span>
-          )}
-          {birthDate !== "" && (
-            <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
-              {formatDateMonth(birthDate).split(" ")[0]}
-            </span>
-          )}
-        </li>
-      </ul>
-
       <div className="main__table">
         {isFetching && !isFetchingNextPage && status !== "loading" && (
           <FetchingSpinner />

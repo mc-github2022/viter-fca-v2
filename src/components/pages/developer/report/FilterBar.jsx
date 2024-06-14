@@ -1,5 +1,8 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { getAllmonths } from "@/components/helpers/functions-general";
+import {
+  formatDateMonth,
+  getAllmonths,
+} from "@/components/helpers/functions-general";
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -95,35 +98,39 @@ const FilterBar = ({
     >
       <div className="relative w-full flex items-center gap-2">
         <div className="relative w-full md:w-1/2">
+          <label className="text-xs" htmlFor="school_year">
+            School Year
+          </label>
           <select
             className="!border-gray-200 text-[12px] "
             onChange={(e) => handleSelectSy(e)}
           >
-            <optgroup label="Select SY">
-              {error ? (
-                <option hidden disabled>
-                  Error
-                </option>
-              ) : (
-                (isFetching || isLoading) && <option hidden>Loading...</option>
-              )}
+            {error ? (
+              <option hidden disabled>
+                Error
+              </option>
+            ) : (
+              (isFetching || isLoading) && <option hidden>Loading...</option>
+            )}
 
-              {schoolYear?.count > 0 ? (
-                schoolYear?.data.map((item, key) => {
-                  return (
-                    <option key={key} value={item.school_year_aid}>
-                      {item.school_year}
-                    </option>
-                  );
-                })
-              ) : (
-                <option disabled>No Data</option>
-              )}
-            </optgroup>
+            {schoolYear?.count > 0 ? (
+              schoolYear?.data.map((item, key) => {
+                return (
+                  <option key={key} value={item.school_year_aid}>
+                    {item.school_year}
+                  </option>
+                );
+              })
+            ) : (
+              <option disabled>No Data</option>
+            )}
           </select>
         </div>
 
         <div className="relative w-full md:w-1/2">
+          <label className="text-xs" htmlFor="school_year">
+            Filter
+          </label>
           <input
             type="text"
             className="text-[12px] caret-transparent"
@@ -132,7 +139,7 @@ const FilterBar = ({
             onChange={(e) => e}
           />
           <span
-            className="absolute right-2 top-1/2 -translate-y-1/2"
+            className="absolute right-2 bottom-2"
             onClick={() => setOnFocus(true)}
           >
             <IoIosArrowDown className="h-4 w-4 fill-gray-700" />
@@ -250,6 +257,63 @@ const FilterBar = ({
               </div>
             </ul>
           )}
+        </div>
+      </div>
+      <div className="relative w-full flex items-center gap-2">
+        <div className="relative w-full md:w-1/2">
+          {/* <select
+            className="!border-gray-200 text-[12px] "
+            onChange={(e) => handleSelectSy(e)}
+          >
+            <optgroup label="Select SY">
+              {error ? (
+                <option hidden disabled>
+                  Error
+                </option>
+              ) : (
+                (isFetching || isLoading) && <option hidden>Loading...</option>
+              )}
+
+              {schoolYear?.count > 0 ? (
+                schoolYear?.data.map((item, key) => {
+                  return (
+                    <option key={key} value={item.school_year_aid}>
+                      {item.school_year}
+                    </option>
+                  );
+                })
+              ) : (
+                <option disabled>No Data</option>
+              )}
+            </optgroup>
+          </select> */}
+        </div>
+
+        <div className="relative w-full md:w-1/2">
+          <ul className="my-2">
+            <li className="flex items-center gap-1">
+              {gender !== "" && (
+                <span className="leading-snug text-[10px] text-white border bg-accentLight py-px px-2 whitespace-nowrap rounded-md capitalize">
+                  {gender === "m" ? "Male" : "Female"}
+                </span>
+              )}
+              {Object.keys(gradeLevel).length > 0 && gradeLevel.grade !== 0 && (
+                <span className="leading-snug text-[10px] text-white border bg-accentLight py-px px-2 whitespace-nowrap rounded-md">
+                  {gradeLevel.grade}
+                </span>
+              )}
+              {withLrn === 1 && (
+                <span className="leading-snug text-[10px] text-white border bg-accentLight py-px px-2 whitespace-nowrap rounded-md">
+                  With LRN
+                </span>
+              )}
+              {birthDate !== "" && (
+                <span className="leading-snug text-[10px] text-white border bg-accentLight py-px px-2 whitespace-nowrap rounded-md">
+                  {formatDateMonth(birthDate).split(" ")[0]}
+                </span>
+              )}
+            </li>
+          </ul>
         </div>
       </div>
     </form>
