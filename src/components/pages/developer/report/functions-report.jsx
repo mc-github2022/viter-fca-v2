@@ -1,5 +1,8 @@
 import { formatDate } from "@/components/helpers/functions-general";
 import Pills from "@/components/partials/Pills";
+import { setIsSearch } from "@/components/store/StoreAction";
+import { PiStudentLight } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
 export const getStudentStatus = (
   item,
@@ -147,6 +150,18 @@ export const getRecord = (
       <td>{item.students_lrn}</td>
       <td>{formatDate(item.students_birth_date)}</td>
       <td>{item.school_year}</td>
+      <td>
+        <div className="table-action flex gap-2 justify-end">
+          <Link
+            // to={`${devNavUrl}/${link}/clients/students?cid=${item.parents_aid}`}
+            className="tooltip text-base invisible"
+            // data-tooltip="Student"
+            onClick={() => dispatch(setIsSearch(false))}
+          >
+            {/* <PiStudentLight className="text-[20px]" /> */}
+          </Link>
+        </div>
+      </td>
     </tr>
   );
 };

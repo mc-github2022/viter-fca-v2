@@ -184,6 +184,7 @@ const ReportsStudentList = ({ schoolYear }) => {
                   <th>LRN</th>
                   <th>Birth Date</th>
                   <th>S.Y</th>
+                  <th></th>
                 </tr>
               </thead>
 
