@@ -56,7 +56,9 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
   } = useQueryData(
     `/v2/dev-students-payment-scheme/read-student-by-current-sy-id/${dataItem?.students_aid}`, // endpoint
     "get", // method
-    "read-student-by-current-sy-id" // key
+    "read-student-by-current-sy-id", // key
+    {},
+    dataItem?.students_aid
   );
 
   return (

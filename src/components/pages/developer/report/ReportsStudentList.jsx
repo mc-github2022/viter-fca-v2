@@ -121,7 +121,7 @@ const ReportsStudentList = ({ schoolYear }) => {
   //   syId
   // );
 
-  console.log(getCount(result, gender, gradeLevel, withLrn, birthDate));
+  // console.log(getCount(result, gender, gradeLevel, withLrn, birthDate));
 
   React.useEffect(() => {
     setSyId(schoolYear?.data[0].school_year_aid);
@@ -179,7 +179,7 @@ const ReportsStudentList = ({ schoolYear }) => {
           )}
           {birthDate !== "" && (
             <span className="leading-snug text-[10px] text-accent border bg-[#f3f4f6] py-px px-2 whitespace-nowrap rounded-md">
-              {formatDateMonth(birthDate)}
+              {formatDateMonth(birthDate).split(" ")[0]}
             </span>
           )}
         </li>
@@ -204,7 +204,10 @@ const ReportsStudentList = ({ schoolYear }) => {
                   <th>#</th>
                   <th className="w-20">Status</th>
                   <th>Name</th>
+                  <th>Gender</th>
                   <th>Grade Level</th>
+                  <th>LRN</th>
+                  <th>Birth Date</th>
                   <th>S.Y</th>
                 </tr>
               </thead>
@@ -323,9 +326,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                           withLrn !== 0 &&
                           item.students_lrn !== "" &&
                           birthDate !== "" &&
-                          `${item.students_birth_date.split("-")[0]}-${
-                            item.students_birth_date.split("-")[1]
-                          }` === birthDate
+                          Number(item.students_birth_date.split("-")[1]) ===
+                            Number(birthDate)
                         ) {
                           return getRecord(
                             counter++,
@@ -385,9 +387,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                           withLrn !== 0 &&
                           item.students_lrn !== "" &&
                           birthDate !== "" &&
-                          `${item.students_birth_date.split("-")[0]}-${
-                            item.students_birth_date.split("-")[1]
-                          }` === birthDate
+                          Number(item.students_birth_date.split("-")[1]) ===
+                            Number(birthDate)
                         ) {
                           return getRecord(
                             counter++,
@@ -426,9 +427,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                           withLrn !== 0 &&
                           item.students_lrn !== "" &&
                           birthDate !== "" &&
-                          `${item.students_birth_date.split("-")[0]}-${
-                            item.students_birth_date.split("-")[1]
-                          }` === birthDate
+                          Number(item.students_birth_date.split("-")[1]) ===
+                            Number(birthDate)
                         ) {
                           return getRecord(
                             counter++,
@@ -447,9 +447,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                             gradeLevel.id === undefined) &&
                           withLrn === 0 &&
                           birthDate !== "" &&
-                          `${item.students_birth_date.split("-")[0]}-${
-                            item.students_birth_date.split("-")[1]
-                          }` === birthDate
+                          Number(item.students_birth_date.split("-")[1]) ===
+                            Number(birthDate)
                         ) {
                           return getRecord(
                             counter++,
@@ -490,9 +489,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                           withLrn !== 0 &&
                           item.students_lrn !== "" &&
                           birthDate !== "" &&
-                          `${item.students_birth_date.split("-")[0]}-${
-                            item.students_birth_date.split("-")[1]
-                          }` === birthDate
+                          Number(item.students_birth_date.split("-")[1]) ===
+                            Number(birthDate)
                         ) {
                           return getRecord(
                             counter++,
@@ -512,9 +510,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                             gradeLevel.id === undefined) &&
                           withLrn === 0 &&
                           birthDate !== "" &&
-                          `${item.students_birth_date.split("-")[0]}-${
-                            item.students_birth_date.split("-")[1]
-                          }` === birthDate
+                          Number(item.students_birth_date.split("-")[1]) ===
+                            Number(birthDate)
                         ) {
                           return getRecord(
                             counter++,
@@ -534,9 +531,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                           item.grade_level_aid === gradeLevel.id &&
                           withLrn === 0 &&
                           birthDate !== "" &&
-                          `${item.students_birth_date.split("-")[0]}-${
-                            item.students_birth_date.split("-")[1]
-                          }` === birthDate
+                          Number(item.students_birth_date.split("-")[1]) ===
+                            Number(birthDate)
                         ) {
                           return getRecord(
                             counter++,
@@ -575,9 +571,8 @@ const ReportsStudentList = ({ schoolYear }) => {
                           withLrn !== 0 &&
                           item.students_lrn !== "" &&
                           birthDate !== "" &&
-                          `${item.students_birth_date.split("-")[0]}-${
-                            item.students_birth_date.split("-")[1]
-                          }` === birthDate
+                          Number(item.students_birth_date.split("-")[1]) ===
+                            Number(birthDate)
                         ) {
                           return getRecord(
                             counter++,

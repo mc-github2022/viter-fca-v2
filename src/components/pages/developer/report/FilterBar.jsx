@@ -1,4 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
+import { getAllmonths } from "@/components/helpers/functions-general";
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -18,6 +19,7 @@ const FilterBar = ({
   setSyId,
 }) => {
   const [onFocus, setOnFocus] = React.useState(false);
+  const [monthName, setMonthName] = React.useState("");
   const refFilter = React.useRef();
 
   const { data: gradeLevelData } = useQueryData(
@@ -60,8 +62,9 @@ const FilterBar = ({
     setWithLrn(1);
   };
 
-  const handleSelectBirthDate = (e) => {
+  const handleSelectBirthDate = (e, item) => {
     setBirthDate(e.target.value);
+    setMonthName(e.target.options[e.target.selectedIndex].text);
   };
 
   const handleSelectSy = (e) => {
@@ -125,19 +128,21 @@ const FilterBar = ({
             type="text"
             className="text-[12px] caret-transparent"
             onFocus={() => setOnFocus(true)}
-            // onClick={() => setOnFocus(!onFocus)}
             value="All"
             onChange={(e) => e}
           />
-          <span className="absolute right-2 top-1/2 -translate-y-1/2">
+          <span
+            className="absolute right-2 top-1/2 -translate-y-1/2"
+            onClick={() => setOnFocus(true)}
+          >
             <IoIosArrowDown className="h-4 w-4 fill-gray-700" />
           </span>
 
           {onFocus && (
-            <ul className="absolute z-50 h-48 overflow-y-auto w-full bg-white border border-gray-200 rounded-md py-3 px-2">
+            <ul className="absolute z-50 h-72 overflow-y-auto w-full bg-white border border-gray-200 rounded-md py-4 px-2">
               <div className="flex flex-wrap w-full items-center">
-                <span className=" text-xs mb-1 text-accent">Gender</span>
-                <span className="flex items-center gap-2 w-full mb-2 outline-none">
+                <span className=" text-xs mb-1 font-bold">Gender</span>
+                <span className="flex items-center gap-2 w-full mb-3 outline-none">
                   <button
                     type="button"
                     className={`text-xs py-1 border rounded-md w-1/2 hover:bg-accentLight hover:text-white ${
@@ -162,8 +167,8 @@ const FilterBar = ({
                   </button>
                 </span>
 
-                <span className=" text-xs mb-1 text-accent">Level</span>
-                <button className="w-full mb-2 outline-none">
+                <span className=" text-xs mb-1 font-bold">Level</span>
+                <button className="w-full mb-3 outline-none">
                   <select
                     className="!border-gray-200 text-[12px]"
                     onChange={(e) => handleSelectLevel(e)}
@@ -201,8 +206,8 @@ const FilterBar = ({
                   </select>
                 </button>
 
-                <span className=" text-xs mb-1 text-accent">With</span>
-                <span className="flex items-center gap-2 w-full mb-2 outline-none ">
+                <span className=" text-xs mb-1 font-bold">With</span>
+                <span className="flex items-center gap-2 w-full mb-3 outline-none ">
                   <button
                     className={`text-xs py-1 border rounded-md w-1/2 hover:bg-accentLight hover:text-white ${
                       withLrn === 1 &&
@@ -214,13 +219,34 @@ const FilterBar = ({
                   </button>
                 </span>
 
-                <span className=" text-xs mb-1 text-accent">Birth Date</span>
-                <input
+                <span className=" text-xs mb-1 font-bold">Birth Date</span>
+                {/* <input
                   type="month"
                   className="text-xs"
                   value={birthDate}
                   onChange={(e) => handleSelectBirthDate(e)}
-                />
+                /> */}
+                <button className="w-full mb-3 outline-none">
+                  <select
+                    className="!border-gray-200 text-[12px]"
+                    onChange={(e) => handleSelectBirthDate(e)}
+                  >
+                    {birthDate !== "" && (
+                      <option value={birthDate} hidden>
+                        {monthName}
+                      </option>
+                    )}
+                    <option value="">All</option>
+
+                    {getAllmonths?.map((item, key) => {
+                      return (
+                        <option key={key} value={key + 1}>
+                          {item}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </button>
               </div>
             </ul>
           )}

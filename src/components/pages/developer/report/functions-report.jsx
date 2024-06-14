@@ -1,3 +1,4 @@
+import { formatDate } from "@/components/helpers/functions-general";
 import Pills from "@/components/partials/Pills";
 
 export const getStudentStatus = (
@@ -141,7 +142,10 @@ export const getRecord = (
         )}
       </td>
       <td>{item.student_fullname}</td>
+      <td>{item.students_gender === "m" ? "Male" : "Female"}</td>
       <td>{item.grade_level_name}</td>
+      <td>{item.students_lrn}</td>
+      <td>{formatDate(item.students_birth_date)}</td>
       <td>{item.school_year}</td>
     </tr>
   );
@@ -204,9 +208,7 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
       withLrn !== 0 &&
       item.students_lrn !== "" &&
       birthDate !== "" &&
-      `${item.students_birth_date.split("-")[0]}-${
-        item.students_birth_date.split("-")[1]
-      }` === birthDate
+      Number(item.students_birth_date.split("-")[1]) === Number(birthDate)
     ) {
       count++;
     }
@@ -242,9 +244,7 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
       withLrn !== 0 &&
       item.students_lrn !== "" &&
       birthDate !== "" &&
-      `${item.students_birth_date.split("-")[0]}-${
-        item.students_birth_date.split("-")[1]
-      }` === birthDate
+      Number(item.students_birth_date.split("-")[1]) === Number(birthDate)
     ) {
       count++;
     }
@@ -267,9 +267,7 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
       withLrn !== 0 &&
       item.students_lrn !== "" &&
       birthDate !== "" &&
-      `${item.students_birth_date.split("-")[0]}-${
-        item.students_birth_date.split("-")[1]
-      }` === birthDate
+      Number(item.students_birth_date.split("-")[1]) === Number(birthDate)
     ) {
       count++;
     }
@@ -280,9 +278,7 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
       (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
       withLrn === 0 &&
       birthDate !== "" &&
-      `${item.students_birth_date.split("-")[0]}-${
-        item.students_birth_date.split("-")[1]
-      }` === birthDate
+      Number(item.students_birth_date.split("-")[1]) === Number(birthDate)
     ) {
       count++;
     }
@@ -307,9 +303,7 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
       withLrn !== 0 &&
       item.students_lrn !== "" &&
       birthDate !== "" &&
-      `${item.students_birth_date.split("-")[0]}-${
-        item.students_birth_date.split("-")[1]
-      }` === birthDate
+      Number(item.students_birth_date.split("-")[1]) === Number(birthDate)
     ) {
       count++;
     }
@@ -321,9 +315,7 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
       (gradeLevel.id === 0 || gradeLevel.id === undefined) &&
       withLrn === 0 &&
       birthDate !== "" &&
-      `${item.students_birth_date.split("-")[0]}-${
-        item.students_birth_date.split("-")[1]
-      }` === birthDate
+      Number(item.students_birth_date.split("-")[1]) === Number(birthDate)
     ) {
       count++;
     }
@@ -335,9 +327,7 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
       item.grade_level_aid === gradeLevel.id &&
       withLrn === 0 &&
       birthDate !== "" &&
-      `${item.students_birth_date.split("-")[0]}-${
-        item.students_birth_date.split("-")[1]
-      }` === birthDate
+      Number(item.students_birth_date.split("-")[1]) === Number(birthDate)
     ) {
       count++;
     }
@@ -360,9 +350,7 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
       withLrn !== 0 &&
       item.students_lrn !== "" &&
       birthDate !== "" &&
-      `${item.students_birth_date.split("-")[0]}-${
-        item.students_birth_date.split("-")[1]
-      }` === birthDate
+      Number(item.students_birth_date.split("-")[1]) === Number(birthDate)
     ) {
       count++;
     }

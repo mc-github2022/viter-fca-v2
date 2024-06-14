@@ -248,3 +248,7 @@ export const getLastAndCurrentSchoolYear = (schoolYear) => {
   }
   return { currentSY, lastSY };
 };
+
+export const getAllmonths = [...Array(12).keys()].map((key) =>
+  new Date(0, key).toLocaleString("en", { month: "long" })
+);

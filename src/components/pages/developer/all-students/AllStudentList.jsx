@@ -8,8 +8,10 @@ import SearchBar from "@/components/partials/SearchBar";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalConfirm from "@/components/partials/modals/ModalConfirm";
 import ModalDelete from "@/components/partials/modals/ModalDelete";
+import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 import ModalReEnrolling from "@/components/partials/modals/ModalReEnrolling";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
+import TableSpinner from "@/components/partials/spinners/TableSpinner";
 import {
   setError,
   setIsConfirm,
@@ -33,8 +35,6 @@ import {
   getGradeLevelOrderByStudentId,
   getStudentStatus,
 } from "./functions-all-students";
-import TableSpinner from "@/components/partials/spinners/TableSpinner";
-import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError";
 
 const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
