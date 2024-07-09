@@ -320,6 +320,21 @@ const ModalSettingsNav = ({
                   <span className="ml-2">Additional</span>
                 </button>
               </li>
+              <li className="text-gray-600 p-1 pl-8">
+                <button
+                  onClick={(e) => {
+                    handleChangeSettingInner(6, e);
+                    handleSubNavActive("base-rate-list", 15);
+                  }}
+                  className={`${
+                    subNavActive === "base-rate-list"
+                      ? "!border-l-2 !border-[#123909]"
+                      : ""
+                  } !bg-[unset] !text-gray-600 border-l-2 border-transparent`}
+                >
+                  <span className="ml-2">Base rate</span>
+                </button>
+              </li>
             </ul>
           </li>
 

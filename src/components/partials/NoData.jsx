@@ -2,10 +2,12 @@ import React from "react";
 import { FaFolderOpen } from "react-icons/fa";
 import IconNoData from "./svg/IconNoData";
 
-const NoData = () => {
+const NoData = ({ className = "" }) => {
   return (
     <>
-      <div className="flex justify-center items-center flex-col p-10">
+      <div
+        className={`flex justify-center items-center flex-col p-10 ${className}`}
+      >
         <span className="text-7xl text-gray-400">
           <IconNoData />
         </span>

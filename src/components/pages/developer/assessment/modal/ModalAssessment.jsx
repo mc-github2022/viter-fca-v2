@@ -145,10 +145,10 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
   );
 
   const totalAdditionalDiscountData = getTotalAdditionalDiscount(
+    primaryDiscountData,
     listOfScheme,
     getGetAdditionalDiscount(additionalDiscount, additionalDiscountId)
   );
-
   return (
     <>
       <div
@@ -329,7 +329,9 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     primaryDiscount={primaryDiscount}
                     item={item}
                   />
+
                   <AssessmentAdditionalDiscountList
+                    primaryDiscountData={primaryDiscountData?.tuitionFeePercent}
                     additionalDiscountId={additionalDiscountId}
                     setAdditionalDiscountId={setAdditionalDiscountId}
                     item={item}

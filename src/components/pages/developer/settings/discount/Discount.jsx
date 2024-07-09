@@ -5,9 +5,10 @@ import ModalSuccess from "@/components/partials/modals/ModalSuccess";
 import { setIndexItem, setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { FaArrowLeft } from "react-icons/fa";
+import AdditionalDiscount from "./additional/AdditionalDiscount";
 import Category from "./category/Category";
 import ListDiscount from "./list/ListDiscount";
-import AdditionalDiscount from "./additional/AdditionalDiscount";
+import BaseRate from "./base-rate/BaseRate";
 const Discount = ({ index, indexInner }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
@@ -38,11 +39,11 @@ const Discount = ({ index, indexInner }) => {
               year
             </p>
           </div>
-          {console.log("index ", index, indexInner)}
           {indexInner === 3 && <Category />}
 
           {indexInner === 4 && <ListDiscount />}
           {indexInner === 5 && <AdditionalDiscount />}
+          {indexInner === 6 && <BaseRate />}
 
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

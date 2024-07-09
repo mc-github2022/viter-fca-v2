@@ -2,7 +2,6 @@ import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
 import SearchBar from "@/components/partials/SearchBar.jsx";
-import ServerError from "@/components/partials/ServerError.jsx";
 import TableLoading from "@/components/partials/TableLoading.jsx";
 import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidRequestError.jsx";
 import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx";
@@ -11,13 +10,9 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import { CiViewList } from "react-icons/ci";
 import { useInView } from "react-intersection-observer";
-import ModalAssessment from "./modal/ModalAssessment.jsx";
 
 const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [id, setId] = React.useState(null);
-  const [dataItem, setData] = React.useState(null);
-  const [isArchive, setIsArchive] = React.useState(1);
   const search = React.useRef({ value: "" });
   const [onSearch, setOnSearch] = React.useState(false);
   const [page, setPage] = React.useState(1);
@@ -73,7 +68,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
         )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <h6>
-            Count:{" "}
+            Count:
             <span>
               {result?.pages[0].success === true && result?.pages[0].count}
             </span>

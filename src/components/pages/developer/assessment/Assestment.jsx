@@ -2,7 +2,6 @@ import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
 import PageNotFound from "@/components/partials/PageNotFound.jsx";
-import ServerError from "@/components/partials/ServerError.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";

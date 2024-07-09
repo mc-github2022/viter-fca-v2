@@ -15,6 +15,7 @@ dist-ssr
 # API
 rest/v2/notification/PHPMailer
 rest/v2/jwt
+jsconfig.json
 
 
 # Editor directories and files

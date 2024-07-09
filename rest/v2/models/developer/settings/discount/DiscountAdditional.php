@@ -9,6 +9,8 @@ class DiscountAdditional
     public $discount_additional_created;
     public $discount_additional_updated;
 
+    public $search;
+
     public $connection;
     public $lastInsertedId;
     public $tblDiscountAdditional;
@@ -183,6 +185,31 @@ class DiscountAdditional
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "discount_category_id" => $this->discount_additional_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // search
+    public function search()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "* ";
+            $sql .= "from ";
+            $sql .= " {$this->tblDiscountAdditional} ";
+            $sql .= "where discount_additional_is_active = '1' ";
+            $sql .= "and ";
+            $sql .= "( ";
+            $sql .= "discount_additional_name like :discount_additional_name ";
+            $sql .= ") ";
+            $sql .= "order by ";
+            $sql .= "discount_additional_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "discount_additional_name" => "%{$this->search}%",
             ]);
         } catch (PDOException $ex) {
             $query = false;

@@ -328,8 +328,6 @@ export const getMonthlyFeeDiscountedAmount = (
 
     const finalTuitionFeeAmount = finalTuitionFee * Number(isMultifySchemeB);
 
-    console.log("isMultifySchemeB", isMultifySchemeB);
-
     const finalBooksFee = schemeABooks - Number(listItem.tuition_fee_books);
 
     const amount =
@@ -625,7 +623,11 @@ export const getGetAdditionalDiscount = (
 
 // ADDITIONAL DISCOUNT
 //  list of Additional discount for UI purpose
-export const getTotalAdditionalDiscount = (listOfScheme, additionalDisc) => {
+export const getTotalAdditionalDiscount = (
+  primaryDiscountData,
+  listOfScheme,
+  additionalDisc
+) => {
   let result = [];
   let percent = 0;
   let amount = 0;
@@ -652,7 +654,20 @@ export const getTotalAdditionalDiscount = (listOfScheme, additionalDisc) => {
         (item) => item.tuition_fee_monthly === ""
       );
       if (result?.length > 0) {
-        amount = (Number(result[0]?.tuition_fee_tuition) / 9) * 2;
+        // IF PRIMARY TUITION PERCENT IS NEGATIVE OR ZERO
+        // OR IF DONT HAVE PRIMARY DISCOUNT
+        if (Number(primaryDiscountData) <= 0) {
+          amount = (Number(result[0]?.tuition_fee_tuition) / 9) * 2;
+        } else {
+          const primaryAmount =
+            Number(result[0]?.tuition_fee_tuition) *
+            Number(primaryDiscountData);
+
+          const newTuitionFeeAmount =
+            Number(result[0]?.tuition_fee_tuition) - Number(primaryAmount);
+
+          amount = (Number(newTuitionFeeAmount) / 9) * 2;
+        }
       }
     }
   }

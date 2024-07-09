@@ -9,6 +9,7 @@ import {
 } from "./functions-assessment";
 
 const AssessmentAdditionalDiscountList = ({
+  primaryDiscountData,
   additionalDiscountId,
   setAdditionalDiscountId,
   item,
@@ -35,6 +36,7 @@ const AssessmentAdditionalDiscountList = ({
     );
 
     totalAdditionalDiscountData = getTotalAdditionalDiscount(
+      primaryDiscountData,
       listOfScheme,
       additionalDisc
     );
@@ -46,6 +48,7 @@ const AssessmentAdditionalDiscountList = ({
   );
 
   const getFinalAdditionalDiscount = getTotalAdditionalDiscount(
+    primaryDiscountData,
     listOfScheme,
     additionalDisc
   );
