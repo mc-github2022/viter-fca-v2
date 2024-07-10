@@ -1,8 +1,12 @@
 // PRIMARY DISCOUNT
 
 import {
+  addmissionFeeId,
+  booksFeeId,
+  miscFeeId,
   numberWithCommasToFixed,
   schemeCId,
+  tuitionFeeId,
 } from "@/components/helpers/functions-general";
 
 //  list of Primary discount for UI purpose
@@ -62,16 +66,29 @@ export const getPrimaryPercentDiscount = (
 
 // PRIMARY DISCOUNT
 // GET TOTAL OF DISCOUNT IN ADMISSION
-export const getAdmissionDiscountedAmount = (primaryDiscountData, listItem) => {
+export const getAdmissionDiscountedAmount = (
+  primaryDiscountData,
+  listItem,
+  totalAdditionalDiscountData
+) => {
   let result = "";
+  let primaryDiscount = 0;
 
   if (!isNaN(primaryDiscountData.admissionFeePercent)) {
     const amount =
       Number(listItem.tuition_fee_admission) *
       Number(primaryDiscountData.admissionFeePercent);
 
-    result = numberWithCommasToFixed(amount, 2);
+    primaryDiscount = Number(amount);
   }
+
+  result = Number(primaryDiscount);
+
+  if (addmissionFeeId === totalAdditionalDiscountData?.id) {
+    result =
+      Number(primaryDiscount) + Number(totalAdditionalDiscountData.amount);
+  }
+
   return result;
 };
 
@@ -82,34 +99,110 @@ export const getTuitionDiscountedAmount = (
   listItem,
   additionalDiscount
 ) => {
-  let result = "";
+  let result = 0;
 
-  if (!isNaN(primaryDiscountData.tuitionFeePercent)) {
+  if (
+    !isNaN(primaryDiscountData.tuitionFeePercent) &&
+    Number(primaryDiscountData.tuitionFeePercent) > 0
+  ) {
     const amount =
       Number(listItem.tuition_fee_tuition) *
       Number(primaryDiscountData.tuitionFeePercent);
+    // console.log("amount1", amount);
 
-    result = numberWithCommasToFixed(amount, 2);
+    result = Number(listItem.tuition_fee_tuition) - amount;
   }
 
-  if (!isNaN(additionalDiscount)) {
+  if (!isNaN(additionalDiscount) && Number(additionalDiscount) > 0) {
     const amount =
       Number(listItem.tuition_fee_tuition) - Number(additionalDiscount);
 
-    result = numberWithCommasToFixed(amount, 2);
+    // console.log("amount2", amount, Number(additionalDiscount));
+    result = amount;
   }
 
   if (
     !isNaN(primaryDiscountData.tuitionFeePercent) &&
     Number(primaryDiscountData.tuitionFeePercent) > 0 &&
-    !isNaN(additionalDiscount)
+    !isNaN(additionalDiscount) &&
+    Number(additionalDiscount) > 0
   ) {
-    const amount =
+    const primaryAmount =
       Number(listItem.tuition_fee_tuition) *
-        Number(primaryDiscountData.tuitionFeePercent) -
-      Number(additionalDiscount);
+      Number(primaryDiscountData.tuitionFeePercent);
+    const additionalAmount = Number(additionalDiscount);
 
-    result = numberWithCommasToFixed(amount, 2);
+    const amount = Number(primaryAmount) + Number(additionalAmount);
+
+    // console.log("amount3", amount);
+
+    result = Number(listItem.tuition_fee_tuition) - amount;
+  }
+
+  // console.log("result4", result);
+
+  const finalamount = Number(result);
+
+  return finalamount;
+};
+
+// TOTAL DISCOUNT
+// GET TOTAL OF DISCOUNT IN TUITION
+export const getDiscountAmount = (
+  primaryDiscountData,
+  listOfScheme,
+  totalAdditionalDiscountData
+) => {
+  let addmissionAmount = 0;
+  let miscAmount = 0;
+  let tuitionAmount = 0;
+  let booksAmount = 0;
+  let result = [];
+
+  if (listOfScheme?.data.length > 0) {
+    listOfScheme?.data.map((listItem) => {
+      // ADDMISSION FEE
+      if (
+        addmissionFeeId === totalAdditionalDiscountData?.id ||
+        (!isNaN(primaryDiscountData.tuitionFeePercent) &&
+          Number(primaryDiscountData.tuitionFeePercent) > 0)
+      ) {
+        addmissionAmount = getAdmissionDiscountedAmount(
+          primaryDiscountData,
+          listItem,
+          totalAdditionalDiscountData
+        );
+      }
+      // MISC FEE
+      if (miscFeeId === totalAdditionalDiscountData?.id) {
+        miscAmount = 0;
+      }
+      // TUITION FEE
+      if (
+        tuitionFeeId === totalAdditionalDiscountData?.id &&
+        (Number(primaryDiscountData?.tuitionFeePercent) > 0 ||
+          Number(totalAdditionalDiscountData?.percent) > 0 ||
+          Number(totalAdditionalDiscountData?.amount) > 0)
+      ) {
+        console.log("primaryDiscountData", primaryDiscountData);
+        tuitionAmount = getTuitionDiscountedAmount(
+          primaryDiscountData,
+          listItem,
+          totalAdditionalDiscountData.amount
+        );
+      }
+      // BOOKS FEE
+      if (booksFeeId === totalAdditionalDiscountData?.id) {
+        booksAmount = 0;
+      }
+      result.push({
+        tuition_fee_aid: listItem.tuition_fee_aid,
+        addmissionAmount,
+        miscAmount,
+        tuitionAmount,
+        booksAmount,
+      });
+    });
   }
 
   return result;
@@ -629,13 +722,15 @@ export const getTotalAdditionalDiscount = (
   additionalDisc
 ) => {
   let result = [];
+  let val = {};
   let percent = 0;
   let amount = 0;
+  let id = 0;
 
   if (additionalDisc?.length > 0) {
+    id = Number(additionalDisc[0]?.discount_additional_base_rate_id);
     // amount additional discount
     amount = Number(additionalDisc[0]?.discount_additional_amount);
-
     // percent additional discount
     if (
       listOfScheme?.count > 0 &&
@@ -656,9 +751,7 @@ export const getTotalAdditionalDiscount = (
       if (result?.length > 0) {
         // IF PRIMARY TUITION PERCENT IS NEGATIVE OR ZERO
         // OR IF DONT HAVE PRIMARY DISCOUNT
-        if (Number(primaryDiscountData) <= 0) {
-          amount = (Number(result[0]?.tuition_fee_tuition) / 9) * 2;
-        } else {
+        if (Number(primaryDiscountData.tuitionFeePercent) > 0) {
           const primaryAmount =
             Number(result[0]?.tuition_fee_tuition) *
             Number(primaryDiscountData);
@@ -667,14 +760,27 @@ export const getTotalAdditionalDiscount = (
             Number(result[0]?.tuition_fee_tuition) - Number(primaryAmount);
 
           amount = (Number(newTuitionFeeAmount) / 9) * 2;
+        } else {
+          amount = (Number(result[0]?.tuition_fee_tuition) / 9) * 2;
         }
+        console.log(
+          "Number(primaryDiscountData)",
+          Number(amount),
+          primaryDiscountData.tuitionFeePercent
+        );
       }
     }
+    val = {
+      amount,
+      percent,
+      id,
+    };
   }
 
-  const val = {
+  val = {
     amount,
     percent,
+    id,
   };
 
   return { ...val };

@@ -11,7 +11,7 @@ import { BiSolidCheckCircle } from "react-icons/bi";
 import { LiaTimesSolid } from "react-icons/lia";
 import AssessmentAdditionalDiscountList from "./AssessmentAdditionalDiscountList";
 import AssessmentPrimaryDiscountList from "./AssessmentPrimaryDiscountList";
-import AssessmentRateList from "./AssessmentRateList";
+import AssessmentRateNewList from "./AssessmentRateNewList";
 import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 import {
   getGetAdditionalDiscount,
@@ -23,7 +23,6 @@ import {
   getTotalPaymentWithComma,
   handleAssessmentRemarks,
 } from "./functions-assessment";
-import AssessmentRateNewList from "./AssessmentRateNewList";
 
 const ModalAssessment = ({ setShowAssessment, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -150,6 +149,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     listOfScheme,
     getGetAdditionalDiscount(additionalDiscount, additionalDiscountId)
   );
+
   return (
     <>
       <div
@@ -311,7 +311,6 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                       )}
                     </>
                   )}
-
                   <AssessmentRateNewList
                     listOfScheme={listOfScheme}
                     selectItem={selectItem}
