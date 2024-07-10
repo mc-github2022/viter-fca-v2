@@ -181,6 +181,8 @@ export default {
       screens: {
         xr: { raw: "(min-height: 800px)" },
         poco: { raw: "(min-height: 800px)" },
+        loptop: { raw: "(min-height: 700px)" },
+        loptopXl: { raw: "(min-height: 900px)" },
         xxs: "412px",
       },
     },

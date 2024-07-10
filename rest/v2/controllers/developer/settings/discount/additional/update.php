@@ -15,6 +15,8 @@ if (array_key_exists("discountAdditionalId", $_GET)) {
     $additional_discount->discount_additional_name = checkIndex($data, "discount_additional_name");
     $additional_discount->discount_additional_percent = $data["discount_additional_percent"];
     $additional_discount->discount_additional_amount = $data["discount_additional_amount"];
+    $additional_discount->discount_additional_base_rate_id = $data["discount_additional_base_rate_id"];
+    $additional_discount->discount_additional_is_early_bird = $data["discount_additional_is_early_bird"];
     $additional_discount->discount_additional_updated = date("Y-m-d H:i:s");
     checkId($additional_discount->discount_additional_aid);
 

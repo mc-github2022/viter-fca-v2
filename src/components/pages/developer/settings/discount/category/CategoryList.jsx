@@ -63,7 +63,7 @@ const CategoryList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Category List</h5>
 
-      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto h-[500px] custom__scroll  relative">
+      <div className="datalist h-[500px] custom__scroll  relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && categoryDiscount.success === false ? (
@@ -78,7 +78,7 @@ const CategoryList = ({ setItemEdit }) => {
           categoryDiscount?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "datalist__item max-w-[650px] text-xs flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
               }
               key={key}
             >

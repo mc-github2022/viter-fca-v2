@@ -23,6 +23,7 @@ import {
   getTotalPaymentWithComma,
   handleAssessmentRemarks,
 } from "./functions-assessment";
+import AssessmentRateNewList from "./AssessmentRateNewList";
 
 const ModalAssessment = ({ setShowAssessment, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -311,7 +312,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
                     </>
                   )}
 
-                  <AssessmentRateList
+                  <AssessmentRateNewList
                     listOfScheme={listOfScheme}
                     selectItem={selectItem}
                     primaryDiscountData={primaryDiscountData}

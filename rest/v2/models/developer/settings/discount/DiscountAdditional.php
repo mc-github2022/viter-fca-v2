@@ -6,6 +6,8 @@ class DiscountAdditional
     public $discount_additional_name;
     public $discount_additional_percent;
     public $discount_additional_amount;
+    public $discount_additional_base_rate_id;
+    public $discount_additional_is_early_bird;
     public $discount_additional_created;
     public $discount_additional_updated;
 
@@ -15,12 +17,14 @@ class DiscountAdditional
     public $lastInsertedId;
     public $tblDiscountAdditional;
     public $tblDiscount;
+    public $tblBaseRate;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblDiscountAdditional = "fcav2_settings_discount_additional";
         $this->tblDiscount = "fcav2_settings_discount";
+        $this->tblBaseRate = "fcav2_settings_base_rate";
     }
 
     // create
@@ -32,12 +36,16 @@ class DiscountAdditional
             $sql .= "discount_additional_name, ";
             $sql .= "discount_additional_percent, ";
             $sql .= "discount_additional_amount, ";
+            $sql .= "discount_additional_is_early_bird, ";
+            $sql .= "discount_additional_base_rate_id, ";
             $sql .= "discount_additional_updated, ";
             $sql .= "discount_additional_created ) values ( ";
             $sql .= ":discount_additional_is_active, ";
             $sql .= ":discount_additional_name, ";
             $sql .= ":discount_additional_percent, ";
             $sql .= ":discount_additional_amount, ";
+            $sql .= ":discount_additional_is_early_bird, ";
+            $sql .= ":discount_additional_base_rate_id, ";
             $sql .= ":discount_additional_updated, ";
             $sql .= ":discount_additional_created ) ";
             $query = $this->connection->prepare($sql);
@@ -46,6 +54,8 @@ class DiscountAdditional
                 "discount_additional_name" => $this->discount_additional_name,
                 "discount_additional_percent" => $this->discount_additional_percent,
                 "discount_additional_amount" => $this->discount_additional_amount,
+                "discount_additional_base_rate_id" => $this->discount_additional_base_rate_id,
+                "discount_additional_is_early_bird" => $this->discount_additional_is_early_bird,
                 "discount_additional_updated" => $this->discount_additional_updated,
                 "discount_additional_created" => $this->discount_additional_created,
             ]);
@@ -61,11 +71,14 @@ class DiscountAdditional
     {
         try {
             $sql = "select ";
-            $sql .= "* ";
+            $sql .= "additionalDiscount.*, ";
+            $sql .= "baseRate.settings_base_rate_name ";
             $sql .= "from ";
-            $sql .= " {$this->tblDiscountAdditional} ";
-            $sql .= "order by discount_additional_is_active desc, ";
-            $sql .= "discount_additional_name asc ";
+            $sql .= " {$this->tblDiscountAdditional} as additionalDiscount, ";
+            $sql .= " {$this->tblBaseRate} as baseRate ";
+            $sql .= "where additionalDiscount.discount_additional_base_rate_id = baseRate.settings_base_rate_aid ";
+            $sql .= "order by additionalDiscount.discount_additional_is_active desc, ";
+            $sql .= "additionalDiscount.discount_additional_name asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -103,6 +116,8 @@ class DiscountAdditional
             $sql .= "discount_additional_name = :discount_additional_name, ";
             $sql .= "discount_additional_percent = :discount_additional_percent, ";
             $sql .= "discount_additional_amount = :discount_additional_amount, ";
+            $sql .= "discount_additional_base_rate_id = :discount_additional_base_rate_id, ";
+            $sql .= "discount_additional_is_early_bird = :discount_additional_is_early_bird, ";
             $sql .= "discount_additional_updated = :discount_additional_updated ";
             $sql .= "where discount_additional_aid = :discount_additional_aid ";
             $query = $this->connection->prepare($sql);
@@ -110,6 +125,8 @@ class DiscountAdditional
                 "discount_additional_name" => $this->discount_additional_name,
                 "discount_additional_percent" => $this->discount_additional_percent,
                 "discount_additional_amount" => $this->discount_additional_amount,
+                "discount_additional_base_rate_id" => $this->discount_additional_base_rate_id,
+                "discount_additional_is_early_bird" => $this->discount_additional_is_early_bird,
                 "discount_additional_updated" => $this->discount_additional_updated,
                 "discount_additional_aid" => $this->discount_additional_aid,
             ]);
@@ -162,9 +179,11 @@ class DiscountAdditional
         try {
             $sql = "select discount_additional_name from {$this->tblDiscountAdditional} ";
             $sql .= "where discount_additional_name = :discount_additional_name ";
+            $sql .= "and discount_additional_base_rate_id = :discount_additional_base_rate_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "discount_additional_name" => "{$this->discount_additional_name}",
+                "discount_additional_base_rate_id" => $this->discount_additional_base_rate_id,
             ]);
         } catch (PDOException $ex) {
             $query = false;

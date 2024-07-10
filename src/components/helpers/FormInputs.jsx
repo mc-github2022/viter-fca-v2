@@ -164,13 +164,11 @@ export const InputCheckbox = ({ label, onChange = null, ...props }) => {
   return (
     <>
       <div className="flex items-center gap-2">
-        <span
-          className="relative flex cursor-pointer items-center justify-center rounded-full"
-          htmlFor="select_all"
-        >
+        <span className="relative flex cursor-pointer items-center justify-center rounded-full">
           <input
             {...field}
             {...props}
+            id="select_all"
             className={
               meta.touched && meta.error
                 ? "w-auto h-auto error-show"
@@ -186,7 +184,7 @@ export const InputCheckbox = ({ label, onChange = null, ...props }) => {
           </span>
         </span>
 
-        <label htmlFor={props.id || props.name} className="cursor-pointer  m-0">
+        <label htmlFor={"select_all"} className="cursor-pointer  m-0">
           {label}
         </label>
       </div>

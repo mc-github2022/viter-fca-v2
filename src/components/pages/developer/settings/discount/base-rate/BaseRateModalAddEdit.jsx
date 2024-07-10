@@ -51,6 +51,7 @@ const BaseRateModalAddEdit = ({ itemEdit }) => {
   const initVal = {
     settings_base_rate_aid: itemEdit ? itemEdit.settings_base_rate_aid : "",
     settings_base_rate_name: itemEdit ? itemEdit.settings_base_rate_name : "",
+    settings_base_rate_order: itemEdit ? itemEdit.settings_base_rate_order : "",
     settings_base_rate_name_old: itemEdit
       ? itemEdit.settings_base_rate_name
       : "",
@@ -58,6 +59,7 @@ const BaseRateModalAddEdit = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     settings_base_rate_name: Yup.string().required("Required"),
+    settings_base_rate_order: Yup.string().required("Required"),
   });
   return (
     <>
@@ -77,6 +79,15 @@ const BaseRateModalAddEdit = ({ itemEdit }) => {
                     label="Name"
                     type="text"
                     name="settings_base_rate_name"
+                    disabled={mutation.isPending}
+                  />
+                </div>
+                <div className="form__wrap text-xs mb-3">
+                  <InputText
+                    label="Order by"
+                    type="text"
+                    number="number"
+                    name="settings_base_rate_order"
                     disabled={mutation.isPending}
                   />
                 </div>

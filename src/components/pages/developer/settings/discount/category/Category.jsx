@@ -25,7 +25,9 @@ const Category = () => {
           >
             <AiOutlinePlus /> Add New
           </button>
-          <CategoryList setItemEdit={setItemEdit} />
+          <div className="h-[400px] xr:h-[570px] lg:max-h-[680px] loptop:max-h-[350px] w-full xr:overflow-auto overflow-hidden custom__scroll ">
+            <CategoryList setItemEdit={setItemEdit} />
+          </div>
         </>
       )}
       {store.isSettingAdd && <CategoryModalAddEdit itemEdit={itemEdit} />}

@@ -25,7 +25,9 @@ const BaseRate = () => {
           >
             <AiOutlinePlus /> Add New
           </button>
-          <BaseRateList setItemEdit={setItemEdit} />
+          <div className="h-[400px] xr:h-[570px] lg:max-h-[680px] loptop:max-h-[350px] w-full overflow-auto custom__scroll ">
+            <BaseRateList setItemEdit={setItemEdit} />
+          </div>
         </>
       )}
       {store.isSettingAdd && <BaseRateModalAddEdit itemEdit={itemEdit} />}

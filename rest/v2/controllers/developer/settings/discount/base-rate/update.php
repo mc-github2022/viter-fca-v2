@@ -13,6 +13,7 @@ if (array_key_exists("baseRateId", $_GET)) {
     // get data
     $basesRate->settings_base_rate_aid = $_GET['baseRateId'];
     $basesRate->settings_base_rate_name = checkIndex($data, "settings_base_rate_name");
+    $basesRate->settings_base_rate_order = checkIndex($data, "settings_base_rate_order");
     $basesRate->settings_base_rate_updated = date("Y-m-d H:i:s");
     checkId($basesRate->settings_base_rate_aid);
 

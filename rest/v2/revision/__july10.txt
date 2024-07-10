@@ -2,8 +2,9 @@ UPLOAD
  
  *CONTROLLERS
         ==> rest/v2/controllers/developer/settings/discount/additional/search.php
-        ==> rest/v2/controllers/developer/settings/discount/base-rate
-        ==> 
+        ==> rest/v2/controllers/developer/settings/discount/additional/create.php
+        ==> rest/v2/controllers/developer/settings/discount/additional/update.php
+        ==> rest/v2/controllers/developer/settings/discount/base-rate {NOTE: ALL FILES}
         ==> 
         ==> 
 
@@ -17,7 +18,8 @@ UPLOAD
  
 
 *DB BACKUP 
-        ==> 
+        ==> fcav2_settings_discount_additional.sql
+        ==> fcav2_settings_base_rate.sql
         ==> 
         ==> 
         ==> 

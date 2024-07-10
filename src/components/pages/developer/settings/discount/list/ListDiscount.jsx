@@ -19,15 +19,17 @@ const ListDiscount = () => {
   return (
     <>
       {!store.isSettingAdd && (
-        <div className="max-w-[800px]">
+        <>
           <button
             className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
             onClick={handleAdd}
           >
             <AiOutlinePlus /> Add New
           </button>
-          <ListDiscountList setItemEdit={setItemEdit} />
-        </div>
+          <div className="h-[400px] xr:h-[570px] lg:max-h-[680px] loptop:max-h-[350px] w-full overflow-auto custom__scroll">
+            <ListDiscountList setItemEdit={setItemEdit} />
+          </div>
+        </>
       )}
       {store.isSettingAdd && <ListDiscountModalAddEdit itemEdit={itemEdit} />}
     </>

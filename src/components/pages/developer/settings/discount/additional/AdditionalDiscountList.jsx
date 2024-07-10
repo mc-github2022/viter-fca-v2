@@ -67,7 +67,7 @@ const AdditionalDiscountList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Additional List</h5>
 
-      <div className="datalist max-w-[650px] w-[650px] overflow-x-hidden overflow-y-auto min-h-[230px] lg:max-h-[580px] custom__scroll poco:max-h-[640px] lg:poco:max-h-[400px] relative">
+      <div className="datalist h-[500px] custom__scroll  relative">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && discount.success === false ? (
@@ -81,16 +81,24 @@ const AdditionalDiscountList = ({ setItemEdit }) => {
           discount.success === true &&
           discount?.data.map((item, key) => (
             <div
-              className={`datalist__item text-xs justify-between lg:items-center border-b border-line py-2 first:pt-5 ${
+              className={`datalist__item max-w-[650px] text-xs flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none ${
                 item.discount_additional_is_active
                   ? "opacity-100"
                   : "opacity-40"
               }`}
               key={key}
             >
-              <div className="grid grid-cols-[1fr,1fr,1fr,4rem] items-center">
+              <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,4rem] items-center">
                 <p className="mb-0 font-bold">
                   {item.discount_additional_name}
+                </p>
+                <p className="mb-0 text-right capitalize">
+                  {item.discount_additional_is_early_bird === 1
+                    ? "early bird"
+                    : ""}
+                </p>
+                <p className="mb-0 text-right capitalize">
+                  {item.settings_base_rate_name}
                 </p>
                 <p className="mb-0 text-right">
                   {Number(item.discount_additional_percent)}%

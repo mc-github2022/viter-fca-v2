@@ -1,5 +1,6 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import {
+  InputCheckbox,
   InputSelect,
   InputText,
   InputTextArea,
@@ -53,6 +54,17 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
     },
   });
 
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: baseRate,
+  } = useQueryData(
+    "/v2/dev-settings-base-rate", // endpoint
+    "get", // method
+    "base-rate" // key
+  );
+
   const initVal = {
     discount_additional_name: itemEdit ? itemEdit.discount_additional_name : "",
     discount_additional_percent: itemEdit
@@ -61,6 +73,14 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
     discount_additional_amount: itemEdit
       ? itemEdit.discount_additional_amount
       : "",
+    discount_additional_base_rate_id: itemEdit
+      ? itemEdit.discount_additional_base_rate_id
+      : "",
+    discount_additional_is_early_bird: itemEdit
+      ? itemEdit.discount_additional_is_early_bird === 0
+        ? false
+        : true
+      : false,
 
     discount_additional_name_old: itemEdit
       ? itemEdit.discount_additional_name
@@ -69,6 +89,7 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     discount_additional_name: Yup.string().required("Required"),
+    discount_additional_base_rate_id: Yup.string().required("Required"),
   });
   return (
     <>
@@ -91,6 +112,58 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
                     disabled={mutation.isPending}
                   />
                 </div>
+
+                <div className="form__wrap text-xs !my-4">
+                  <InputCheckbox
+                    label="Is early bird"
+                    type="checkbox"
+                    className="mb-0 !text-xs font-bold"
+                    name="discount_additional_is_early_bird"
+                  />
+                </div>
+
+                <div className="form__wrap">
+                  <InputSelect
+                    label="Deducted to"
+                    type="text"
+                    name="discount_additional_base_rate_id"
+                    disabled={mutation.isPending}
+                    onChange={(e) => e}
+                  >
+                    <optgroup label="Select Base Rate">
+                      {error && (
+                        <option value="" hidden>
+                          Error
+                        </option>
+                      )}
+
+                      {isLoading || isFetching ? (
+                        <option value="" hidden>
+                          Loading...
+                        </option>
+                      ) : baseRate?.data.length === 0 ? (
+                        <option>No Data</option>
+                      ) : (
+                        <>
+                          <option value="" hidden>
+                            --
+                          </option>
+                          {baseRate?.data.map((item, key) => {
+                            return (
+                              <option
+                                key={key}
+                                value={item.settings_base_rate_aid}
+                              >
+                                {`${item.settings_base_rate_name}`}
+                              </option>
+                            );
+                          })}
+                        </>
+                      )}
+                    </optgroup>
+                  </InputSelect>
+                </div>
+
                 <div className="form__wrap text-xs mb-3">
                   <InputText
                     label="Percent (%)"
