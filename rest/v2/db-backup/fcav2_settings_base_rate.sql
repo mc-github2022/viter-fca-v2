@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2024 at 04:08 AM
+-- Generation Time: Jul 10, 2024 at 07:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,15 +41,13 @@ CREATE TABLE `fcav2_settings_base_rate` (
 --
 
 INSERT INTO `fcav2_settings_base_rate` (`settings_base_rate_aid`, `settings_base_rate_is_active`, `settings_base_rate_name`, `settings_base_rate_order`, `settings_base_rate_created`, `settings_base_rate_updated`) VALUES
-(2, 1, 'Admission Fee', 0, '2024-07-09 15:45:05', '2024-07-09 15:45:05'),
-(3, 1, 'Misc Fee', 0, '2024-07-09 15:45:09', '2024-07-09 15:45:09'),
-(4, 1, 'Tuition Fee', 0, '2024-07-09 15:45:14', '2024-07-09 15:45:14'),
-(5, 1, 'Books', 0, '2024-07-09 15:45:20', '2024-07-09 15:45:20'),
-(6, 1, 'Upon Enrollment', 0, '2024-07-09 15:45:24', '2024-07-09 15:45:24'),
-(7, 1, 'Monthly Fee', 0, '2024-07-09 15:45:28', '2024-07-09 15:45:28'),
-(8, 1, 'Total Monthly Fee', 0, '2024-07-09 15:45:32', '2024-07-09 15:45:32'),
-(9, 1, 'Monthly', 0, '2024-07-10 07:40:03', '2024-07-10 07:40:03'),
-(10, 1, 'Total Monthly', 0, '2024-07-10 07:40:14', '2024-07-10 07:40:14');
+(2, 1, 'Admission Fee', 1, '2024-07-09 15:45:05', '2024-07-10 10:12:48'),
+(3, 1, 'Misc Fee', 2, '2024-07-09 15:45:09', '2024-07-10 10:12:51'),
+(4, 1, 'Tuition Fee', 3, '2024-07-09 15:45:14', '2024-07-10 13:12:05'),
+(5, 1, 'Books', 4, '2024-07-09 15:45:20', '2024-07-10 13:12:11'),
+(6, 1, 'Upon Enrollment', 5, '2024-07-09 15:45:24', '2024-07-10 13:12:17'),
+(8, 1, 'Total Monthly Fee', 7, '2024-07-09 15:45:32', '2024-07-10 13:12:38'),
+(10, 1, 'Monthly Fee', 6, '2024-07-10 07:40:14', '2024-07-10 13:13:26');
 
 --
 -- Indexes for dumped tables

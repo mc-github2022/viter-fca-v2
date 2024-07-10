@@ -85,7 +85,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
   });
   return (
     <>
-      <div className="settings__addEdit mb-8 max-w-[350px] w-full">
+      <div className="settings__addEdit mb-8 w-full">
         <Formik
           initialValues={initVal}
           validationSchema={yupSchema}
@@ -95,99 +95,101 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
         >
           {(props) => {
             return (
-              <Form className="flex flex-col h-full max-h-[calc(70vh-90px)] overflow-y-auto">
-                <div className="modal__body custom__scroll">
-                  <div className="form__wrap text-xs mb-3">
-                    <InputSelect
-                      label="Category"
-                      type="text"
-                      name="discount_category_id"
-                      disabled={mutation.isPending}
-                      onChange={(e) => e}
-                    >
-                      <option value="" hidden>
-                        {(isLoading || isFetching) && "Loading..."}
-                      </option>
+              <Form>
+                <div className="h-[200px] xr:h-[520px] lg:max-h-[620px] overflow-y-auto custom__scroll ">
+                  <div className="max-w-[310px] xs:w-full">
+                    <div className="form__wrap text-xs mb-3">
+                      <InputSelect
+                        label="Category"
+                        type="text"
+                        name="discount_category_id"
+                        disabled={mutation.isPending}
+                        onChange={(e) => e}
+                      >
+                        <option value="" hidden>
+                          {(isLoading || isFetching) && "Loading..."}
+                        </option>
 
-                      {(!isLoading || !isFetching) &&
-                      category?.data.length === 0 ? (
-                        <option disabled>No Data</option>
-                      ) : (
-                        category?.data.map((item, key) => {
-                          return (
-                            <option
-                              key={key}
-                              value={item.discount_category_aid}
-                            >
-                              {`${item.discount_category_name}`}
-                            </option>
-                          );
-                        })
-                      )}
-                    </InputSelect>
-                  </div>
-                  <div className="form__wrap text-xs mb-3">
-                    <InputText
-                      label="Type"
-                      type="text"
-                      name="discount_type"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <div className="form__wrap text-xs mb-3">
-                        <InputText
-                          label="Admission Fee (%)"
-                          type="text"
-                          number="number"
-                          name="discount_admission_fee"
-                          disabled={mutation.isPending}
-                        />
-                      </div>
-                      <div className="form__wrap text-xs mb-3">
-                        <InputText
-                          label="Tuition Fee (%)"
-                          type="text"
-                          number="number"
-                          name="discount_tuition_fee"
-                          disabled={mutation.isPending}
-                        />
+                        {(!isLoading || !isFetching) &&
+                        category?.data.length === 0 ? (
+                          <option disabled>No Data</option>
+                        ) : (
+                          category?.data.map((item, key) => {
+                            return (
+                              <option
+                                key={key}
+                                value={item.discount_category_aid}
+                              >
+                                {`${item.discount_category_name}`}
+                              </option>
+                            );
+                          })
+                        )}
+                      </InputSelect>
+                    </div>
+                    <div className="form__wrap text-xs mb-3">
+                      <InputText
+                        label="Type"
+                        type="text"
+                        name="discount_type"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <div className="form__wrap text-xs mb-3">
+                          <InputText
+                            label="Admission Fee (%)"
+                            type="text"
+                            number="number"
+                            name="discount_admission_fee"
+                            disabled={mutation.isPending}
+                          />
+                        </div>
+                        <div className="form__wrap text-xs mb-3">
+                          <InputText
+                            label="Tuition Fee (%)"
+                            type="text"
+                            number="number"
+                            name="discount_tuition_fee"
+                            disabled={mutation.isPending}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="form__wrap text-xs mb-3">
-                    <InputTextArea
-                      label="Qualification"
-                      type="text"
-                      name="discount_qualification"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="form__wrap text-xs mb-3">
-                    <InputTextArea
-                      label="Duration"
-                      type="text"
-                      name="discount_duration"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="form__wrap text-xs mb-3">
-                    <InputText
-                      label="Maintaining Grade (GA)"
-                      type="text"
-                      number="number"
-                      name="discount_maintaining_grade"
-                      disabled={mutation.isPending}
-                    />
-                  </div>
-                  <div className="form__wrap text-xs mb-3">
-                    <InputTextArea
-                      label="Requirement"
-                      type="text"
-                      name="discount_requirement"
-                      disabled={mutation.isPending}
-                    />
+                    <div className="form__wrap text-xs mb-3">
+                      <InputTextArea
+                        label="Qualification"
+                        type="text"
+                        name="discount_qualification"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
+                    <div className="form__wrap text-xs mb-3">
+                      <InputTextArea
+                        label="Duration"
+                        type="text"
+                        name="discount_duration"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
+                    <div className="form__wrap text-xs mb-3">
+                      <InputText
+                        label="Maintaining Grade (GA)"
+                        type="text"
+                        number="number"
+                        name="discount_maintaining_grade"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
+                    <div className="form__wrap text-xs mb-3">
+                      <InputTextArea
+                        label="Requirement"
+                        type="text"
+                        name="discount_requirement"
+                        disabled={mutation.isPending}
+                      />
+                    </div>
                   </div>
                 </div>
 

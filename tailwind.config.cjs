@@ -182,7 +182,7 @@ export default {
         xr: { raw: "(min-height: 800px)" },
         poco: { raw: "(min-height: 800px)" },
         loptop: { raw: "(min-height: 700px)" },
-        loptopXl: { raw: "(min-height: 900px)" },
+        loptopXl: { raw: "(min-height: 1024px)" },
         xxs: "412px",
       },
     },

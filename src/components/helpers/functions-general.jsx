@@ -2,11 +2,11 @@ import React from "react";
 import { setIsAdd } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 
-// // Mac // Mc // Mon // Cy
+// Mac // Mc // Mon // Cy
 // const urlPathFca = "http://localhost/react-vite/viter-fca-v2";
 // const imgUrlPathFca = "http://localhost/react-vite/viter-fca-v2/public/img";
 
-// // // // Patrick
+// Patrick
 export const urlPathFca = `https://app.fca.edu.ph`;
 export const imgUrlPathFca = `https://app.fca.edu.ph/img`;
 
@@ -25,6 +25,15 @@ export const devNavUrl = "/v2";
 // export const devNavUrl = "/v2";
 
 export const schemeCId = 3;
+
+// THIS IS FOR ASSESSMENT BASE RATE ID'S
+export const addmissionFeeId = 2;
+export const miscFeeId = 3;
+export const tuitionFeeId = 4;
+export const booksFeeId = 5;
+export const uponEnrollmentFeeId = 6;
+export const monthlyFeeId = 10;
+export const totalMonthlyFeeId = 8;
 
 export const devKey =
   "$2a$12$47wDvbLInZif/PVS8B6P3.7WxyJvUpBzZAWCsnWJUKq3nrn4qgmeO";
