@@ -1,5 +1,6 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
 import {
+  InputCheckbox,
   InputSelect,
   InputText,
   InputTextArea,
@@ -74,6 +75,11 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
       ? itemEdit.discount_maintaining_grade
       : "",
     discount_requirement: itemEdit ? itemEdit.discount_requirement : "",
+    discount_is_stand_alone_discount: itemEdit
+      ? itemEdit.discount_is_stand_alone_discount === 0
+        ? false
+        : true
+      : false,
   };
 
   const yupSchema = Yup.object({
@@ -133,6 +139,15 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
                         type="text"
                         name="discount_type"
                         disabled={mutation.isPending}
+                      />
+                    </div>
+
+                    <div className="form__wrap text-xs !my-4">
+                      <InputCheckbox
+                        label="Is stand alone discount"
+                        type="checkbox"
+                        className="mb-0 !text-xs font-bold"
+                        name="discount_is_stand_alone_discount"
                       />
                     </div>
                     <div>

@@ -10,6 +10,7 @@ class Discount
     public $discount_qualification;
     public $discount_duration;
     public $discount_maintaining_grade;
+    public $discount_is_stand_alone_discount;
     public $discount_requirement;
     public $discount_updated;
     public $discount_created;
@@ -40,6 +41,7 @@ class Discount
             $sql .= "discount_duration, ";
             $sql .= "discount_maintaining_grade, ";
             $sql .= "discount_requirement, ";
+            $sql .= "discount_is_stand_alone_discount, ";
             $sql .= "discount_updated, ";
             $sql .= "discount_created ) values ( ";
             $sql .= ":discount_is_active, ";
@@ -51,6 +53,7 @@ class Discount
             $sql .= ":discount_duration, ";
             $sql .= ":discount_maintaining_grade, ";
             $sql .= ":discount_requirement, ";
+            $sql .= ":discount_is_stand_alone_discount, ";
             $sql .= ":discount_updated, ";
             $sql .= ":discount_created ) ";
             $query = $this->connection->prepare($sql);
@@ -64,6 +67,7 @@ class Discount
                 "discount_duration" => $this->discount_duration,
                 "discount_maintaining_grade" => $this->discount_maintaining_grade,
                 "discount_requirement" => $this->discount_requirement,
+                "discount_is_stand_alone_discount" => $this->discount_is_stand_alone_discount,
                 "discount_updated" => $this->discount_updated,
                 "discount_created" => $this->discount_created,
             ]);
@@ -124,6 +128,7 @@ class Discount
             $sql .= "discount_duration = :discount_duration, ";
             $sql .= "discount_maintaining_grade = :discount_maintaining_grade, ";
             $sql .= "discount_requirement = :discount_requirement, ";
+            $sql .= "discount_is_stand_alone_discount = :discount_is_stand_alone_discount, ";
             $sql .= "discount_updated = :discount_updated ";
             $sql .= "where discount_aid = :discount_aid ";
             $query = $this->connection->prepare($sql);
@@ -136,6 +141,7 @@ class Discount
                 "discount_duration" => $this->discount_duration,
                 "discount_maintaining_grade" => $this->discount_maintaining_grade,
                 "discount_requirement" => $this->discount_requirement,
+                "discount_is_stand_alone_discount" => $this->discount_is_stand_alone_discount,
                 "discount_updated" => $this->discount_updated,
                 "discount_aid" => $this->discount_aid,
             ]);

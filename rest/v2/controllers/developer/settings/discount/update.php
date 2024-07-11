@@ -20,6 +20,7 @@ if (array_key_exists("discountId", $_GET)) {
     $discount->discount_duration = checkIndex($data, "discount_duration");
     $discount->discount_maintaining_grade = $data["discount_maintaining_grade"];
     $discount->discount_requirement = $data["discount_requirement"];
+    $discount->discount_is_stand_alone_discount = $data["discount_is_stand_alone_discount"];
     $discount->discount_updated = date("Y-m-d H:i:s");
     checkId($discount->discount_aid);
     // update

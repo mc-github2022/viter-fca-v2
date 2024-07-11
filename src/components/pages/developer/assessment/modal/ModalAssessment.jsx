@@ -16,13 +16,15 @@ import ModalNotifyOrAcceptPayment from "./ModalNotifyOrAcceptPayment";
 import {
   getGetAdditionalDiscount,
   getNotifyAcceptParentInitVal,
-  getPrimaryPercentDiscount,
   getSectedScheme,
   getSelectedRate,
-  getTotalAdditionalDiscount,
   getTotalPaymentWithComma,
   handleAssessmentRemarks,
 } from "./functions-assessment";
+import {
+  getPrimaryPercentDiscount,
+  getTotalAdditionalDiscount,
+} from "./functions-assessment-new";
 
 const ModalAssessment = ({ setShowAssessment, item }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -50,11 +52,6 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     "/v2/dev-assessment/read-primary-discount", // endpoint
     "get", // method
     "primary-discount" // key
-  );
-
-  const primaryDiscountData = getPrimaryPercentDiscount(
-    primaryDiscount,
-    primaryDiscountId
   );
 
   const { data: additionalDiscount } = useQueryData(
@@ -144,11 +141,25 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     categoryId
   );
 
+  const primaryDiscountData = getPrimaryPercentDiscount(
+    listOfScheme,
+    primaryDiscount,
+    primaryDiscountId
+  );
+
   const totalAdditionalDiscountData = getTotalAdditionalDiscount(
-    primaryDiscountData,
     listOfScheme,
     getGetAdditionalDiscount(additionalDiscount, additionalDiscountId)
   );
+
+  React.useEffect(() => {
+    if (totalAdditionalDiscountData?.isAdditionalStandAloneDiscount === true) {
+      setPrimaryDiscountId(0);
+    }
+    if (primaryDiscountData?.isPrimaryStandAloneDiscount === true) {
+      setAdditionalDiscountId(0);
+    }
+  }, [totalAdditionalDiscountData, primaryDiscountData]);
 
   return (
     <>
@@ -323,7 +334,9 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
                   <AssessmentPrimaryDiscountList
                     primaryDiscountId={primaryDiscountId}
+                    setAdditionalDiscountId={setAdditionalDiscountId}
                     setPrimaryDiscountId={setPrimaryDiscountId}
+                    totalAdditionalDiscountData={totalAdditionalDiscountData}
                     isLoading={isLoadingPrimaryDiscount}
                     isFetching={isFetchingPrimaryDiscount}
                     primaryDiscount={primaryDiscount}
@@ -332,11 +345,12 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
                   <AssessmentAdditionalDiscountList
                     primaryDiscountData={primaryDiscountData?.tuitionFeePercent}
+                    primaryDiscount={primaryDiscountData}
                     additionalDiscountId={additionalDiscountId}
+                    setPrimaryDiscountId={setPrimaryDiscountId}
                     setAdditionalDiscountId={setAdditionalDiscountId}
                     item={item}
                     listOfScheme={listOfScheme}
-                    totalAdditionalDiscountData={totalAdditionalDiscountData}
                     loadingListOfScheme={loadingListOfScheme}
                   />
                   {(selectItem > 0 || listOfScheme?.count > 0) && (

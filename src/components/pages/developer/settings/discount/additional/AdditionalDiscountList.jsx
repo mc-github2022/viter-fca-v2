@@ -81,20 +81,25 @@ const AdditionalDiscountList = ({ setItemEdit }) => {
           discount.success === true &&
           discount?.data.map((item, key) => (
             <div
-              className={`datalist__item max-w-[650px] text-xs flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none ${
+              className={`datalist__item text-xs flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none ${
                 item.discount_additional_is_active
                   ? "opacity-100"
                   : "opacity-40"
               }`}
               key={key}
             >
-              <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,4rem] items-center">
+              <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,4rem] items-center">
                 <p className="mb-0 font-bold">
                   {item.discount_additional_name}
                 </p>
                 <p className="mb-0 text-right capitalize">
                   {item.discount_additional_is_early_bird === 1
                     ? "early bird"
+                    : ""}
+                </p>
+                <p className="mb-0 text-right capitalize">
+                  {item.discount_additional_is_stand_alone_discount === 1
+                    ? "stand alone discount"
                     : ""}
                 </p>
                 <p className="mb-0 text-right capitalize">

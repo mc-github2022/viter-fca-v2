@@ -3,7 +3,9 @@ import { getPrimaryDiscount } from "./functions-assessment";
 
 const AssessmentPrimaryDiscountList = ({
   primaryDiscountId,
+  setAdditionalDiscountId,
   setPrimaryDiscountId,
+  totalAdditionalDiscountData,
   isLoading,
   isFetching,
   primaryDiscount,
@@ -11,7 +13,11 @@ const AssessmentPrimaryDiscountList = ({
 }) => {
   const handleChangePrimaryDiscount = (e) => {
     setPrimaryDiscountId(e.target.value);
+    if (e.target.options[e.target.selectedIndex].id === 1) {
+      setAdditionalDiscountId(0);
+    }
   };
+
   return (
     <>
       <div className="grid grid-cols-[250px_1fr] mb-8 mt-5 gap-5">
@@ -40,7 +46,14 @@ const AssessmentPrimaryDiscountList = ({
                 </option>
                 {primaryDiscount?.data.map((pItem, key) => {
                   return (
-                    <option key={key} value={pItem.discount_aid}>
+                    <option
+                      key={key}
+                      value={pItem.discount_aid}
+                      id={pItem.discount_is_stand_alone_discount}
+                      disabled={
+                        totalAdditionalDiscountData?.isAdditionalStandAloneDiscount
+                      }
+                    >
                       {`${pItem.discount_category_name} (${pItem.discount_type})`}
                     </option>
                   );

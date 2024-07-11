@@ -7,6 +7,8 @@ class DiscountAdditional
     public $discount_additional_percent;
     public $discount_additional_amount;
     public $discount_additional_base_rate_id;
+    public $discount_additional_is_stand_alone_discount;
+    public $discount_additional_is_applyed_scheme_a;
     public $discount_additional_is_early_bird;
     public $discount_additional_created;
     public $discount_additional_updated;
@@ -38,6 +40,8 @@ class DiscountAdditional
             $sql .= "discount_additional_amount, ";
             $sql .= "discount_additional_is_early_bird, ";
             $sql .= "discount_additional_base_rate_id, ";
+            $sql .= "discount_additional_is_stand_alone_discount, ";
+            $sql .= "discount_additional_is_applyed_scheme_a, ";
             $sql .= "discount_additional_updated, ";
             $sql .= "discount_additional_created ) values ( ";
             $sql .= ":discount_additional_is_active, ";
@@ -46,6 +50,8 @@ class DiscountAdditional
             $sql .= ":discount_additional_amount, ";
             $sql .= ":discount_additional_is_early_bird, ";
             $sql .= ":discount_additional_base_rate_id, ";
+            $sql .= ":discount_additional_is_stand_alone_discount, ";
+            $sql .= ":discount_additional_is_applyed_scheme_a, ";
             $sql .= ":discount_additional_updated, ";
             $sql .= ":discount_additional_created ) ";
             $query = $this->connection->prepare($sql);
@@ -55,6 +61,8 @@ class DiscountAdditional
                 "discount_additional_percent" => $this->discount_additional_percent,
                 "discount_additional_amount" => $this->discount_additional_amount,
                 "discount_additional_base_rate_id" => $this->discount_additional_base_rate_id,
+                "discount_additional_is_stand_alone_discount" => $this->discount_additional_is_stand_alone_discount,
+                "discount_additional_is_applyed_scheme_a" => $this->discount_additional_is_applyed_scheme_a,
                 "discount_additional_is_early_bird" => $this->discount_additional_is_early_bird,
                 "discount_additional_updated" => $this->discount_additional_updated,
                 "discount_additional_created" => $this->discount_additional_created,
@@ -86,7 +94,6 @@ class DiscountAdditional
         return $query;
     }
 
-
     // read by id
     public function readById()
     {
@@ -117,6 +124,8 @@ class DiscountAdditional
             $sql .= "discount_additional_percent = :discount_additional_percent, ";
             $sql .= "discount_additional_amount = :discount_additional_amount, ";
             $sql .= "discount_additional_base_rate_id = :discount_additional_base_rate_id, ";
+            $sql .= "discount_additional_is_stand_alone_discount = :discount_additional_is_stand_alone_discount, ";
+            $sql .= "discount_additional_is_applyed_scheme_a = :discount_additional_is_applyed_scheme_a, ";
             $sql .= "discount_additional_is_early_bird = :discount_additional_is_early_bird, ";
             $sql .= "discount_additional_updated = :discount_additional_updated ";
             $sql .= "where discount_additional_aid = :discount_additional_aid ";
@@ -126,6 +135,8 @@ class DiscountAdditional
                 "discount_additional_percent" => $this->discount_additional_percent,
                 "discount_additional_amount" => $this->discount_additional_amount,
                 "discount_additional_base_rate_id" => $this->discount_additional_base_rate_id,
+                "discount_additional_is_stand_alone_discount" => $this->discount_additional_is_stand_alone_discount,
+                "discount_additional_is_applyed_scheme_a" => $this->discount_additional_is_applyed_scheme_a,
                 "discount_additional_is_early_bird" => $this->discount_additional_is_early_bird,
                 "discount_additional_updated" => $this->discount_additional_updated,
                 "discount_additional_aid" => $this->discount_additional_aid,

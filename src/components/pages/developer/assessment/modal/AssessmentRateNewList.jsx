@@ -1,18 +1,5 @@
-import {
-  addmissionFeeId,
-  booksFeeId,
-  miscFeeId,
-  numberWithCommasToFixed,
-  tuitionFeeId,
-} from "@/components/helpers/functions-general";
-import {
-  getAdditonalDiscount,
-  getDiscountAmount,
-  getMonthlyFeeDiscountedAmount,
-  getTotalPaymentDiscountedAmount,
-  getTuitionDiscountedAmount,
-  getUponEnrollmentDiscountedAmount,
-} from "./functions-assessment";
+import { numberWithCommasToFixed } from "@/components/helpers/functions-general";
+import { getDiscountAmount } from "./functions-assessment-new";
 
 const AssessmentRateNewList = ({
   listOfScheme,
@@ -23,15 +10,7 @@ const AssessmentRateNewList = ({
   additionalDiscountId,
   totalAdditionalDiscountData,
 }) => {
-  let isHaveDiscount =
-    Number(primaryDiscountData?.tuitionFeePercent) > 0 ||
-    Number(totalAdditionalDiscountData?.percent) > 0 ||
-    Number(totalAdditionalDiscountData?.amount) > 0;
   // UPON ENROLLMENT
-  let isHaveUponEnrollDiscount =
-    Number(primaryDiscountData.tuitionFeePercent) > 0 ||
-    Number(primaryDiscountData.admissionFeePercent) > 0;
-  // console.log("primaryDiscountData", primaryDiscountData);
   let discountAmount = getDiscountAmount(
     primaryDiscountData,
     listOfScheme,
@@ -57,12 +36,15 @@ const AssessmentRateNewList = ({
                   >
                     {numberWithCommasToFixed(listItem.tuition_fee_admission, 2)}
 
-                    {discountAmount?.map((itemDiscount) => {
+                    {discountAmount?.map((itemDiscount, dkey) => {
                       return (
-                        Number(itemDiscount.addmissionAmount) !== 0 &&
+                        itemDiscount.isHaveDiscountAddmission === true &&
                         Number(itemDiscount.tuition_fee_aid) ===
                           Number(listItem.tuition_fee_aid) && (
-                          <span className="text-accent font-bold ml-1">
+                          <span
+                            key={dkey}
+                            className="text-accent font-bold ml-1"
+                          >
                             {`(Disc. ${numberWithCommasToFixed(
                               itemDiscount.addmissionAmount,
                               2
@@ -93,12 +75,15 @@ const AssessmentRateNewList = ({
                       2
                     )}
 
-                    {discountAmount?.map((itemDiscount) => {
+                    {discountAmount?.map((itemDiscount, dkey) => {
                       return (
-                        Number(itemDiscount.miscAmount) !== 0 &&
+                        itemDiscount.isHaveDiscountMisc === true &&
                         Number(itemDiscount.tuition_fee_aid) ===
                           Number(listItem.tuition_fee_aid) && (
-                          <span className="text-accent font-bold ml-1">
+                          <span
+                            key={dkey}
+                            className="text-accent font-bold ml-1"
+                          >
                             {`(Disc. ${numberWithCommasToFixed(
                               itemDiscount.miscAmount,
                               2
@@ -117,25 +102,26 @@ const AssessmentRateNewList = ({
               {listOfScheme?.data.map((listItem, key) => {
                 return (
                   <li
+                    key={key}
                     className={`${
                       selectItem === listItem.tuition_fee_aid
                         ? "selected border-y-[0]"
                         : ""
                     }`}
-                    key={key}
                   >
                     {numberWithCommasToFixed(listItem.tuition_fee_tuition, 2)}
 
-                    {discountAmount?.map((itemDiscount) => {
+                    {discountAmount?.map((itemDiscount, dkey) => {
                       return (
-                        Number(itemDiscount.tuitionAmount) !== 0 &&
+                        itemDiscount.isHaveDiscountTuition === true &&
                         Number(itemDiscount.tuition_fee_aid) ===
                           Number(listItem.tuition_fee_aid) && (
-                          <span className="text-accent font-bold ml-1">
+                          <span
+                            key={dkey}
+                            className="text-accent font-bold ml-1"
+                          >
                             {`(Disc. ${numberWithCommasToFixed(
-                              Number(itemDiscount.tuitionAmount) > 0
-                                ? itemDiscount.tuitionAmount
-                                : "0",
+                              itemDiscount.tuitionAmount,
                               2
                             )})`}
                           </span>
@@ -160,10 +146,24 @@ const AssessmentRateNewList = ({
                     key={key}
                   >
                     {numberWithCommasToFixed(listItem.tuition_fee_books, 2)}
-                    <span className="text-accent font-bold ml-1">
-                      {booksFeeId === totalAdditionalDiscountData?.id &&
-                        `(Disc. ${0})`}
-                    </span>
+
+                    {discountAmount?.map((itemDiscount, dkey) => {
+                      return (
+                        itemDiscount.isHaveDiscountBooks === true &&
+                        Number(itemDiscount.tuition_fee_aid) ===
+                          Number(listItem.tuition_fee_aid) && (
+                          <span
+                            key={dkey}
+                            className="text-accent font-bold ml-1"
+                          >
+                            {`(Disc. ${numberWithCommasToFixed(
+                              itemDiscount.booksAmount,
+                              2
+                            )})`}
+                          </span>
+                        )
+                      );
+                    })}
                   </li>
                 );
               })}
@@ -185,20 +185,24 @@ const AssessmentRateNewList = ({
                       listItem.tuition_fee_upon_enrollment,
                       2
                     )}
-                    <span className="text-accent font-bold">
-                      {isHaveUponEnrollDiscount &&
-                        `(Disc. ${numberWithCommasToFixed(
-                          getUponEnrollmentDiscountedAmount(
-                            primaryDiscountData,
-                            listItem,
-                            getAdditonalDiscount(
-                              totalAdditionalDiscountData,
-                              listItem
-                            )?.amount
-                          ),
-                          2
-                        )})`}
-                    </span>
+
+                    {discountAmount?.map((itemDiscount, dkey) => {
+                      return (
+                        itemDiscount.isHaveDiscountUponEronllment === true &&
+                        Number(itemDiscount.tuition_fee_aid) ===
+                          Number(listItem.tuition_fee_aid) && (
+                          <span
+                            key={dkey}
+                            className="text-accent font-bold ml-1"
+                          >
+                            {`(Disc. ${numberWithCommasToFixed(
+                              itemDiscount.uponEronllmentAmount,
+                              2
+                            )})`}
+                          </span>
+                        )
+                      );
+                    })}
                   </li>
                 );
               })}
@@ -217,22 +221,24 @@ const AssessmentRateNewList = ({
                     key={key}
                   >
                     {numberWithCommasToFixed(listItem.tuition_fee_monthly, 2)}
-                    <span className="text-accent font-bold">
-                      {getMonthlyFeeDiscountedAmount(
-                        listOfScheme,
-                        primaryDiscountData,
-                        listItem,
-                        totalAdditionalDiscountData
-                      ).isDiscounted > 0 &&
-                        ` (Disc. ${
-                          getMonthlyFeeDiscountedAmount(
-                            listOfScheme,
-                            primaryDiscountData,
-                            listItem,
-                            totalAdditionalDiscountData
-                          ).monthlyFeeDiscounted
-                        })`}
-                    </span>
+
+                    {discountAmount?.map((itemDiscount, dkey) => {
+                      return (
+                        itemDiscount.isHaveDiscountMonthly === true &&
+                        Number(itemDiscount.tuition_fee_aid) ===
+                          Number(listItem.tuition_fee_aid) && (
+                          <span
+                            key={dkey}
+                            className="text-accent font-bold ml-1"
+                          >
+                            {`(Disc. ${numberWithCommasToFixed(
+                              itemDiscount.monthlyAmount,
+                              2
+                            )})`}
+                          </span>
+                        )
+                      );
+                    })}
                   </li>
                 );
               })}
@@ -253,23 +259,23 @@ const AssessmentRateNewList = ({
                       listItem.tuition_fee_total_monthly,
                       2
                     )}
-                    <span className="text-accent font-bold">
-                      {getMonthlyFeeDiscountedAmount(
-                        listOfScheme,
-                        primaryDiscountData,
-                        listItem,
-                        totalAdditionalDiscountData
-                      ).isDiscounted > 0 &&
-                        ` (Disc. ${numberWithCommasToFixed(
-                          getMonthlyFeeDiscountedAmount(
-                            listOfScheme,
-                            primaryDiscountData,
-                            listItem,
-                            totalAdditionalDiscountData
-                          ).totalMonthlyFeeDiscounted,
-                          2
-                        )})`}
-                    </span>
+                    {discountAmount?.map((itemDiscount, dkey) => {
+                      return (
+                        itemDiscount.isHaveDiscountTotalMonthly === true &&
+                        Number(itemDiscount.tuition_fee_aid) ===
+                          Number(listItem.tuition_fee_aid) && (
+                          <span
+                            key={dkey}
+                            className="text-accent font-bold ml-1"
+                          >
+                            {`(Disc. ${numberWithCommasToFixed(
+                              itemDiscount.totalMonthlyAmount,
+                              2
+                            )})`}
+                          </span>
+                        )
+                      );
+                    })}
                   </li>
                 );
               })}
@@ -288,47 +294,26 @@ const AssessmentRateNewList = ({
                     }`}
                     key={key}
                   >
-                    <div className="col-header flex flex-col items-center justify-start p-2">
-                      <p className="text-xl !leading-none font-bold !mb-0 text-accent">
-                        {`${getTotalPaymentDiscountedAmount(
-                          getUponEnrollmentDiscountedAmount(
-                            primaryDiscountData,
-                            listItem,
-                            getAdditonalDiscount(
-                              totalAdditionalDiscountData,
-                              listItem
-                            )?.amount
-                          ),
-                          getMonthlyFeeDiscountedAmount(
-                            listOfScheme,
-                            primaryDiscountData,
-                            listItem,
-                            totalAdditionalDiscountData
-                          ).totalMonthlyFeeDiscounted
-                        )}`}
-                      </p>
+                    {discountAmount?.map((itemDiscount, dkey) => {
+                      return (
+                        Number(itemDiscount.tuition_fee_aid) ===
+                          Number(listItem.tuition_fee_aid) && (
+                          <div
+                            key={dkey}
+                            className="col-header flex flex-col items-center justify-start p-2"
+                          >
+                            <p className="text-xl !leading-none font-bold !mb-0 text-accent">
+                              {0}
+                            </p>
 
-                      <p className="text-sm !mt-1 !leading-none text-accent">
-                        <span className=" text-accent">
-                          {getMonthlyFeeDiscountedAmount(
-                            listOfScheme,
-                            primaryDiscountData,
-                            listItem,
-                            totalAdditionalDiscountData
-                          ).isDiscounted > 0
-                            ? `${
-                                getMonthlyFeeDiscountedAmount(
-                                  listOfScheme,
-                                  primaryDiscountData,
-                                  listItem,
-                                  totalAdditionalDiscountData
-                                ).monthlyFeeDiscounted
-                              }`
-                            : "0.00"}
-                        </span>
-                        <span className="text-xs"> /mo</span>
-                      </p>
-                    </div>
+                            <p className="text-sm !mt-1 !leading-none text-accent">
+                              <span className=" text-accent">{0}</span>
+                              <span className="text-xs"> /mo</span>
+                            </p>
+                          </div>
+                        )
+                      );
+                    })}
                   </div>
                 );
               })}

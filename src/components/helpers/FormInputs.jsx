@@ -168,7 +168,7 @@ export const InputCheckbox = ({ label, onChange = null, ...props }) => {
           <input
             {...field}
             {...props}
-            id="select_all"
+            id={props.name}
             className={
               meta.touched && meta.error
                 ? "w-auto h-auto error-show"
@@ -184,7 +184,7 @@ export const InputCheckbox = ({ label, onChange = null, ...props }) => {
           </span>
         </span>
 
-        <label htmlFor={"select_all"} className="cursor-pointer  m-0">
+        <label htmlFor={props.name} className="cursor-pointer  m-0">
           {label}
         </label>
       </div>

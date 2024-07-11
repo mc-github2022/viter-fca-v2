@@ -4,17 +4,18 @@ import {
   numberWithCommasToFixed,
 } from "@/components/helpers/functions-general";
 import {
+  getEarlyBirdDiscount,
   getGetAdditionalDiscount,
-  getTotalAdditionalDiscount,
-} from "./functions-assessment";
+} from "./functions-assessment-new";
 
 const AssessmentAdditionalDiscountList = ({
   primaryDiscountData,
+  primaryDiscount,
   additionalDiscountId,
+  setPrimaryDiscountId,
   setAdditionalDiscountId,
   item,
   listOfScheme,
-  totalAdditionalDiscountData,
   loadingListOfScheme,
 }) => {
   const {
@@ -30,16 +31,10 @@ const AssessmentAdditionalDiscountList = ({
 
   const handleChangeAdditionalDiscount = (e) => {
     setAdditionalDiscountId(e.target.value);
-    const additionalDisc = getGetAdditionalDiscount(
-      additionalDiscount,
-      e.target.value
-    );
 
-    totalAdditionalDiscountData = getTotalAdditionalDiscount(
-      primaryDiscountData,
-      listOfScheme,
-      additionalDisc
-    );
+    if (e.target.options[e.target.selectedIndex].id === 1) {
+      setPrimaryDiscountId(0);
+    }
   };
 
   const additionalDisc = getGetAdditionalDiscount(
@@ -47,7 +42,7 @@ const AssessmentAdditionalDiscountList = ({
     additionalDiscountId
   );
 
-  const getFinalAdditionalDiscount = getTotalAdditionalDiscount(
+  const getFinalAdditionalDiscount = getEarlyBirdDiscount(
     primaryDiscountData,
     listOfScheme,
     additionalDisc
@@ -83,7 +78,12 @@ const AssessmentAdditionalDiscountList = ({
                 </option>
                 {additionalDiscount?.data.map((pItem, key) => {
                   return (
-                    <option key={key} value={pItem.discount_additional_aid}>
+                    <option
+                      key={key}
+                      value={pItem.discount_additional_aid}
+                      id={pItem.discount_additional_is_stand_alone_discount}
+                      disabled={primaryDiscount?.isPrimaryStandAloneDiscount}
+                    >
                       {`${pItem.discount_additional_name}`}
                     </option>
                   );
@@ -94,7 +94,6 @@ const AssessmentAdditionalDiscountList = ({
         </div>
 
         {(loadingListOfScheme || Number(additionalDiscountId) === 0) && (
-          // <div className="min-h-250px grid place-content-center border border-line">
           <div className="min-h-250px flex items-end opacity-[0.8]">
             <p className="font-bold text-base mb-0">
               No Additional Discount Selected
@@ -116,7 +115,6 @@ const AssessmentAdditionalDiscountList = ({
               <ul className="flex gap-2 mb-2 text-xs">
                 <li className="font-bold">Amount: </li>
                 <li>
-                  {/* {isItemEmpty(additionalDisc[0]?.discount_additional_amount)} */}
                   {numberWithCommasToFixed(
                     getFinalAdditionalDiscount?.amount,
                     2

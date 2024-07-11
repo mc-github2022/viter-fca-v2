@@ -81,6 +81,16 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
         ? false
         : true
       : false,
+    discount_additional_is_stand_alone_discount: itemEdit
+      ? itemEdit.discount_additional_is_stand_alone_discount === 0
+        ? false
+        : true
+      : false,
+    discount_additional_is_applyed_scheme_a: itemEdit
+      ? itemEdit.discount_additional_is_applyed_scheme_a === 0
+        ? false
+        : true
+      : false,
 
     discount_additional_name_old: itemEdit
       ? itemEdit.discount_additional_name
@@ -119,6 +129,24 @@ const AdditionalDiscountModalAddEdit = ({ itemEdit }) => {
                     type="checkbox"
                     className="mb-0 !text-xs font-bold"
                     name="discount_additional_is_early_bird"
+                  />
+                </div>
+
+                <div className="form__wrap text-xs !my-4">
+                  <InputCheckbox
+                    label="Is stand alone discount"
+                    type="checkbox"
+                    className="mb-0 !text-xs font-bold"
+                    name="discount_additional_is_stand_alone_discount"
+                  />
+                </div>
+
+                <div className="form__wrap text-xs !my-4">
+                  <InputCheckbox
+                    label="Is discount applyed only in fullpayment discount (sheme a)"
+                    type="checkbox"
+                    className="mb-0 !text-xs font-bold"
+                    name="discount_additional_is_applyed_scheme_a"
                   />
                 </div>
 
