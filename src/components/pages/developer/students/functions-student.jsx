@@ -75,7 +75,6 @@ export const handleStaffSearch = async (
 
   if (typeof data === "undefined") {
     setLoading(true);
-    console.log("undefined");
     return;
   }
 

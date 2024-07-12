@@ -100,7 +100,7 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
           return (
             <>
               <Form>
-                <div className="overflow-y-auto  custom__scroll  z-30 ">
+                <div className="overflow-y-auto custom__scroll z-30 ">
                   <div
                     className={` ${
                       showSideNav

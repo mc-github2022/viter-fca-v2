@@ -53,7 +53,6 @@ const ModalConfirm = ({ mysqlApiArchive, msg, item, queryKey, isArchive }) => {
   const handleYes = async () => {
     // mutate data
 
-    console.log("isArchive", isArchive);
     mutation.mutate({
       isActive: isArchive,
     });

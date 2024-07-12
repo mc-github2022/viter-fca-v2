@@ -69,7 +69,7 @@ export const getStudentStatus = (
       item.school_year_students_last_parent_consent_is_agree === 1 &&
       item.school_year_students_last_parent_commitment_is_agree === 1
     ) {
-      label = "For Assestment";
+      label = "For Assessment";
       color = "text-[#f09a02]";
     }
 

@@ -446,7 +446,7 @@ const StudentProfileForm = ({ showSideNav, itemEdit, cid }) => {
                     </div>
                     <div className="form__wrap">
                       <InputText
-                        label="Contact Name: (optional)"
+                        label="Contact Number: (optional)"
                         type="text"
                         name="student_info_medical_contact"
                         disabled={mutation.isPending}

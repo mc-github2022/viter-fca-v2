@@ -37,7 +37,6 @@ const ModalRequirements = ({
   };
 
   const handleShowSideNav = () => {
-    console.log("showSideNav", showSideNav);
     setShowSideNav(!showSideNav);
   };
 

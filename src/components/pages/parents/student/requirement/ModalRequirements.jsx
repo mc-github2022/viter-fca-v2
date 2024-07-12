@@ -14,7 +14,6 @@ const ModalRequirements = ({ setShowRequirement, itemEdit }) => {
   };
 
   const handleShowSideNav = () => {
-    console.log("showSideNav", showSideNav);
     setShowSideNav(!showSideNav);
   };
 

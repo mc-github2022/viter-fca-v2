@@ -149,6 +149,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
 
   const totalAdditionalDiscountData = getTotalAdditionalDiscount(
     listOfScheme,
+    primaryDiscountData,
     getGetAdditionalDiscount(additionalDiscount, additionalDiscountId)
   );
 

@@ -74,6 +74,7 @@ class Assessment
             $sql .= "currentSyStudent.current_students_assessment_remarks, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
+            $sql .= "gradeLevel.grade_level_is_base_two, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
             $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
             $sql .= "parent.parents_email, ";
@@ -120,6 +121,7 @@ class Assessment
             $sql .= "currentSyStudent.current_students_assessment_remarks, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
+            $sql .= "gradeLevel.grade_level_is_base_two, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
             $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
             $sql .= "parent.parents_email, ";
@@ -171,6 +173,7 @@ class Assessment
             $sql .= "currentSyStudent.current_students_assessment_remarks, ";
             $sql .= "gradeLevel.grade_level_aid, ";
             $sql .= "gradeLevel.grade_level_name, ";
+            $sql .= "gradeLevel.grade_level_is_base_two, ";
             $sql .= "CONCAT(student.students_lname, ', ', student.students_fname) as student_fullname, ";
             $sql .= "CONCAT(parent.parents_fname, ' ', parent.parents_lname) as parent_fullname, ";
             $sql .= "parent.parents_email, ";
@@ -236,7 +239,8 @@ class Assessment
             $sql = "select category.tuition_category_aid, ";
             $sql .= "category.tuition_category_name, ";
             $sql .= "CONCAT(category.tuition_category_name, ' ', grade.grade_level_name) as tuitionName, ";
-            $sql .= "grade.grade_level_name ";
+            $sql .= "grade.grade_level_name, ";
+            $sql .= "grade.grade_level_is_base_two ";
             $sql .= "from {$this->tblTuitionFee} as fee, ";
             $sql .= "{$this->tblTuitionCategory} as category, ";
             $sql .= "{$this->tblGradeLevel} as grade, ";
@@ -268,6 +272,7 @@ class Assessment
             $sql .= "category.tuition_category_aid, ";
             $sql .= "category.tuition_category_name, ";
             $sql .= "grade.grade_level_name, ";
+            $sql .= "grade.grade_level_is_base_two, ";
             $sql .= "scheme.scheme_name, ";
             $sql .= "CONCAT(category.tuition_category_name, ' ', grade.grade_level_name) as tuitionName ";
             $sql .= "from {$this->tblTuitionFee} as fee, ";

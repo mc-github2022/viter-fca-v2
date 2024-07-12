@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2024 at 03:55 AM
+-- Generation Time: Jul 12, 2024 at 08:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,7 +65,7 @@ INSERT INTO `fcav2_settings_discount` (`discount_aid`, `discount_category_id`, `
 (16, '1', 'Sibling Discount 1-3', 1, '', '10', '1st Sibling of 3 Enrolled at FCA', 'While Enrolled at FCA', '', '', 0, '2024-04-26 08:44:21', '2024-04-26 08:44:21'),
 (17, '1', 'Sibling Discount 2-3', 1, '', '20', '2nd Sibling of 3 Enrolled at FCA', 'While Enrolled at FCA', '', '', 0, '2024-04-26 08:45:03', '2024-04-26 08:45:03'),
 (18, '1', 'Sibling Discount 3-3', 1, '', '30', '3rd Sibling of 3 Enrolled at FCA', 'While Enrolled at FCA', '', '', 0, '2024-04-26 08:45:34', '2024-04-26 08:45:34'),
-(19, '1', 'Sibling Discount 4+', 1, '', '100', '4th Sibling (and up) Enrolled at FCA', 'While Enrolled at FCA', '', '', 0, '2024-04-26 08:46:20', '2024-04-26 08:46:20'),
+(19, '1', 'Sibling Discount 4+', 1, '', '100', '4th Sibling (and up) Enrolled at FCA', 'While Enrolled at FCA', '', '', 1, '2024-04-26 08:46:20', '2024-07-11 10:02:44'),
 (20, '4', 'Loyalty Benefits (Incoming Grade1 rom FCA)', 1, '', '30', 'Completed K2 at FCA', '\\\"Discount: Until Grade 3\nSchool Supplies: Grade 1 only\\\"', '', '', 0, '2024-04-26 08:58:14', '2024-04-26 08:58:14'),
 (21, '4', 'Sibling Discount 2-2', 1, '', '10', '2nd Sibling of 2 Enrolled at FCA', 'While Enrolled at FCA', '', '', 0, '2024-04-26 08:59:59', '2024-04-26 08:59:59'),
 (22, '4', 'Sibling Discount 1-3', 1, '', '10', '1st Sibling of 3 Enrolled at FCA', 'While Enrolled at FCA', '', '', 0, '2024-04-26 09:00:24', '2024-04-26 09:00:24'),

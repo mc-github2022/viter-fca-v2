@@ -18,12 +18,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-const GradeLevelFormAddEdit = ({
-  itemEdit,
-  isLoading,
-  isFetching,
-  gradelevel,
-}) => {
+const GradeLevelFormAddEdit = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -64,6 +59,11 @@ const GradeLevelFormAddEdit = ({
     grade_level_order: itemEdit ? itemEdit.grade_level_order : "",
     grade_level_is_pre_school: itemEdit
       ? itemEdit.grade_level_is_pre_school === 1
+        ? true
+        : false
+      : false,
+    grade_level_is_base_two: itemEdit
+      ? itemEdit.grade_level_is_base_two === 1
         ? true
         : false
       : false,
@@ -112,6 +112,16 @@ const GradeLevelFormAddEdit = ({
                     type="checkbox"
                     name="grade_level_is_pre_school"
                     id="grade_level_is_pre_school"
+                    disabled={mutation.isPending}
+                  />
+                </div>
+
+                <div className="form__wrap text-xs mb-3">
+                  <InputCheckbox
+                    label="Mark check if nursery or pre-k"
+                    type="checkbox"
+                    name="grade_level_is_base_two"
+                    id="grade_level_is_base_two"
                     disabled={mutation.isPending}
                   />
                 </div>

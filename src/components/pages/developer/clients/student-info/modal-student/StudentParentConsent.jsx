@@ -72,7 +72,7 @@ const StudentParentConsent = ({ showSideNav, itemEdit, gradelevel }) => {
           return (
             <>
               <Form>
-                <div className="overflow-y-auto custom__scroll z-30 modal__article">
+                <div className="overflow-y-auto custom__scroll h-[700px] z-30 modal__article">
                   <div
                     className={` ${
                       showSideNav

@@ -1,9 +1,5 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import {
-  consoleLog,
-  numberWithCommasToFixed,
-} from "@/components/helpers/functions-general.jsx";
-import NoData from "@/components/partials/NoData";
+import { numberWithCommasToFixed } from "@/components/helpers/functions-general.jsx";
 import TableLoading from "@/components/partials/TableLoading";
 import { setSettingIsConfirm } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
@@ -12,17 +8,18 @@ import { BiSolidCheckCircle } from "react-icons/bi";
 import { FaExclamationCircle } from "react-icons/fa";
 import {
   getAdditonalDiscount,
-  getGetAdditionalDiscount,
   getMonthlyFeeDiscountedAmount,
-  getPrimaryPercentDiscount,
   getSectedScheme,
-  getTotalAdditionalDiscount,
   getTotalPaymentDiscountedAmount,
   getTotalPaymentWithComma,
   getUponEnrollmentDiscountedAmount,
-  handleAssessmentRemarks,
 } from "../../../assessment/modal/functions-assessment";
 import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
+import {
+  getGetAdditionalDiscount,
+  getPrimaryPercentDiscount,
+  getTotalAdditionalDiscount,
+} from "../../../assessment/modal/functions-assessment-new";
 
 const StudentPaymentScheme = ({
   showSideNav,
@@ -58,11 +55,6 @@ const StudentPaymentScheme = ({
     "addtional-discount" // key
   );
 
-  const primaryDiscountData = getPrimaryPercentDiscount(
-    primaryDiscount,
-    dataItem.current_students_primary_discount_id
-  );
-
   const { isLoading: loadingListOfScheme, data: listOfScheme } = useQueryData(
     "/v2/dev-assessment/read-by-tuition-scheme", // endpoint
     "post", // method
@@ -75,13 +67,6 @@ const StudentPaymentScheme = ({
     dataItem?.current_students_rate_id
   );
 
-  const totalAdditionalDiscountData = getTotalAdditionalDiscount(
-    listOfScheme,
-    getGetAdditionalDiscount(
-      additionalDiscount,
-      dataItem.current_students_additional_discount_id
-    )
-  );
   const handleSelectScheme = (listItem) => {
     if (dataItem.current_students_is_accept_payment === 0) {
       setSelectItem(listItem.tuition_fee_aid);
@@ -114,11 +99,25 @@ const StudentPaymentScheme = ({
     setIsSavePaymentScheme(false);
   };
 
+  const primaryDiscountData = getPrimaryPercentDiscount(
+    listOfScheme,
+    primaryDiscount,
+    dataItem.current_students_primary_discount_id
+  );
+
+  const totalAdditionalDiscountData = getTotalAdditionalDiscount(
+    listOfScheme,
+    primaryDiscountData,
+    getGetAdditionalDiscount(
+      additionalDiscount,
+      dataItem.current_students_additional_discount_id
+    )
+  );
   return (
     <>
       {listOfScheme?.data.length > 0 && (
         <>
-          <div className="overflow-y-auto custom__scroll  z-30 modal__article">
+          <div className="overflow-y-auto custom__scroll h-[1000px] z-30 modal__article">
             {!loadingListOfScheme && (
               <div
                 className={` ${
@@ -174,7 +173,7 @@ const StudentPaymentScheme = ({
               </div>
             )}
 
-            <div className="mb-4 text-xs">
+            <div className="mb-4 text-xs ">
               <h3 className="mb-3">Payment Scheme</h3>
 
               {loadingListOfScheme ? (
@@ -248,6 +247,7 @@ const StudentPaymentScheme = ({
                     })}
                   </div>
                   <StudentPaymentSchemeList
+                    dataItem={dataItem}
                     selectItem={selectItem}
                     listOfScheme={listOfScheme}
                     primaryDiscountData={primaryDiscountData}
@@ -260,87 +260,19 @@ const StudentPaymentScheme = ({
                   Pending From FCA Finance
                 </p>
               )}
-
-              {!loadingListOfScheme &&
-                listOfScheme?.data.length > 0 &&
-                (dataItem.current_students_primary_discount_id !== 0 ||
-                  dataItem.current_students_additional_discount_id !== 0) && (
-                  <>
-                    <div className=" grid grid-cols-4 mt-5 ">
-                      <div className="col-header flex items-center p-2">
-                        <h4>Discounted Total Amount</h4>
-                      </div>
-                      {listOfScheme?.data.map((listItem, key) => {
-                        return (
-                          <div
-                            className={`${
-                              selectItem === listItem.tuition_fee_aid
-                                ? "selected"
-                                : ""
-                            }`}
-                            key={key}
-                          >
-                            <div className="text-center p-2">
-                              <p className="text-xl !mb-0 !leading-none font-bold">
-                                <span className="text-accent ">
-                                  {getTotalPaymentDiscountedAmount(
-                                    getUponEnrollmentDiscountedAmount(
-                                      primaryDiscountData,
-                                      listItem,
-                                      getAdditonalDiscount(
-                                        totalAdditionalDiscountData,
-                                        listItem
-                                      )?.amount
-                                    ),
-                                    getMonthlyFeeDiscountedAmount(
-                                      listOfScheme,
-                                      primaryDiscountData,
-                                      listItem,
-                                      totalAdditionalDiscountData
-                                    ).totalMonthlyFeeDiscounted
-                                  )}
-                                </span>
-                              </p>
-                              <p className="text-sm !mt-2 !leading-none">
-                                {getMonthlyFeeDiscountedAmount(
-                                  listOfScheme,
-                                  primaryDiscountData,
-                                  listItem,
-                                  totalAdditionalDiscountData
-                                ).isDiscounted > 0
-                                  ? `${
-                                      getMonthlyFeeDiscountedAmount(
-                                        listOfScheme,
-                                        primaryDiscountData,
-                                        listItem,
-                                        totalAdditionalDiscountData
-                                      ).monthlyFeeDiscounted
-                                    }`
-                                  : "0.00"}
-                                <span className="text-xs"> /mo</span>
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
             </div>
-          </div>
-
-          {Number(dataItem.current_students_schedule_fees_id) > 0 &&
-            dataItem.current_students_is_accept_payment === 0 && (
-              <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 w-full z-10 ">
-                selected scheme submitted for assessment
+            {Number(dataItem.current_students_schedule_fees_id) > 0 &&
+              dataItem.current_students_is_accept_payment === 0 && (
+                <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-[#fff5c2] mb-0 h-10 w-full z-10 ">
+                  selected scheme submitted for assessment
+                </p>
+              )}
+            {dataItem.current_students_is_accept_payment === 1 && (
+              <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-blue-100 mb-0 h-10 w-full z-10 ">
+                payment accepted for selected scheme
               </p>
             )}
-
-          {dataItem.current_students_is_accept_payment === 1 && (
-            <p className="uppercase text-base flex items-center justify-center gap-2 text-center bg-blue-100 mb-0 h-10 w-full z-10 ">
-              payment accepted for selected scheme
-            </p>
-          )}
+          </div>
         </>
       )}
       {(loadingListOfScheme || listOfScheme?.data.length === 0) && (

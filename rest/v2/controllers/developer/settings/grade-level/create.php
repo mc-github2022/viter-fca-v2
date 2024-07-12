@@ -9,6 +9,7 @@ checkPayload($data);
 $grade_level->grade_level_name = checkIndex($data, "grade_level_name");
 $grade_level->grade_level_order = checkIndex($data, "grade_level_order");
 $grade_level->grade_level_is_pre_school = checkIndex($data, "grade_level_is_pre_school");
+$grade_level->grade_level_is_base_two = checkIndex($data, "grade_level_is_base_two");
 $grade_level->grade_level_active = 1;
 $grade_level->grade_level_created = date("Y-m-d H:i:s");
 $grade_level->grade_level_datetime = date("Y-m-d H:i:s");

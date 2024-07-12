@@ -39,14 +39,7 @@ const GradeLevel = ({ index }) => {
             school year
           </p>
         </div>
-        {store.isSettingAdd && (
-          <GradeLevelFormAddEdit
-            itemEdit={itemEdit}
-            isLoading={isLoading}
-            isFetching={isFetching}
-            gradelevel={gradelevel}
-          />
-        )}
+        {store.isSettingAdd && <GradeLevelFormAddEdit itemEdit={itemEdit} />}
         {!store.isSettingAdd && (
           <div className="h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
             <button

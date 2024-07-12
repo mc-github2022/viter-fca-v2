@@ -451,7 +451,7 @@ const StudentProfileForm = ({
                       </div>
                       <div className="form__wrap">
                         <InputText
-                          label="Contact Name "
+                          label="Contact Number"
                           type="text"
                           name="students_family_doctor_contact"
                           disabled={mutation.isPending}

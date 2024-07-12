@@ -39,7 +39,6 @@ const Students = () => {
 
   const handleAdd = () => {
     if (isOngoing === 0 || !isOngoing) {
-      console.log("123");
       dispatch(setValidate(true));
       dispatch(setMessage("There's no enrollment yet."));
       return;
