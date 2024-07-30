@@ -42,23 +42,23 @@ const Notifications = ({ index }) => {
             </p>
           </div>
 
-          {!store.isSettingAdd && (
-            <button
-              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-              onClick={handleAdd}
-            >
-              <AiOutlinePlus /> Add New
-            </button>
-          )}
-
           {store.isSettingAdd && (
             <NotificationsFormAddEdit
               itemEdit={itemEdit}
               department={department}
             />
           )}
+
           {!store.isSettingAdd && (
-            <NotificationsList setItemEdit={setItemEdit} />
+            <div className="max-h-full h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-y-auto custom__scroll">
+              <button
+                className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+                onClick={handleAdd}
+              >
+                <AiOutlinePlus /> Add New
+              </button>
+              <NotificationsList setItemEdit={setItemEdit} />
+            </div>
           )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

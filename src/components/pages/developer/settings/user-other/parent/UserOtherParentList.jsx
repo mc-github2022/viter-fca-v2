@@ -78,7 +78,7 @@ const UserOtherParentList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto h-[500px] custom__scroll  relative">
+      <div className="datalist custom__scroll">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && other.success === false ? (
@@ -102,7 +102,7 @@ const UserOtherParentList = ({ setItemEdit }) => {
                   item.user_other_is_active ? "opacity-100" : "opacity-40"
                 } `}
               >
-                <div className="sm:grid sm:grid-cols-[180px,220px,68px]">
+                <div className="sm:grid sm:grid-cols-[180px,280px,68px]">
                   <p className="mb-1 truncate">
                     {item.user_other_fname} {item.user_other_lname}
                   </p>

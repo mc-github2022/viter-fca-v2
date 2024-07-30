@@ -11,7 +11,7 @@ require 'PHPMailer/Exception.php';
 include_once("mail-config.php");
 include_once("template/admin-notification-re-enroll-student.php");
 
-function sendEmail($subject, $html_code, $email, $ccEmail)
+function sendEmail($subject, $html_code, $email, $ccEmail, $values)
 {
 	//trigger exception in a "try" block
 	try {
@@ -27,7 +27,8 @@ function sendEmail($subject, $html_code, $email, $ccEmail)
 		$mail->setFrom(USERNAME, FROM);
 		$mail->isHTML(true);
 		$mail->Body = getHtmlAdminNotificationReEnrollStudent(
-			$html_code
+			$html_code,
+			$values
 		);
 
 		$mail->addAddress($email);

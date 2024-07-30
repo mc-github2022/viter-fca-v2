@@ -622,7 +622,7 @@ body::-webkit-scrollbar {
 }
 .custom__scroll::-webkit-scrollbar:vertical,
 body::-webkit-scrollbar:vertical {
-  @apply w-2;
+  @apply w-3;
 }
 .custom__scroll::-webkit-scrollbar:horizontal,
 body::-webkit-scrollbar:horizontal {

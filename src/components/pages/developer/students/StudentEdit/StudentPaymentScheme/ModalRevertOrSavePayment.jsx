@@ -23,6 +23,8 @@ const ModalRevertOrSavePayment = ({
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
+  console.log(mysqlApiRevertOrSavePayment, msg, item, isSavePaymentScheme);
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(mysqlApiRevertOrSavePayment, "put", values),

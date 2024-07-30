@@ -64,7 +64,7 @@ const ListDiscountList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Primary List</h5>
 
-      <div className="datalist h-[500px] custom__scroll relative">
+      <div className="datalist custom__scroll">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && discount.success === false ? (

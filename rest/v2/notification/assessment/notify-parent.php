@@ -11,7 +11,7 @@ require dirname(__DIR__, 1) . '/PHPMailer/Exception.php';
 include_once dirname(__DIR__, 1) . '/mail-config.php';
 include_once dirname(__DIR__, 1) . '/template/assessment/assessment-notify-parent.php';
 
-function sendNotifyParent($subject, $html_code, $email, $ccEmail)
+function sendNotifyParent($subject, $html_code, $email, $ccEmail, $values)
 {
     //trigger exception in a "try" block
     try {
@@ -29,7 +29,7 @@ function sendNotifyParent($subject, $html_code, $email, $ccEmail)
         $mail->Subject = $subject;
         $mail->setFrom(USERNAME, FROM);
         $mail->isHTML(true);
-        $mail->Body = getHtmlAssessmentNotifyParent($html_code);
+        $mail->Body = getHtmlAssessmentNotifyParent($html_code, $values);
         $mail->addAddress($email);
 
         // cc emails

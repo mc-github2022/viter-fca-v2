@@ -59,7 +59,13 @@ if (array_key_exists("studentSyId", $_GET)) {
                 $email_template_subject,
                 $email_template_content,
                 $email,
-                $ccEmail
+                $ccEmail,
+                [
+                    'payment_rate' => $data["tuition_category_name"],
+                    'student_name' => $data["students_fname"] . ' ' . $data["students_lname"],
+                    'timestamp' => $assessment_list->current_students_datetime,
+                ]
+
             );
             if ($notifyParent["mail_success"] == false) {
                 returnError($notifyParent["error_message"]);

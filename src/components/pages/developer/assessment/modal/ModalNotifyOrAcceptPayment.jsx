@@ -24,6 +24,15 @@ const ModalNotifyOrAcceptPayment = ({
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
+  console.log(
+    mysqlApiNotifyOrAcceptPayment,
+    msg,
+    item,
+    queryKey,
+    isNotify,
+    setShowAssessment
+  );
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(mysqlApiNotifyOrAcceptPayment, "put", values),

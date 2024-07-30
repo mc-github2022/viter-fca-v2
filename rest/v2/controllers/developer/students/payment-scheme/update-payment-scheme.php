@@ -44,7 +44,13 @@ if (array_key_exists("studentSyId", $_GET)) {
             $email_template_subject,
             $email_template_content,
             trim($notification_email),
-            $ccEmail
+            $ccEmail,
+            [
+                'client_name' => $data["client_name"],
+                'student_name' => $data["student_name"],
+                'payment_rate' => $data["tuition_category_name"],
+                'timestamp' => $payment_scheme->current_students_datetime,
+            ]
         );
         if ($notifyParent["mail_success"] == false) {
             returnError($notifyParent["error_message"]);

@@ -1,0 +1,19 @@
+models
+1. rest/v2/models/developer/client/client-student/ClientStudent.php 
+
+controllers
+1. rest/v2/controllers/developer/students/payment-scheme/update-payment-scheme.php 
+2. rest/v2/controllers/developer/settings/other/create.php 
+3. rest/v2/controllers/developer/client/client-student/enroll-student.php 
+4. rest/v2/controllers/developer/client/client-student/create.php 
+5. rest/v2/controllers/developer/assessment/notify-or-accept-payment.php
+
+notification
+1. rest/v2/notification/verify-account.php 
+2. rest/v2/notification/re-enroll-student.php 
+3. rest/v2/notification/new-student.php 
+4. rest/v2/notification/template/admin-notification-re-enroll-student.php 
+5. rest/v2/notification/template/admin-notification-new-student.php 
+6. rest/v2/notification/template/admin-notification-new-parent.php 
+7. rest/v2/notification/template/assessment/assessment-notify-parent.php 
+8. rest/v2/notification/assessment/notify-parent.php 

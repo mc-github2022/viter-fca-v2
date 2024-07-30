@@ -24,6 +24,8 @@ const ModalReEnrolling = ({
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 
+  console.log(mysqlApiEnroll, msg, item, queryKey, setIsEnroll);
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({

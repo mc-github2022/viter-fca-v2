@@ -27,20 +27,19 @@ const UserOtherParent = ({ indexInner, index }) => {
             </p>
           </div>
 
-          {!store.isSettingAdd && (
-            <button
-              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-              onClick={handleAdd}
-            >
-              <AiOutlinePlus /> Add New
-            </button>
-          )}
-
           {store.isSettingAdd && (
             <UserOtherParentFormAddEdit itemEdit={itemEdit} />
           )}
           {!store.isSettingAdd && (
-            <UserOtherParentList setItemEdit={setItemEdit} />
+            <div className="max-h-full h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-y-auto custom__scroll">
+              <button
+                className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+                onClick={handleAdd}
+              >
+                <AiOutlinePlus /> Add New
+              </button>
+              <UserOtherParentList setItemEdit={setItemEdit} />
+            </div>
           )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

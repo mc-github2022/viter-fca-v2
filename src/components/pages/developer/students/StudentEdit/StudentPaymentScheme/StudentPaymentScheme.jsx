@@ -14,12 +14,12 @@ import {
   getTotalPaymentWithComma,
   getUponEnrollmentDiscountedAmount,
 } from "../../../assessment/modal/functions-assessment";
-import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
 import {
   getGetAdditionalDiscount,
   getPrimaryPercentDiscount,
   getTotalAdditionalDiscount,
 } from "../../../assessment/modal/functions-assessment-new";
+import StudentPaymentSchemeList from "./StudentPaymentSchemeList";
 
 const StudentPaymentScheme = ({
   showSideNav,
@@ -83,6 +83,8 @@ const StudentPaymentScheme = ({
       current_students_sy_id: dataItem.current_students_sy_id,
       students_aid: dataItem.students_aid,
       assessmentRemarks,
+      client_name: `${dataItem.parents_fname} ${dataItem.parents_lname}`,
+      student_name: `${dataItem.students_fname} ${dataItem.students_lname}`,
     });
     setIsSavePaymentScheme(true);
     setSelectItem(tuitionItem.tuition_fee_aid);
@@ -112,6 +114,15 @@ const StudentPaymentScheme = ({
       additionalDiscount,
       dataItem.current_students_additional_discount_id
     )
+  );
+
+  console.log(
+    {
+      gradeId: dataItem?.current_students_grade_level_id,
+      categoryId: dataItem?.current_students_rate_id,
+    },
+    dataItem?.current_students_grade_level_id,
+    dataItem?.current_students_rate_id
   );
   return (
     <>

@@ -78,7 +78,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
           )}
         </select>
       </div>
-      <div className="datalist relative">
+      <div className="datalist custom__scroll">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && scheduleOfFees.success === false ? (
@@ -93,7 +93,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
           scheduleOfFees?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row "
+                "datalist__item text-xs flex justify-between  md:grid md:grid-cols-[468px,92px] items-center lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
               }
               key={key}
             >

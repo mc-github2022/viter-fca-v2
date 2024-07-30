@@ -14,16 +14,6 @@ const GradeLevel = ({ index }) => {
 
   const [itemEdit, setItemEdit] = React.useState(null);
 
-  const {
-    isLoading,
-    isFetching,
-    data: gradelevel,
-  } = useQueryData(
-    "/v2/dev-grade-level", // endpoint
-    "get", // method
-    "grade-level" // key
-  );
-
   const handleAdd = () => {
     dispatch(setIsSettingAdd(true));
     setItemEdit(null);
@@ -39,9 +29,11 @@ const GradeLevel = ({ index }) => {
             school year
           </p>
         </div>
+
         {store.isSettingAdd && <GradeLevelFormAddEdit itemEdit={itemEdit} />}
+
         {!store.isSettingAdd && (
-          <div className="h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
+          <div className="max-h-full h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-y-auto custom__scroll">
             <button
               className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
               onClick={handleAdd}
@@ -49,12 +41,7 @@ const GradeLevel = ({ index }) => {
               <AiOutlinePlus /> Add New
             </button>
 
-            <GradeLevelList
-              setItemEdit={setItemEdit}
-              isLoading={isLoading}
-              isFetching={isFetching}
-              gradelevel={gradelevel}
-            />
+            <GradeLevelList setItemEdit={setItemEdit} />
           </div>
         )}
         {store.success && <ModalSuccess />}

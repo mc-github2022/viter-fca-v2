@@ -30,17 +30,18 @@ const Scheme = ({ index }) => {
             </p>
           </div>
 
-          {!store.isSettingAdd && (
-            <button
-              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-              onClick={handleAdd}
-            >
-              <AiOutlinePlus /> Add New
-            </button>
-          )}
-
           {store.isSettingAdd && <SchemeFormAddEdit itemEdit={itemEdit} />}
-          {!store.isSettingAdd && <SchemeList setItemEdit={setItemEdit} />}
+          {!store.isSettingAdd && (
+            <div className="max-h-full h-[400px] xr:h-[570px] lg:max-h-[680px] w-full overflow-y-auto custom__scroll">
+              <button
+                className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+                onClick={handleAdd}
+              >
+                <AiOutlinePlus /> Add New
+              </button>
+              <SchemeList setItemEdit={setItemEdit} />
+            </div>
+          )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

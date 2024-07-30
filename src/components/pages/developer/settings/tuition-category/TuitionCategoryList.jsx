@@ -64,7 +64,7 @@ const TuitionCategoryList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto h-[500px] custom__scroll  relative">
+      <div className="datalist custom__scroll">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && tuitionCategory.success === false ? (

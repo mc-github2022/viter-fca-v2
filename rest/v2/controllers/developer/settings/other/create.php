@@ -65,7 +65,11 @@ if ($queryRoleById[0]["role_is_parent"] == 1) {
             $email_template_subject,
             $email_template_content,
             trim($notification_email),
-            $ccEmail
+            $ccEmail,
+            [
+                'client_name' => $user_other->user_other_fname . ' ' . $user_other->user_other_lname,
+                'timestamp' => $user_other->user_other_created
+            ]
         );
         if ($notifyRegistrar["mail_success"] == false) {
             returnError($notifyRegistrar["error_message"]);
