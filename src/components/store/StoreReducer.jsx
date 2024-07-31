@@ -238,6 +238,12 @@ export const StoreReducer = (state, action) => {
         lastIdInserted: action.payload,
       };
 
+    case "IS_SHOW_SETTING":
+      return {
+        ...state,
+        isShowSetting: action.payload,
+      };
+
     default:
       return state;
   }

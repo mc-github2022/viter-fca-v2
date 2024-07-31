@@ -124,3 +124,27 @@ function tokenOther(
     http_response_code(200);
     checkAccess();
 }
+
+// read all staff
+function checkReadAllStaff($object)
+{
+    $query = $object->readAllStaff();
+    checkQuery($query, "Empty records. (read all staff)");
+    return $query;
+}
+
+// read limit staff
+function checkReadLimitStaff($object)
+{
+    $query = $object->readLimitStaff();
+    checkQuery($query, "Empty records. (read limit staff)");
+    return $query;
+}
+
+// search staff
+function checkSearchStaff($object)
+{
+    $query = $object->searchStaff();
+    checkQuery($query, "Empty records. (search staff)");
+    return $query;
+}

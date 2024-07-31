@@ -7,6 +7,7 @@ import {
   setIsMenuExpand,
   setIsSearch,
   setIsShow,
+  setIsShowSetting,
 } from "../store/StoreAction.jsx";
 import { StoreContext } from "../store/StoreContext.jsx";
 import LogoTextOnly from "./svg/LogoTextOnly.jsx";
@@ -47,6 +48,7 @@ const Header = ({ isLoading, schoolYear }) => {
   const handleShowSettings = () => {
     setIsShowSettings(true);
     dispatch(setIsSearch(false));
+    dispatch(setIsShowSetting(true));
     if (!isShowSetting) {
       document.querySelector("body").classList.add("no--scroll");
     } else {

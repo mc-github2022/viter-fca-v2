@@ -56,7 +56,7 @@ const ReportsStudentList = ({ schoolYear }) => {
       await queryDataInfinite(
         `/v2/dev-report/search`, // search endpoint
         `/v2/dev-report/page/${pageParam}`, // list endpoint
-        store.isSearch, // search boolean
+        store.isSearch && !store.isShowSetting, // search boolean
         {
           searchValue: search.current.value,
           gender,

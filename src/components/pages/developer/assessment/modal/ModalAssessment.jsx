@@ -162,6 +162,8 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
     }
   }, [totalAdditionalDiscountData, primaryDiscountData]);
 
+  console.log(primaryDiscountData);
+
   return (
     <>
       <div
@@ -431,6 +433,7 @@ const ModalAssessment = ({ setShowAssessment, item }) => {
           queryKey={"assessment"}
           isNotify={isNotify}
           setShowAssessment={setShowAssessment}
+          discount={{ primaryDiscount, additionalDiscount }}
         />
       )}
     </>

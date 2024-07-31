@@ -1,0 +1,15 @@
+models
+1. rest/v2/models/developer/settings/UserOther.php 
+
+controllers
+1. rest/v2/controllers/developer/students/payment-scheme/update-payment-scheme.php 
+2. rest/v2/controllers/developer/settings/other/search.php 
+3. rest/v2/controllers/developer/settings/other/page.php 
+4. rest/v2/controllers/developer/settings/other/functions.php 
+5. rest/v2/controllers/developer/assessment/notify-or-accept-payment.php
+
+notification
+1. rest/v2/notification/template/assessment/assessment-notify-parent.php 
+
+htaccess
+1. rest/v2/.htaccess 

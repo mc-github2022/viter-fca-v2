@@ -104,6 +104,8 @@ RewriteRule ^dev-user-system/verify-email/([A-Za-z0-9-]+)$ controllers/developer
 # USER OTHER
 RewriteRule ^user-other$ controllers/developer/settings/other/other.php [L]
 RewriteRule ^user-other/([0-9]+)$ controllers/developer/settings/other/other.php?userotherid=$1 [L]
+RewriteRule ^user-other/page/([0-9]+)$ controllers/developer/settings/other/page.php?start=$1 [L]
+RewriteRule ^user-other/search$ controllers/developer/settings/other/search.php [L]
 RewriteRule ^user-other/active/([0-9]+)$ controllers/developer/settings/other/active.php?userotherid=$1 [L]
 RewriteRule ^user-other/password$ controllers/developer/settings/other/set-password.php [L]
 RewriteRule ^user-other/reset$ controllers/developer/settings/other/reset-password.php [L]

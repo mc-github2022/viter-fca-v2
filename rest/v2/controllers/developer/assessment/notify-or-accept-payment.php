@@ -64,6 +64,8 @@ if (array_key_exists("studentSyId", $_GET)) {
                     'payment_rate' => $data["tuition_category_name"],
                     'student_name' => $data["students_fname"] . ' ' . $data["students_lname"],
                     'timestamp' => $assessment_list->current_students_datetime,
+                    'primary' => $data["primary"],
+                    'additional' => $data["additional"]
                 ]
 
             );

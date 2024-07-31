@@ -1,3 +1,4 @@
+import useQueryData from "@/components/custom-hooks/useQueryData";
 import { handleEscape } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import ModalWrapper from "@/components/partials/modals/ModalWrapper";
@@ -13,17 +14,48 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { LiaInfoCircleSolid } from "react-icons/lia";
+import { getPrimaryDiscount } from "../../../assessment/modal/functions-assessment";
+import { getGetAdditionalDiscount } from "../../../assessment/modal/functions-assessment-new";
 const ModalRevertOrSavePayment = ({
   mysqlApiRevertOrSavePayment,
   msg,
   item,
   isSavePaymentScheme,
   setIsViewInfo,
+  dataItem = null,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
-  console.log(mysqlApiRevertOrSavePayment, msg, item, isSavePaymentScheme);
+  const {
+    isLoading: isLoadingPrimaryDiscount,
+    isFetching: isFetchingPrimaryDiscount,
+    data: primaryDiscount,
+  } = useQueryData(
+    "/v2/dev-assessment/read-primary-discount", // endpoint
+    "get", // method
+    "primary-discount" // key
+  );
+
+  const { data: additionalDiscount } = useQueryData(
+    "/v2/dev-assessment/read-additional-discount", // endpoint
+    "get", // method
+    "addtional-discount" // key
+  );
+
+  console.log(
+    getPrimaryDiscount(
+      primaryDiscount,
+      dataItem.current_students_primary_discount_id
+    )
+  );
+
+  console.log(
+    getGetAdditionalDiscount(
+      additionalDiscount,
+      dataItem.current_students_additional_discount_id
+    )
+  );
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -63,6 +95,33 @@ const ModalRevertOrSavePayment = ({
     // mutate data
     mutation.mutate({
       ...item,
+      primary:
+        getPrimaryDiscount(
+          primaryDiscount,
+          dataItem.current_students_primary_discount_id
+        ).length > 0
+          ? `${
+              getPrimaryDiscount(
+                primaryDiscount,
+                dataItem.current_students_primary_discount_id
+              )[0]["discount_category_name"]
+            } (${
+              getPrimaryDiscount(
+                primaryDiscount,
+                dataItem.current_students_primary_discount_id
+              )[0]["discount_type"]
+            })`
+          : "",
+      additional:
+        getGetAdditionalDiscount(
+          additionalDiscount,
+          dataItem.current_students_additional_discount_id
+        ).length > 0
+          ? getGetAdditionalDiscount(
+              additionalDiscount,
+              dataItem.current_students_additional_discount_id
+            )[0]["discount_additional_name"]
+          : "",
     });
   };
 

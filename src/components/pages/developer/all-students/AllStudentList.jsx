@@ -73,7 +73,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
       await queryDataInfinite(
         `/v2/dev-all-students/search`, // search endpoint
         `/v2/dev-all-students/page/${pageParam}`, // list endpoint
-        store.isSearch, // search boolean
+        store.isSearch && !store.isShowSetting, // search boolean
         { searchValue: search.current.value }
       ),
     getNextPageParam: (lastPage) => {

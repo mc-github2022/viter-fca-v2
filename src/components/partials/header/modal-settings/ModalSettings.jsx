@@ -19,7 +19,11 @@ import UserOther from "@/components/pages/developer/settings/user-other/UserOthe
 import UserOtherParent from "@/components/pages/developer/settings/user-other/parent/UserOtherParent";
 import UserOtherStaff from "@/components/pages/developer/settings/user-other/staff/UserOtherStaff";
 import UserSystem from "@/components/pages/developer/settings/user-system/UserSystem";
-import { setIndexItem, setIsShowModal } from "@/components/store/StoreAction";
+import {
+  setIndexItem,
+  setIsShowModal,
+  setIsShowSetting,
+} from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
@@ -39,6 +43,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
 
   const handleCloseSettings = (e) => {
     dispatch(setIsShowModal(false));
+    dispatch(setIsShowSetting(false));
     setTimeout(() => {
       setIsShowSettings(false);
       dispatch(setIsShowModal(true));

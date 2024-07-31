@@ -7,6 +7,26 @@ function getHtmlAssessmentNotifyParent(
   $clientLabel = array_key_exists("client_name", $values) ? "Client Name:" : "";
   $clientValue = array_key_exists("client_name", $values) ? $values["client_name"] : "";
 
+  $primaryValue = array_key_exists("primary", $values) ? $values["primary"] : "";
+  $additionalValue = array_key_exists("additional", $values) ? $values["additional"] : "";
+
+  $discountApplied = "No Discount";
+
+  if ($primaryValue == '' && $additionalValue != '') {
+    $discountApplied = $additionalValue;
+  }
+
+  if ($primaryValue != '' && $additionalValue == '') {
+    $discountApplied = $primaryValue;
+  }
+
+
+  if ($primaryValue != '' && $additionalValue != '') {
+    $discountApplied = $primaryValue . ', ' . $additionalValue;
+  }
+
+
+
   $html =
     '
     <pre style="font-family: sans-serif">' . $html_code . '</pre>
@@ -35,6 +55,19 @@ function getHtmlAssessmentNotifyParent(
                     Student Name:
                   </td>
                   <td style="">' . $values["student_name"] . '</td>
+                </tr>
+  
+                <tr>
+                  <td
+                    style="
+                      width: 120px;
+                      font-weight: 600;
+                      padding-top: 6px;
+                    "
+                  >
+                    Discount applied:
+                  </td>
+                  <td style="">' . $discountApplied . '</td>
                 </tr>
   
                 <tr>

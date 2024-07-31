@@ -34,7 +34,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
       await queryDataInfinite(
         `/v2/dev-assessment/search`, // search endpoint
         `/v2/dev-assessment/page/${pageParam}`, // list endpoint
-        store.isSearch, // search boolean
+        store.isSearch && !store.isShowSetting, // search boolean
         { search: search.current.value }
       ),
     getNextPageParam: (lastPage) => {

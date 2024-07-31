@@ -293,6 +293,7 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
           item={itemData}
           isSavePaymentScheme={isSavePaymentScheme}
           setIsViewInfo={setIsViewInfo}
+          dataItem={dataItem}
         />
       )}
     </>

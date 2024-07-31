@@ -13,6 +13,11 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { LiaInfoCircleSolid } from "react-icons/lia";
+import {
+  getAdditonalDiscount,
+  getGetAdditionalDiscount,
+  getPrimaryDiscount,
+} from "./functions-assessment";
 const ModalNotifyOrAcceptPayment = ({
   mysqlApiNotifyOrAcceptPayment,
   msg,
@@ -20,18 +25,14 @@ const ModalNotifyOrAcceptPayment = ({
   queryKey,
   isNotify,
   setShowAssessment,
+  discount = null,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
-  console.log(
-    mysqlApiNotifyOrAcceptPayment,
-    msg,
-    item,
-    queryKey,
-    isNotify,
-    setShowAssessment
-  );
+  console.log(item);
+
+  console.log(discount);
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -66,6 +67,17 @@ const ModalNotifyOrAcceptPayment = ({
     },
   });
 
+  console.log(
+    getPrimaryDiscount(discount.primaryDiscount, item.primaryDiscountId)
+  );
+
+  console.log(
+    getGetAdditionalDiscount(
+      discount.additionalDiscount,
+      item.additionalDiscountId
+    )
+  );
+
   const handleYes = async (val) => {
     // mutate data
     mutation.mutate({
@@ -73,6 +85,31 @@ const ModalNotifyOrAcceptPayment = ({
       isNotifyParent: val,
       is_notify: isNotify ? 1 : 0,
       is_accept_payment: isNotify ? 0 : 1,
+      primary:
+        getPrimaryDiscount(discount.primaryDiscount, item.primaryDiscountId)
+          .length > 0
+          ? `${
+              getPrimaryDiscount(
+                discount.primaryDiscount,
+                item.primaryDiscountId
+              )[0]["discount_category_name"]
+            } (${
+              getPrimaryDiscount(
+                discount.primaryDiscount,
+                item.primaryDiscountId
+              )[0]["discount_type"]
+            })`
+          : "",
+      additional:
+        getGetAdditionalDiscount(
+          discount.additionalDiscount,
+          item.additionalDiscountId
+        ).length > 0
+          ? getGetAdditionalDiscount(
+              discount.additionalDiscount,
+              item.additionalDiscountId
+            )[0]["discount_additional_name"]
+          : "",
     });
   };
 
