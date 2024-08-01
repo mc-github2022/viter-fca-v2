@@ -9,7 +9,7 @@ $parents = new Parents($conn);
 if (array_key_exists("parentsid", $_GET)) {
 
     $parents->parents_aid = $_GET['parentsid'];
-    $parents->parents_email = $data['item'];
+    $parents->user_other_email = $data['item'];
 
     // validate id if empty or valid number
     checkId($parents->parents_aid);

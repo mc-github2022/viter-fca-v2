@@ -93,7 +93,7 @@ const ScheduleOfFeesList = ({ setItemEdit }) => {
           scheduleOfFees?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs flex justify-between  md:grid md:grid-cols-[468px,92px] items-center lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "datalist__item text-xs flex justify-between  md:grid md:grid-cols-[468px,92px] items-center lg:items-center border-b border-line py-5 first:pt-5 lg:flex-row last:border-none"
               }
               key={key}
             >

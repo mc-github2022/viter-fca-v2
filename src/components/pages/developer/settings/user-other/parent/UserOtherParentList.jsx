@@ -119,7 +119,9 @@ const UserOtherParentList = ({ setItemEdit }) => {
 
   return (
     <>
-      <div className="w-1/2">
+      <h5 className="text-sm">List</h5>
+
+      <div className="w-1/2 pt-5">
         <SearchBar
           search={search}
           dispatch={dispatch}
@@ -130,7 +132,6 @@ const UserOtherParentList = ({ setItemEdit }) => {
           onSearch={onSearch}
         />
       </div>
-      <h5 className="text-sm">List</h5>
 
       <div className="datalist custom__scroll">
         {isFetching && !isFetchingNextPage && status !== "loading" && (
@@ -151,7 +152,7 @@ const UserOtherParentList = ({ setItemEdit }) => {
               {page.data.map((item, key) => (
                 <div
                   className={
-                    "datalist__item text-xs flex justify-between  md:grid md:grid-cols-[468px,92px] items-center lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                    "datalist__item text-xs flex justify-between  md:grid md:grid-cols-[468px,92px] items-center lg:items-center border-b border-line py-2 lg:flex-row last:border-none"
                   }
                   key={key}
                 >

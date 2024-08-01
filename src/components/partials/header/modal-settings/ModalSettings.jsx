@@ -94,7 +94,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
               <main
                 className={`${
                   showSideNav ? "lg:-left-[170px]" : "lg:left-[0px] "
-                } p-2 lg:pl-5 lg:py-0 w-full relative transition-all duration-300 ease-timing-nav`}
+                } p-2 lg:pl-5 lg:py-0 w-full relative overflow-y-auto custom__scroll transition-all duration-300 ease-timing-nav`}
               >
                 <Department
                   index={index}
