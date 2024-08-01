@@ -76,8 +76,8 @@ const Assestment = () => {
           item={itemAssessment}
         />
       )}
-      {store.success && <ModalSuccess />}
-      {store.validate && <ModalValidate />}
+      {store.success && !store.isShowSetting && <ModalSuccess />}
+      {store.validate && !store.isShowSetting && <ModalValidate />}
     </>
   );
 };

@@ -96,10 +96,12 @@ const Students = () => {
         </div>
         <Footer />
       </section>
-      {store.isAdd && <ModalAddStudent schoolYear={schoolYear} />}
-      {store.success && <ModalSuccess />}
-      {store.error && <ModalError />}
-      {store.validate && <ModalValidate />}
+      {store.isAdd && !store.isShowSetting && (
+        <ModalAddStudent schoolYear={schoolYear} />
+      )}
+      {store.success && !store.isShowSetting && <ModalSuccess />}
+      {store.error && !store.isShowSetting && <ModalError />}
+      {store.validate && !store.isShowSetting && <ModalValidate />}
 
       {isViewInfo && (
         <ModalEditStudent setIsViewInfo={setIsViewInfo} dataItem={dataItem} />

@@ -228,7 +228,7 @@ const ClientViewInfo = () => {
         <Footer />
       </section>
 
-      {store.validate && <ModalValidate />}
+      {store.validate && !store.isShowSetting && <ModalValidate />}
     </>
   );
 };

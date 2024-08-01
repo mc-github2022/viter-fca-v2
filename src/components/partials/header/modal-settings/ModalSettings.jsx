@@ -80,7 +80,7 @@ const ModalSettings = ({ setIsShowSettings, isGreaterThanEndYear = false }) => {
               </button>
             </div>
             <div
-              className={`wrapper lg:flex gap-2 bg-primary p-2 lg:p-5 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-220px)] overflow-hidden`}
+              className={`wrapper lg:flex gap-2 bg-primary p-2 lg:p-5 !pb-10 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-220px)] overflow-hidden`}
             >
               {/* <div className="wrapper flex gap-2 bg-primary p-2 lg:p-5 lg:pl-0 h-[calc(100vh-120px)] lg:h-[calc(100vh-220px)] overflow-x-hidden "> */}
               <ModalSettingsNav

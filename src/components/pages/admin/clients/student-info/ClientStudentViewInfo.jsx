@@ -431,9 +431,9 @@ const ClientStudentViewInfo = () => {
         />
       )}
 
-      {store.success && <ModalSuccess />}
-      {store.error && <ModalError />}
-      {store.validate && <ModalValidate />}
+      {store.success && !store.isShowSetting && <ModalSuccess />}
+      {store.error && !store.isShowSetting && <ModalError />}
+      {store.validate && !store.isShowSetting && <ModalValidate />}
     </>
   );
 };

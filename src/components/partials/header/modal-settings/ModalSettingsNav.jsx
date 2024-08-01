@@ -2,6 +2,7 @@ import { consoleLog } from "@/components/helpers/functions-general";
 import {
   setIndexItem,
   setIsAdd,
+  setIsSearch,
   setIsSettingAdd,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
@@ -26,6 +27,7 @@ const ModalSettingsNav = ({
   };
   const handleCategoryCollapse = () => {
     setCategoryCollapse(!categoryCollapse);
+    dispatch(setIsSearch(false));
   };
 
   const [subNavActive, setSubNavActive] = useState("");
@@ -34,6 +36,7 @@ const ModalSettingsNav = ({
     setIndex(index);
     setSubNavActive(subMenu);
     dispatch(setIsSettingAdd(false));
+    dispatch(setIsSearch(false));
   };
 
   const handleChangeSetting = (index, e) => {
@@ -45,12 +48,14 @@ const ModalSettingsNav = ({
     setbtnCollapse(false);
     setCategoryCollapse(false);
     dispatch(setIsSettingAdd(false));
+    dispatch(setIsSearch(false));
   };
 
   const handleChangeSettingInner = (indexInner, e) => {
     e.preventDefault;
     setIndexInner(indexInner);
     dispatch(setIsAdd(false));
+    dispatch(setIsSearch(false));
     setShowSideNav(false);
   };
 

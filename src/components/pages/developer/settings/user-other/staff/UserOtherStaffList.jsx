@@ -41,6 +41,8 @@ const UserOtherStaffList = ({ setItemEdit }) => {
   const { ref, inView } = useInView();
   const [onSearch, setOnSearch] = React.useState(false);
 
+  let counter = 1;
+
   // const {
   //   isLoading,
   //   isFetching,
@@ -164,6 +166,7 @@ const UserOtherStaffList = ({ setItemEdit }) => {
                   >
                     <div className="sm:grid sm:grid-cols-[180px,280px,68px]">
                       <p className="mb-1 truncate">
+                        <span className="mr-1">{counter++}.</span>{" "}
                         {item.user_other_fname} {item.user_other_lname}
                       </p>
                       <p className="mb-1 truncate ">{item.user_other_email}</p>
