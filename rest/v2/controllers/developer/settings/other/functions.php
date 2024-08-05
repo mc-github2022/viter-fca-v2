@@ -94,7 +94,14 @@ function tokenOther(
             $row = $result->fetch(PDO::FETCH_ASSOC);
 
             http_response_code(200);
-            $returnData["data"] = $row;
+            // $returnData["data"] = $row;
+            $returnData["data"] =
+                array_merge(
+                    (array)$row,
+                    array('role' => $decoded->data->data->role_name),
+                    array('user_key' => $decoded->data->data->user_other_password),
+                );
+
             $returnData["count"] = $result->rowCount();
             $returnData["success"] = true;
             $returnData["message"] = "Access granted.";
