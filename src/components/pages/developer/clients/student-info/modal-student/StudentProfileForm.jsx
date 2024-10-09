@@ -29,10 +29,12 @@ const StudentProfileForm = ({
   itemEdit,
   gradeLevel,
   schoolYear,
+  parent = null,
 }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const cid = getUrlParam().get("cid");
   const queryClient = useQueryClient();
+  const [grade, setGrade] = React.useState("");
 
   const { error, data: parentGuardian } = useQueryData(
     "/v2/dev-students/parent-guardian", // endpoint
@@ -56,7 +58,7 @@ const StudentProfileForm = ({
     }
   );
 
-  // console.log(parentGuardian);
+  // console.log(parent);
   // console.log({
   //   students_parent_id:
   //     Object.keys(itemEdit).length > 0
@@ -103,6 +105,11 @@ const StudentProfileForm = ({
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
+  };
+
+  const handleSetGrade = (e) => {
+    console.log(e.target.options[e.target.selectedIndex].text);
+    setGrade(e.target.options[e.target.selectedIndex].text);
   };
 
   const initVal =
@@ -167,7 +174,13 @@ const StudentProfileForm = ({
         initialValues={initVal}
         validationSchema={yupSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutation.mutate({ ...values, ...store.credentials.data });
+          mutation.mutate({
+            ...values,
+            ...store.credentials.data,
+            ...parent?.data[0],
+            grade,
+            sy: `${syid.start_year}-${syid.end_year}`,
+          });
         }}
       >
         {(props) => {
@@ -242,6 +255,7 @@ const StudentProfileForm = ({
                           label="Grade Level"
                           name="current_students_grade_level_id"
                           disabled={mutation.isPending}
+                          onChange={(e) => handleSetGrade(e)}
                         >
                           <option value="" hidden></option>
                           {gradeLevel?.count > 0 ? (

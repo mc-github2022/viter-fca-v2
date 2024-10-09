@@ -55,8 +55,6 @@ if ($student->current_students_last_grade_level_id == 0) {
     $student->grade_level_order = $nextGradeLevel[0]["grade_level_order"];
 }
 
-
-
 // for school year student -> repository // insert
 $query = checkEnrollStudent($student);
 
@@ -83,7 +81,14 @@ if ($data["role_is_parent"] == 1) {
             $email_template_subject,
             $email_template_content,
             trim($notification_email),
-            $ccEmail
+            $ccEmail,
+            [
+                'client_name' => $data["parents_fname"] . ' ' . $data["parents_lname"],
+                'student_name' => $student->students_fname . ' ' . $student->students_lname,
+                'grade_level' => $nextGradeLevel[0]["grade_level_name"],
+                'sy' =>  $data["school_year"],
+                'timestamp' => $student->current_students_created,
+            ]
         );
         if ($notifyRegistrar["mail_success"] == false) {
             returnError($notifyRegistrar["error_message"]);

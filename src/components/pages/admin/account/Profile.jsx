@@ -266,8 +266,8 @@ const Profile = () => {
         </div>
       </section>
 
-      {store.success && <ModalSuccess />}
-      {store.error && <ModalError />}
+      {store.success && !store.isShowSetting && <ModalSuccess />}
+      {store.error && !store.isShowSetting && <ModalError />}
 
       {changePassword && (
         <ModalConfirmPasswordChange

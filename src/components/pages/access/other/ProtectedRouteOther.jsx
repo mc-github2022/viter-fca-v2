@@ -6,6 +6,7 @@ import { devNavUrl } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData.jsx";
 import {
   setCredentials,
+  setError,
   setMessage,
   setValidate,
 } from "../../../store/StoreAction";
@@ -42,7 +43,23 @@ const ProtectedRouteOther = ({ children }) => {
         token: fcatoken.token,
       });
 
-      console.log(login);
+      const isUserKeyMatched =
+        login.data.user_key === login.data.user_other_password;
+
+      // console.log(isUserKeyMatched);
+
+      // check if the password from database is matched
+      // to the password used to login
+      // if not, logout the user
+
+      if (isUserKeyMatched === false) {
+        setLoading(false);
+        setIsAuth("456");
+        dispatch(setError(true));
+        dispatch(setMessage("No token found."));
+        localStorage.removeItem("fcatoken");
+        return;
+      }
 
       if (typeof login === "undefined" || !login.success || login.count === 0) {
         localStorage.removeItem("fcatoken");
@@ -55,6 +72,7 @@ const ProtectedRouteOther = ({ children }) => {
         dispatch(setCredentials(login.data));
         setIsAuth("123");
         setLoading(false);
+        delete login.data.user_key;
         delete login.data.user_other_password;
         delete login.data.role_description;
         delete login.data.role_created;
@@ -69,6 +87,8 @@ const ProtectedRouteOther = ({ children }) => {
       ) {
         setPageStatus(true);
       }
+
+      console.log(login);
     };
 
     if (fcatoken !== null) {

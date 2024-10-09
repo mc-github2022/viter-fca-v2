@@ -95,6 +95,8 @@ class UserOther
             $sql .= "from {$this->tblUserOther} as user, ";
             $sql .= "{$this->tblRole} as role ";
             $sql .= "where user.user_other_role_id = role.role_aid ";
+            $sql .= "and (role.role_is_parent = 1 ";
+            $sql .= "or role.role_is_client = 1) ";
             $sql .= "order by user.user_other_is_active desc, ";
             $sql .= "user.user_other_fname ";
             $query = $this->connection->query($sql);
@@ -118,6 +120,64 @@ class UserOther
             $sql .= "from {$this->tblUserOther} as user, ";
             $sql .= "{$this->tblRole} as role ";
             $sql .= "where user.user_other_role_id = role.role_aid ";
+            $sql .= "and (role.role_is_parent = 1 ";
+            $sql .= "or role.role_is_client = 1) ";
+            $sql .= "order by user.user_other_is_active desc, ";
+            $sql .= "user.user_other_fname ";
+            $sql .= "limit :start, ";
+            $sql .= ":total ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "start" => $this->user_other_start - 1,
+                "total" => $this->user_other_total,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read all
+    public function readAllStaff()
+    {
+        try {
+            $sql = "select user.user_other_fname, ";
+            $sql .= "user.user_other_lname, ";
+            $sql .= "user.user_other_is_active, ";
+            $sql .= "user.user_other_email, ";
+            $sql .= "user.user_other_role_id, ";
+            $sql .= "role.*, ";
+            $sql .= "user.user_other_aid ";
+            $sql .= "from {$this->tblUserOther} as user, ";
+            $sql .= "{$this->tblRole} as role ";
+            $sql .= "where user.user_other_role_id = role.role_aid ";
+            $sql .= "and (role.role_is_admin = 1 ";
+            $sql .= "or role.role_is_admin = 1) ";
+            $sql .= "order by user.user_other_is_active desc, ";
+            $sql .= "user.user_other_fname ";
+            $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // read limit
+    public function readLimitStaff()
+    {
+        try {
+            $sql = "select user.user_other_fname, ";
+            $sql .= "user.user_other_lname, ";
+            $sql .= "user.user_other_is_active, ";
+            $sql .= "user.user_other_email, ";
+            $sql .= "user.user_other_role_id, ";
+            $sql .= "role.*, ";
+            $sql .= "user.user_other_aid ";
+            $sql .= "from {$this->tblUserOther} as user, ";
+            $sql .= "{$this->tblRole} as role ";
+            $sql .= "where user.user_other_role_id = role.role_aid ";
+            $sql .= "and (role.role_is_admin = 1 ";
+            $sql .= "or role.role_is_admin = 1) ";
             $sql .= "order by user.user_other_is_active desc, ";
             $sql .= "user.user_other_fname ";
             $sql .= "limit :start, ";
@@ -208,6 +268,43 @@ class UserOther
             $sql .= "from {$this->tblUserOther} as user, ";
             $sql .= "{$this->tblRole} as role ";
             $sql .= "where user.user_other_role_id = role.role_aid ";
+            $sql .= "and (role.role_is_parent = 1 ";
+            $sql .= "or role.role_is_client = 1) ";
+            $sql .= "and ( user.user_other_fname like :user_other_fname ";
+            $sql .= "or user.user_other_lname like :user_other_lname ";
+            $sql .= "or user.user_other_email like :user_other_email ";
+            $sql .= "or concat(user.user_other_lname, ' ' , user.user_other_lname) like :fullname ";
+            $sql .= ") ";
+            $sql .= "order by user.user_other_is_active desc, ";
+            $sql .= "user.user_other_fname ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "user_other_fname" => "%{$this->user_other_search}%",
+                "user_other_lname" => "%{$this->user_other_search}%",
+                "user_other_email" => "%{$this->user_other_search}%",
+                "fullname" => "%{$this->user_other_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // search
+    public function searchStaff()
+    {
+        try {
+            $sql = "select user.user_other_fname, ";
+            $sql .= "user.user_other_lname, ";
+            $sql .= "user.user_other_is_active, ";
+            $sql .= "user.user_other_email, ";
+            $sql .= "user.user_other_role_id, ";
+            $sql .= "role.*, ";
+            $sql .= "user.user_other_aid ";
+            $sql .= "from {$this->tblUserOther} as user, ";
+            $sql .= "{$this->tblRole} as role ";
+            $sql .= "where user.user_other_role_id = role.role_aid ";
+            $sql .= "and (role.role_is_admin = 1 ";
+            $sql .= "or role.role_is_admin = 1) ";
             $sql .= "and ( user.user_other_fname like :user_other_fname ";
             $sql .= "or user.user_other_lname like :user_other_lname ";
             $sql .= "or user.user_other_email like :user_other_email ";

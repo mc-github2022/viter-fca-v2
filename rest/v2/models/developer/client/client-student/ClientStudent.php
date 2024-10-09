@@ -258,6 +258,7 @@ class ClientStudent
         try {
             $sql = "select ";
             $sql .= "grade_level_aid, ";
+            $sql .= "grade_level_name, ";
             $sql .= "grade_level_order ";
             $sql .= "from {$this->tblGradeLevel} ";
             $sql .= "where grade_level_order = '1' ";
@@ -273,7 +274,8 @@ class ClientStudent
     {
         try {
             $sql = "select ";
-            $sql .= "grade_level_aid ";
+            $sql .= "grade_level_aid, ";
+            $sql .= "grade_level_name ";
             $sql .= "from {$this->tblGradeLevel} ";
             $sql .= "where grade_level_order > :grade_level_order ";
             $sql .= "limit 1 ";

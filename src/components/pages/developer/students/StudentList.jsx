@@ -43,7 +43,7 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
       await queryDataInfinite(
         `/v2/dev-students/search`, // search endpoint
         `/v2/dev-students/page/${pageParam}`, // list endpoint
-        store.isSearch, // search boolean
+        store.isSearch && !store.isShowSetting, // search boolean
         { searchValue: search.current.value }
       ),
     getNextPageParam: (lastPage) => {
@@ -54,6 +54,8 @@ const StudentList = ({ setIsViewInfo, setData, dataItem }) => {
     },
     refetchOnWindowFocus: true,
   });
+
+  console.log(store.isShowSetting);
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));

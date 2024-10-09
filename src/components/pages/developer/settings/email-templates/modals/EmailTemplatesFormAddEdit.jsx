@@ -106,7 +106,7 @@ const EmailTemplatesFormAddEdit = ({
           {(props) => {
             return (
               <Form>
-                <div className="h-[400px] xr:h-[580px] lg:max-h-[680px] w-full overflow-auto custom__scroll ">
+                <div className="custom__scroll">
                   <div className="max-w-[540px]">
                     <div className="form__wrap text-xs mb-3 max-w-[20rem]">
                       <InputText

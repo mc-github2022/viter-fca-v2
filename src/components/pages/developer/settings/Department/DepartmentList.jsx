@@ -67,7 +67,7 @@ const DepartmentList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist max-w-[650px] w-full overflow-x-hidden overflow-y-auto h-[500px] custom__scroll  relative">
+      <div className="datalist custom__scroll">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && department.success === false ? (
@@ -82,7 +82,7 @@ const DepartmentList = ({ setItemEdit }) => {
           department?.data.map((item, key) => (
             <div
               className={
-                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "datalist__item text-xs flex justify-between  md:grid md:grid-cols-[468px,92px] items-center lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
               }
               key={key}
             >

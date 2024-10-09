@@ -16,11 +16,21 @@ import ModalInvalidRequestError from "@/components/partials/modals/ModalInvalidR
 import React from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { MdOutlineRestore } from "react-icons/md";
-const GradeLevelList = ({ setItemEdit, isLoading, isFetching, gradelevel }) => {
+const GradeLevelList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isArchive, setIsArchive] = React.useState(1);
+
+  const {
+    isLoading,
+    isFetching,
+    data: gradelevel,
+  } = useQueryData(
+    "/v2/dev-grade-level", // endpoint
+    "get", // method
+    "grade-level" // key
+  );
 
   const handleEdit = (item) => {
     dispatch(setIsSettingAdd(true));
@@ -51,7 +61,7 @@ const GradeLevelList = ({ setItemEdit, isLoading, isFetching, gradelevel }) => {
     <>
       <h5 className="text-sm">List</h5>
 
-      <div className="datalist h-[500px] custom__scroll  relative">
+      <div className="datalist custom__scroll">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && gradelevel.success === false ? (
@@ -66,7 +76,7 @@ const GradeLevelList = ({ setItemEdit, isLoading, isFetching, gradelevel }) => {
           gradelevel?.data.map((item, key) => (
             <div
               className={
-                "datalist__item max-w-[650px] text-xs flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
+                "datalist__item text-xs  flex justify-between lg:items-center border-b border-line py-2 first:pt-5 lg:flex-row last:border-none"
               }
               key={key}
             >

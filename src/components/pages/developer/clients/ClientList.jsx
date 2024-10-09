@@ -59,7 +59,7 @@ const ClientList = ({ setItemEdit }) => {
       await queryDataInfinite(
         `/v2/dev-parents/search`, // search endpoint
         `/v2/dev-parents/page/${pageParam}`, // list endpoint
-        store.isSearch, // search boolean
+        store.isSearch && !store.isShowSetting, // search boolean
         { search: search.current.value }
       ),
     getNextPageParam: (lastPage) => {

@@ -59,7 +59,7 @@ function sendEmail($password_link, $name, $email, $key)
 	}
 }
 
-function sendAdminEmail($subject, $html_code, $email, $ccEmail)
+function sendAdminEmail($subject, $html_code, $email, $ccEmail, $values)
 {
 	//trigger exception in a "try" block
 	try {
@@ -75,7 +75,8 @@ function sendAdminEmail($subject, $html_code, $email, $ccEmail)
 		$mail->setFrom(USERNAME, FROM);
 		$mail->isHTML(true);
 		$mail->Body = getHtmlAdminNotification(
-			$html_code
+			$html_code,
+			$values
 		);
 
 		$mail->addAddress($email);

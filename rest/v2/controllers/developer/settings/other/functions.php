@@ -94,7 +94,14 @@ function tokenOther(
             $row = $result->fetch(PDO::FETCH_ASSOC);
 
             http_response_code(200);
-            $returnData["data"] = $row;
+            // $returnData["data"] = $row;
+            $returnData["data"] =
+                array_merge(
+                    (array)$row,
+                    array('role' => $decoded->data->data->role_name),
+                    array('user_key' => $decoded->data->data->user_other_password),
+                );
+
             $returnData["count"] = $result->rowCount();
             $returnData["success"] = true;
             $returnData["message"] = "Access granted.";
@@ -123,4 +130,28 @@ function tokenOther(
     checkEndpoint();
     http_response_code(200);
     checkAccess();
+}
+
+// read all staff
+function checkReadAllStaff($object)
+{
+    $query = $object->readAllStaff();
+    checkQuery($query, "Empty records. (read all staff)");
+    return $query;
+}
+
+// read limit staff
+function checkReadLimitStaff($object)
+{
+    $query = $object->readLimitStaff();
+    checkQuery($query, "Empty records. (read limit staff)");
+    return $query;
+}
+
+// search staff
+function checkSearchStaff($object)
+{
+    $query = $object->searchStaff();
+    checkQuery($query, "Empty records. (search staff)");
+    return $query;
 }

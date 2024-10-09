@@ -29,15 +29,16 @@ const Staff = ({ index }) => {
           </div>
 
           {!store.isSettingAdd && (
-            <button
-              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-              onClick={handleAdd}
-            >
-              <AiOutlinePlus /> Add New
-            </button>
+            <div className="custom__scroll">
+              <button
+                className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+                onClick={handleAdd}
+              >
+                <AiOutlinePlus /> Add New
+              </button>
+              <StaffList setItemEdit={setItemEdit} />
+            </div>
           )}
-
-          {!store.isSettingAdd && <StaffList setItemEdit={setItemEdit} />}
 
           {store.isSettingAdd && <StaffFormAddEdit itemEdit={itemEdit} />}
 

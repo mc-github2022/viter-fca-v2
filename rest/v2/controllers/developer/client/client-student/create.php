@@ -72,7 +72,14 @@ if ($data["role_is_parent"] == 1) {
             $email_template_subject,
             $email_template_content,
             trim($notification_email),
-            $ccEmail
+            $ccEmail,
+            [
+                'client_name' => $data["parents_fname"] . ' ' . $data["parents_lname"],
+                'student_name' => $data["students_fname"] . ' ' . $data["students_lname"],
+                'grade_level' => $data["grade"],
+                'sy' => $data["sy"],
+                'timestamp' => $student->students_created
+            ]
         );
         if ($notifyRegistrar["mail_success"] == false) {
             returnError($notifyRegistrar["error_message"]);

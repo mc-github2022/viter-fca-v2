@@ -15,6 +15,8 @@ $data = json_decode($body, true);
 if (array_key_exists("studentSyId", $_GET)) {
     checkPayload($data);
 
+    // returnError($data);
+
     $payment_scheme->current_students_aid = $_GET['studentSyId'];
     $payment_scheme->current_students_is_accept_payment = 0;
     $payment_scheme->current_students_is_notify = 0;
@@ -44,7 +46,15 @@ if (array_key_exists("studentSyId", $_GET)) {
             $email_template_subject,
             $email_template_content,
             trim($notification_email),
-            $ccEmail
+            $ccEmail,
+            [
+                'client_name' => $data["client_name"],
+                'student_name' => $data["student_name"],
+                'payment_rate' => $data["tuition_category_name"],
+                'timestamp' => $payment_scheme->current_students_datetime,
+                'primary' => $data["primary"],
+                'additional' => $data["additional"]
+            ]
         );
         if ($notifyParent["mail_success"] == false) {
             returnError($notifyParent["error_message"]);

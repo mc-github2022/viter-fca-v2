@@ -22,7 +22,7 @@ const Loadmore = ({
             <ButtonSpinner />
           </button>
         ) : (
-          <div className="loadmore my-8 p-1.5">End of list.</div>
+          <div className="loadmore my-8 p-1.5 text-xs">End of list.</div>
         )}
       </>
     );

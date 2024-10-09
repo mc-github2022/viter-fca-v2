@@ -62,7 +62,7 @@ const BaseRateList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Base Rate List</h5>
 
-      <div className="datalist h-[500px] custom__scroll  relative">
+      <div className="datalist custom__scroll">
         {isFetching && !isLoading && <TableSpinner />}
 
         {(!isLoading && baseRate.success === false) || error ? (

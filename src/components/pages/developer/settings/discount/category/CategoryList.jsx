@@ -63,7 +63,7 @@ const CategoryList = ({ setItemEdit }) => {
     <>
       <h5 className="text-sm">Category List</h5>
 
-      <div className="datalist h-[500px] custom__scroll  relative">
+      <div className="datalist custom__scroll">
         {isFetching && !isLoading && <TableSpinner />}
 
         {!isLoading && categoryDiscount.success === false ? (

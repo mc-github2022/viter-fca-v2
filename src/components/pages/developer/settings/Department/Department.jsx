@@ -30,17 +30,18 @@ const Department = ({ index, isGreaterThanEndYear }) => {
             </p>
           </div>
 
-          {!store.isSettingAdd && (
-            <button
-              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-              onClick={handleAdd}
-            >
-              <AiOutlinePlus /> Add New
-            </button>
-          )}
-
           {store.isSettingAdd && <DepartmentFormAddEdit itemEdit={itemEdit} />}
-          {!store.isSettingAdd && <DepartmentList setItemEdit={setItemEdit} />}
+          {!store.isSettingAdd && (
+            <div className="custom__scroll">
+              <button
+                className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+                onClick={handleAdd}
+              >
+                <AiOutlinePlus /> Add New
+              </button>
+              <DepartmentList setItemEdit={setItemEdit} />
+            </div>
+          )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}
         </div>

@@ -188,6 +188,7 @@ const ModalAddStudent = ({ itemEdit, parent, schoolYear }) => {
                         }}
                         gradeLevel={gradeLevel}
                         schoolYear={schoolYear}
+                        parent={parent}
                       />
                     )}
                     {itemEdit && (

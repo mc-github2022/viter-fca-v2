@@ -2,6 +2,7 @@ import { consoleLog } from "@/components/helpers/functions-general";
 import {
   setIndexItem,
   setIsAdd,
+  setIsSearch,
   setIsSettingAdd,
 } from "@/components/store/StoreAction.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
@@ -26,6 +27,7 @@ const ModalSettingsNav = ({
   };
   const handleCategoryCollapse = () => {
     setCategoryCollapse(!categoryCollapse);
+    dispatch(setIsSearch(false));
   };
 
   const [subNavActive, setSubNavActive] = useState("");
@@ -34,6 +36,7 @@ const ModalSettingsNav = ({
     setIndex(index);
     setSubNavActive(subMenu);
     dispatch(setIsSettingAdd(false));
+    dispatch(setIsSearch(false));
   };
 
   const handleChangeSetting = (index, e) => {
@@ -45,12 +48,14 @@ const ModalSettingsNav = ({
     setbtnCollapse(false);
     setCategoryCollapse(false);
     dispatch(setIsSettingAdd(false));
+    dispatch(setIsSearch(false));
   };
 
   const handleChangeSettingInner = (indexInner, e) => {
     e.preventDefault;
     setIndexInner(indexInner);
     dispatch(setIsAdd(false));
+    dispatch(setIsSearch(false));
     setShowSideNav(false);
   };
 
@@ -65,7 +70,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 1 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(1, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Department
             </button>
@@ -73,7 +78,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 2 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(2, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Notification
             </button>
@@ -81,7 +86,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 19 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(19, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Email Templates
             </button>
@@ -90,7 +95,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 3 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(3, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Parent Relationship
             </button>
@@ -99,7 +104,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 4 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(4, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Grade Level
             </button>
@@ -108,7 +113,7 @@ const ModalSettingsNav = ({
           {/* <li className={` ${index === 5 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(5, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Learning Type
             </button>
@@ -117,7 +122,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 6 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(6, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Requirement - Registrar
             </button>
@@ -126,7 +131,7 @@ const ModalSettingsNav = ({
           {/* <li className={` ${index === 7 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(7, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Requirement - Finance
             </button>
@@ -135,7 +140,7 @@ const ModalSettingsNav = ({
           {/* <li className={` ${index === 8 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(8, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Requirement - IT
             </button>
@@ -144,7 +149,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 9 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(9, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Tuition Fee Category
             </button>
@@ -153,7 +158,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 10 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(10, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Tuition Fee Scheme
             </button>
@@ -162,7 +167,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 11 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(11, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Schedule of Fees
             </button>
@@ -177,7 +182,7 @@ const ModalSettingsNav = ({
                 handleChangeSettingInner(1, e);
                 handleSubNavActive("Parent", 12);
               }}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               <div className="flex items-center justify-between">
                 <span>Users</span>
@@ -229,7 +234,7 @@ const ModalSettingsNav = ({
               >
                 <button
                   onClick={(e) => handleChangeSetting(13, e)}
-                  className="p-1 pl-4"
+                  className="p-1 px-7"
                 >
                   Developer
                 </button>
@@ -242,7 +247,7 @@ const ModalSettingsNav = ({
               >
                 <button
                   onClick={(e) => handleChangeSetting(14, e)}
-                  className="p-1 pl-4"
+                  className="p-1 px-7"
                 >
                   Roles
                 </button>
@@ -259,7 +264,7 @@ const ModalSettingsNav = ({
                 handleChangeSettingInner(3, e);
                 handleSubNavActive("discount-category", 15);
               }}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               <div className="flex items-center justify-between">
                 <span>Discount</span>
@@ -341,7 +346,7 @@ const ModalSettingsNav = ({
           <li className={` ${index === 16 ? "active" : ""}`}>
             <button
               onClick={(e) => handleChangeSetting(16, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               Staff
             </button>
@@ -355,7 +360,7 @@ const ModalSettingsNav = ({
           >
             <button
               onClick={(e) => handleChangeSetting(17, e)}
-              className="p-1 pl-4"
+              className="p-1 px-7"
             >
               School Year
             </button>
@@ -364,7 +369,7 @@ const ModalSettingsNav = ({
             <li className={` ${index === 18 ? "active" : ""}`}>
               <button
                 onClick={(e) => handleChangeSetting(18, e)}
-                className="p-1 pl-4"
+                className="p-1 px-7"
               >
                 System Mode
               </button>

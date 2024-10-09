@@ -80,9 +80,11 @@ const Clients = () => {
         <Footer />
       </section>
 
-      {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}
-      {store.success && <ModalSuccess />}
-      {store.validate && <ModalValidate />}
+      {store.isAdd && !store.isShowSetting && (
+        <ModalAddClient itemEdit={itemEdit} />
+      )}
+      {store.success && !store.isShowSetting && <ModalSuccess />}
+      {store.validate && !store.isShowSetting && <ModalValidate />}
     </>
   );
 };

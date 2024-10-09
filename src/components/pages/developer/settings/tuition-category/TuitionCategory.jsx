@@ -29,18 +29,17 @@ const TuitionCategory = ({ index }) => {
             </p>
           </div>
 
-          {!store.isSettingAdd && (
-            <button
-              className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
-              onClick={handleAdd}
-            >
-              <AiOutlinePlus /> Add New
-            </button>
-          )}
-
           {store.isSettingAdd && <TuitionCategoryAddEdit itemEdit={itemEdit} />}
           {!store.isSettingAdd && (
-            <TuitionCategoryList setItemEdit={setItemEdit} />
+            <div className="custom__scroll">
+              <button
+                className="flex gap-1 items-center mt-2 text-xs hover:underline mb-5"
+                onClick={handleAdd}
+              >
+                <AiOutlinePlus /> Add New
+              </button>
+              <TuitionCategoryList setItemEdit={setItemEdit} />
+            </div>
           )}
           {store.success && <ModalSuccess />}
           {store.error && <ModalError />}

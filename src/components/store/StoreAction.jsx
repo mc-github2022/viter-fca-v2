@@ -282,3 +282,10 @@ export const setIndexItem = (val) => {
     payload: val,
   };
 };
+
+export const setIsShowSetting = (val) => {
+  return {
+    type: "IS_SHOW_SETTING",
+    payload: val,
+  };
+};

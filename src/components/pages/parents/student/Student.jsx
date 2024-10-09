@@ -328,6 +328,7 @@ const Student = () => {
               dataItem.current_students_grade_level_id
             ),
             current_students_sy_id: schoolYear?.data[0].school_year_aid,
+            ...schoolYear?.data[0],
           }}
           queryKey={"all-students"}
           setIsEnroll={setIsEnroll}

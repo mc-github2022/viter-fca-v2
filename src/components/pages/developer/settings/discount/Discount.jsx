@@ -6,9 +6,9 @@ import { setIndexItem, setIsSettingAdd } from "@/components/store/StoreAction";
 import { StoreContext } from "@/components/store/StoreContext";
 import { FaArrowLeft } from "react-icons/fa";
 import AdditionalDiscount from "./additional/AdditionalDiscount";
+import BaseRate from "./base-rate/BaseRate";
 import Category from "./category/Category";
 import ListDiscount from "./list/ListDiscount";
-import BaseRate from "./base-rate/BaseRate";
 const Discount = ({ index, indexInner }) => {
   const { store, dispatch } = React.useContext(StoreContext);
 

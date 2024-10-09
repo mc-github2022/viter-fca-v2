@@ -102,7 +102,7 @@ const ListDiscountModalAddEdit = ({ itemEdit }) => {
           {(props) => {
             return (
               <Form>
-                <div className="h-[200px] xr:h-[520px] lg:max-h-[620px] overflow-y-auto custom__scroll ">
+                <div className="custom__scroll">
                   <div className="max-w-[310px] xs:w-full">
                     <div className="form__wrap text-xs mb-3">
                       <InputSelect
