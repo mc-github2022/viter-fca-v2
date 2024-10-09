@@ -18,6 +18,7 @@ $additional_discount->discount_additional_amount = $data["discount_additional_am
 $additional_discount->discount_additional_base_rate_id = $data["discount_additional_base_rate_id"];
 $additional_discount->discount_additional_is_stand_alone_discount = $data["discount_additional_is_stand_alone_discount"];
 $additional_discount->discount_additional_is_applyed_scheme_a = $data["discount_additional_is_applyed_scheme_a"];
+$additional_discount->discount_additional_is_early_bird = $data["discount_additional_is_early_bird"];
 $additional_discount->discount_additional_created = date("Y-m-d H:i:s");
 $additional_discount->discount_additional_updated = date("Y-m-d H:i:s");
 
