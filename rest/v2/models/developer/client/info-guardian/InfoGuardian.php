@@ -21,6 +21,7 @@ class InfoGuardian
     public $guardian_country;
     public $guardian_religion;
     public $guardian_occupation;
+    public $guardian_birth_date;
 
     public $guardian_fname_old;
     public $guardian_lname_old;
@@ -68,6 +69,7 @@ class InfoGuardian
             $sql .= "guardian_country, ";
             $sql .= "guardian_religion, ";
             $sql .= "guardian_occupation, ";
+            $sql .= "guardian_birth_date, ";
             $sql .= "guardian_datetime, ";
             $sql .= "guardian_created ) values ( ";
             $sql .= ":guardian_parent_id, ";
@@ -88,6 +90,7 @@ class InfoGuardian
             $sql .= ":guardian_country, ";
             $sql .= ":guardian_religion, ";
             $sql .= ":guardian_occupation, ";
+            $sql .= ":guardian_birth_date, ";
             $sql .= ":guardian_datetime, ";
             $sql .= ":guardian_created ) ";
             $query = $this->connection->prepare($sql);
@@ -110,6 +113,7 @@ class InfoGuardian
                 "guardian_country" => $this->guardian_country,
                 "guardian_religion" => $this->guardian_religion,
                 "guardian_occupation" => $this->guardian_occupation,
+                "guardian_birth_date" => $this->guardian_birth_date,
                 "guardian_datetime" => $this->guardian_datetime,
                 "guardian_created" => $this->guardian_created,
             ]);
@@ -172,6 +176,7 @@ class InfoGuardian
             $sql .= "guardian_country = :guardian_country, ";
             $sql .= "guardian_religion = :guardian_religion, ";
             $sql .= "guardian_occupation = :guardian_occupation, ";
+            $sql .= "guardian_birth_date = :guardian_birth_date, ";
             $sql .= "guardian_created = :guardian_created ";
             $sql .= "where guardian_aid  = :guardian_aid ";
             $query = $this->connection->prepare($sql);
@@ -194,6 +199,7 @@ class InfoGuardian
                 "guardian_country" => $this->guardian_country,
                 "guardian_religion" => $this->guardian_religion,
                 "guardian_occupation" => $this->guardian_occupation,
+                "guardian_birth_date" => $this->guardian_birth_date,
                 "guardian_created" => $this->guardian_created,
                 "guardian_aid" => $this->guardian_aid,
             ]);
@@ -211,7 +217,7 @@ class InfoGuardian
             $sql .= "where guardian_aid  = :guardian_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "guardian_aid" => $this->guardian_aid ,
+                "guardian_aid" => $this->guardian_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -255,7 +261,4 @@ class InfoGuardian
         }
         return $query;
     }
-
-
-    
 }

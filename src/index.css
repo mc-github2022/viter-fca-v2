@@ -156,7 +156,7 @@
   }
 
   table thead {
-    @apply sticky top-0  bg-primary border-b border-line;
+    @apply sticky top-0 z-10 bg-primary border-b border-line;
   }
 
   nav {
@@ -626,7 +626,7 @@ body::-webkit-scrollbar:vertical {
 }
 .custom__scroll::-webkit-scrollbar:horizontal,
 body::-webkit-scrollbar:horizontal {
-  @apply h-2.5 bg-gray-100;
+  @apply h-4 bg-gray-100;
 }
 .custom__scroll::-webkit-scrollbar-track-piece,
 body::-webkit-scrollbar-track-piece {

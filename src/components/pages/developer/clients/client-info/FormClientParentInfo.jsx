@@ -98,6 +98,7 @@ const FormClientParentInfo = ({
     guardian_country: itemEdit ? itemEdit.guardian_country : "",
     guardian_religion: itemEdit ? itemEdit.guardian_religion : "",
     guardian_occupation: itemEdit ? itemEdit.guardian_occupation : "",
+    guardian_birth_date: itemEdit ? itemEdit.guardian_birth_date : "",
 
     guardian_fname_old: itemEdit ? itemEdit.guardian_fname : "",
     guardian_lname_old: itemEdit ? itemEdit.guardian_lname : "",
@@ -121,6 +122,7 @@ const FormClientParentInfo = ({
     guardian_country: Yup.string().required("Required"),
     guardian_religion: Yup.string().required("Required"),
     guardian_occupation: Yup.string().required("Required"),
+    guardian_birth_date: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -381,6 +383,14 @@ const FormClientParentInfo = ({
                     label="Occupation"
                     type="text"
                     name="guardian_occupation"
+                    disabled={mutation.isPending}
+                  />
+                </div>
+                <div className="form__wrap">
+                  <InputText
+                    label="Date of Birth"
+                    type="date"
+                    name="guardian_birth_date"
                     disabled={mutation.isPending}
                   />
                 </div>

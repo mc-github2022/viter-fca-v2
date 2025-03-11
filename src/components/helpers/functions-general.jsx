@@ -37,6 +37,10 @@ export const uponEnrollmentFeeId = 6;
 export const monthlyFeeId = 10;
 export const totalMonthlyFeeId = 8;
 
+// This is for relationship id
+export const mothersId = 12;
+export const fathersId = 13;
+
 export const devKey =
   "$2a$12$47wDvbLInZif/PVS8B6P3.7WxyJvUpBzZAWCsnWJUKq3nrn4qgmeO";
 

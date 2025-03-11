@@ -1,7 +1,11 @@
-import { formatDate } from "@/components/helpers/functions-general";
+import {
+  fathersId,
+  formatDate,
+  mothersId,
+} from "@/components/helpers/functions-general";
 import Pills from "@/components/partials/Pills";
 import { setIsSearch } from "@/components/store/StoreAction";
-import { PiStudentLight } from "react-icons/pi";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export const getStudentStatus = (
@@ -126,30 +130,128 @@ export const getRecord = (
   getCurrentSchoolYear,
   studentRequirement,
   registrarRequirement,
-  gradeLevelData
+  gradeLevelData,
+  guardian,
+  isShowStatus,
+  isShowLrn,
+  isShowStudentName,
+  isShowDob,
+  isShowStudentEmail,
+  isShowFatherName,
+  isShowFatherContact,
+  isShowFatherEmail,
+  isShowFatherDob,
+  isShowMotherMaiden,
+  isShowMotherContact,
+  isShowMotherEmail,
+  isShowMotherDob,
+  isShowGender,
+  isShowGradeLevel,
+  isShowSy,
+  isShowAddress
 ) => {
+  const getParentsInfo = () => {
+    let fatherName = "";
+    let fatherContact = "";
+    let fatherEmail = "";
+    let fatherDob = "";
+    let motherName = "";
+    let motherContact = "";
+    let motherEmail = "";
+    let motherDob = "";
+    let address = "";
+
+    guardian?.count > 0 &&
+      guardian?.data.map((guardianItem) => {
+        if (
+          Number(guardianItem.guardian_parent_id) ===
+            Number(item.students_parent_id) &&
+          guardianItem.guardian_relationship_id === fathersId
+        ) {
+          fatherName = `${guardianItem.guardian_fname} ${guardianItem.guardian_lname}`;
+          fatherContact = guardianItem.guardian_mobile;
+          fatherEmail = guardianItem.guardian_email;
+          fatherDob = guardianItem.guardian_birth_date;
+          address = `${guardianItem.guardian_address} ${guardianItem.guardian_province} ${guardianItem.guardian_city} ${guardianItem.guardian_zipcode} ${guardianItem.guardian_country}`;
+        }
+
+        if (
+          Number(guardianItem.guardian_parent_id) ===
+            Number(item.students_parent_id) &&
+          guardianItem.guardian_relationship_id === mothersId
+        ) {
+          motherName = `${guardianItem.guardian_fname} ${guardianItem.guardian_maiden_name}`;
+          // motherName = `${guardianItem.guardian_fname} ${guardianItem.guardian_maiden_name} ${guardianItem.guardian_mname}`;
+          motherContact = guardianItem.guardian_mobile;
+          motherEmail = guardianItem.guardian_email;
+          motherDob = guardianItem.guardian_birth_date;
+          address = `${guardianItem.guardian_address} ${guardianItem.guardian_province} ${guardianItem.guardian_city} ${guardianItem.guardian_zipcode} ${guardianItem.guardian_country}`;
+        }
+      });
+
+    return {
+      fatherName,
+      fatherContact,
+      fatherEmail,
+      fatherDob,
+      motherName,
+      motherContact,
+      motherEmail,
+      motherDob,
+      address,
+    };
+  };
+
   return (
     <tr key={key}>
       <td>{counter++}.</td>
-      <td>
-        {item.students_is_active === 0 ? (
-          <Pills label="Inactive" color="text-disable" />
-        ) : (
-          getStudentStatus(
-            item,
-            getCurrentSchoolYear,
-            studentRequirement,
-            registrarRequirement,
-            gradeLevelData
-          )
-        )}
-      </td>
-      <td>{item.student_fullname}</td>
-      <td>{item.students_gender === "m" ? "Male" : "Female"}</td>
-      <td>{item.grade_level_name}</td>
-      <td>{item.students_lrn}</td>
-      <td>{formatDate(item.students_birth_date)}</td>
-      <td>{item.school_year}</td>
+      {isShowStatus && (
+        <td>
+          {item.students_is_active === 0 ? (
+            <Pills label="Inactive" color="text-disable" />
+          ) : (
+            getStudentStatus(
+              item,
+              getCurrentSchoolYear,
+              studentRequirement,
+              registrarRequirement,
+              gradeLevelData
+            )
+          )}
+        </td>
+      )}
+      {isShowLrn && <td>{item.students_lrn}</td>}
+      {isShowStudentName && <td>{item.student_fullname}</td>}
+      {isShowDob && <td>{formatDate(item.students_birth_date)}</td>}
+      {isShowStudentEmail && <td>{item.students_email}</td>}
+      {isShowFatherName && <td>{getParentsInfo().fatherName}</td>}
+      {isShowFatherContact && <td>{getParentsInfo().fatherContact}</td>}
+      {isShowFatherEmail && <td>{getParentsInfo().fatherEmail}</td>}
+      {isShowFatherDob && (
+        <td>
+          {getParentsInfo().fatherDob === "" ||
+          isNaN(getParentsInfo().fatherDob)
+            ? ""
+            : formatDate(getParentsInfo().fatherDob)}
+        </td>
+      )}
+      {isShowMotherMaiden && <td>{getParentsInfo().motherName}</td>}
+      {isShowMotherContact && <td>{getParentsInfo().motherContact}</td>}
+      {isShowMotherEmail && <td>{getParentsInfo().motherEmail}</td>}
+      {isShowMotherDob && (
+        <td>
+          {getParentsInfo().motherDob === "" ||
+          isNaN(getParentsInfo().motherDob)
+            ? ""
+            : formatDate(getParentsInfo().motherDob)}
+        </td>
+      )}
+      {isShowGender && (
+        <td>{item.students_gender === "m" ? "Male" : "Female"}</td>
+      )}
+      {isShowGradeLevel && <td>{item.grade_level_name}</td>}
+      {isShowSy && <td>{item.school_year}</td>}
+      {isShowAddress && <td>{getParentsInfo().address}</td>}
       <td>
         <div className="table-action flex gap-2 justify-end">
           <Link
@@ -372,4 +474,242 @@ export const getCount = (result, gender, gradeLevel, withLrn, birthDate) => {
   });
 
   return count;
+};
+
+export const checkBoxColumn = (
+  isShowStatus,
+  setIsShowStatus,
+  isShowLrn,
+  setIsShowLrn,
+  isShowStudentName,
+  setIsShowStudentName,
+  isShowDob,
+  setIsShowDob,
+  isShowStudentEmail,
+  setIsShowStudentEmail,
+  isShowFatherName,
+  setIsShowFatherName,
+  isShowFatherContact,
+  setIsShowFatherContact,
+  isShowFatherEmail,
+  setIsShowFatherEmail,
+  isShowFatherDob,
+  setIsShowFatherDob,
+  isShowMotherMaiden,
+  setIsShowMotherMaiden,
+  isShowMotherContact,
+  setIsShowMotherContact,
+  isShowMotherEmail,
+  setIsShowMotherEmail,
+  isShowMotherDob,
+  setIsShowMotherDob,
+  isShowGender,
+  setIsShowGender,
+  isShowGradeLevel,
+  setIsShowGradeLevel,
+  isShowSy,
+  setIsShowSy,
+  isShowAddress,
+  setIsShowAddress,
+  setIsShowFilterColumn,
+  isShowFilterColumn
+) => {
+  return (
+    <div className="flex flex-col">
+      <span
+        className={`font-bold text-xs mb-2 mt-5 uppercase flex items-center gap-2 w-fit cursor-pointer ${
+          isShowFilterColumn && "underline text-accentLight"
+        }`}
+        onClick={() => setIsShowFilterColumn(!isShowFilterColumn)}
+      >
+        Filter columns{" "}
+        {/* {isShowFilterColumn ? (
+          <FaCaretUp className="h-5 w-5" />
+        ) : (
+          <FaCaretDown className="h-5 w-5" />
+        )} */}
+        {isShowFilterColumn ? (
+          <button>
+            <FaCaretUp className="h-4 w-4" />
+          </button>
+        ) : (
+          <button>
+            <FaCaretDown className="h-4 w-4" />
+          </button>
+        )}
+      </span>
+
+      {isShowFilterColumn && (
+        <div className="text-xs flex items-center flex-wrap gap-2 mb-10">
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowStatus(!isShowStatus)}
+          >
+            <input type="checkbox" className="h-3 w-3" checked={isShowStatus} />{" "}
+            Status
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowLrn(!isShowLrn)}
+          >
+            <input type="checkbox" className="h-3 w-3" checked={isShowLrn} />
+            LRN
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowStudentName(!isShowStudentName)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowStudentName}
+            />
+            Student Name
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowDob(!isShowDob)}
+          >
+            <input type="checkbox" className="h-3 w-3" checked={isShowDob} />
+            Date of Birth
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowStudentEmail(!isShowStudentEmail)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowStudentEmail}
+            />
+            Student Email
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowFatherName(!isShowFatherName)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowFatherName}
+            />
+            Father's Name
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowFatherContact(!isShowFatherContact)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowFatherContact}
+            />
+            Contact Number
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowFatherEmail(!isShowFatherEmail)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowFatherEmail}
+            />
+            Father's Email
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowFatherDob(!isShowFatherDob)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowFatherDob}
+            />
+            Father's Date of Birth
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowMotherMaiden(!isShowMotherMaiden)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowMotherMaiden}
+            />
+            Mother's Maiden Name
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowMotherContact(!isShowMotherContact)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowMotherContact}
+            />
+            Contact Number
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowMotherEmail(!isShowMotherEmail)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowMotherEmail}
+            />
+            Mother's Email
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowMotherDob(!isShowMotherDob)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowMotherDob}
+            />
+            Mother's Date of Birth
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowGender(!isShowGender)}
+          >
+            <input type="checkbox" className="h-3 w-3" checked={isShowGender} />
+            Gender
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowGradeLevel(!isShowGradeLevel)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowGradeLevel}
+            />
+            Grade Level
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowSy(!isShowSy)}
+          >
+            <input type="checkbox" className="h-3 w-3" checked={isShowSy} />
+            S.Y
+          </span>
+          <span
+            className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
+            onClick={() => setIsShowAddress(!isShowAddress)}
+          >
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              checked={isShowAddress}
+            />
+            Address
+          </span>
+        </div>
+      )}
+    </div>
+  );
 };

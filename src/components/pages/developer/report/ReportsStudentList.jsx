@@ -1,5 +1,4 @@
 import useQueryData from "@/components/custom-hooks/useQueryData";
-import { formatDateMonth } from "@/components/helpers/functions-general";
 import { queryDataInfinite } from "@/components/helpers/queryDataInfinite.jsx";
 import Loadmore from "@/components/partials/Loadmore.jsx";
 import NoData from "@/components/partials/NoData.jsx";
@@ -9,10 +8,11 @@ import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx"
 import { StoreContext } from "@/components/store/StoreContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
+import { FaEye } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 import FilterBar from "./FilterBar";
 import SearchBarFilterReportStudents from "./SearchBarFilterReportStudents";
-import { getCount, getRecord } from "./functions-report";
+import { checkBoxColumn, getCount, getRecord } from "./functions-report";
 
 const ReportsStudentList = ({ schoolYear }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -25,10 +25,27 @@ const ReportsStudentList = ({ schoolYear }) => {
   const [withLrn, setWithLrn] = React.useState(0);
   const [gradeLevel, setGradeLevel] = React.useState({});
   const [birthDate, setBirthDate] = React.useState("");
-  const [totalCount, setTotalCount] = React.useState(0);
+
+  const [isShowStatus, setIsShowStatus] = React.useState(true);
+  const [isShowLrn, setIsShowLrn] = React.useState(true);
+  const [isShowStudentName, setIsShowStudentName] = React.useState(true);
+  const [isShowDob, setIsShowDob] = React.useState(true);
+  const [isShowStudentEmail, setIsShowStudentEmail] = React.useState(true);
+  const [isShowFatherName, setIsShowFatherName] = React.useState(true);
+  const [isShowFatherContact, setIsShowFatherContact] = React.useState(true);
+  const [isShowFatherEmail, setIsShowFatherEmail] = React.useState(true);
+  const [isShowFatherDob, setIsShowFatherDob] = React.useState(true);
+  const [isShowMotherMaiden, setIsShowMotherMaiden] = React.useState(true);
+  const [isShowMotherContact, setIsShowMotherContact] = React.useState(true);
+  const [isShowMotherEmail, setIsShowMotherEmail] = React.useState(true);
+  const [isShowMotherDob, setIsShowMotherDob] = React.useState(true);
+  const [isShowGender, setIsShowGender] = React.useState(true);
+  const [isShowGradeLevel, setIsShowGradeLevel] = React.useState(true);
+  const [isShowSy, setIsShowSy] = React.useState(true);
+  const [isShowAddress, setIsShowAddress] = React.useState(true);
+  const [isShowFilterColumn, setIsShowFilterColumn] = React.useState(false);
 
   let counter = 1;
-  let total = [];
 
   // console.log(getCurrentSchoolYear[0]?.school_year);
 
@@ -97,6 +114,12 @@ const ReportsStudentList = ({ schoolYear }) => {
     "registrar-all-student" // key
   );
 
+  const { data: guardian } = useQueryData(
+    "/v2/dev-info-guardian", // endpoint
+    "get", // method
+    "dev-info-guardian" // key
+  );
+
   const getCurrentSchoolYear = schoolYear?.data.find(
     (item) => item.school_year_is_active === 1
   );
@@ -130,7 +153,7 @@ const ReportsStudentList = ({ schoolYear }) => {
   return (
     <>
       <div className="w-full flex flex-col md:flex-row items-center justify-between">
-        <div className="mb-3 md:mb-0 w-full">
+        <div className="mb-3 md:mb-0 w-full flex items-center gap-5">
           <FilterBar
             error={error}
             isFetching={isFetching}
@@ -146,7 +169,16 @@ const ReportsStudentList = ({ schoolYear }) => {
             setBirthDate={setBirthDate}
             setSyId={setSyId}
           />
+
+          <h6>
+            Result:{" "}
+            <span>
+              {result?.pages[0].success === true &&
+                getCount(result, gender, gradeLevel, withLrn, birthDate)}
+            </span>
+          </h6>
         </div>
+
         <div className="w-full ">
           <SearchBarFilterReportStudents
             search={search}
@@ -164,26 +196,94 @@ const ReportsStudentList = ({ schoolYear }) => {
         {isFetching && !isFetchingNextPage && status !== "loading" && (
           <FetchingSpinner />
         )}
-        <div className="table__wrapper mb-[80px] custom__scroll">
-          <h6>
-            Count:{" "}
-            <span>
-              {result?.pages[0].success === true &&
-                getCount(result, gender, gradeLevel, withLrn, birthDate)}
-            </span>
-          </h6>
-          <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
+        <div className="table__wrapper mb-[50px] custom__scroll">
+          {checkBoxColumn(
+            isShowStatus,
+            setIsShowStatus,
+            isShowLrn,
+            setIsShowLrn,
+            isShowStudentName,
+            setIsShowStudentName,
+            isShowDob,
+            setIsShowDob,
+            isShowStudentEmail,
+            setIsShowStudentEmail,
+            isShowFatherName,
+            setIsShowFatherName,
+            isShowFatherContact,
+            setIsShowFatherContact,
+            isShowFatherEmail,
+            setIsShowFatherEmail,
+            isShowFatherDob,
+            setIsShowFatherDob,
+            isShowMotherMaiden,
+            setIsShowMotherMaiden,
+            isShowMotherContact,
+            setIsShowMotherContact,
+            isShowMotherEmail,
+            setIsShowMotherEmail,
+            isShowMotherDob,
+            setIsShowMotherDob,
+            isShowGender,
+            setIsShowGender,
+            isShowGradeLevel,
+            setIsShowGradeLevel,
+            isShowSy,
+            setIsShowSy,
+            isShowAddress,
+            setIsShowAddress,
+            setIsShowFilterColumn,
+            isShowFilterColumn
+          )}
+          <div className="my-2 px-2 bg-primary rounded-md max-h-[calc(100vh-26rem)] overflow-x-auto custom__scroll">
             <table className="table__sm">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th className="w-20">Status</th>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  <th>Grade Level</th>
-                  <th>LRN</th>
-                  <th>Birth Date</th>
-                  <th>S.Y</th>
+                  {isShowStatus && (
+                    <th className="w-20">
+                      Status
+                      {/* <FaEye className="tooltip w-3 h-3" data-tooltip="Show" /> */}
+                    </th>
+                  )}
+                  {isShowLrn && <th className="min-w-[8rem]">LRN</th>}
+                  {isShowStudentName && (
+                    <th className="min-w-[10rem]">Student Name</th>
+                  )}
+                  {isShowDob && <th className="min-w-[7rem]">Date of Birth</th>}
+                  {isShowStudentEmail && (
+                    <th className="min-w-[13rem]">Student Email</th>
+                  )}
+                  {isShowFatherName && (
+                    <th className="min-w-[13rem]">Father's Name</th>
+                  )}
+                  {isShowFatherContact && (
+                    <th className="min-w-[8rem]">Contact Number</th>
+                  )}
+                  {isShowFatherEmail && (
+                    <th className="min-w-[10rem]">Father's Email</th>
+                  )}
+                  {isShowFatherDob && (
+                    <th className="min-w-[10rem]">Father's Date of Birth</th>
+                  )}
+                  {isShowMotherMaiden && (
+                    <th className="min-w-[10rem]">Mother's Maiden Name</th>
+                  )}
+                  {isShowMotherContact && (
+                    <th className="min-w-[8rem]">Contact Number</th>
+                  )}
+                  {isShowMotherEmail && (
+                    <th className="min-w-[13rem]">Mother's Email</th>
+                  )}
+                  {isShowMotherDob && (
+                    <th className="min-w-[10rem]">Mother's Date of Birth</th>
+                  )}
+                  {isShowGender && <th className="min-w-[5rem]">Gender</th>}
+                  {isShowGradeLevel && (
+                    <th className="min-w-[10rem]">Grade Level</th>
+                  )}
+                  {isShowSy && <th className="min-w-[7rem]">S.Y</th>}
+                  {isShowAddress && <th>Address</th>}
                   <th></th>
                 </tr>
               </thead>
@@ -229,7 +329,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if gender only
@@ -248,7 +366,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if gender and level
@@ -268,7 +404,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if gender, level and with LRN
@@ -289,7 +443,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if gender, level, with LRN, and birthdate
@@ -312,7 +484,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if level only
@@ -331,7 +521,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if level and with LRN
@@ -351,7 +559,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if level, with LRN and birthdate
@@ -373,7 +599,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if with LRN only
@@ -392,7 +636,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if with LRN and birthdate
@@ -413,7 +675,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if birthdate only
@@ -433,7 +713,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if gender and with LRN
@@ -453,7 +751,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if gender, with LRN, and birthdate
@@ -475,7 +791,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if gender and birthdate
@@ -496,7 +830,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if level and birthdate
@@ -517,7 +869,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if with LRN only
@@ -536,7 +906,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                         // if with LRN and birthdate
@@ -557,7 +945,25 @@ const ReportsStudentList = ({ schoolYear }) => {
                             getCurrentSchoolYear,
                             studentRequirement,
                             registrarRequirement,
-                            gradeLevelData
+                            gradeLevelData,
+                            guardian,
+                            isShowStatus,
+                            isShowLrn,
+                            isShowStudentName,
+                            isShowDob,
+                            isShowStudentEmail,
+                            isShowFatherName,
+                            isShowFatherContact,
+                            isShowFatherEmail,
+                            isShowFatherDob,
+                            isShowMotherMaiden,
+                            isShowMotherContact,
+                            isShowMotherEmail,
+                            isShowMotherDob,
+                            isShowGender,
+                            isShowGradeLevel,
+                            isShowSy,
+                            isShowAddress
                           );
                         }
                       })}

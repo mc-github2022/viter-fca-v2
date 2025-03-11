@@ -1,0 +1,11 @@
+models
+1. rest/v2/models/developer/client/info-guardian/InfoGuardian.php 
+
+db-backup
+1. rest/v2/db-backup/fcav2_guardian.sql 
+    -> added new column
+        -> `guardian_birth_date` varchar(20) NOT NULL,
+
+controllers
+1. rest/v2/controllers/developer/client/info-guardian/update.php 
+2. rest/v2/controllers/developer/client/info-guardian/create.php

@@ -322,7 +322,6 @@ const StudentProfileForm = ({ showSideNav, dataItem, handleClose }) => {
                               return (
                                 <option value={item.guardian_aid} key={key}>
                                   {item.guardian_address}{" "}
-                                  {item.guardian_province}{" "}
                                   {item.guardian_province} {item.guardian_city}{" "}
                                   {item.guardian_zipcode}{" "}
                                   {item.guardian_country}

@@ -31,14 +31,15 @@ if (array_key_exists("guardianid", $_GET)) {
     $guardian->guardian_country = checkIndex($data, "guardian_country");
     $guardian->guardian_religion = checkIndex($data, "guardian_religion");
     $guardian->guardian_occupation = checkIndex($data, "guardian_occupation");
+    $guardian->guardian_birth_date = checkIndex($data, "guardian_birth_date");
     $guardian->guardian_datetime = date("Y-m-d H:i:s");
 
     $guardian_fname_old = checkIndex($data, "guardian_fname_old");
     $guardian_lname_old = checkIndex($data, "guardian_lname_old");
     $guardian_relationship_id_old = checkIndex($data, "guardian_relationship_id_old");
 
-    
-    $guardian->fullname = strtolower($guardian->guardian_fname) ." ". strtolower($guardian->guardian_lname);
+
+    $guardian->fullname = strtolower($guardian->guardian_fname) . " " . strtolower($guardian->guardian_lname);
 
     $fullname_old = $guardian_fname_old . " " . $guardian_lname_old;
 
@@ -47,7 +48,7 @@ if (array_key_exists("guardianid", $_GET)) {
     compareName($guardian, $fullname_old, $guardian->fullname);
 
     compareRelationship($guardian, $guardian_relationship_id_old, $guardian->guardian_relationship_id);
-    
+
     $query = checkUpdate($guardian);
     returnSuccess($guardian, "Guardian Information", $query);
 }
