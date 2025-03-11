@@ -514,26 +514,51 @@ export const checkBoxColumn = (
   setIsShowFilterColumn,
   isShowFilterColumn
 ) => {
+  const handleReset = () => {
+    setIsShowStatus(true);
+    setIsShowLrn(true);
+    setIsShowStudentName(true);
+    setIsShowDob(true);
+    setIsShowStudentEmail(true);
+    setIsShowFatherName(true);
+    setIsShowFatherContact(true);
+    setIsShowFatherEmail(true);
+    setIsShowFatherDob(true);
+    setIsShowMotherMaiden(true);
+    setIsShowMotherContact(true);
+    setIsShowMotherEmail(true);
+    setIsShowMotherDob(true);
+    setIsShowGender(true);
+    setIsShowGradeLevel(true);
+    setIsShowSy(true);
+    setIsShowAddress(true);
+  };
   return (
     <div className="flex flex-col">
       <span
-        className={`font-bold text-xs mb-2 mt-5 uppercase flex items-center gap-2 w-fit cursor-pointer hover:underline hover:text-accentLight ${
-          isShowFilterColumn && "underline text-accentLight"
+        className={`font-bold text-xs mb-2 mt-5 uppercase flex items-center gap-2 w-fit cursor-pointer hover:text-accentLight ${
+          isShowFilterColumn && "text-accentLight"
         }`}
-        onClick={() => setIsShowFilterColumn(!isShowFilterColumn)}
       >
-        Filter columns{" "}
+        <span
+          className={`hover:underline ${
+            isShowFilterColumn && "underline text-accentLight"
+          }`}
+          onClick={() => setIsShowFilterColumn(!isShowFilterColumn)}
+        >
+          Filter columns
+        </span>
         {/* {isShowFilterColumn ? (
           <FaCaretUp className="h-5 w-5" />
         ) : (
           <FaCaretDown className="h-5 w-5" />
         )} */}
         {isShowFilterColumn ? (
-          <button>
+          <button onClick={() => setIsShowFilterColumn(!isShowFilterColumn)}>
             <FaCaretUp className="h-4 w-4" />
           </button>
         ) : (
-          <button>
+          <button onClick={() => setIsShowFilterColumn(!isShowFilterColumn)}>
             <FaCaretDown className="h-4 w-4" />
           </button>
         )}
@@ -707,6 +732,13 @@ export const checkBoxColumn = (
               checked={isShowAddress}
             />
             Address
+          </span>
+
+          <span
+            className="cursor-pointer hover:underline text-alert"
+            onClick={() => handleReset()}
+          >
+            Reset
           </span>
         </div>
       )}
