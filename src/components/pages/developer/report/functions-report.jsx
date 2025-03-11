@@ -517,7 +517,7 @@ export const checkBoxColumn = (
   return (
     <div className="flex flex-col">
       <span
-        className={`font-bold text-xs mb-2 mt-5 uppercase flex items-center gap-2 w-fit cursor-pointer ${
+        className={`font-bold text-xs mb-2 mt-5 uppercase flex items-center gap-2 w-fit cursor-pointer hover:underline hover:text-accentLight ${
           isShowFilterColumn && "underline text-accentLight"
         }`}
         onClick={() => setIsShowFilterColumn(!isShowFilterColumn)}
