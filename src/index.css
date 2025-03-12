@@ -400,7 +400,7 @@
   /* MODAL */
 
   .modal {
-    @apply fixed top-0 left-0 z-20 w-full h-screen;
+    @apply fixed top-0 left-0 z-30 w-full h-screen;
   }
 
   .modal__backdrop {

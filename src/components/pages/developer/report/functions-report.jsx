@@ -575,6 +575,29 @@ export const checkBoxColumn = (
     setIsShowSy(true);
     setIsShowAddress(true);
   };
+
+  const checkAllColumn = [
+    isShowStatus,
+    isShowLrn,
+    isShowStudentName,
+    isShowDob,
+    isShowStudentEmail,
+    isShowFatherName,
+    isShowFatherContact,
+    isShowFatherEmail,
+    isShowFatherDob,
+    isShowMotherMaiden,
+    isShowMotherContact,
+    isShowMotherEmail,
+    isShowMotherDob,
+    isShowGender,
+    isShowGradeLevel,
+    isShowSy,
+    isShowAddress,
+  ];
+
+  let checker = checkAllColumn.every((v) => v === true);
+
   return (
     <div className="flex flex-col">
       <span
@@ -604,6 +627,15 @@ export const checkBoxColumn = (
             <FaCaretDown className="h-4 w-4" />
           </button>
         )}
+
+        {!checker && (
+          <span
+            className="cursor-pointer hover:underline text-alert"
+            onClick={() => handleReset()}
+          >
+            Reset
+          </span>
+        )}
       </span>
 
       {isShowFilterColumn && (
@@ -612,14 +644,24 @@ export const checkBoxColumn = (
             className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
             onClick={() => setIsShowStatus(!isShowStatus)}
           >
-            <input type="checkbox" className="h-3 w-3" checked={isShowStatus} />{" "}
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              onChange={() => setIsShowStatus(!isShowStatus)}
+              checked={isShowStatus}
+            />{" "}
             Status
           </span>
           <span
             className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
             onClick={() => setIsShowLrn(!isShowLrn)}
           >
-            <input type="checkbox" className="h-3 w-3" checked={isShowLrn} />
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              onChange={() => setIsShowLrn(!isShowLrn)}
+              checked={isShowLrn}
+            />
             LRN
           </span>
           <span
@@ -629,6 +671,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowStudentName(!isShowStudentName)}
               checked={isShowStudentName}
             />
             Student Name
@@ -637,7 +680,12 @@ export const checkBoxColumn = (
             className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
             onClick={() => setIsShowDob(!isShowDob)}
           >
-            <input type="checkbox" className="h-3 w-3" checked={isShowDob} />
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              onChange={() => setIsShowDob(!isShowDob)}
+              checked={isShowDob}
+            />
             Date of Birth
           </span>
           <span
@@ -647,6 +695,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowStudentEmail(!isShowStudentEmail)}
               checked={isShowStudentEmail}
             />
             Student Email
@@ -658,6 +707,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowFatherName(!isShowFatherName)}
               checked={isShowFatherName}
             />
             Father's Name
@@ -669,6 +719,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowFatherContact(!isShowFatherContact)}
               checked={isShowFatherContact}
             />
             Contact Number
@@ -680,6 +731,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowFatherEmail(!isShowFatherEmail)}
               checked={isShowFatherEmail}
             />
             Father's Email
@@ -691,6 +743,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowFatherDob(!isShowFatherDob)}
               checked={isShowFatherDob}
             />
             Father's Date of Birth
@@ -702,6 +755,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowMotherMaiden(!isShowMotherMaiden)}
               checked={isShowMotherMaiden}
             />
             Mother's Maiden Name
@@ -713,6 +767,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowMotherContact(!isShowMotherContact)}
               checked={isShowMotherContact}
             />
             Contact Number
@@ -724,6 +779,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowMotherEmail(!isShowMotherEmail)}
               checked={isShowMotherEmail}
             />
             Mother's Email
@@ -735,6 +791,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowMotherDob(!isShowMotherDob)}
               checked={isShowMotherDob}
             />
             Mother's Date of Birth
@@ -743,7 +800,12 @@ export const checkBoxColumn = (
             className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
             onClick={() => setIsShowGender(!isShowGender)}
           >
-            <input type="checkbox" className="h-3 w-3" checked={isShowGender} />
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              onChange={() => setIsShowGender(!isShowGender)}
+              checked={isShowGender}
+            />
             Gender
           </span>
           <span
@@ -753,6 +815,7 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowGradeLevel(!isShowGradeLevel)}
               checked={isShowGradeLevel}
             />
             Grade Level
@@ -761,7 +824,12 @@ export const checkBoxColumn = (
             className="flex items-center gap-1 cursor-pointer hover:text-accentDark hover:underline"
             onClick={() => setIsShowSy(!isShowSy)}
           >
-            <input type="checkbox" className="h-3 w-3" checked={isShowSy} />
+            <input
+              type="checkbox"
+              className="h-3 w-3"
+              onChange={() => setIsShowSy(!isShowSy)}
+              checked={isShowSy}
+            />
             S.Y
           </span>
           <span
@@ -771,16 +839,10 @@ export const checkBoxColumn = (
             <input
               type="checkbox"
               className="h-3 w-3"
+              onChange={() => setIsShowAddress(!isShowAddress)}
               checked={isShowAddress}
             />
             Address
-          </span>
-
-          <span
-            className="cursor-pointer hover:underline text-alert"
-            onClick={() => handleReset()}
-          >
-            Reset
           </span>
         </div>
       )}
