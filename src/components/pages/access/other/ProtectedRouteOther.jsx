@@ -30,11 +30,14 @@ const ProtectedRouteOther = ({ children }) => {
         `/v2/dev-system-mode/maintenance-mode` // endpoint
       );
 
+      console.log(isMaintenance);
+
       if (isMaintenance?.count > 0) {
         localStorage.removeItem("fcatoken");
         navigate(`${devNavUrl}/login`);
         setLoading(false);
         setIsAuth("456");
+        return;
       }
     };
 
@@ -46,20 +49,20 @@ const ProtectedRouteOther = ({ children }) => {
       const isUserKeyMatched =
         login.data.user_key === login.data.user_other_password;
 
-      // console.log(isUserKeyMatched);
+      console.log(isUserKeyMatched);
 
       // check if the password from database is matched
       // to the password used to login
       // if not, logout the user
 
-      if (isUserKeyMatched === false) {
-        setLoading(false);
-        setIsAuth("456");
-        dispatch(setError(true));
-        dispatch(setMessage("No token found."));
-        localStorage.removeItem("fcatoken");
-        return;
-      }
+      // if (isUserKeyMatched === false) {
+      //   setLoading(false);
+      //   setIsAuth("456");
+      //   dispatch(setError(true));
+      //   dispatch(setMessage("No token found."));
+      //   localStorage.removeItem("fcatoken");
+      //   return;
+      // }
 
       if (typeof login === "undefined" || !login.success || login.count === 0) {
         localStorage.removeItem("fcatoken");
