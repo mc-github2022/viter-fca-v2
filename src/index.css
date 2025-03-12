@@ -123,7 +123,7 @@
   }
 
   table tr {
-    @apply border-b border-line transition-colors hover:!bg-gray-100;
+    @apply border-b border-line hover:!bg-gray-100;
   }
 
   table tbody tr:hover {
@@ -155,7 +155,7 @@
     @apply mb-4 text-xs;
   }
 
-  table thead {
+  table thead th {
     @apply sticky top-0 z-10 bg-primary border-b border-line;
   }
 
@@ -655,4 +655,30 @@ body::-webkit-scrollbar-thumb {
 
 .customHeightOngoing {
   min-height: calc(100vh - 92px);
+}
+
+.freeze__col td:nth-child(1) {
+  @apply sticky left-0 bg-white z-10;
+}
+.freeze__col td:nth-child(2) {
+  @apply sticky left-[2rem] bg-white z-10;
+}
+.freeze__col td:nth-child(3) {
+  @apply sticky left-[10rem] bg-white z-10;
+}
+.freeze__col td:nth-child(4) {
+  @apply sticky left-[18rem] bg-white z-10;
+}
+
+.freeze__col th:nth-child(1) {
+  @apply sticky top-0 left-0 bg-white z-20;
+}
+.freeze__col th:nth-child(2) {
+  @apply sticky top-0 left-[2rem] bg-white z-20;
+}
+.freeze__col th:nth-child(3) {
+  @apply sticky top-0 left-[10rem] bg-white z-20;
+}
+.freeze__col th:nth-child(4) {
+  @apply sticky top-0 left-[18rem] bg-white z-20;
 }

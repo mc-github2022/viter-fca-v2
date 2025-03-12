@@ -235,54 +235,94 @@ const ReportsStudentList = ({ schoolYear }) => {
             setIsShowFilterColumn,
             isShowFilterColumn
           )}
-          <div className="my-2 px-2 bg-primary rounded-md max-h-[calc(100vh-26rem)] overflow-x-auto custom__scroll">
-            <table className="table__sm">
+          <div className="my-2 bg-primary rounded-md max-h-[calc(100vh-26rem)] overflow-x-auto relative custom__scroll">
+            <table className="table__sm relative freeze__col">
+              <colgroup>
+                <col className="!min-w-[2rem]" />
+                <col className="!min-w-[8rem]" />
+                <col className="!min-w-[8rem]" />
+                <col className="!min-w-[10rem]" />
+              </colgroup>
               <thead>
-                <tr>
-                  <th>#</th>
+                <tr className="group">
+                  <th className="bg-white group-hover:bg-gray-100">#</th>
                   {isShowStatus && (
-                    <th className="w-20">
+                    <th className="group-hover:bg-gray-100">
                       Status
                       {/* <FaEye className="tooltip w-3 h-3" data-tooltip="Show" /> */}
                     </th>
                   )}
-                  {isShowLrn && <th className="min-w-[8rem]">LRN</th>}
-                  {isShowStudentName && (
-                    <th className="min-w-[10rem]">Student Name</th>
+                  {isShowLrn && (
+                    <th className="group-hover:bg-gray-100">LRN</th>
                   )}
-                  {isShowDob && <th className="min-w-[7rem]">Date of Birth</th>}
+                  {isShowStudentName && (
+                    <th className="group-hover:bg-gray-100">Student Name</th>
+                  )}
+                  {isShowDob && (
+                    <th className="group-hover:bg-gray-100 min-w-[7rem]">
+                      Date of Birth
+                    </th>
+                  )}
                   {isShowStudentEmail && (
-                    <th className="min-w-[13rem]">Student Email</th>
+                    <th className="group-hover:bg-gray-100 min-w-[13rem]">
+                      Student Email
+                    </th>
                   )}
                   {isShowFatherName && (
-                    <th className="min-w-[13rem]">Father's Name</th>
+                    <th className="group-hover:bg-gray-100 min-w-[13rem]">
+                      Father's Name
+                    </th>
                   )}
                   {isShowFatherContact && (
-                    <th className="min-w-[8rem]">Contact Number</th>
+                    <th className="group-hover:bg-gray-100 min-w-[8rem]">
+                      Contact Number
+                    </th>
                   )}
                   {isShowFatherEmail && (
-                    <th className="min-w-[10rem]">Father's Email</th>
+                    <th className="group-hover:bg-gray-100 min-w-[10rem]">
+                      Father's Email
+                    </th>
                   )}
                   {isShowFatherDob && (
-                    <th className="min-w-[10rem]">Father's Date of Birth</th>
+                    <th className="group-hover:bg-gray-100 min-w-[10rem]">
+                      Father's Date of Birth
+                    </th>
                   )}
                   {isShowMotherMaiden && (
-                    <th className="min-w-[10rem]">Mother's Maiden Name</th>
+                    <th className="group-hover:bg-gray-100 min-w-[10rem]">
+                      Mother's Maiden Name
+                    </th>
                   )}
                   {isShowMotherContact && (
-                    <th className="min-w-[8rem]">Contact Number</th>
+                    <th className="group-hover:bg-gray-100 min-w-[8rem]">
+                      Contact Number
+                    </th>
                   )}
                   {isShowMotherEmail && (
-                    <th className="min-w-[13rem]">Mother's Email</th>
+                    <th className="group-hover:bg-gray-100 min-w-[13rem]">
+                      Mother's Email
+                    </th>
                   )}
                   {isShowMotherDob && (
-                    <th className="min-w-[10rem]">Mother's Date of Birth</th>
+                    <th className="group-hover:bg-gray-100 min-w-[10rem]">
+                      Mother's Date of Birth
+                    </th>
                   )}
-                  {isShowGender && <th className="min-w-[5rem]">Gender</th>}
+                  {isShowGender && (
+                    <th className="group-hover:bg-gray-100 min-w-[5rem]">
+                      Gender
+                    </th>
+                  )}
                   {isShowGradeLevel && (
-                    <th className="min-w-[10rem]">Grade Level</th>
+                    <th className="group-hover:bg-gray-100 min-w-[10rem]">
+                      Grade Level
+                    </th>
                   )}
-                  {isShowSy && <th className="min-w-[7rem]">S.Y</th>}
+                  {isShowSy && (
+                    <th className="group-hover:bg-gray-100 min-w-[7rem]">
+                      S.Y
+                    </th>
+                  )}
                   {isShowAddress && <th>Address</th>}
                   <th></th>
                 </tr>

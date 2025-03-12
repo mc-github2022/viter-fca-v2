@@ -203,10 +203,10 @@ export const getRecord = (
   };
 
   return (
-    <tr key={key}>
-      <td>{counter++}.</td>
+    <tr key={key} className="group">
+      <td className="group-hover:bg-gray-100">{counter++}.</td>
       {isShowStatus && (
-        <td>
+        <td className="group-hover:bg-gray-100">
           {item.students_is_active === 0 ? (
             <Pills label="Inactive" color="text-disable" />
           ) : (
@@ -220,26 +220,60 @@ export const getRecord = (
           )}
         </td>
       )}
-      {isShowLrn && <td>{item.students_lrn}</td>}
-      {isShowStudentName && <td>{item.student_fullname}</td>}
-      {isShowDob && <td>{formatDate(item.students_birth_date)}</td>}
-      {isShowStudentEmail && <td>{item.students_email}</td>}
-      {isShowFatherName && <td>{getParentsInfo().fatherName}</td>}
-      {isShowFatherContact && <td>{getParentsInfo().fatherContact}</td>}
-      {isShowFatherEmail && <td>{getParentsInfo().fatherEmail}</td>}
+      {isShowLrn && (
+        <td className="group-hover:bg-gray-100">{item.students_lrn}</td>
+      )}
+      {isShowStudentName && (
+        <td className="group-hover:bg-gray-100">{item.student_fullname}</td>
+      )}
+      {isShowDob && (
+        <td className="group-hover:bg-gray-100">
+          {formatDate(item.students_birth_date)}
+        </td>
+      )}
+      {isShowStudentEmail && (
+        <td className="group-hover:bg-gray-100">{item.students_email}</td>
+      )}
+      {isShowFatherName && (
+        <td className="group-hover:bg-gray-100">
+          {getParentsInfo().fatherName}
+        </td>
+      )}
+      {isShowFatherContact && (
+        <td className="group-hover:bg-gray-100">
+          {getParentsInfo().fatherContact}
+        </td>
+      )}
+      {isShowFatherEmail && (
+        <td className="group-hover:bg-gray-100">
+          {getParentsInfo().fatherEmail}
+        </td>
+      )}
       {isShowFatherDob && (
-        <td>
+        <td className="group-hover:bg-gray-100">
           {getParentsInfo().fatherDob === "" ||
           isNaN(getParentsInfo().fatherDob)
             ? ""
             : formatDate(getParentsInfo().fatherDob)}
         </td>
       )}
-      {isShowMotherMaiden && <td>{getParentsInfo().motherName}</td>}
-      {isShowMotherContact && <td>{getParentsInfo().motherContact}</td>}
-      {isShowMotherEmail && <td>{getParentsInfo().motherEmail}</td>}
+      {isShowMotherMaiden && (
+        <td className="group-hover:bg-gray-100">
+          {getParentsInfo().motherName}
+        </td>
+      )}
+      {isShowMotherContact && (
+        <td className="group-hover:bg-gray-100">
+          {getParentsInfo().motherContact}
+        </td>
+      )}
+      {isShowMotherEmail && (
+        <td className="group-hover:bg-gray-100">
+          {getParentsInfo().motherEmail}
+        </td>
+      )}
       {isShowMotherDob && (
-        <td>
+        <td className="group-hover:bg-gray-100">
           {getParentsInfo().motherDob === "" ||
           isNaN(getParentsInfo().motherDob)
             ? ""
@@ -247,12 +281,20 @@ export const getRecord = (
         </td>
       )}
       {isShowGender && (
-        <td>{item.students_gender === "m" ? "Male" : "Female"}</td>
+        <td className="group-hover:bg-gray-100">
+          {item.students_gender === "m" ? "Male" : "Female"}
+        </td>
       )}
-      {isShowGradeLevel && <td>{item.grade_level_name}</td>}
-      {isShowSy && <td>{item.school_year}</td>}
-      {isShowAddress && <td>{getParentsInfo().address}</td>}
-      <td>
+      {isShowGradeLevel && (
+        <td className="group-hover:bg-gray-100">{item.grade_level_name}</td>
+      )}
+      {isShowSy && (
+        <td className="group-hover:bg-gray-100">{item.school_year}</td>
+      )}
+      {isShowAddress && (
+        <td className="group-hover:bg-gray-100">{getParentsInfo().address}</td>
+      )}
+      <td className="group-hover:bg-gray-100">
         <div className="table-action flex gap-2 justify-end">
           <Link
             // to={`${devNavUrl}/${link}/clients/students?cid=${item.parents_aid}`}
