@@ -171,7 +171,7 @@ const ReportsStudentList = ({ schoolYear }) => {
           />
 
           <h6>
-            Result:{" "}
+            Record:{" "}
             <span>
               {result?.pages[0].success === true &&
                 getCount(result, gender, gradeLevel, withLrn, birthDate)}

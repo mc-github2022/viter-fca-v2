@@ -149,6 +149,7 @@ RewriteRule ^dev-assessment/read-by-tuition-scheme$ controllers/developer/assess
 RewriteRule ^dev-assessment/read-primary-discount$ controllers/developer/assessment/read-primary-discount.php [L]
 RewriteRule ^dev-assessment/read-additional-discount$ controllers/developer/assessment/read-additional-discount.php [L] 
 RewriteRule ^dev-assessment/notify-or-accept-payment/([0-9]+)$ controllers/developer/assessment/notify-or-accept-payment.php?studentSyId=$1 [L]  
+RewriteRule ^dev-assessment/temporary-enroll$ controllers/developer/assessment/temporary-enroll.php [L]  
 
 #SYSTEM MODE
 RewriteRule ^dev-system-mode$ controllers/developer/settings/system-mode/system-mode.php [L]

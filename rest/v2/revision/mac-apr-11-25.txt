@@ -1,0 +1,9 @@
+models
+1. rest/v2/models/developer/assessment/Assessment.php 
+
+controllers
+1. rest/v2/controllers/developer/assessment/temporary-enroll.php 
+2. rest/v2/controllers/developer/assessment/functions.php
+
+htaccess
+1. rest/v2/.htaccess 

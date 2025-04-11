@@ -1,14 +1,15 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import Footer from "@/components/partials/Footer.jsx";
 import Header from "@/components/partials/Header.jsx";
-import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import ModalSuccess from "@/components/partials/modals/ModalSuccess.jsx";
 import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
+import PageNotFound from "@/components/partials/PageNotFound.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import Navigation from "../Navigation.jsx";
 import AssessmentList from "./AssessmentList.jsx";
 import ModalAssessment from "./modal/ModalAssessment.jsx";
+import ModalTemporaryEnroll from "./ModalTemporaryEnroll.jsx";
 
 const Assestment = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -71,11 +72,19 @@ const Assestment = () => {
       </section>
 
       {showAssesment && (
-        <ModalAssessment
+        <ModalTemporaryEnroll
           setShowAssessment={setShowAssessment}
           item={itemAssessment}
         />
       )}
+      {/* 
+      {showAssesment && (
+        <ModalAssessment
+          setShowAssessment={setShowAssessment}
+          item={itemAssessment}
+        />
+      )} */}
+
       {store.success && !store.isShowSetting && <ModalSuccess />}
       {store.validate && !store.isShowSetting && <ModalValidate />}
     </>

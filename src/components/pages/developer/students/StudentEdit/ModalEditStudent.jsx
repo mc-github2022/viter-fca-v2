@@ -109,7 +109,8 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                     <button className="p-1 pl-4 ">Profile</button>
                   </li>
 
-                  <li
+                  {/* Commented on April 04, 2025 */}
+                  {/* <li
                     className={`${
                       index === 6 ? "bg-accent text-primary" : ""
                     } cursor-pointer`}
@@ -127,7 +128,9 @@ const ModalEditStudent = ({ setIsViewInfo, dataItem }) => {
                     >
                       <button className="p-1 pl-4 ">Payment Remarks</button>
                     </li>
-                  )}
+                  )} */}
+                  {/* Commented on April 04, 2025 */}
+
                   <li
                     className={` ${
                       index === 2 ? "bg-accent text-primary" : ""

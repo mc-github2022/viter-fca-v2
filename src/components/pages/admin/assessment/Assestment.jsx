@@ -7,6 +7,7 @@ import ModalValidate from "@/components/partials/modals/ModalValidate.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import AssessmentList from "../../developer/assessment/AssessmentList.jsx";
+import ModalTemporaryEnroll from "../../developer/assessment/ModalTemporaryEnroll.jsx";
 import ModalAssessment from "../../developer/assessment/modal/ModalAssessment.jsx";
 import Navigation from "../Navigation.jsx";
 
@@ -71,11 +72,18 @@ const Assestment = () => {
       </section>
 
       {showAssesment && (
-        <ModalAssessment
+        <ModalTemporaryEnroll
           setShowAssessment={setShowAssessment}
           item={itemAssessment}
         />
       )}
+
+      {/* {showAssesment && (
+        <ModalAssessment
+          setShowAssessment={setShowAssessment}
+          item={itemAssessment}
+        />
+      )} */}
       {store.success && !store.isShowSetting && <ModalSuccess />}
       {store.validate && !store.isShowSetting && <ModalValidate />}
     </>

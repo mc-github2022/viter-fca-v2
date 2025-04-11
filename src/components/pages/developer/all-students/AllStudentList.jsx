@@ -57,6 +57,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
   );
 
   let counter = 1;
+  let recordCount = 0;
 
   const {
     data: result,
@@ -77,6 +78,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
         { searchValue: search.current.value }
       ),
     getNextPageParam: (lastPage) => {
+      recordCount += Number(lastPage.page + lastPage.count - 1);
       if (lastPage.page < lastPage.total) {
         return lastPage.page + lastPage.count;
       }
@@ -199,11 +201,8 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
           loading) && <TableSpinner />}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <h6>
-            Count:{" "}
-            <span>
-              {result?.pages[0].success === true &&
-                result?.pages[0].data.length}
-            </span>
+            Record:{" "}
+            <span>{result?.pages[0].success === true && recordCount}</span>
           </h6>
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm">

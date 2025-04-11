@@ -8,7 +8,7 @@ import FetchingSpinner from "@/components/partials/spinners/FetchingSpinner.jsx"
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { CiViewList } from "react-icons/ci";
+import { CiSquareCheck, CiViewList } from "react-icons/ci";
 import { useInView } from "react-intersection-observer";
 
 const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
@@ -18,6 +18,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
   const [page, setPage] = React.useState(1);
   const { ref, inView } = useInView();
   let counter = 1;
+  let recordCount = 0;
 
   const {
     data: result,
@@ -38,6 +39,7 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
         { search: search.current.value }
       ),
     getNextPageParam: (lastPage) => {
+      recordCount += Number(lastPage.page + lastPage.count - 1);
       if (lastPage.page < lastPage.total) {
         return lastPage.page + lastPage.count;
       }
@@ -50,6 +52,13 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
     setShowAssessment(true);
     setItemAssessment(item);
   };
+
+  React.useEffect(() => {
+    if (inView) {
+      setPage((prev) => prev + 1);
+      fetchNextPage();
+    }
+  }, [inView]);
 
   return (
     <>
@@ -68,10 +77,8 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
         )}
         <div className="table__wrapper mb-[80px] custom__scroll scroll-gutter-stable ">
           <h6>
-            Count:
-            <span>
-              {result?.pages[0].success === true && result?.pages[0].count}
-            </span>
+            Record:
+            <span>{result?.pages[0].success === true && recordCount}</span>
           </h6>
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm">
@@ -118,10 +125,13 @@ const AssessmentList = ({ setShowAssessment, setItemAssessment }) => {
                               <button
                                 type="button"
                                 className="tooltip "
-                                data-tooltip="View"
+                                data-tooltip="Accept for Temporary Enrollment"
+                                // data-tooltip="View"
+                                // onClick={() => handleAssessment(item)}
                                 onClick={() => handleAssessment(item)}
                               >
-                                <CiViewList className="text-[20px]" />
+                                <CiSquareCheck className="text-[20px]" />
+                                {/* <CiViewList className="text-[20px]" /> */}
                               </button>
                             </div>
                           </td>

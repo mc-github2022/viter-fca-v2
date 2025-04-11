@@ -48,3 +48,19 @@ function checkUpdateCurrentNotifyOrAcceptPayment($object)
     checkQuery($query, "There's a problem processing your request. (update current student table notify or accept payment)");
     return $query;
 }
+
+// Update temporary enrollment
+function checkUpdateTemporaryEnroll($object)
+{
+    $query = $object->updateTemporaryEnroll();
+    checkQuery($query, "There's a problem processing your request. (update temporary enrollment)");
+    return $query;
+}
+
+// Update temporary enrollment 
+function checkUpdateCurrentTemporaryEnroll($object)
+{
+    $query = $object->updateCurrentTemporaryEnroll();
+    checkQuery($query, "There's a problem processing your request. (update current student table temporary enrollment)");
+    return $query;
+}

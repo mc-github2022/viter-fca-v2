@@ -400,6 +400,49 @@ class Assessment
         return $query;
     }
 
+    // update current temporary enroll
+    public function updateCurrentTemporaryEnroll()
+    {
+        try {
+            $sql = "update {$this->tblCurrentSYStudent} set ";
+            $sql .= "current_students_is_accept_payment = :current_students_is_accept_payment, ";
+            $sql .= "current_students_datetime = :current_students_datetime ";
+            $sql .= "where current_students_aid = :current_students_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "current_students_is_accept_payment" => $this->current_students_is_accept_payment,
+                "current_students_datetime" => $this->current_students_datetime,
+                "current_students_aid" => $this->current_students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // update temporary enroll
+    public function updateTemporaryEnroll()
+    {
+        try {
+            $sql = "update {$this->tblSYStudent} set ";
+            $sql .= "school_year_students_is_accept_payment = :school_year_students_is_accept_payment, ";
+            $sql .= "school_year_students_datetime = :school_year_students_datetime ";
+            $sql .= "where school_year_students_sy_id = :school_year_students_sy_id ";
+            $sql .= "and school_year_students_student_id = :school_year_students_student_id ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "school_year_students_is_accept_payment" => $this->current_students_is_accept_payment,
+                "school_year_students_datetime" => $this->current_students_datetime,
+                "school_year_students_sy_id" => $this->current_students_sy_id,
+                "school_year_students_student_id" => $this->students_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+
     // read by id
     public function readTemplateForAssessment()
     {

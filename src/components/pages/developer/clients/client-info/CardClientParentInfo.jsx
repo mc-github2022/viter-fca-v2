@@ -1,4 +1,5 @@
 import {
+  formatDate,
   formatLandlineNumber,
   formatMobileNumber,
   getUrlParam,
@@ -18,7 +19,14 @@ import { FaPlus } from "react-icons/fa";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { LuDot } from "react-icons/lu";
-import { PiMapPinLight, PiPhoneThin, PiUser } from "react-icons/pi";
+import {
+  PiCalendar,
+  PiCross,
+  PiMapPinLight,
+  PiPhoneThin,
+  PiSuitcase,
+  PiUser,
+} from "react-icons/pi";
 
 const CardClientParentInfo = ({
   setItemEdit,
@@ -88,6 +96,23 @@ const CardClientParentInfo = ({
                       {item.guardian_salutation}.
                     </span>
                     {item.guardian_fname} {item.guardian_lname}
+                  </li>
+
+                  <li className=" flex gap-2 text-xs mb-2">
+                    <PiCross className="text-base" />
+                    {item.guardian_religion}
+                  </li>
+
+                  <li className=" flex gap-2 text-xs mb-2">
+                    <PiCalendar className="text-base" />
+                    {item.guardian_birth_date === ""
+                      ? "Unspecified"
+                      : formatDate(item.guardian_birth_date)}
+                  </li>
+
+                  <li className=" flex gap-2 text-xs mb-2">
+                    <PiSuitcase className="text-base" />
+                    {item.guardian_occupation}
                   </li>
 
                   <li className=" flex gap-2 text-xs mb-2">

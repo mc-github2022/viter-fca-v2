@@ -511,7 +511,7 @@
   /* TOOLTIP */
 
   .tooltip {
-    @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-nowrap;
+    @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-normal z-50;
   }
 
   .tooltip.tooltip--bottom {
