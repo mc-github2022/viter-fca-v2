@@ -12,6 +12,7 @@ import {
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 
 import { queryData } from "@/components/helpers/queryData.jsx";
+import ButtonSpinner from "@/components/partials/spinners/ButtonSpinner";
 import Modal from "@/components/partials/wrapper/Modal";
 
 const ModalTemporaryEnroll = ({ setShowAssessment, item }) => {
@@ -88,7 +89,7 @@ const ModalTemporaryEnroll = ({ setShowAssessment, item }) => {
               onClick={handleYes}
               type="submit"
             >
-              Confirm
+              {mutation.isPending ? <ButtonSpinner /> : "Confirm"}
             </button>
             <button
               className="btn btn--cancel"
