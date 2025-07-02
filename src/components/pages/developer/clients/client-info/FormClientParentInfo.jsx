@@ -70,6 +70,7 @@ const FormClientParentInfo = ({
       } else {
         setItemEdit(null);
         setShowParentForm(false);
+        setHideForm(false);
         dispatch(setSuccess(true));
 
         dispatch(
@@ -78,6 +79,8 @@ const FormClientParentInfo = ({
       }
     },
   });
+
+  console.log("itemEdit", itemEdit);
 
   const initVal = {
     guardian_aid: itemEdit ? itemEdit.guardian_aid : "",

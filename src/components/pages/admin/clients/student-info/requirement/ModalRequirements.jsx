@@ -22,7 +22,7 @@ const ModalRequirements = ({ setViewRequirements, itemEdit }) => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 z-20 w-full h-screen">
+      <div className="fixed top-0 left-0 z-50 w-full h-screen">
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40"></div>
         <div className="relative z-50 flex items-center justify-center w-full h-full ">
           <div className=" max-h-[calc(100%-200px)] md:max-h-[calc(100%-120px)] h-full max-w-[1065px] mx-7  w-full -translate-y-5">
