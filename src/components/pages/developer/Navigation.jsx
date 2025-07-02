@@ -144,7 +144,7 @@ const Navigation = ({
                 className="flex gap-3 items-center uppercase  w-full"
                 onClick={() => handleNavigateLink()}
               >
-                <PiStudent className="text-lg ml-4" /> Students
+                <PiStudent className="text-lg ml-4" /> Studentsssss
               </Link>
             </li>
 

@@ -159,6 +159,10 @@
     @apply sticky top-0 z-10 bg-primary border-b border-line;
   }
 
+  th {
+    @apply !z-0;
+  }
+
   nav {
     @apply top-0 bg-primary fixed border-gray-100 drop-shadow w-[240px] transition-transform -translate-x-[100%] lg:-translate-x-[100%] animate-slideRight ease-timing-nav duration-300 z-[5] lg:z-0;
   }
@@ -511,7 +515,7 @@
   /* TOOLTIP */
 
   .tooltip {
-    @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-normal z-50;
+    @apply w-[24px] h-[24px] hover:bg-gray-200 flex justify-center items-center cursor-pointer rounded-full relative whitespace-normal z-[9];
   }
 
   .tooltip.tooltip--bottom {

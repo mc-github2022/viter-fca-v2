@@ -207,13 +207,13 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
           <div className="my-2 px-2 bg-primary rounded-md min-h-[100px] overflow-x-auto custom__scroll">
             <table className="table__sm">
               <thead>
-                <tr>
-                  <th>#</th>
+                <tr className="">
+                  <th className="">#</th>
                   <th className="w-20">Status</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Grade Level</th>
-                  <th>S.Y</th>
+                  <th className="">Name</th>
+                  <th className="">Email</th>
+                  <th className="">Grade Level</th>
+                  <th className="">S.Y</th>
                   <th className="text-right pr-2">Action</th>
                 </tr>
               </thead>
@@ -266,7 +266,7 @@ const AllStudentList = ({ gradeLevel, isOngoing, schoolYear }) => {
                           </td>
                           <td>{item.school_year}</td>
 
-                          <td>
+                          <td className="">
                             {item.students_is_active === 1 ? (
                               <div className="flex gap-2 justify-end">
                                 {isOngoing === 1 && (
